@@ -1,0 +1,12 @@
+#pageSubmenu {
+    display: none; /* Ẩn submenu ban đầu */
+  }
+  #pageSubmenu.show {
+    display: block; /* Hiện submenu khi có class "show" */
+  }
+  #pageSubmenu1 {
+    display: none; /* Ẩn submenu ban đầu */
+  }
+  #pageSubmenu1.show {
+    display: block; /* Hiện submenu khi có class "show" */
+  }
