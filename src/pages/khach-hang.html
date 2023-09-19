@@ -1,0 +1,205 @@
+<div class="card overflow-hidden" style="min-height: 120px">
+  <div class="box">
+    <div class="row" style="padding-top: 25px; padding-left: 60px">
+      <div class="col-md-2">
+        <input
+          class="form-control"
+          placeholder="Tìm Khách Hàng"
+          ng-model="searchName"
+          style="margin-top: 4px" />
+      </div>
+      <div class="col-md-4 d-flex justify-content-start">
+        <button class="btn btn-outline-danger m-1" style="height: 39px">
+          <span style="vertical-align: middle">Tìm Kiếm</span>
+        </button>
+        <button class="btn btn-outline-danger m-1" style="height: 39px">
+          <span style="vertical-align: middle">Làm Mới</span>
+        </button>
+      </div>
+      <div
+        class="col-md-3 d-flex justify-content-start"
+        style="text-align: end">
+        <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
+        <select style="color: green" class="custom-select">
+          <option>Tất cả</option>
+          <option>Chưa giao</option>
+          <option>Đã giao</option>
+          <option>Chưa xác nhận</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button
+          type="submit"
+          class="btn btn-outline-danger m-1"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          style="text-decoration: none; height: 39px">
+          <ion-icon
+            name="add-outline"
+            style="vertical-align: middle; margin-right: 5px"></ion-icon>
+          <span style="vertical-align: middle">Tạo Khách Hàng</span>
+        </button>
+      </div>
+      <!--tạo tài khoản-->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Tạo Khách Hàng</h5>
+              <br />
+            </div>
+            <div class="modal-body">
+              <div class="modal-body-item">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Tên tài khoản"
+                  ng-model="newNhanVien.userName" />
+              </div>
+              <br />
+              <div class="modal-body-item">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Họ và tên"
+                  ng-model="newNhanVien.name" />
+              </div>
+              <br />
+              <div class="modal-body-item">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Email"
+                  ng-model="newNhanVien.email" />
+              </div>
+              <div class="form-check form-switch mt-2">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="switchChecked"
+                  checked />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-outline-danger m-1">
+                Thêm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Sửa tài khoản-->
+      <div
+        class="modal fade"
+        id="exampleModal1"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Sửa Khách Hàng</h5>
+              <br />
+            </div>
+            <div class="modal-body">
+              <div class="modal-body-item">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Tên tài khoản" />
+              </div>
+              <br />
+              <div class="modal-body-item">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Họ và tên" />
+              </div>
+              <br />
+              <div class="modal-body-item">
+                <input type="text" class="form-control" placeholder="Email" />
+              </div>
+              <div class="form-check form-switch mt-2">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="switchChecked1"
+                  checked />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-outline-danger m-1">
+                Hủy Kích Hoạt
+              </button>
+              <button type="button" class="btn btn-outline-danger m-1">
+                Chỉnh Sửa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card overflow-hidden">
+  <div class="box">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Ảnh</th>
+          <th scope="col">Tên tài khoản</th>
+          <th scope="col">Email</th>
+          <th scope="col">Họ và tên</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody class="table">
+        <tr ng-repeat="nv in listNhanVien">
+          <th>{{$index}}</th>
+          <td>{{nv.image}}</td>
+          <td>{{nv.userName}}</td>
+          <td>{{nv.email}}</td>
+          <td>{{nv.name}}</td>
+          <td>{{nv.ngaySinh}}</td>
+          <td>
+            <span
+              style="
+                background-color: #cceeff;
+                color: #0077cc;
+                padding: 4px 8px;
+                border-radius: 4px;
+                display: inline-block;
+              "
+              >{{nv.trangThai == 1 ? "Kích Hoạt" : "Hủy Kích Hoạt"}}
+            </span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-danger m-1">
+              Sửa
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

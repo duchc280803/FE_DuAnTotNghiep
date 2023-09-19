@@ -1,0 +1,125 @@
+<div class="card overflow-hidden" style="min-height: 120px">
+  <div class="box">
+    <div class="row" style="padding-top: 25px; padding-left: 60px">
+      <div class="col-md-2">
+        <input
+          class="form-control"
+          placeholder="Tìm khuyến mãi"
+          ng-model="searchName"
+          style="margin-top: 4px" />
+      </div>
+      <div class="col-md-4 d-flex justify-content-start">
+        <button class="btn btn-outline-primary m-1" style="height: 39px">
+          <span style="vertical-align: middle">Tìm Kiếm</span>
+        </button>
+        <button class="btn btn-outline-primary m-1" style="height: 39px">
+          <span style="vertical-align: middle">Làm Mới</span>
+        </button>
+      </div>
+      <div
+        class="col-md-3 d-flex justify-content-start"
+        style="text-align: end">
+        <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
+        <select style="color: green" class="custom-select">
+          <option>Tất cả</option>
+          <option>Chưa giao</option>
+          <option>Đã giao</option>
+          <option>Chưa xác nhận</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <button
+          class="btn btn-outline-primary m-1"
+          type="submit"
+          class="button2"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          style="text-decoration: none; height: 39px">
+          <span style="vertical-align: middle" class="hide-menu"
+            >Tạo Khuyến Mãi</span
+          >
+        </button>
+      </div>
+      <!-- tạo khuyến mãi -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title hide-menu">Tạo khuyến mãi</h5>
+              <br />
+            </div>
+            <div class="modal-body">
+              <div class="modal-body-item">
+                <a href="#" class="icon-voucher">
+                  <img src="/assets/image/coupons%20(1).png" />
+                </a>
+                <div class="modal-body-item-title">
+                  <a href="./create-ma-khuyen-mai.html">
+                    <label>Tạo Mã khuyến mãi </label>
+                  </a>
+                </div>
+              </div>
+              <div class="modal-body-item">
+                <a href="#" class="icon-voucher">
+                  <img src="/assets/image/voucher.png" />
+                </a>
+                <div class="modal-body-item-title">
+                  <a href="./create-chuong-trinhkm.html">
+                    <label>Tạo Chương trình khuyến mãi</label>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card overflow-hidden">
+  <div class="box">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Mã</th>
+          <th scope="col">Hình Thức</th>
+          <th scope="col">Loại Sản Phẩm</th>
+          <th scope="col">Đã Sử Dụng</th>
+          <th scope="col">Bắt Đầu</th>
+          <th scope="col">Kết Thúc</th>
+          <th scope="col">Trạng Thai</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table">
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td>0/5</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+          <td>
+            <a href="#" class="btn btn-outline-primary">Sửa</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
