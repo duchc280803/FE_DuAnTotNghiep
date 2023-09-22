@@ -11,14 +11,14 @@
       ">
       <div class="row">
         <div class="col-lg-6">
-          <span class="header-title">Mã khuyến mãi</span>
+          <span class="header-title">Mã Giảm Giá</span>
           <input
             type="text"
             class="next-input"
             placeholder="Nhập mã khuyến mãi" />
         </div>
         <div class="col-lg-6">
-          <span class="header-title">Tên khuyến mãi</span>
+          <span class="header-title">Tên Giảm Giá</span>
           <input
             type="text"
             class="next-input"
@@ -45,167 +45,455 @@
         padding-right: 20px;
       ">
       <span class="header-title">Loại Giảm Giá</span>
-      <br />
-      <div class="row">
-        <div class="col-lg-3">
-          <button class="btn btn-outline-primary" style="margin-left: 55px">
-            Giảm Giá Đơn Hàng
-          </button>
-        </div>
-        <div class="col-lg-3">
-          <button class="btn btn-outline-primary" style="margin-left: 55px">
-            Giảm Giá Sản Phẩm
-          </button>
-        </div>
-        <div class="col-lg-3">
-          <button class="btn btn-outline-primary" style="margin-left: 55px">
-            Giảm Giá Vận Chuyển
-          </button>
-        </div>
-        <div class="col-lg-3">
-          <button
-            class="btn btn-outline-primary"
-            style="margin-left: 55px; height: 61.6px">
-            Đồng Giá
-          </button>
-        </div>
+      <div class="row" style="border: 1px solid #e3e9ed">
+        <select class="custom-select" onchange="showContent()">
+          <option value="default">Chọn</option>
+          <option value="discountOrder">Giảm Giá Đơn Hàng</option>
+          <option value="discountProduct">Giảm Giá Sản Phẩm</option>
+          <option value="discountShipping">Giảm Giá Vận Chuyển</option>
+          <option value="samePrice">Đồng Giá</option>
+        </select>
       </div>
     </div>
-    <br />
-    <div
-      class="card overflow-hidden"
-      style="
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-right: 20px;
-      ">
-      <span class="header-title">Giảm giá đơn hàng</span>
-      <div class="row">
-        <div class="col-lg-5">
-          <span class="header-title">Mức Giảm</span>
-          <input type="text" class="next-input" placeholder="0" />
-        </div>
-        <div class="col-lg-2">
-          <select
-            class="form-select"
-            id="selectOption"
-            aria-label="Default select example"
-            onchange="toggleCheckbox()">
-            <option selected>đ</option>
-            <option>%</option>
-          </select>
-        </div>
-        <div class="col-lg-5" id="checkboxContainer" style="display: none">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault" />
-            <label class="form-check-label" for="flexCheckDefault"
-              >Giới Hạn Số Tiền Giảm</label
-            >
+    <!-- Giảm giá đơn hàng -->
+    <div id="discountOrderContent" style="display: none">
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Giảm giá đơn hàng</span>
+        <div class="row">
+          <div class="col-lg-5">
+            <span class="header-title">Mức Giảm</span>
             <input type="text" class="next-input" placeholder="0" />
+          </div>
+          <div class="col-lg-2">
+            <select
+              class="form-select"
+              id="selectOption"
+              aria-label="Default select example"
+              onchange="toggleCheckbox()">
+              <option selected>đ</option>
+              <option>%</option>
+            </select>
+          </div>
+          <div class="col-lg-5" id="checkboxContainer" style="display: none">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"
+                >Giới Hạn Số Tiền Giảm</label
+              >
+              <input type="text" class="next-input" placeholder="0" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Điều Kiện Giảm Giá</span>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault1" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault1"
+            style="margin-bottom: 15px"
+            >Tổng giá trị đơn hàng</label
+          >
+          <div id="inputContainer1" style="display: none; margin-bottom: 15px">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault1" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault1"
+            style="margin-bottom: 15px"
+            >Số lượng sản phẩm trong đơn hàng</label
+          >
+          <div id="inputContainer1" style="display: none; margin-bottom: 15px">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Khách hàng mới hoặc khách hàng cũ</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giới hạn số lượng mã sử dụng</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
           </div>
         </div>
       </div>
     </div>
-    <br />
-    <div
-      class="card overflow-hidden"
-      style="
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-right: 20px;
-      ">
-      <span class="header-title">Điều Kiện Giảm Giá</span>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="flexRadioDefault"
-          id="flexRadioDefault1" />
-        <label
-          class="form-check-label"
-          for="flexRadioDefault1"
-          style="margin-bottom: 15px"
-          >Giá Trị Mua Tối Thiểu</label
-        >
-        <div id="inputContainer1" style="display: none; margin-bottom: 15px">
-          <input
-            type="text"
-            class="next-input"
-            placeholder="0"
-            style="width: 315px" />
+    <!-- Giảm giá sản phẩm -->
+    <div id="discountProductContent" style="display: none">
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Giảm giá sản phẩm</span>
+        <div class="row">
+          <div class="col-lg-5">
+            <span class="header-title">Mức Giảm</span>
+            <input type="text" class="next-input" placeholder="0" />
+          </div>
+          <div class="col-lg-2">
+            <select
+              class="form-select"
+              id="selectOption"
+              aria-label="Default select example"
+              onchange="toggleCheckbox()">
+              <option selected>đ</option>
+              <option>%</option>
+            </select>
+          </div>
+          <div class="col-lg-5" id="checkboxContainer" style="display: none">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"
+                >Giới Hạn Số Tiền Giảm</label
+              >
+              <input type="text" class="next-input" placeholder="0" />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="flexRadioDefault"
-          id="flexRadioDefault2" />
-        <label
-          class="form-check-label"
-          for="flexRadioDefault2"
-          style="margin-bottom: 15px"
-          >Số Lượng Sản phẩm Tối Thiểu</label
-        >
-        <div id="inputContainer2" style="display: none">
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Sản phẩm áp dụng</span>
+        <div class="row">
           <input
-            type="text"
-            class="next-input"
-            placeholder="0"
-            style="width: 315px; margin-bottom: 15px" />
+            class="form-control ng-pristine ng-valid ng-empty ng-touched"
+            placeholder="Tìm sản phẩm"
+            ng-model="searchName" />
+        </div>
+      </div>
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Điều Kiện Giảm Giá</span>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giá trị mua tối thiểu</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giới hạn số lượng mã sử dụng</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
         </div>
       </div>
     </div>
-    <br />
-    <div
-      class="card overflow-hidden"
-      style="
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-right: 20px;
-      ">
-      <span class="header-title">Giới Hạn Sử Dụng</span>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="ok" id="rdo1" />
-        <label
-          class="form-check-label"
-          for="flexRadioDefault1"
-          style="margin-bottom: 15px">
-          Giới Hạn Số Lượng
-        </label>
-        <div id="rdoCt1" style="display: none; margin-bottom: 15px">
-          <input
-            type="text"
-            class="next-input"
-            placeholder="0"
-            style="width: 315px" />
+    <!-- Giảm giá vận chuyển -->
+    <div id="discountShippingContent" style="display: none">
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Giảm giá vận chuyển</span>
+        <div class="row">
+          <div class="col-lg-5">
+            <span class="header-title">Mức Giảm</span>
+            <input type="text" class="next-input" placeholder="0" />
+          </div>
+          <div class="col-lg-2">
+            <select
+              class="form-select"
+              id="selectOption"
+              aria-label="Default select example"
+              onchange="toggleCheckbox()">
+              <option selected>đ</option>
+              <option>%</option>
+            </select>
+          </div>
+          <div class="col-lg-5" id="checkboxContainer" style="display: none">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"
+                >Giới Hạn Số Tiền Giảm</label
+              >
+              <input type="text" class="next-input" placeholder="0" />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="ok" id="rdo2" />
-        <label
-          class="form-check-label"
-          for="flexRadioDefault2"
-          style="margin-bottom: 15px">
-          Giới Hạn Số Lần Sử Dụng Mỗi Khách
-        </label>
-        <div id="rdoCt2" style="display: none">
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Sản phẩm áp dụng</span>
+        <div class="row">
           <input
-            type="text"
-            class="next-input"
-            placeholder="0"
-            style="width: 315px; margin-bottom: 15px" />
+            class="form-control ng-pristine ng-valid ng-empty ng-touched"
+            placeholder="Tìm sản phẩm"
+            ng-model="searchName" />
+        </div>
+      </div>
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Điều Kiện Giảm Giá</span>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giá trị mua tối thiểu</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giới hạn số lượng mã sử dụng</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
         </div>
       </div>
     </div>
-    <br />
+    <!-- Đồng giá -->
+    <div id="samePriceContent" style="display: none">
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Đồng giá</span>
+        <div class="row">
+          <div class="col-lg-12">
+            <input type="text" class="next-input" placeholder="0" />
+          </div>
+        </div>
+      </div>
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Sản phẩm áp dụng</span>
+        <div class="row">
+          <input
+            class="form-control ng-pristine ng-valid ng-empty ng-touched"
+            placeholder="Tìm sản phẩm"
+            ng-model="searchName" />
+        </div>
+      </div>
+      <br />
+      <div
+        class="card overflow-hidden"
+        style="
+          padding-left: 20px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        ">
+        <span class="header-title">Điều Kiện Giảm Giá</span>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giá trị mua tối thiểu</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault2" />
+          <label
+            class="form-check-label"
+            for="flexRadioDefault2"
+            style="margin-bottom: 15px"
+            >Giới hạn số lượng mã sử dụng</label
+          >
+          <div id="inputContainer2" style="display: none">
+            <input
+              type="text"
+              class="next-input"
+              placeholder="0"
+              style="width: 315px; margin-bottom: 15px" />
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       class="card overflow-hidden"
       style="
@@ -241,6 +529,69 @@
         padding-top: 20px;
         padding-bottom: 20px;
         padding-right: 20px;
+        display: none"
+      id="discountOrderContent">
+      <label class="form-label">Mã khuyến mãi</label><br />
+      <label class="form-label">Tên khuyến mãi</label><br />
+      <label class="form-label">Loại giảm giá: Giảm giá đơn hàng</label><br />
+      <label class="form-label">Điều kiện giảm giá</label><br />
+      <label class="form-label">Giới hạn sử dụng</label><br />
+      <label class="form-label"
+        >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
+      >
+    </div>
+    <br />
+    <div
+      id="discountProductContent"
+      class="card overflow-hidden"
+      style="
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        display: none
+      ">
+      <label class="form-label">Mã khuyến mãi</label><br />
+      <label class="form-label">Tên khuyến mãi</label><br />
+      <label class="form-label">Loại giảm giá</label><br />
+      <label class="form-label">Giảm giá đơn hàng</label><br />
+      <label class="form-label">Điều kiện giảm giá</label><br />
+      <label class="form-label">Giới hạn sử dụng</label><br />
+      <label class="form-label"
+        >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
+      >
+    </div>
+    <br />
+    <div
+      id="discountShippingContent"
+      class="card overflow-hidden"
+      style="
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        display: none
+      ">
+      <label class="form-label">Mã khuyến mãi</label><br />
+      <label class="form-label">Tên khuyến mãi</label><br />
+      <label class="form-label">Loại giảm giá</label><br />
+      <label class="form-label">Giảm giá đơn hàng</label><br />
+      <label class="form-label">Điều kiện giảm giá</label><br />
+      <label class="form-label">Giới hạn sử dụng</label><br />
+      <label class="form-label"
+        >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
+      >
+    </div>
+    <br />
+    <div
+      id="samePriceContent"
+      class="card overflow-hidden"
+      style="
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        display: none
       ">
       <label class="form-label">Mã khuyến mãi</label><br />
       <label class="form-label">Tên khuyến mãi</label><br />
