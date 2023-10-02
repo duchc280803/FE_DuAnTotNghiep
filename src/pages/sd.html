@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modal Sản Phẩm</title>
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<!-- Modal sản phẩm -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <!-- Nội dung của modal sản phẩm -->
+    <h2>Sản phẩm</h2>
+    <button id="showDetailBtn">Hiển thị chi tiết</button>
+  </div>
+</div>
+
+<!-- Modal chi tiết sản phẩm -->
+<div id="detailModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <!-- Nội dung của modal chi tiết sản phẩm -->
+    <h2>Chi tiết sản phẩm</h2>
+  </div>
+</div>
+
+<!-- Đây là input mà bạn muốn người dùng ấn để hiển thị modal -->
+<input type="text" id="showProductInput" placeholder="Click để hiển thị sản phẩm">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Lấy các element cần thiết
+  var productModal = document.getElementById('productModal');
+  var detailModal = document.getElementById('detailModal');
+  var showDetailBtn = document.getElementById('showDetailBtn');
+  var showProductInput = document.getElementById('showProductInput');
+
+  // Khi click vào input để hiển thị sản phẩm, hiển thị modal sản phẩm
+  showProductInput.addEventListener('click', function() {
+    productModal.style.display = 'block';
+    detailModal.style.display = 'none';
+  });
+
+  // Khi ấn nút "Hiển thị chi tiết", hiển thị modal chi tiết sản phẩm
+  showDetailBtn.addEventListener('click', function() {
+    detailModal.style.display = 'block';
+  });
+
+  // Khi ấn vào nút đóng (close), ẩn modal
+  var closeButtons = document.getElementsByClassName('close');
+  for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].addEventListener('click', function() {
+      productModal.style.display = 'none';
+      detailModal.style.display = 'none';
+    });
+  }
+});
+</script>
+
+</body>
+</html>

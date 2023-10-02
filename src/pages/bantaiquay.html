@@ -19,6 +19,20 @@
         <div class="card overflow-hidden" style="height: 300px">
           <div class="card-body p-4">
             <h5 class="card-title mb-9 fw-semibold">Thông Tin Nhân Viên</h5>
+            <hr />
+            <span class="card-title" style="font-size: 15px; font-weight: 600"
+              >Mã Nhân Viên: NV01</span
+            >
+            <br />
+            <br />
+            <span class="card-title" style="font-size: 15px; font-weight: 600"
+              >Họ Và Tên: Hoàng Công Đức</span
+            >
+            <br />
+            <br />
+            <span class="card-title" style="font-size: 15px; font-weight: 600"
+              >Chức Vụ: ADMIN</span
+            >
           </div>
         </div>
       </div>
@@ -30,11 +44,157 @@
   <div class="col-lg-12">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card overflow-hidden" style="height: 700px">
+        <div class="card overflow-hidden" >
           <div class="card-body p-4">
             <h5 class="card-title mb-9 fw-semibold">Thông Tin Sản Phẩm</h5>
-            <input class="form-control" placeholder="Tìm Sản Phẩm" />
-            <h6 class="text-customs">Chưa Có Thông Tin Sản Phẩm</h6>
+            <input
+              class="form-control"
+              placeholder="Tìm Sản Phẩm"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            />
+            <!-- <h6 class="text-customs">Chưa Có Thông Tin Sản Phẩm</h6> -->
+            <br />
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col">Sản Phẩm</th>
+                  <th scope="col">Số lượng</th>
+                  <th scope="col">Số tiền</th>
+                  <th scope="col">Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody class="table">
+                <tr>
+                  <td style="width: 250px;">
+                    <img src="/assets/images/products/s1.jpg" alt="" srcset="" style="width: 200px;">
+                  </td>
+                  <td style="padding-top: 80px;">
+                    <h5 style="font-size: 18px; font-weight: 600;">Giày MH-570 Của nga</h5>
+                    <span style="font-size: 13px; font-weight: 600;">1.500.000 đ</span>
+                    <br>
+                    <br>
+                    <span style="font-size: 13px; font-weight: 600;">Size: 50</span>
+                  </td>
+                  <td style="padding-top: 100px;">$100000</td>
+                  <td style="padding-top: 100px;">3.000.000 đ</td>
+                  <td style="padding-top: 80px;">
+                    <button type="button" class="btn btn-outline-danger m-1">
+                      Xóa khỏi giỏ 
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- modal sản phẩm -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content custom-modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Tìm kiếm sản phẩm</h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <input class="form-control" placeholder="Tìm hóa đơn" />
+                      </div>
+                      <div class="col-lg-4 d-flex justify-content-start">
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary m-1"
+                        >
+                          Tìm Kiếm
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary m-1"
+                        >
+                          Làm mới
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card overflow-hidden ng-scope">
+                      <div class="box">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">STT</th>
+                              <th scope="col">Ảnh</th>
+                              <th scope="col">Tên Sản Phẩm</th>
+                              <th scope="col">Giá</th>
+                              <th scope="col">Thao Tác</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table">
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>MH001</td>
+                              <td>MH001</td>
+                              <td>$100000</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-primary m-1"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal1"
+                                  onclick="changeModalTarget()"
+                                >
+                                  Chọn
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- modal sản phẩm -->
+            <!-- modal detail sản phẩm -->
+            <div
+              class="modal fade"
+              id="exampleModal1"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content custom-modal-content">
+                  <div class="modal-header"></div>
+                  <div class="modal-body">
+                    <h1>sdf</h1>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- modal detail sản phẩm -->
             <hr style="margin-top: 90px" />
             <h5 class="card-title mb-9 fw-semibold">Thông Tin Thanh Toán</h5>
             <div class="layout-card--section">
@@ -47,7 +207,8 @@
                         <input
                           type="search"
                           placeholder="Mã Giảm Giá..."
-                          class="input-voucher" />
+                          class="input-voucher"
+                        />
                         <button type="search" class="search-btn-voucher">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -55,9 +216,11 @@
                             height="16"
                             fill="currentColor"
                             class="bi bi-search"
-                            viewBox="0 0 16 16">
+                            viewBox="0 0 16 16"
+                          >
                             <path
-                              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                            ></path>
                           </svg>
                         </button>
                       </div>
@@ -68,7 +231,8 @@
                           Số lượng sản phẩm
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           0
                         </div>
                       </div>
@@ -79,7 +243,8 @@
                           Tiền hàng
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           0 ₫
                         </div>
                       </div>
@@ -90,7 +255,8 @@
                           Giảm giá
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           0 ₫
                         </div>
                       </div>
@@ -101,7 +267,8 @@
                           Phí vận chuyển
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           0 ₫
                         </div>
                       </div>
@@ -112,7 +279,8 @@
                           <b>Tổng Tiền Hàng</b>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           <b>0 ₫</b>
                         </div>
                       </div>
@@ -122,7 +290,8 @@
               </div>
               <button
                 class="btn btn-outline-primary"
-                style="margin-left: 900px; margin-top: 25px; font-weight: bold">
+                style="margin-left: 900px; margin-top: 25px; font-weight: bold"
+              >
                 Xác Nhận Đặt Hàng
               </button>
             </div>
