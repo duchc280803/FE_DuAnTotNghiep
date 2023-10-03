@@ -30,11 +30,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
       .when("/trang-chu", {
         templateUrl: "./pages/index.html",
       })
-      .when("/login", {
-        templateUrl: "./pages/authentication-login.html",
+      .when("/user/home", {
+        templateUrl: "./home-user.html",
       })
-      .when("/register", {
-        templateUrl: "./pages/register.html",
+      .when("/user/product", {
+        templateUrl: "./pages/shop-grid.html",
       })
       .otherwise({
         redirectTo: "/admin/dashboard",
