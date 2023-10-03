@@ -6,8 +6,284 @@
         <div class="card overflow-hidden" style="height: 300px">
           <div class="card-body p-4">
             <h5 class="card-title mb-9 fw-semibold">Thông Tin Khách Hàng</h5>
-            <input class="form-control" placeholder="Tìm Khách Hàng" />
-            <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6>
+            <input
+              class="form-control"
+              placeholder="Tìm Khách Hàng"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal2"
+            />
+            <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
+            <br />
+            <h6>Họ Và Tên: Hoàng Công Đức</h6>
+            <h6>Email: hoangduc280803@gmail.com</h6>
+            <h6>Số Điện Thoại: 0971066455</h6>
+            <hr />
+            <h6>Địa Chỉ Giao Hàng</h6>
+            <p>Huyện Tân Thành Bà Rịa-Vũng Tàu Vietnam</p>
+            <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
+            <!-- Form khách hàng -->
+            <div
+              class="modal fade"
+              id="exampleModal2"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content custom-modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Tìm kiếm Khách Hàng</h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <input
+                          class="form-control"
+                          placeholder="Tìm khách hàng"
+                        />
+                      </div>
+                      <div class="col-lg-4 d-flex justify-content-start">
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary m-1"
+                        >
+                          Tìm Kiếm
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary m-1"
+                        >
+                          Làm mới
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary m-1"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal3"
+                        >
+                          Thêm
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card overflow-hidden ng-scope">
+                      <div class="box">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">STT</th>
+                              <th scope="col">Ảnh</th>
+                              <th scope="col">Tên Khách Hàng</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Số Điện Thoại</th>
+                              <th scope="col">Địa Chỉ</th>
+                              <th scope="col">Thao Tác</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table">
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>MH001</td>
+                              <td>MH001</td>
+                              <td>$100000</td>
+                              <td>$100000</td>
+                              <td>$100000</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-primary m-1"
+                                >
+                                  Chọn
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Form khách hàng  -->
+            <!-- Thêm Khách Hàng -->
+            <div
+              class="modal fade"
+              id="exampleModal3"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-lg">
+                <div
+                  class="modal-content custom-modal-content"
+                  style="
+                    width: 620px;
+                    margin: auto;
+                    margin-left: 80px;
+                    height: 500px;
+                  "
+                >
+                  <div class="modal-header">
+                    <h5 class="modal-title">Thêm Khách Hàng</h5>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h6 class="text">Họ Tên</h6>
+                        <input class="form-control" placeholder="Nhập họ tên" />
+                      </div>
+                      <div class="col-lg-6">
+                        <h6 class="text">Số điên thoại</h6>
+                        <input
+                          class="form-control"
+                          placeholder="Nhập số điện thoại"
+                        />
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <h6 class="text">Email</h6>
+                        <input class="form-control" placeholder="Nhập email" />
+                      </div>
+                      <div class="col-lg-6">
+                        <h6 class="text">Ngày Sinh</h6>
+                        <input type="date" class="form-control" />
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <h6 class="text">Địa Chỉ</h6>
+                        <input
+                          class="form-control"
+                          placeholder="Nhập địa chỉ"
+                        />
+                      </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <h6 class="text">Tỉnh Thành Phố</h6>
+                        <select style="color: green" class="custom-select">
+                          <option value="" hidden="">---</option>
+                          <option value="1">Hà Nội</option>
+                          <option value="2">TP Hồ Chí Minh</option>
+                          <option value="3">An Giang</option>
+                          <option value="4">Bà Rịa-Vũng Tàu</option>
+                          <option value="5" selected="">Bắc Giang</option>
+                          <option value="6">Bắc Kạn</option>
+                          <option value="7">Bạc Liêu</option>
+                          <option value="8">Bắc Ninh</option>
+                          <option value="9">Bến Tre</option>
+                          <option value="10">Bình Dương</option>
+                          <option value="11">Bình Định</option>
+                          <option value="12">Bình Phước</option>
+                          <option value="13">Bình Thuận</option>
+                          <option value="14">Cà Mau</option>
+                          <option value="15">Cao Bằng</option>
+                          <option value="16">Cần Thơ</option>
+                          <option value="17">Đà Nẵng</option>
+                          <option value="18">Đắk Lắk</option>
+                          <option value="19">Đắk Nông</option>
+                          <option value="20">Điện Biên</option>
+                          <option value="21">Đồng Nai</option>
+                          <option value="22">Đồng Tháp</option>
+                          <option value="23">Gia Lai</option>
+                          <option value="24">Hà Giang</option>
+                          <option value="25">Hà Nam</option>
+                          <option value="26">Hà Tĩnh</option>
+                          <option value="27">Hải Dương</option>
+                          <option value="28">Hải Phòng</option>
+                          <option value="29">Hậu Giang</option>
+                          <option value="30">Hòa Bình</option>
+                          <option value="31">Hưng Yên</option>
+                          <option value="32">Khánh Hòa</option>
+                          <option value="33">Kiên Giang</option>
+                          <option value="34">Kon Tum</option>
+                          <option value="35">Lai Châu</option>
+                          <option value="36">Lâm Đồng</option>
+                          <option value="37">Lạng Sơn</option>
+                          <option value="38">Lào Cai</option>
+                          <option value="39">Long An</option>
+                          <option value="40">Nam Định</option>
+                          <option value="41">Nghệ An</option>
+                          <option value="42">Ninh Bình</option>
+                          <option value="43">Ninh Thuận</option>
+                          <option value="44">Phú Thọ</option>
+                          <option value="45">Phú Yên</option>
+                          <option value="46">Quảng Bình</option>
+                          <option value="47">Quảng Nam</option>
+                          <option value="48">Quảng Ngãi</option>
+                          <option value="49">Quảng Ninh</option>
+                          <option value="50">Quảng Trị</option>
+                          <option value="51">Sóc Trăng</option>
+                          <option value="52">Sơn La</option>
+                          <option value="53">Tây Ninh</option>
+                          <option value="54">Thái Bình</option>
+                          <option value="55">Thái Nguyên</option>
+                          <option value="56">Thanh Hóa</option>
+                          <option value="57">Thừa Thiên Huế</option>
+                          <option value="58">Tiền Giang</option>
+                          <option value="59">Trà Vinh</option>
+                          <option value="60">Tuyên Quang</option>
+                          <option value="61">Vĩnh Long</option>
+                          <option value="62">Vĩnh Phúc</option>
+                          <option value="63">Yên Bái</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4">
+                        <h6 class="text">Quận Huyện</h6>
+                        <select style="color: green" class="custom-select">
+                          <option value="" hidden="">---</option>
+                          <option value="87">Thành phố Bắc Giang</option>
+                          <option value="88">Huyện Hiệp Hòa</option>
+                          <option value="89">Huyện Lạng Giang</option>
+                          <option value="90">Huyện Lục Nam</option>
+                          <option value="91">Huyện Lục Ngạn</option>
+                          <option value="92">Huyện Sơn Động</option>
+                          <option value="93">Huyện Tân Yên</option>
+                          <option value="94">Huyện Việt Yên</option>
+                          <option value="95">Huyện Yên Dũng</option>
+                          <option value="96">Huyện Yên Thế</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4">
+                        <h6 class="text">Phường Xã</h6>
+                        <select style="color: green" class="custom-select">
+                          <option>Chọn</option>
+                          <option>Chưa giao</option>
+                          <option>Đã giao</option>
+                          <option>Chưa xác nhận</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">
+                      Thêm
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Thêm Khách Hàng -->
           </div>
         </div>
       </div>
@@ -39,12 +315,11 @@
     </div>
   </div>
 </div>
-<!-- Thống kê doanh thu -->
 <div class="row">
   <div class="col-lg-12">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card overflow-hidden" >
+        <div class="card overflow-hidden">
           <div class="card-body p-4">
             <h5 class="card-title mb-9 fw-semibold">Thông Tin Sản Phẩm</h5>
             <input
@@ -67,21 +342,32 @@
               </thead>
               <tbody class="table">
                 <tr>
-                  <td style="width: 250px;">
-                    <img src="/assets/images/products/s1.jpg" alt="" srcset="" style="width: 200px;">
+                  <td style="width: 250px">
+                    <img
+                      src="/assets/images/products/s1.jpg"
+                      alt=""
+                      srcset=""
+                      style="width: 200px"
+                    />
                   </td>
-                  <td style="padding-top: 80px;">
-                    <h5 style="font-size: 18px; font-weight: 600;">Giày MH-570 Của nga</h5>
-                    <span style="font-size: 13px; font-weight: 600;">1.500.000 đ</span>
-                    <br>
-                    <br>
-                    <span style="font-size: 13px; font-weight: 600;">Size: 50</span>
+                  <td style="padding-top: 80px">
+                    <h5 style="font-size: 18px; font-weight: 600">
+                      Giày MH-570 Của nga
+                    </h5>
+                    <span style="font-size: 13px; font-weight: 600"
+                      >1.500.000 đ</span
+                    >
+                    <br />
+                    <br />
+                    <span style="font-size: 13px; font-weight: 600"
+                      >Size: 50</span
+                    >
                   </td>
-                  <td style="padding-top: 100px;">$100000</td>
-                  <td style="padding-top: 100px;">3.000.000 đ</td>
-                  <td style="padding-top: 80px;">
+                  <td style="padding-top: 100px">$100000</td>
+                  <td style="padding-top: 100px">3.000.000 đ</td>
+                  <td style="padding-top: 80px">
                     <button type="button" class="btn btn-outline-danger m-1">
-                      Xóa khỏi giỏ 
+                      Xóa khỏi giỏ
                     </button>
                   </td>
                 </tr>
@@ -178,9 +464,68 @@
             >
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
-                  <div class="modal-header"></div>
                   <div class="modal-body">
-                    <h1>sdf</h1>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <img
+                          src="/assets/images/products/s1.jpg"
+                          alt=""
+                          srcset=""
+                          style="width: 400px"
+                        />
+                      </div>
+                      <div class="col-lg-6">
+                        <h4 style="font-size: 20px">
+                          Giày Nga Đánh Ukraina BHM370 Hàng Không Mỹ
+                        </h4>
+                        <br />
+                        <h6>Thương Hiệu:</h6>
+                        <h6>Danh Mục:</h6>
+                        <h6>Dành Cho:</h6>
+                        <h4 style="font-size: 20px">1.200.000 đ</h4>
+                        <center><h6>Size</h6></center>
+                        <div class="sidebar__item__size">
+                          <div class="row">
+                            <div class="col-lg-2">
+                              <label for="large"> 31 </label>
+                            </div>
+                            <div class="col-lg-2">
+                              <label for="large"> 32 </label>
+                            </div>
+                            <div class="col-lg-2">
+                              <label for="large"> 33 </label>
+                            </div>
+                            <div class="col-lg-2">
+                              <label for="large"> 34 </label>
+                            </div>
+                            <div class="col-lg-2">
+                              <label for="large"> 35 </label>
+                            </div>
+                            <div class="col-lg-2">
+                              <label for="large"> 36 </label>
+                            </div>
+                          </div>
+                        </div>
+                        <br />
+                        <div class="product__details__quantity">
+                          <div class="quantity">
+                            <div class="pro-qty">
+                              <span class="dec qtybtn">-</span>
+                              <input type="text" value="1" />
+                              <span class="inc qtybtn">+</span>
+                            </div>
+                          </div>
+                          <br />
+                        </div>
+                        <center><h6>9 sản phẩm có sẵn</h6></center>
+                        <br />
+                        <center>
+                          <button type="button" class="btn btn-secondary">
+                            Thêm giỏ hàng
+                          </button>
+                        </center>
+                      </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button
