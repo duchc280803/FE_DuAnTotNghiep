@@ -7,6 +7,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       })
       .when("/admin/orders", {
         templateUrl: "./pages/bantaiquay.html",
+        controller: "BanTaiQuayController"
       })
       .when("/admin/hoa-don", {
         templateUrl: "./pages/thuchi.html",

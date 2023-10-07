@@ -26,7 +26,7 @@ myApp.controller("loginController", function ($scope, $http, $window) {
             // Kiểm tra vai trò của người dùng
             if (userResponse.data.role === "MANAGER") {
               // Nếu người dùng là admin, mở trang admin
-              $window.location.assign("/src/home-admin.html");
+              $window.location.assign("/src/home-admin.html#/admin/dashboard");
             } else {
               // Nếu người dùng không phải là admin, mở trang user
               $window.location.assign("/src/home-user.html");

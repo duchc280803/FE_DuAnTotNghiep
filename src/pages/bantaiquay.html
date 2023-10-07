@@ -1,6 +1,52 @@
 <!-- Các Đơn ngày tháng  -->
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-6">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card overflow-hidden" style="height: 300px">
+          <div class="card-body p-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <h5 class="card-title mb-9 fw-semibold">Hóa Đơn</h5>
+              </div>
+              <div class="col-lg-6" style="padding-left: 80px">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary m-1"
+                  ng-click="createHoaDon()">
+                  Tạo hóa đơn
+                </button>
+              </div>
+            </div>
+            <hr />
+            <div class="box scroll-container table-container">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Mã Hóa Đơn</th>
+                    <th scope="col">Nhân Viên</th>
+                    <th scope="col">Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody class="table" ng-repeat="hd in listHoaDonTaiQuay">
+                  <tr>
+                    <th scope="row">{{$index + 1}}</th>
+                    <td>{{hd.maHoaDon}}</td>
+                    <td>{{hd.tenNhanVien}}</td>
+                    <td>
+                      {{hd.trangThai == 0 ? "Chờ Thanh Toán" : "Thành Công"}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
     <div class="row">
       <div class="col-lg-12">
         <div class="card overflow-hidden" style="height: 300px">
@@ -10,8 +56,7 @@
               class="form-control"
               placeholder="Tìm Khách Hàng"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal2"
-            />
+              data-bs-target="#exampleModal2" />
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
             <br />
             <h6>Họ Và Tên: Hoàng Công Đức</h6>
@@ -27,8 +72,7 @@
               id="exampleModal2"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-header">
@@ -39,28 +83,24 @@
                       <div class="col-lg-8">
                         <input
                           class="form-control"
-                          placeholder="Tìm khách hàng"
-                        />
+                          placeholder="Tìm khách hàng" />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button
                           type="button"
-                          class="btn btn-outline-primary m-1"
-                        >
+                          class="btn btn-outline-primary m-1">
                           Tìm Kiếm
                         </button>
                         <button
                           type="button"
-                          class="btn btn-outline-primary m-1"
-                        >
+                          class="btn btn-outline-primary m-1">
                           Làm mới
                         </button>
                         <button
                           type="button"
                           class="btn btn-outline-primary m-1"
                           data-bs-toggle="modal"
-                          data-bs-target="#exampleModal3"
-                        >
+                          data-bs-target="#exampleModal3">
                           Thêm
                         </button>
                       </div>
@@ -90,8 +130,7 @@
                               <td>
                                 <button
                                   type="button"
-                                  class="btn btn-outline-primary m-1"
-                                >
+                                  class="btn btn-outline-primary m-1">
                                   Chọn
                                 </button>
                               </td>
@@ -105,8 +144,7 @@
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
+                      data-bs-dismiss="modal">
                       Close
                     </button>
                   </div>
@@ -120,8 +158,7 @@
               id="exampleModal3"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div
                   class="modal-content custom-modal-content"
@@ -130,8 +167,7 @@
                     margin: auto;
                     margin-left: 80px;
                     height: 500px;
-                  "
-                >
+                  ">
                   <div class="modal-header">
                     <h5 class="modal-title">Thêm Khách Hàng</h5>
                   </div>
@@ -145,8 +181,7 @@
                         <h6 class="text">Số điên thoại</h6>
                         <input
                           class="form-control"
-                          placeholder="Nhập số điện thoại"
-                        />
+                          placeholder="Nhập số điện thoại" />
                       </div>
                     </div>
                     <br />
@@ -166,8 +201,7 @@
                         <h6 class="text">Địa Chỉ</h6>
                         <input
                           class="form-control"
-                          placeholder="Nhập địa chỉ"
-                        />
+                          placeholder="Nhập địa chỉ" />
                       </div>
                     </div>
                     <br />
@@ -275,8 +309,7 @@
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
+                      data-bs-dismiss="modal">
                       Close
                     </button>
                   </div>
@@ -284,31 +317,6 @@
               </div>
             </div>
             <!-- Thêm Khách Hàng -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card overflow-hidden" style="height: 300px">
-          <div class="card-body p-4">
-            <h5 class="card-title mb-9 fw-semibold">Thông Tin Nhân Viên</h5>
-            <hr />
-            <span class="card-title" style="font-size: 15px; font-weight: 600"
-              >Mã Nhân Viên: NV01</span
-            >
-            <br />
-            <br />
-            <span class="card-title" style="font-size: 15px; font-weight: 600"
-              >Họ Và Tên: Hoàng Công Đức</span
-            >
-            <br />
-            <br />
-            <span class="card-title" style="font-size: 15px; font-weight: 600"
-              >Chức Vụ: ADMIN</span
-            >
           </div>
         </div>
       </div>
@@ -326,8 +334,7 @@
               class="form-control"
               placeholder="Tìm Sản Phẩm"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            />
+              data-bs-target="#exampleModal" />
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Sản Phẩm</h6> -->
             <br />
             <table class="table table-hover">
@@ -347,8 +354,7 @@
                       src="/assets/images/products/s1.jpg"
                       alt=""
                       srcset=""
-                      style="width: 200px"
-                    />
+                      style="width: 200px" />
                   </td>
                   <td style="padding-top: 80px">
                     <h5 style="font-size: 18px; font-weight: 600">
@@ -379,8 +385,7 @@
               id="exampleModal"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-header">
@@ -389,23 +394,24 @@
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-lg-8">
-                        <input class="form-control" placeholder="Tìm hóa đơn" />
+                        <input
+                          class="form-control"
+                          placeholder="Tìm sản phẩm" />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button
                           type="button"
-                          class="btn btn-outline-primary m-1"
-                        >
+                          class="btn btn-outline-primary m-1">
                           Tìm Kiếm
                         </button>
                         <button
                           type="button"
-                          class="btn btn-outline-primary m-1"
-                        >
+                          class="btn btn-outline-primary m-1">
                           Làm mới
                         </button>
                       </div>
                     </div>
+                    <br />
                     <div class="card overflow-hidden ng-scope">
                       <div class="box">
                         <table class="table table-hover">
@@ -418,22 +424,33 @@
                               <th scope="col">Thao Tác</th>
                             </tr>
                           </thead>
-                          <tbody class="table">
+                          <tbody
+                            class="table"
+                            ng-repeat="sp in listSanPhamTaiQuay">
                             <tr>
-                              <th scope="row">1</th>
-                              <td>MH001</td>
-                              <td>MH001</td>
-                              <td>$100000</td>
+                              <th scope="row">{{$index + 1}}</th>
                               <td>
-                                <button
+                                <img
+                                  src="{{sp.tenImage}}"
+                                  alt=""
+                                  srcset=""
+                                  width="200px" />
+                              </td>
+                              <td style="padding-top: 100px">
+                                {{sp.tenSanPham}}
+                              </td>
+                              <td style="padding-top: 100px">
+                                {{sp.giaBan | number}} đ
+                              </td>
+                              <td style="padding-top: 80px">
+                                <a
+                                  ng-click="showProductDetail(sp.id)"
                                   type="button"
                                   class="btn btn-outline-primary m-1"
                                   data-bs-toggle="modal"
-                                  data-bs-target="#exampleModal1"
-                                  onclick="changeModalTarget()"
-                                >
+                                  data-bs-target="#exampleModal1">
                                   Chọn
-                                </button>
+                                </a>
                               </td>
                             </tr>
                           </tbody>
@@ -445,8 +462,7 @@
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
+                      data-bs-dismiss="modal">
                       Close
                     </button>
                   </div>
@@ -460,29 +476,28 @@
               id="exampleModal1"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-lg-6">
                         <img
-                          src="/assets/images/products/s1.jpg"
+                          src="{{selectedProduct.image}}"
                           alt=""
-                          srcset=""
-                          style="width: 400px"
-                        />
+                          style="width: 400px" />
                       </div>
                       <div class="col-lg-6">
                         <h4 style="font-size: 20px">
-                          Giày Nga Đánh Ukraina BHM370 Hàng Không Mỹ
+                          {{selectedProduct.name}}
                         </h4>
                         <br />
                         <h6>Thương Hiệu:</h6>
                         <h6>Danh Mục:</h6>
                         <h6>Dành Cho:</h6>
-                        <h4 style="font-size: 20px">1.200.000 đ</h4>
+                        <h4 style="font-size: 20px">
+                          {{selectedProduct.price}}
+                        </h4>
                         <center><h6>Size</h6></center>
                         <div class="sidebar__item__size">
                           <div class="row">
@@ -531,8 +546,7 @@
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
+                      data-bs-dismiss="modal">
                       Close
                     </button>
                   </div>
@@ -547,86 +561,93 @@
                 <div class="row">
                   <div class="col-lg-6"></div>
                   <div class="col-sm-6 col-12">
-                    <form action="#" class="form-voucher">
-                      <div class="form-input-voucher">
-                        <input
-                          type="search"
-                          placeholder="Mã Giảm Giá..."
-                          class="input-voucher"
-                        />
-                        <button type="search" class="search-btn-voucher">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-search"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </form>
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
-                          Số lượng sản phẩm
+                          <span class="header-title">Số lượng sản phẩm</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right"
-                        >
-                          0
+                          class="omni-layout-card--item-stack fill text-right">
+                          <span class="header-title">0</span>
                         </div>
                       </div>
                     </div>
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
-                          Tiền hàng
+                          <span class="header-title">Tiền hàng</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right"
-                        >
-                          0 ₫
+                          class="omni-layout-card--item-stack fill text-right">
+                          <span class="header-title">0 ₫</span>
                         </div>
                       </div>
                     </div>
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
-                          Giảm giá
+                          <span class="header-title">Tổng Tiền Hàng</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right"
-                        >
-                          0 ₫
+                          class="omni-layout-card--item-stack fill text-right">
+                          <span class="header-title">0 ₫</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="omni-layout-card--section-section">
+                      <div class="omni-layout-card--item-stack-cover">
+                        <div
+                          class="omni-layout-card--item-stack fill"
+                          style="padding-top: 5px">
+                          <span class="header-title">Tiền khách đưa</span>
+                        </div>
+                        <div
+                          class="omni-layout-card--item-stack fill text-right">
+                          <input
+                            class="form-control"
+                            placeholder="Nhập tiền khách đưa" />
                         </div>
                       </div>
                     </div>
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
-                          Phí vận chuyển
+                          <span class="header-title">Tiền thừa trả khách</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right"
-                        >
-                          0 ₫
+                          class="omni-layout-card--item-stack fill text-right">
+                          <span class="header-title">0 ₫</span>
                         </div>
                       </div>
                     </div>
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
-                          <b>Tổng Tiền Hàng</b>
+                          <span class="header-title">Hình thức thanh toán</span>
+                        </div>
+                        <select
+                          class="form-select"
+                          aria-label="Default select example"
+                          style="width: 300px; margin-left: 54px">
+                          <option value="1" selected>Tiền mặt</option>
+                          <option value="2">Chuyển khoản</option>
+                          <option value="3">Quét QR</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="omni-layout-card--section-section">
+                      <div class="omni-layout-card--item-stack-cover">
+                        <div class="omni-layout-card--item-stack fill">
+                          <span class="header-title">Mô Tả</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right"
-                        >
-                          <b>0 ₫</b>
+                          class="omni-layout-card--item-stack fill text-right">
+                          <textarea
+                            style="width: 300px; margin-left: 156px"
+                            class="next-input"
+                            id="exampleFormControlTextarea6"
+                            rows="3"
+                            placeholder="Nhập mô tả"></textarea>
                         </div>
                       </div>
                     </div>
@@ -635,9 +656,8 @@
               </div>
               <button
                 class="btn btn-outline-primary"
-                style="margin-left: 900px; margin-top: 25px; font-weight: bold"
-              >
-                Xác Nhận Đặt Hàng
+                style="margin-left: 900px; margin-top: 25px; font-weight: bold">
+                Xác Nhận Thanh Toán
               </button>
             </div>
           </div>
