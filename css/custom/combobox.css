@@ -76,3 +76,6 @@
     background-color: #f9f9f9; /* Màu nền cho thead */
     z-index: 1; /* Đảm bảo thead nằm trên cùng */
 }
+.selected-row {
+    background-color: darkorange; /* Đổi màu sắc thành màu xám nhạt */
+}

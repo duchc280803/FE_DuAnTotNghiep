@@ -13,7 +13,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-primary m-1"
-                  ng-click="createHoaDon()">
+                  ng-click="createHoaDonAndGioHang()">
                   Tạo hóa đơn
                 </button>
               </div>
@@ -30,7 +30,9 @@
                   </tr>
                 </thead>
                 <tbody class="table" ng-repeat="hd in listHoaDonTaiQuay">
-                  <tr>
+                  <tr
+                    ng-click="showHoaDonTheoId(hd.id)"
+                    ng-class="{ 'selected-row': selectedInvoice === id }">
                     <th scope="row">{{$index + 1}}</th>
                     <td>{{hd.maHoaDon}}</td>
                     <td>{{hd.tenNhanVien}}</td>
@@ -59,12 +61,12 @@
               data-bs-target="#exampleModal2" />
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
             <br />
-            <h6>Họ Và Tên: Hoàng Công Đức</h6>
-            <h6>Email: hoangduc280803@gmail.com</h6>
-            <h6>Số Điện Thoại: 0971066455</h6>
-            <hr />
+            <h6>Họ Và Tên: {{selectedKhachHang.hoVaTen}}</h6>
+            <h6>Email: {{selectedKhachHang.email}}</h6>
+            <h6>Số Điện Thoại: {{selectedKhachHang.soDienThoai}}</h6>
+            <!-- <hr />
             <h6>Địa Chỉ Giao Hàng</h6>
-            <p>Huyện Tân Thành Bà Rịa-Vũng Tàu Vietnam</p>
+            <p>Huyện Tân Thành Bà Rịa-Vũng Tàu Vietnam</p> -->
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
             <!-- Form khách hàng -->
             <div
@@ -82,17 +84,20 @@
                     <div class="row">
                       <div class="col-lg-8">
                         <input
+                          ng-model="searchKeyword"
                           class="form-control"
                           placeholder="Tìm khách hàng" />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button
+                          ng-click="searchKhach()"
                           type="button"
                           class="btn btn-outline-primary m-1">
                           Tìm Kiếm
                         </button>
                         <button
                           type="button"
+                          ng-click="showKhachHang()"
                           class="btn btn-outline-primary m-1">
                           Làm mới
                         </button>
@@ -111,25 +116,23 @@
                           <thead>
                             <tr>
                               <th scope="col">STT</th>
-                              <th scope="col">Ảnh</th>
                               <th scope="col">Tên Khách Hàng</th>
                               <th scope="col">Email</th>
                               <th scope="col">Số Điện Thoại</th>
-                              <th scope="col">Địa Chỉ</th>
                               <th scope="col">Thao Tác</th>
                             </tr>
                           </thead>
-                          <tbody class="table">
+                          <tbody class="table" ng-repeat="kh in listKhachHang">
                             <tr>
-                              <th scope="row">1</th>
-                              <td>MH001</td>
-                              <td>MH001</td>
-                              <td>$100000</td>
-                              <td>$100000</td>
-                              <td>$100000</td>
+                              <th scope="row">{{$index + 1}}</th>
+                              <td>{{kh.ten}}</td>
+                              <td>{{kh.email}}</td>
+                              <td>{{kh.sodienthoai}}</td>
                               <td>
                                 <button
+                                  ng-click="detailKhacHang(kh.id)"
                                   type="button"
+                                  data-bs-dismiss="modal"
                                   class="btn btn-outline-primary m-1">
                                   Chọn
                                 </button>
@@ -347,30 +350,28 @@
                   <th scope="col">Thao Tác</th>
                 </tr>
               </thead>
-              <tbody class="table">
+              <tbody class="table" ng-repeat="spgh in listCart">
                 <tr>
                   <td style="width: 250px">
-                    <img
-                      src="/assets/images/products/s1.jpg"
-                      alt=""
-                      srcset=""
-                      style="width: 200px" />
+                    <img src="" alt="" srcset="" style="width: 200px" />
                   </td>
                   <td style="padding-top: 80px">
                     <h5 style="font-size: 18px; font-weight: 600">
-                      Giày MH-570 Của nga
+                      {{spgh.tensanpham}}
                     </h5>
                     <span style="font-size: 13px; font-weight: 600"
-                      >1.500.000 đ</span
+                      >{{spgh.giaban}}</span
                     >
                     <br />
                     <br />
                     <span style="font-size: 13px; font-weight: 600"
-                      >Size: 50</span
+                      >{{spgh.size}}</span
                     >
                   </td>
-                  <td style="padding-top: 100px">$100000</td>
-                  <td style="padding-top: 100px">3.000.000 đ</td>
+                  <td style="padding-top: 100px">{{spgh.soLuong}}</td>
+                  <td style="padding-top: 100px">
+                    {{spgh.size * spgh.giaBan}}
+                  </td>
                   <td style="padding-top: 80px">
                     <button type="button" class="btn btn-outline-danger m-1">
                       Xóa khỏi giỏ
@@ -395,17 +396,20 @@
                     <div class="row">
                       <div class="col-lg-8">
                         <input
+                          ng-model="keyName"
                           class="form-control"
                           placeholder="Tìm sản phẩm" />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button
+                          ng-click="searchSanPham()"
                           type="button"
                           class="btn btn-outline-primary m-1">
                           Tìm Kiếm
                         </button>
                         <button
                           type="button"
+                          ng-click="getListSanPhamTaiQuay()"
                           class="btn btn-outline-primary m-1">
                           Làm mới
                         </button>
@@ -443,14 +447,14 @@
                                 {{sp.giaBan | number}} đ
                               </td>
                               <td style="padding-top: 80px">
-                                <a
-                                  ng-click="showProductDetail(sp.id)"
+                                <button
+                                  ng-click="fullDEtail(sp.id)"
                                   type="button"
                                   class="btn btn-outline-primary m-1"
                                   data-bs-toggle="modal"
                                   data-bs-target="#exampleModal1">
                                   Chọn
-                                </a>
+                                </button>
                               </td>
                             </tr>
                           </tbody>
@@ -483,41 +487,34 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <img
-                          src="{{selectedProduct.image}}"
+                          src="{{listSanPhamTaiQuay.tenImage}}"
                           alt=""
                           style="width: 400px" />
                       </div>
                       <div class="col-lg-6">
                         <h4 style="font-size: 20px">
-                          {{selectedProduct.name}}
+                          {{listSanPhamTaiQuay.tenSanPham}}
                         </h4>
                         <br />
-                        <h6>Thương Hiệu:</h6>
-                        <h6>Danh Mục:</h6>
-                        <h6>Dành Cho:</h6>
+                        <h6>
+                          Thương Hiệu: {{listSanPhamTaiQuay.tenThuongHieu}}
+                        </h6>
+                        <h6>Danh Mục: {{listSanPhamTaiQuay.tenDanhMuc}}</h6>
+                        <h6>Dành Cho: {{listSanPhamTaiQuay.tenXuatXu}}</h6>
                         <h4 style="font-size: 20px">
-                          {{selectedProduct.price}}
+                          {{listSanPhamTaiQuay.giaBan | number}} đ
                         </h4>
                         <center><h6>Size</h6></center>
                         <div class="sidebar__item__size">
                           <div class="row">
-                            <div class="col-lg-2">
-                              <label for="large"> 31 </label>
-                            </div>
-                            <div class="col-lg-2">
-                              <label for="large"> 32 </label>
-                            </div>
-                            <div class="col-lg-2">
-                              <label for="large"> 33 </label>
-                            </div>
-                            <div class="col-lg-2">
-                              <label for="large"> 34 </label>
-                            </div>
-                            <div class="col-lg-2">
-                              <label for="large"> 35 </label>
-                            </div>
-                            <div class="col-lg-2">
-                              <label for="large"> 36 </label>
+                            <div
+                              class="col-lg-2"
+                              ng-repeat="size in listDetailSP">
+                              <label
+                                for="{{size.size}}"
+                                ng-click="showSoLuongBySize(size.size, listSanPhamTaiQuay.id)">
+                                {{size.size}}
+                              </label>
                             </div>
                           </div>
                         </div>
@@ -525,14 +522,19 @@
                         <div class="product__details__quantity">
                           <div class="quantity">
                             <div class="pro-qty">
-                              <span class="dec qtybtn">-</span>
-                              <input type="text" value="1" />
-                              <span class="inc qtybtn">+</span>
+                              <span class="dec qtybtn" onclick="decrement()"
+                                >-</span
+                              >
+                              <input id="quantityInput" type="text" value="1" />
+                              <span class="inc qtybtn" onclick="increment()"
+                                >+</span
+                              >
                             </div>
                           </div>
-                          <br />
                         </div>
-                        <center><h6>9 sản phẩm có sẵn</h6></center>
+                        <center>
+                          <h6>{{getSoLuong.soLuong}} sản phẩm có sẵn</h6>
+                        </center>
                         <br />
                         <center>
                           <button type="button" class="btn btn-secondary">
