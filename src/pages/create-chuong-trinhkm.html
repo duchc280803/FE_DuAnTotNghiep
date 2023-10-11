@@ -50,8 +50,6 @@
           <option value="default">Chọn</option>
           <option value="discountOrder">Giảm Giá Đơn Hàng</option>
           <option value="discountProduct">Giảm Giá Sản Phẩm</option>
-          <option value="discountShipping">Giảm Giá Vận Chuyển</option>
-          <option value="samePrice">Đồng Giá</option>
         </select>
       </div>
     </div>
@@ -166,27 +164,25 @@
               style="width: 315px; margin-bottom: 15px" />
           </div>
         </div>
-        <div class="form-check">
+      </div>
+      <div
+      class="card overflow-hidden"
+      style="
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+      ">
+      <div class="row">
+        <div class="col-lg-12">
+          <span class="header-title">Số lượng mã</span>
           <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2" />
-          <label
-            class="form-check-label"
-            for="flexRadioDefault2"
-            style="margin-bottom: 15px"
-            >Giới hạn số lượng mã sử dụng</label
-          >
-          <div id="inputContainer2" style="display: none">
-            <input
-              type="text"
-              class="next-input"
-              placeholder="0"
-              style="width: 315px; margin-bottom: 15px" />
-          </div>
+            type="number"
+            class="next-input"
+            placeholder="Nhập số lượng mã" />
         </div>
       </div>
+    </div>
     </div>
     <!-- Giảm giá sản phẩm -->
     <div id="discountProductContent" style="display: none">
@@ -230,7 +226,7 @@
         </div>
       </div>
       <br />
-      <div
+      <!-- <div
         class="card overflow-hidden"
         style="
           padding-left: 20px;
@@ -296,203 +292,7 @@
               style="width: 315px; margin-bottom: 15px" />
           </div>
         </div>
-      </div>
-    </div>
-    <!-- Giảm giá vận chuyển -->
-    <div id="discountShippingContent" style="display: none">
-      <div
-        class="card overflow-hidden"
-        style="
-          padding-left: 20px;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 20px;
-        ">
-        <span class="header-title">Giảm giá vận chuyển</span>
-        <div class="row">
-          <div class="col-lg-5">
-            <span class="header-title">Mức Giảm</span>
-            <input type="text" class="next-input" placeholder="0" />
-          </div>
-          <div class="col-lg-2">
-            <select
-              class="form-select"
-              id="selectOption"
-              aria-label="Default select example"
-              onchange="toggleCheckbox()">
-              <option selected>đ</option>
-              <option>%</option>
-            </select>
-          </div>
-          <div class="col-lg-5" id="checkboxContainer" style="display: none">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault" />
-              <label class="form-check-label" for="flexCheckDefault"
-                >Giới Hạn Số Tiền Giảm</label
-              >
-              <input type="text" class="next-input" placeholder="0" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div
-        class="card overflow-hidden"
-        style="
-          padding-left: 20px;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 20px;
-        ">
-        <span class="header-title">Sản phẩm áp dụng</span>
-        <div class="row">
-          <input
-            class="form-control ng-pristine ng-valid ng-empty ng-touched"
-            placeholder="Tìm sản phẩm"
-            ng-model="searchName" />
-        </div>
-      </div>
-      <br />
-      <div
-        class="card overflow-hidden"
-        style="
-          padding-left: 20px;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 20px;
-        ">
-        <span class="header-title">Điều Kiện Giảm Giá</span>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2" />
-          <label
-            class="form-check-label"
-            for="flexRadioDefault2"
-            style="margin-bottom: 15px"
-            >Giá trị mua tối thiểu</label
-          >
-          <div id="inputContainer2" style="display: none">
-            <input
-              type="text"
-              class="next-input"
-              placeholder="0"
-              style="width: 315px; margin-bottom: 15px" />
-          </div>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2" />
-          <label
-            class="form-check-label"
-            for="flexRadioDefault2"
-            style="margin-bottom: 15px"
-            >Giới hạn số lượng mã sử dụng</label
-          >
-          <div id="inputContainer2" style="display: none">
-            <input
-              type="text"
-              class="next-input"
-              placeholder="0"
-              style="width: 315px; margin-bottom: 15px" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Đồng giá -->
-    <div id="samePriceContent" style="display: none">
-      <div
-        class="card overflow-hidden"
-        style="
-          padding-left: 20px;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 20px;
-        ">
-        <span class="header-title">Đồng giá</span>
-        <div class="row">
-          <div class="col-lg-12">
-            <input type="text" class="next-input" placeholder="0" />
-          </div>
-        </div>
-      </div>
-      <br />
-      <div
-        class="card overflow-hidden"
-        style="
-          padding-left: 20px;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 20px;
-        ">
-        <span class="header-title">Sản phẩm áp dụng</span>
-        <div class="row">
-          <input
-            class="form-control ng-pristine ng-valid ng-empty ng-touched"
-            placeholder="Tìm sản phẩm"
-            ng-model="searchName" />
-        </div>
-      </div>
-      <br />
-      <div
-        class="card overflow-hidden"
-        style="
-          padding-left: 20px;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 20px;
-        ">
-        <span class="header-title">Điều Kiện Giảm Giá</span>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2" />
-          <label
-            class="form-check-label"
-            for="flexRadioDefault2"
-            style="margin-bottom: 15px"
-            >Giá trị mua tối thiểu</label
-          >
-          <div id="inputContainer2" style="display: none">
-            <input
-              type="text"
-              class="next-input"
-              placeholder="0"
-              style="width: 315px; margin-bottom: 15px" />
-          </div>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2" />
-          <label
-            class="form-check-label"
-            for="flexRadioDefault2"
-            style="margin-bottom: 15px"
-            >Giới hạn số lượng mã sử dụng</label
-          >
-          <div id="inputContainer2" style="display: none">
-            <input
-              type="text"
-              class="next-input"
-              placeholder="0"
-              style="width: 315px; margin-bottom: 15px" />
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
     <div
       class="card overflow-hidden"
@@ -521,7 +321,6 @@
     </div>
   </div>
   <div class="col-lg-4">
-    <br />
     <div
       class="card overflow-hidden"
       style="
@@ -529,74 +328,10 @@
         padding-top: 20px;
         padding-bottom: 20px;
         padding-right: 20px;
-        display: none"
-      id="discountOrderContent">
-      <label class="form-label">Mã khuyến mãi</label><br />
-      <label class="form-label">Tên khuyến mãi</label><br />
-      <label class="form-label">Loại giảm giá: Giảm giá đơn hàng</label><br />
-      <label class="form-label">Điều kiện giảm giá</label><br />
-      <label class="form-label">Giới hạn sử dụng</label><br />
-      <label class="form-label"
-        >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
-      >
-    </div>
-    <br />
-    <div
-      id="discountProductContent"
-      class="card overflow-hidden"
-      style="
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-right: 20px;
-        display: none
       ">
       <label class="form-label">Mã khuyến mãi</label><br />
       <label class="form-label">Tên khuyến mãi</label><br />
-      <label class="form-label">Loại giảm giá</label><br />
-      <label class="form-label">Giảm giá đơn hàng</label><br />
-      <label class="form-label">Điều kiện giảm giá</label><br />
-      <label class="form-label">Giới hạn sử dụng</label><br />
-      <label class="form-label"
-        >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
-      >
-    </div>
-    <br />
-    <div
-      id="discountShippingContent"
-      class="card overflow-hidden"
-      style="
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-right: 20px;
-        display: none
-      ">
-      <label class="form-label">Mã khuyến mãi</label><br />
-      <label class="form-label">Tên khuyến mãi</label><br />
-      <label class="form-label">Loại giảm giá</label><br />
-      <label class="form-label">Giảm giá đơn hàng</label><br />
-      <label class="form-label">Điều kiện giảm giá</label><br />
-      <label class="form-label">Giới hạn sử dụng</label><br />
-      <label class="form-label"
-        >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
-      >
-    </div>
-    <br />
-    <div
-      id="samePriceContent"
-      class="card overflow-hidden"
-      style="
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-right: 20px;
-        display: none
-      ">
-      <label class="form-label">Mã khuyến mãi</label><br />
-      <label class="form-label">Tên khuyến mãi</label><br />
-      <label class="form-label">Loại giảm giá</label><br />
-      <label class="form-label">Giảm giá đơn hàng</label><br />
+      <label class="form-label">Loại giảm giá: </label><br />
       <label class="form-label">Điều kiện giảm giá</label><br />
       <label class="form-label">Giới hạn sử dụng</label><br />
       <label class="form-label"

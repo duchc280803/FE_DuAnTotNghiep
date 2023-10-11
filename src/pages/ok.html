@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ứng dụng tạo hóa đơn</title>
+    <style>
+        .tab-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="createNewTab()">Tạo hóa đơn</button>
+
+    <ul id="tabs">
+        <!-- Các tab sẽ được thêm vào đây -->
+    </ul>
+
+    <script>
+        var tabCounter = 1;
+
+        function createNewTab() {
+            var newTabId = 'tab' + tabCounter;
+            var newTabContent = document.createElement('div');
+            newTabContent.id = newTabId;
+            newTabContent.className = 'tab-content';
+            newTabContent.innerHTML = '<h2>Hóa đơn mới</h2>';
+            document.body.appendChild(newTabContent);
+
+            var tabsContainer = document.getElementById('tabs');
+            var newTab = document.createElement('li');
+            newTab.innerHTML = '<a href="#" onclick="showTab(\'' + newTabId + '\')">Hóa đơn ' + tabCounter + '</a>';
+            tabsContainer.appendChild(newTab);
+
+            tabCounter++;
+        }
+
+        function showTab(tabId) {
+            var i, tabContent;
+
+            // Ẩn tất cả các tab-content
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+
+            // Hiển thị tab-content tương ứng với tab được chọn
+            document.getElementById(tabId).style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -37,7 +37,7 @@
                     <td>{{hd.maHoaDon}}</td>
                     <td>{{hd.tenNhanVien}}</td>
                     <td>
-                      {{hd.trangThai == 0 ? "Chờ Thanh Toán" : "Thành Công"}}
+                      {{hd.trangThai == 1 ? "Chờ Thanh Toán" : "Thành Công"}}
                     </td>
                   </tr>
                 </tbody>
@@ -61,14 +61,13 @@
               data-bs-target="#exampleModal2" />
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
             <br />
-            <h6>Họ Và Tên: {{selectedKhachHang.hoVaTen}}</h6>
+            <h6>Họ Và Tên: {{selectedKhachHang.ten}}</h6>
             <h6>Email: {{selectedKhachHang.email}}</h6>
-            <h6>Số Điện Thoại: {{selectedKhachHang.soDienThoai}}</h6>
-            <!-- <hr />
-            <h6>Địa Chỉ Giao Hàng</h6>
-            <p>Huyện Tân Thành Bà Rịa-Vũng Tàu Vietnam</p> -->
+            <h6>Số Điện Thoại: {{selectedKhachHang.sodienthoai}}</h6>
+            <hr />
+            <h6>Địa Chỉ: </h6>
+            <p>{{selectedKhachHang.diaChi}}</p>
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
-            <!-- Form khách hàng -->
             <div
               class="modal fade"
               id="exampleModal2"
@@ -119,18 +118,20 @@
                               <th scope="col">Tên Khách Hàng</th>
                               <th scope="col">Email</th>
                               <th scope="col">Số Điện Thoại</th>
+                              <th scope="col">Địa Chỉ</th>
                               <th scope="col">Thao Tác</th>
                             </tr>
                           </thead>
                           <tbody class="table" ng-repeat="kh in listKhachHang">
                             <tr>
                               <th scope="row">{{$index + 1}}</th>
-                              <td>{{kh.ten}}</td>
+                              <td>{{kh.hoVaTen}}</td>
                               <td>{{kh.email}}</td>
-                              <td>{{kh.sodienthoai}}</td>
+                              <td>{{kh.soDienThoai}}</td>
+                              <td>{{kh.diaChi}}</td>
                               <td>
                                 <button
-                                  ng-click="detailKhacHang(kh.id)"
+                                  ng-click="viewKhachAndCreateCart(kh.id)"
                                   type="button"
                                   data-bs-dismiss="modal"
                                   class="btn btn-outline-primary m-1">
@@ -178,11 +179,15 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <h6 class="text">Họ Tên</h6>
-                        <input class="form-control" placeholder="Nhập họ tên" />
+                        <input
+                          class="form-control"
+                          placeholder="Nhập họ tên"
+                          ng-model="newKhachHang.hoTen" />
                       </div>
                       <div class="col-lg-6">
                         <h6 class="text">Số điên thoại</h6>
                         <input
+                          ng-model="newKhachHang.soDienThoai"
                           class="form-control"
                           placeholder="Nhập số điện thoại" />
                       </div>
@@ -191,11 +196,17 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <h6 class="text">Email</h6>
-                        <input class="form-control" placeholder="Nhập email" />
+                        <input
+                          class="form-control"
+                          ng-model="newKhachHang.email"
+                          placeholder="Nhập email" />
                       </div>
                       <div class="col-lg-6">
                         <h6 class="text">Ngày Sinh</h6>
-                        <input type="date" class="form-control" />
+                        <input
+                          type="date"
+                          ng-model="newKhachHang.ngaySinh"
+                          class="form-control" />
                       </div>
                     </div>
                     <br />
@@ -204,11 +215,12 @@
                         <h6 class="text">Địa Chỉ</h6>
                         <input
                           class="form-control"
-                          placeholder="Nhập địa chỉ" />
+                          placeholder="Nhập địa chỉ"
+                          ng-model="newKhachHang.diaChi" />
                       </div>
                     </div>
                     <br />
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-lg-4">
                         <h6 class="text">Tỉnh Thành Phố</h6>
                         <select style="color: green" class="custom-select">
@@ -303,10 +315,14 @@
                           <option>Chưa xác nhận</option>
                         </select>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      ng-click="createKhahHang()"
+                      data-bs-dismiss="modal">
                       Thêm
                     </button>
                     <button
@@ -574,7 +590,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="omni-layout-card--section-section">
+                    <!-- <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
                           <span class="header-title">Tiền hàng</span>
@@ -584,7 +600,7 @@
                           <span class="header-title">0 ₫</span>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">

@@ -1,8 +1,9 @@
 myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
   // TODO: SHOW HÓA ĐƠN THEO ID
+  $scope.getIdHoaDon = null;
   $scope.showHoaDonTheoId = function (id) {
-    $scope.selectedInvoice = id;
-    console.log(id);
+    $window.localStorage.setItem("idHoaDon", id);
+    var idHoaDon = $window.localStorage.getItem("idHoaDon");
   };
   // TODO: SHOW HÓA ĐƠN THEO ID
 
@@ -133,15 +134,18 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
   // TODO: Hiển thị detail khách hàng
   $scope.selectedKhachHang = {};
 
-  $scope.detailKhacHang = function (id) {
+  $scope.detailKhacHang = function (id, idHoaDon) {
     $http
-      .get("http://localhost:8080/api/khach-hang/detail?id=" + id)
+      .get(
+        "http://localhost:8080/api/khach-hang/detail?id=" +
+          id +
+          "&idHoaDon=" +
+          idHoaDon
+      )
       .then(function (response) {
         $scope.selectedKhachHang = response.data;
-        console.log(id);
       });
   };
-
   // TODO: Hiển thị detail khách hàng
   $scope.searchKeyword = "";
 
@@ -156,19 +160,65 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
       });
   };
 
-  //TODO: Tạo giỏ hàng
+  // update khách hàng vào hóa đơn
+  $scope.updateKhachHang = function (idkhach) {
+    $http
+      .put(
+        "http://localhost:8080/api/khach-hang/update-hoa-don?id= " +
+          idkhach +
+          "&idHoaDon=" +
+          $scope.getIdHoaDon
+      )
+      .then(function (response) {});
+  };
+
+  // TODO: thêm khách hàng
+  $scope.newKhachHang = {};
+  $scope.createKhahHang = function () {
+    $http
+      .post("http://localhost:8080/api/khach-hang/create", $scope.newKhachHang)
+      .then(function (response) {
+        $scope.listKhachHang.push(response.data);
+        $scope.selectedKhachHang = response.data;
+      });
+  };
+
+  // TODO: tạo giỏ hàng
   $scope.listCart = [];
+  $scope.getIdCart = "";
+
   $scope.createGioHang = function () {
-    var token = $window.localStorage.getItem("token");
+    var token = $window.localStorage.getItem("token"); // Lấy token từ local storage
+
     var config = {
       headers: {
         Authorization: "Bearer " + token,
       },
     };
-    var api = "http://localhost:8080/api/gio-hang/tao-gio-hang";
-    $http.post(api, {}, config).then(function (response) {
-      $scope.listCart.push(response.data);
-      console.log(response.data);
-    });
+    $http
+      .post("http://localhost:8080/api/gio-hang/tao-gio-hang", {}, config)
+      .then(function (response) {
+        $scope.listCart.push(response.data);
+        $window.localStorage.setItem("idCart", response.data);
+      });
+  };
+
+  // update khách hàng vào hóa đơn
+  $scope.updateGioHangKhach = function (idkhach) {
+    var idCart = $window.localStorage.getItem("idCart");
+    $http
+      .put(
+        "http://localhost:8080/api/gio-hang/update?idGioHang= " +
+          idCart +
+          "&idKhachHang=" +
+          idkhach
+      )
+      .then(function (response) {});
+  };
+
+  $scope.viewKhachAndCreateCart = function (id) {
+    $scope.updateKhachHang(id);
+    $scope.detailKhacHang(id);
+    $scope.updateGioHangKhach(id);
   };
 });
