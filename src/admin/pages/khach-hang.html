@@ -1,311 +1,314 @@
-<div class="card overflow-hidden" style="min-height: 120px">
-  <div class="box">
-    <div class="row" style="padding-top: 25px; padding-left: 60px">
-      <div class="col-md-2">
-        <input class="form-control" placeholder="Tìm khách hàng" ng-model="searchQuery" style="margin-top: 4px" />
-      </div>
-      <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px">
-        <button class="btn btn-primary" style="height: 39px" ng-click="searchKhach()">
-          <span style="vertical-align: middle">Tìm Kiếm</span>
-        </button>
-        <button class="btn btn-warning" style="height: 39px; margin-left: 10px" ng-click="clearSearch()">
-          <span style="vertical-align: middle">Làm mới</span>
-        </button>
-      </div>
+<div class="container-fluid">
+  <div class="card overflow-hidden" style="min-height: 120px">
+    <div class="box">
+      <div class="row" style="padding-top: 25px; padding-left: 60px">
+        <div class="col-md-2">
+          <input class="form-control" placeholder="Tìm khách hàng" ng-model="searchQuery" style="margin-top: 4px" />
+        </div>
+        <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px">
+          <button class="btn btn-primary" style="height: 39px" ng-click="searchKhach()">
+            <span style="vertical-align: middle">Tìm Kiếm</span>
+          </button>
+          <button class="btn btn-warning" style="height: 39px; margin-left: 10px" ng-click="clearSearch()">
+            <span style="vertical-align: middle">Làm mới</span>
+          </button>
+        </div>
 
 
-      <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
-        <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
-        <select style="color: green" class="custom-select" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()">
-          <option value="">Tất cả</option>
-          <option value="0">Chưa kích hoạt</option>
-          <option value="1">Đã kích hoạt</option>
-        </select>
-      </div>
+        <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
+          <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
+          <select style="color: green" class="custom-select" ng-model="selectedTrangThai"
+            ng-change="onTrangThaiChange()">
+            <option value="">Tất cả</option>
+            <option value="0">Chưa kích hoạt</option>
+            <option value="1">Đã kích hoạt</option>
+          </select>
+        </div>
 
-      <div class="col-md-3">
-        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taoTaiKhoan"
-          style="text-decoration: none; height: 39px">
-          <ion-icon name="add-outline" style="vertical-align: middle; margin-right: 5px"></ion-icon>
-          <span style="vertical-align: middle">Tạo Khách hàng</span>
-        </button>
-      </div>
-      <!--tạo tài khoản-->
-      <div class="modal fade" id="taoTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg custom-modal-tao-tai-khoan" style="max-width: 80%">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Tạo khách hàng</h5>
-              <br />
-            </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taoTaiKhoan"
+            style="text-decoration: none; height: 39px">
+            <ion-icon name="add-outline" style="vertical-align: middle; margin-right: 5px"></ion-icon>
+            <span style="vertical-align: middle">Tạo Khách hàng</span>
+          </button>
+        </div>
+        <!--tạo tài khoản-->
+        <div class="modal fade" id="taoTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg custom-modal-tao-tai-khoan" style="max-width: 80%">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Tạo khách hàng</h5>
+                <br />
+              </div>
 
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-4 text-center">
-                  <label>
-                    <div class="image-container">
-                      <img ng-src="{{newKhachHang.photo ? newKhachHang.photo : 'path_to_default_image'}}" class="logo"
-                        alt="" />
-                    </div>
-                  </label>
-                </div>
-                <div class="col-md-8">
-                  <form name="frmAccount">
-                    <div class="form-group">
-                      <label>Họ và tên</label>
-                      <input required type="text" class="form-control" ng-model="newKhachHang.ten" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Ngày sinh</label>
-                      <input required type="date" class="form-control" ng-model="newKhachHang.ngaySinh" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label class="mr-2">Giới tính</label>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" ng-model="newKhachHang.gioiTinh"
-                          value="true" checked />
-                        <label class="form-check-label"> Nam </label>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4 text-center">
+                    <label>
+                      <div class="image-container">
+                        <img ng-src="{{newKhachHang.photo ? newKhachHang.photo : 'path_to_default_image'}}" class="logo"
+                          alt="" />
                       </div>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" ng-model="newKhachHang.gioiTinh"
-                          value="false" />
-                        <label class="form-check-label"> Nữ </label>
+                    </label>
+                  </div>
+                  <div class="col-md-8">
+                    <form name="frmAccount">
+                      <div class="form-group">
+                        <label>Họ và tên</label>
+                        <input required type="text" class="form-control" ng-model="newKhachHang.ten" />
                       </div>
-                    </div>
-                    <br>
-                    <br />
-                    <div class="form-group">
-                      <label>Số điện thoại</label>
-                      <input required type="text" class="form-control" ng-model="newKhachHang.soDienThoai" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Email</label>
-                      <input required type="text" class="form-control" ng-model="newKhachHang.email" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Mã khách hàng</label>
-                      <input required type="text" class="form-control" ng-model="newKhachHang.maTaiKhoan" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Tên tài khoản</label>
-                      <input required type="text" class="form-control" ng-model="newKhachHang.userName" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Mật khẩu</label>
-                      <input required type="text" class="form-control" ng-model="newKhachHang.matKhau" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label class="mr-2">Trạng thái</label>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" ng-model="newKhachHang.trangThai"
-                          value="0" />
-                        <label class="form-check-label">
-                          Chưa kích hoạt
-                        </label>
+                      <br />
+                      <div class="form-group">
+                        <label>Ngày sinh</label>
+                        <input required type="date" class="form-control" ng-model="newKhachHang.ngaySinh" />
                       </div>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" checked
-                          ng-model="newKhachHang.trangThai" value="1" />
-                        <label class="form-check-label">
-                          Đã kích hoạt
-                        </label>
+                      <br />
+                      <div class="form-group">
+                        <label class="mr-2">Giới tính</label>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" ng-model="newKhachHang.gioiTinh"
+                            value="true" checked />
+                          <label class="form-check-label"> Nam </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" ng-model="newKhachHang.gioiTinh"
+                            value="false" />
+                          <label class="form-check-label"> Nữ </label>
+                        </div>
                       </div>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Photo</label>
-                      <input type="file" accept="image/*" ng-model="selectedFile"
-                        ng-change="uploadFileInModal('your-folder-name', selectedFile)" />
-                    </div>
+                      <br>
+                      <br />
+                      <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input required type="text" class="form-control" ng-model="newKhachHang.soDienThoai" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input required type="text" class="form-control" ng-model="newKhachHang.email" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Mã khách hàng</label>
+                        <input required type="text" class="form-control" ng-model="newKhachHang.maTaiKhoan" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Tên tài khoản</label>
+                        <input required type="text" class="form-control" ng-model="newKhachHang.userName" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input required type="text" class="form-control" ng-model="newKhachHang.matKhau" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label class="mr-2">Trạng thái</label>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="status" ng-model="newKhachHang.trangThai"
+                            value="0" />
+                          <label class="form-check-label">
+                            Chưa kích hoạt
+                          </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="status" checked
+                            ng-model="newKhachHang.trangThai" value="1" />
+                          <label class="form-check-label">
+                            Đã kích hoạt
+                          </label>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" accept="image/*" ng-model="selectedFile"
+                          ng-change="uploadFileInModal('your-folder-name', selectedFile)" />
+                      </div>
 
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-outline-danger m-1" ng-click="createKhachHang()">
-                Thêm
-              </button>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" class="btn btn-outline-danger m-1" ng-click="createKhachHang()">
+                  Thêm
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!--Sửa tài khoản-->
-      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg custom-modal-sua-khach-hang" style="max-width: 80%">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Sửa khách hàng</h5>
-              <br />
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-4 text-center">
-                  <label>
-                    <div class="image-container">
-                      <img ng-src="/images/account/{{selectedKhachHang.image}}" class="logo" alt="" />
-                    </div>
-                  </label>
-                </div>
-                <div class="col-md-8">
-                  <form name="frmAccount">
-                    <div class="form-group">
-                      <label>Họ và tên</label>
-                      <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Ngày sinh</label>
-                      <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Số điện thoại</label>
-                      <input required type="text" class="form-control" ng-model="selectedKhachHang.soDienThoai" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label class="mr-2">Giới tính</label>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" ng-model="selectedKhachHang.gioiTinh"
-                          value="true" />
-                        <label class="form-check-label"> Nam </label>
+        <!--Sửa tài khoản-->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg custom-modal-sua-khach-hang" style="max-width: 80%">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Sửa khách hàng</h5>
+                <br />
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-4 text-center">
+                    <label>
+                      <div class="image-container">
+                        <img ng-src="/images/account/{{selectedKhachHang.image}}" class="logo" alt="" />
                       </div>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" ng-model="selectedKhachHang.gioiTinh"
-                          value="false" />
-                        <label class="form-check-label"> Nữ </label>
+                    </label>
+                  </div>
+                  <div class="col-md-8">
+                    <form name="frmAccount">
+                      <div class="form-group">
+                        <label>Họ và tên</label>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
                       </div>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Email</label>
-                      <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Mã khách hàng</label>
-                      <input required type="text" class="form-control" ng-model="selectedKhachHang.maTaiKhoan" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Tên tài khoản</label>
-                      <input required type="text" class="form-control" ng-model="selectedKhachHang.userName" />
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label class="mr-2">Trạng thái</label>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="status"
-                          ng-model="selectedKhachHang.trangThai" value="0" />
-                        <label class="form-check-label"> Chưa kích hoạt </label>
+                      <br />
+                      <div class="form-group">
+                        <label>Ngày sinh</label>
+                        <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
                       </div>
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="status"
-                          ng-model="selectedKhachHang.trangThai" value="1" />
-                        <label class="form-check-label"> Đã kích hoạt </label>
+                      <br />
+                      <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.soDienThoai" />
                       </div>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                      <label>Photo</label>
-                      <input type="file" accept="image/*"
-                        onchange="angular.element(this).scope().imageChanged(this.files)" />
-                    </div>
-                  </form>
+                      <br />
+                      <div class="form-group">
+                        <label class="mr-2">Giới tính</label>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender"
+                            ng-model="selectedKhachHang.gioiTinh" value="true" />
+                          <label class="form-check-label"> Nam </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender"
+                            ng-model="selectedKhachHang.gioiTinh" value="false" />
+                          <label class="form-check-label"> Nữ </label>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Mã khách hàng</label>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.maTaiKhoan" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Tên tài khoản</label>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.userName" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label class="mr-2">Trạng thái</label>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="status"
+                            ng-model="selectedKhachHang.trangThai" value="0" />
+                          <label class="form-check-label"> Chưa kích hoạt </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="status"
+                            ng-model="selectedKhachHang.trangThai" value="1" />
+                          <label class="form-check-label"> Đã kích hoạt </label>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <label>Photo</label>
+                        <input type="file" accept="image/*"
+                          onchange="angular.element(this).scope().imageChanged(this.files)" />
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button type="button" class="btn btn-outline-danger m-1">
-                Hủy Kích Hoạt
-              </button>
-              <button type="button" class="btn btn-outline-danger m-1" ng-click="updateKhachHang(selectedKhachHang)">
-                Chỉnh Sửa
-              </button>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" class="btn btn-outline-danger m-1">
+                  Hủy Kích Hoạt
+                </button>
+                <button type="button" class="btn btn-outline-danger m-1" ng-click="updateKhachHang(selectedKhachHang)">
+                  Chỉnh Sửa
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+
       </div>
-
-
     </div>
   </div>
-</div>
-<div class="card overflow-hidden">
-  <div class="box">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">STT</th>
-          <th scope="col">Ảnh</th>
-          <th scope="col">Mã khách hàng</th>
-          <th scope="col">Họ và tên</th>
-          <th scope="col">Email</th>
-          <th scope="col">Giới tính</th>
-          <th scope="col">SĐT</th>
-          <th scope="col">Trạng thái</th>
-          <th scope="col">Thao tác</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="kh in listKhachHang">
-          <th>{{$index +1}}</th>
-          <td>{{kh.image}}</td>
-          <td>{{kh.maTaiKhoan}}</td>
-          <td>{{kh.ten}}</td>
-          <td>{{kh.email}}</td>
-          <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
-          <td>{{kh.soDienThoai}}</td>
-          <td>
-            <span style="
+  <div class="card overflow-hidden">
+    <div class="box">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Ảnh</th>
+            <th scope="col">Mã khách hàng</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Email</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">SĐT</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="kh in listKhachHang">
+            <th>{{$index +1}}</th>
+            <td>{{kh.image}}</td>
+            <td>{{kh.maTaiKhoan}}</td>
+            <td>{{kh.ten}}</td>
+            <td>{{kh.email}}</td>
+            <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
+            <td>{{kh.soDienThoai}}</td>
+            <td>
+              <span style="
                       background-color: #cceeff;
                       color: #0077cc;
                       padding: 4px 8px;
                       border-radius: 4px;
                       display: inline-block;
                     ">{{kh.trangThai == 1 ? "Đã kích hoạt": "Chưa kích hoạt"}}
-            </span>
-          </td>
-          <td>
-            <button type="button" ng-click="fetchKhachHangDetail(kh.id)" data-bs-toggle="modal"
-              data-bs-target="#exampleModal1" class="btn btn-primary">
-              Sửa
-            </button>
+              </span>
+            </td>
+            <td>
+              <button type="button" ng-click="fetchKhachHangDetail(kh.id)" data-bs-toggle="modal"
+                data-bs-target="#exampleModal1" class="btn btn-primary">
+                Sửa
+              </button>
 
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-lg-12">
-    <nav aria-label="Page navigation example" style="margin-left: 400px">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link">{{ pageNumber + 1 }}</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="nextPage()"
-            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
-        </li>
-      </ul>
-    </nav>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
