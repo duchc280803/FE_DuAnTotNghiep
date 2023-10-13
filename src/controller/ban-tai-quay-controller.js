@@ -22,6 +22,10 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
 
   //TODO: Tạo hóa đơn
   $scope.createHoaDon = function () {
+    if ($scope.listHoaDonTaiQuay.length >= 5) {
+      alert('Tối đa chỉ được 5 hóa đơn');
+      return; // Dừng hàm
+    }
     var token = $window.localStorage.getItem("token");
     var config = {
       headers: {
