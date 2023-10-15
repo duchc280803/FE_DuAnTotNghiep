@@ -16,13 +16,7 @@ myApp.controller("loginController", function ($scope, $http, $window) {
     $http.post("http://localhost:8080/api/v1/auth/login", data).then(
       function (response) {
         $window.localStorage.setItem("token", response.data.accessToken);
-        if (response.data.role === "MANAGER") {
-          // Nếu người dùng là admin, mở trang admin
-          $window.location.assign("/src/home-admin.html#/admin/dashboard");
-        } else {
-          // Nếu người dùng không phải là admin, mở trang user
-          $window.location.assign("/src/home-user.html");
-        }
+        $window.location.assign("/src/home-admin.html#/admin/dashboard");
       },
       function (error) {
         $scope.errorUsername = error.data.username;

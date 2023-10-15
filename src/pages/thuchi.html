@@ -1,4 +1,4 @@
-<div class="card overflow-hidden" style="width: 1152px; height: 150px">
+<div class="card overflow-hidden" style="width: 1152px; height: 180px">
   <div class="box">
     <div class="row" style="padding-top: 20px; padding-left: 20px">
       <div class="col-md-2">
@@ -10,8 +10,8 @@
         </button>
       </div>
     </div>
-    <div class="row mt-3">
-      <div class="col-md-3" style="text-align: end">
+    <div class="row" style="padding: 20px">
+      <div class="col-md-4">
         Trạng thái :
         <select style="color: green" class="custom-select">
           <option>Tất cả</option>
@@ -22,12 +22,39 @@
           <option>Đã Hủy</option>
         </select>
       </div>
+      <div class="col-md-4">
+        Loại Đơn :
+        <select style="color: green" class="custom-select">
+          <option>Tất cả</option>
+          <option>Tại quầy</option>
+          <option>Online</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        Hình thức thanh toán :
+        <select style="color: green" class="custom-select">
+          <option>Tất cả</option>
+          <option>Tiền mặt</option>
+          <option>Chuyển khoản</option>
+          <option>Quét QR Code</option>
+        </select>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        Nhân viên :
+        <select style="color: green" class="custom-select">
+          <option>Tất cả</option>
+          <option>Tại quầy</option>
+          <option>Online</option>
+        </select>
+      </div>
+      <div class="col-md-4"></div>
     </div>
   </div>
 </div>
 <div class="card overflow-hidden">
   <div class="box">
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">STT</th>
@@ -54,10 +81,11 @@
                 border-radius: 4px;
                 display: inline-block;
               "
-              >Thanh Toán
+              >Vũ Tường An
             </span>
           </td>
-          <td>
+          <td>2003-12-12</td>
+          <td id="nguoi-xac-nhan">
             <span
               style="
                 background-color: #cceeff;
@@ -66,491 +94,53 @@
                 border-radius: 4px;
                 display: inline-block;
               "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              >Hoàng Công Đức
             </span>
           </td>
           <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
           <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
+            <a
+              href="#/chi-tiet-hoa-don"
+              type="button"
+              class="btn btn-outline-primary m-1"
+            >
+              Detail
+            </a>
           </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>11:55:30,20/07/2023</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>11:55:30,20/07/2023</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>11:55:30,20/07/2023</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>11:55:30,20/07/2023</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>MH001</td>
-          <td>$100000</td>
-          <td>11:55:30,20/07/2023</td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thanh Toán
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Chuyển khoản
-            </span>
-          </td>
-          <td>
-            <span
-              style="
-                background-color: #cceeff;
-                color: #0077cc;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: inline-block;
-              "
-              >Thành công
-            </span>
-          </td>
-          <td>John Doe</td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content custom-modal-content" style="width: 400px; margin-left: 200px;">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body" style="margin-left: 90px;">
+        Nhân viên :
+        <select style="color: green" class="custom-select">
+          <option>Tất cả</option>
+          <option>Tại quầy</option>
+          <option>Online</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Update
+        </button>
+      </div>
+    </div>
   </div>
 </div>

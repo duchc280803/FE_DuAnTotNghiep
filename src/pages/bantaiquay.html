@@ -13,7 +13,8 @@
                 <button
                   type="button"
                   class="btn btn-outline-primary m-1"
-                  ng-click="createHoaDonAndGioHang()">
+                  ng-click="createHoaDon()"
+                >
                   Tạo hóa đơn
                 </button>
               </div>
@@ -31,11 +32,16 @@
                   </tr>
                 </thead>
                 <tbody class="table">
-                  <tr ng-repeat="hd in listHoaDonTaiQuay">
+                  <tr
+                    ng-repeat="hd in listHoaDonTaiQuay"
+                    ng-click="showHoaDonTheoId(hd.id)"
+                  >
                     <td>{{$index + 1}}</td>
                     <td>{{hd.maHoaDon}}</td>
                     <td>{{hd.tenNhanVien}}</td>
-                    <td>{{hd.trangThai == 1 ? "Chờ Thanh Toán" : "Thành Công"}}</td>
+                    <td>
+                      {{hd.trangThai == 1 ? "Chờ Thanh Toán" : "Thành Công"}}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -55,22 +61,31 @@
               class="form-control"
               placeholder="Tìm Khách Hàng"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal2" />
+              data-bs-target="#exampleModal2"
+            />
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
             <br />
-            <h6>Họ Và Tên: {{selectedKhachHang.ten}}</h6>
-            <h6>Email: {{selectedKhachHang.email}}</h6>
-            <h6>Số Điện Thoại: {{selectedKhachHang.sodienthoai}}</h6>
-            <hr />
-            <h6>Địa Chỉ: </h6>
-            <p>{{selectedKhachHang.diaChi}}</p>
-            <!-- <h6 class="text-customs">Chưa Có Thông Tin Khách Hàng</h6> -->
+            <h6 ng-if="selectedKhachHang">
+              Họ Và Tên: {{selectedKhachHang.ten}}
+            </h6>
+            <h6 ng-if="selectedKhachHang">
+              Email: {{selectedKhachHang.email}}
+            </h6>
+            <h6 ng-if="selectedKhachHang">
+              Số Điện Thoại: {{selectedKhachHang.sodienthoai}}
+            </h6>
+            <hr>
+            <h6 ng-if="selectedKhachHang">Địa Chỉ:{{selectedKhachHang.diaChi}}</h6>
+            <h6 ng-if="!selectedKhachHang" class="text-customs" style="padding-top: 65px;">
+              Chưa Có Thông Tin Khách Hàng
+            </h6>
             <div
               class="modal fade"
               id="exampleModal2"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-header">
@@ -82,26 +97,30 @@
                         <input
                           ng-model="searchKeyword"
                           class="form-control"
-                          placeholder="Tìm khách hàng" />
+                          placeholder="Tìm khách hàng"
+                        />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button
                           ng-click="searchKhach()"
                           type="button"
-                          class="btn btn-outline-primary m-1">
+                          class="btn btn-outline-primary m-1"
+                        >
                           Tìm Kiếm
                         </button>
                         <button
                           type="button"
                           ng-click="showKhachHang()"
-                          class="btn btn-outline-primary m-1">
+                          class="btn btn-outline-primary m-1"
+                        >
                           Làm mới
                         </button>
                         <button
                           type="button"
                           class="btn btn-outline-primary m-1"
                           data-bs-toggle="modal"
-                          data-bs-target="#exampleModal3">
+                          data-bs-target="#exampleModal3"
+                        >
                           Thêm
                         </button>
                       </div>
@@ -122,16 +141,17 @@
                           <tbody class="table" ng-repeat="kh in listKhachHang">
                             <tr>
                               <th scope="row">{{$index + 1}}</th>
-                              <td>{{kh.hoVaTen}}</td>
+                              <td>{{kh.ten}}</td>
                               <td>{{kh.email}}</td>
-                              <td>{{kh.soDienThoai}}</td>
+                              <td>{{kh.sodienthoai}}</td>
                               <td>{{kh.diaChi}}</td>
                               <td>
                                 <button
-                                  ng-click="viewKhachAndCreateCart(kh.id)"
+                                  ng-click="viewKhachAndUpdateHoaDon(kh.id)"
                                   type="button"
                                   data-bs-dismiss="modal"
-                                  class="btn btn-outline-primary m-1">
+                                  class="btn btn-outline-primary m-1"
+                                >
                                   Chọn
                                 </button>
                               </td>
@@ -145,7 +165,8 @@
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal">
+                      data-bs-dismiss="modal"
+                    >
                       Close
                     </button>
                   </div>
@@ -159,7 +180,8 @@
               id="exampleModal3"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               <div class="modal-dialog modal-lg">
                 <div
                   class="modal-content custom-modal-content"
@@ -168,7 +190,8 @@
                     margin: auto;
                     margin-left: 80px;
                     height: 500px;
-                  ">
+                  "
+                >
                   <div class="modal-header">
                     <h5 class="modal-title">Thêm Khách Hàng</h5>
                   </div>
@@ -179,14 +202,16 @@
                         <input
                           class="form-control"
                           placeholder="Nhập họ tên"
-                          ng-model="newKhachHang.hoTen" />
+                          ng-model="newKhachHang.hoTen"
+                        />
                       </div>
                       <div class="col-lg-6">
                         <h6 class="text">Số điên thoại</h6>
                         <input
                           ng-model="newKhachHang.soDienThoai"
                           class="form-control"
-                          placeholder="Nhập số điện thoại" />
+                          placeholder="Nhập số điện thoại"
+                        />
                       </div>
                     </div>
                     <br />
@@ -196,14 +221,16 @@
                         <input
                           class="form-control"
                           ng-model="newKhachHang.email"
-                          placeholder="Nhập email" />
+                          placeholder="Nhập email"
+                        />
                       </div>
                       <div class="col-lg-6">
                         <h6 class="text">Ngày Sinh</h6>
                         <input
                           type="date"
                           ng-model="newKhachHang.ngaySinh"
-                          class="form-control" />
+                          class="form-control"
+                        />
                       </div>
                     </div>
                     <br />
@@ -213,119 +240,58 @@
                         <input
                           class="form-control"
                           placeholder="Nhập địa chỉ"
-                          ng-model="newKhachHang.diaChi" />
+                          ng-model="newKhachHang.diaChi"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <select
+                          style="width: 100%"
+                          class="form-select form-select-sm mb-3"
+                          id="city"
+                          aria-label=".form-select-sm"
+                        >
+                          <option value="" selected>Chọn tỉnh thành</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4">
+                        <select
+                          style="width: 100%"
+                          class="form-select form-select-sm mb-3"
+                          id="district"
+                          aria-label=".form-select-sm"
+                        >
+                          <option value="" selected>Chọn quận huyện</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4">
+                        <select
+                          style="width: 100%"
+                          class="form-select form-select-sm"
+                          id="ward"
+                          aria-label=".form-select-sm"
+                        >
+                          <option value="" selected>Chọn phường xã</option>
+                        </select>
                       </div>
                     </div>
                     <br />
-                    <!-- <div class="row">
-                      <div class="col-lg-4">
-                        <h6 class="text">Tỉnh Thành Phố</h6>
-                        <select style="color: green" class="custom-select">
-                          <option value="" hidden="">---</option>
-                          <option value="1">Hà Nội</option>
-                          <option value="2">TP Hồ Chí Minh</option>
-                          <option value="3">An Giang</option>
-                          <option value="4">Bà Rịa-Vũng Tàu</option>
-                          <option value="5" selected="">Bắc Giang</option>
-                          <option value="6">Bắc Kạn</option>
-                          <option value="7">Bạc Liêu</option>
-                          <option value="8">Bắc Ninh</option>
-                          <option value="9">Bến Tre</option>
-                          <option value="10">Bình Dương</option>
-                          <option value="11">Bình Định</option>
-                          <option value="12">Bình Phước</option>
-                          <option value="13">Bình Thuận</option>
-                          <option value="14">Cà Mau</option>
-                          <option value="15">Cao Bằng</option>
-                          <option value="16">Cần Thơ</option>
-                          <option value="17">Đà Nẵng</option>
-                          <option value="18">Đắk Lắk</option>
-                          <option value="19">Đắk Nông</option>
-                          <option value="20">Điện Biên</option>
-                          <option value="21">Đồng Nai</option>
-                          <option value="22">Đồng Tháp</option>
-                          <option value="23">Gia Lai</option>
-                          <option value="24">Hà Giang</option>
-                          <option value="25">Hà Nam</option>
-                          <option value="26">Hà Tĩnh</option>
-                          <option value="27">Hải Dương</option>
-                          <option value="28">Hải Phòng</option>
-                          <option value="29">Hậu Giang</option>
-                          <option value="30">Hòa Bình</option>
-                          <option value="31">Hưng Yên</option>
-                          <option value="32">Khánh Hòa</option>
-                          <option value="33">Kiên Giang</option>
-                          <option value="34">Kon Tum</option>
-                          <option value="35">Lai Châu</option>
-                          <option value="36">Lâm Đồng</option>
-                          <option value="37">Lạng Sơn</option>
-                          <option value="38">Lào Cai</option>
-                          <option value="39">Long An</option>
-                          <option value="40">Nam Định</option>
-                          <option value="41">Nghệ An</option>
-                          <option value="42">Ninh Bình</option>
-                          <option value="43">Ninh Thuận</option>
-                          <option value="44">Phú Thọ</option>
-                          <option value="45">Phú Yên</option>
-                          <option value="46">Quảng Bình</option>
-                          <option value="47">Quảng Nam</option>
-                          <option value="48">Quảng Ngãi</option>
-                          <option value="49">Quảng Ninh</option>
-                          <option value="50">Quảng Trị</option>
-                          <option value="51">Sóc Trăng</option>
-                          <option value="52">Sơn La</option>
-                          <option value="53">Tây Ninh</option>
-                          <option value="54">Thái Bình</option>
-                          <option value="55">Thái Nguyên</option>
-                          <option value="56">Thanh Hóa</option>
-                          <option value="57">Thừa Thiên Huế</option>
-                          <option value="58">Tiền Giang</option>
-                          <option value="59">Trà Vinh</option>
-                          <option value="60">Tuyên Quang</option>
-                          <option value="61">Vĩnh Long</option>
-                          <option value="62">Vĩnh Phúc</option>
-                          <option value="63">Yên Bái</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-4">
-                        <h6 class="text">Quận Huyện</h6>
-                        <select style="color: green" class="custom-select">
-                          <option value="" hidden="">---</option>
-                          <option value="87">Thành phố Bắc Giang</option>
-                          <option value="88">Huyện Hiệp Hòa</option>
-                          <option value="89">Huyện Lạng Giang</option>
-                          <option value="90">Huyện Lục Nam</option>
-                          <option value="91">Huyện Lục Ngạn</option>
-                          <option value="92">Huyện Sơn Động</option>
-                          <option value="93">Huyện Tân Yên</option>
-                          <option value="94">Huyện Việt Yên</option>
-                          <option value="95">Huyện Yên Dũng</option>
-                          <option value="96">Huyện Yên Thế</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-4">
-                        <h6 class="text">Phường Xã</h6>
-                        <select style="color: green" class="custom-select">
-                          <option>Chọn</option>
-                          <option>Chưa giao</option>
-                          <option>Đã giao</option>
-                          <option>Chưa xác nhận</option>
-                        </select>
-                      </div>
-                    </div> -->
                   </div>
                   <div class="modal-footer">
                     <button
                       type="button"
                       class="btn btn-secondary"
                       ng-click="createKhahHang()"
-                      data-bs-dismiss="modal">
+                      data-bs-dismiss="modal"
+                    >
                       Thêm
                     </button>
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal">
+                      data-bs-dismiss="modal"
+                    >
                       Close
                     </button>
                   </div>
@@ -350,7 +316,8 @@
               class="form-control"
               placeholder="Tìm Sản Phẩm"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal" />
+              data-bs-target="#exampleModal"
+            />
             <!-- <h6 class="text-customs">Chưa Có Thông Tin Sản Phẩm</h6> -->
             <br />
             <table class="table table-hover">
@@ -399,7 +366,8 @@
               id="exampleModal"
               tabindex="-1"
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-header">
@@ -411,19 +379,22 @@
                         <input
                           ng-model="keyName"
                           class="form-control"
-                          placeholder="Tìm sản phẩm" />
+                          placeholder="Tìm sản phẩm"
+                        />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button
                           ng-click="searchSanPham()"
                           type="button"
-                          class="btn btn-outline-primary m-1">
+                          class="btn btn-outline-primary m-1"
+                        >
                           Tìm Kiếm
                         </button>
                         <button
                           type="button"
                           ng-click="getListSanPhamTaiQuay()"
-                          class="btn btn-outline-primary m-1">
+                          class="btn btn-outline-primary m-1"
+                        >
                           Làm mới
                         </button>
                       </div>
@@ -438,34 +409,43 @@
                               <th scope="col">Ảnh</th>
                               <th scope="col">Tên Sản Phẩm</th>
                               <th scope="col">Giá</th>
+                              <th scope="col">Số Lượng</th>
+                              <th scope="col">Kích Thước</th>
+                              <th scope="col">Kiểu Đế</th>
+                              <th scope="col">Màu Sắc</th>
                               <th scope="col">Thao Tác</th>
                             </tr>
                           </thead>
                           <tbody
                             class="table"
-                            ng-repeat="sp in listSanPhamTaiQuay">
+                            ng-repeat="sp in listSanPhamTaiQuay"
+                          >
                             <tr>
                               <th scope="row">{{$index + 1}}</th>
                               <td>
                                 <img
-                                  src="{{sp.tenImage}}"
+                                  src="{{sp.imgage}}"
                                   alt=""
                                   srcset=""
-                                  width="200px" />
-                              </td>
-                              <td style="padding-top: 100px">
-                                {{sp.tenSanPham}}
-                              </td>
-                              <td style="padding-top: 100px">
-                                {{sp.giaBan | number}} đ
+                                  width="150px"
+                                />
                               </td>
                               <td style="padding-top: 80px">
+                                {{sp.tenSanPham}}
+                              </td>
+                              <td style="padding-top: 80px">
+                                {{sp.giaBan | number}} đ
+                              </td>
+                              <td style="padding-top: 80px">{{sp.soLuong}}</td>
+                              <td style="padding-top: 80px">{{sp.size}}</td>
+                              <td style="padding-top: 80px">{{sp.kieuDe}}</td>
+                              <td style="padding-top: 80px">{{sp.mauSac}}</td>
+                              <td style="padding-top: 60px">
                                 <button
-                                  ng-click="fullDEtail(sp.id)"
                                   type="button"
                                   class="btn btn-outline-primary m-1"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#exampleModal1">
+                                  ng-click="chonSanPham()"
+                                >
                                   Chọn
                                 </button>
                               </td>
@@ -479,7 +459,8 @@
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal">
+                      data-bs-dismiss="modal"
+                    >
                       Close
                     </button>
                   </div>
@@ -487,88 +468,6 @@
               </div>
             </div>
             <!-- modal sản phẩm -->
-            <!-- modal detail sản phẩm -->
-            <div
-              class="modal fade"
-              id="exampleModal1"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content custom-modal-content">
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <img
-                          src="{{listSanPhamTaiQuay.tenImage}}"
-                          alt=""
-                          style="width: 400px" />
-                      </div>
-                      <div class="col-lg-6">
-                        <h4 style="font-size: 20px">
-                          {{listSanPhamTaiQuay.tenSanPham}}
-                        </h4>
-                        <br />
-                        <h6>
-                          Thương Hiệu: {{listSanPhamTaiQuay.tenThuongHieu}}
-                        </h6>
-                        <h6>Danh Mục: {{listSanPhamTaiQuay.tenDanhMuc}}</h6>
-                        <h6>Dành Cho: {{listSanPhamTaiQuay.tenXuatXu}}</h6>
-                        <h4 style="font-size: 20px">
-                          {{listSanPhamTaiQuay.giaBan | number}} đ
-                        </h4>
-                        <center><h6>Size</h6></center>
-                        <div class="sidebar__item__size">
-                          <div class="row">
-                            <div
-                              class="col-lg-2"
-                              ng-repeat="size in listDetailSP">
-                              <label
-                                for="{{size.size}}"
-                                ng-click="showSoLuongBySize(size.size, listSanPhamTaiQuay.id)">
-                                {{size.size}}
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <br />
-                        <div class="product__details__quantity">
-                          <div class="quantity">
-                            <div class="pro-qty">
-                              <span class="dec qtybtn" onclick="decrement()"
-                                >-</span
-                              >
-                              <input id="quantityInput" type="text" value="1" />
-                              <span class="inc qtybtn" onclick="increment()"
-                                >+</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <center>
-                          <h6>{{getSoLuong.soLuong}} sản phẩm có sẵn</h6>
-                        </center>
-                        <br />
-                        <center>
-                          <button type="button" class="btn btn-secondary">
-                            Thêm giỏ hàng
-                          </button>
-                        </center>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal">
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- modal detail sản phẩm -->
             <hr style="margin-top: 90px" />
             <h5 class="card-title mb-9 fw-semibold">Thông Tin Thanh Toán</h5>
             <div class="layout-card--section">
@@ -582,29 +481,20 @@
                           <span class="header-title">Số lượng sản phẩm</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           <span class="header-title">0</span>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="omni-layout-card--section-section">
-                      <div class="omni-layout-card--item-stack-cover">
-                        <div class="omni-layout-card--item-stack fill">
-                          <span class="header-title">Tiền hàng</span>
-                        </div>
-                        <div
-                          class="omni-layout-card--item-stack fill text-right">
-                          <span class="header-title">0 ₫</span>
-                        </div>
-                      </div>
-                    </div> -->
                     <div class="omni-layout-card--section-section">
                       <div class="omni-layout-card--item-stack-cover">
                         <div class="omni-layout-card--item-stack fill">
                           <span class="header-title">Tổng Tiền Hàng</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           <span class="header-title">0 ₫</span>
                         </div>
                       </div>
@@ -613,14 +503,17 @@
                       <div class="omni-layout-card--item-stack-cover">
                         <div
                           class="omni-layout-card--item-stack fill"
-                          style="padding-top: 5px">
+                          style="padding-top: 5px"
+                        >
                           <span class="header-title">Tiền khách đưa</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           <input
                             class="form-control"
-                            placeholder="Nhập tiền khách đưa" />
+                            placeholder="Nhập tiền khách đưa"
+                          />
                         </div>
                       </div>
                     </div>
@@ -630,7 +523,8 @@
                           <span class="header-title">Tiền thừa trả khách</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           <span class="header-title">0 ₫</span>
                         </div>
                       </div>
@@ -643,7 +537,8 @@
                         <select
                           class="form-select"
                           aria-label="Default select example"
-                          style="width: 300px; margin-left: 54px">
+                          style="width: 300px; margin-left: 54px"
+                        >
                           <option value="1" selected>Tiền mặt</option>
                           <option value="2">Chuyển khoản</option>
                           <option value="3">Quét QR</option>
@@ -656,13 +551,15 @@
                           <span class="header-title">Mô Tả</span>
                         </div>
                         <div
-                          class="omni-layout-card--item-stack fill text-right">
+                          class="omni-layout-card--item-stack fill text-right"
+                        >
                           <textarea
                             style="width: 300px; margin-left: 156px"
                             class="next-input"
                             id="exampleFormControlTextarea6"
                             rows="3"
-                            placeholder="Nhập mô tả"></textarea>
+                            placeholder="Nhập mô tả"
+                          ></textarea>
                         </div>
                       </div>
                     </div>
@@ -671,7 +568,8 @@
               </div>
               <button
                 class="btn btn-outline-primary"
-                style="margin-left: 900px; margin-top: 25px; font-weight: bold">
+                style="margin-left: 900px; margin-top: 25px; font-weight: bold"
+              >
                 Xác Nhận Thanh Toán
               </button>
             </div>

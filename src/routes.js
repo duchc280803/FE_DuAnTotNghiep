@@ -12,6 +12,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/hoa-don", {
       templateUrl: "./pages/thuchi.html",
     })
+    .when("/chi-tiet-hoa-don", {
+      templateUrl: "./pages/chi-tiet-hoa-don.html",
+    })
     .when("/khuyen-mai", {
       templateUrl: "./pages/khuyen-mai-sp.html",
     })

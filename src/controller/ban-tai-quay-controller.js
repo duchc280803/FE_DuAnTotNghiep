@@ -1,10 +1,22 @@
 myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
+  $scope.selectedKhachHang = {};
   // TODO: SHOW HÓA ĐƠN THEO ID
-  $scope.getIdHoaDon = null;
   $scope.showHoaDonTheoId = function (id) {
     $window.localStorage.setItem("idHoaDon", id);
     var idHoaDon = $window.localStorage.getItem("idHoaDon");
+
+    $http
+      .get(
+        "http://localhost:8080/api/khach-hang/search_khach_byid?id=" + idHoaDon
+      )
+      .then(function (response) {
+        $scope.selectedKhachHang = response.data;
+      });
   };
+  var idHoaDon = $window.localStorage.getItem("idHoaDon");
+  if (idHoaDon) {
+    $scope.showHoaDonTheoId(idHoaDon);
+  }
   // TODO: SHOW HÓA ĐƠN THEO ID
 
   //TODO: Get all hoa đơn tại quầy
@@ -23,10 +35,18 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
   //TODO: Tạo hóa đơn
   $scope.createHoaDon = function () {
     if ($scope.listHoaDonTaiQuay.length >= 5) {
-      alert('Tối đa chỉ được 5 hóa đơn');
-      return; // Dừng hàm
+      // Swal.fire({
+      //   position: "bottom-end", // Change the position to bottom right corner
+      //   icon: "success",
+      //   title: "Tối đa chỉ được 5 hóa đơn",
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      alert("Tối đa chỉ được 5 hóa đơn");
+      return;
     }
     var token = $window.localStorage.getItem("token");
+
     var config = {
       headers: {
         Authorization: "Bearer " + token,
@@ -37,11 +57,6 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
       $scope.listHoaDonTaiQuay.push(response.data);
       $scope.getListHoaDonTaiQuay();
     });
-  };
-
-  $scope.createHoaDonAndGioHang = function () {
-    $scope.createHoaDon();
-    $scope.createGioHang();
   };
 
   // TODO: Get ALL sản phẩm tại quầy
@@ -67,41 +82,39 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
       });
   };
 
-  // TODO: get detail sản phẩm tại quầy
-  $scope.listDetailSP = [];
-  $scope.showProductDetail = function (id) {
-    console.log(id);
-    $http
-      .get("http://localhost:8080/api/chi-tiet-sp/san-pham-detail/" + id)
-      .then(function (response) {
-        $scope.listDetailSP = response.data;
-      });
-  };
-
-  $scope.fullDEtail = function (id) {
-    $scope.showGetOneProduct(id);
-    $scope.showProductDetail(id);
-  };
-
-  // TODO: get detail sản phẩm lấy số lượng theo id và size
-  $scope.keyId = "";
-  $scope.keySize = "";
-  $scope.getSoLuong = {};
-
-  $scope.showSoLuongBySize = function (size, id) {
-    // Thay đổi đối số từ id thành size
-    $scope.keySize = size; // Cập nhật keySize với kích cỡ được chọn
-    $scope.keyId = id;
-    $http
-      .get(
-        "http://localhost:8080/api/chi-tiet-sp/san-pham-detail-soluong?id=" +
-          $scope.keyId +
-          "&size=" +
-          $scope.keySize
-      )
-      .then(function (response) {
-        $scope.getSoLuong = response.data;
-      });
+  $scope.chonSanPham = function () {
+    const form = document.createElement("div");
+    form.innerHTML = `
+  <div class="product__details__quantity">
+    <div class="quantity">
+        <div class="pro-qty">
+            <span class="dec qtybtn" onclick="decrement()">-</span>
+              <input id="quantityInput" type="text" value="1" />
+                <span class="inc qtybtn" onclick="increment()">+</span>
+        </div>
+    </div>
+  </div>
+  `;
+    Swal.fire({
+      title: "Adjust Quantity",
+      html: form,
+      showCancelButton: true,
+      showCloseButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "OK",
+      confirmButtonColor: "#3085d6",
+      cancelButtonText: "Cancel",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const quantity = document.getElementById("quantity").value;
+        Swal.fire(
+          "Quantity Updated!",
+          `You selected ${quantity} items.`,
+          "success"
+        );
+      }
+    });
   };
 
   // TODO: Tìm kiếm sản phẩm
@@ -136,9 +149,8 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
   $scope.showKhachHang();
 
   // TODO: Hiển thị detail khách hàng
-  $scope.selectedKhachHang = {};
 
-  $scope.detailKhacHang = function (id, idHoaDon) {
+  $scope.detailKhacHang = function (id) {
     $http
       .get(
         "http://localhost:8080/api/khach-hang/detail?id=" +
@@ -166,6 +178,7 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
 
   // update khách hàng vào hóa đơn
   $scope.updateKhachHang = function (idkhach) {
+    $scope.getIdHoaDon = $window.localStorage.getItem("idHoaDon");
     $http
       .put(
         "http://localhost:8080/api/khach-hang/update-hoa-don?id= " +
@@ -220,9 +233,8 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
       .then(function (response) {});
   };
 
-  $scope.viewKhachAndCreateCart = function (id) {
+  $scope.viewKhachAndUpdateHoaDon = function (id) {
     $scope.updateKhachHang(id);
     $scope.detailKhacHang(id);
-    $scope.updateGioHangKhach(id);
   };
 });
