@@ -10,10 +10,12 @@
     <link
       rel="shortcut icon"
       type="image/png"
-      href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+      href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
@@ -23,7 +25,7 @@
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="/css/style.css" type="text/css" />
   </head>
-  <body>
+  <body ng-controller="sanPhamGiamGiaController">
     <header class="header">
       <div class="header__top">
         <div class="container">
@@ -78,7 +80,6 @@
                 <li><a href="./shop-grid.html">Shop</a></li>
               </ul>
             </nav>
-            
           </div>
           <div class="col-lg-3">
             <div class="header__cart">
@@ -100,9 +101,6 @@
         </div>
       </div>
     </header>
-    <!-- Header Section End -->
-
-    <!-- Hero Section Begin -->
     <section class="hero hero-normal">
       <div class="container">
         <div class="row">
@@ -113,13 +111,9 @@
                 <span>BRAND</span>
               </div>
               <ul>
-                <li><a href="#">Nice</a></li>
-                <li><a href="#">Adidas</a></li>
-                <li><a href="#">Puma</a></li>
-                <li><a href="#">Reebok</a></li>
-                <li><a href="#">Vans</a></li>
-                <li><a href="#">Converse</a></li>
-                <li><a href="#">ASICS</a></li>
+                <li ng-repeat="th in listThuongHieu">
+                  <a href="#">{{th.tenThuongHieu}}</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -155,30 +149,30 @@
             <div class="sidebar">
               <div class="sidebar__item">
                 <h4>CATEGORY</h4>
-                <ul>
-                  <li><a href="#">Giày chạy bộ</a></li>
-                  <li><a href="#">Giày đá banh</a></li>
-                  <li><a href="#">Giày bóng rổ</a></li>
-                  <li><a href="#">Giày tennis</a></li>
-                  <li><a href="#">Giày đi bộ</a></li>
-                  <li><a href="#">Giày leo núi</a></li>
+                <ul ng-repeat="dm in listDanhMuc">
+                  <li><a href="#">{{dm.tenDanhMuc}}</a></li>
                 </ul>
               </div>
+              <div></div>
               <div class="sidebar__item">
                 <h4>Price</h4>
                 <div class="price-range-wrap">
                   <div
                     class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                    data-min="10"
-                    data-max="540">
+                    data-min="0"
+                    data-max="540"
+                  >
                     <div
-                      class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                      class="ui-slider-range ui-corner-all ui-widget-header"
+                    ></div>
                     <span
                       tabindex="0"
-                      class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                      class="ui-slider-handle ui-corner-all ui-state-default"
+                    ></span>
                     <span
                       tabindex="0"
-                      class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                      class="ui-slider-handle ui-corner-all ui-state-default"
+                    ></span>
                   </div>
                   <div class="range-slider">
                     <div class="price-input">
@@ -188,68 +182,11 @@
                   </div>
                 </div>
               </div>
-              <div class="sidebar__item sidebar__item__color--option">
-                <h4>Colors</h4>
-                <div class="sidebar__item__color sidebar__item__color--white">
-                  <label for="white">
-                    White
-                    <input type="radio" id="white" />
-                  </label>
-                </div>
-                <div class="sidebar__item__color sidebar__item__color--gray">
-                  <label for="gray">
-                    Gray
-                    <input type="radio" id="gray" />
-                  </label>
-                </div>
-                <div class="sidebar__item__color sidebar__item__color--red">
-                  <label for="red">
-                    Red
-                    <input type="radio" id="red" />
-                  </label>
-                </div>
-                <div class="sidebar__item__color sidebar__item__color--black">
-                  <label for="black">
-                    Black
-                    <input type="radio" id="black" />
-                  </label>
-                </div>
-                <div class="sidebar__item__color sidebar__item__color--blue">
-                  <label for="blue">
-                    Blue
-                    <input type="radio" id="blue" />
-                  </label>
-                </div>
-                <div class="sidebar__item__color sidebar__item__color--green">
-                  <label for="green">
-                    Green
-                    <input type="radio" id="green" />
-                  </label>
-                </div>
-              </div>
               <div class="sidebar__item">
                 <h4>Size</h4>
-                <div class="sidebar__item__size">
+                <div class="sidebar__item__size" ng-repeat="s in listSize">
                   <label for="large">
-                    31
-                    <input type="radio" id="large" />
-                  </label>
-                </div>
-                <div class="sidebar__item__size">
-                  <label for="large">
-                    32
-                    <input type="radio" id="large" />
-                  </label>
-                </div>
-                <div class="sidebar__item__size">
-                  <label for="large">
-                    33
-                    <input type="radio" id="large" />
-                  </label>
-                </div>
-                <div class="sidebar__item__size">
-                  <label for="large">
-                    34
+                    {{s.size}}
                     <input type="radio" id="large" />
                   </label>
                 </div>
@@ -257,299 +194,35 @@
             </div>
           </div>
           <div class="col-lg-9 col-md-7">
-            <div class="product__discount">
-              <div class="section-title product__discount__title">
-                <h2>Sale Off</h2>
-              </div>
-              <div class="row">
-                <div class="product__discount__slider owl-carousel">
-                  <div class="col-lg-4">
-                    <div class="product__discount__item">
-                      <div
-                        class="product__discount__item__pic set-bg"
-                        data-setbg="https://myshoes.vn/image/cache/catalog/2022/asics/21.7/giay-asics-sky-court-nam-trang-do-01-800x800.jpg">
-                        <div class="product__discount__percent">-20%</div>
-                      </div>
-                      <div class="product__discount__item__text">
-                        <span>GIÀY ASICS SKY COURT </span>
-                        <h5><a href="#">NAM - TRẮNG ĐỎ </a></h5>
-                        <div class="product__item__price">
-                          1.690.000₫ <span>2.950.000₫</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="product__discount__item">
-                      <div
-                        class="product__discount__item__pic set-bg"
-                        data-setbg="https://myshoes.vn/image/cache/catalog/2022/asics/22.7/giay-asics-classic-ct-nam-trang-xanh-01-800x800.jpg">
-                        <div class="product__discount__percent">-20%</div>
-                      </div>
-                      <div class="product__discount__item__text">
-                        <span>GIÀY ASICS CLASSIC CT </span>
-                        <h5><a href="#">NAM - TRẮNG XANH LÁ</a></h5>
-                        <div class="product__item__price">
-                          1.390.000₫ <span>1.850.000₫</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="product__discount__item">
-                      <div
-                        class="product__discount__item__pic set-bg"
-                        data-setbg="https://myshoes.vn/image/cache/catalog/2022/asics/21.7/giay-asics-sky-court-nam-trang-xanh-01-800x800.jpg">
-                        <div class="product__discount__percent">-20%</div>
-                      </div>
-                      <div class="product__discount__item__text">
-                        <span>GIÀY ASICS SKY COURT</span>
-                        <h5><a href="#">NAM - TRẮNG XANH</a></h5>
-                        <div class="product__item__price">
-                          1.690.000₫
-                          <span> 2.950.000₫</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="product__discount__item">
-                      <div
-                        class="product__discount__item__pic set-bg"
-                        data-setbg="https://myshoes.vn/image/cache/catalog/2022/asics/24.5/giay-asics-classic-ct-nam-den-trang-01-800x800.png">
-                        <div class="product__discount__percent">-15%</div>
-                      </div>
-                      <div class="product__discount__item__text">
-                        <span>GIÀY ASICS GEL-VENTURE 8 </span>
-                        <h5><a href="#">NAM - XANH NAVY</a></h5>
-                        <div class="product__item__price">
-                          1.790.000₫ <span> 2.100.000₫</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="product__discount__item">
-                      <div
-                        class="product__discount__item__pic set-bg"
-                        data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg">
-                        <div class="product__discount__percent">-20%</div>
-                      </div>
-                      <div class="product__discount__item__text">
-                        <span>GIÀY ASICS CLASSIC CT</span>
-                        <h5><a href="#">NAM - ĐEN TRẮNG</a></h5>
-                        <div class="product__item__price">
-                          1.390.000₫ <span>1.850.000₫</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="product__discount__item">
-                      <div
-                        class="product__discount__item__pic set-bg"
-                        data-setbg="https://myshoes.vn/image/cache/catalog/2022/asics/24.5/giay-asics-lyteracer-2-nam-trang-vang-01-800x800.png">
-                        <div class="product__discount__percent">-20%</div>
-                      </div>
-                      <div class="product__discount__item__text">
-                        <span>GIÀY ASICS LYTERACER </span>
-                        <h5><a href="#">2 NAM - TRẮNG VÀNG</a></h5>
-                        <div class="product__item__price">
-                          1.390.000₫ <span>2.650.000₫</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="filter__item">
               <div class="row">
                 <div class="col-lg-4 col-md-5"></div>
                 <div class="col-lg-4 col-md-4">
-                  <div class="filter__found">
+                  <!-- <div class="filter__found">
                     <h6><span>16</span> Sản Phẩm</h6>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="col-lg-4 col-md-3"></div>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
+              <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="sp in listSpGiamGia">
+                <div class="product__discount__item">
                   <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a
-                      >
-                    </h6>
-                    <h5>2.490.000₫</h5>
+                    class="product__discount__item__pic set-bg"
+                    data-setbg="{{sp.image}}">
+                    <div class="product__discount__percent" ng-show="sp.mucGiam != null">-{{sp.mucGiam}}%</div>
                   </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a
-                      >
-                    </h6>
-                    <h5>1.690.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a
-                      >
-                    </h6>
-                    <h5>2.490.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a
-                      >
-                    </h6>
-                    <h5>3.829.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-free-rn-nn-nam-den-trang-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE FREE RN NN 2023 NAM - ĐEN TRẮNG</a
-                      >
-                    </h6>
-                    <h5>2.790.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-zoom-bella-6-nu-trang-xanh-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE ZOOM BELLA 6 NỮ - TRẮNG XANH</a
-                      >
-                    </h6>
-                    <h5>2.190.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-sc-nam-trang-den-vang-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY NIKE AIR MAX SC NAM - TRẮNG ĐEN VÀNG</a
-                      >
-                    </h6>
-                    <h5>2.090.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-excee-nam-den-den-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="#">GIÀY NIKE AIR MAX EXCEE NAM - ĐEN ĐEN</a>
-                    </h6>
-                    <h5>2.290.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/adidas/ad5/giay-adidas-grand-court-base-2-nu-trang-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY ADIDAS GRAND COURT BASE 2.0 NỮ - TRẮNG</a
-                      >
-                    </h6>
-                    <h5>1.590.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/adidas/ad6/giay-adidas-duramo-speed-nu-trang-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY ADIDAS DURAMO SPEED NỮ - TRẮNG</a
-                      >
-                    </h6>
-                    <h5>2.190.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/adidas/adi4/giay-adidas-advantage-base-nam-nu-trang-den-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY ADIDAS ADVANCOURT BASE NAM - TRẮNG</a
-                      >
-                    </h6>
-                    <h5>1.390.000₫</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    data-setbg="https://myshoes.vn/image/cache/catalog/2023/adidas/ad5/giay-adidas-runfalcon-3-nam-den-xanh-01-800x800.jpg"></div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="shop-details.html"
-                        >GIÀY ADIDAS RUNFALCON 3.0 NAM - ĐEN XANH</a
-                      >
-                    </h6>
-                    <h5>1.590.000₫</h5>
+                  <div class="product__discount__item__text">
+                    <span style="padding-bottom: 25px; height: 45px;"><a href="#">{{sp.tenSp}}</a></span>
+                    <div class="product__item__price">
+                      <div ng-show="sp.giaGiamGia != null">
+                        {{sp.giaGiamGia | number}}₫ <span>{{sp.giaBan | number}}₫</span>
+                      </div>
+                      <div ng-show="sp.giaGiamGia == null">
+                        {{sp.giaBan | number}}₫
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -637,5 +310,10 @@
     <script src="/js/mixitup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/lib/angular.js"></script>
+    <script src="/lib/angular-route.js"></script>
+    <script src="../app.js"></script>
+    <script src="../routes.js"></script>
+    <script src="/src/controller/product-giamgia-controller.js"></script>
   </body>
 </html>

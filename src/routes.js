@@ -27,7 +27,4 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/giam-gia/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
     })
-    .otherwise({
-      redirectTo: "/dashboard",
-    });
 });

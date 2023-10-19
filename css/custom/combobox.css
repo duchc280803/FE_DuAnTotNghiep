@@ -63,19 +63,21 @@
     cursor: pointer;
     margin-bottom: 0;
 }
-.table-container {
-    height: 190px; /* Đặt chiều cao của vùng cuộn */
-    overflow-y: scroll; /* Kích hoạt thanh cuộn dọc */
-    border: 1px solid #ccc; /* Thêm viền để tạo đường viền cho vùng cuộn */
-    position: relative; /* Đặt vị trí của container là relative */
-}
-
 .table-container thead {
     position: sticky; /* Đặt vị trí của thead là sticky */
     top: 0; /* Bắt đầu từ đầu trang khi cuộn */
     background-color: #f9f9f9; /* Màu nền cho thead */
     z-index: 1; /* Đảm bảo thead nằm trên cùng */
 }
-.selected-row {
-    background-color: darkorange; /* Đổi màu sắc thành màu xám nhạt */
+table {
+    border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px; 
+      overflow: hidden;
 }
+.nav-item.active a {
+    border-radius: 15px;
+    border: 2px solid darkgoldenrod;
+    background-color: lightgoldenrodyellow; /* Màu nền cho border */
+  }
+  
