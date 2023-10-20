@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="/css/style.css" type="text/css" />
   </head>
-  <body ng-controller="sanPhamGiamGiaController">
+  <body>
     <header class="header">
       <div class="header__top">
         <div class="container">
@@ -76,8 +76,8 @@
           <div class="col-lg-6">
             <nav class="header__menu">
               <ul>
-                <li class="active"><a href="../home-user.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a href="#/home">Home</a></li>
+                <li><a href="#/shop">Shop</a></li>
               </ul>
             </nav>
           </div>
@@ -85,7 +85,7 @@
             <div class="header__cart">
               <ul>
                 <li>
-                  <a href="#"
+                  <a href="#/cart"
                     ><i class="fa fa-shopping-bag"></i> <span>3</span></a
                   >
                 </li>
@@ -198,9 +198,6 @@
               <div class="row">
                 <div class="col-lg-4 col-md-5"></div>
                 <div class="col-lg-4 col-md-4">
-                  <!-- <div class="filter__found">
-                    <h6><span>16</span> Sản Phẩm</h6>
-                  </div> -->
                 </div>
                 <div class="col-lg-4 col-md-3"></div>
               </div>
