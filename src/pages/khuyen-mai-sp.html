@@ -276,10 +276,19 @@
             </div>
             <div class="col-md-4">
               <input
-                class="form-control"
-                placeholder="Tên khuyến mại"
-                style="margin-top: 4px"
-              />
+              ng-model="key"
+              class="form-control"
+              placeholder="Tìm sản phẩm"
+            />
+
+
+            <button
+            ng-click="searchByKey()"
+            type="button"
+            class="btn btn-outline-primary m-1"
+          >
+            Tìm Kiếm
+          </button>
             </div>
             <div
               class="col-md-4 d-flex justify-content-start"
@@ -328,15 +337,14 @@
         </div>
         <div class="col-lg-6"></div>
       </div>
-      <div class="card overflow-hidden">
+      <div class="card overflow-hidden" >
         <div class="box">
-          <table class="table table-hover">
+          <table class="table table-hover"  >
             <thead>
               <tr style="background-color: lightskyblue">
                 <th scope="col">STT</th>
-                <th scope="col">Mã khuyến mại</th>
                 <th scope="col">Tên khuyến mại</th>
-                <th scope="col">Loại giảm giá</th>
+                <th scope="col">giảm giá</th>
                 <th scope="col">Hình Thức</th>
                 <th scope="col">Bắt Đầu</th>
                 <th scope="col">Kết Thúc</th>
@@ -344,16 +352,15 @@
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
-            <tbody class="table">
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>%</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+            <tbody class="table"  >
+              <tr ng-repeat="gg in listGiamGia" >
+                <td>{{$index + 1}}</td>
+                <td>{{gg.tenGiamGia}}</td>
+                <td>{{gg.mucGiam}}</td>
+                <td>{{gg.hinhThucGiam}}</td>
+                <td>{{gg.ngayBatDau}}</td>
+                <td>{{gg.ngayKetThuc}}</td>
+                <td>{{gg.trangThai}}</td>
                 <td>
                   <a href="#" class="btn btn-outline-primary">Sửa</a>
                 </td>
@@ -363,5 +370,4 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
