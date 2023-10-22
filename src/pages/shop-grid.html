@@ -206,12 +206,12 @@
               <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="sp in listSpGiamGia">
                 <div class="product__discount__item">
                   <div
-                    class="product__discount__item__pic set-bg"
-                    data-setbg="{{sp.image}}">
+                    class="product__discount__item__pic set-bg">
+                    <img src="{{sp.image}}" alt="">
                     <div class="product__discount__percent" ng-show="sp.mucGiam != null">-{{sp.mucGiam}}%</div>
                   </div>
                   <div class="product__discount__item__text">
-                    <span style="padding-bottom: 25px; height: 45px;"><a href="#">{{sp.tenSp}}</a></span>
+                    <span style="padding-bottom: 25px; height: 45px;"><a href="#/shop/detail/{{sp.tenSp}}">{{sp.tenSp}}</a></span>
                     <div class="product__item__price">
                       <div ng-show="sp.giaGiamGia != null">
                         {{sp.giaGiamGia | number}}₫ <span>{{sp.giaBan | number}}₫</span>

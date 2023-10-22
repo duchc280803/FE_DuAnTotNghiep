@@ -63,12 +63,6 @@
   cursor: pointer;
   margin-bottom: 0;
 }
-.table-container thead {
-  position: sticky; /* Đặt vị trí của thead là sticky */
-  top: 0; /* Bắt đầu từ đầu trang khi cuộn */
-  background-color: #f9f9f9; /* Màu nền cho thead */
-  z-index: 1; /* Đảm bảo thead nằm trên cùng */
-}
 table {
   border-collapse: separate;
   border-spacing: 0;

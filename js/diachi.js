@@ -1,3 +1,4 @@
+import axios from 'axios';
 var citis = document.getElementById("city");
 var districts = document.getElementById("district");
 var wards = document.getElementById("ward");
