@@ -32,8 +32,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/shop-grid.html",
       controller: "sanPhamGiamGiaController"
     })
-    .when("/shop/detail", {
+    .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
+      controller: "sanPhamGiamGiaController"
     })
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",

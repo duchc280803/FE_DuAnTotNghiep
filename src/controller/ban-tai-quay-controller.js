@@ -10,7 +10,6 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
   $scope.idSanPhamChiTiet = 0;
   $scope.soLuongSanPham = 1; // số lượng thêm vào giỏ hàng
 
-
   $scope.selectedProductQuantity = function (quantity, id) {
     $scope.luuSoLuong = quantity;
     $scope.idSanPhamChiTiet = id;
@@ -40,7 +39,7 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
       .get("http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?name=" + ten)
       .then(function (response) {
         $scope.listCart = response.data;
-        $window.localStorage.setItem('cart', $scope.listCart[0].idGioHang);
+        $window.localStorage.setItem("cart", $scope.listCart[0].idGioHang);
         // Tính tổng số lượng sản phẩm
         $scope.tongSoLuongSanPham = 0;
         for (var i = 0; i < $scope.listCart.length; i++) {
@@ -63,15 +62,51 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
   }
 
   //TODO: Get all hoa đơn tại quầy
+  $scope.pageNumber = 1;
+  $scope.pageSize = 4;
   $scope.getListHoaDonTaiQuay = function () {
     $http
-      .get("http://localhost:8080/api/v1/hoa-don/show")
+      .get(
+        "http://localhost:8080/api/v1/hoa-don/show?pageNumber=" +
+          $scope.pageNumber +
+          "&pageSize=" +
+          $scope.pageSize
+      )
       .then(function (response) {
         $scope.listHoaDonTaiQuay = response.data;
       });
   };
 
   $scope.getListHoaDonTaiQuay();
+
+  $scope.getPageNumbers = function () {
+    var totalPages = Math.ceil($scope.listHoaDonTaiQuay.length / $scope.pageSize);
+    var pageNumbers = [];
+    for (var i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+    return pageNumbers;
+  };
+
+  // TODO: updatePage
+  $scope.updatePage = function (pageNumber) {
+    $scope.pageNumber = pageNumber;
+    $scope.getListHoaDonTaiQuay();
+  };
+
+  // TODO: Quay lại trang
+  $scope.previousPage = function () {
+    if ($scope.pageNumber > 0) {
+      $scope.pageNumber--;
+      $scope.getListHoaDonTaiQuay();
+    }
+  };
+
+  // TODO: tiến đến trang khác
+  $scope.nextPage = function () {
+    $scope.pageNumber++;
+    $scope.getListHoaDonTaiQuay();
+  };
 
   //TODO: Tạo hóa đơn
   $scope.createHoaDon = function () {
@@ -93,10 +128,10 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
     });
   };
 
-  $scope.taoHoaDonAndCart = function() {
+  $scope.taoHoaDonAndCart = function () {
     $scope.createHoaDon();
     $scope.createGioHang();
-  }
+  };
 
   // TODO: Get ALL sản phẩm tại quầy
   $scope.listSanPhamTaiQuay = [];
@@ -237,7 +272,7 @@ myApp.controller("BanTaiQuayController", function ($scope, $http, $window) {
       .post("http://localhost:8080/api/gio-hang/tao-gio-hang", {})
       .then(function (response) {
         $scope.listCart.push(response.data);
-        $window.localStorage.setItem('idCartNew', $scope.listCart);
+        $window.localStorage.setItem("idCartNew", $scope.listCart);
       });
   };
 
