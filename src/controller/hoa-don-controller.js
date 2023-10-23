@@ -94,4 +94,40 @@ function fetchHoaDon1(){
      }
          fetchHoaDon5();
 
+         // TODO: Trạng thái 6
+     $scope.listHoaDon6 = [];
+     function fetchHoaDon6(){
+     
+       var token = $window.localStorage.getItem("token");
+       var config = {
+         headers: {
+           Authorization: "Bearer " + token,
+         },
+       };
+     
+       $http
+       .get("http://localhost:8080/api/manager/hoa-don/hien-thi?trangThaiHD=6", config)
+       .then(function(response){
+         $scope.listHoaDon6 = response.data;
+       });
+     }
+         fetchHoaDon6();
+      // TODO: Trạng thái 7
+     $scope.listHoaDon6 = [];
+     function fetchHoaDon7(){
+     
+       var token = $window.localStorage.getItem("token");
+       var config = {
+         headers: {
+           Authorization: "Bearer " + token,
+         },
+       };
+     
+       $http
+       .get("http://localhost:8080/api/manager/hoa-don/hien-thi?trangThaiHD=7", config)
+       .then(function(response){
+         $scope.listHoaDon7 = response.data;
+       });
+     }
+         fetchHoaDon7();
 });
