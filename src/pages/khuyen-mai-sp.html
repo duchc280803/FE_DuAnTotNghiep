@@ -283,10 +283,10 @@
             </div>
        <div class="col-md-4 d-flex justify-content-start" style="text-align: end">
   <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
-  <select style="color: green" class="custom-select" ng-model="status" ng-change="searchStatus()">
+  <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
     <option value="">Tất cả</option>
-    <option value="1">Còn hạn</option>
-    <option value="2">Hết hạn</option>
+    <option value="1">Tại quầy</option>
+    <option value="2">Online</option>
   </select>
   <!-- <button class="btn btn-primary" ng-click="searchStatus()">Tìm kiếm</button> -->
 </div>
