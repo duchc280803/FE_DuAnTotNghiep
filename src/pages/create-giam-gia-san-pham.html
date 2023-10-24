@@ -272,79 +272,36 @@
                 "
               >
                 <div class="row">
-                  <div class="col-lg-6">
-                    <span class="header-title">Mã khuyến mại</span>
-                    <span class="header-title" style="padding-left: 350px"
-                      ><a href="">Tự động tạo</a></span
-                    >
-                    <input
-                      disabled
-                      type="text"
-                      class="next-input"
-                      placeholder=""
-                    />
-                  </div>
-                  <div class="col-lg-6">
-                    <span class="header-title">Tên khuyến mại</span>
-                    <input
-                      type="text"
-                      class="next-input"
-                      placeholder="Nhập tên khuyến mại"
-                    />
-                  </div>
-                  <div class="col-lg-5" style="padding-top: 15px">
-                    <span class="header-title">Mức Giảm</span>
-                    <input type="text" class="next-input" placeholder="0" />
-                  </div>
-                  <div class="col-lg-2" style="padding-top: 10px">
-                    <select
-                      class="form-select"
-                      id="selectOption"
-                      aria-label="Default select example"
-                    >
+                <div class="col-lg-6" style="padding-top: 15px">
+                  <span class="header-title">Mã khuyến mại</span>
+                  <span class="header-title" style="padding-left: 350px"><a href="">Tự động tạo</a></span>
+                  <input  type="text" disabled class="next-input" placeholder="" ng-model="maGiamGia" />
+              </div>
+              <div class="col-lg-6" style="padding-top: 15px">
+                  <span class="header-title">Tên khuyến mại</span>
+                  <input type="text" class="next-input" placeholder="Nhập tên khuyến mại" ng-model="tenGiamGia" />
+              </div>
+              <div class="col-lg-5" style="padding-top: 15px">
+                  <span class="header-title">Mức Giảm</span>
+                  <input type="text" class="next-input" placeholder="0"  ng-model="mucGiam"  />
+              </div>
+              <div class="col-lg-2" style="padding-top: 10px">
+                  <select class="form-select" id="selectOption" aria-label="Default select example" >
                       <option selected>đ</option>
                       <option>%</option>
-                    </select>
-                  </div>
-                  <div
-                    class="col-lg-5"
-                    id="checkboxContainer"
-                    style="display: none; padding-top: 15px"
-                  >
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
-                      />
-                      <label class="form-check-label" for="flexCheckDefault"
-                        >Giới Hạn Số Tiền Giảm</label
-                      >
-                      <input type="text" class="next-input" placeholder="0" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6" style="padding-top: 15px">
-                    <span class="header-title">Ngày Bắt Đầu</span>
-                    <input
-                      type="date"
-                      class="next-input"
-                      placeholder="Nhập ngày bắt đầu"
-                    />
-                  </div>
-                  <div class="col-lg-6" style="padding-top: 15px">
-                    <span class="header-title">Ngày Kết Thúc</span>
-                    <input
-                      type="date"
-                      class="next-input"
-                      placeholder="Nhập ngày kết thúc"
-                    />
-                  </div>
-                </div>
-                <br />
-                <button type="button" class="btn btn-outline-primary m-1">
-                  Thêm
-                </button>
+                  </select>
+              </div>
+              <div class="col-lg-6" style="padding-top: 15px">
+                  <span class="header-title">Ngày Bắt Đầu</span>
+                  <input type="date" class="next-input" placeholder="Nhập ngày bắt đầu" ng-model="ngayBatDau" />
+              </div>
+              <div class="col-lg-6" style="padding-top: 15px">
+                  <span class="header-title">Ngày Kết Thúc</span>
+                  <input type="date" class="next-input" placeholder="Nhập ngày kết thúc" ng-model="ngayKetThuc" />
+              </div>
+              <br />
+            
+              <button type="button" class="btn btn-outline-primary m-1" ng-click="themKhuyenMai()">Thêm</button>
               </div>
             </div>
           </div>
@@ -358,143 +315,131 @@
               <div class="col-lg-8">
                 <input
                 type="text"
-                class="next-input"
+                class="next-input" ng-model="tenSanPham"  ng-change="searchProductKey()"
                 placeholder="Nhập sản phẩm cần tìm"
               />
               </div>
               <div class="col-lg-4">
-                <button class="btn btn-outline-primary">Tìm kiếm</button>
+                <!-- <button class="btn btn-outline-primary" ng-click="searchProductKey()">Tìm kiếm</button> -->
                 <button class="btn btn-outline-primary" style="margin-left: 10px;">Làm mới</button>
               </div>
             </div>
             <div class="row" style="padding: 20px">
-              <div class="col-md-3">
-                Danh mục :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Chờ xác nhận</option>
-                  <option>Vận chuyển</option>
-                  <option>Đang giao</option>
-                  <option>Hoàn thành</option>
-                  <option>Đã Hủy</option>
+              <div class="col-md-3" style="padding: 20px">
+                Danh Mục:
+                <select style="color: green" class="custom-select"ng-model="DanhMuc"  ng-change="searchProductDanhMuc()"
+                ng-options="tt.id as tt.tenDanhMuc for tt in listDanhMuc">
+            <option value="">Tất cả</option>
                 </select>
+
+
+     
+
               </div>
-              <div class="col-md-3">
-                Thương hiệu :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Tại quầy</option>
-                  <option>Online</option>
-                </select>
+            
+              <div class="col-md-3" style="padding: 20px">
+                Thương hiệu:
+
+
+                <select style="color: green" class="custom-select"ng-model="ThuongHieu"  ng-change="searchProductThuongHieu()"
+                ng-options="tt.id as tt.tenThuongHieu for tt in listThuongHieu">
+            <option value="">Tất cả</option>
+          </select> 
               </div>
-              <div class="col-md-3">
-                Chất liệu :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Tiền mặt</option>
-                  <option>Chuyển khoản</option>
-                  <option>Quét QR Code</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                Màu sắc :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Chờ xác nhận</option>
-                  <option>Vận chuyển</option>
-                  <option>Đang giao</option>
-                  <option>Hoàn thành</option>
-                  <option>Đã Hủy</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                Kiểu đế :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Chờ xác nhận</option>
-                  <option>Vận chuyển</option>
-                  <option>Đang giao</option>
-                  <option>Hoàn thành</option>
-                  <option>Đã Hủy</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                Giới tính :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Chờ xác nhận</option>
-                  <option>Vận chuyển</option>
-                  <option>Đang giao</option>
-                  <option>Hoàn thành</option>
-                  <option>Đã Hủy</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                Size :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Chờ xác nhận</option>
-                  <option>Vận chuyển</option>
-                  <option>Đang giao</option>
-                  <option>Hoàn thành</option>
-                  <option>Đã Hủy</option>
-                </select>
-              </div>
-              <div class="col-md-3">
-                Xuất xứ :
-                <select style="color: green" class="custom-select">
-                  <option>Tất cả</option>
-                  <option>Chờ xác nhận</option>
-                  <option>Vận chuyển</option>
-                  <option>Đang giao</option>
-                  <option>Hoàn thành</option>
-                  <option>Đã Hủy</option>
-                </select>
-              </div>
+            
+            
+            <div class="col-md-3" style="padding: 20px">
+             Chất liệu:
+              <select style="color: green" class="custom-select"ng-model="ChatLieu"  ng-change="searchProductChatLieu()"
+              ng-options="tt.id as tt.tenChatLieu for tt in listChatLieu">
+          <option value="">Tất cả</option>
+        </select> 
+
+
+          </div>
+          <div class="col-md-3" style="padding: 20px">
+           Màu Sắc
+            <select style="color: green" class="custom-select"ng-model="MauSac"  ng-change="searchProductMauSac()"
+            ng-options="tt.id as tt.tenMauSac for tt in listMauSac">
+        <option value="">Tất cả</option>
+      </select> 
+        </div>
+        <div class="col-md-3" style="padding: 20px">
+          Kiểu Đế:
+          <select style="color: green" class="custom-select"ng-model="KieuDe"  ng-change="searchProductKieuDe()"
+                ng-options="tt.id as tt.tenDe for tt in listKieuDe">
+            <option value="">Tất cả</option>
+          </select> 
+
+
+      </div>
+      <div class="col-md-3" style="padding: 20px">
+        Giới Tính:
+        <select  style="color: green" class="custom-select" ng-model="selectedGioiTinh">
+            <option value="">Tất cả</option>
+            <option ng-repeat="tt in listThuongHieu">{{ tt.tenThuongHieu }}</option>
+        </select>
+    </div>
+    <div class="col-md-3" style="padding: 20px">
+      Size:
+      <select style="color: green" class="custom-select" ng-model="Size"  ng-change="searchProductList()"
+              ng-options="tt.id as tt.size for tt in listSize">
+          <option value="">Tất cả</option>
+      </select>
+  </div>
+  
+  <div class="col-md-3" style="padding: 20px">
+   Xuất xứ:
+    <select style="color: green" class="custom-select"ng-model="XuatXu"  ng-change="searchProductXuatXu()"
+    ng-options="tt.id as tt.tenXuatXu for tt in listXuatXu">
+<option value="">Tất cả</option>
+</select> 
+</div>
             </div>
           </div>
             <br>
-            <table class="table">
-              <thead>
-                <tr  style="background-color: lightskyblue">
-                  <th scope="col">
-                    <input type="checkbox" style="margin-right: 15px" />STT
-                  </th>
-                  <th scope="col">Ảnh sản phẩm</th>
-                  <th scope="col">Tên sản phẩm</th>
-                  <th scope="col">Size</th>
-                  <th scope="col">Kiểu để</th>
-                  <th scope="col">Color</th>
-                  <th scope="col">Chất liệu</th>
-                  <th scope="col">Trạng Thái</th>
-                </tr>
-              </thead>
-              <tbody class="table">
-                <tr>
-                  <td style="padding-top: 75px">
-                    <input type="checkbox" style="margin-right: 15px" />1
-                  </td>
-                  <td>
-                    <img
-                      src="https://myshoes.vn/image/cache/catalog/2023/nike/nk10/giay-nike-revolution-7-den-trang-01-800x800.jpg"
-                      alt=""
-                      width="150px"
-                    />
-                  </td>
-                  <td style="padding-top: 75px">
-                    GIÀY NIKE REVOLUTION 7 NAM - ĐEN TRẮNG
-                  </td>
-                  <td style="padding-top: 75px">37</td>
-                  <td style="padding-top: 75px">Đế cứng</td>
-                  <td style="padding-top: 75px">Vàng</td>
-                  <td style="padding-top: 75px">Vàng</td>
-                  <td style="padding-top: 75px">ĐANG KINH DOANH</td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="table">
+                <thead>
+                  <tr  style="background-color: lightskyblue" >
+                    <th scope="col">
+                      <input type="checkbox" style="margin-right: 15px" />STT
+                    </th>
+                    <th scope="col">Ảnh sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Kiểu để</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Chất liệu</th>
+                    <th scope="col">Trạng Thái</th>
+                  </tr>
+                </thead>
+
+                <tbody class="table"  >
+                  <tr ng-repeat="gg in listProduct" >
+                    <td style="padding-top: 75px">
+                      <input type="checkbox" style="margin-right: 15px" ng-model="gg.isSelected" ng-change="updateSelectedIds(gg.id,gg.idSize,gg.idKieuDe,gg.idMauSac,gg.idChatLieu)" />{{$index + 1}}
+                    </td>
+                    
+                    <td >
+                      <img 
+                        src="{{gg.image}}"
+                        alt=""
+                        width="150px"
+                      />
+                    </td>
+                    <td ng-model="id">{{gg.productName}}</td>
+                    <td ng-model="idSize">{{gg.sizeName}}</td>
+                    <td  ng-model="idKieuDe">{{gg.kieuDeName}}</td>
+                    <td  ng-model="idMauSac">{{gg.mauSacName}}</td>
+                    <td  ng-model="idChatLieu">{{gg.chatLieuName}}</td>
+                    <td>{{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH DOANH'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+      <button type="button" class="btn btn-outline-primary m-1" ng-click="themKhuyenMai()">Thêm</button>
     </div>
   </div>
-</div>

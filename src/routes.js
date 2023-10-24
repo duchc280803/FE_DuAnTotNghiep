@@ -21,6 +21,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/khuyen-mai/create", {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
+      controller: "GiamGiaController",
     })
     .when("/giam-gia", {
       templateUrl: "./pages/voucher-hoa-don.html",
