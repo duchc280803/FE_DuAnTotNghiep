@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NICE SHOE</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+    <link rel="shortcut icon" type="image/png"
+        href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="cart-hover.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
@@ -20,8 +20,10 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+
 </head>
-<body>
+
+<body ng-app="myApp" ng-controller="CartController">
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
@@ -51,7 +53,7 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                          
+
                         </div>
                     </div>
                 </div>
@@ -61,26 +63,62 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"
-                          ><img
-                            src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                            style="width: 125px"
-                            alt=""
-                        /></a>
-                      </div>
+                        <a href="./index.html"><img
+                                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                                style="width: 125px" alt="" /></a>
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="../home-user.html">Home</a></li>
                             <li><a href="./shop-grid.html">Shop</a></li>
-                          </ul>
+                        </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li class="open-cart"><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
+                                <!-- DropDown-->
+                                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
+                                    <div class="shopping-cart">
+                                        <div class="row" ng-repeat="product in products">
+                                            <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px;">
+                                                <img width="300px" ng-src="{{product.tenimage}}"
+                                                    alt="{{product.tensanpham}}">
+                                                <p style="font-size: 0.7em; margin: 0;">
+                                                    <hr>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span style="font-size: 0.7em; margin: 0;">{{product.tensanpham}}</span>
+                                                <span>{{product.giaban | number:0}}₫</span>
+                                                <p style="font-size: 0.7em; margin: 0;">Số lượng :{{product.soluong}}
+                                                </p>
+                                                <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
+                                                <hr>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-2"> <span style="font-weight: bolder;"
+                                                    class="main-color-text">Total:</span></div>
+                                            <div class="col-md-3"
+                                               >
+                                                <span style="color: rgb(95, 86, 86);font-weight: bolder;">{{totalAmount}}VNĐ</span></div>
+                                        </div>
+                                        <br>
+                                        <hr>
+                                        <a href="#" class="button">Checkout</a>                                     
+                                    </div>
+                                </div>
+
+
+                                <!--End Dropdown-->
+                            </li>
                         </ul>
                         <div class="header__top__right__auth">
                             <a href="#"><i class="fa fa-user"></i> Login</a>
@@ -130,163 +168,216 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr ng-repeat="product in products">
                                     <td class="shoping__cart__item">
-                                        <img width="100px" src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg" alt="">
-                                        <h5>GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</h5>
+                                        <img width="100px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}">
+                                        <h5>{{product.tensanpham}}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        2.490.000₫
+                                        {{product.giaban | number:0}}₫
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="1">
+                                                <a class="dec qtybtn"
+                                                    ng-click="changeQuantity(product, 'decrease')">-</a>
+                                                <input type="text" ng-model="product.soluong">
+                                                <a class="inc qtybtn"
+                                                    ng-click="changeQuantity(product, 'increase')">+</a>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        2.490.000₫
+                                        {{product.giaban * product.soluong | number:0}}₫
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img width="100px" src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg" alt="">
-                                        <h5>GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        2.490.000₫
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        2.490.000₫
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img width="100px" src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg" alt="">
-                                        <h5>GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        1.690.000₫
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        1.690.000₫
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                        <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="shoping__continue">
-                        <div class="shoping__discount">
-                            <h5>Mã Giảm Giá</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Nhập mã phiếu giảm giá của bạn">
-                                <button type="submit" class="site-btn">ÁP DỤNG</button>
-                            </form>
-                        </div>
-                    </div>
+                <div class="col-md-1">
                 </div>
-                <div class="col-lg-6">
-                    <div class="shoping__checkout">
-                        <h5>Tổng số giỏ hàng</h5>
-                        <ul>
-                            <li>Tổng Tiền <span>$454.98</span></li>
-                            <li>Tổng Tiền Khi Giảm <span>$454.98</span></li>
-                        </ul>
-                        <a href="#" class="primary-btn">Thanh Toán</a>
-                    </div>
+                <div class="col-md-9">
+                </div>
+                <div class="col-md-1">
+                    <button class="inline-flex items-center px-4 py-2 bg-red-600 transition transform-gpu hover:scale-105 hover:bg-red-700 text-white text-sm font-medium rounded-md"
+                        ng-click="clearCart()">
+                        <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-5 w-5 mr-2"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+                        </svg>
+                        clear
+                    </button>
                 </div>
             </div>
-        </div>
+            <!-- check out row begin -->
+            <div class="row">
+                <h4>Chi Tiết Thanh Toán</h4>
+            </div>
+            <br>
+                <form action="#">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-5">
+                            <div class="checkout__input">
+                                <p>Họ Và Tên<span>*</span></p>
+                                <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" />
+                            </div>
+                            <div class="checkout__input">
+                                <p>Địa Chỉ<span>*</span></p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select >
+                                            <option>Thành phố</option>
+                                            <option>Hà Nội</option>
+                                            <option>TP.Hồ Chí Minh</option>
+                                            <!-- Thêm các thành phố khác ở đây -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select >
+                                            <option>Quận/Huyện</option>
+                                            <!-- Thêm các quận/huyện ở đây -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select >
+                                            <option>Xã/Phường</option>
+                                            <!-- Thêm các xã/phường ở đây -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="checkout__input">
+                                <p>Địa Chỉ Chi Tiết<span>*</span></p>
+                                <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" />
+                            </div>
+                            <div class="checkout__input">
+                                <p>Số Điện Thoại<span>*</span></p>
+                                <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" />
+                            </div>
+                            <div class="checkout__input">
+                                <p>Email<span>*</span></p>
+                                <input type="text" placeholder="Vui Lòng Nhập Email" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-7">
+                            <div class="checkout__order">
+                                <h4>Hóa Đơn Của Bạn</h4>
+                                <div class="checkout__order__products">
+                                    Sản Phẩm <span>Tổng Tiền</span>
+                                </div>
+                                <ul>
+                                    <li style="font-size: 0.79em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: black;" ng-repeat="item in items">{{item.tensanpham}} <span>{{item.tongTien}}</span></li>
+                                </ul>
+                                <div class="checkout__order__total">
+                                    Tổng Tiền Sản Phẩm <span>${{totalAmount}}</span>
+                                </div>
+                                <ul>
+                                    <li>Phí Ship <span>Đang tính chi phí</span></li>
+                                </ul>
+                                <hr />
+                                <br>
+                                <h5>Mã Giảm Giá</h5>
+                                <div class="row  mt-3 mb-3">    
+                                        <div class="col-6"> <input type="text" style="height: 50px;" placeholder="Nhập mã phiếu giảm giá"></div>                      
+                                </div>
+                                <hr />
+                                <div class="checkout__order__total mt-3 mb-3">
+                                    Tổng Cộng <span>${{totalAmount}}</span>
+                                    
+                                </div>
+                                <h5>Hình thức thanh toán</h5>
+                                <div class="row mt-3 mb-3" style="margin-left: 50px;">
+                                    <div class="custom-radio">
+                                        <input type="radio" id="payment_cash" name="radio_checkout">
+                                        <label for="payment_cash">Thanh toán khi nhận hàng</label>
+                                    </div>
+                                    <div class="custom-radio">
+                                        <input type="radio" id="payment_vnpay" name="radio_checkout">
+                                        <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="site-btn">Đặt Hàng</button>
+                                
+                            </div>
+                        </div>
+                    </div>          
+  <!-- Checkout row  End -->
     </section>
     <!-- Shoping Cart Section End -->
 
+
     <footer class="footer spad">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="footer__about">
-                <div class="footer__about__logo">
-                  <a href="./index.html"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt="" width="119px"/></a>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img
+                                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                                    alt="" width="119px" /></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
                 </div>
-                <ul>
-                  <li>Address: 60-49 Road 11378 New York</li>
-                  <li>Phone: +65 11.188.888</li>
-                  <li>Email: hello@colorlib.com</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-              <div class="footer__widget">
-                <h6>Useful Links</h6>
-                <ul>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">About Our Shop</a></li>
-                  <li><a href="#">Secure Shopping</a></li>
-                  <li><a href="#">Delivery infomation</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Our Sitemap</a></li>
-                </ul>
-                <ul>
-                  <li><a href="#">Who We Are</a></li>
-                  <li><a href="#">Our Services</a></li>
-                  <li><a href="#">Projects</a></li>
-                  <li><a href="#">Contact</a></li>
-                  <li><a href="#">Innovation</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-              <div class="footer__widget">
-                <h6>Join Our Newsletter Now</h6>
-                <p>
-                  Get E-mail updates about our latest shop and special offers.
-                </p>
-                <form action="#">
-                  <input type="text" placeholder="Enter your mail" />
-                  <button type="submit" class="site-btn">Subscribe</button>
-                </form>
-                <div class="footer__widget__social">
-                  <a href="#"><i class="fa fa-facebook"></i></a>
-                  <a href="#"><i class="fa fa-instagram"></i></a>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                  <a href="#"><i class="fa fa-pinterest"></i></a>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">About Our Shop</a></li>
+                            <li><a href="#">Secure Shopping</a></li>
+                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Who We Are</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Innovation</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
                 </div>
-              </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>
+                            Get E-mail updates about our latest shop and special offers.
+                        </p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail" />
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </footer>
-
+    </footer>
     <!-- Js Plugins -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
@@ -295,5 +386,8 @@
     <script src="/js/mixitup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/src/controller/shopping-cart-controller.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
