@@ -181,6 +181,9 @@ ol {
 	background: #7fad39;
 	border: none;
 }
+.site-btn:hover {
+	background: #6eb101;
+}
 
 
 /* Preloder */

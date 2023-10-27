@@ -1,17 +1,17 @@
 var app = angular.module('myApp', []);
 app.controller('CartController', function ($scope, $http) {
-     function loadToTals() {
-           // Gọi API và cập nhật giá trị totalAmount
-           $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E")
-           .then(function (response) {
-               // Lấy giá trị tổng tiền từ phản hồi API
-               $scope.totalAmount = response.data[0].tongSoTien;
-           })
-           .catch(function (error) {
-               console.error("Lỗi khi gọi API: " + error);
-           });
-     }
-     loadToTals();
+    function loadToTals() {
+        // Gọi API và cập nhật giá trị totalAmount
+        $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E")
+            .then(function (response) {
+                // Lấy giá trị tổng tiền từ phản hồi API
+                $scope.totalAmount = response.data[0].tongSoTien;
+            })
+            .catch(function (error) {
+                console.error("Lỗi khi gọi API: " + error);
+            });
+    }
+    loadToTals();
     // Hàm thay đổi số lượng sản phẩm
     $scope.changeQuantity = function (product, change) {
         if (change === 'increase') {
@@ -30,12 +30,12 @@ app.controller('CartController', function ($scope, $http) {
         var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/update-quantity?idgiohangchitiet=' + productId + '&quantity=' + newQuantity;
 
         $http({
-            url : apiURL,
-            method : 'PUT',
+            url: apiURL,
+            method: 'PUT',
             transformResponse: [
-                function () { 
-                   loadCart();
-                   loadToTals();
+                function () {
+                    loadCart();
+                    loadToTals();
                 }
             ]
         });
@@ -46,43 +46,43 @@ app.controller('CartController', function ($scope, $http) {
         var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-san-pham?idgiohangchitiet=' + productId;
 
         $http({
-            url : apiURL,
-            method : 'DELETE',
+            url: apiURL,
+            method: 'DELETE',
             transformResponse: [
-                function () { 
-                   loadCart();
+                function () {
+                    loadCart();
                 }
             ]
         });
     }
 
-        //delete all product
-        $scope.clearCart = function () {
-            Swal.fire({
-                title: "Xác nhận xóa?",
-                text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Xóa",
-                cancelButtonText: "Hủy",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                    var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=' + 'DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E';
-    
-                    $http({
-                        url : apiURL,
-                        method : 'DELETE',
-                        transformResponse: [
-                            function () { 
-                               loadCart();
-                            }
-                        ]
-                    });
-                }
-            });
-        }
+    //delete all product
+    $scope.clearCart = function () {
+        Swal.fire({
+            title: "Xác nhận xóa?",
+            text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Xóa",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=' + 'DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E';
+
+                $http({
+                    url: apiURL,
+                    method: 'DELETE',
+                    transformResponse: [
+                        function () {
+                            loadCart();
+                        }
+                    ]
+                });
+            }
+        });
+    }
 
     function loadCart() {
         // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
@@ -95,5 +95,19 @@ app.controller('CartController', function ($scope, $http) {
             });
     }
     loadCart();
+    // Gọi API và cập nhật danh sách sản phẩm và tổng tiền
+    $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E")
+        .then(function (response) {
+            $scope.items = response.data;
+
+            // Tính tổng tiền sản phẩm
+            $scope.totalAmount = 0;
+            for (var i = 0; i < $scope.items.length; i++) {
+                $scope.totalAmount += parseFloat($scope.items[i].tongTien);
+            }
+        })
+        .catch(function (error) {
+            console.error("Lỗi khi gọi API: " + error);
+        });
 
 });
