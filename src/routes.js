@@ -15,6 +15,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/chi-tiet-hoa-don", {
       templateUrl: "./pages/chi-tiet-hoa-don.html",
+      controller: "hoaDonChiTietController",
     })
     .when("/khuyen-mai", {
       templateUrl: "./pages/khuyen-mai-sp.html",

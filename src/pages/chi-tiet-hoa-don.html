@@ -7,6 +7,7 @@
   data-sidebar-position="fixed"
   data-header-position="fixed"
 >
+
   <aside class="left-sidebar">
     <div>
       <div class="brand-logo d-flex align-items-center justify-content-between">
@@ -257,18 +258,35 @@
     </header>
     <div class="container-fluid">
       <div class="card overflow-hidden" style="width: 1152px">
-        <div class="box">
+        <div>
           <h5 style="padding-left: 20px; padding-top: 20px">
+            <div class="breadcrumb">
+              <a class="breadcrumb__step breadcrumb__step--active" href="">Chờ xác nhận</a>
+              <a class="breadcrumb__step" href="">Xác nhận</a>
+              <a class="breadcrumb__step" href="">Chờ giao hàng</a>
+              <a class="breadcrumb__step" href="">Giao hàng</a>
+              <a class="breadcrumb__step" href="">Hoàn thành</a>
+              <a class="breadcrumb__step" href="">Trả hàng</a>
+            </div>
+          </h5>
+        </div>
+      </div>
+      
+      <div class="card overflow-hidden" style="width: 1152px">
+        <div class="box">
+          <div class="d-flex align-items-center">
+          <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
             Lịch sử thanh toán
           </h5>
+          <a href="" type="button" class="btn btn-outline-primary mt-3 me-3" >Chi tiết</a>
+        </div>
           <hr />
           <table class="table">
             <thead>
-              <tr style="background-color: #f99417">
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
                 <th scope="col">STT</th>
                 <th scope="col">Mã hóa đơn</th>
                 <th scope="col">Số tiền</th>
-                <th scope="col">Trạng Thái</th>
                 <th scope="col">Thời gian</th>
                 <th scope="col">Hình thức thanh toán</th>
                 <th scope="col">Ghi chú</th>
@@ -280,7 +298,6 @@
               <tr>
                 <td>1</td>
                 <td>Mark</td>
-                <td>Otto</td>
                 <td>Otto</td>
                 <td>%</td>
                 <td>Jacob</td>
@@ -296,32 +313,67 @@
       </div>
       <div class="card overflow-hidden" style="width: 1152px">
         <div class="box">
-          <h5 style="padding-left: 20px; padding-top: 20px">
-            Thông tin đơn hàng
-          </h5>
+          <div class="d-flex align-items-center">
+            <h5 style="padding-left: 20px; padding-top: 20px;" class="me-auto">
+              Thông tin đơn hàng
+            </h5>
+            <a href="" type="button" class="btn btn-outline-primary mt-3 me-3">Thay đổi</a>
+          </div>
           <hr />
           <div class="row" style="padding-left: 20px">
             <div class="col-lg-6">
-              <h5>Trạng thái</h5>
+              <h5>Trạng thái: </h5>
             </div>
             <div class="col-lg-6">
-              <h5>Tên khách hàng</h5>
+              <h5>Tên khách hàng: </h5>
             </div>
             <div class="col-lg-6">
-              <h5>Loại</h5>
+              <h5>Loại: </h5>
             </div>
             <div class="col-lg-6">
-              <h5>Số điện thoại</h5>
+              <h5>Số điện thoại: </h5>
             </div>
             <div class="col-lg-6">
-              <h5>Địa chỉ</h5>
+              <h5>Địa chỉ: </h5>
             </div>
             <div class="col-lg-6">
-              <h5>Ghi chú</h5>
+              <h5>Ghi chú: </h5>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="card overflow-hidden" style="width: 1152px">
+        <div class="box">
+          <table class="table">
+            <tbody class="table" style="border: 1px solid #ccc">
+              <tr>
+                <th>1</th>
+                <td>Ảnh</td>
+                <td>Giày kiên cường</td>
+                <td>x2</td>
+                <td>2.000.000đ</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="box">
+          <table class="table">
+            <tbody class="table" style="border: 1px solid #ccc">
+              <tr>
+                <th>2</th>
+                <td>Ảnh</td>
+                <td>Giày kiên cường</td>
+                <td>x2</td>
+                <td>2.000.000đ</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
+

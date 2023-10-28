@@ -1,7 +1,15 @@
 myApp.controller("hoaDonController", function ($http, $scope, $window) {
   $scope.listHoaDon = [];
   $scope.selectedLoaiDon = ""; // Giá trị mặc định
-
+  $scope.searchQuery = ""; // Giá trị trường nhập văn bản
+  $scope.isAdmin =  false;
+  function getRole(){
+    var role = $window.localStorage.getItem("role");
+    if (role == "ADMIN"){
+      $scope.isAdmin = true;
+    }
+  };
+   getRole();
   // Hàm tải dữ liệu dựa trên trạng thái và loại đơn
   function fetchHoaDon(trangThai, loaiDon) {
     var token = $window.localStorage.getItem("token");
@@ -13,6 +21,9 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     var url = "http://localhost:8080/api/manager/hoa-don/hien-thi?trangThaiHD=" + trangThai;
     if (loaiDon !== undefined && loaiDon !== "") {
       url += "&loaiDon=" + loaiDon;
+    }
+    if ($scope.searchQuery !== "") {
+      url += "&ma=" + $scope.searchQuery;
     }
 
     $http.get(url, config).then(function (response) {
@@ -41,4 +52,20 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
       fetchHoaDon(i, loaiDon);
     }
   };
+
+// Hàm tìm kiếm
+$scope.searchHoaDon = function () {
+  for (var i = 1; i <= 7; i++) {
+    fetchHoaDon(i, $scope.selectedLoaiDon);
+  }
+};
+
+// Hàm xóa thông tin tìm kiếm
+$scope.clearSearch = function () {
+  $scope.searchQuery = ""; // Đặt trường tìm kiếm về chuỗi rỗng
+  for (var i = 1; i <= 7; i++) {
+    fetchHoaDon(i, $scope.selectedLoaiDon);
+  }
+};
+
 });

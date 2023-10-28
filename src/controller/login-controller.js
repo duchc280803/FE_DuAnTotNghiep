@@ -16,6 +16,7 @@ myApp.controller("loginController", function ($scope, $http, $window) {
     $http.post("http://localhost:8080/api/v1/auth/login", data).then(
       function (response) {
         $window.localStorage.setItem("token", response.data.accessToken);
+        $window.localStorage.setItem("role", response.data.role);
         $window.location.assign("/src/home-admin.html#/admin/dashboard");
       },
       function (error) {
