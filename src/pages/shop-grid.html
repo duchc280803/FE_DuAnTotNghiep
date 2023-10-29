@@ -111,8 +111,8 @@
                 <span>BRAND</span>
               </div>
               <ul>
-                <li ng-repeat="th in listThuongHieu">
-                  <a href="#">{{th.tenThuongHieu}}</a>
+                <li>
+                  <a href="#"></a>
                 </li>
               </ul>
             </div>
@@ -197,24 +197,38 @@
             <div class="filter__item">
               <div class="row">
                 <div class="col-lg-4 col-md-5"></div>
-                <div class="col-lg-4 col-md-4">
-                </div>
+                <div class="col-lg-4 col-md-4"></div>
                 <div class="col-lg-4 col-md-3"></div>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="sp in listSpGiamGia">
+              <div
+                class="col-lg-4 col-md-6 col-sm-6"
+                ng-repeat="sp in listSpGiamGia"
+              >
                 <div class="product__discount__item">
-                  <div
-                    class="product__discount__item__pic set-bg">
-                    <img src="{{sp.image}}" alt="">
-                    <div class="product__discount__percent" ng-show="sp.mucGiam != null">-{{sp.mucGiam}}%</div>
+                  <div class="product__discount__item__pic set-bg">
+                    <img src="{{sp.image}}" alt="" />
+                    <div
+                      class="product__discount__percent"
+                      ng-show="sp.mucGiam != null"
+                    >
+                      -{{sp.mucGiam}}%
+                    </div>
                   </div>
                   <div class="product__discount__item__text">
-                    <span style="padding-bottom: 25px; height: 45px;"><a href="#/shop/detail/{{sp.tenSp}}">{{sp.tenSp}}</a></span>
-                    <div class="product__item__price">
+                    <span style="padding-bottom: 25px; height: 45px"
+                      ><a href="#/shop/detail/{{sp.tenSp}}"
+                        >{{sp.tenSp}}</a
+                      ></span
+                    >
+                    <div class="product__details__price">
                       <div ng-show="sp.giaGiamGia != null">
-                        {{sp.giaGiamGia | number}}₫ <span>{{sp.giaBan | number}}₫</span>
+                        {{sp.giaGiamGia | number}}₫
+                        <span
+                          style="text-decoration: line-through"
+                          >{{sp.giaBan | number}}₫</span
+                        >
                       </div>
                       <div ng-show="sp.giaGiamGia == null">
                         {{sp.giaBan | number}}₫

@@ -1,3 +1,48 @@
+<style>
+  input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  label {
+    margin-right: 40px;
+    margin-top: -20px;
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 60px;
+    height: 30px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+  }
+  label:after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+  input:checked + label {
+    background: #bada55;
+  }
+  input:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+
+  label:active:after {
+    width: 130px;
+  }
+  tr.order_selected.ng-scope.selected {
+    background-color: #c6eb34;
+  }
+</style>
 <div
   class="page-wrapper"
   id="main-wrapper"
@@ -270,11 +315,13 @@
                     <div class="col-lg-6">
                       <input
                         class="form-control"
-                        style="width: 900px"
+                        style="width: 800px"
                         placeholder="Tìm hóa đơn"
+                        ng-model="searchKeyword"
+                        ng-change="searchOrder(searchKeyword)"
                       />
                     </div>
-                    <div class="col-lg-6" style="padding-left: 400px">
+                    <div class="col-lg-6" style="padding-left: 270px">
                       <button
                         type="button"
                         class="btn btn-outline-primary m-1"
@@ -282,60 +329,108 @@
                       >
                         Tạo hóa đơn
                       </button>
+
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary m-1"
+                        ng-click="getListHoaDonTaiQuay ()"
+                      >
+                        Làm mới
+                      </button>
                     </div>
                   </div>
                   <hr />
                   <div class="row">
-                      <div class="col-lg-12">
-                        <div style="overflow-x: auto; max-height: 300px; width: 1104px;">
-                          <table class="table table-hover" style="white-space: nowrap; width: 1104px;height: 269px;">
-                            <thead>
-                              <tr style="background-color: lightskyblue">
-                                <th scope="col">STT</th>
-                                <th scope="col">Mã hóa đơn</th>
-                                <th scope="col">Nhân viên</th>
-                                <th scope="col">Ngày tạo</th>
-                                <th scope="col">Khách hàng</th>
-                                <th scope="col">Loại đơn</th>
-                                <th scope="col">Trạng thái</th>
-                              </tr>
-                            </thead>
-                            <tbody class="table">
-                              <tr
-                                ng-repeat="hd in listHoaDonTaiQuay"
-                                ng-click="showHoaDonTheoId(hd.id)"
-                              >
+                    <div class="col-lg-12">
+                      <div
+                        style="
+                          overflow-x: auto;
+                          max-height: 300px;
+                          width: 1104px;
+                        "
+                      >
+                        <table
+                          class="table table-hover"
+                          style="
+                            white-space: nowrap;
+                            width: 1104px;
+                            height: 269px;
+                          "
+                        >
+                          <thead>
+                            <tr style="background-color: lightskyblue">
+                              <th scope="col">STT</th>
+                              <th scope="col">Mã hóa đơn</th>
+                              <th scope="col">Nhân viên</th>
+                              <th scope="col">Ngày tạo</th>
+                              <th scope="col">Khách hàng</th>
+                              <th scope="col">Loại đơn</th>
+                              <th scope="col">Trạng thái</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table">
+                            <tr
+                              ng-repeat="hd in listHoaDonTaiQuay"
+                              ng-click="showHoaDonTheoId(hd.id, hd.maHoaDon, hd.ngayTao);selectHoaDon(hd);"
+                              class="order_selected"
+                              ng-class="{ 'selected': hd.isSelected }"
+                            >
                               <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
-                                <td>{{hd.maHoaDon}}</td>
-                                <td>{{hd.tenNhanVien}}</td>
-                                <td>{{hd.ngayTao}}</td>
-                                <td>
-                                  {{hd.tenKhachHang ? hd.tenKhachHang : 'Khách lẻ'}}
-                                </td>
-                                <td>{{hd.loaiDon}}</td>
-                                <td>
-                                  {{hd.trangThai == 1 ? "Chờ Thanh Toán" : "Thành  Công"}}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                              <td>{{hd.maHoaDon}}</td>
+                              <td>{{hd.tenNhanVien}}</td>
+                              <td>
+                                {{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                              </td>
+                              <td>
+                                {{hd.tenKhachHang ? hd.tenKhachHang : 'Khách
+                                lẻ'}}
+                              </td>
+                              <td>{{hd.loaiDon}}</td>
+                              <td>
+                                {{hd.trangThai == 1 ? "Chờ Thanh Toán" : "Thành
+                                Công"}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="col-lg-12">
-                        <nav aria-label="Page navigation example" style="margin-left: 400px;">
-                          <ul class="pagination">
-                            <li class="page-item">
-                              <a class="page-link" ng-href="#/ban-tai-quay?pageNumber={{pageNumber - 1}}" ng-click="previousPage()">Previous</a>
-                            </li>
-                            <li class="page-item" ng-repeat="page in getPageNumbers()">
-                              <a class="page-link" ng-href="#/ban-tai-quay?pageNumber={{page}}" ng-click="updatePage(page)">{{ page }}</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" ng-href="#/ban-tai-quay?pageNumber={{pageNumber + 1}}" ng-click="nextPage()">Next</a>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <nav
+                        aria-label="Page navigation example"
+                        style="margin-left: 400px"
+                      >
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <a
+                              class="page-link"
+                              ng-href=""
+                              ng-click="previousPage()"
+                              >Previous</a
+                            >
+                          </li>
+                          <li
+                            class="page-item"
+                            ng-repeat="page in getPageNumbers()"
+                          >
+                            <a
+                              class="page-link"
+                              ng-href="#/ban-tai-quay?pageNumber={{page}}"
+                              ng-click="updatePage(page)"
+                              >{{ page }}</a
+                            >
+                          </li>
+                          <li class="page-item">
+                            <a
+                              class="page-link"
+                              ng-href=""
+                              ng-click="nextPage()"
+                              >Next</a
+                            >
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -542,37 +637,25 @@
                           />
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <select
-                            style="width: 100%"
-                            class="form-select form-select-sm mb-3"
-                            id="city"
-                            aria-label=".form-select-sm"
-                          >
-                            <option value="" selected>Chọn tỉnh thành</option>
-                          </select>
-                        </div>
-                        <div class="col-lg-4">
-                          <select
-                            style="width: 100%"
-                            class="form-select form-select-sm mb-3"
-                            id="district"
-                            aria-label=".form-select-sm"
-                          >
-                            <option value="" selected>Chọn quận huyện</option>
-                          </select>
-                        </div>
-                        <div class="col-lg-4">
-                          <select
-                            style="width: 100%"
-                            class="form-select form-select-sm"
-                            id="ward"
-                            aria-label=".form-select-sm"
-                          >
-                            <option value="" selected>Chọn phường xã</option>
-                          </select>
-                        </div>
+                      <div>
+                        <select name="calc_shipping_provinces" required="">
+                          <option value="">Tỉnh / Thành phố</option>
+                        </select>
+                        <select name="calc_shipping_district" required="">
+                          <option value="">Quận / Huyện</option>
+                        </select>
+                        <input
+                          class="billing_address_1"
+                          name=""
+                          type="hidden"
+                          value=""
+                        />
+                        <input
+                          class="billing_address_2"
+                          name=""
+                          type="hidden"
+                          value=""
+                        />
                       </div>
                       <br />
                     </div>
@@ -607,7 +690,8 @@
               <div class="card overflow-hidden">
                 <div class="card-body p-4">
                   <h5 class="card-title mb-9 fw-semibold">
-                    Thông Tin Sản Phẩm
+                    Thông Tin Sản Phẩm / {{codeOrder}} / {{createDate |
+                    date:'MM/dd/yyyy h:mm:ss a'}}
                   </h5>
                   <div class="row">
                     <div class="col-lg-10">
@@ -620,13 +704,71 @@
                       />
                     </div>
                     <div class="col-lg-2">
-                      <a href=""
+                      <a href="" ng-click="scanBarcode()"
                         ><img
                           src="/assets/images/qr-code.png"
                           width="35px"
                           style="margin-left: 100px"
                       /></a>
                     </div>
+                  </div>
+                  <br />
+                  <div class="box">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr style="background-color: lightskyblue">
+                          <th scope="col">STT</th>
+                          <th scope="col">Ảnh</th>
+                          <th scope="col">Sản phẩm</th>
+                          <th scope="col">Số lượng</th>
+                          <th scope="col">Tổng tiền</th>
+                          <th scope="col">Thao tác</th>
+                        </tr>
+                      </thead>
+                      <tbody
+                        class="table"
+                        ng-repeat="lc in listCart"
+                        style="border: 1px solid #ccc"
+                      >
+                        <tr>
+                          <th scope="row">{{$index + 1}}</th>
+                          <td>
+                            <img src="{{lc.image}}" alt="" width="150px" />
+                          </td>
+                          <td style="padding-top: 50px">
+                            {{lc.tenSanPham}}
+                            <br />
+                            Size: {{lc.size}}
+                            <br />
+                            Kiểu đế: {{lc.kieuDe}}
+                            <br />
+                            Màu sắc: {{lc.mauSac}}
+                          </td>
+                          <td style="padding-top: 50px">
+                            <div class="quantity">
+                              <input
+                                style="margin-left: -40px; width: 70px"
+                                type="number"
+                                class="next-input text-left min-width-100px position-relative"
+                                ng-model="lc.soLuong"
+                                ng-change="updateCart(lc.idGioHang)"
+                              />
+                            </div>
+                          </td>
+                          <td style="padding-top: 80px">
+                            {{lc.giaBan * lc.soLuong | number}}đ
+                          </td>
+                          <td style="padding-top: 60px">
+                            <button
+                              type="button"
+                              class="btn btn-outline-primary m-1"
+                            >
+                              Xóa
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   <div
                     class="modal fade"
@@ -790,15 +932,14 @@
                         <div class="modal-body" style="padding-left: 90px">
                           <h6>Số lượng sản phẩm: {{luuSoLuong}}</h6>
                           <div class="quantity">
-                            <div class="pro-qty">
-                              <span class="dec qtybtn">-</span>
-                              <input
-                                type="text"
-                                value="1"
-                                ng-model="soLuongSanPham"
-                              />
-                              <span class="inc qtybtn">+</span>
-                            </div>
+                            <input
+                              ng-model="soLuongSanPham"
+                              style="margin-left: -40px"
+                              type="number"
+                              class="next-input text-left min-width-100px position-relative quantity-decimal"
+                              min="1"
+                              max="{{luuSoLuong}}"
+                            />
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -812,7 +953,8 @@
                           <button
                             type="button"
                             class="btn btn-secondary"
-                            ng-click="themSanPhamCart(idSanPhamChiTiet)"
+                            data-bs-dismiss="modal"
+                            ng-click="themSanPhamCart()"
                           >
                             Thêm sản phẩm
                           </button>
@@ -822,14 +964,301 @@
                   </div>
                   <!-- modal thêm sản phẩm -->
                   <hr style="margin-top: 90px" />
-                  <h5 class="card-title mb-9 fw-semibold">
-                    Thông Tin Thanh Toán
-                  </h5>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h5 class="card-title mb-9 fw-semibold">Khách hàng</h5>
+                    </div>
+                    <div class="col-lg-6">
+                      <h5 class="card-title mb-9 fw-semibold">
+                        Thông Tin Thanh Toán / {{codeOrder}} / {{createDate|
+                        date:'MM/dd/yyyy h:mm:ss a'}}
+                      </h5>
+                    </div>
+                  </div>
                   <div class="layout-card--section">
                     <div class="container">
                       <div class="row">
-                        <div class="col-lg-6"></div>
+                        <div class="col-lg-6">
+                          <div ng-show="showInput">
+                            <input
+                              id="input1"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Nhập họ và tên"
+                            />
+                            <input
+                              id="input2"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Nhập số điện thoại"
+                            />
+                            <input
+                              id="input3"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Nhập địa chỉ"
+                            />
+                            <textarea
+                              id="textarea"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Nhập mô tả"
+                            ></textarea>
+                          </div>
+                        </div>
                         <div class="col-sm-6 col-12">
+                          <div class="omni-layout-card--section-section">
+                            <div class="omni-layout-card--item-stack-cover">
+                              <div class="omni-layout-card--item-stack fill">
+                                <div class="row">
+                                  <div class="col-lg-5">
+                                    <span class="header-title"
+                                      >Khách thanh toán</span
+                                    >
+                                  </div>
+                                  <div class="col-lg-7">
+                                    <button
+                                      class="btn btn-outline-primary"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#exampleModal5"
+                                      style="margin-left: 95px"
+                                    >
+                                      <img
+                                        src="/assets/images/lending.png"
+                                        width="25px"
+                                        alt=""
+                                        srcset=""
+                                      />
+                                    </button>
+                                    <!-- thanh toán -->
+                                    <div
+                                      class="modal fade"
+                                      id="exampleModal5"
+                                      tabindex="-1"
+                                      aria-labelledby="exampleModalLabel"
+                                      aria-hidden="true"
+                                    >
+                                      <div class="modal-dialog modal-lg">
+                                        <div
+                                          class="modal-content custom-modal-content"
+                                        >
+                                          <div class="modal-header">
+                                            <h5 class="modal-title">
+                                              Thanh toán
+                                            </h5>
+                                          </div>
+                                          <div class="modal-body">
+                                            <div class="row">
+                                              <div class="col-lg-1">
+                                                <h6 style="padding-top: 10px">
+                                                  Số tiền
+                                                </h6>
+                                              </div>
+                                              <div class="col-lg-11">
+                                                <input
+                                                  ng-model="newTransaction.soTien"
+                                                  class="form-control"
+                                                  placeholder="Nhập số tiền khách trả"
+                                                />
+                                              </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                              <div class="col-lg-4">
+                                                <button
+                                                  class="btn btn-outline-primary"
+                                                  style="margin-left: 50px"
+                                                  ng-click="createTransaction()"
+                                                >
+                                                  Tiền mặt
+                                                </button>
+                                              </div>
+                                              <div class="col-lg-4">
+                                                <button
+                                                  class="btn btn-outline-primary"
+                                                  style="margin-left: 50px"
+                                                >
+                                                  Chuyển khoản
+                                                </button>
+                                              </div>
+                                              <div class="col-lg-4">
+                                                <button
+                                                  class="btn btn-outline-primary"
+                                                  style="margin-left: 50px"
+                                                >
+                                                  QR Code
+                                                </button>
+                                              </div>
+                                            </div>
+                                            <br />
+                                            <div class="box">
+                                              <table class="table table-hover">
+                                                <thead>
+                                                  <tr
+                                                    style="
+                                                      background-color: lightskyblue;
+                                                    "
+                                                  >
+                                                    <th scope="col">STT</th>
+                                                    <th scope="col">
+                                                      Mã giao dịnh
+                                                    </th>
+                                                    <th scope="col">Số tiền</th>
+                                                    <th scope="col">
+                                                      Phương thức
+                                                    </th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody class="table">
+                                                  <tr
+                                                    ng-repeat="lt in listTransaction"
+                                                  >
+                                                    <th scope="row">
+                                                      {{$index + 1}}
+                                                    </th>
+                                                    <td>{{lt.maGiaoDinh}}</td>
+                                                    <td>
+                                                      {{lt.soTien | number}}đ
+                                                    </td>
+                                                    <td>
+                                                      {{lt.phuongThuc == 1 ?
+                                                      'Tiền Mặt' : 'Chuyển
+                                                      khoản'}}
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                            <br />
+                                            <div
+                                              class="omni-layout-card--section-section"
+                                            >
+                                              <div
+                                                class="omni-layout-card--item-stack-cover"
+                                              >
+                                                <div
+                                                  class="omni-layout-card--item-stack fill"
+                                                >
+                                                  <span class="header-title"
+                                                    >Khách thanh toán</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="omni-layout-card--item-stack fill text-right"
+                                                >
+                                                  <span
+                                                    class="header-title"
+                                                    style="color: #dd2222"
+                                                    ng-model="newTransaction.tienKhachTra"
+                                                    >{{totalAmountPaid |
+                                                    number}}đ</span
+                                                  >
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="omni-layout-card--section-section"
+                                            >
+                                              <div
+                                                class="omni-layout-card--item-stack-cover"
+                                              >
+                                                <div
+                                                  class="omni-layout-card--item-stack fill"
+                                                >
+                                                  <span class="header-title"
+                                                    >Tiền thiếu</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="omni-layout-card--item-stack fill text-right"
+                                                >
+                                                  <span class="header-title"
+                                                    >{{tongTienHang -
+                                                    totalAmountPaid |
+                                                    number}}₫</span
+                                                  >
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button
+                                              type="button"
+                                              class="btn btn-secondary"
+                                              data-bs-dismiss="modal"
+                                            >
+                                              Cancel
+                                            </button>
+                                            <button
+                                              type="button"
+                                              class="btn btn-secondary"
+                                              data-bs-dismiss="modal"
+                                            >
+                                              Ok
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- thanh toán -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="omni-layout-card--item-stack fill text-right"
+                              >
+                                <span
+                                  class="header-title"
+                                  style="color: #dd2222"
+                                  >{{totalAmountPaid | number}}đ</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="omni-layout-card--section-section">
+                            <div class="omni-layout-card--item-stack-cover">
+                              <div class="omni-layout-card--item-stack fill">
+                                <div class="row">
+                                  <div class="col-lg-7">
+                                    <input
+                                      disabled
+                                      type="text"
+                                      class="form-control"
+                                    />
+                                  </div>
+                                  <div class="col-lg-5">
+                                    <button class="btn btn-outline-primary">
+                                      Chọn mã
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="omni-layout-card--item-stack fill text-right"
+                              ></div>
+                            </div>
+                          </div>
+                          <div class="omni-layout-card--section-section">
+                            <div class="omni-layout-card--item-stack-cover">
+                              <div class="omni-layout-card--item-stack fill">
+                                <span class="header-title">Giao hàng</span>
+                              </div>
+                              <div
+                                class="omni-layout-card--item-stack fill text-right"
+                              >
+                                <input
+                                  ng-click="toggleInput()"
+                                  type="checkbox"
+                                  id="switch"
+                                />
+                                <label for="switch"></label>
+                              </div>
+                            </div>
+                          </div>
                           <div class="omni-layout-card--section-section">
                             <div class="omni-layout-card--item-stack-cover">
                               <div class="omni-layout-card--item-stack fill">
@@ -849,12 +1278,14 @@
                           <div class="omni-layout-card--section-section">
                             <div class="omni-layout-card--item-stack-cover">
                               <div class="omni-layout-card--item-stack fill">
-                                <span class="header-title">Tổng Tiền Hàng</span>
+                                <span class="header-title">Tiền hàng</span>
                               </div>
                               <div
                                 class="omni-layout-card--item-stack fill text-right"
                               >
-                                <span class="header-title"
+                                <span
+                                  class="header-title"
+                                  ng-model="newTransaction.tongTien"
                                   >{{tongTienHang | number}}₫</span
                                 >
                               </div>
@@ -862,73 +1293,39 @@
                           </div>
                           <div class="omni-layout-card--section-section">
                             <div class="omni-layout-card--item-stack-cover">
-                              <div
-                                class="omni-layout-card--item-stack fill"
-                                style="padding-top: 5px"
-                              >
-                                <span class="header-title">Tiền khách đưa</span>
+                              <div class="omni-layout-card--item-stack fill">
+                                <span class="header-title">Phí vân chuyển</span>
                               </div>
                               <div
                                 class="omni-layout-card--item-stack fill text-right"
                               >
-                                <input
-                                  class="form-control"
-                                  placeholder="Nhập tiền khách đưa"
-                                  ng-model="tienKhachDua"
-                                  ng-change="calculateChange()"
-                                />
+                                <span class="header-title">0đ</span>
                               </div>
                             </div>
                           </div>
                           <div class="omni-layout-card--section-section">
                             <div class="omni-layout-card--item-stack-cover">
                               <div class="omni-layout-card--item-stack fill">
-                                <span class="header-title"
-                                  >Tiền thừa trả khách</span
-                                >
+                                <span class="header-title">Tiền giảm giá</span>
                               </div>
                               <div
                                 class="omni-layout-card--item-stack fill text-right"
                               >
-                                <span class="header-title"
-                                  >{{ tienThua | number }}₫</span
-                                >
+                                <span class="header-title">0đ</span>
                               </div>
                             </div>
                           </div>
                           <div class="omni-layout-card--section-section">
                             <div class="omni-layout-card--item-stack-cover">
                               <div class="omni-layout-card--item-stack fill">
-                                <span class="header-title"
-                                  >Hình thức thanh toán</span
-                                >
-                              </div>
-                              <select
-                                class="form-select"
-                                aria-label="Default select example"
-                                style="width: 300px; margin-left: 54px"
-                              >
-                                <option value="1" selected>Online</option>
-                                <option value="2">Tiền mặt</option>
-                                <option value="3">Online và Tiền mặt</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="omni-layout-card--section-section">
-                            <div class="omni-layout-card--item-stack-cover">
-                              <div class="omni-layout-card--item-stack fill">
-                                <span class="header-title">Mô Tả</span>
+                                <span class="header-title">Tổng tiền</span>
                               </div>
                               <div
                                 class="omni-layout-card--item-stack fill text-right"
                               >
-                                <textarea
-                                  style="width: 300px; margin-left: 156px"
-                                  class="next-input"
-                                  id="exampleFormControlTextarea6"
-                                  rows="3"
-                                  placeholder="Nhập mô tả"
-                                ></textarea>
+                                <span class="header-title"
+                                  >{{tongTienHang | number}}₫</span
+                                >
                               </div>
                             </div>
                           </div>
@@ -942,6 +1339,7 @@
                         margin-top: 25px;
                         font-weight: bold;
                       "
+                      ng-click="createHoaDonChiTiet()"
                     >
                       Xác Nhận Thanh Toán
                     </button>
