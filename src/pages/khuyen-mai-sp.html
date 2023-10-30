@@ -333,37 +333,94 @@
       </div>
       <div class="card overflow-hidden" >
         <div class="box">
-          <table class="table table-hover"  >
+          
+          <table class="table table-hover">
             <thead>
-              <tr style="background-color: lightskyblue">
-                <th scope="col">STT</th>
-                <th scope="col">Mã khuyến mại</th>
-                <th scope="col">Tên khuyến mại</th>
-                <th scope="col">giảm giá</th>
-                <th scope="col">Hình Thức</th>
-                <th scope="col">Bắt Đầu</th>
-                <th scope="col">Kết Thúc</th>
-                <th scope="col">Trạng Thai</th>
-                <th scope="col">Thao Tác</th>
-              </tr>
+                <tr style="background-color: lightskyblue">
+                    <th scope="col">STT</th>
+                    <th scope="col">Mã khuyến mại</th>
+                    <th scope="col">Tên khuyến mại</th>
+                    <th scope="col">giảm giá</th>
+                    <th scope="col">Hình Thức</th>
+                    <th scope="col">Bắt Đầu</th>
+                    <th scope="col">Kết Thúc</th>
+                    <th scope="col">Trạng Thai</th>
+                    <th scope="col" colspan="4">Chi Tiết Sản Phẩm</th>
+                    <th scope="col">Thao Tác</th>
+                </tr>
             </thead>
-            <tbody class="table"  >
-              <tr ng-repeat="gg in listGiamGia" >
-                <td>{{$index + 1}}</td>
-                <td>{{gg.maGiamGia}}</td>
-                <td>{{gg.tenGiamGia}}</td>
-                <td>{{gg.mucGiam}}</td>
-                <td>{{gg.hinhThucGiam}}</td>
-                <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{gg.trangThai == 1 ? 'còn hạn':'hết hạn'}}</td>
-                <td>
-                  <a href="#" class="btn btn-outline-primary">Sửa</a>
-                </td>
-              </tr>
+            <tbody class="table">
+                <tr ng-repeat="gg in listGiamGia">
+                    <td>{{$index + 1}}</td>
+                    <td>{{gg.tenGiamGia}}</td>
+                    <td>{{gg.maGiamGia}}</td>
+                    <td>{{gg.mucGiam}}</td>
+                    <td>{{gg.hinhThucGiam == 1 ? 'đ' : '%'}}</td>
+                    <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{gg.trangThai == 1 ? 'còn hạn':'hết hạn'}}</td>
+                    <td colspan="4">
+                      <a class="btn btn-outline-primary" ng-click="toggleDetail(gg)" data-toggle="modal" data-target="#detailsModal{{$index}}">Xem Chi Tiết</a>
+                      <!-- Details Modal -->
+                      <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$index}}" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="detailsModalLabel{{$index}}">Chi Tiết Sản Phẩm</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body" ng-show="gg.showDetail">
+                                      <!-- Display details here -->
+                                      <table class="table table-hover">
+                                          <thead>
+                                              <tr style="background-color: lightskyblue">
+                                                  <th scope="col">STT</th>
+                                                  <th scope="col">Tên sản phẩm</th>
+                                                  <th scope="col">Giá bán</th>
+                                                  <th scope="col">Giá giảm</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody class="table">
+                                              <tr ng-repeat="detail in gg.detailList">
+                                                  <td>{{$index + 1}}</td>
+                                                  <td>{{detail.productName}}</td>
+                                                  <td>{{detail.giaBan}}</td>
+                                                  <td>{{detail.donGiaKhiGiam}}</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </td>
+                    <td>
+                        <a href="#" class="btn btn-outline-primary">Sửa</a>
+                    </td>
+                </tr>
             </tbody>
-          </table>
+        </table>
+        <div class="col-lg-12">
+          <nav aria-label="Page navigation example" style="margin-left: 400px;">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" ng-href="#/khuyen-mai?page={{page - 1}}" ng-click="previousPage()">Previous</a>
+              </li>
+              <li class="page-item" ng-repeat="page in getPageNumbers()">
+                <a class="page-link" ng-href="#/khuyen-mai?page={{page}}" ng-click="updatePage(page)">{{ page }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" ng-href="#/khuyen-mai?page={{page + 1}}" ng-click="nextPage()">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        
+        
         </div>
       </div>
     </div>
 </div>
+
