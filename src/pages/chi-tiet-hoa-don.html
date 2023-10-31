@@ -171,7 +171,8 @@
               <a class="breadcrumb__step breadcrumb__step--active" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 href="">Chờ xác nhận</a>
               <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Xác nhận</a>
-              <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Chờ giao hàng</a>
+              <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Chờ giao
+                hàng</a>
               <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Giao hàng</a>
               <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Hoàn thành</a>
               <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Trả hàng</a>
@@ -191,11 +192,12 @@
               <h6>Xác nhận</h6>
               <div class="quantity">
                 <input ng-model="soLuongSanPham" style="margin-left: -40px"
-                  class="next-input text-left min-width-100px position-relative quantity-decimal"/>
+                  class="next-input text-left min-width-100px position-relative quantity-decimal" />
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ng-click="allowBreadcrumbSelection = false">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                ng-click="allowBreadcrumbSelection = false">
                 Cancel
               </button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Xác nhận</button>
@@ -228,20 +230,21 @@
               </tr>
             </thead>
             <tbody class="table">
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>%</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+              <tr ng-repeat="item in lichSu">
+                <td>{{$index + 1}}</td>
+                <td>{{item.ma}}</td>
+                <td>{{item.soTienTra}}</td>
+                <td>{{item.ngayTao}}</td>
+                <td>{{item.phuongThucThanhToan}}</td>
+                <td>{{item.ghiChu}}</td>
+                <td>{{item.fullName}}</td>
                 <td>
                   <a href="#" class="btn btn-outline-primary">Sửa</a>
                 </td>
               </tr>
             </tbody>
           </table>
+
         </div>
       </div>
       <div class="card overflow-hidden" style="width: 1152px">
@@ -255,22 +258,22 @@
           <hr />
           <div class="row" style="padding-left: 20px">
             <div class="col-lg-6">
-              <h5>Trạng thái: </h5>
+              <h5>Trạng thái: {{hoaDonChiTiet.trangThai}}</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Tên khách hàng: </h5>
+              <h5>Tên khách hàng: {{hoaDonChiTiet.tenNguoiNhan}}</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Loại: </h5>
+              <h5>Loại: {{hoaDonChiTiet.tenLoaiDon}}</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Số điện thoại: </h5>
+              <h5>Số điện thoại: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Địa chỉ: </h5>
+              <h5>Địa chỉ: {{hoaDonChiTiet.diaChi}}</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Ghi chú: </h5>
+              <h5>Ghi chú: {{hoaDonChiTiet.ghiChu}}</h5>
             </div>
           </div>
         </div>
@@ -281,31 +284,41 @@
           <table class="table">
             <tbody class="table" style="border: 1px solid #ccc">
               <tr>
-                <th>1</th>
-                <td>Ảnh</td>
-                <td>Giày kiên cường</td>
-                <td>x2</td>
-                <td>2.000.000đ</td>
-
               </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="box">
-          <table class="table">
-            <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th>2</th>
-                <td>Ảnh</td>
-                <td>Giày kiên cường</td>
-                <td>x2</td>
-                <td>2.000.000đ</td>
+              <tr ng-repeat="item in hoaDonChiTiet.sanPham">
+                <td style="padding-top: 80px">{{$index + 1}}
+              </td>
+                <td>
+                  <div style="position: relative">
+                    <img
+                      src="{{item.tenImage}}"
+                      alt=""
+                      width="150px"
+                    />
+                  </div>
+                </td>
+                <td style="padding-top: 80px">
+                  {{item.tenSanPham}}
+                </td>
+                <td style="padding-top: 80px">
+                  X{{item.soLuong}}
+                </td>
+                <td style="padding-top: 80px">
+                  
+                    <span style="text-decoration: line-through;">{{item.giaBan}}</span>
+                    <br>
+                    <span style="color: red;">{{item.donGiaSauGiam}}</span>
+                  
+                </td>
+               
+                
               </tr>
+
             </tbody>
           </table>
         </div>
       </div>
+
     </div>
   </div>
 </div>

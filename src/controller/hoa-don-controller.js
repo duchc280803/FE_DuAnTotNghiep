@@ -1,29 +1,46 @@
-myApp.controller("hoaDonController", function ($http, $scope, $window) {
+myApp.controller("hoaDonController", function ($http, $scope, $window, $routeParams) {
   $scope.listHoaDon = [];
+  $scope.tenNguoiXacNhanOptions = [];
   $scope.selectedLoaiDon = ""; // Giá trị mặc định
   $scope.searchQuery = ""; // Giá trị trường nhập văn bản
-  $scope.isAdmin =  false;
-  function getRole(){
+  $scope.isAdmin = false;
+  
+var id = $routeParams.id;
+
+  function getRole() {
     var role = $window.localStorage.getItem("role");
-    if (role == "ADMIN"){
+    if (role == "ADMIN") {
       $scope.isAdmin = true;
     }
   };
-   getRole();
+  getRole();
   // Hàm tải dữ liệu dựa trên trạng thái và loại đơn
-  function fetchHoaDon(trangThai, loaiDon) {
+  function fetchHoaDon(trangThai, loaiDon, nguoiXacNhan) {
     var token = $window.localStorage.getItem("token");
     var config = {
       headers: {
         Authorization: "Bearer " + token,
       },
     };
+
     var url = "http://localhost:8080/api/manager/hoa-don/hien-thi?trangThaiHD=" + trangThai;
+
     if (loaiDon !== undefined && loaiDon !== "") {
       url += "&loaiDon=" + loaiDon;
     }
+
+    if (nguoiXacNhan !== undefined && nguoiXacNhan !== "") {
+
+      url += "&nguoiXacNhan=" + nguoiXacNhan;
+    }
+
+    // Thêm tenNhanVien vào URL nếu tenNhanVien được chọn
+    if ($scope.tenNhanVien !== undefined && $scope.tenNhanVien !== "") {
+      var tenNhanVienParam = "&tenNhanVien=" + $scope.tenNhanVien;
+      url += tenNhanVienParam;
+    }
+
     if ($scope.searchQuery !== "") {
-      // Kiểm tra xem có phải số điện thoại hay không, nếu đúng thì thêm vào trường soDienThoai, ngược lại thêm vào trường ma
       if (!isNaN($scope.searchQuery)) {
         url += "&soDienThoai=" + $scope.searchQuery;
       } else {
@@ -31,8 +48,20 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
       }
     }
 
+    console.log("nguoiXacNhan: ", nguoiXacNhan);
+
     $http.get(url, config).then(function (response) {
       $scope["listHoaDon" + trangThai] = response.data;
+
+      response.data.forEach(function (hoaDon) {
+        if (hoaDon.nguoiXacNhan) {
+          $scope.tenNguoiXacNhanOptions.push(hoaDon.nguoiXacNhan);
+        }
+      });
+
+      $scope.tenNguoiXacNhanOptions = [...new Set($scope.tenNguoiXacNhanOptions)];
+      // Kiểm tra dữ liệu trả về
+      console.log("Dữ liệu trả về: ", response.data);
     });
   }
 
@@ -58,19 +87,26 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     }
   };
 
-// Hàm tìm kiếm
-$scope.searchHoaDon = function () {
-  for (var i = 1; i <= 7; i++) {
-    fetchHoaDon(i, $scope.selectedLoaiDon);
-  }
-};
+  $scope.filterHoaDonByNguoiXacNhan = function () {
+    var nguoiXacNhan = $scope.selectedNguoiXacNhan;
+    for (var i = 1; i <= 7; i++) {
+      fetchHoaDon(i, $scope.selectedLoaiDon, nguoiXacNhan);
+    }
+  };
 
-// Hàm xóa thông tin tìm kiếm
-$scope.clearSearch = function () {
-  $scope.searchQuery = ""; // Đặt trường tìm kiếm về chuỗi rỗng
-  for (var i = 1; i <= 7; i++) {
-    fetchHoaDon(i, $scope.selectedLoaiDon);
-  }
-};
+  // Hàm tìm kiếm
+  $scope.searchHoaDon = function () {
+    for (var i = 1; i <= 7; i++) {
+      fetchHoaDon(i, $scope.selectedLoaiDon);
+    }
+  };
+
+  // Hàm xóa thông tin tìm kiếm
+  $scope.clearSearch = function () {
+    $scope.searchQuery = ""; // Đặt trường tìm kiếm về chuỗi rỗng
+    for (var i = 1; i <= 7; i++) {
+      fetchHoaDon(i, $scope.selectedLoaiDon);
+    }
+  };
 
 });

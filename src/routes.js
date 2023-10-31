@@ -13,7 +13,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/thuchi.html",
       controller: "hoaDonController",
     })
-    .when("/chi-tiet-hoa-don", {
+    .when("/chi-tiet-hoa-don/:id", {
       templateUrl: "./pages/chi-tiet-hoa-don.html",
       controller: "hoaDonChiTietController",
     })
