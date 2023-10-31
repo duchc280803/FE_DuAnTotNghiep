@@ -289,10 +289,10 @@
             </div>
             <div class="col-md-4">
               Loại Đơn :
-              <select style="color: green" class="custom-select">
-                <option>Tất cả</option>
-                <option>Tại quầy</option>
-                <option>Online</option>
+              <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
+                <option value="">Tất cả</option>
+                <option value="2">Tại quầy</option>
+                <option value="1">Online</option>
               </select>
             </div>
             <div class="col-md-4">
@@ -318,20 +318,12 @@
                 <a
                   class="nav-link"
                   href=""
-                  onclick="openCity('Tatca')"
-                  style="color: darkgoldenrod"
-                  >Tất cả</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href=""
                   onclick="openCity('Choxacnhan')"
                   style="color: darkgoldenrod"
                   >Chờ xác nhận</a
                 >
               </li>
+              
               <li class="nav-item">
                 <a
                   class="nav-link"
@@ -389,7 +381,7 @@
             </ul>
           </div>
         </nav>
-        <div class="status" id="Tatca">
+        <div class="status" id="Choxacnhan">
           <table class="table">
             <thead>
               <tr
@@ -408,22 +400,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon1">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>
@@ -431,48 +425,7 @@
             </tbody>
           </table>
         </div>
-        <div class="status" id="Choxacnhan" style="display: none">
-          <table class="table">
-            <thead>
-              <tr
-                style="border: 1px solid #ccc; background-color: lightskyblue"
-              >
-                <th scope="col">STT</th>
-                <th scope="col">Mã đơn hàng</th>
-                <th scope="col">Tên khách hàng</th>
-                <th scope="col">Ngày tạo</th>
-                <th scope="col">Thành tiền</th>
-                <th scope="col">Người xác nhận</th>
-                <th scope="col">Tiền giảm</th>
-                <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Thao Tác</th>
-              </tr>
-            </thead>
-            <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
-                <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
-                    Detail
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+       
         <div class="status" id="Xacnhan" style="display: none">
           <table class="table">
             <thead>
@@ -492,22 +445,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon2">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>
@@ -518,9 +473,7 @@
         <div class="status" id="Chogiaohang" style="display: none">
           <table class="table">
             <thead>
-              <tr
-                style="border: 1px solid #ccc; background-color: lightskyblue"
-              >
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
                 <th scope="col">STT</th>
                 <th scope="col">Mã đơn hàng</th>
                 <th scope="col">Tên khách hàng</th>
@@ -534,22 +487,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon3">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>
@@ -560,9 +515,7 @@
         <div class="status" id="Giaohang" style="display: none">
           <table class="table">
             <thead>
-              <tr
-                style="border: 1px solid #ccc; background-color: lightskyblue"
-              >
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
                 <th scope="col">STT</th>
                 <th scope="col">Mã đơn hàng</th>
                 <th scope="col">Tên khách hàng</th>
@@ -576,22 +529,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon4">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>
@@ -602,9 +557,7 @@
         <div class="status" id="Hoanthanh" style="display: none">
           <table class="table">
             <thead>
-              <tr
-                style="border: 1px solid #ccc; background-color: lightskyblue"
-              >
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
                 <th scope="col">STT</th>
                 <th scope="col">Mã đơn hàng</th>
                 <th scope="col">Tên khách hàng</th>
@@ -618,22 +571,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon5">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>
@@ -644,9 +599,7 @@
         <div class="status" id="Dahuy" style="display: none">
           <table class="table">
             <thead>
-              <tr
-                style="border: 1px solid #ccc; background-color: lightskyblue"
-              >
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
                 <th scope="col">STT</th>
                 <th scope="col">Mã đơn hàng</th>
                 <th scope="col">Tên khách hàng</th>
@@ -660,22 +613,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon6">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>
@@ -686,9 +641,7 @@
         <div class="status" id="Trahang" style="display: none">
           <table class="table">
             <thead>
-              <tr
-                style="border: 1px solid #ccc; background-color: lightskyblue"
-              >
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
                 <th scope="col">STT</th>
                 <th scope="col">Mã đơn hàng</th>
                 <th scope="col">Tên khách hàng</th>
@@ -702,22 +655,24 @@
               </tr>
             </thead>
             <tbody class="table" style="border: 1px solid #ccc">
-              <tr>
-                <th scope="row">1</th>
-                <td>MH001</td>
-                <td>Vũ Tường An</td>
-                <td>2003-12-12</td>
-                <td>8.888.888đ</td>
-                <td>Vũ Tường An</td>
-                <td>8.888.888đ</td>
-                <td>ONLINE</td>
-                <td>Chờ Thanh toán</td>
+              <tr ng-repeat="hd in listHoaDon7">
+                <th>{{$index + 1}}</th>
+                <td>{{hd.ma}}</td>
+                <td>{{hd.tenKhachHang}}</td>
+                <td>{{hd.ngayTao}}</td>
+                <td>{{hd.thanhTien}}</td>
+                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tienGiam}}</td>
+                <td>{{hd.loaiDon}}</td>
+                <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
+                  hd.trangThai == 2 ? "Xác nhận" :
+                  hd.trangThai == 3 ? "Chờ giao hàng" :
+                  hd.trangThai == 4 ? "Giao hàng" :
+                  hd.trangThai == 5 ? "Hoàn thành" :
+                  hd.trangThai == 6 ? "Đã hủy" :
+                  "Trả hàng"}}</td>
                 <td>
-                  <a
-                    href="#/chi-tiet-hoa-don"
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                  >
+                  <a href="#/chi-tiet-hoa-don" type="button" class="btn btn-outline-primary m-1">
                     Detail
                   </a>
                 </td>

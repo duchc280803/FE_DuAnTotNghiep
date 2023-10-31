@@ -15,15 +15,18 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/hoa-don", {
       templateUrl: "./pages/thuchi.html",
+      controller: "hoaDonController",
     })
     .when("/chi-tiet-hoa-don", {
       templateUrl: "./pages/chi-tiet-hoa-don.html",
     })
     .when("/khuyen-mai", {
       templateUrl: "./pages/khuyen-mai-sp.html",
+      controller: "GiamGiaController",
     })
     .when("/khuyen-mai/create", {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
+      controller: "GiamGiaController",
     })
     .when("/giam-gia", {
       templateUrl: "./pages/voucher-hoa-don.html",
