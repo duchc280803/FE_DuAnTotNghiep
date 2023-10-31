@@ -113,7 +113,7 @@
               <div class="product__details__pic__item">
                 <img
                   class="product__details__pic__item--large"
-                  src="{{detailProduct.image}}"
+                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-02-800x800.jpg"
                   alt=""
                 />
               </div>
@@ -141,18 +141,25 @@
             <div class="product__details__text">
               <h3>{{detailProduct.productName}}</h3>
               <div class="product__details__price">
-                {{detailProduct.price | number}}đ
+                <div ng-show="detailProduct.giaGiam != null">
+                  {{detailProduct.giaGiam | number}}₫<span
+                    style="text-decoration: line-through; padding-left: 10px;"
+                    >{{detailProduct.price | number}}₫</span
+                  >
+                </div>
+                <div ng-show="detailProduct.giaGiam == null">
+                  {{detailProduct.price | number}}₫
+                </div>
               </div>
               <h4 style="padding-bottom: 10px">Size:</h4>
               <div
                 class="sidebar__item__size"
-                ng-repeat="size in detailSizeProduct"
                 ng-click="selectSize(size)"
+                ng-repeat="size in detailSizeProduct"
                 ng-class="{ 'selected': size.isSelected }"
               >
                 <label>{{size.size}}</label>
               </div>
-              <h4 style="padding-bottom: 10px">Colors</h4>
               <div>
                 <div class="sidebar__item__size">
                   <h4 style="padding-bottom: 10px">Màu sắc:</h4>
@@ -160,9 +167,9 @@
                     ng-click="selectColor(color)"
                     ng-class="{ 'selected': color.isSelected }"
                     class="sidebar__item__size"
-                    ng-repeat="color in detailColorProduct"
+                    ng-repeat="color in detailSizeProduct"
                   >
-                    <label style="background-color: {{color.color}}"></label>
+                    <label>{{color.mauSac}}</label>
                   </div>
                 </div>
               </div>
@@ -171,7 +178,7 @@
                   <h4 style="padding-bottom: 10px">Chất Liệu:</h4>
                   <div
                     class="sidebar__item__size"
-                    ng-repeat="chatLieu in detailChatLieuProduct"
+                    ng-repeat="chatLieu in detailSizeProduct"
                     ng-click="selectChatLieu(chatLieu)"
                     ng-class="{ 'selected': chatLieu.isSelected }"
                   >
@@ -185,23 +192,26 @@
                 class="sidebar__item__size"
                 ng-click="selectKieuDe(kieuDe)"
                 ng-class="{ 'selected': kieuDe.isSelected }"
-                ng-repeat="kieuDe in detailKieuDeProduct"
+                ng-repeat="kieuDe in detailSizeProduct"
               >
                 <label> {{kieuDe.kieuDe}} </label>
               </div>
-            </div>
-            <div class="quantity" style="padding-bottom: 10px">
-              <div class="pro-qty">
-                <span class="dec qtybtn">-</span>
+
+              <div class="quantity">
                 <input
-                  type="text"
+                  style="margin-left: 0px"
+                  type="number"
+                  class="next-input text-left min-width-100px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
                   value="1"
+                  min="1"
+                  max="{{detailQuantity.quantity}}"
                 />
-                <span class="inc qtybtn">+</span>
               </div>
+              <p>Số Lượng Sản Phẩm Còn Lại: {{detailQuantity.quantity}}</p>
             </div>
-            <p>Số Lượng Sản Phẩm Còn Lại:</p>
-            <a href="#" class="primary-btn">ADD TO CARD</a>
+            <a href="#" class="primary-btn" ng-click="addToCart()"
+              >ADD TO CART</a
+            >
           </div>
           <div class="col-lg-12">
             <div class="product__details__tab">
@@ -269,10 +279,12 @@
         <div class="row">
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
-              ></div>
+              <div class="product__item__pic set-bg" data-setbg="">
+                <img
+                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
+                  alt=""
+                />
+              </div>
               <div class="product__item__text">
                 <h6>
                   <a href="shop-details.html"
@@ -285,10 +297,12 @@
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
-              ></div>
+              <div class="product__item__pic set-bg" data-setbg="">
+                <img
+                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
+                  alt=""
+                />
+              </div>
               <div class="product__item__text">
                 <h6>
                   <a href="shop-details.html"
@@ -301,10 +315,12 @@
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
-              ></div>
+              <div class="product__item__pic set-bg" data-setbg="">
+                <img
+                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
+                  alt=""
+                />
+              </div>
               <div class="product__item__text">
                 <h6>
                   <a href="shop-details.html"
@@ -317,10 +333,12 @@
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="product__item">
-              <div
-                class="product__item__pic set-bg"
-                data-setbg="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
-              ></div>
+              <div class="product__item__pic set-bg" data-setbg="">
+                <img
+                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
+                  alt=""
+                />
+              </div>
               <div class="product__item__text">
                 <h6>
                   <a href="shop-details.html"

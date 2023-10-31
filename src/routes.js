@@ -5,12 +5,17 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/dashboard", {
       templateUrl: "./pages/dashboard.html",
     })
-    .when("/ban-tai-quay", {
+    .when("/order-counter", {
+      templateUrl: "./pages/don-tai-quay.html",
+      controller: "orderCounterController",
+    })
+    .when("/order-counter/carts/:id", {
       templateUrl: "./pages/bantaiquay.html",
       controller: "BanTaiQuayController",
     })
     .when("/hoa-don", {
       templateUrl: "./pages/thuchi.html",
+      controller: "hoaDonController",
     })
     .when("/chi-tiet-hoa-don", {
       templateUrl: "./pages/chi-tiet-hoa-don.html",
@@ -25,6 +30,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/giam-gia", {
       templateUrl: "./pages/voucher-hoa-don.html",
+    })
+    .when("/giam-gia/create", {
+      templateUrl: "./pages/create-chuong-trinhkm.html",
     })
     .when("/home", {
       templateUrl: "./pages/home.html",

@@ -1,6 +1,6 @@
 myApp.controller(
   "sanPhamGiamGiaController",
-  function ($http, $scope, $routeParams) {
+  function ($http, $scope, $routeParams, $window) {
     $scope.listSpGiamGia = [];
     $scope.listThuongHieu = [];
     $scope.listDanhMuc = [];
@@ -10,9 +10,7 @@ myApp.controller(
     $scope.detailChatLieuProduct = [];
     $scope.detailKieuDeProduct = [];
     $scope.detailColorProduct = [];
-    $scope.toggleSelection = function(attribute) {
-      attribute.isSelected = !attribute.isSelected;
-  };
+    $scope.detailQuantity = {};
     var name = $routeParams.name;
 
     $scope.listSanPhamGiamGia = function () {
@@ -23,15 +21,6 @@ myApp.controller(
         });
     };
     $scope.listSanPhamGiamGia();
-
-    $scope.getlistThuongHieu = function () {
-      $http
-        .get("http://localhost:8080/api/v1/thuong-hieu/show")
-        .then(function (response) {
-          $scope.listThuongHieu = response.data;
-        });
-    };
-    $scope.getlistThuongHieu();
 
     $scope.getlistCategory = function () {
       $http
@@ -56,6 +45,7 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/product/detail/" + name)
         .then(function (response) {
           $scope.detailProduct = response.data;
+          console.log($scope.detailProduct);
         });
     };
 
@@ -64,72 +54,82 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/product/detail-size/" + name)
         .then(function (response) {
           $scope.detailSizeProduct = response.data;
+          console.log($scope.detailSizeProduct);
         });
     };
 
-    $scope.getDetailChatLieuProduct = function (name) {
+    $scope.getDetailQuantityProduct = function (id) {
       $http
-        .get("http://localhost:8080/api/v1/product/detail-chat-lieu/" + name)
+        .get("http://localhost:8080/api/v1/product/quantity?id=" + id)
         .then(function (response) {
-          $scope.detailChatLieuProduct = response.data;
+          $scope.detailQuantity = response.data;
         });
     };
 
-    $scope.getDetailKieuDeProduct = function (name) {
-      $http
-        .get("http://localhost:8080/api/v1/product/detail-kieu-de/" + name)
-        .then(function (response) {
-          $scope.detailKieuDeProduct = response.data;
-        });
+    $scope.selectedSize = null;
+    $scope.addToCart = function () {
+        var selectedSizeId = $scope.selectedSize.id;
+        console.log("Selected Size ID:", selectedSizeId);
     };
 
-    $scope.getDetailColorProduct = function (name) {
-      $http
-        .get("http://localhost:8080/api/v1/product/detail-color/" + name)
-        .then(function (response) {
-          $scope.detailColorProduct = response.data;
-        });
+    $scope.selectSize = function (size) {
+      // Deselect all sizes
+      $scope.detailSizeProduct.forEach(function (item) {
+        item.isSelected = false;
+      });
+
+      // Select the clicked size
+      size.isSelected = true;
+
+      $scope.selectedSize = size;
+
+      // Get the id for the selected size
+      $scope.getDetailQuantityProduct(size.id);
     };
 
-    $scope.selectSize = function(size) {
-      // Set a property on the selected size object to indicate it is selected
-      size.isSelected = !size.isSelected;
-    };
-
-    $scope.selectChatLieu = function(chatLieu) {
+    $scope.selectChatLieu = function (chatLieu) {
+      $scope.detailSizeProduct.forEach(function (item) {
+        item.isSelected = false;
+      });
       // Set a property on the selected size object to indicate it is selected
       chatLieu.isSelected = !chatLieu.isSelected;
     };
 
-    $scope.selectColor = function(color) {
+    $scope.selectColor = function (color) {
+      $scope.detailSizeProduct.forEach(function (item) {
+        item.isSelected = false;
+      });
       // Set a property on the selected size object to indicate it is selected
       color.isSelected = !color.isSelected;
     };
 
-    $scope.selectKieuDe = function(kieuDe) {
+    $scope.selectKieuDe = function (kieuDe) {
+      $scope.detailSizeProduct.forEach(function (item) {
+        item.isSelected = false;
+      });
       // Set a property on the selected size object to indicate it is selected
       kieuDe.isSelected = !kieuDe.isSelected;
     };
 
-    $scope.$watch('detailSizeProduct', function() {
+    $scope.$watch("detailSizeProduct", function () {
       if ($scope.detailSizeProduct.length > 0) {
         $scope.selectSize($scope.detailSizeProduct[0]);
       }
     });
 
-    $scope.$watch('detailColorProduct', function() {
+    $scope.$watch("detailColorProduct", function () {
       if ($scope.detailColorProduct.length > 0) {
         $scope.selectColor($scope.detailColorProduct[0]);
       }
     });
 
-    $scope.$watch('detailChatLieuProduct', function() {
+    $scope.$watch("detailChatLieuProduct", function () {
       if ($scope.detailChatLieuProduct.length > 0) {
         $scope.selectChatLieu($scope.detailChatLieuProduct[0]);
       }
     });
 
-    $scope.$watch('detailKieuDeProduct', function() {
+    $scope.$watch("detailKieuDeProduct", function () {
       if ($scope.detailKieuDeProduct.length > 0) {
         $scope.selectKieuDe($scope.detailKieuDeProduct[0]);
       }
@@ -137,8 +137,5 @@ myApp.controller(
 
     $scope.getDetailProduct(name);
     $scope.getDetailSizeProduct(name);
-    $scope.getDetailChatLieuProduct(name);
-    $scope.getDetailKieuDeProduct(name);
-    $scope.getDetailColorProduct(name);
   }
 );
