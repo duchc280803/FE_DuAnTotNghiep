@@ -56,7 +56,11 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
+            <a
+              class="sidebar-link"
+              href="#/order-counter"
+              aria-expanded="false"
+            >
               <span>
                 <img
                   src="/assets/images/shopping-cart-plus.png"
@@ -256,189 +260,125 @@
       </nav>
     </header>
     <div class="container-fluid">
-      <!-- <div class="container-fluid">
-  Các Đơn ngày tháng  -->
-      <!-- <div class="row">
-    <div class="col-lg-4">
-      <div class="row">
-        <div class="col-lg-12"> -->
-      <!-- <div class="card overflow-hidden">
-            <div class="card-body p-4">
-              <h5 class="card-title mb-9 fw-semibold">Đơn Hôm Nay</h5>
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h4 class="fw-semibold mb-3">$36,358</h4>
-                  <div class="d-flex align-items-center mb-3">
-                    <span
-                      class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-arrow-up-left text-success"></i>
-                    </span>
-                    <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                    <p class="fs-3 mb-0">last year</p>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <div class="me-4">
-                      <span
-                        class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
-                    </div>
-                    <div>
-                      <span
-                        class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <div class="card overflow-hidden">
-            <div class="card-body p-4">
-              <h5 class="card-title mb-9 fw-semibold">
-                Sản Phẩm Bán Tháng Này
-              </h5>
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h4 class="fw-semibold mb-3">$36,358</h4>
-                  <div class="d-flex align-items-center mb-3">
-                    <span
-                      class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-arrow-up-left text-success"></i>
-                    </span>
-                    <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                    <p class="fs-3 mb-0">last year</p>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <div class="me-4">
-                      <span
-                        class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card overflow-hidden">
+                <div class="card-body p-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h5 class="card-title mb-9 fw-semibold">Hóa Đơn</h5>
                     </div>
-                    <div>
-                      <span
-                        class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
+                    <div class="col-lg-6" style="padding-left: 429px"></div>
+                    <div class="col-lg-6">
+                      <input
+                        class="form-control"
+                        style="width: 800px"
+                        placeholder="Tìm hóa đơn"
+                        ng-model="searchKeyword"
+                        ng-change="searchOrder(searchKeyword)"
+                      />
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card overflow-hidden">
-            <div class="card-body p-4">
-              <h5 class="card-title mb-9 fw-semibold">Doanh Thu Hôm Nay</h5>
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h4 class="fw-semibold mb-3">$36,358</h4>
-                  <div class="d-flex align-items-center mb-3">
-                    <span
-                      class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-arrow-up-left text-success"></i>
-                    </span>
-                    <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                    <p class="fs-3 mb-0">last year</p>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <div class="me-4">
-                      <span
-                        class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
-                    </div>
-                    <div>
-                      <span
-                        class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
+                    <div class="col-lg-6" style="padding-left: 270px">
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary m-1"
+                        ng-click="createHoaDon()"
+                      >
+                        Tạo hóa đơn
+                      </button>
+
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary m-1"
+                        ng-click="getListHoaDonTaiQuay ()"
+                      >
+                        Làm mới
+                      </button>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Thống kê doanh thu -->
-      <!-- <div class="row">
-    <div class="col-lg-16 d-flex align-items-strech">
-      <div class="card w-100">
-        <div class="card-body">
-          <div
-            class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-            <div class="mb-3 mb-sm-0">
-              <h5 class="card-title fw-semibold">Thống Kê Doanh Thu</h5>
-            </div>
-            <div style="padding-left: 700px">
-              <select class="form-select">
-                <option value="1">Tháng 12</option>
-                <option value="1">Tháng 11</option>
-                <option value="1">Tháng 10</option>
-                <option value="1">Tháng 9</option>
-                <option value="1">Tháng 8</option>
-                <option value="1">Tháng 7</option>
-                <option value="1">Tháng 6</option>
-                <option value="1">Tháng 5</option>
-                <option value="1">Tháng 4</option>
-                <option value="1">Tháng 3</option>
-                <option value="1">Tháng 2</option>
-                <option value="1">Tháng 1</option>
-              </select>
-            </div>
-            <div>
-              <select class="form-select">
-                <option value="1">2023</option>
-                <option value="2">2022</option>
-                <option value="3">2021</option>
-                <option value="4">2020</option>
-              </select>
-            </div>
-          </div>
-          <div id="chart"></div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-      <!-- khách mới và sản phẩm bán chạy -->
-      <!-- <div class="row">
-    <div class="col-lg-6">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card overflow-hidden">
-            <div class="card-body p-4">
-              <h5 class="card-title mb-9 fw-semibold">Sản Phẩm Bán Chạy</h5>
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h4 class="fw-semibold mb-3">$36,358</h4>
-                  <div class="d-flex align-items-center mb-3">
-                    <span
-                      class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-arrow-up-left text-success"></i>
-                    </span>
-                    <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                    <p class="fs-3 mb-0">last year</p>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <div class="me-4">
-                      <span
-                        class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
+                  <hr />
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div style="overflow-x: auto; width: 1104px">
+                        <table
+                          class="table table-hover"
+                          style="white-space: nowrap; width: 1104px"
+                        >
+                          <thead>
+                            <tr style="background-color: lightskyblue">
+                              <th scope="col">STT</th>
+                              <th scope="col">Mã hóa đơn</th>
+                              <th scope="col">Nhân viên</th>
+                              <th scope="col">Ngày tạo</th>
+                              <th scope="col">Khách hàng</th>
+                              <th scope="col">Loại đơn</th>
+                              <th scope="col">Trạng thái</th>
+                              <th scope="col">Thao tác</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table">
+                            <tr ng-repeat="hd in listHoaDonTaiQuay">
+                              <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
+                              <td>{{hd.maHoaDon}}</td>
+                              <td>{{hd.tenNhanVien}}</td>
+                              <td>
+                                {{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                              </td>
+                              <td>{{hd.tenKhachHang}}</td>
+                              <td>{{hd.loaiDon}}</td>
+                              <td>
+                                {{hd.trangThai == 1 ? "Chờ Thanh Toán" : "Thành
+                                Công"}}
+                              </td>
+                              <td>
+                                <a
+                                  class="btn btn-outline-primary"
+                                  ng-click="reloadTrang(hd.id)"
+                                  >Chọn</a
+                                >
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                    <div>
-                      <span
-                        class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
+                    <div class="col-lg-12">
+                      <nav
+                        aria-label="Page navigation example"
+                        style="margin-left: 400px"
+                      >
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <a
+                              class="page-link"
+                              ng-href=""
+                              ng-click="previousPage()"
+                              >Previous</a
+                            >
+                          </li>
+                          <li
+                            class="page-item"
+                            ng-repeat="page in getPageNumbers()"
+                          >
+                            <a
+                              class="page-link"
+                              ng-href="#/ban-tai-quay?pageNumber={{page}}"
+                              ng-click="updatePage(page)"
+                              >{{ page }}</a
+                            >
+                          </li>
+                          <li class="page-item">
+                            <a
+                              class="page-link"
+                              ng-href=""
+                              ng-click="nextPage()"
+                              >Next</a
+                            >
+                          </li>
+                        </ul>
+                      </nav>
                     </div>
                   </div>
                 </div>
@@ -447,45 +387,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card overflow-hidden">
-            <div class="card-body p-4">
-              <h5 class="card-title mb-9 fw-semibold">Khách Hàng Mới</h5>
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h4 class="fw-semibold mb-3">$36,358</h4>
-                  <div class="d-flex align-items-center mb-3">
-                    <span
-                      class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                      <i class="ti ti-arrow-up-left text-success"></i>
-                    </span>
-                    <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                    <p class="fs-3 mb-0">last year</p>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <div class="me-4">
-                      <span
-                        class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
-                    </div>
-                    <div>
-                      <span
-                        class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
-                      <span class="fs-2">2023</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
     </div>
   </div>
 </div>
