@@ -23,7 +23,12 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
       url += "&loaiDon=" + loaiDon;
     }
     if ($scope.searchQuery !== "") {
-      url += "&ma=" + $scope.searchQuery;
+      // Kiểm tra xem có phải số điện thoại hay không, nếu đúng thì thêm vào trường soDienThoai, ngược lại thêm vào trường ma
+      if (!isNaN($scope.searchQuery)) {
+        url += "&soDienThoai=" + $scope.searchQuery;
+      } else {
+        url += "&ma=" + $scope.searchQuery;
+      }
     }
 
     $http.get(url, config).then(function (response) {

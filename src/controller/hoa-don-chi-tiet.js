@@ -14,4 +14,5 @@ myApp.controller("hoaDonChiTietController", function ($http, $scope) {
         }
       };
     }
+    
 });
