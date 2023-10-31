@@ -2,10 +2,10 @@ myApp.controller("BanTaiQuayController", [
   "$scope",
   "$http",
   "$window",
-  "$timeout",
-  function ($scope, $http, $window, $timeout) {
-    $scope.selectedKhachHang = {}; // selected khách hàng fill tên
-    $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
+  "$routeParams",
+  "$route",
+  "$location",
+  function ($scope, $http, $window, $routeParams, $route, $location) {
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
@@ -20,6 +20,29 @@ myApp.controller("BanTaiQuayController", [
     $scope.listTransaction = []; // list transaction của hóa đơn đó
     $scope.codeOrder = ""; // lưu mã hóa đơn lại để truyền cộng thông tin sản phẩm or thanh toán
     $scope.createDate = ""; // lưu ngày tạo lại để truyền cộng thông tin sản phẩm or thanh toán
+    $scope.orderDetailCounter = {}; // hiển thị thông tin theo hóa đơn
+    var id = $routeParams.id;
+
+    $scope.detailOrderCounterDetail = function (id) {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don/order-counter/" + id)
+        .then(function (response) {
+          $scope.orderDetailCounter = response.data;
+          $window.localStorage.setItem(
+            "idKhach",
+            $scope.orderDetailCounter.idKhach
+          );
+        });
+    };
+
+    $scope.detailOrderCounterDetail(id);
+
+    var idKhach = $window.localStorage.getItem("idKhach");
+
+    $scope.reloadTrang = function () {
+      $location.path("/order-counter");
+      $route.reload();
+    };
 
     // TODO: SHOW input giao hàng
     $scope.toggleInput = function () {
@@ -31,152 +54,59 @@ myApp.controller("BanTaiQuayController", [
       $scope.idSanPhamChiTiet = id;
     };
 
-    // TODO: SHOW HÓA ĐƠN THEO ID
-    $scope.showHoaDonTheoId = function (id, maHoaDon, ngayTao) {
-      $scope.codeOrder = maHoaDon;
-      $scope.createDate = ngayTao;
-      $window.localStorage.setItem("idHoaDon", id);
-      if ($scope.listHoaDonTaiQuay.length === 0) {
-        $window.localStorage.removeItem("idHoaDon");
-      }
-      $scope.listSanPhamInCart();
-      $scope.detailKhacHang();
-    };
-
-    // TODO: Hiển thị detail khách hàng
-    $scope.detailKhacHang = function () {
-      $http
-        .get(
-          "http://localhost:8080/api/khach-hang/search_khach_byid?id=" +
-            idHoaDon
-        )
-        .then(function (response) {
-          $scope.selectedKhachHang = response.data;
-          $window.localStorage.setItem("ten", $scope.selectedKhachHang.ten);
-        });
-    };
-
-    var tenKh = $window.localStorage.getItem("ten");
-
     // TODO: show sản phẩm trong giỏ hảng
+    $scope.pageNumber = 0;
+    $scope.pageSize = 2;
     $scope.listSanPhamInCart = function () {
       $http
         .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?name=" + tenKh
+          "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
+            idKhach +
+            "&pageNumber=0&pageSize=9999" // Fetch all products in a single request
         )
         .then(function (response) {
           $scope.listCart = response.data;
-          // Tính tổng số lượng sản phẩm
           $scope.tongSoLuongSanPham = 0;
+          $scope.tongTienHang = 0;
+    
+          // Calculate the total quantity and total price for all products in the cart
           for (var i = 0; i < $scope.listCart.length; i++) {
             $scope.tongSoLuongSanPham += $scope.listCart[i].soLuong;
             $scope.tongTienHang +=
               $scope.listCart[i].giaBan * $scope.listCart[i].soLuong;
           }
-        })
-        .catch(function (error) {});
-    };
-
-    var idHoaDon = $window.localStorage.getItem("idHoaDon");
-    if (idHoaDon) {
-      $scope.showHoaDonTheoId(idHoaDon);
-    }
-
-    // TODO: tự động click khi tạo hóa đơn mới
-    $scope.selectHoaDon = function (hd) {
-      // Unselect all other invoices
-      $scope.listHoaDonTaiQuay.forEach(function (invoice) {
-        invoice.isSelected = false;
-      });
-
-      // Select the clicked invoice
-      hd.isSelected = true;
-      console.log(hd.isSelected);
-    };
-
-    //TODO: Tạo hóa đơn
-    $scope.createHoaDon = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-
-      var api = "http://localhost:8080/api/v1/hoa-don/create";
-
-      $http.post(api, {}, config).then(function (response) {
-        $scope.listHoaDonTaiQuay.push(response.data);
-        $scope.getListHoaDonTaiQuay();
-        hd.isSelected = true;
-      });
-    };
-
-    $scope.taoHoaDonAndCart = function () {
-      $scope.createHoaDon();
-    };
-
-    //TODO: Get all hoa đơn tại quầy
-    $scope.pageNumber = 0;
-    $scope.pageSize = 4;
-    $scope.getListHoaDonTaiQuay = function () {
-      $http
-        .get(
-          "http://localhost:8080/api/v1/hoa-don/show?pageNumber=" +
-            $scope.pageNumber +
-            "&pageSize=" +
-            $scope.pageSize
-        )
-        .then(function (response) {
-          $scope.listHoaDonTaiQuay = response.data;
+    
+          // Slice the listCart array to display only 2 products per page
+          $scope.listCart = $scope.listCart.slice(
+            $scope.pageNumber * $scope.pageSize,
+            ($scope.pageNumber + 1) * $scope.pageSize
+          );
         });
     };
-    $scope.getListHoaDonTaiQuay();
-
-    $scope.searchOrder = function (ma) {
-      $http
-        .get("http://localhost:8080/api/v1/hoa-don/search/" + ma)
-        .then(function (response) {
-          $scope.listHoaDonTaiQuay = response.data;
-        });
-    };
-
-    // hiển thị số trang
-    $scope.getPageNumbers = function () {
-      var totalPages = Math.ceil(
-        $scope.listHoaDonTaiQuay.length / $scope.pageSize
-      );
-      var pageNumbers = [];
-      for (var i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-      return pageNumbers;
-    };
+    $scope.listSanPhamInCart();
 
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
-      $scope.getListHoaDonTaiQuay();
+      $scope.listSanPhamInCart();
     };
 
     // TODO: Quay lại trang
     $scope.previousPage = function () {
       if ($scope.pageNumber > 0) {
         $scope.pageNumber--;
-        $scope.getListHoaDonTaiQuay();
+        $scope.listSanPhamInCart();
       }
     };
 
     // TODO: tiến đến trang khác
     $scope.nextPage = function () {
       $scope.pageNumber++;
-      $scope.getListHoaDonTaiQuay();
+      $scope.listSanPhamInCart();
     };
 
     //TODO:thanh toán hóa đơn
     $scope.requestData = {
-      idHoaDon: idHoaDon,
       tienKhachTra: "",
       tongTien: "",
       gioHangChiTietList: [],
@@ -200,6 +130,7 @@ myApp.controller("BanTaiQuayController", [
         .get("http://localhost:8080/api/chi-tiet-sp/hien-thi")
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
+          $scope.keyName = "";
         });
     };
     $scope.getListSanPhamTaiQuay();
@@ -223,7 +154,7 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    // thêm sản phẩm vào giỏ hàng
+    // TODO: thêm sản phẩm vào giỏ hàng
     var idGioHangChiTietId = $window.localStorage.getItem("idCartChiTiet");
     $scope.themSanPhamCart = function () {
       $http
@@ -258,21 +189,6 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    // lấy ra id cart
-    $scope.idCartChiTiet = {};
-    $scope.showIdCart = function (name) {
-      $http
-        .get("http://localhost:8080/api/v1/hoa-don/id_cart?name=" + name)
-        .then(function (response) {
-          $scope.idCartChiTiet = response.data;
-          $window.localStorage.setItem(
-            "idCartChiTiet",
-            $scope.idCartChiTiet.id
-          );
-        });
-    };
-    $scope.showIdCart(tenKh);
-
     // TODO: Hiển thị khách hàng
     $scope.showKhachHang = function () {
       $http
@@ -304,7 +220,7 @@ myApp.controller("BanTaiQuayController", [
           "http://localhost:8080/api/khach-hang/update-hoa-don?id= " +
             idkhach +
             "&idHoaDon=" +
-            $scope.getIdHoaDon
+            id
         )
         .then(function (response) {
           $scope.getListHoaDonTaiQuay();
@@ -345,17 +261,40 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    $scope.viewKhachAndUpdateHoaDon = function (id) {
-      $scope.createGioHang(id);
-      $scope.updateKhachHang(id);
+    $scope.deleteProduct = function (event, index) {
+      event.preventDefault();
+      let p = $scope.listCart[index];
+      $http
+        .delete(
+          "http://localhost:8080/api/gio-hang-chi-tiet/delete_product?id=" +
+            p.idGioHang
+        )
+        .then(function () {
+          $scope.listCart.splice(index, 1);
+        });
     };
+
+    // lấy ra id cart
+    $scope.idCartChiTiet = {};
+    $scope.showIdCart = function (id) {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don/id_cart?id=" + id)
+        .then(function (response) {
+          $scope.idCartChiTiet = response.data;
+          $window.localStorage.setItem(
+            "idCartChiTiet",
+            $scope.idCartChiTiet.id
+          );
+        });
+    };
+    $scope.showIdCart(idKhach);
 
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
     $scope.remainingAmount = 0;
     $scope.showTransaction = function () {
       $http
-        .get("http://localhost:8080/api/v1/transaction/show?name=" + tenKh)
+        .get("http://localhost:8080/api/v1/transaction/show?id=" + id)
         .then(function (response) {
           $scope.listTransaction = response.data;
           $scope.totalAmountPaid = 0; // Reset the total amount paid
@@ -373,16 +312,16 @@ myApp.controller("BanTaiQuayController", [
       $http
         .post(
           "http://localhost:8080/api/v1/transaction/create?idHoaDon=" +
-            idHoaDon +
-            "&name=" +
-            tenKh +
+            id +
+            "&id=" +
+            idKhach +
             "&phuongThuc=" +
             $scope.transactiton,
           $scope.newTransaction
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
-          $scope.showTransaction(tenKh);
+          $scope.showTransaction();
         });
     };
   },

@@ -5,7 +5,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/dashboard", {
       templateUrl: "./pages/dashboard.html",
     })
-    .when("/ban-tai-quay", {
+    .when("/order-counter", {
+      templateUrl: "./pages/don-tai-quay.html",
+      controller: "orderCounterController",
+    })
+    .when("/order-counter/carts/:id", {
       templateUrl: "./pages/bantaiquay.html",
       controller: "BanTaiQuayController",
     })
