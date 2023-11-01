@@ -140,13 +140,25 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
+    // lấy ra id cart
+    $scope.idCartChiTiet = {};
+    $scope.showIdCart = function () {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don/id_cart?id=" + id)
+        .then(function (response) {
+          $scope.idCartChiTiet = response.data;
+          $window.localStorage.setItem("gioHangId", $scope.idCartChiTiet.id);
+        });
+    };
+    $scope.showIdCart(idKhach);
+
     // TODO: thêm sản phẩm vào giỏ hàng
-    var idGioHangChiTietId = $window.localStorage.getItem("idCartChiTiet");
+    var gioHangId = $window.localStorage.getItem("gioHangId");
     $scope.themSanPhamCart = function () {
       $http
         .post(
           "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
-            idGioHangChiTietId +
+            gioHangId +
             "&idSanPhamChiTiet=" +
             $scope.idSanPhamChiTiet +
             "&soLuong=" +
@@ -159,6 +171,7 @@ myApp.controller("BanTaiQuayController", [
         })
         .catch(function (error) {});
     };
+    console.log(gioHangId);
 
     // cập nhập sản phẩm trong giỏ hàng
     $scope.updateCart = function (idGioHangChiTiet) {
@@ -205,7 +218,9 @@ myApp.controller("BanTaiQuayController", [
           "http://localhost:8080/api/khach-hang/update-hoa-don?id= " +
             idcustom +
             "&idHoaDon=" +
-            id
+            id +
+            "&idGioHang=" +
+            gioHangId
         )
         .then(function (response) {
           $scope.detailOrderCounterDetail(id);
@@ -214,7 +229,7 @@ myApp.controller("BanTaiQuayController", [
 
     // TODO: thêm khách hàng
     $scope.newKhachHang = {};
-    $scope.createKhahHang = function () {
+    $scope.createKhachHang = function () {
       $http
         .post(
           "http://localhost:8080/api/khach-hang/create",
@@ -222,7 +237,7 @@ myApp.controller("BanTaiQuayController", [
         )
         .then(function (response) {
           $scope.listKhachHang.push(response.data);
-          $scope.selectedKhachHang = response.data;
+          $scope.showKhachHang();
         });
     };
 
@@ -238,21 +253,6 @@ myApp.controller("BanTaiQuayController", [
           $scope.listCart.splice(index, 1);
         });
     };
-
-    // lấy ra id cart
-    $scope.idCartChiTiet = {};
-    $scope.showIdCart = function (id) {
-      $http
-        .get("http://localhost:8080/api/v1/hoa-don/id_cart?id=" + id)
-        .then(function (response) {
-          $scope.idCartChiTiet = response.data;
-          $window.localStorage.setItem(
-            "idCartChiTiet",
-            $scope.idCartChiTiet.id
-          );
-        });
-    };
-    $scope.showIdCart(idKhach);
 
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
@@ -313,17 +313,48 @@ myApp.controller("BanTaiQuayController", [
       tongTienHang,
       tienKhachTra,
       tienThua,
-      tienShip
+      hoTen,
+      soDienThoai,
+      diaChi
     ) {
       var requestData = {
         tongTien: tongTienHang,
         tienKhachTra: tienKhachTra,
         tienThua: tienThua,
-        tienShip: tienShip,
+        hoTen: hoTen,
+        soDienThoai: soDienThoai,
+        diaChi: diaChi,
         gioHangChiTietList: gioHangChiTietList,
       };
       var api =
         "http://localhost:8080/api/v1/hoa-don/create-hoa-don-chi-tiet?idHoaDon=" +
+        id;
+      $http.post(api, requestData).then(function (response) {
+        $scope.listHoaDonChiTiet.push(response.data);
+        $location.path("/order-counter");
+      });
+    };
+
+    //TODO:thanh toán hóa đơn
+    $scope.createHoaDonChiTietGiao = function (
+      tongTienHang,
+      tienKhachTra,
+      tienThua
+    ) {
+      var requestData = {
+        tongTien: tongTienHang,
+        tienKhachTra: tienKhachTra,
+        tienThua: tienThua,
+        tienGiao: $scope.tienGiao,
+        hoTen: $scope.hoTen,
+        tenNguoiShip: $scope.tenNguoiShip,
+        soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
+        soDienThoai: $scope.soDienThoai,
+        diaChi: $scope.diaChi,
+        gioHangChiTietList: gioHangChiTietList,
+      };
+      var api =
+        "http://localhost:8080/api/v1/hoa-don/create-hoa-don-chi-tiet-giao?idHoaDon=" +
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);

@@ -566,7 +566,6 @@
                         <div class="quantity">
                           <input
                             ng-model="soLuongSanPham"
-                            style="margin-left: -40px"
                             type="number"
                             class="next-input text-left min-width-100px position-relative quantity-decimal"
                             min="1"
@@ -653,8 +652,8 @@
                       <h6 ng-show="orderDetailCounter.email != null">
                         Email: {{orderDetailCounter.email}}
                       </h6>
-                      <h6 ng-show="orderDetailCounter.sodienthoai != null">
-                        Số Điện Thoại: {{orderDetailCounter.sodienthoai}}
+                      <h6 ng-show="orderDetailCounter.soDienThoai != null">
+                        Số Điện Thoại: {{orderDetailCounter.soDienThoai}}
                       </h6>
                       <hr />
                       <h6 ng-show="orderDetailCounter.diaChi != null">
@@ -735,7 +734,7 @@
                                       <th scope="row">{{$index + 1}}</th>
                                       <td>{{kh.ten}}</td>
                                       <td>{{kh.email}}</td>
-                                      <td>{{kh.sodienthoai}}</td>
+                                      <td>{{kh.soDienThoai}}</td>
                                       <td>{{kh.diaChi}}</td>
                                       <td>
                                         <button
@@ -787,10 +786,10 @@
                             <div class="modal-body">
                               <div class="row">
                                 <div class="col-lg-6">
-                                  <h6 class="text">Họ Tên</h6>
+                                  <h6 class="text">Họ Tên Khách</h6>
                                   <input
                                     class="form-control"
-                                    placeholder="Nhập họ tên"
+                                    placeholder="Nhập họ tên khách"
                                     ng-model="newKhachHang.hoTen"
                                   />
                                 </div>
@@ -833,57 +832,13 @@
                                   />
                                 </div>
                               </div>
-                              <div>
-                                <div class="checkout__input">
-                                  <p>Địa Chỉ<span>*</span></p>
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <select
-                                        id="city"
-                                        class="form-control"
-                                        style="font-size: 14px; padding: 6px"
-                                        ng-model="thanhPho"
-                                        ng-options="thanhPho as thanhPho for thanhPho in thanhPhoList"
-                                      >
-                                        <option value="">
-                                          Chọn tỉnh thành
-                                        </option>
-                                      </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <select
-                                        id="district"
-                                        class="form-control"
-                                        style="font-size: 14px; padding: 6px"
-                                        ng-model="quanHuyen"
-                                        ng-options="quanHuyen as quanHuyen for quanHuyen in quanHuyenList"
-                                      >
-                                        <option value="">
-                                          Chọn quận huyện
-                                        </option>
-                                      </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <select
-                                        id="ward"
-                                        class="form-control"
-                                        style="font-size: 14px; padding: 6px"
-                                        ng-model="phuongXa"
-                                        ng-options="phuongXa as phuongXa for phuongXa in phuongXaList"
-                                      >
-                                        <option value="">Chọn phường xã</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
                               <br />
                             </div>
                             <div class="modal-footer">
                               <button
                                 type="button"
                                 class="btn btn-secondary"
-                                ng-click="createKhahHang()"
+                                ng-click="createKhachHang()"
                                 data-bs-dismiss="modal"
                               >
                                 Thêm
@@ -923,33 +878,40 @@
                         <div class="col-lg-6">
                           <div ng-show="showInput">
                             <input
-                              id="input1"
+                              ng-model="tenNguoiShip"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập họ và tên"
+                              placeholder="Nhập họ và tên người ship"
                             />
                             <input
-                              id="input2"
+                              ng-model="soDienThoaiNguoiShip"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Số điện thoại người ship"
+                            />
+                            <input
+                              ng-model="hoTen"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Nhập họ và tên khách"
+                            />
+                            <input
+                              ng-model="soDienThoai"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
                               placeholder="Nhập số điện thoại"
                             />
                             <input
-                              id="input3"
+                              ng-model="diaChi"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
                               placeholder="Nhập địa chỉ"
                             />
-                            <textarea
-                              id="textarea"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập mô tả"
-                            ></textarea>
                           </div>
                         </div>
                         <div class="col-sm-6 col-12">
@@ -1251,8 +1213,8 @@
                                 class="omni-layout-card--item-stack fill text-right"
                               >
                                 <input
-                                  id="input6"
                                   type="text"
+                                  ng-model="tienGiao"
                                   class="form-control hidden-input"
                                   ng-show="showInput"
                                   placeholder="Nhập tiền ship"
@@ -1283,10 +1245,11 @@
                               <div
                                 class="omni-layout-card--item-stack fill text-right"
                               >
-                                <span class="header-title"
-                                  >{{totalAmountPaid - tongTienHang | number}}
-                                  ₫</span
-                                >
+                                <span class="header-title">
+                                  {{ (tongTienHang - totalAmountPaid) >= 0 ?
+                                  (tongTienHang - totalAmountPaid) : '0' |
+                                  number }}₫
+                                </span>
                                 <input
                                   hidden
                                   ng-model="requestData.tienThua"
@@ -1326,9 +1289,22 @@
                         margin-top: 25px;
                         font-weight: bold;
                       "
-                      ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang)"
+                      ng-show="!showInput"
+                      ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)"
                     >
                       Xác Nhận Thanh Toán
+                    </button>
+                    <button
+                      ng-show="showInput"
+                      class="btn btn-outline-primary"
+                      style="
+                        margin-left: 900px;
+                        margin-top: 25px;
+                        font-weight: bold;
+                      "
+                      ng-click="createHoaDonChiTietGiao(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang)"
+                    >
+                      Xác Nhận Giao Hàng
                     </button>
                   </div>
                 </div>
@@ -1340,63 +1316,3 @@
     </div>
   </div>
 </div>
-<script>
-  var citis = document.getElementById("city");
-  var districts = document.getElementById("district");
-  var wards = document.getElementById("ward");
-  var Parameter = {
-    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-    method: "GET",
-    responseType: "application/json",
-  };
-  var promise = axios(Parameter);
-  promise.then(function (result) {
-    renderCity(result.data);
-  });
-
-  function renderCity(data) {
-    for (const x of data) {
-      var opt = document.createElement("option");
-      opt.value = x.Name;
-      opt.text = x.Name;
-      opt.setAttribute("data-id", x.Id);
-      citis.options.add(opt);
-    }
-    citis.onchange = function () {
-      district.length = 1;
-      ward.length = 1;
-      if (this.options[this.selectedIndex].dataset.id != "") {
-        const result = data.filter(
-          (n) => n.Id === this.options[this.selectedIndex].dataset.id
-        );
-
-        for (const k of result[0].Districts) {
-          var opt = document.createElement("option");
-          opt.value = k.Name;
-          opt.text = k.Name;
-          opt.setAttribute("data-id", k.Id);
-          district.options.add(opt);
-        }
-      }
-    };
-    district.onchange = function () {
-      ward.length = 1;
-      const dataCity = data.filter(
-        (n) => n.Id === citis.options[citis.selectedIndex].dataset.id
-      );
-      if (this.options[this.selectedIndex].dataset.id != "") {
-        const dataWards = dataCity[0].Districts.filter(
-          (n) => n.Id === this.options[this.selectedIndex].dataset.id
-        )[0].Wards;
-
-        for (const w of dataWards) {
-          var opt = document.createElement("option");
-          opt.value = w.Name;
-          opt.text = w.Name;
-          opt.setAttribute("data-id", w.Id);
-          wards.options.add(opt);
-        }
-      }
-    };
-  }
-</script>
