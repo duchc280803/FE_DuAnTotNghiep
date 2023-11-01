@@ -192,10 +192,10 @@
 
             <div ng-hide="!isAdmin" class="col-md-4">
               Nhân Viên :
-              <select style="color: green" class="custom-select" ng-model="selectedNguoiXacNhan"
-                ng-change="filterHoaDonByNguoiXacNhan()">
+              <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien"
+                ng-change="filterHoaDonByTenNhanien()">
                 <option value="">Tất cả</option>
-                <option ng-repeat="nguoiXacNhan in tenNguoiXacNhanOptions" value="{{nguoiXacNhan}}">{{nguoiXacNhan}}
+                <option ng-repeat="tenNhanVien in tenNhanVienOptions" value="{{tenNhanVien}}">{{tenNhanVien}}
                 </option>
               </select>
             </div>
@@ -259,7 +259,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :
@@ -302,7 +302,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :
@@ -344,7 +344,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :
@@ -386,7 +386,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :
@@ -428,7 +428,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :
@@ -470,7 +470,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :
@@ -512,7 +512,7 @@
                   <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{hd.soDienThoai}}</td>
                   <td>{{hd.thanhTien}}</td>
-                  <td>{{hd.nguoiXacNhan}}</td>
+                  <td>{{hd.tenNhanVien}}</td>
                   <td>{{hd.loaiDon}}</td>
                   <td>{{hd.trangThai == 1 ? "Chờ xác nhận" :
                     hd.trangThai == 2 ? "Xác nhận" :

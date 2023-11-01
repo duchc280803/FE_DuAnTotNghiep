@@ -2,7 +2,7 @@ myApp.controller(
   "hoaDonController",
   function ($http, $scope, $window, $routeParams) {
     $scope.listHoaDon = [];
-    $scope.tenNguoiXacNhanOptions = [];
+    $scope.tenNhanVienOptions = [];
     $scope.selectedLoaiDon = ""; // Giá trị mặc định
     $scope.searchQuery = ""; // Giá trị trường nhập văn bản
     $scope.isAdmin = false;
@@ -17,7 +17,7 @@ myApp.controller(
     }
     getRole();
     // Hàm tải dữ liệu dựa trên trạng thái và loại đơn
-    function fetchHoaDon(trangThai, loaiDon, nguoiXacNhan) {
+    function fetchHoaDon(trangThai, loaiDon, tenNhanVien) {
       var token = $window.localStorage.getItem("token");
       var config = {
         headers: {
@@ -33,8 +33,8 @@ myApp.controller(
         url += "&loaiDon=" + loaiDon;
       }
 
-      if (nguoiXacNhan !== undefined && nguoiXacNhan !== "") {
-        url += "&nguoiXacNhan=" + nguoiXacNhan;
+      if (tenNhanVien !== undefined && tenNhanVien !== "") {
+        url += "&tenNhanVien=" + tenNhanVien;
       }
 
       // Thêm tenNhanVien vào URL nếu tenNhanVien được chọn
@@ -51,19 +51,18 @@ myApp.controller(
         }
       }
 
-      console.log("nguoiXacNhan: ", nguoiXacNhan);
 
       $http.get(url, config).then(function (response) {
         $scope["listHoaDon" + trangThai] = response.data;
 
         response.data.forEach(function (hoaDon) {
-          if (hoaDon.nguoiXacNhan) {
-            $scope.tenNguoiXacNhanOptions.push(hoaDon.nguoiXacNhan);
+          if (hoaDon.tenNhanVien) {
+            $scope.tenNhanVienOptions.push(hoaDon.tenNhanVien);
           }
         });
 
-        $scope.tenNguoiXacNhanOptions = [
-          ...new Set($scope.tenNguoiXacNhanOptions),
+        $scope.tenNhanVienOptions = [
+          ...new Set($scope.tenNhanVienOptions),
         ];
         // Kiểm tra dữ liệu trả về
         console.log("Dữ liệu trả về: ", response.data);
@@ -92,10 +91,10 @@ myApp.controller(
       }
     };
 
-    $scope.filterHoaDonByNguoiXacNhan = function () {
-      var nguoiXacNhan = $scope.selectedNguoiXacNhan;
+    $scope.filterHoaDonByTenNhanien = function () {
+      var tenNhanVien = $scope.selectedTenNhanVien;
       for (var i = 1; i <= 7; i++) {
-        fetchHoaDon(i, $scope.selectedLoaiDon, nguoiXacNhan);
+        fetchHoaDon(i, $scope.selectedLoaiDon, tenNhanVien);
       }
     };
 
