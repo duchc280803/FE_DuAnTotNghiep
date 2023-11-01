@@ -82,9 +82,10 @@ myApp.controller("orderCounterController", [
         });
     };
 
-    $scope.reloadTrang = function(id) {
+    $scope.reloadTrang = function (id) {
       $location.path("/order-counter/carts/" + id);
       $route.reload();
     };
+
   },
 ]);

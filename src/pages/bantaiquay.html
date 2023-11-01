@@ -460,7 +460,9 @@
                                 style="border: 1px solid #ccc"
                               >
                                 <tr>
-                                  <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
+                                  <td>
+                                    {{$index + 1 + (pageNumber * pageSize)}}
+                                  </td>
                                   <td>
                                     <div style="position: relative">
                                       <img
@@ -566,7 +568,6 @@
                         <div class="quantity">
                           <input
                             ng-model="soLuongSanPham"
-                            style="margin-left: -40px"
                             type="number"
                             class="next-input text-left min-width-100px position-relative quantity-decimal"
                             min="1"
@@ -653,8 +654,8 @@
                       <h6 ng-show="orderDetailCounter.email != null">
                         Email: {{orderDetailCounter.email}}
                       </h6>
-                      <h6 ng-show="orderDetailCounter.sodienthoai != null">
-                        Số Điện Thoại: {{orderDetailCounter.sodienthoai}}
+                      <h6 ng-show="orderDetailCounter.soDienThoai != null">
+                        Số Điện Thoại: {{orderDetailCounter.soDienThoai}}
                       </h6>
                       <hr />
                       <h6 ng-show="orderDetailCounter.diaChi != null">
@@ -735,14 +736,14 @@
                                       <th scope="row">{{$index + 1}}</th>
                                       <td>{{kh.ten}}</td>
                                       <td>{{kh.email}}</td>
-                                      <td>{{kh.sodienthoai}}</td>
+                                      <td>{{kh.soDienThoai}}</td>
                                       <td>{{kh.diaChi}}</td>
                                       <td>
                                         <button
-                                          ng-click="viewKhachAndUpdateHoaDon(kh.id)"
+                                          ng-click="updateKhachHang(kh.id)"
                                           type="button"
-                                          data-bs-dismiss="modal"
                                           class="btn btn-outline-primary m-1"
+                                          data-bs-dismiss="modal"
                                         >
                                           Chọn
                                         </button>
@@ -787,10 +788,10 @@
                             <div class="modal-body">
                               <div class="row">
                                 <div class="col-lg-6">
-                                  <h6 class="text">Họ Tên</h6>
+                                  <h6 class="text">Họ Tên Khách</h6>
                                   <input
                                     class="form-control"
-                                    placeholder="Nhập họ tên"
+                                    placeholder="Nhập họ tên khách"
                                     ng-model="newKhachHang.hoTen"
                                   />
                                 </div>
@@ -833,39 +834,13 @@
                                   />
                                 </div>
                               </div>
-                              <div>
-                                <select
-                                  name="calc_shipping_provinces"
-                                  required=""
-                                >
-                                  <option value="">Tỉnh / Thành phố</option>
-                                </select>
-                                <select
-                                  name="calc_shipping_district"
-                                  required=""
-                                >
-                                  <option value="">Quận / Huyện</option>
-                                </select>
-                                <input
-                                  class="billing_address_1"
-                                  name=""
-                                  type="hidden"
-                                  value=""
-                                />
-                                <input
-                                  class="billing_address_2"
-                                  name=""
-                                  type="hidden"
-                                  value=""
-                                />
-                              </div>
                               <br />
                             </div>
                             <div class="modal-footer">
                               <button
                                 type="button"
                                 class="btn btn-secondary"
-                                ng-click="createKhahHang()"
+                                ng-click="createKhachHang()"
                                 data-bs-dismiss="modal"
                               >
                                 Thêm
@@ -905,33 +880,40 @@
                         <div class="col-lg-6">
                           <div ng-show="showInput">
                             <input
-                              id="input1"
+                              ng-model="tenNguoiShip"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập họ và tên"
+                              placeholder="Nhập họ và tên người ship"
                             />
                             <input
-                              id="input2"
+                              ng-model="soDienThoaiNguoiShip"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Số điện thoại người ship"
+                            />
+                            <input
+                              ng-model="hoTen"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              placeholder="Nhập họ và tên khách"
+                            />
+                            <input
+                              ng-model="soDienThoai"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
                               placeholder="Nhập số điện thoại"
                             />
                             <input
-                              id="input3"
+                              ng-model="diaChi"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
                               placeholder="Nhập địa chỉ"
                             />
-                            <textarea
-                              id="textarea"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập mô tả"
-                            ></textarea>
                           </div>
                         </div>
                         <div class="col-sm-6 col-12">
@@ -1005,6 +987,7 @@
                                                 <button
                                                   class="btn btn-outline-primary"
                                                   style="margin-left: 50px"
+                                                  ng-click="createTransactionVnpay(tongTienHang - totalAmountPaid)"
                                                 >
                                                   Chuyển khoản
                                                 </button>
@@ -1142,6 +1125,12 @@
                                   style="color: #dd2222"
                                   >{{totalAmountPaid | number}}đ</span
                                 >
+                                <input
+                                  hidden
+                                  ng-model="requestData.tongTien"
+                                  type="text"
+                                  ng-value="totalAmountPaid"
+                                />
                               </div>
                             </div>
                           </div>
@@ -1226,8 +1215,8 @@
                                 class="omni-layout-card--item-stack fill text-right"
                               >
                                 <input
-                                  id="input6"
                                   type="text"
+                                  ng-model="tienGiao"
                                   class="form-control hidden-input"
                                   ng-show="showInput"
                                   placeholder="Nhập tiền ship"
@@ -1258,10 +1247,17 @@
                               <div
                                 class="omni-layout-card--item-stack fill text-right"
                               >
-                                <span class="header-title"
-                                  >{{totalAmountPaid - tongTienHang | number}}
-                                  ₫</span
-                                >
+                                <span class="header-title">
+                                  {{ (tongTienHang - totalAmountPaid) >= 0 ?
+                                  (tongTienHang - totalAmountPaid) : '0' |
+                                  number }}₫
+                                </span>
+                                <input
+                                  hidden
+                                  ng-model="requestData.tienThua"
+                                  type="text"
+                                  ng-value="totalAmountPaid - tongTienHang"
+                                />
                               </div>
                             </div>
                           </div>
@@ -1276,6 +1272,12 @@
                                 <span class="header-title"
                                   >{{tongTienHang | number}}₫</span
                                 >
+                                <input
+                                  hidden
+                                  ng-model="requestData.tongTien"
+                                  type="text"
+                                  ng-value="tongTienHang"
+                                />
                               </div>
                             </div>
                           </div>
@@ -1289,9 +1291,22 @@
                         margin-top: 25px;
                         font-weight: bold;
                       "
-                      ng-click="createHoaDonChiTiet()"
+                      ng-show="!showInput"
+                      ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)"
                     >
                       Xác Nhận Thanh Toán
+                    </button>
+                    <button
+                      ng-show="showInput"
+                      class="btn btn-outline-primary"
+                      style="
+                        margin-left: 900px;
+                        margin-top: 25px;
+                        font-weight: bold;
+                      "
+                      ng-click="createHoaDonChiTietGiao(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang)"
+                    >
+                      Xác Nhận Giao Hàng
                     </button>
                   </div>
                 </div>

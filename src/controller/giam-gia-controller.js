@@ -462,7 +462,7 @@ $scope.themKhuyenMai = function () {
     return;
   }
 
-  if ($scope.hinhThucGiam == 2 && ($scope.mucGiam <= 0 || $scope.mucGiam > 50)) {
+  if ($scope.hinhThucGiam == 2 && ($scope.mucGiam <= 0 || $scope.mucGiam > 100  )) {
     alert('Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm.');
     return;
   }
@@ -480,7 +480,7 @@ $scope.themKhuyenMai = function () {
     })
     .then(function (isProductCountValid) {
       if (!isProductCountValid) {
-        alert('Sản phẩm này đã áp dụng tối đa 2 lần giảm giá');
+        alert('Sản phẩm này đã áp dụng tối đa 1 lần giảm giá');
       } else {
         var idDanhMuc;
 
