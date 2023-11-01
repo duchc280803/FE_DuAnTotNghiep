@@ -17,6 +17,7 @@ myApp.controller("loginController", function ($scope, $http, $window) {
       function (response) {
         $window.localStorage.setItem("token", response.data.accessToken);
         $window.localStorage.setItem("role", response.data.role);
+        console.log($window.localStorage.getItem("token"));
         $window.location.assign("/src/home-admin.html#/admin/dashboard");
       },
       function (error) {
