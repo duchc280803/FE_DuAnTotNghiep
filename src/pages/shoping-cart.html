@@ -46,6 +46,7 @@
                             </div>
                             <div class="header__top__right__language">
                                 <img src="/img/language.png" alt="">
+
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
@@ -230,43 +231,39 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="checkout__input">
                             <p>Họ Và Tên<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" />
+                            <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
                         </div>
                         <div class="checkout__input">
                             <p>Địa Chỉ<span>*</span></p>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <select id="city" class="form-control" style=" font-size: 14px;padding: 6px;">
-                                        <option value="" selected>Chọn tỉnh thành</option>
+                                    <select id="city" class="form-control" style="font-size: 14px; padding: 6px" ng-model="thanhPho" >
+                                        <option value="">Chọn tỉnh thành</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-
-                                    <select id="district" class="form-control" style=" font-size: 14px;padding: 6px;">
-                                        <option value="" selected>Chọn quận huyện</option>
+                                    <select id="district" class="form-control" style="font-size: 14px; padding: 6px" ng-model="quanHuyen">
+                                        <option value="">Chọn quận huyện</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <select id="ward" class="form-control" style=" font-size: 14px;padding: 6px;">
-                                        <option value="" selected>Chọn phường xã</option>
+                                    <select id="ward" class="form-control" style="font-size: 14px; padding: 6px" ng-model="phuongXa">
+                                        <option value="">Chọn phường xã</option>
                                     </select>
-                                </div>
-                                <div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="checkout__input">
                             <p>Địa Chỉ Chi Tiết<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" />
+                            <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
                         </div>
                         <div class="checkout__input">
                             <p>Số Điện Thoại<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" />
+                            <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" ng-model="soDienThoai" />
                         </div>
                         <div class="checkout__input">
                             <p>Email<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Email" />
+                            <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" />
                         </div>
                         <div class="checkout__input">
                             <p>Ghi chú</p>
@@ -314,12 +311,13 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="site-btn">Đặt Hàng</button>
+                            <button type="submit" class="site-btn" ng-click="thanhToan()">Đặt Hàng</button>
 
                         </div>
                     </div>
                 </div>
                 <!-- Checkout row  End -->
+                </form> 
     </section>
     <!-- Shoping Cart Section End -->
 
