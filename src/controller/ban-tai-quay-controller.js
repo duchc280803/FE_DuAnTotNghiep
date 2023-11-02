@@ -284,6 +284,7 @@ myApp.controller("BanTaiQuayController", [
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
+          $scope.newTransaction.soTien = '';
           $scope.showTransaction();
         });
     };
@@ -331,7 +332,7 @@ myApp.controller("BanTaiQuayController", [
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);
-        $location.path("/order-counter");
+        $location.path("/hoa-don");
       });
     };
 
@@ -358,7 +359,7 @@ myApp.controller("BanTaiQuayController", [
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);
-        $location.path("/order-counter");
+        $location.path("/hoa-don");
       });
     };
   },
