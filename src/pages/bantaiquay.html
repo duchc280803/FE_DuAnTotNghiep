@@ -343,13 +343,14 @@
                   </div>
                   <br />
                   <div class="box">
-                    <table class="table table-hover">
+                    <table class="table">
                       <thead>
                         <tr style="background-color: lightskyblue">
                           <th scope="col">STT</th>
                           <th scope="col">Ảnh</th>
                           <th scope="col">Sản phẩm</th>
                           <th scope="col">Số lượng</th>
+                          <th scope="col">Đơn giá</th>
                           <th scope="col">Tổng tiền</th>
                           <th scope="col">Thao tác</th>
                         </tr>
@@ -360,9 +361,27 @@
                         style="border: 1px solid #ccc"
                       >
                         <tr>
-                          <th scope="row">{{$index + 1}}</th>
+                          <th scope="row" style="padding-top: 80px">
+                            {{$index + 1}}
+                          </th>
                           <td>
                             <img src="{{lc.image}}" alt="" width="150px" />
+                            <!-- <div
+                              ng-show="lc.mucGiam != null"
+                              class="product__discount__percent"
+                              style="
+                                position: absolute;
+                                top: 50%;
+                                left: 12%;
+                                transform: translate(-50%, -50%);
+                                background-color: #dd2222;
+                                color: #ffffff;
+                                border-radius: 50%;
+                                padding: 0px;
+                              "
+                            >
+                              -{{lc.mucGiam}}%
+                            </div> -->
                           </td>
                           <td style="padding-top: 50px">
                             {{lc.tenSanPham}}
@@ -384,8 +403,24 @@
                               />
                             </div>
                           </td>
-                          <td style="padding-top: 80px">
-                            {{lc.giaBan * lc.soLuong | number}}đ
+                          <td style="padding-top: 60px">
+                            <div ng-show="lc.giaGiam != null">
+                              {{lc.giaGiam | number}}đ
+                              <span>
+                                <strike>{{lc.giaBan | number}}₫</strike></span
+                              >
+                            </div>
+                            <div ng-show="lc.giaGiam == null">
+                              {{lc.giaBan | number}}đ
+                            </div>
+                          </td>
+                          <td style="padding-top: 60px">
+                            <div ng-show="lc.giaGiam != null">
+                              {{lc.giaGiam * lc.soLuong | number}}đ
+                            </div>
+                            <div ng-show="lc.giaGiam == null">
+                              {{lc.giaBan * lc.soLuong | number}}đ
+                            </div>
                           </td>
                           <td style="padding-top: 60px">
                             <button
@@ -439,7 +474,6 @@
                           </div>
                           <br />
                           <div class="box">
-                            
                             <table class="table table-hover">
                               <thead>
                                 <tr style="background-color: lightskyblue">
@@ -528,7 +562,6 @@
                                 </tr>
                               </tbody>
                             </table>
-
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -634,40 +667,6 @@
                 <div class="col-lg-12">
                   <div class="card overflow-hidden">
                     <div class="card-body p-4">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <h5 class="card-title mb-9 fw-semibold">Tài khoản</h5>
-                        </div>
-                        <div class="col-lg-6" style="padding-left: 415px">
-                          <button
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal2"
-                            class="btn btn-outline-primary"
-                          >
-                            Chọn tài khoản
-                          </button>
-                        </div>
-                      </div>
-                      <h6 ng-hide="orderDetailCounter.tenKhach === 'Khách lẻ'">
-                        Họ Và Tên: {{orderDetailCounter.tenKhach}}
-                      </h6>
-                      <h6 ng-show="orderDetailCounter.email != null">
-                        Email: {{orderDetailCounter.email}}
-                      </h6>
-                      <h6 ng-show="orderDetailCounter.soDienThoai != null">
-                        Số Điện Thoại: {{orderDetailCounter.soDienThoai}}
-                      </h6>
-                      <hr />
-                      <h6 ng-show="orderDetailCounter.diaChi != null">
-                        Địa Chỉ:{{orderDetailCounter.diaChi}}
-                      </h6>
-                      <h6
-                        ng-show="orderDetailCounter.ten == null && orderDetailCounter.email == null && orderDetailCounter.sodienthoai == null && orderDetailCounter.diaChi == null"
-                        class="text-customs"
-                        style="padding-top: 10px; padding-right: 935px"
-                      >
-                        Tên khách hàng: {{orderDetailCounter.tenKhach}}
-                      </h6>
                       <div
                         class="modal fade"
                         id="exampleModal2"
@@ -864,7 +863,26 @@
                 <div class="card-body p-4">
                   <div class="row">
                     <div class="col-lg-6">
-                      <h5 class="card-title mb-9 fw-semibold">Khách hàng</h5>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <h5 class="card-title mb-9 fw-semibold">
+                            Khách hàng
+                          </h5>
+                        </div>
+                        <div class="col-lg-6" style="margin-left: -175px">
+                          <a
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal2"
+                            class="btn btn-outline-primary"
+                          >
+                            <img
+                              src="/assets/images/search.png"
+                              alt=""
+                              width="25px"
+                            />
+                          </a>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-lg-6">
                       <h5 class="card-title mb-9 fw-semibold">
@@ -878,6 +896,27 @@
                     <div class="container">
                       <div class="row">
                         <div class="col-lg-6">
+                          <div ng-show="!showInput">
+                            <h6
+                              ng-hide="orderDetailCounter.tenKhach === 'Khách lẻ'"
+                            >
+                              Họ tên: {{ orderDetailCounter.tenKhach }}
+                            </h6>
+                            <h6
+                              ng-show="orderDetailCounter.soDienThoai != null"
+                            >
+                              Số điện thoại: {{ orderDetailCounter.soDienThoai
+                              }}
+                            </h6>
+                            <h6 ng-show="orderDetailCounter.diaChi != null">
+                              Địa Chỉ: {{ orderDetailCounter.diaChi }}
+                            </h6>
+                            <h6
+                              ng-show="orderDetailCounter.ten == null && orderDetailCounter.email == null && orderDetailCounter.sodienthoai == null && orderDetailCounter.diaChi == null"
+                            >
+                              Họ tên: {{ orderDetailCounter.tenKhach }}
+                            </h6>
+                          </div>
                           <div ng-show="showInput">
                             <input
                               ng-model="tenNguoiShip"
@@ -894,24 +933,39 @@
                               placeholder="Số điện thoại người ship"
                             />
                             <input
+                              ng-hide="orderDetailCounter.tenKhach === 'Khách lẻ'"
                               ng-model="hoTen"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
+                              ng-value="orderDetailCounter.tenKhach"
                               placeholder="Nhập họ và tên khách"
                             />
                             <input
+                              ng-show="orderDetailCounter.ten == null && orderDetailCounter.email == null && orderDetailCounter.sodienthoai == null && orderDetailCounter.diaChi == null"
+                              ng-model="hoTen"
+                              type="text"
+                              class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px"
+                              ng-value="orderDetailCounter.tenKhach"
+                              placeholder="Nhập họ và tên khách"
+                            />
+                            <input
+                              ng-show="orderDetailCounter.soDienThoai != null"
                               ng-model="soDienThoai"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
+                              ng-value="orderDetailCounter.soDienThoai"
                               placeholder="Nhập số điện thoại"
                             />
                             <input
+                              ng-show="orderDetailCounter.diaChi != null"
                               ng-model="diaChi"
                               type="text"
                               class="form-control hidden-input"
                               style="margin-left: -30px; margin-bottom: 30px"
+                              ng-value="orderDetailCounter.diaChi"
                               placeholder="Nhập địa chỉ"
                             />
                           </div>
@@ -1248,9 +1302,7 @@
                                 class="omni-layout-card--item-stack fill text-right"
                               >
                                 <span class="header-title">
-                                  {{ (tongTienHang - totalAmountPaid) >= 0 ?
-                                  (tongTienHang - totalAmountPaid) : '0' |
-                                  number }}₫
+                                  {{totalAmountPaid- tongTienHang |number }}₫
                                 </span>
                                 <input
                                   hidden
