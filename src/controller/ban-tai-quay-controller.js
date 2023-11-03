@@ -45,8 +45,12 @@ myApp.controller("BanTaiQuayController", [
     };
 
     // TODO: SHOW input giao hàng
+    $scope.showInput = true;
+
     $scope.toggleInput = function () {
       $scope.showInput = !$scope.showInput;
+      $scope.tenNguoiShip = "";
+      $scope.soDienThoaiNguoiShip = "";
     };
 
     $scope.selectedProductQuantity = function (quantity, id) {
@@ -284,7 +288,7 @@ myApp.controller("BanTaiQuayController", [
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
-          $scope.newTransaction.soTien = '';
+          $scope.newTransaction.soTien = "";
           $scope.showTransaction();
         });
     };
