@@ -21,11 +21,97 @@ myApp.controller("BanTaiQuayController", [
     $scope.createDate = ""; // lưu ngày tạo lại để truyền cộng thông tin sản phẩm or thanh toán
     $scope.orderDetailCounter = {}; // hiển thị thông tin theo hóa đơn
 
-    var id = $routeParams.id;
+    $scope.luuIdHoaDon = function (id) {
+      window.localStorage.setItem('idHoaDon',id)
+    }
+
+    var id = $window.localStorage.getItem("idHoaDon");
+
+    $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
+    // tạo hóa đơn
+    $scope.createHoaDon = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      var api = "http://localhost:8080/api/v1/don-hang/create";
+
+      $http.post(api, {}, config).then(function (response) {
+        $scope.listHoaDonTaiQuay.push(response.data);
+        $scope.getListHoaDonTaiQuay();
+      });
+    };
+
+    //TODO: Get all hoa đơn tại quầy
+    $scope.pageNumber = 0;
+    $scope.pageSize = 4;
+    $scope.getListHoaDonTaiQuay = function () {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/don-hang/show?pageNumber=" +
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize
+        )
+        .then(function (response) {
+          $scope.listHoaDonTaiQuay = response.data;
+        });
+    };
+    $scope.getListHoaDonTaiQuay();
+
+    // hiển thị số trang
+    $scope.getPageNumbers = function () {
+      var totalPages = Math.ceil(
+        $scope.listHoaDonTaiQuay.length / $scope.pageSize
+      );
+      var pageNumbers = [];
+      for (var i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+      return pageNumbers;
+    };
+
+    // TODO: updatePage
+    $scope.updatePage = function (pageNumber) {
+      $scope.pageNumber = pageNumber;
+      $scope.getListHoaDonTaiQuay();
+    };
+
+    // TODO: Quay lại trang
+    $scope.previousPage = function () {
+      if ($scope.pageNumber > 0) {
+        $scope.pageNumber--;
+        $scope.getListHoaDonTaiQuay();
+      }
+    };
+
+    // TODO: tiến đến trang khác
+    $scope.nextPage = function () {
+      $scope.pageNumber++;
+      $scope.getListHoaDonTaiQuay();
+    };
+
+    // tìm kiếm hóa đơn
+    $scope.searchOrder = function (ma) {
+      $http
+        .get("http://localhost:8080/api/v1/don-hang/search/" + ma)
+        .then(function (response) {
+          $scope.listHoaDonTaiQuay = response.data;
+        });
+    };
+
+    $scope.reloadTrang = function (id) {
+      $location.path("/order-counter/carts/" + id);
+      $route.reload();
+    };
 
     $scope.detailOrderCounterDetail = function (id) {
       $http
-        .get("http://localhost:8080/api/v1/hoa-don/order-counter/" + id)
+        .get("http://localhost:8080/api/v1/don-hang/order-counter/" + id)
         .then(function (response) {
           $scope.orderDetailCounter = response.data;
           $window.localStorage.setItem(
@@ -114,41 +200,11 @@ myApp.controller("BanTaiQuayController", [
       $scope.listSanPhamInCart();
     };
 
-    // TODO: Get ALL sản phẩm tại quầy
-    $scope.getListSanPhamTaiQuay = function () {
-      $http
-        .get("http://localhost:8080/api/chi-tiet-sp/hien-thi")
-        .then(function (response) {
-          $scope.listSanPhamTaiQuay = response.data;
-          $scope.keyName = "";
-        });
-    };
-    $scope.getListSanPhamTaiQuay();
-
-    // TODO: get one sản phẩm tại quầy
-    $scope.showGetOneProduct = function (id) {
-      $http
-        .get("http://localhost:8080/api/chi-tiet-sp/san-pham/" + id)
-        .then(function (response) {
-          $scope.listSanPhamTaiQuay = response.data;
-        });
-    };
-
-    // TODO: Tìm kiếm sản phẩm
-    $scope.keyName = "";
-    $scope.searchSanPham = function () {
-      $http
-        .get("http://localhost:8080/api/chi-tiet-sp?name=" + $scope.keyName)
-        .then(function (response) {
-          $scope.listSanPhamTaiQuay = response.data;
-        });
-    };
-
     // lấy ra id cart
     $scope.idCartChiTiet = {};
     $scope.showIdCart = function () {
       $http
-        .get("http://localhost:8080/api/v1/hoa-don/id_cart?id=" + id)
+        .get("http://localhost:8080/api/v1/don-hang/id_cart?id=" + id)
         .then(function (response) {
           $scope.idCartChiTiet = response.data;
           $window.localStorage.setItem("gioHangId", $scope.idCartChiTiet.id);
@@ -332,7 +388,7 @@ myApp.controller("BanTaiQuayController", [
         gioHangChiTietList: gioHangChiTietList,
       };
       var api =
-        "http://localhost:8080/api/v1/hoa-don/create-hoa-don-chi-tiet?idHoaDon=" +
+        "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);
@@ -359,12 +415,153 @@ myApp.controller("BanTaiQuayController", [
         gioHangChiTietList: gioHangChiTietList,
       };
       var api =
-        "http://localhost:8080/api/v1/hoa-don/create-hoa-don-chi-tiet-giao?idHoaDon=" +
+        "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);
         $location.path("/hoa-don");
       });
+    };
+
+    // TODO: Lấy ra tất cả bản ghi của chất liệu
+    $scope.listChatLieu = [];
+    $scope.getListChatLieu = function () {
+      $http
+        .get("http://localhost:8080/api/v1/chat-lieu/show")
+        .then(function (response) {
+          $scope.listChatLieu = response.data;
+        });
+    };
+    $scope.getListChatLieu();
+
+    // TODO: Lấy ra tất cả bản ghi của size
+    $scope.listSize = [];
+    $scope.getListSize = function () {
+      $http
+        .get("http://localhost:8080/api/v1/size/show")
+        .then(function (response) {
+          $scope.listSize = response.data;
+        });
+    };
+    $scope.getListSize();
+
+    // TODO: Lấy ra tất cả bản ghi của màu sắc
+    $scope.listMauSac = [];
+    $scope.getListMauSac = function () {
+      $http
+        .get("http://localhost:8080/api/v1/mau-sac/show")
+        .then(function (response) {
+          $scope.listMauSac = response.data;
+        });
+    };
+    $scope.getListMauSac();
+
+    // TODO: Lấy ra tất cả bản ghi của thương hiệu
+    $scope.listThuongHieu = [];
+    $scope.getListThuongHieu = function () {
+      $http
+        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi")
+        .then(function (response) {
+          $scope.listThuongHieu = response.data;
+        });
+    };
+    $scope.getListThuongHieu();
+
+    // TODO: Lấy ra tất cả bản ghi của danh mục
+    $scope.listDanhMuc = [];
+    $scope.getListDanhMuc = function () {
+      $http
+        .get("http://localhost:8080/api/v1/danh-muc/show")
+        .then(function (response) {
+          $scope.listDanhMuc = response.data;
+        });
+    };
+    $scope.getListDanhMuc();
+
+    // TODO: Lấy ra tất cả bản ghi của kiểu đế
+    $scope.listKieuDe = [];
+    $scope.getListKieuDe = function () {
+      $http
+        .get("http://localhost:8080/api/v1/kieu-de/show")
+        .then(function (response) {
+          $scope.listKieuDe = response.data;
+        });
+    };
+    $scope.getListKieuDe();
+
+    // TODO: Lấy ra tất cả bản ghi của xuất xứ
+    $scope.listXuatXu = [];
+    $scope.getListXuatXu = function () {
+      $http
+        .get("http://localhost:8080/api/v1/xuat-xu/show")
+        .then(function (response) {
+          $scope.listXuatXu = response.data;
+        });
+    };
+    $scope.getListXuatXu();
+
+    // TODO: Lấy ra tất cả bản ghi của sản phẩm
+    $scope.listXuatXu = [];
+    $scope.getListXuatXu = function () {
+      $http
+        .get("http://localhost:8080/api/v1/xuat-xu/show")
+        .then(function (response) {
+          $scope.listXuatXu = response.data;
+        });
+    };
+    $scope.getListXuatXu();
+
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 5; // Số bản ghi trên mỗi trang
+    $scope.totalItems = 0; // Tổng số bản ghi
+    $scope.maxSize = 3; // Số lượng trang hiển thị trên thanh phân trang
+    // TODO: Get ALL sản phẩm tại quầy
+    $scope.getListSanPhamTaiQuay = function () {
+      var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
+      var endIndex = startIndex + $scope.itemsPerPage;
+
+      $http
+        .get("http://localhost:8080/api/chi-tiet-sp/hien-thi")
+        .then(function (response) {
+          $scope.totalItems = response.data.length;
+          $scope.listSanPhamTaiQuay = response.data.slice(startIndex, endIndex);
+          $scope.keyName = "";
+        });
+    };
+
+    $scope.getListSanPhamTaiQuay();
+    
+    $scope.previousPageSp = function() {
+      if ($scope.currentPage > 1) {
+        $scope.currentPage--;
+        $scope.getListSanPhamTaiQuay();
+      }
+    };
+    
+    $scope.nextPageSp = function() {
+      if ($scope.currentPage < Math.ceil($scope.totalItems / $scope.itemsPerPage)) {
+        $scope.currentPage++;
+        $scope.getListSanPhamTaiQuay();
+      }
+    };
+
+    // TODO: get one sản phẩm tại quầy
+    $scope.showGetOneProduct = function (id) {
+      $http
+        .get("http://localhost:8080/api/chi-tiet-sp/san-pham/" + id)
+        .then(function (response) {
+          $scope.listSanPhamTaiQuay = response.data;
+        });
+    };
+
+    // TODO: Tìm kiếm sản phẩm
+    $scope.keyName = "";
+    $scope.searchSanPham = function () {
+      $http
+        .get("http://localhost:8080/api/chi-tiet-sp?name=" + $scope.keyName)
+        .then(function (response) {
+          $scope.listSanPhamTaiQuay = response.data;
+        });
     };
   },
 ]);
