@@ -2,7 +2,7 @@ var app = angular.module('myApp', []);
 app.controller('CartController', function ($scope, $http, $window) {
     function loadToTals() {
         // Gọi API và cập nhật giá trị totalAmount
-        $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E")
+        $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=416941F8-150F-4C14-AEF8-03864A892471")
             .then(function (response) {
                 // Lấy giá trị tổng tiền từ phản hồi API
                 $scope.totalAmount = response.data[0].tongSoTien;
@@ -71,7 +71,7 @@ app.controller('CartController', function ($scope, $http, $window) {
             cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=' + 'DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E';
+                var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=' + '416941F8-150F-4C14-AEF8-03864A892471';
 
                 $http({
                     url: apiURL,
@@ -88,7 +88,7 @@ app.controller('CartController', function ($scope, $http, $window) {
 
     function loadCart() {
         // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-        var idgh = 'DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E';
+        var idgh = '416941F8-150F-4C14-AEF8-03864A892471';
         var apiURL = 'http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=' + idgh;
 
         $http.get(apiURL)
@@ -104,7 +104,7 @@ app.controller('CartController', function ($scope, $http, $window) {
     loadCart();
     // Gọi API và cập nhật danh sách sản phẩm và tổng tiền
     function loadNameAndPrice() {
-        $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=DB9FDBFD-2BF8-4F9B-A567-8415ED68A02E")
+        $http.get("http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=416941F8-150F-4C14-AEF8-03864A892471")
             .then(function (response) {
                 $scope.items = response.data;
 
