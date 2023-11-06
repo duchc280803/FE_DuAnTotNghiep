@@ -207,6 +207,7 @@ myApp.controller(
 
     $scope.addToCart = function (id) {
       console.log(id);
+      $window.localStorage.setItem('id', id);
     }
 
     $scope.getDetailProduct();

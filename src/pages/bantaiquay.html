@@ -364,7 +364,7 @@
                             </tr>
                           </thead>
                           <tbody class="table">
-                            <tr ng-repeat="hd in listHoaDonTaiQuay">
+                            <tr ng-repeat="hd in listHoaDonTaiQuay" ng-class="{ 'selected': hd.selected }">
                               <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
                               <td>{{hd.maHoaDon}}</td>
                               <td>{{hd.tenNhanVien}}</td>
@@ -1233,7 +1233,7 @@
                                               <button
                                                 class="btn btn-outline-primary"
                                                 style="margin-left: 50px"
-                                                ng-click="createTransactionVnpay(tongTienHang - totalAmountPaid)"
+                                                ng-click="tongHopThanhToan(tongTienHang - totalAmountPaid)"
                                               >
                                                 Chuyển khoản
                                               </button>
@@ -1532,13 +1532,13 @@
                       margin-top: 25px;
                       font-weight: bold;
                     "
-                    ng-show="!showInput"
+                    ng-show="showInput"
                     ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)"
                   >
                     Xác Nhận Thanh Toán
                   </button>
                   <button
-                    ng-show="showInput"
+                    ng-show="!showInput"
                     class="btn btn-outline-primary"
                     style="
                       margin-left: 900px;
