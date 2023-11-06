@@ -10,7 +10,6 @@ myApp.controller("BanTaiQuayController", [
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
     $scope.luuSoLuong = 1; // lấy ra tất cả số lượng của sản phẩm đó
-    $scope.idSanPhamChiTiet = 0; // lấy ra idsanphamchitiet
     $scope.soLuongSanPham = 1; // số lượng thêm vào giỏ hàng
     $scope.showInput = false; // show input giao hàng
     $scope.listHoaDonChiTiet = []; // list hóa đơn chi tiết
@@ -22,8 +21,10 @@ myApp.controller("BanTaiQuayController", [
     $scope.orderDetailCounter = {}; // hiển thị thông tin theo hóa đơn
 
     $scope.luuIdHoaDon = function (id) {
-      window.localStorage.setItem('idHoaDon',id)
-    }
+      window.localStorage.setItem("idHoaDon", id);
+      $location.path("/order-counter");
+      $route.reload();
+    };
 
     var id = $window.localStorage.getItem("idHoaDon");
 
@@ -104,11 +105,6 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    $scope.reloadTrang = function (id) {
-      $location.path("/order-counter/carts/" + id);
-      $route.reload();
-    };
-
     $scope.detailOrderCounterDetail = function (id) {
       $http
         .get("http://localhost:8080/api/v1/don-hang/order-counter/" + id)
@@ -125,12 +121,6 @@ myApp.controller("BanTaiQuayController", [
 
     var idKhach = $window.localStorage.getItem("idKhach");
 
-    $scope.reloadTrang = function () {
-      $location.path("/order-counter");
-      $route.reload();
-    };
-
-    // TODO: SHOW input giao hàng
     $scope.showInput = true;
 
     $scope.toggleInput = function () {
@@ -146,7 +136,7 @@ myApp.controller("BanTaiQuayController", [
 
     // TODO: show sản phẩm trong giỏ hảng
     $scope.pageNumber = 0;
-    $scope.pageSize = 2;
+    $scope.pageSize = 3;
     $scope.listSanPhamInCart = function () {
       $http
         .get(
@@ -214,15 +204,15 @@ myApp.controller("BanTaiQuayController", [
 
     // TODO: thêm sản phẩm vào giỏ hàng
     var gioHangId = $window.localStorage.getItem("gioHangId");
-    $scope.themSanPhamCart = function () {
+    $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
       $http
         .post(
           "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
             gioHangId +
             "&idSanPhamChiTiet=" +
-            $scope.idSanPhamChiTiet +
+            idCtSp +
             "&soLuong=" +
-            $scope.soLuongSanPham,
+            soLuongSanPham,
           {}
         )
         .then(function (response) {
@@ -231,21 +221,23 @@ myApp.controller("BanTaiQuayController", [
         })
         .catch(function (error) {});
     };
-    console.log(gioHangId);
 
     // cập nhập sản phẩm trong giỏ hàng
-    $scope.updateCart = function (idGioHangChiTiet) {
-      $http
-        .put(
-          "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
-            idGioHangChiTiet +
-            "&quantity=" +
-            $scope.soLuongSanPham,
-          {}
-        )
-        .then(function (response) {
-          $scope.listSanPhamInCart();
-        });
+    $scope.updateCart = function (idGioHangChiTiet, soLuong) {
+      var apiURL =
+        "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
+        idGioHangChiTiet +
+        "&quantity=" +
+        soLuong;
+      $http({
+        url: apiURL,
+        method: "PUT",
+        transformResponse: [
+          function () {
+            $scope.listSanPhamInCart();
+          },
+        ],
+      });
     };
 
     // TODO: Hiển thị khách hàng
@@ -301,6 +293,7 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
+    // delete sản phẩm trong giỏ hàng
     $scope.deleteProduct = function (event, index) {
       event.preventDefault();
       let p = $scope.listCart[index];
@@ -331,7 +324,7 @@ myApp.controller("BanTaiQuayController", [
 
     $scope.showTransaction();
 
-    // TODO: thanh toán
+    // TODO: thanh toán tiền mặt
     $scope.newTransaction = {};
     $scope.createTransaction = function () {
       $http
@@ -349,7 +342,7 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    // TODO: thanh toán
+    // TODO: thanh toán chuyển khoản
     $scope.newTransactionVnPay = {};
     $scope.createTransactionVnpay = function (amount) {
       $scope.newTransactionVnPay = {
@@ -365,8 +358,30 @@ myApp.controller("BanTaiQuayController", [
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
+        });
+    };
+
+    // TODO: ApiVNPay
+    $scope.Vnpay = function (amount) {
+      $scope.newTransactionVnPay = {
+        amountParam: amount,
+      };
+      $http
+        .post(
+          "http://localhost:8080/api/v1/transaction/pay?amoutParam=" +
+            $scope.newTransactionVnPay
+        )
+        .then(function (response) {
+          $scope.listTransaction.push(response.data);
           $window.location.href = response.data.value;
         });
+    };
+
+    $scope.tongHopThanhToan = function (amount) {
+      $scope.Vnpay(amount);
+      if ($location.path() === "/admin/index.html") {
+        $scope.createTransactionVnpay(amount);
+      }
     };
 
     //TODO:thanh toán hóa đơn
@@ -511,57 +526,181 @@ myApp.controller("BanTaiQuayController", [
     };
     $scope.getListXuatXu();
 
-    $scope.currentPage = 1; // Trang hiện tại
-    $scope.itemsPerPage = 5; // Số bản ghi trên mỗi trang
-    $scope.totalItems = 0; // Tổng số bản ghi
-    $scope.maxSize = 3; // Số lượng trang hiển thị trên thanh phân trang
+    $scope.pageNumberSp = 0; // Trang hiện tại
+    $scope.pageSizeSp = 8; // Số bản ghi trên mỗi trang
     // TODO: Get ALL sản phẩm tại quầy
     $scope.getListSanPhamTaiQuay = function () {
-      var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
-      var endIndex = startIndex + $scope.itemsPerPage;
-
       $http
-        .get("http://localhost:8080/api/chi-tiet-sp/hien-thi")
+        .get(
+          "http://localhost:8080/api/chi-tiet-sp/hien-thi?pageNumber=" +
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp
+        )
         .then(function (response) {
-          $scope.totalItems = response.data.length;
-          $scope.listSanPhamTaiQuay = response.data.slice(startIndex, endIndex);
+          $scope.listSanPhamTaiQuay = response.data;
           $scope.keyName = "";
         });
     };
 
     $scope.getListSanPhamTaiQuay();
-    
-    $scope.previousPageSp = function() {
-      if ($scope.currentPage > 1) {
-        $scope.currentPage--;
-        $scope.getListSanPhamTaiQuay();
-      }
-    };
-    
-    $scope.nextPageSp = function() {
-      if ($scope.currentPage < Math.ceil($scope.totalItems / $scope.itemsPerPage)) {
-        $scope.currentPage++;
+
+    $scope.previousPageSp = function () {
+      if ($scope.pageNumberSp > -1) {
+        $scope.pageNumberSp--;
         $scope.getListSanPhamTaiQuay();
       }
     };
 
-    // TODO: get one sản phẩm tại quầy
-    $scope.showGetOneProduct = function (id) {
-      $http
-        .get("http://localhost:8080/api/chi-tiet-sp/san-pham/" + id)
-        .then(function (response) {
-          $scope.listSanPhamTaiQuay = response.data;
-        });
+    $scope.nextPageSp = function () {
+      $scope.pageNumberSp++;
+      $scope.getListSanPhamTaiQuay();
+    };
+
+    $scope.getPaginationNumbers = function () {
+      var paginationNumbers = [];
+      var totalPages = Math.ceil(
+        $scope.listSanPhamTaiQuay.length / $scope.pageSizeSp
+      );
+      var startPage = Math.max(1, $scope.pageNumberSp - 3);
+      var endPage = Math.min(startPage + 6, totalPages);
+
+      for (var i = startPage; i <= endPage; i++) {
+        paginationNumbers.push(i);
+      }
+
+      return paginationNumbers;
     };
 
     // TODO: Tìm kiếm sản phẩm
-    $scope.keyName = "";
+    $scope.key = "";
     $scope.searchSanPham = function () {
       $http
-        .get("http://localhost:8080/api/chi-tiet-sp?name=" + $scope.keyName)
+        .get(
+          "http://localhost:8080/api/chi-tiet-sp/search-name?name=" + $scope.key
+        )
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
         });
+    };
+
+    // TODO:  Lọc sản phẩm theo thương hiệu
+    $scope.brand;
+    $scope.filterBrand = function () {
+      if ($scope.brand === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-brand?name=" +
+              $scope.brand
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
+    };
+
+    // TODO: Lọc sản phẩm theo category
+    $scope.locCategory;
+    $scope.filterCategory = function () {
+      if ($scope.locCategory === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-category?name=" +
+              $scope.locCategory
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
+    };
+
+    // TODO:  Lọc sản phẩm theo kiểu đế
+    $scope.locSole = "";
+    $scope.filterSole = function () {
+      if ($scope.locSole === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-sole?name=" +
+              $scope.locSole
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
+    };
+
+    // TODO:  Lọc sản phẩm theo xuất xứ
+    $scope.locOrigin = "";
+    $scope.filterOrigin = function () {
+      if ($scope.locOrigin === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-origin?name=" +
+              $scope.locOrigin
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
+    };
+
+    // TODO:  Lọc sản phẩm theo size
+    $scope.locSize;
+    $scope.filterSize = function () {
+      if ($scope.locSize === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-size?size=" +
+              $scope.locSize
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
+    };
+
+    // TODO:  Lọc sản phẩm theo chất liệu
+    $scope.locMaterial = "";
+    $scope.filterMaterial = function () {
+      if ($scope.locMaterial === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-material?name=" +
+              $scope.locMaterial
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
+    };
+
+    // TODO:  Lọc sản phẩm theo màu sắc
+    $scope.locMauSac = "";
+    $scope.filterColor = function () {
+      if ($scope.locMauSac === "") {
+        $scope.getListSanPhamTaiQuay();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/chi-tiet-sp/filter-color?name=" +
+              $scope.locMauSac
+          )
+          .then(function (response) {
+            $scope.listSanPhamTaiQuay = response.data;
+          });
+      }
     };
   },
 ]);

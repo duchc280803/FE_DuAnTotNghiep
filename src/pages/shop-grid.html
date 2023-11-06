@@ -204,11 +204,11 @@
             <div class="row">
               <div
                 class="col-lg-4 col-md-6 col-sm-6"
-                ng-repeat="sp in listSpGiamGia"
+                ng-repeat="sp in listSanPhamShop"
               >
                 <div class="product__discount__item">
                   <div class="product__discount__item__pic set-bg">
-                    <img src="{{sp.image}}" alt="" />
+                    <img src="{{sp.tenImage}}" alt="" />
                     <div
                       class="product__discount__percent"
                       ng-show="sp.mucGiam != null"
@@ -218,20 +218,20 @@
                   </div>
                   <div class="product__discount__item__text">
                     <span style="padding-bottom: 25px; height: 45px"
-                      ><a href="#/shop/detail/{{sp.tenSp}}"
-                        >{{sp.tenSp}}</a
+                      ><a href="#/shop/detail/{{sp.tenSanPham}}"
+                        >{{sp.tenSanPham}}</a
                       ></span
                     >
                     <div class="product__details__price">
-                      <div ng-show="sp.giaGiamGia != null">
-                        {{sp.giaGiamGia | number}}₫
+                      <div ng-show="sp.donGiaKhiGiam != null">
+                        {{sp.donGiaKhiGiam | number}}₫
                         <span
                           style="text-decoration: line-through"
-                          >{{sp.giaBan | number}}₫</span
+                          >{{sp.giaban | number}}₫</span
                         >
                       </div>
-                      <div ng-show="sp.giaGiamGia == null">
-                        {{sp.giaBan | number}}₫
+                      <div ng-show="sp.donGiaKhiGiam == null">
+                        {{sp.giaban | number}}₫
                       </div>
                     </div>
                   </div>
