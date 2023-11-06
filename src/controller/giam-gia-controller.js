@@ -8,7 +8,14 @@ myApp.controller("GiamGiaController", function ($http, $scope, $location) {
         $scope.listGiamGia = response.data;
       });
   }
-
+  function fetchProduct() {
+    $http
+      .get("http://localhost:8080/api/v1/giam-gia/product")
+      .then(function (response) {
+        $scope.listProductGiamGia = response.data;
+      });
+  }
+  fetchProduct()
   // //TODO: Get all hoa đơn tại quầy
   // $scope.page = 1;
   // $scope.size = 4;
@@ -474,15 +481,6 @@ myApp.controller("GiamGiaController", function ($http, $scope, $location) {
       .then(function (exists) {
         if (exists) {
           alert("Tên khuyến mãi đã tồn tại. Vui lòng chọn tên khác.");
-        } else {
-          return checkGiamGiaSanPhamExists(
-            $scope.sanPhamDaChon.length > 0 ? $scope.sanPhamDaChon : null
-          );
-        }
-      })
-      .then(function (isProductCountValid) {
-        if (!isProductCountValid) {
-          alert("Sản phẩm này đã áp dụng tối đa 1 lần giảm giá");
         } else {
           var idDanhMuc;
 
