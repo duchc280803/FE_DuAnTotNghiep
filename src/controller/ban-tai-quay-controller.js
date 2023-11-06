@@ -30,27 +30,43 @@ myApp.controller("BanTaiQuayController", [
 
     $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
     // tạo hóa đơn
-    $scope.createHoaDon = function () {
-      var token = $window.localStorage.getItem("token");
+    setTimeout(() => {
+      $scope.createHoaDon = function () {
+        var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
+
+        var api = "http://localhost:8080/api/v1/don-hang/create";
+
+        Swal.fire({
+          title: "Bạn có muốn tạo hóa đơn?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http.post(api, {}, config).then(function (response) {
+              $scope.listHoaDonTaiQuay.push(response.data);
+              $scope.getListHoaDonTaiQuay();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Tạo hóa đơn thành công",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            });
+          }
+        });
       };
-
-      var api = "http://localhost:8080/api/v1/don-hang/create";
-
-      $http.post(api, {}, config).then(function (response) {
-        $scope.listHoaDonTaiQuay.push(response.data);
-        $scope.getListHoaDonTaiQuay();
-        var newHoaDonId = response.data.id;
-        console.log(newHoaDonId);
-
-        // Chọn hóa đơn mới tạo
-        $scope.luuIdHoaDon(newHoaDonId);
-      });
-    };
+    }, 2000);
 
     //TODO: Get all hoa đơn tại quầy
     $scope.pageNumber = 0;
@@ -172,6 +188,7 @@ myApp.controller("BanTaiQuayController", [
           );
         });
     };
+
     $scope.listSanPhamInCart();
     var idGioHangChiTiet = $window.localStorage.getItem("listCart");
     var gioHangChiTietList = idGioHangChiTiet.split(",");
@@ -207,25 +224,47 @@ myApp.controller("BanTaiQuayController", [
     };
     $scope.showIdCart(idKhach);
 
-    // TODO: thêm sản phẩm vào giỏ hàng
-    var gioHangId = $window.localStorage.getItem("gioHangId");
-    $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
-      $http
-        .post(
-          "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
-            gioHangId +
-            "&idSanPhamChiTiet=" +
-            idCtSp +
-            "&soLuong=" +
-            soLuongSanPham,
-          {}
-        )
-        .then(function (response) {
-          $scope.listCart.push(response.data);
-          $scope.listSanPhamInCart();
-        })
-        .catch(function (error) {});
-    };
+    setTimeout(() => {
+      $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
+        Swal.fire({
+          title: "Bạn có muốn thêm sản phẩm này vào giỏ?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
+              $http
+                .post(
+                  "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
+                    gioHangId +
+                    "&idSanPhamChiTiet=" +
+                    idCtSp +
+                    "&soLuong=" +
+                    soLuongSanPham,
+                  {}
+                )
+                .then(function (response) {
+                  $scope.listCart.push(response.data);
+                  $scope.listSanPhamInCart();
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Thêm sản phẩm vào giỏ thành công",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                })
+                .catch(function (error) {});
+            };
+          }
+        });
+      };
+    }, 2000);
+
     // cập nhập sản phẩm trong giỏ hàng
     $scope.updateCart = function (idGioHangChiTiet, soLuong) {
       var apiURL =
@@ -280,7 +319,7 @@ myApp.controller("BanTaiQuayController", [
         )
         .then(function (response) {
           $scope.detailOrderCounterDetail(id);
-          $scope.getListHoaDonTaiQuay(); 
+          $scope.getListHoaDonTaiQuay();
         });
     };
 
@@ -300,16 +339,29 @@ myApp.controller("BanTaiQuayController", [
 
     // delete sản phẩm trong giỏ hàng
     $scope.deleteProduct = function (event, index) {
-      event.preventDefault();
-      let p = $scope.listCart[index];
-      $http
-        .delete(
-          "http://localhost:8080/api/gio-hang-chi-tiet/delete_product?id=" +
-            p.idGioHang
-        )
-        .then(function () {
-          $scope.listCart.splice(index, 1);
-        });
+      Swal.fire({
+        title: "Xác nhận xóa?",
+        text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          event.preventDefault();
+          let p = $scope.listCart[index];
+          $http
+            .delete(
+              "http://localhost:8080/api/gio-hang-chi-tiet/delete_product?id=" +
+                p.idGioHang
+            )
+            .then(function () {
+              $scope.listCart.splice(index, 1);
+            });
+        }
+      });
     };
 
     // TODO:Show phương thức thanh toán của khách
@@ -367,24 +419,22 @@ myApp.controller("BanTaiQuayController", [
     };
 
     // TODO: ApiVNPay
+    $scope.addVnPay = {};
     $scope.Vnpay = function (amount) {
-      $scope.newTransactionVnPay = {
-        amountParam: amount,
-      };
       $http
-        .post(
-          "http://localhost:8080/api/v1/transaction/pay?amoutParam=" +
-            $scope.newTransactionVnPay
-        )
+        .post("http://localhost:8080/api/v1/payment/pay?amount=" + amount)
         .then(function (response) {
-          $scope.listTransaction.push(response.data);
+          $scope.addVnPay = response.data;
           $window.location.href = response.data.value;
         });
     };
 
     $scope.tongHopThanhToan = function (amount) {
       $scope.Vnpay(amount);
-      if ($location.path() === "/admin/index.html") {
+      if (
+        $location.absUrl() ===
+        "http://127.0.0.1:5503/src/index.html#/order-counter"
+      ) {
         $scope.createTransactionVnpay(amount);
       }
     };
@@ -412,7 +462,7 @@ myApp.controller("BanTaiQuayController", [
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);
-        $window.localStorage.removeItem('idHoaDon');
+        $window.localStorage.removeItem("idHoaDon");
         $route.reload();
         $location.path("/hoa-don");
       });
