@@ -17,6 +17,7 @@
     border-radius: 100px;
     position: relative;
   }
+
   label:after {
     content: "";
     position: absolute;
@@ -28,10 +29,12 @@
     border-radius: 50px;
     transition: 0.3s;
   }
-  input:checked + label {
+
+  input:checked+label {
     background: #bada55;
   }
-  input:checked + label:after {
+
+  input:checked+label:after {
     left: calc(100% - 5px);
     transform: translateX(-100%);
   }
@@ -39,33 +42,21 @@
   label:active:after {
     width: 130px;
   }
+
   tr.order_selected.ng-scope.selected {
     background-color: #c6eb34;
   }
 </style>
-<div
-  class="page-wrapper"
-  id="main-wrapper"
-  data-layout="vertical"
-  data-navbarbg="skin6"
-  data-sidebartype="full"
-  data-sidebar-position="fixed"
-  data-header-position="fixed"
->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+  data-sidebar-position="fixed" data-header-position="fixed">
   <aside class="left-sidebar">
     <div>
       <div class="brand-logo d-flex align-items-center justify-content-between">
         <a href="./index.html" class="text-nowrap logo-img">
-          <img
-            src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-            width="130"
-            alt=""
-          />
+          <img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" width="130"
+            alt="" />
         </a>
-        <div
-          class="close-btn d-xl-none d-block sidebartoggler cursor-pointer"
-          id="sidebarCollapse"
-        >
+        <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
           <i class="ti ti-x fs-8"></i>
         </div>
       </div>
@@ -90,44 +81,23 @@
           <li class="sidebar-item">
             <a class="sidebar-link" href="#/hoa-don" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/receipt.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/receipt.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Hóa Đơn</span>
             </a>
           </li>
           <li class="sidebar-item">
-            <a
-              class="sidebar-link"
-              href="#/order-counter"
-              aria-expanded="false"
-            >
+            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/shopping-cart-plus.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/shopping-cart-plus.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Bán Tại Quầy</span>
             </a>
           </li>
           <li class="sidebar-item">
-            <a
-              href="#pageSubmenu"
-              class="dropdown-toggle collapsed sidebar-link"
-            >
+            <a href="#pageSubmenu" class="dropdown-toggle collapsed sidebar-link">
               <span>
-                <img
-                  src="/assets/images/delivery-box.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/delivery-box.png" width="180" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý Sản Phẩm</span>
             </a>
@@ -153,47 +123,25 @@
             </ul>
           </li>
           <li class="sidebar-item">
-            <a
-              href="#pageSubmenu1"
-              class="dropdown-toggle1 collapsed sidebar-link"
-            >
+            <a href="#pageSubmenu1" class="dropdown-toggle1 collapsed sidebar-link">
               <span>
-                <img
-                  src="/assets/images/add-user.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/add-user.png" width="180" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý Tài Khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu1">
               <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/nhan-vien"
-                  style="margin-left: 35px"
-                  >Nhân Viên</a
-                >
+                <a class="sidebar-link" href="#/admin/account/nhan-vien" style="margin-left: 35px">Nhân Viên</a>
               </li>
               <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/khach-hang"
-                  style="margin-left: 35px"
-                  >Khách Hàng</a
-                >
+                <a class="sidebar-link" href="#/admin/account/khach-hang" style="margin-left: 35px">Khách Hàng</a>
               </li>
             </ul>
           </li>
           <li class="sidebar-item">
             <a class="sidebar-link" href="#/khuyen-mai" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/ticket.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý Khuyến Mại</span>
             </a>
@@ -201,12 +149,7 @@
           <li class="sidebar-item">
             <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/ticket.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý Voucher</span>
             </a>
@@ -220,11 +163,7 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav">
           <li class="nav-item d-block d-xl-none">
-            <a
-              class="nav-link sidebartoggler nav-icon-hover"
-              id="headerCollapse"
-              href="javascript:void(0)"
-            >
+            <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
               <i class="ti ti-menu-2"></i>
             </a>
           </li>
@@ -236,65 +175,33 @@
           </li>
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-          <ul
-            class="navbar-nav flex-row ms-auto align-items-center justify-content-end"
-          >
+          <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
             <li class="nav-item dropdown">
-              <a
-                class="nav-link nav-icon-hover"
-                href="javascript:void(0)"
-                id="drop2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  src="/assets/images/profile/user-1.jpg"
-                  alt=""
-                  width="35"
-                  height="35"
-                  class="rounded-circle"
-                />
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <img src="/assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle" />
               </a>
-              <div
-                class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
-                aria-labelledby="drop2"
-              >
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                 <div class="message-body">
-                  <a
-                    href="javascript:void(0)"
-                    class="d-flex align-items-center gap-2 dropdown-item"
-                  >
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                     <i class="ti ti-user fs-6"></i>
                     <p class="mb-0 fs-3">My Profile</p>
                   </a>
-                  <a
-                    href="javascript:void(0)"
-                    class="d-flex align-items-center gap-2 dropdown-item"
-                  >
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                     <i class="ti ti-mail fs-6"></i>
                     <p class="mb-0 fs-3">My Account</p>
                   </a>
-                  <a
-                    href="javascript:void(0)"
-                    class="d-flex align-items-center gap-2 dropdown-item"
-                  >
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                     <i class="ti ti-list-check fs-6"></i>
                     <p class="mb-0 fs-3">My Task</p>
                   </a>
                   <div ng-controller="loginController">
                     <div ng-if="!isLoggedIn">
-                      <a
-                        href="pages/authentication-login.html"
-                        class="btn btn-outline-primary mx-3 mt-2 d-block"
-                        >Login</a
-                      >
+                      <a href="pages/authentication-login.html"
+                        class="btn btn-outline-primary mx-3 mt-2 d-block">Login</a>
                     </div>
                     <div ng-if="isLoggedIn">
-                      <a
-                        ng-click="logout()"
-                        class="btn btn-outline-primary mx-3 mt-2 d-block"
-                        >Logout</a
-                      >
+                      <a ng-click="logout()" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                     </div>
                   </div>
                 </div>
@@ -305,12 +212,7 @@
       </nav>
     </header>
     <div class="container-fluid">
-      <a
-        ng-click="reloadTrang()"
-        class="btn btn-outline-primary"
-        style="margin-bottom: 10px"
-        >Danh Sách</a
-      >
+      <a ng-click="reloadTrang()" class="btn btn-outline-primary" style="margin-bottom: 10px">Danh Sách</a>
       <br />
       <div class="row">
         <div class="col-lg-12">
@@ -324,21 +226,12 @@
                   </h5>
                   <div class="row">
                     <div class="col-lg-10">
-                      <input
-                        style="width: 1030px"
-                        class="form-control"
-                        placeholder="Tìm Sản Phẩm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                      />
+                      <input style="width: 1030px" class="form-control" placeholder="Tìm Sản Phẩm"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal" />
                     </div>
                     <div class="col-lg-2">
-                      <a href="" ng-click="scanBarcode()"
-                        ><img
-                          src="/assets/images/qr-code.png"
-                          width="35px"
-                          style="margin-left: 100px"
-                      /></a>
+                      <a href="" ng-click="scanBarcode()"><img src="/assets/images/qr-code.png" width="35px"
+                          style="margin-left: 100px" /></a>
                     </div>
                   </div>
                   <br />
@@ -354,11 +247,7 @@
                           <th scope="col">Thao tác</th>
                         </tr>
                       </thead>
-                      <tbody
-                        class="table"
-                        ng-repeat="lc in listCart"
-                        style="border: 1px solid #ccc"
-                      >
+                      <tbody class="table" ng-repeat="lc in listCart" style="border: 1px solid #ccc">
                         <tr>
                           <th scope="row">{{$index + 1}}</th>
                           <td>
@@ -375,23 +264,16 @@
                           </td>
                           <td style="padding-top: 50px">
                             <div class="quantity">
-                              <input
-                                style="margin-left: -40px; width: 70px"
-                                type="number"
-                                class="next-input text-left min-width-100px position-relative"
-                                ng-model="lc.soLuong"
-                                ng-change="updateCart()"
-                              />
+                              <input style="margin-left: -40px; width: 70px" type="number"
+                                class="next-input text-left min-width-100px position-relative" ng-model="lc.soLuong"
+                                ng-change="updateCart()" />
                             </div>
                           </td>
                           <td style="padding-top: 80px">
                             {{lc.giaBan * lc.soLuong | number}}đ
                           </td>
                           <td style="padding-top: 60px">
-                            <button
-                              class="btn btn-outline-primary m-1"
-                              ng-click="deleteProduct($event, $index)"
-                            >
+                            <button class="btn btn-outline-primary m-1" ng-click="deleteProduct($event, $index)">
                               Xóa
                             </button>
                           </td>
@@ -399,13 +281,9 @@
                       </tbody>
                     </table>
                   </div>
-                  <div
-                    class="modal fade"
-                    id="exampleModal"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                  >
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content custom-modal-content">
                         <div class="modal-header">
@@ -414,32 +292,21 @@
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-lg-8">
-                              <input
-                                ng-model="keyName"
-                                class="form-control"
-                                placeholder="Tìm sản phẩm"
-                              />
+                              <input ng-model="keyName" class="form-control" placeholder="Tìm sản phẩm" />
                             </div>
                             <div class="col-lg-4 d-flex justify-content-start">
-                              <button
-                                ng-click="searchSanPham()"
-                                type="button"
-                                class="btn btn-outline-primary m-1"
-                              >
+                              <button ng-click="searchSanPham()" type="button" class="btn btn-outline-primary m-1">
                                 Tìm Kiếm
                               </button>
-                              <button
-                                type="button"
-                                ng-click="getListSanPhamTaiQuay()"
-                                class="btn btn-outline-primary m-1"
-                              >
+                              <button type="button" ng-click="getListSanPhamTaiQuay()"
+                                class="btn btn-outline-primary m-1">
                                 Làm mới
                               </button>
                             </div>
                           </div>
                           <br />
                           <div class="box">
-                            
+
                             <table class="table table-hover">
                               <thead>
                                 <tr style="background-color: lightskyblue">
@@ -454,26 +321,15 @@
                                   <th scope="col">Thao Tác</th>
                                 </tr>
                               </thead>
-                              <tbody
-                                class="table"
-                                ng-repeat="sp in listSanPhamTaiQuay"
-                                style="border: 1px solid #ccc"
-                              >
+                              <tbody class="table" ng-repeat="sp in listSanPhamTaiQuay" style="border: 1px solid #ccc">
                                 <tr>
                                   <td>
                                     {{$index + 1 + (pageNumber * pageSize)}}
                                   </td>
                                   <td>
                                     <div style="position: relative">
-                                      <img
-                                        src="{{sp.imgage}}"
-                                        alt=""
-                                        width="150px"
-                                      />
-                                      <div
-                                        ng-show="sp.mucGiam != null"
-                                        class="product__discount__percent"
-                                        style="
+                                      <img src="{{sp.imgage}}" alt="" width="150px" />
+                                      <div ng-show="sp.mucGiam != null" class="product__discount__percent" style="
                                           position: absolute;
                                           top: 20%;
                                           left: 25%;
@@ -482,8 +338,7 @@
                                           color: #ffffff;
                                           border-radius: 50%;
                                           padding: 5px;
-                                        "
-                                      >
+                                        ">
                                         -{{sp.mucGiam}}%
                                       </div>
                                     </div>
@@ -495,10 +350,7 @@
                                     <div ng-show="sp.giaGiamGia != null">
                                       {{sp.giaGiamGia | number}}₫
                                       <span>
-                                        <strike
-                                          >{{sp.giaBan | number}}₫</strike
-                                        ></span
-                                      >
+                                        <strike>{{sp.giaBan | number}}₫</strike></span>
                                     </div>
                                     <div ng-show="sp.giaGiamGia == null">
                                       {{sp.giaBan | number}}₫
@@ -515,13 +367,9 @@
                                     {{sp.mauSac}}
                                   </td>
                                   <td style="padding-top: 60px">
-                                    <button
-                                      type="button"
-                                      class="btn btn-outline-primary m-1"
-                                      data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-outline-primary m-1" data-bs-toggle="modal"
                                       data-bs-target="#exampleModal1"
-                                      ng-click="selectedProductQuantity(sp.soLuong, sp.id)"
-                                    >
+                                      ng-click="selectedProductQuantity(sp.soLuong, sp.id)">
                                       Chọn
                                     </button>
                                   </td>
@@ -532,63 +380,40 @@
                           </div>
                         </div>
                         <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                           </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                  
                 </div>
                 <!-- modal sản phẩm -->
                 <!-- modal thêm sản phẩm -->
-                <div
-                  class="modal fade"
-                  id="exampleModal1"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
                   <div class="modal-dialog modal-lg">
-                    <div
-                      class="modal-content custom-modal-content"
-                      style="
+                    <div class="modal-content custom-modal-content" style="
                         width: 330px;
                         margin-left: 250px;
                         margin-top: 200px;
-                      "
-                    >
+                      ">
                       <div class="modal-header"></div>
                       <div class="modal-body" style="padding-left: 90px">
                         <h6>Số lượng sản phẩm: {{luuSoLuong}}</h6>
                         <div class="quantity">
-                          <input
-                            ng-model="soLuongSanPham"
-                            type="number"
-                            class="next-input text-left min-width-100px position-relative quantity-decimal"
-                            min="1"
-                            max="{{luuSoLuong}}"
-                          />
+                          <input ng-model="soLuongSanPham" type="number"
+                            class="next-input text-left min-width-100px position-relative quantity-decimal" min="1"
+                            max="{{luuSoLuong}}" />
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                           Cancel
                         </button>
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                          ng-click="themSanPhamCart()"
-                        >
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                          ng-click="themSanPhamCart()">
                           Thêm sản phẩm
                         </button>
                       </div>
@@ -597,34 +422,17 @@
                   <!-- modal thêm sản phẩm -->
                 </div>
                 <div class="col-lg-12">
-                  <nav
-                    aria-label="Page navigation example"
-                    style="margin-left: 980px"
-                  >
+                  <nav aria-label="Page navigation example" style="margin-left: 980px">
                     <ul class="pagination">
                       <li class="page-item">
-                        <a
-                          class="page-link"
-                          ng-href=""
-                          ng-click="previousPage()"
-                          >Previous</a
-                        >
+                        <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
                       </li>
-                      <li
-                        class="page-item"
-                        ng-repeat="page in getPageNumbers()"
-                      >
-                        <a
-                          class="page-link"
-                          ng-href="#/ban-tai-quay?pageNumber={{page}}"
-                          ng-click="updatePage(page)"
-                          >{{ page }}</a
-                        >
+                      <li class="page-item" ng-repeat="page in getPageNumbers()">
+                        <a class="page-link" ng-href="#/ban-tai-quay?pageNumber={{page}}" ng-click="updatePage(page)">{{
+                          page }}</a>
                       </li>
                       <li class="page-item">
-                        <a class="page-link" ng-href="" ng-click="nextPage()"
-                          >Next</a
-                        >
+                        <a class="page-link" ng-href="" ng-click="nextPage()">Next</a>
                       </li>
                     </ul>
                   </nav>
@@ -639,11 +447,8 @@
                           <h5 class="card-title mb-9 fw-semibold">Tài khoản</h5>
                         </div>
                         <div class="col-lg-6" style="padding-left: 415px">
-                          <button
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal2"
-                            class="btn btn-outline-primary"
-                          >
+                          <button data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                            class="btn btn-outline-primary">
                             Chọn tài khoản
                           </button>
                         </div>
@@ -663,18 +468,11 @@
                       </h6>
                       <h6
                         ng-show="orderDetailCounter.ten == null && orderDetailCounter.email == null && orderDetailCounter.sodienthoai == null && orderDetailCounter.diaChi == null"
-                        class="text-customs"
-                        style="padding-top: 10px; padding-right: 935px"
-                      >
+                        class="text-customs" style="padding-top: 10px; padding-right: 935px">
                         Tên khách hàng: {{orderDetailCounter.tenKhach}}
                       </h6>
-                      <div
-                        class="modal fade"
-                        id="exampleModal2"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                      >
+                      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                           <div class="modal-content custom-modal-content">
                             <div class="modal-header">
@@ -683,35 +481,17 @@
                             <div class="modal-body">
                               <div class="row">
                                 <div class="col-lg-8">
-                                  <input
-                                    ng-model="searchKeyword"
-                                    class="form-control"
-                                    placeholder="Tìm khách hàng"
-                                  />
+                                  <input ng-model="searchKeyword" class="form-control" placeholder="Tìm khách hàng" />
                                 </div>
-                                <div
-                                  class="col-lg-4 d-flex justify-content-start"
-                                >
-                                  <button
-                                    ng-click="searchKhach()"
-                                    type="button"
-                                    class="btn btn-outline-primary m-1"
-                                  >
+                                <div class="col-lg-4 d-flex justify-content-start">
+                                  <button ng-click="searchKhach()" type="button" class="btn btn-outline-primary m-1">
                                     Tìm Kiếm
                                   </button>
-                                  <button
-                                    type="button"
-                                    ng-click="showKhachHang()"
-                                    class="btn btn-outline-primary m-1"
-                                  >
+                                  <button type="button" ng-click="showKhachHang()" class="btn btn-outline-primary m-1">
                                     Làm mới
                                   </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-outline-primary m-1"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal3"
-                                  >
+                                  <button type="button" class="btn btn-outline-primary m-1" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal3">
                                     Thêm
                                   </button>
                                 </div>
@@ -728,10 +508,7 @@
                                       <th scope="col">Thao Tác</th>
                                     </tr>
                                   </thead>
-                                  <tbody
-                                    class="table"
-                                    ng-repeat="kh in listKhachHang"
-                                  >
+                                  <tbody class="table" ng-repeat="kh in listKhachHang">
                                     <tr>
                                       <th scope="row">{{$index + 1}}</th>
                                       <td>{{kh.ten}}</td>
@@ -739,12 +516,8 @@
                                       <td>{{kh.soDienThoai}}</td>
                                       <td>{{kh.diaChi}}</td>
                                       <td>
-                                        <button
-                                          ng-click="updateKhachHang(kh.id)"
-                                          type="button"
-                                          class="btn btn-outline-primary m-1"
-                                          data-bs-dismiss="modal"
-                                        >
+                                        <button ng-click="updateKhachHang(kh.id)" type="button"
+                                          class="btn btn-outline-primary m-1" data-bs-dismiss="modal">
                                           Chọn
                                         </button>
                                       </td>
@@ -754,34 +527,22 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                              >
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                               </button>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="modal fade"
-                        id="exampleModal3"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                      >
+                      <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                          <div
-                            class="modal-content custom-modal-content"
-                            style="
+                          <div class="modal-content custom-modal-content" style="
                               width: 620px;
                               margin: auto;
                               margin-left: 80px;
                               height: 500px;
-                            "
-                          >
+                            ">
                             <div class="modal-header">
                               <h5 class="modal-title">Thêm Khách Hàng</h5>
                             </div>
@@ -789,67 +550,42 @@
                               <div class="row">
                                 <div class="col-lg-6">
                                   <h6 class="text">Họ Tên Khách</h6>
-                                  <input
-                                    class="form-control"
-                                    placeholder="Nhập họ tên khách"
-                                    ng-model="newKhachHang.hoTen"
-                                  />
+                                  <input class="form-control" placeholder="Nhập họ tên khách"
+                                    ng-model="newKhachHang.hoTen" />
                                 </div>
                                 <div class="col-lg-6">
                                   <h6 class="text">Số điên thoại</h6>
-                                  <input
-                                    ng-model="newKhachHang.soDienThoai"
-                                    class="form-control"
-                                    placeholder="Nhập số điện thoại"
-                                  />
+                                  <input ng-model="newKhachHang.soDienThoai" class="form-control"
+                                    placeholder="Nhập số điện thoại" />
                                 </div>
                               </div>
                               <br />
                               <div class="row">
                                 <div class="col-lg-6">
                                   <h6 class="text">Email</h6>
-                                  <input
-                                    class="form-control"
-                                    ng-model="newKhachHang.email"
-                                    placeholder="Nhập email"
-                                  />
+                                  <input class="form-control" ng-model="newKhachHang.email" placeholder="Nhập email" />
                                 </div>
                                 <div class="col-lg-6">
                                   <h6 class="text">Ngày Sinh</h6>
-                                  <input
-                                    type="date"
-                                    ng-model="newKhachHang.ngaySinh"
-                                    class="form-control"
-                                  />
+                                  <input type="date" ng-model="newKhachHang.ngaySinh" class="form-control" />
                                 </div>
                               </div>
                               <br />
                               <div class="row">
                                 <div class="col-lg-12">
                                   <h6 class="text">Địa Chỉ</h6>
-                                  <input
-                                    class="form-control"
-                                    placeholder="Nhập địa chỉ"
-                                    ng-model="newKhachHang.diaChi"
-                                  />
+                                  <input class="form-control" placeholder="Nhập địa chỉ"
+                                    ng-model="newKhachHang.diaChi" />
                                 </div>
                               </div>
                               <br />
                             </div>
                             <div class="modal-footer">
-                              <button
-                                type="button"
-                                class="btn btn-secondary"
-                                ng-click="createKhachHang()"
-                                data-bs-dismiss="modal"
-                              >
+                              <button type="button" class="btn btn-secondary" ng-click="createKhachHang()"
+                                data-bs-dismiss="modal">
                                 Thêm
                               </button>
-                              <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                              >
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                               </button>
                             </div>
@@ -879,41 +615,16 @@
                       <div class="row">
                         <div class="col-lg-6">
                           <div ng-show="showInput">
-                            <input
-                              ng-model="tenNguoiShip"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập họ và tên người ship"
-                            />
-                            <input
-                              ng-model="soDienThoaiNguoiShip"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Số điện thoại người ship"
-                            />
-                            <input
-                              ng-model="hoTen"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập họ và tên khách"
-                            />
-                            <input
-                              ng-model="soDienThoai"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập số điện thoại"
-                            />
-                            <input
-                              ng-model="diaChi"
-                              type="text"
-                              class="form-control hidden-input"
-                              style="margin-left: -30px; margin-bottom: 30px"
-                              placeholder="Nhập địa chỉ"
-                            />
+                            <input ng-model="tenNguoiShip" type="text" class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px" placeholder="Nhập họ và tên người ship" />
+                            <input ng-model="soDienThoaiNguoiShip" type="text" class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px" placeholder="Số điện thoại người ship" />
+                            <input ng-model="hoTen" type="text" class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px" placeholder="Nhập họ và tên khách" />
+                            <input ng-model="soDienThoai" type="text" class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px" placeholder="Nhập số điện thoại" />
+                            <input ng-model="diaChi" type="text" class="form-control hidden-input"
+                              style="margin-left: -30px; margin-bottom: 30px" placeholder="Nhập địa chỉ" />
                           </div>
                         </div>
                         <div class="col-sm-6 col-12">
@@ -922,36 +633,18 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <div class="row">
                                   <div class="col-lg-5">
-                                    <span class="header-title"
-                                      >Khách thanh toán</span
-                                    >
+                                    <span class="header-title">Khách thanh toán</span>
                                   </div>
                                   <div class="col-lg-7">
-                                    <button
-                                      class="btn btn-outline-primary"
-                                      data-bs-toggle="modal"
-                                      data-bs-target="#exampleModal5"
-                                      style="margin-left: 80px"
-                                    >
-                                      <img
-                                        src="/assets/images/lending.png"
-                                        width="25px"
-                                        alt=""
-                                        srcset=""
-                                      />
+                                    <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                                      data-bs-target="#exampleModal5" style="margin-left: 80px">
+                                      <img src="/assets/images/lending.png" width="25px" alt="" srcset="" />
                                     </button>
                                     <!-- thanh toán -->
-                                    <div
-                                      class="modal fade"
-                                      id="exampleModal5"
-                                      tabindex="-1"
-                                      aria-labelledby="exampleModalLabel"
-                                      aria-hidden="true"
-                                    >
+                                    <div class="modal fade" id="exampleModal5" tabindex="-1"
+                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog modal-lg">
-                                        <div
-                                          class="modal-content custom-modal-content"
-                                        >
+                                        <div class="modal-content custom-modal-content">
                                           <div class="modal-header">
                                             <h5 class="modal-title">
                                               Thanh toán
@@ -965,38 +658,26 @@
                                                 </h6>
                                               </div>
                                               <div class="col-lg-11">
-                                                <input
-                                                  ng-model="newTransaction.soTien"
-                                                  class="form-control"
-                                                  placeholder="Nhập số tiền khách trả"
-                                                />
+                                                <input ng-model="newTransaction.soTien" class="form-control"
+                                                  placeholder="Nhập số tiền khách trả" />
                                               </div>
                                             </div>
                                             <br />
                                             <div class="row">
                                               <div class="col-lg-4">
-                                                <button
-                                                  class="btn btn-outline-primary"
-                                                  style="margin-left: 50px"
-                                                  ng-click="createTransaction()"
-                                                >
+                                                <button class="btn btn-outline-primary" style="margin-left: 50px"
+                                                  ng-click="createTransaction()">
                                                   Tiền mặt
                                                 </button>
                                               </div>
                                               <div class="col-lg-4">
-                                                <button
-                                                  class="btn btn-outline-primary"
-                                                  style="margin-left: 50px"
-                                                  ng-click="createTransactionVnpay(tongTienHang - totalAmountPaid)"
-                                                >
+                                                <button class="btn btn-outline-primary" style="margin-left: 50px"
+                                                  ng-click="createTransactionVnpay(tongTienHang - totalAmountPaid)">
                                                   Chuyển khoản
                                                 </button>
                                               </div>
                                               <div class="col-lg-4">
-                                                <button
-                                                  class="btn btn-outline-primary"
-                                                  style="margin-left: 50px"
-                                                >
+                                                <button class="btn btn-outline-primary" style="margin-left: 50px">
                                                   QR Code
                                                 </button>
                                               </div>
@@ -1005,11 +686,9 @@
                                             <div class="box">
                                               <table class="table table-hover">
                                                 <thead>
-                                                  <tr
-                                                    style="
+                                                  <tr style="
                                                       background-color: lightskyblue;
-                                                    "
-                                                  >
+                                                    ">
                                                     <th scope="col">STT</th>
                                                     <th scope="col">
                                                       Mã giao dịnh
@@ -1021,9 +700,7 @@
                                                   </tr>
                                                 </thead>
                                                 <tbody class="table">
-                                                  <tr
-                                                    ng-repeat="lt in listTransaction"
-                                                  >
+                                                  <tr ng-repeat="lt in listTransaction">
                                                     <th scope="row">
                                                       {{$index + 1}}
                                                     </th>
@@ -1041,48 +718,24 @@
                                               </table>
                                             </div>
                                             <br />
-                                            <div
-                                              class="omni-layout-card--section-section"
-                                            >
-                                              <div
-                                                class="omni-layout-card--item-stack-cover"
-                                              >
-                                                <div
-                                                  class="omni-layout-card--item-stack fill"
-                                                >
-                                                  <span class="header-title"
-                                                    >Khách thanh toán</span
-                                                  >
+                                            <div class="omni-layout-card--section-section">
+                                              <div class="omni-layout-card--item-stack-cover">
+                                                <div class="omni-layout-card--item-stack fill">
+                                                  <span class="header-title">Khách thanh toán</span>
                                                 </div>
-                                                <div
-                                                  class="omni-layout-card--item-stack fill text-right"
-                                                >
-                                                  <span
-                                                    class="header-title"
-                                                    style="color: #dd2222"
-                                                    ng-model="newTransaction.tienKhachTra"
-                                                    >{{totalAmountPaid |
-                                                    number}}đ</span
-                                                  >
+                                                <div class="omni-layout-card--item-stack fill text-right">
+                                                  <span class="header-title" style="color: #dd2222"
+                                                    ng-model="newTransaction.tienKhachTra">{{totalAmountPaid |
+                                                    number}}đ</span>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div
-                                              class="omni-layout-card--section-section"
-                                            >
-                                              <div
-                                                class="omni-layout-card--item-stack-cover"
-                                              >
-                                                <div
-                                                  class="omni-layout-card--item-stack fill"
-                                                >
-                                                  <span class="header-title"
-                                                    >Tiền thiếu</span
-                                                  >
+                                            <div class="omni-layout-card--section-section">
+                                              <div class="omni-layout-card--item-stack-cover">
+                                                <div class="omni-layout-card--item-stack fill">
+                                                  <span class="header-title">Tiền thiếu</span>
                                                 </div>
-                                                <div
-                                                  class="omni-layout-card--item-stack fill text-right"
-                                                >
+                                                <div class="omni-layout-card--item-stack fill text-right">
                                                   <span class="header-title">
                                                     {{ (tongTienHang -
                                                     totalAmountPaid) >= 0 ?
@@ -1095,18 +748,10 @@
                                             </div>
                                           </div>
                                           <div class="modal-footer">
-                                            <button
-                                              type="button"
-                                              class="btn btn-secondary"
-                                              data-bs-dismiss="modal"
-                                            >
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                               Cancel
                                             </button>
-                                            <button
-                                              type="button"
-                                              class="btn btn-secondary"
-                                              data-bs-dismiss="modal"
-                                            >
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                               Ok
                                             </button>
                                           </div>
@@ -1117,20 +762,9 @@
                                   </div>
                                 </div>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
-                                <span
-                                  class="header-title"
-                                  style="color: #dd2222"
-                                  >{{totalAmountPaid | number}}đ</span
-                                >
-                                <input
-                                  hidden
-                                  ng-model="requestData.tongTien"
-                                  type="text"
-                                  ng-value="totalAmountPaid"
-                                />
+                              <div class="omni-layout-card--item-stack fill text-right">
+                                <span class="header-title" style="color: #dd2222">{{totalAmountPaid | number}}đ</span>
+                                <input hidden ng-model="requestData.tongTien" type="text" ng-value="totalAmountPaid" />
                               </div>
                             </div>
                           </div>
@@ -1139,11 +773,7 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <div class="row">
                                   <div class="col-lg-7">
-                                    <input
-                                      disabled
-                                      type="text"
-                                      class="form-control"
-                                    />
+                                    <input disabled type="text" class="form-control" />
                                   </div>
                                   <div class="col-lg-5">
                                     <button class="btn btn-outline-primary">
@@ -1152,9 +782,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              ></div>
+                              <div class="omni-layout-card--item-stack fill text-right"></div>
                             </div>
                           </div>
                           <div class="omni-layout-card--section-section">
@@ -1162,14 +790,8 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <span class="header-title">Giao hàng</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
-                                <input
-                                  ng-click="toggleInput()"
-                                  type="checkbox"
-                                  id="switch"
-                                />
+                              <div class="omni-layout-card--item-stack fill text-right">
+                                <input ng-click="toggleInput()" type="checkbox" id="switch" />
                                 <label for="switch"></label>
                               </div>
                             </div>
@@ -1177,16 +799,10 @@
                           <div class="omni-layout-card--section-section">
                             <div class="omni-layout-card--item-stack-cover">
                               <div class="omni-layout-card--item-stack fill">
-                                <span class="header-title"
-                                  >Số lượng sản phẩm</span
-                                >
+                                <span class="header-title">Số lượng sản phẩm</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
-                                <span class="header-title"
-                                  >{{tongSoLuongSanPham}}</span
-                                >
+                              <div class="omni-layout-card--item-stack fill text-right">
+                                <span class="header-title">{{tongSoLuongSanPham}}</span>
                               </div>
                             </div>
                           </div>
@@ -1195,14 +811,9 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <span class="header-title">Tiền hàng</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
-                                <span
-                                  class="header-title"
-                                  ng-model="newTransaction.tongTien"
-                                  >{{tongTienHang | number}}₫</span
-                                >
+                              <div class="omni-layout-card--item-stack fill text-right">
+                                <span class="header-title" ng-model="newTransaction.tongTien">{{tongTienHang |
+                                  number}}₫</span>
                               </div>
                             </div>
                           </div>
@@ -1211,19 +822,10 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <span class="header-title">Phí vân chuyển</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
-                                <input
-                                  type="text"
-                                  ng-model="tienGiao"
-                                  class="form-control hidden-input"
-                                  ng-show="showInput"
-                                  placeholder="Nhập tiền ship"
-                                />
-                                <span class="header-title" ng-hide="showInput"
-                                  >0đ</span
-                                >
+                              <div class="omni-layout-card--item-stack fill text-right">
+                                <input type="text" ng-model="tienGiao" class="form-control hidden-input"
+                                  ng-show="showInput" placeholder="Nhập tiền ship" />
+                                <span class="header-title" ng-hide="showInput">0đ</span>
                               </div>
                             </div>
                           </div>
@@ -1232,9 +834,7 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <span class="header-title">Tiền giảm giá</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
+                              <div class="omni-layout-card--item-stack fill text-right">
                                 <span class="header-title">0đ</span>
                               </div>
                             </div>
@@ -1244,20 +844,14 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <span class="header-title">Tiền thừa</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
+                              <div class="omni-layout-card--item-stack fill text-right">
                                 <span class="header-title">
                                   {{ (tongTienHang - totalAmountPaid) >= 0 ?
                                   (tongTienHang - totalAmountPaid) : '0' |
                                   number }}₫
                                 </span>
-                                <input
-                                  hidden
-                                  ng-model="requestData.tienThua"
-                                  type="text"
-                                  ng-value="totalAmountPaid - tongTienHang"
-                                />
+                                <input hidden ng-model="requestData.tienThua" type="text"
+                                  ng-value="totalAmountPaid - tongTienHang" />
                               </div>
                             </div>
                           </div>
@@ -1266,46 +860,29 @@
                               <div class="omni-layout-card--item-stack fill">
                                 <span class="header-title">Tổng tiền</span>
                               </div>
-                              <div
-                                class="omni-layout-card--item-stack fill text-right"
-                              >
-                                <span class="header-title"
-                                  >{{tongTienHang | number}}₫</span
-                                >
-                                <input
-                                  hidden
-                                  ng-model="requestData.tongTien"
-                                  type="text"
-                                  ng-value="tongTienHang"
-                                />
+                              <div class="omni-layout-card--item-stack fill text-right">
+                                <span class="header-title">{{tongTienHang | number}}₫</span>
+                                <input hidden ng-model="requestData.tongTien" type="text" ng-value="tongTienHang" />
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <button
-                      class="btn btn-outline-primary"
-                      style="
+                    <button class="btn btn-outline-primary" style="
                         margin-left: 900px;
                         margin-top: 25px;
                         font-weight: bold;
-                      "
-                      ng-show="!showInput"
-                      ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)"
-                    >
+                      " ng-show="!showInput"
+                      ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
                       Xác Nhận Thanh Toán
                     </button>
-                    <button
-                      ng-show="showInput"
-                      class="btn btn-outline-primary"
-                      style="
+                    <button ng-show="showInput" class="btn btn-outline-primary" style="
                         margin-left: 900px;
                         margin-top: 25px;
                         font-weight: bold;
                       "
-                      ng-click="createHoaDonChiTietGiao(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang)"
-                    >
+                      ng-click="createHoaDonChiTietGiao(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang)">
                       Xác Nhận Giao Hàng
                     </button>
                   </div>
