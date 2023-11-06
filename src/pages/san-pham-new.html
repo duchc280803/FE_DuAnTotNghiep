@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="css/simplebar.css">
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="css/feather.css">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="css/daterangepicker.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+    <style>
+      .size-modal{
+      max-width: 20%; /* Điều chỉnh chiều rộng tối đa tùy ý */
+      margin: 0 auto;
+    }
+  </style>
+
+     
+</head>
+  </head>
+  <body class="vertical  light  ">
+    <!-- <div class="wrapper"> -->
+      <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <aside class="left-sidebar">
+        <div>
+          <div class="brand-logo d-flex align-items-center justify-content-between">
+            <a href="./index.html" class="text-nowrap logo-img">
+              <img
+                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                width="130"
+                alt=""
+              />
+            </a>
+            <div
+              class="close-btn d-xl-none d-block sidebartoggler cursor-pointer"
+              id="sidebarCollapse"
+            >
+              <i class="ti ti-x fs-8"></i>
+            </div>
+          </div>
+          <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+              <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Home</span>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#/dashboard" aria-expanded="false">
+                  <span>
+                    <i class="ti ti-layout-dashboard"></i>
+                  </span>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-small-cap">
+                <img src="" alt="" />
+                <span class="hide-menu">Chức Năng</span>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#/hoa-don" aria-expanded="false">
+                  <span>
+                    <img
+                      src="/assets/images/receipt.png"
+                      width="180"
+                      alt=""
+                      style="width: 21px; height: 21px"
+                    />
+                  </span>
+                  <span class="hide-menu">Hóa Đơn</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link"
+                  href="#/order-counter"
+                  aria-expanded="false"
+                >
+                  <span>
+                    <img
+                      src="/assets/images/shopping-cart-plus.png"
+                      width="180"
+                      alt=""
+                      style="width: 21px; height: 21px"
+                    />
+                  </span>
+                  <span class="hide-menu">Bán Tại Quầy</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#pageSubmenu"
+                  class="dropdown-toggle collapsed sidebar-link"
+                >
+                  <span>
+                    <img
+                      src="/assets/images/delivery-box.png"
+                      width="180"
+                      style="width: 21px; height: 21px"
+                    />
+                  </span>
+                  <span class="hide-menu">Quản Lý Sản Phẩm</span>
+                </a>
+                <ul class="list-unstyled collapse" id="pageSubmenu">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">Sản Phẩm</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">Đế Giày</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">Xuất Xứ</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">Danh Mục</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">Chất Liệu</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">Thương Hiệu</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#pageSubmenu1"
+                  class="dropdown-toggle1 collapsed sidebar-link"
+                >
+                  <span>
+                    <img
+                      src="/assets/images/add-user.png"
+                      width="180"
+                      style="width: 21px; height: 21px"
+                    />
+                  </span>
+                  <span class="hide-menu">Quản Lý Tài Khoản</span>
+                </a>
+                <ul class="list-unstyled collapse" id="pageSubmenu1">
+                  <li class="sidebar-item">
+                    <a
+                      class="sidebar-link"
+                      href="#/admin/account/nhan-vien"
+                      style="margin-left: 35px"
+                      >Nhân Viên</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a
+                      class="sidebar-link"
+                      href="#/admin/account/khach-hang"
+                      style="margin-left: 35px"
+                      >Khách Hàng</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#/khuyen-mai" aria-expanded="false">
+                  <span>
+                    <img
+                      src="/assets/images/ticket.png"
+                      width="180"
+                      alt=""
+                      style="width: 21px; height: 21px"
+                    />
+                  </span>
+                  <span class="hide-menu">Quản Lý Khuyến Mại</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
+                  <span>
+                    <img
+                      src="/assets/images/ticket.png"
+                      width="180"
+                      alt=""
+                      style="width: 21px; height: 21px"
+                    />
+                  </span>
+                  <span class="hide-menu">Quản Lý Voucher</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <!-- table -->
+              <div class="card shadow">
+                
+                <div class="card-body">
+                    <div class="col text-center">
+                        <h2 class="h3 mb-0 page-title">Thêm sản phẩm</h2>
+                      </div>
+
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="form-outline">
+                              <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm"/>
+                            </div>
+                        </div> <!-- form-group -->
+
+                        <div class="form-group col-md-6">
+                          <div class="form-outline">
+                            <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm"/>
+                          </div>
+                      </div> <!-- form-group -->
+
+                      
+                      <div class="form-group col-md-12">
+                          <div class="form-outline">
+                              <textarea id="form1" class="form-control" placeholder="Mô tả"></textarea>
+                            </div>
+                      </div> <!-- form-group -->
+
+                      <div class="form-group col-md-4">
+                        <div class="input-group">
+                          <select class="form-control">
+                            <option value="CA">Thương hiệu</option>
+                          </select>
+                          <div class="input-group-append ml-3">
+                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#brandModal">
+                              <i class="fe fe-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group col-md-4">
+                        <div class="input-group">
+                          <select class="form-control">
+                            <option value="CA">Danh mục</option>
+                          </select>
+                          <div class="input-group-append ml-3">
+                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#categoryModal">
+                              <i class="fe fe-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group col-md-4">
+                        <div class="input-group">
+                          <select class="form-control">
+                            <option value="CA">Kiểu đế</option>
+                          </select>
+                          <div class="input-group-append ml-3">
+                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#soleModal">
+                              <i class="fe fe-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <div class="input-group">
+                          <select class="form-control">
+                            <option value="CA">Màu sắc</option>
+                          </select>
+                          <div class="input-group-append ml-3">
+                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#colorModal">
+                              <i class="fe fe-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <div class="input-group">
+                          <select class="form-control">
+                            <option value="CA">Chất liệu</option>
+                          </select>
+                          <div class="input-group-append ml-3">
+                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#materialModal">
+                              <i class="fe fe-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Brand Modal -->
+                      <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel">Thêm thương hiệu</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="brandName">Tên thương hiệu:</label>
+                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên thương hiệu">
+                              </div>
+                            
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Trạng thái:</label>
+                                <select class="form-control" id="status">
+                                  <option value="active">Hoạt động</option>
+                                  <option value="inactive">Ngưng hoạt động</option>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Category Modal -->
+                      <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel">Thêm danh mục</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="brandName">Tên danh mục:</label>
+                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục">
+                              </div>
+                            
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Trạng thái:</label>
+                                <select class="form-control" id="status">
+                                  <option value="active">Hoạt động</option>
+                                  <option value="inactive">Ngưng hoạt động</option>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Sole Modal -->
+                      <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel">Thêm kiểu đế</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="brandName">Tên kiểu đế:</label>
+                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế">
+                              </div>
+                            
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Trạng thái:</label>
+                                <select class="form-control" id="status">
+                                  <option value="active">Hoạt động</option>
+                                  <option value="inactive">Ngưng hoạt động</option>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Color Modal -->
+                      <div class="modal fade" id="colorModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel">Thêm màu sắc</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="brandName">Tên màu sắc:</label>
+                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên màu sắc">
+                              </div>
+                            
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Trạng thái:</label>
+                                <select class="form-control" id="status">
+                                  <option value="active">Hoạt động</option>
+                                  <option value="inactive">Ngưng hoạt động</option>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Material Modal -->
+
+                      <div class="modal fade" id="materialModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel">Thêm chất liệu</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="brandName">Tên chất liệu:</label>
+                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên chất liệu">
+                              </div>
+                            
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Trạng thái:</label>
+                                <select class="form-control" id="status">
+                                  <option value="active">Hoạt động</option>
+                                  <option value="inactive">Ngưng hoạt động</option>
+                                </select>
+                              </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+
+                          <div class="form-group col-md-12 text-right">
+                              <button type="button" class="btn btn-primary">Xác nhận</button>
+                            </div> <!-- form-group -->
+                      </div>
+                    </div>
+
+                      </div>
+                </div>
+              </div>
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/simplebar.min.js"></script>
+    <script src='js/daterangepicker.js'></script>
+    <script src='js/jquery.stickOnScroll.js'></script>
+    <script src="js/tinycolor-min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
+  </body>
+</html>
