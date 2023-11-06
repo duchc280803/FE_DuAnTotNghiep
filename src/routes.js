@@ -36,11 +36,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
-      controller: "sanPhamGiamGiaController"
+      controller: "sanPhamShopController"
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
-      controller: "sanPhamGiamGiaController"
+      controller: "sanPhamShopDetailController"
     })
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",

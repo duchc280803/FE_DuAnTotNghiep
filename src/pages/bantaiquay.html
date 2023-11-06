@@ -492,12 +492,13 @@
                           <td style="padding-top: 50px">
                             <div class="quantity">
                               <input
-                                style="margin-left: -40px; width: 70px"
-                                type="number"
-                                class="next-input text-left min-width-100px position-relative"
-                                ng-model="lc.soLuong"
-                                ng-change="updateCart()"
-                              />
+                              style="margin-left: -40px; width: 70px"
+                              type="number"
+                              class="next-input text-left min-width-100px position-relative"
+                              ng-value="lc.soLuong"
+                              ng-model="soLuong"
+                              ng-change="updateCart(lc.idGioHang,soLuong)"
+                            />
                             </div>
                           </td>
                           <td style="padding-top: 60px">
@@ -547,7 +548,7 @@
                           <div class="row">
                             <div class="col-lg-8">
                               <input
-                                ng-model="keyName"
+                                ng-model="key"
                                 class="form-control"
                                 placeholder="Tìm sản phẩm"
                               />
@@ -577,9 +578,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="brand"
+                                ng-change="filterBrand()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="th in listThuongHieu">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="th in listThuongHieu"
+                                  value="{{th.tenThuongHieu}}"
+                                >
                                   {{th.tenThuongHieu}}
                                 </option>
                               </select>
@@ -589,9 +595,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locCategory"
+                                ng-change="filterCategory()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="dm in listDanhMuc">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="dm in listDanhMuc"
+                                  value="{{dm.tenDanhMuc}}"
+                                >
                                   {{dm.tenDanhMuc}}
                                 </option>
                               </select>
@@ -601,9 +612,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locOrigin"
+                                ng-change="filterOrigin()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="xx in listXuatXu">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="xx in listXuatXu"
+                                  value="{{xx.tenXuatXu}}"
+                                >
                                   {{xx.tenXuatXu}}
                                 </option>
                               </select>
@@ -613,9 +629,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locSole"
+                                ng-change="filterSole()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="kd in listKieuDe">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="kd in listKieuDe"
+                                  value="{{kd.tenDe}}"
+                                >
                                   {{kd.tenDe}}
                                 </option>
                               </select>
@@ -626,9 +647,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locMauSac"
+                                ng-change="filterColor()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="ms in listMauSac">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="ms in listMauSac"
+                                  value="{{ms.tenMauSac}}"
+                                >
                                   {{ms.tenMauSac}}
                                 </option>
                               </select>
@@ -639,9 +665,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locSize"
+                                ng-change="filterSize()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="s in listSize">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="s in listSize"
+                                  value="{{s.size}}"
+                                >
                                   {{s.size}}
                                 </option>
                               </select>
@@ -652,9 +683,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locMaterial"
+                                ng-change="filterMaterial()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="cl in listChatLieu">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="cl in listChatLieu"
+                                  value="{{cl.tenChatLieu}}"
+                                >
                                   {{cl.tenChatLieu}}
                                 </option>
                               </select>
@@ -671,18 +707,19 @@
                                   <th scope="col">STT</th>
                                   <th scope="col">Ảnh</th>
                                   <th scope="col">Tên Sản Phẩm</th>
-                                  <th scope="col">Giá</th>
+                                  <th scope="col" style="width: 120px">Giá</th>
                                   <th scope="col">Số Lượng</th>
                                   <th scope="col">Thao Tác</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr
+                                  style="border: 1px solid #ccc"
                                   class="text-center"
                                   ng-repeat="sptq in listSanPhamTaiQuay"
                                 >
                                   <td style="padding-top: 55px">
-                                    {{$index + 1}}
+                                    {{$index + 1 + (pageNumberSp * pageSizeSp)}}
                                   </td>
                                   <td>
                                     <div class="d-flex justify-content-center">
@@ -714,19 +751,25 @@
                                     <span>{{sptq.chatLieu}}</span>
                                   </td>
                                   <td style="padding-top: 55px">
-                                    <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0">
+                                    <small
+                                      class="mb-0 text-muted h6"
+                                      ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0"
+                                    >
                                       <strong>
-                                        <span class="text-danger" >
+                                        <span class="text-danger">
                                           {{ sptq.giaBan | number}}đ
                                         </span>
                                         <strike class="text-danger">
-                                          0đ {{ sptq.giaGiamGia | number:0}}đ
+                                          {{ sptq.giaGiamGia | number}}đ
                                         </strike>
                                       </strong>
                                     </small>
-                                    <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == 0">
+                                    <small
+                                      class="mb-0 text-muted h6"
+                                      ng-show="sptq.giaGiamGia == 0"
+                                    >
                                       <strong>
-                                        <span class="text-danger" >
+                                        <span class="text-danger">
                                           {{ sptq.giaBan | number}}đ
                                         </span>
                                       </strong>
@@ -736,10 +779,10 @@
                                     <div class="quantity">
                                       <input
                                         ng-model="soLuongSanPham"
-                                        type="number"
-                                        class="next-input text-left min-width-100px position-relative quantity-decimal"
                                         min="1"
                                         max="{{sptq.soLuong}}"
+                                        type="number"
+                                        class="next-input text-left min-width-100px position-relative quantity-decimal"
                                       />
                                     </div>
                                     <h6
@@ -752,9 +795,8 @@
                                     <button
                                       type="button"
                                       class="btn btn-primary"
-                                      data-toggle="modal"
-                                      data-target="#myModal"
-                                      ng-click="themSanPhamCart()"
+                                      data-bs-dismiss="modal"
+                                      ng-click="themSanPhamCart(sptq.idSanPhamChiTiet, soLuongSanPham)"
                                     >
                                       Thêm vào giỏ hàng
                                     </button>
@@ -776,9 +818,11 @@
                             </li>
                             <li
                               class="page-item"
-                              ng-repeat="page in getPageNumbers()"
+                              ng-repeat="page in getPaginationNumbers()"
                             >
-                              <a class="page-link" ng-click="updatePage(page)"
+                              <a
+                                class="page-link"
+                                ng-click="pageNumberSp = pageNumber"
                                 >{{ page }}</a
                               >
                             </li>
@@ -802,7 +846,6 @@
                     </div>
                   </div>
                 </div>
-
                 <!-- modal sản phẩm -->
               </div>
             </div>
@@ -872,7 +915,7 @@
                                   </div>
                                 </div>
                                 <div class="box">
-                                  <table class="table table-hover">
+                                  <table class="table">
                                     <thead>
                                       <tr
                                         style="background-color: lightskyblue"
