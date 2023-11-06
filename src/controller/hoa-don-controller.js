@@ -26,7 +26,7 @@ myApp.controller(
       };
 
       var url =
-        "http://localhost:8080/api/manager/hoa-don/hien-thi?trangThaiHD=" +
+        "http://localhost:8080/api/v1/hoa-don/hien-thi?trangThaiHD=" +
         trangThai;
 
       if (loaiDon !== undefined && loaiDon !== "") {
