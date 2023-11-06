@@ -22,8 +22,8 @@ myApp.controller("BanTaiQuayController", [
 
     $scope.luuIdHoaDon = function (id) {
       window.localStorage.setItem("idHoaDon", id);
-      $location.path("/order-counter");
       $route.reload();
+      $location.path("/order-counter");
     };
 
     var id = $window.localStorage.getItem("idHoaDon");
@@ -44,6 +44,11 @@ myApp.controller("BanTaiQuayController", [
       $http.post(api, {}, config).then(function (response) {
         $scope.listHoaDonTaiQuay.push(response.data);
         $scope.getListHoaDonTaiQuay();
+        var newHoaDonId = response.data.id;
+        console.log(newHoaDonId);
+
+        // Chọn hóa đơn mới tạo
+        $scope.luuIdHoaDon(newHoaDonId);
       });
     };
 
@@ -221,7 +226,6 @@ myApp.controller("BanTaiQuayController", [
         })
         .catch(function (error) {});
     };
-
     // cập nhập sản phẩm trong giỏ hàng
     $scope.updateCart = function (idGioHangChiTiet, soLuong) {
       var apiURL =
@@ -276,6 +280,7 @@ myApp.controller("BanTaiQuayController", [
         )
         .then(function (response) {
           $scope.detailOrderCounterDetail(id);
+          $scope.getListHoaDonTaiQuay(); 
         });
     };
 
@@ -407,6 +412,8 @@ myApp.controller("BanTaiQuayController", [
         id;
       $http.post(api, requestData).then(function (response) {
         $scope.listHoaDonChiTiet.push(response.data);
+        $window.localStorage.removeItem('idHoaDon');
+        $route.reload();
         $location.path("/hoa-don");
       });
     };
