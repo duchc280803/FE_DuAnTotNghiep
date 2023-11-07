@@ -23,7 +23,10 @@ myApp.controller("BanTaiQuayController", [
     $scope.luuIdHoaDon = function (id) {
       window.localStorage.setItem("idHoaDon", id);
       $route.reload();
-      $location.path("/order-counter");
+      var hd = $scope.listHoaDonTaiQuay.find(function(hd) { return hd.id === id; });
+      if (hd) {
+        $scope.selectOrder(hd);
+      }
     };
 
     var id = $window.localStorage.getItem("idHoaDon");
@@ -70,7 +73,7 @@ myApp.controller("BanTaiQuayController", [
 
     //TODO: Get all hoa đơn tại quầy
     $scope.pageNumber = 0;
-    $scope.pageSize = 4;
+    $scope.pageSize = 5;
     $scope.getListHoaDonTaiQuay = function () {
       $http
         .get(
@@ -157,7 +160,7 @@ myApp.controller("BanTaiQuayController", [
 
     // TODO: show sản phẩm trong giỏ hảng
     $scope.pageNumber = 0;
-    $scope.pageSize = 3;
+    $scope.pageSize = 5;
     $scope.listSanPhamInCart = function () {
       $http
         .get(
@@ -224,6 +227,8 @@ myApp.controller("BanTaiQuayController", [
     };
     $scope.showIdCart(idKhach);
 
+    var gioHangId = $window.localStorage.getItem("gioHangId");
+
     setTimeout(() => {
       $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
         Swal.fire({
@@ -236,30 +241,28 @@ myApp.controller("BanTaiQuayController", [
           confirmButtonText: "Yes!",
         }).then((result) => {
           if (result.isConfirmed) {
-            $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
-              $http
-                .post(
-                  "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
-                    gioHangId +
-                    "&idSanPhamChiTiet=" +
-                    idCtSp +
-                    "&soLuong=" +
-                    soLuongSanPham,
-                  {}
-                )
-                .then(function (response) {
-                  $scope.listCart.push(response.data);
-                  $scope.listSanPhamInCart();
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Thêm sản phẩm vào giỏ thành công",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                })
-                .catch(function (error) {});
-            };
+            $http
+              .post(
+                "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
+                  gioHangId +
+                  "&idSanPhamChiTiet=" +
+                  idCtSp +
+                  "&soLuong=" +
+                  soLuongSanPham,
+                {}
+              )
+              .then(function (response) {
+                $scope.listCart.push(response.data);
+                $scope.listSanPhamInCart();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Thêm sản phẩm vào giỏ thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              })
+              .catch(function (error) {});
           }
         });
       };
@@ -359,6 +362,13 @@ myApp.controller("BanTaiQuayController", [
             )
             .then(function () {
               $scope.listCart.splice(index, 1);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Xóa  giỏ thành công",
+                showConfirmButton: false,
+                timer: 1500,
+              });
             });
         }
       });
@@ -400,23 +410,31 @@ myApp.controller("BanTaiQuayController", [
     };
 
     // TODO: thanh toán chuyển khoản
-    $scope.newTransactionVnPay = {};
-    $scope.createTransactionVnpay = function (amount) {
-      $scope.newTransactionVnPay = {
-        amountParam: amount,
-      };
+    $scope.createTransactionVnpay = function () {
+      var urlParams = new URLSearchParams($location.absUrl().split("?")[1]);
+      var amount = urlParams.get("vnp_Amount");
+      // Sử dụng giá trị amount trong API call
       $http
         .post(
           "http://localhost:8080/api/v1/transaction/create-pay?idHoaDon=" +
             id +
             "&id=" +
-            idKhach,
-          $scope.newTransactionVnPay
+            idKhach +
+            "&vnp_Amount=" +
+            amount
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
         });
     };
+
+    $scope.$on("$locationChangeSuccess", function (event) {
+      var currentUrl = $location.absUrl().split("?")[0]; // chỉ lấy phần URL trước dấu '?'
+      var targetUrl = "http://127.0.0.1:5503/src/pages/QRCODE.html";
+      if (currentUrl === targetUrl) {
+        $scope.createTransactionVnpay();
+      }
+    });
 
     // TODO: ApiVNPay
     $scope.addVnPay = {};
@@ -427,16 +445,6 @@ myApp.controller("BanTaiQuayController", [
           $scope.addVnPay = response.data;
           $window.location.href = response.data.value;
         });
-    };
-
-    $scope.tongHopThanhToan = function (amount) {
-      $scope.Vnpay(amount);
-      if (
-        $location.absUrl() ===
-        "http://127.0.0.1:5503/src/index.html#/order-counter"
-      ) {
-        $scope.createTransactionVnpay(amount);
-      }
     };
 
     //TODO:thanh toán hóa đơn
@@ -584,7 +592,7 @@ myApp.controller("BanTaiQuayController", [
     $scope.getListXuatXu();
 
     $scope.pageNumberSp = 0; // Trang hiện tại
-    $scope.pageSizeSp = 8; // Số bản ghi trên mỗi trang
+    $scope.pageSizeSp = 5; // Số bản ghi trên mỗi trang
     // TODO: Get ALL sản phẩm tại quầy
     $scope.getListSanPhamTaiQuay = function () {
       $http
@@ -759,5 +767,58 @@ myApp.controller("BanTaiQuayController", [
           });
       }
     };
+
+    $scope.selectedOrder = null;
+$scope.selectOrder = function (hd) {
+  if ($scope.selectedOrder === hd) {
+    hd.isSelected = false;
+    $scope.selectedOrder = null;
+  } else {
+    if ($scope.selectedOrder) {
+      $scope.selectedOrder.isSelected = false;
+    }
+    hd.isSelected = true;
+    $scope.selectedOrder = hd;
+  }
+};
+
+    let scanner = new Instascan.Scanner({
+      video: document.getElementById("preview"),
+    });
+    scanner.addListener("scan", function (content) {
+      console.log(content);
+      // Do something with the scanned content
+      $http
+        .post(
+          "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham-qrcode?idGioHang=" +
+            gioHangId +
+            "&qrCode=" +
+            content,
+          {}
+        )
+        .then(function (response) {
+          $scope.listCart.push(response.data);
+          $scope.listSanPhamInCart();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Thêm sản phẩm vào giỏ thành công",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch(function (error) {});
+    });
+    Instascan.Camera.getCameras()
+      .then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error("No cameras found.");
+        }
+      })
+      .catch(function (e) {
+        console.error(e);
+      });
   },
 ]);
