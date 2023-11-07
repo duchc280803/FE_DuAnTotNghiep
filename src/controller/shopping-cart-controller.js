@@ -1,10 +1,12 @@
 var app = angular.module("myApp", []);
+var idgh = localStorage.getItem('idgiohang');
 app.controller("CartController", function ($scope, $http, $window) {
   function loadToTals() {
     // Gọi API và cập nhật giá trị totalAmount
+
     $http
       .get(
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=416941F8-150F-4C14-AEF8-03864A892471"
+        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" + idgh
       )
       .then(function (response) {
         // Lấy giá trị tổng tiền từ phản hồi API
@@ -20,8 +22,27 @@ app.controller("CartController", function ($scope, $http, $window) {
   $scope.changeQuantity = function (product, change) {
     if (change === "increase") {
       product.soluong++;
+      Swal.fire({
+        title: "Success",
+        text: "Thêm số lượng thành công",
+        icon: "success",
+        position: "bottom-start", // Đặt vị trí ở góc trái
+        toast: true, // Hiển thị thông báo nhỏ
+        showConfirmButton: false, // Ẩn nút xác nhận
+        timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+      });
+      
     } else if (change === "decrease" && product.soluong > 1) {
       product.soluong--;
+      Swal.fire({
+        title: "Success",
+        text: "Giảm số lượng thành công",
+        icon: "success",
+        position: "bottom-start", // Đặt vị trí ở góc trái
+        toast: true, // Hiển thị thông báo nhỏ
+        showConfirmButton: false, // Ẩn nút xác nhận
+        timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+      });
     }
     // Gọi API để cập nhật số lượng
     console.log(product.id);
@@ -61,7 +82,18 @@ app.controller("CartController", function ($scope, $http, $window) {
       method: "DELETE",
       transformResponse: [
         function () {
+          Swal.fire({
+            title: "Success",
+            text: "Xóa thành công",
+            icon: "success",
+            position: "bottom-start", // Đặt vị trí ở góc trái
+            toast: true, // Hiển thị thông báo nhỏ
+            showConfirmButton: false, // Ẩn nút xác nhận
+            timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+          });
           loadCart();
+          loadToTals();
+          loadNameAndPrice();
         },
       ],
     });
@@ -82,14 +114,25 @@ app.controller("CartController", function ($scope, $http, $window) {
       if (result.isConfirmed) {
         var apiURL =
           "http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=" +
-          "416941F8-150F-4C14-AEF8-03864A892471";
+          idgh;
 
         $http({
           url: apiURL,
           method: "DELETE",
           transformResponse: [
             function () {
+              Swal.fire({
+                title: "Success",
+                text: "Xóa thành công",
+                icon: "success",
+                position: "bottom-start", // Đặt vị trí ở góc trái
+                toast: true, // Hiển thị thông báo nhỏ
+                showConfirmButton: false, // Ẩn nút xác nhận
+                timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+              });
               loadCart();
+                 loadToTals();
+          loadNameAndPrice();
             },
           ],
         });
@@ -99,7 +142,6 @@ app.controller("CartController", function ($scope, $http, $window) {
 
   function loadCart() {
     // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-    var idgh = "416941F8-150F-4C14-AEF8-03864A892471";
     var apiURL =
       "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
       idgh;
@@ -117,7 +159,7 @@ app.controller("CartController", function ($scope, $http, $window) {
   function loadNameAndPrice() {
     $http
       .get(
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=416941F8-150F-4C14-AEF8-03864A892471"
+        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=" + idgh
       )
       .then(function (response) {
         $scope.items = response.data;
@@ -156,14 +198,14 @@ app.controller("CartController", function ($scope, $http, $window) {
   $scope.thanhToan = function () {
     // Hiển thị Sweet Alert để xác nhận
     Swal.fire({
-      title: "Xác nhận thanh toán?",
-      text: "Bạn có chắc chắn muốn thanh toán đơn hàng?",
+      title: "Xác nhận đặt hàng?",
+      text: "Bạn có chắc chắn muốn đặt đơn hàng?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Thanh toán",
-      cancelButtonText: "Hủy",
+      confirmButtonText: "Đặt hàng",
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         // Nếu người dùng xác nhận thanh toán, tiến hành gửi dữ liệu lên server
@@ -188,6 +230,7 @@ app.controller("CartController", function ($scope, $http, $window) {
         }).then(
           function (response) {
             // Xử lý phản hồi từ máy chủ nếu cần
+            $window.localStorage.removeItem("idgiohang");
             $window.location.href = "thankyou.html";
           },
           function (error) {
