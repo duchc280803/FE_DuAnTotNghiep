@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/ban-tai-quay" aria-expanded="false">
+            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/shopping-cart-plus.png"
@@ -150,7 +150,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
+            <a class="sidebar-link" href="#/voucher" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/ticket.png"
@@ -260,42 +260,53 @@
         <div class="box">
           <div class="row" style="padding-top: 25px; padding-left: 60px">
             <div class="col-md-2">
+              <p style="height: 7px; margin-left: -40px; font-weight: bold">
+                Nhập mã, tên voucher
+              </p>
               <input
                 class="form-control"
                 placeholder="Tìm khuyến mãi"
-                ng-model="searchName"
-                style="margin-top: 4px"
+                style="width: 220px; margin-left: -42px; font-weight: bold"
               />
-            </div>
-            <div class="col-md-4 d-flex justify-content-start">
-              <button class="btn btn-outline-primary m-1" style="height: 39px">
-                <span style="vertical-align: middle">Tìm Kiếm</span>
-              </button>
-              <button class="btn btn-outline-primary m-1" style="height: 39px">
-                <span style="vertical-align: middle">Làm Mới</span>
-              </button>
             </div>
             <div
               class="col-md-3 d-flex justify-content-start"
-              style="text-align: end"
+              style="margin-top: 20px"
             >
-              <label class="form-label" style="margin-top: 11px"
-                >Trạng thái :</label
+              <button class="btn btn-primary" style="height: 39px">
+                <span style="vertical-align: middle">Tìm Kiếm</span>
+              </button>
+              <button
+                class="btn btn-warning"
+                style="height: 39px; margin-left: 10px"
               >
-              <select style="color: green" class="custom-select">
-                <option>Tất cả</option>
-                <option>Còn hạn</option>
-                <option>Hết hạn</option>
+                <span style="vertical-align: middle">Làm Mới</span>
+              </button>
+            </div>
+            <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px;">
+              <br />
+              <h6 class="text" style="padding-top: 10px;">Trạng thái:</h6>
+              <select
+                style="width: 150px; height: 40px;margin-left: 10px;"
+                class="form-control select2"
+                id="simple-select2"
+                ng-model="locMauSac"
+                ng-change="filterColor()"
+              >
+                <option value="">Tất cả</option>
+                <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
+                  {{ms.tenMauSac}}
+                </option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-top: 20px; margin-left: 90px;">
               <a
-                href="#/giam-gia/create"
-                class="btn btn-outline-primary m-1"
+                href="#/voucher/create"
+                class="btn btn-primary"
                 style="text-decoration: none; height: 39px"
               >
                 <span style="vertical-align: middle" class="hide-menu"
-                  >Tạo giảm giá</span
+                  >Thêm voucher</span
                 >
               </a>
             </div>
@@ -304,34 +315,34 @@
       </div>
       <div class="card overflow-hidden">
         <div class="box">
-          <table class="table table-hover">
+          <table class="table">
             <thead>
-              <tr>
+              <tr style="background-color: #42bcf5; font-weight: bold">
                 <th scope="col">STT</th>
-                <th scope="col">Mã giảm giá</th>
-                <th scope="col">Tên giảm giá</th>
-                <th scope="col">Loại giảm giá</th>
-                <th scope="col">Đã Sử Dụng</th>
-                <th scope="col">Hình Thức</th>
+                <th scope="col">Mã voucher</th>
+                <th scope="col">Tên voucher</th>
+                <th scope="col">Đơn tối thiểu</th>
+                <th scope="col">Giá giảm đơn</th>
+                <th scope="col">Số lượng</th>
                 <th scope="col">Bắt Đầu</th>
                 <th scope="col">Kết Thúc</th>
                 <th scope="col">Trạng Thai</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
-            <tbody class="table">
+            <tbody>
               <tr>
                 <td>1</td>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>Otto</td>
-                <td>0/5</td>
                 <td>Jacob</td>
+                <td>0/5</td>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>@fat</td>
                 <td>
-                  <a href="#" class="btn btn-outline-primary">Sửa</a>
+                  <a href="#" class="btn btn-primary">Sửa</a>
                 </td>
               </tr>
             </tbody>

@@ -202,7 +202,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
+            <a class="sidebar-link" href="#/voucher" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/ticket.png"
@@ -331,7 +331,7 @@
                     <div class="col-lg-6" style="padding-left: 270px">
                       <button
                         type="button"
-                        class="btn btn-outline-primary m-1"
+                        class="btn btn-primary"
                         ng-click="createHoaDon()"
                       >
                         Tạo hóa đơn
@@ -339,7 +339,7 @@
 
                       <button
                         type="button"
-                        class="btn btn-outline-primary m-1"
+                        class="btn btn-warning"
                         ng-click="getListHoaDonTaiQuay ()"
                       >
                         Làm mới
@@ -351,7 +351,7 @@
                     <div class="col-lg-12">
                       <div style="overflow-x: auto; width: 1104px">
                         <table
-                          class="table table-hover"
+                          class="table"
                           style="white-space: nowrap; width: 1104px"
                         >
                           <thead>
@@ -366,7 +366,7 @@
                               <th scope="col">Thao tác</th>
                             </tr>
                           </thead>
-                          <tbody class="table">
+                          <tbody>
                             <tr
                               class="order"
                               ng-repeat="hd in listHoaDonTaiQuay"
@@ -385,11 +385,12 @@
                                 Công"}}
                               </td>
                               <td>
-                                <a
-                                  class="btn btn-outline-primary"
+                                <button
+                                  class="btn btn-primary"
                                   ng-click="luuIdHoaDon(hd.id)"
-                                  >Chọn</a
                                 >
+                                  Chọn
+                                </button>
                               </td>
                             </tr>
                           </tbody>
@@ -794,10 +795,11 @@
                                     >
                                       <strong>
                                         <span class="text-danger">
-                                          {{ sptq.giaBan | number}}đ
+                                          {{sptq.giaGiamGia |
+                                          number}}đ
                                         </span>
                                         <strike class="text-danger">
-                                          {{ sptq.giaGiamGia | number}}đ
+                                          {{ sptq.giaBan | number}}đ
                                         </strike>
                                       </strong>
                                     </small>
@@ -888,13 +890,6 @@
                         <h5 class="card-title mb-9 fw-semibold">Khách hàng</h5>
                       </div>
                       <div class="col-lg-6" style="margin-left: -175px">
-                        <a
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal2"
-                          class="btn btn-outline-primary"
-                        >
-                          Chọn
-                        </a>
                         <!--SHOW KHÁCH AND  Thêm khách -->
                         <div
                           class="modal fade"
@@ -922,8 +917,7 @@
                                   >
                                     <button
                                       ng-click="searchKhach()"
-                                      type="button"
-                                      class="btn btn-outline-primary m-1"
+                                      class="btn btn-primary"
                                     >
                                       Tìm Kiếm
                                     </button>
@@ -1103,15 +1097,29 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <div ng-show="showInput">
-                          <input
-                            ng-model="hoTen"
-                            type="text"
-                            disabled
-                            class="form-control hidden-input"
-                            style="margin-left: -30px; margin-bottom: 30px"
-                            ng-value="orderDetailCounter.tenKhach"
-                            placeholder="Nhập họ và tên khách"
-                          />
+                          <div class="row">
+                            <div class="col-lg-9">
+                              <input
+                                ng-model="hoTen"
+                                type="text"
+                                disabled
+                                class="form-control hidden-input"
+                                style="margin-left: -30px; margin-bottom: 30px"
+                                ng-value="orderDetailCounter.tenKhach"
+                                placeholder="Nhập họ và tên khách"
+                              />
+                            </div>
+                            <div class="col-lg-3">
+                              <a
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal2"
+                                class="btn btn-primary"
+                              >
+                                Chọn
+                              </a>
+                            </div>
+                          </div>
+
                           <input
                             ng-show="orderDetailCounter.tenKhach != 'Khách lẻ'"
                             ng-model="email"
@@ -1252,7 +1260,7 @@
                                           <div class="row">
                                             <div class="col-lg-4">
                                               <button
-                                                class="btn btn-outline-primary"
+                                                class="btn btn-primary"
                                                 style="margin-left: 50px"
                                                 ng-click="createTransaction()"
                                               >
@@ -1261,7 +1269,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                               <button
-                                                class="btn btn-outline-primary"
+                                                class="btn btn-primary"
                                                 style="margin-left: 50px"
                                                 ng-click="Vnpay(tongTienHang - totalAmountPaid)"
                                               >
@@ -1270,7 +1278,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                               <button
-                                                class="btn btn-outline-primary"
+                                                class="btn btn-primary"
                                                 style="margin-left: 50px"
                                               >
                                                 QR Code
@@ -1419,7 +1427,7 @@
                                   />
                                 </div>
                                 <div class="col-lg-5">
-                                  <button class="btn btn-outline-primary">
+                                  <button class="btn btn-primary">
                                     Chọn mã
                                   </button>
                                 </div>
@@ -1556,7 +1564,7 @@
                     </div>
                   </div>
                   <button
-                    class="btn btn-outline-primary"
+                    class="btn btn-primary"
                     style="
                       margin-left: 900px;
                       margin-top: 25px;
@@ -1569,7 +1577,7 @@
                   </button>
                   <button
                     ng-show="!showInput"
-                    class="btn btn-outline-primary"
+                    class="btn btn-primary"
                     style="
                       margin-left: 900px;
                       margin-top: 25px;
