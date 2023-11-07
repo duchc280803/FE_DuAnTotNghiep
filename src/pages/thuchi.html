@@ -430,7 +430,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -442,14 +441,8 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
@@ -477,7 +470,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -489,14 +481,9 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
+                
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
@@ -524,7 +511,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -536,14 +522,8 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
@@ -571,7 +551,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -583,14 +562,8 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
@@ -618,7 +591,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -630,14 +602,8 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
@@ -665,7 +631,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -677,14 +642,8 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
@@ -712,7 +671,6 @@
                 <th scope="col">Thành tiền</th>
                 <th scope="col">Người xác nhận</th>
                 <th scope="col">Loại đơn</th>
-                <th scope="col">Trạng thái</th>
                 <th scope="col">Thao Tác</th>
               </tr>
             </thead>
@@ -724,14 +682,8 @@
                 <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                 <td>{{hd.soDienThoai}}</td>
                 <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-                <td>{{hd.nguoiXacNhan}}</td>
+                <td>{{hd.tenNhanVien}}</td>
                 <td>{{hd.loaiDon}}</td>
-                <td>
-                  {{hd.trangThai == 1 ? "Chờ xác nhận" : hd.trangThai == 2 ?
-                  "Xác nhận" : hd.trangThai == 3 ? "Chờ giao hàng" :
-                  hd.trangThai == 4 ? "Giao hàng" : hd.trangThai == 5 ? "Hoàn
-                  thành" : hd.trangThai == 6 ? "Đã hủy" : "Trả hàng"}}
-                </td>
                 <td>
                   <a
                     href="#/chi-tiet-hoa-don/{{hd.id}}"
