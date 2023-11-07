@@ -25,10 +25,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/giam-gia", {
+    .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
     })
-    .when("/giam-gia/create", {
+    .when("/voucher/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
     })
     .when("/home", {
@@ -45,6 +45,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
     }).otherwise({
-      redirectTo: "/dashboard",
+      redirectTo: "/home",
     });
 });
