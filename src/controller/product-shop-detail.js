@@ -205,10 +205,45 @@ myApp.controller(
       }
     };
 
-    $scope.addToCart = function (id) {
-      console.log(id);
-    }
+// Tạo giỏ hàng mới và lưu idGioHang vào localStorage
+$scope.CreateNewCart = function () {
+  $http
+    .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang")
+    .then(function (response) {
+      // Lưu idGioHang vào localStorage
+      var idGioHang = response.data;     
+      localStorage.setItem('idgiohang', idGioHang);
+    })
+    .catch(function (error) {
+      // Xử lý lỗi nếu cần
+      console.error('Lỗi khi tạo giỏ hàng', error);
+    });
+};
 
+// Thêm sản phẩm vào giỏ hàng
+$scope.addToCart = function (idSanPhamChiTiet) {
+  // Lấy idGioHang từ localStorage
+  var idGioHang = localStorage.getItem('idgiohang');
+  var soluong = $scope.soluong ;
+
+  if (!idGioHang) {
+    // Nếu không có idGioHang trong localStorage, gọi hàm CreateNewCart để tạo giỏ hàng mới
+    $scope.CreateNewCart();
+
+  } else {
+    // Nếu có idGioHang trong localStorage, thực hiện gọi API để thêm sản phẩm vào giỏ hàng
+    var url = "http://localhost:8080/api/gio-hang-chi-tiet-not-login/them-san-pham?idGioHang=" + idGioHang + "&idSanPhamChiTiet=" + idSanPhamChiTiet + "&soLuong=" + soluong;
+    $http
+      .post(url)
+      .then(function () {
+      })
+      .catch(function (error) {
+      });
+  }
+};
+
+
+    
     $scope.getDetailProduct();
     $scope.getDetailSizeProduct();
     $scope.getDetailMauSacProduct();
