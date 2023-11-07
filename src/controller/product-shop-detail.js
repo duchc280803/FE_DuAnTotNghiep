@@ -242,7 +242,6 @@ $scope.addToCart = function (idSanPhamChiTiet) {
   }
 };
 
-
     
     $scope.getDetailProduct();
     $scope.getDetailSizeProduct();
