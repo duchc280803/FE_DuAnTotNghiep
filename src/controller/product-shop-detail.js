@@ -9,7 +9,6 @@ myApp.controller(
     $scope.detailQuantity = {};
 
     var name = $routeParams.name;
-
     $scope.getDetailProduct = function () {
       $http
         .get(
@@ -225,7 +224,6 @@ $scope.addToCart = function (idSanPhamChiTiet) {
   // Lấy idGioHang từ localStorage
   var idGioHang = localStorage.getItem('idgiohang');
   var soluong = $scope.soluong ;
-
   if (!idGioHang) {
     // Nếu không có idGioHang trong localStorage, gọi hàm CreateNewCart để tạo giỏ hàng mới
     $scope.CreateNewCart();
