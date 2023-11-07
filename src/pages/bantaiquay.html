@@ -42,6 +42,9 @@
   tr.order_selected.ng-scope.selected {
     background-color: #c6eb34;
   }
+  .order.selected {
+    background-color: #c6fc03;
+  }
 </style>
 <div
   class="page-wrapper"
@@ -364,7 +367,11 @@
                             </tr>
                           </thead>
                           <tbody class="table">
-                            <tr ng-repeat="hd in listHoaDonTaiQuay" ng-class="{ 'selected': hd.selected }">
+                            <tr
+                              class="order"
+                              ng-repeat="hd in listHoaDonTaiQuay"
+                              ng-class="{ 'selected': hd.isSelected}"
+                            >
                               <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
                               <td>{{hd.maHoaDon}}</td>
                               <td>{{hd.tenNhanVien}}</td>
@@ -403,16 +410,8 @@
                               >Previous</a
                             >
                           </li>
-                          <li
-                            class="page-item"
-                            ng-repeat="page in getPageNumbers()"
-                          >
-                            <a
-                              class="page-link"
-                              ng-href="#/ban-tai-quay?pageNumber={{page}}"
-                              ng-click="updatePage(page)"
-                              >{{ page }}</a
-                            >
+                          <li class="page-item">
+                            <a class="page-link">{{ pageNumber + 1 }}</a>
                           </li>
                           <li class="page-item">
                             <a
@@ -452,7 +451,45 @@
                         data-bs-target="#exampleModal"
                       />
                     </div>
-                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2" style="padding-left: 125px">
+                      <a
+                        href=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal-qrcode"
+                        ><img
+                          src="/assets/images/qr-code.png"
+                          width="40px"
+                          alt=""
+                      /></a>
+                      <div
+                        class="modal fade"
+                        id="exampleModal-qrcode"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div
+                          class="modal-dialog modal-lg"
+                          style="width: 448px; margin-left: 600px"
+                        >
+                          <div class="modal-content custom-modal-content">
+                            <div class="modal-header"></div>
+                            <div class="modal-body">
+                              <video id="preview"></video>
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <br />
                   <div class="box">
@@ -492,13 +529,13 @@
                           <td style="padding-top: 50px">
                             <div class="quantity">
                               <input
-                              style="margin-left: -40px; width: 70px"
-                              type="number"
-                              class="next-input text-left min-width-100px position-relative"
-                              ng-value="lc.soLuong"
-                              ng-model="soLuong"
-                              ng-change="updateCart(lc.idGioHang,soLuong)"
-                            />
+                                style="margin-left: -40px; width: 70px"
+                                type="number"
+                                class="next-input text-left min-width-100px position-relative"
+                                ng-value="lc.soLuong"
+                                ng-model="soLuong"
+                                ng-change="updateCart(lc.idGioHang,soLuong)"
+                              />
                             </div>
                           </td>
                           <td style="padding-top: 60px">
@@ -808,7 +845,7 @@
                         </div>
                         <nav
                           aria-label="Page navigation example"
-                          style="margin-left: 450px"
+                          style="margin-left: 480px"
                         >
                           <ul class="pagination">
                             <li class="page-item">
@@ -816,15 +853,8 @@
                                 >Previous</a
                               >
                             </li>
-                            <li
-                              class="page-item"
-                              ng-repeat="page in getPaginationNumbers()"
-                            >
-                              <a
-                                class="page-link"
-                                ng-click="pageNumberSp = pageNumber"
-                                >{{ page }}</a
-                              >
+                            <li class="page-item">
+                              <a class="page-link">{{pageNumberSp + 1}}</a>
                             </li>
                             <li class="page-item">
                               <a class="page-link" ng-click="nextPageSp()"
@@ -1233,7 +1263,7 @@
                                               <button
                                                 class="btn btn-outline-primary"
                                                 style="margin-left: 50px"
-                                                ng-click="tongHopThanhToan(tongTienHang - totalAmountPaid)"
+                                                ng-click="Vnpay(tongTienHang - totalAmountPaid)"
                                               >
                                                 Chuyển khoản
                                               </button>
