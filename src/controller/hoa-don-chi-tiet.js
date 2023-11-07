@@ -17,15 +17,6 @@ myApp.controller("hoaDonChiTietController", function ($http, $scope, $routeParam
   }
 
 
-
-
-
-
-
-
-
-
-  
   function getHoaDonChiTiet(id) {
     const apiUrl = "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
     $http.get(apiUrl).then(function (response) {

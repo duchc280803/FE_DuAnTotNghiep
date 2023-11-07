@@ -166,7 +166,8 @@
       <div class="card overflow-hidden" style="width: 1152px; position: relative;">
         <h5 style="padding-left: 20px; padding-top: 20px">
           <div class="breadcrumb">
-            <a class="breadcrumb__step breadcrumb__step--active" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Chờ xác nhận</a>
+            <a class="breadcrumb__step breadcrumb__step--active" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              href="">Chờ xác nhận</a>
             <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Xác nhận</a>
             <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Chờ giao hàng</a>
             <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Giao hàng</a>
@@ -175,7 +176,8 @@
             <a class="breadcrumb__step" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Đã hủy</a>
           </div>
         </h5>
-        <button type="submit" class="btn btn-outline-danger m-1" data-bs-toggle="modal" data-bs-target="#lichsu" style="text-decoration: none; height: 39px; position: absolute; bottom: 0; right: 0;">
+        <button type="submit" class="btn btn-outline-danger m-1" data-bs-toggle="modal" data-bs-target="#lichsu"
+          style="text-decoration: none; height: 39px; position: absolute; bottom: 0; right: 0;">
           <span style="vertical-align: middle">Lịch sử</span>
         </button>
       </div>
@@ -223,11 +225,11 @@
                 <tbody class="table">
                   <tr ng-repeat="item in lichSuThayDoi">
                     <td>{{item.trangThai == 1 ? "Chờ xác nhận" :
-                      hd.trangThai == 2 ? "Xác nhận" :
-                      hd.trangThai == 3 ? "Chờ giao hàng" :
-                      hd.trangThai == 4 ? "Giao hàng" :
-                      hd.trangThai == 5 ? "Hoàn thành" :
-                      hd.trangThai == 6 ? "Đã hủy" :
+                      item.trangThai == 2 ? "Xác nhận" :
+                      item.trangThai == 3 ? "Chờ giao hàng" :
+                      item.trangThai == 4 ? "Giao hàng" :
+                      item.trangThai == 5 ? "Hoàn thành" :
+                      item.trangThai == 6 ? "Đã hủy" :
                       "Trả hàng"}}</td>
                     <td>{{item.thoiGian | date:'MM/dd/yyyy'}}</td>
                     <td>{{item.tenNhanVien}}</td>
