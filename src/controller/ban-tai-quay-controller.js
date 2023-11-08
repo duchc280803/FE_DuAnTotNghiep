@@ -62,7 +62,7 @@ myApp.controller("BanTaiQuayController", [
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Tạo hóa đơn thành công",
+                title: "Tạo hóa đơn thành công thành công",
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -486,7 +486,16 @@ myApp.controller("BanTaiQuayController", [
               $scope.listHoaDonChiTiet.push(response.data);
               $window.localStorage.removeItem("idHoaDon");
               $location.path("/hoa-don");
-            });
+            }).then(function (error) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thanh toán thất bại",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              $location.path("/order-counter");
+            });;
           }
         });
       };
@@ -526,8 +535,15 @@ myApp.controller("BanTaiQuayController", [
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Đặt hàng thành công thành công",
+                showConfirmButton: false,
+                timer: 1500,
+              });
               $location.path("/hoa-don");
-            });
+            })
           }
         });
       };

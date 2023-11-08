@@ -137,10 +137,10 @@
               <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
-              <li class="sidebar-item" style="margin-left: 37px;">
+              <li class="sidebar-item" style="margin-left: 37px">
                 <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
               </li>
-              <li class="sidebar-item" style="margin-left: 37px;">
+              <li class="sidebar-item" style="margin-left: 37px">
                 <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
               </li>
             </ul>
@@ -477,7 +477,7 @@
                   </div>
                   <div
                     class="box"
-                    ng-show="orderDetailCounter.maHoaDon != null"
+                    ng-show="orderDetailCounter.maHoaDon != null" ||
                   >
                     <table class="table">
                       <thead>
@@ -526,7 +526,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaGiam != 0">
-                              {{lc.giaGiam | number}}đ
+                              {{lc.giaBan-lc.giaGiam | number}}đ
                               <span>
                                 <strike>{{lc.giaBan | number}}₫</strike></span
                               >
@@ -537,7 +537,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaGiam != 0">
-                              {{lc.giaGiam * lc.soLuong | number}}đ
+                              {{lc.giaBan - lc.giaGiam * lc.soLuong | number}}đ
                             </div>
                             <div ng-show="lc.giaGiam == 0">
                               {{lc.giaBan * lc.soLuong | number}}đ

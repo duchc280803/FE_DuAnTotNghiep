@@ -228,6 +228,10 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                       <div class="form-outline">
+                        <span class="header-title"
+                          ><span style="color: red">*</span>
+                          <span>Tên sản phẩm</span></span
+                        >
                         <input
                           type="text"
                           id="form1"
@@ -240,6 +244,10 @@
 
                     <div class="form-group col-md-6">
                       <div class="form-outline">
+                        <span class="header-title"
+                          ><span style="color: red">*</span>
+                          <span>Giá bán</span></span
+                        >
                         <input
                           type="text"
                           id="form1"
@@ -252,6 +260,10 @@
 
                     <div class="form-group col-md-12 mt-3">
                       <div class="form-outline">
+                        <span class="header-title"
+                          ><span style="color: red">*</span>
+                          <span>Mô tả</span></span
+                        >
                         <textarea
                           id="form1"
                           class="form-control"
@@ -261,8 +273,7 @@
                     </div>
                     <!-- form-group -->
 
-<<<<<<< HEAD
-                    <div class="form-group col-md-4 mt-3">
+                    <div class="form-group col-md-6 mt-3">
                       <div class="input-group">
                         <select class="form-control">
                           <option value="CA">Thương hiệu</option>
@@ -278,209 +289,9 @@
                           </button>
                         </div>
                       </div>
-=======
-                      
-                      <div class="form-group col-md-12 mt-3">
-                          <div class="form-outline">
-                              <textarea id="form1" class="form-control" placeholder="Mô tả"></textarea>
-                            </div>
-                      </div> <!-- form-group -->
-
-                      <div class="form-group col-md-6 mt-3">
-                        <div class="input-group">
-                          <select class="form-control">
-                            <option value="CA">Thương hiệu</option>
-                          </select>
-                          <div class="input-group-append ml-3">
-                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#brandModal">
-                              <i class="fe fe-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group col-md-6 mt-3">
-                        <div class="input-group">
-                          <select class="form-control">
-                            <option value="CA">Danh mục</option>
-                          </select>
-                          <div class="input-group-append ml-3">
-                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#categoryModal">
-                              <i class="fe fe-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="form-group col-md-6 mt-3">
-                        <div class="input-group">
-                          <select class="form-control">
-                            <option value="CA">Kiểu đế</option>
-                          </select>
-                          <div class="input-group-append ml-3">
-                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#soleModal">
-                              <i class="fe fe-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group col-md-6 mt-3">
-                        <div class="input-group">
-                          <select class="form-control">
-                            <option value="CA">Xuất xứ</option>
-                          </select>
-                          <div class="input-group-append ml-3">
-                            <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#xuatXu">
-                              <i class="fe fe-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                                            
-                      <!-- Xuất xứ modal-->
-                      <div class="modal fade" id="xuatXu" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="myModalLabel">Thêm xuất xứ</h5>
-
-                            </div>
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="brandName">Tên xuất xứ:</label>
-                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên xuất xứ">
-                              </div>
-                            
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="status">Trạng thái:</label>
-                                <select class="form-control" id="status">
-                                  <option value="active">Hoạt động</option>
-                                  <option value="inactive">Ngưng hoạt động</option>
-                                </select>
-                              </div>
-                            </div>
-                            
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      
-                      <!-- Brand Modal -->
-                      <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="myModalLabel">Thêm thương hiệu</h5>
-
-                            </div>
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="brandName">Tên thương hiệu:</label>
-                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên thương hiệu">
-                              </div>
-                            
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="status">Trạng thái:</label>
-                                <select class="form-control" id="status">
-                                  <option value="active">Hoạt động</option>
-                                  <option value="inactive">Ngưng hoạt động</option>
-                                </select>
-                              </div>
-                            </div>
-                            
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <!-- Category Modal -->
-                      <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="myModalLabel">Thêm danh mục</h5>
-                            </div>
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="brandName">Tên danh mục:</label>
-                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục">
-                              </div>
-                            
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="status">Trạng thái:</label>
-                                <select class="form-control" id="status">
-                                  <option value="active">Hoạt động</option>
-                                  <option value="inactive">Ngưng hoạt động</option>
-                                </select>
-                              </div>
-                            </div>
-                            
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <!-- Sole Modal -->
-                      <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="myModalLabel">Thêm kiểu đế</h5>
-                            </div>
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="brandName">Tên kiểu đế:</label>
-                                <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế">
-                              </div>
-                            
-                              <div class="form-group">
-                                <span class="text-danger">*</span>
-                                <label for="status">Trạng thái:</label>
-                                <select class="form-control" id="status">
-                                  <option value="active">Hoạt động</option>
-                                  <option value="inactive">Ngưng hoạt động</option>
-                                </select>
-                              </div>
-                            </div>
-                            
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                              <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                   
-                      
-
-                          <div class="form-group col-md-12 text-right mt-3">
-                              <button type="button" class="btn btn-primary">Xác nhận</button>
-                            </div> <!-- form-group -->
-                      </div>
->>>>>>> e58e09414b6ac8f32130bc62cfaf813ed0bcdbb2
                     </div>
 
-                    <div class="form-group col-md-4 mt-3">
+                    <div class="form-group col-md-6 mt-3">
                       <div class="input-group">
                         <select class="form-control">
                           <option value="CA">Danh mục</option>
@@ -498,7 +309,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-4 mt-3">
+                    <div class="form-group col-md-6 mt-3">
                       <div class="input-group">
                         <select class="form-control">
                           <option value="CA">Kiểu đế</option>
@@ -516,17 +327,17 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-4 mt-3">
+                    <div class="form-group col-md-6 mt-3">
                       <div class="input-group">
                         <select class="form-control">
-                          <option value="CA">Màu sắc</option>
+                          <option value="CA">Xuất xứ</option>
                         </select>
                         <div class="input-group-append ml-3">
                           <button
                             class="btn btn-primary rounded"
                             type="button"
                             data-toggle="modal"
-                            data-target="#colorModal"
+                            data-target="#xuatXu"
                           >
                             <i class="fe fe-plus"></i>
                           </button>
@@ -534,20 +345,65 @@
                       </div>
                     </div>
 
-                    <div class="form-group col-md-4 mt-3">
-                      <div class="input-group">
-                        <select class="form-control">
-                          <option value="CA">Chất liệu</option>
-                        </select>
-                        <div class="input-group-append ml-3">
-                          <button
-                            class="btn btn-primary rounded"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#materialModal"
-                          >
-                            <i class="fe fe-plus"></i>
-                          </button>
+                    <!-- Xuất xứ modal-->
+                    <div
+                      class="modal fade"
+                      id="xuatXu"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="brandModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="modal-dialog modal-dialog-centered size-modal"
+                        role="document"
+                      >
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                              Thêm xuất xứ
+                            </h5>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <span class="text-danger">*</span>
+                              <label for="brandName">Tên xuất xứ:</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="brandName"
+                                placeholder="Nhập tên xuất xứ"
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <span class="text-danger">*</span>
+                              <label for="status">Trạng thái:</label>
+                              <select class="form-control" id="status">
+                                <option value="active">Hoạt động</option>
+                                <option value="inactive">
+                                  Ngưng hoạt động
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-dismiss="modal"
+                            >
+                              Đóng
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-primary"
+                              data-dismiss="modal"
+                            >
+                              Thêm
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -645,6 +501,7 @@
                                 placeholder="Nhập tên danh mục"
                               />
                             </div>
+
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -656,6 +513,7 @@
                               </select>
                             </div>
                           </div>
+
                           <div class="modal-footer">
                             <button
                               type="button"
@@ -675,6 +533,8 @@
                         </div>
                       </div>
                     </div>
+
+                    <!-- Sole Modal -->
                     <div
                       class="modal fade"
                       id="soleModal"
@@ -704,6 +564,7 @@
                                 placeholder="Nhập tên kiểu đế"
                               />
                             </div>
+
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -735,138 +596,24 @@
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="modal fade"
-                      id="colorModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="soleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">
-                              Thêm màu sắc
-                            </h5>
-                          </div>
-                          <div class="modal-body">
-                            <div class="form-group">
-                              <span class="text-danger">*</span>
-                              <label for="brandName">Tên màu sắc:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên màu sắc"
-                              />
-                            </div>
 
-                            <div class="form-group">
-                              <span class="text-danger">*</span>
-                              <label for="status">Trạng thái:</label>
-                              <select class="form-control" id="status">
-                                <option value="active">Hoạt động</option>
-                                <option value="inactive">
-                                  Ngưng hoạt động
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
-                              Đóng
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
-                              Thêm
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="modal fade"
-                      id="materialModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="soleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">
-                              Thêm chất liệu
-                            </h5>
-                          </div>
-                          <div class="modal-body">
-                            <div class="form-group">
-                              <span class="text-danger">*</span>
-                              <label for="brandName">Tên chất liệu:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên chất liệu"
-                              />
-                            </div>
-                            <div class="form-group">
-                              <span class="text-danger">*</span>
-                              <label for="status">Trạng thái:</label>
-                              <select class="form-control" id="status">
-                                <option value="active">Hoạt động</option>
-                                <option value="inactive">
-                                  Ngưng hoạt động
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
-                              Đóng
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
-                              Thêm
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group col-md-12 text-right">
+                    <div class="form-group col-md-12 text-right mt-3">
                       <button type="button" class="btn btn-primary">
                         Xác nhận
                       </button>
                     </div>
+                    <!-- form-group -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- .col-12 -->
         </div>
+        <!-- .row -->
       </div>
+      <!-- .container-fluid -->
     </main>
+    <!-- main -->
   </div>
 </div>
