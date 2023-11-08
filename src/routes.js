@@ -50,6 +50,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
+    })
+    .when("/thank-you", {
+      templateUrl: "./pages/shoping-cart.html",
     }).otherwise({
       redirectTo: "/home",
     });

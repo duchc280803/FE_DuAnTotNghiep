@@ -397,8 +397,22 @@
               <div class="card overflow-hidden">
                 <div class="card-body p-4">
                   <h5 class="card-title mb-9 fw-semibold">
-                    Thông Tin Sản Phẩm / {{orderDetailCounter.maHoaDon}} /
-                    {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                    <div class="row">
+                      <div class="col-lg-6">
+                        Thông Tin Sản Phẩm
+                      </div>
+                      <div class="col-lg-6">
+                        <div ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0">
+                          <p style="margin-left: 350px;">Vui lòng tạo hóa đơn.</p>
+                      </div>
+                      <div ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0">
+                          <p style="margin-left: 230px;">{{orderDetailCounter.maHoaDon}} /
+                              {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                          </p>
+                          <!-- Rest of your code -->
+                      </div>
+                      </div>
+                    </div>
                   </h5>
                   <div class="row">
                     <div class="col-lg-10">
@@ -509,10 +523,10 @@
                             </div>
                           </td>
                           <td style="padding-top: 60px">
-                            <div ng-show="lc.giaGiam != null">
+                            <div ng-show="lc.giaGiam != 0">
                               {{lc.giaGiam * lc.soLuong | number}}đ
                             </div>
-                            <div ng-show="lc.giaGiam == null">
+                            <div ng-show="lc.giaGiam == 0">
                               {{lc.giaBan * lc.soLuong | number}}đ
                             </div>
                           </td>
@@ -1044,9 +1058,22 @@
                   </div>
                   <div class="col-lg-6">
                     <h5 class="card-title mb-9 fw-semibold">
-                      Thông Tin Thanh Toán / {{orderDetailCounter.maHoaDon}} /
-                      {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss
-                      a'}}
+                      <div class="row">
+                        <div class="col-lg-6">
+                          Thông Tin Thanh Toán
+                        </div>
+                        <div class="col-lg-6">
+                          <div ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0">
+                            <p style="margin-left: 350px;">Vui lòng tạo hóa đơn.</p>
+                        </div>
+                        <div ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0">
+                            <p style="margin-left: 230px;">{{orderDetailCounter.maHoaDon}} /
+                                {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                            </p>
+                            <!-- Rest of your code -->
+                        </div>
+                        </div>
+                      </div>
                     </h5>
                   </div>
                 </div>
@@ -1197,7 +1224,7 @@
                                               <button
                                                 class="btn btn-primary"
                                                 style="margin-left: 50px"
-                                                ng-click="Vnpay(tongTienHang - totalAmountPaid)"
+                                                ng-click="ok(tongTienHang - totalAmountPaid)"
                                               >
                                                 Chuyển khoản
                                               </button>

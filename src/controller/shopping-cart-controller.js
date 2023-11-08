@@ -231,7 +231,7 @@ app.controller("CartController", function ($scope, $http, $window) {
           function (response) {
             // Xử lý phản hồi từ máy chủ nếu cần
             $window.localStorage.removeItem("idgiohang");
-            $window.location.href = "thankyou.html";
+            $location.path("/thanh-you");
           },
           function (error) {
             // Xử lý lỗi nếu có

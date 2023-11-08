@@ -60,7 +60,7 @@ myApp.controller("BanTaiQuayController", [
             $http.post(api, {}, config).then(function (response) {
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
-              $window.location.reload();
+              $scope.luuIdHoaDon(response.data.id);
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -200,7 +200,15 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
+    $scope.clearCart = function () {
+      $scope.listCart = [];
+      $scope.tongSoLuongSanPham = 0;
+      $scope.tongTienHang = 0;
+      $window.localStorage.removeItem("listCart");
+    };
+
     $scope.listSanPhamInCart();
+
     var idGioHangChiTiet = $window.localStorage.getItem("listCart");
     var gioHangChiTietList = idGioHangChiTiet.split(",");
     // TODO: updatePage
@@ -262,7 +270,6 @@ myApp.controller("BanTaiQuayController", [
               .then(function (response) {
                 $scope.listCart.push(response.data);
                 $scope.listSanPhamInCart();
-                $window.location.reload();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -421,13 +428,10 @@ myApp.controller("BanTaiQuayController", [
     };
 
     // TODO: thanh toán chuyển khoản
-    $scope.createTransactionVnpay = function () {
-      var urlParams = new URLSearchParams($location.absUrl().split("?")[1]);
-      var amount = urlParams.get("vnp_Amount");
-      // Sử dụng giá trị amount trong API call
+    $scope.createTransactionVnpay = function (amount) {
       $http
         .post(
-          "http://localhost:8080/api/v1/transaction/create-pay?idHoaDon=" +
+          "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
             id +
             "&id=" +
             idKhach +
@@ -439,14 +443,6 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    $scope.$on("$locationChangeSuccess", function (event) {
-      var currentUrl = $location.absUrl().split("?")[0]; // chỉ lấy phần URL trước dấu '?'
-      var targetUrl = "http://127.0.0.1:5503/src/pages/QRCODE.html";
-      if (currentUrl === targetUrl) {
-        $scope.createTransactionVnpay();
-      }
-    });
-
     // TODO: ApiVNPay
     $scope.addVnPay = {};
     $scope.Vnpay = function (amount) {
@@ -456,6 +452,11 @@ myApp.controller("BanTaiQuayController", [
           $scope.addVnPay = response.data;
           $window.location.href = response.data.value;
         });
+    };
+
+    $scope.ok = function (amount) {
+      $scope.createTransactionVnpay(amount);
+      $scope.Vnpay(amount);
     };
 
     //TODO:thanh toán hóa đơn
@@ -492,15 +493,8 @@ myApp.controller("BanTaiQuayController", [
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
+              $scope.clearCart();
               $window.localStorage.removeItem("idHoaDon");
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Tạo hóa đơn thành công",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              $window.location.reload();
               $location.path("/hoa-don");
             });
           }
@@ -509,31 +503,45 @@ myApp.controller("BanTaiQuayController", [
     }, 2000);
 
     //TODO:thanh toán hóa đơn giao
-    $scope.createHoaDonChiTietGiao = function (
-      tongTienHang,
-      tienKhachTra,
-      tienThua
-    ) {
-      var requestData = {
-        tongTien: tongTienHang,
-        tienKhachTra: tienKhachTra,
-        tienThua: tienThua,
-        tienGiao: $scope.tienGiao,
-        hoTen: $scope.hoTen,
-        tenNguoiShip: $scope.tenNguoiShip,
-        soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
-        soDienThoai: $scope.soDienThoai,
-        diaChi: $scope.diaChi,
-        gioHangChiTietList: gioHangChiTietList,
+    setTimeout(() => {
+      $scope.createHoaDonChiTietGiao = function (
+        tongTienHang,
+        tienKhachTra,
+        tienThua
+      ) {
+        var requestData = {
+          tongTien: tongTienHang,
+          tienKhachTra: tienKhachTra,
+          tienThua: tienThua,
+          tienGiao: $scope.tienGiao,
+          hoTen: $scope.hoTen,
+          tenNguoiShip: $scope.tenNguoiShip,
+          soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
+          soDienThoai: $scope.soDienThoai,
+          diaChi: $scope.diaChi,
+          gioHangChiTietList: gioHangChiTietList,
+        };
+        var api =
+          "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
+          id;
+        Swal.fire({
+          title: "Bạn muốn đặt hàng?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http.post(api, requestData).then(function (response) {
+              $scope.listHoaDonChiTiet.push(response.data);
+              $location.path("/hoa-don");
+            });
+          }
+        });
       };
-      var api =
-        "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
-        id;
-      $http.post(api, requestData).then(function (response) {
-        $scope.listHoaDonChiTiet.push(response.data);
-        $location.path("/hoa-don");
-      });
-    };
+    }, 2000);
 
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
