@@ -198,13 +198,6 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    $scope.clearCart = function () {
-      $scope.listCart = [];
-      $scope.tongSoLuongSanPham = 0;
-      $scope.tongTienHang = 0;
-      $window.localStorage.removeItem("listCart");
-    };
-
     $scope.listSanPhamInCart();
 
     var idGioHangChiTiet = $window.localStorage.getItem("listCart");
@@ -491,7 +484,6 @@ myApp.controller("BanTaiQuayController", [
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
-              $scope.clearCart();
               $window.localStorage.removeItem("idHoaDon");
               $location.path("/hoa-don");
             });

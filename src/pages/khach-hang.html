@@ -38,7 +38,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/ban-tai-quay" aria-expanded="false">
+            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
               <span>
                 <img src="/assets/images/shopping-cart-plus.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
@@ -148,29 +148,47 @@
         <div class="box">
           <div class="row" style="padding-top: 25px; padding-left: 60px">
             <div class="col-md-2">
-              <input class="form-control" placeholder="Tìm khách hàng" ng-model="searchName" style="margin-top: 4px" />
+              <input
+                class="form-control"
+                placeholder="Tìm khách hàng"
+                ng-model="searchName"
+                style="margin-top: 4px"
+              />
             </div>
-            <div class="col-md-4 d-flex justify-content-start">
-              <button class="btn btn-outline-danger m-1" style="height: 39px">
+            <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px;">
+              <button class="btn btn-primary" style="height: 39px">
                 <span style="vertical-align: middle">Tìm Kiếm</span>
               </button>
-              <button class="btn btn-outline-danger m-1" style="height: 39px">
-                <span style="vertical-align: middle"><img src="/assets/images/button/refresh-ccw.svg" alt=""></span>
+              <button class="btn btn-warning" style="height: 39px; margin-left: 10px;">
+                <span style="vertical-align: middle">Làm mới</span>
               </button>
             </div>
-            <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
-              <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
+            <div
+              class="col-md-3 d-flex justify-content-start"
+              style="text-align: end"
+            >
+              <label class="form-label" style="margin-top: 11px"
+                >Trạng thái :</label
+              >
               <select style="color: green" class="custom-select">
                 <option>Tất cả</option>
-                <option>Chưa kích hoạt</option>
-                <option>Đã kích hoạt</option>
+                <option>Hoạt động</option>
+                <option>Nghỉ làm</option>
               </select>
             </div>
             <div class="col-md-3">
-              <button type="submit" class="btn btn-outline-danger m-1" data-bs-toggle="modal"
-                data-bs-target="#exampleModal" style="text-decoration: none; height: 39px">
-                <ion-icon name="add-outline" style="vertical-align: middle; margin-right: 5px"></ion-icon>
-                <span style="vertical-align: middle">Tạo khách hàng</span>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                style="text-decoration: none; height: 39px"
+              >
+                <ion-icon
+                  name="add-outline"
+                  style="vertical-align: middle; margin-right: 5px"
+                ></ion-icon>
+                <span style="vertical-align: middle">Tạo Nhân Viên</span>
               </button>
             </div>
             <!--tạo tài khoản-->
@@ -379,7 +397,7 @@
                 <th scope="col">Thao tác</th>
               </tr>
             </thead>
-            <tbody class="table">
+            <tbody >
               <tr>
                 <th>1</th>
                 <td>{{nv.image}}</td>
@@ -400,7 +418,7 @@
                 </td>
                 <td>
                   <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                    class="btn btn-outline-danger m-1">
+                    class="btn btn-primary">
                     Sửa
                   </button>
                 </td>
