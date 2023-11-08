@@ -13,7 +13,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/thuchi.html",
       controller: "hoaDonController",
     })
-    .when("/chi-tiet-hoa-don/:id", {
+    .when("/chi-tiet-hoa-don", {
       templateUrl: "./pages/chi-tiet-hoa-don.html",
       controller: "hoaDonChiTietController",
     })
@@ -47,6 +47,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
       controller: "sanPhamShopController"
+    }).when("/tai-khoan", {
+      templateUrl: "./pages/khach-hang.html",
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
@@ -55,7 +57,14 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
     })
-    .when("/thank-you", {
+    .when("/proudct-new", {
+      templateUrl: "./pages/san-pham-new.html",
+    })
+    .when("/proudct-update", {
+      templateUrl: "./pages/san-pham-update.html",
+    })
+    .
+    when("/thank-you", {
       templateUrl: "./pages/shoping-cart.html",
     }).otherwise({
       redirectTo: "/home",
