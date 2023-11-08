@@ -398,19 +398,16 @@
                 <div class="card-body p-4">
                   <h5 class="card-title mb-9 fw-semibold">
                     <div class="row">
+                      <div class="col-lg-6">Thông Tin Sản Phẩm</div>
                       <div class="col-lg-6">
-                        Thông Tin Sản Phẩm
-                      </div>
-                      <div class="col-lg-6">
-                        <div ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0">
-                          <p style="margin-left: 350px;">Vui lòng tạo hóa đơn.</p>
-                      </div>
-                      <div ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0">
-                          <p style="margin-left: 230px;">{{orderDetailCounter.maHoaDon}} /
-                              {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                        <div ng-if="!selectedHoaDon || !isHoaDonExist(selectedHoaDon)">
+                          <p style="margin-left: 335px;">Vui lòng chọn hóa đơn.</p>
+                        </div>
+                        <div ng-if="selectedHoaDon && isHoaDonExist(selectedHoaDon)">
+                          <p style="margin-left: 230px;">{{selectedHoaDon.maHoaDon}} /
+                            {{selectedHoaDon.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
                           </p>
-                          <!-- Rest of your code -->
-                      </div>
+                        </div>
                       </div>
                     </div>
                   </h5>
@@ -1059,19 +1056,25 @@
                   <div class="col-lg-6">
                     <h5 class="card-title mb-9 fw-semibold">
                       <div class="row">
+                        <div class="col-lg-6">Thông Tin Thanh Toán</div>
                         <div class="col-lg-6">
-                          Thông Tin Thanh Toán
-                        </div>
-                        <div class="col-lg-6">
-                          <div ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0">
-                            <p style="margin-left: 350px;">Vui lòng tạo hóa đơn.</p>
-                        </div>
-                        <div ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0">
-                            <p style="margin-left: 230px;">{{orderDetailCounter.maHoaDon}} /
-                                {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                          <div
+                            ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0"
+                          >
+                            <p style="margin-left: 350px">
+                              Vui lòng tạo hóa đơn.
+                            </p>
+                          </div>
+                          <div
+                            ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0"
+                          >
+                            <p style="margin-left: 230px">
+                              {{orderDetailCounter.maHoaDon}} /
+                              {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy
+                              h:mm:ss a'}}
                             </p>
                             <!-- Rest of your code -->
-                        </div>
+                          </div>
                         </div>
                       </div>
                     </h5>

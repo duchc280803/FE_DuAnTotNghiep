@@ -26,9 +26,7 @@ myApp.controller("BanTaiQuayController", [
       var hd = $scope.listHoaDonTaiQuay.find(function (hd) {
         return hd.id === id;
       });
-      if (hd) {
-        $scope.selectOrder(hd);
-      }
+      $scope.selectOrder(hd);
     };
 
     var id = $window.localStorage.getItem("idHoaDon");
