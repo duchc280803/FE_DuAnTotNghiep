@@ -56,7 +56,11 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
+            <a
+              class="sidebar-link"
+              href="#/order-counter"
+              aria-expanded="false"
+            >
               <span>
                 <img
                   src="/assets/images/shopping-cart-plus.png"
@@ -72,8 +76,6 @@
             <a
               href="#pageSubmenu"
               class="dropdown-toggle collapsed sidebar-link"
-              data-bs-toggle="collapse"
-              data-bs-target="#pageSubmenu"
             >
               <span>
                 <img
@@ -82,14 +84,59 @@
                   style="width: 21px; height: 21px"
                 />
               </span>
-              <span class="hide-menu">Quản Lý tài khoản</span>
+              <span class="hide-menu">Quản Lý Sản Phẩm</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
+                <a class="sidebar-link" href="#">Sản Phẩm</a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
+                <a class="sidebar-link" href="#">Đế Giày</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Xuất Xứ</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Danh Mục</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Chất Liệu</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Thương Hiệu</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-item">
+            <a
+              href="#pageSubmenu1"
+              class="dropdown-toggle1 collapsed sidebar-link"
+            >
+              <span>
+                <img
+                  src="/assets/images/add-user.png"
+                  width="180"
+                  style="width: 21px; height: 21px"
+                />
+              </span>
+              <span class="hide-menu">Quản Lý Tài Khoản</span>
+            </a>
+            <ul class="list-unstyled collapse" id="pageSubmenu1">
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link"
+                  href="#/admin/account/nhan-vien"
+                  style="margin-left: 35px"
+                  >Nhân Viên</a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link"
+                  href="#/admin/account/khach-hang"
+                  style="margin-left: 35px"
+                  >Khách Hàng</a
+                >
               </li>
             </ul>
           </li>
@@ -107,7 +154,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/voucher" aria-expanded="false">
+            <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/ticket.png"
@@ -214,232 +261,293 @@
     </header>
     <div class="container-fluid">
       <div class="card overflow-hidden" style="min-height: 120px">
-        <h5 style="padding-left: 20px; padding-top: 16px; margin-bottom: 0">
-          <img
-            src="/assets/images/filter-filled-tool-symbol.png"
-            width="20px"
-            style="padding-right: 3px"
-          />Bộ lọc
-        </h5>
-        <hr />
         <div class="box">
-          <div class="row" style="padding: 10px">
-            <div class="col-md-4">
-              <input
-                class="form-control"
-                ng-model="key2"
-                ng-change="searchbyMa()"
-                placeholder="Mã khuyến mại"
-                style="margin-top: 4px"
-              />
-            </div>
-            <div class="col-md-4">
-              <input
-                class="form-control"
-                ng-model="key"
-                placeholder="Tên khuyến mại"
-                style="margin-top: 4px"
-                ng-change="searchKey()"
-              />
+          <div class="row">
+            <div class="col-lg-12">
+              <div
+                class="card overflow-hidden"
+                style="
+                  margin-top: 20px;
+                  margin-left: 20px;
+                  padding-left: 20px;
+                  padding-right: 20px;
+                  padding-top: 20px;
+                  padding-bottom: 20px;
+                  width: 1110px;
+                "
+              >
+                <div class="row">
+                  <div class="col-lg-6" style="padding-top: 15px">
+                    <span class="header-title">Mã khuyến mại</span>
+                    <span class="header-title" style="padding-left: 320px">
+                      <input
+                        type="checkbox"
+                        ng-model="tuDongTaoMa"
+                        ng-change="onTuDongTaoMaChange()"
+                      />
+                      Tự động tạo
+                      <input
+                        type="text"
+                        disabled
+                        class="next-input"
+                        placeholder="nhập mã khuyến mãi"
+                        ng-model="maGiamGia"
+                      />
+                    </span>
+                  </div>
+                  <div class="col-lg-6" style="padding-top: 15px">
+                    <span class="header-title">Tên khuyến mại</span>
+                    <input
+                      type="text"
+                      class="next-input"
+                      placeholder="Nhập tên khuyến mại"
+                      ng-model="tenGiamGia"
+                    />
+                  </div>
+                  <div class="col-lg-5" style="padding-top: 15px">
+                    <span class="header-title">Mức Giảm</span>
+                    <input
+                      type="text"
+                      class="next-input"
+                      placeholder="0"
+                      ng-model="mucGiam"
+                    />
+                  </div>
+                  <div class="col-lg-2" style="padding-top: 10px">
+                    <select
+                      class="form-select"
+                      id="selectOption"
+                      ng-model="hinhThucGiam"
+                      aria-label="Default select example"
+                    >
+                      <option value="1" selected>đ</option>
+                      <option value="2" selected>%</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-6" style="padding-top: 15px">
+                    <span class="header-title">Ngày Bắt Đầu</span>
+                    <input
+                      type="date"
+                      class="next-input"
+                      placeholder="Nhập ngày bắt đầu"
+                      ng-model="ngayBatDau"
+                    />
+                  </div>
+                  <div class="col-lg-6" style="padding-top: 15px">
+                    <span class="header-title">Ngày Kết Thúc</span>
+                    <input
+                      type="date"
+                      class="next-input"
+                      placeholder="Nhập ngày kết thúc"
+                      ng-model="ngayKetThuc"
+                    />
+                  </div>
+                  <br />
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary m-1"
+                    ng-click="themKhuyenMai()"
+                  >
+                    Thêm
+                  </button>
+                </div>
+              </div>
             </div>
             <div
-              class="col-md-4 d-flex justify-content-start"
-              style="text-align: end"
+              class="card overflow-hidden"
+              style="margin-top: 20px;
+              margin-left: 20px;
+              margin-right: 20px;width: 1135px;"
+              
             >
-              <label class="form-label" style="margin-top: 11px"
-                >Trạng thái :</label
-              >
-              <select
-                style="color: green"
-                class="custom-select"
-                ng-model="selectedLoaiDon"
-                ng-change="filterHoaDon()"
-              >
-                <option value="">Tất cả</option>
-                <option value="1">Tại quầy</option>
-                <option value="2">Online</option>
-              </select>
-            </div>
-          </div>
-          <!-- Thêm vào mục "Bộ lọc" -->
-          <div class="row" style="padding: 10px">
-            <div class="col-md-6">
-              <input
-                type="date"
-                class="form-control"
-                ng-model="startDate"
-                style="margin-top: 4px"
-              />
-            </div>
-            <div class="col-md-6">
-              <input
-                type="date"
-                class="form-control"
-                ng-model="endDate"
-                style="margin-top: 4px"
-              />
-            </div>
-            <div class="col-md-6">
-              <button
-                class="btn btn-primary"
-                ng-click="searchGiamGia()"
-                style="margin-top: 10px"
-              >
-                Tìm kiếm
-              </button>
-            </div>
-          </div>
-
-          <div class="row" style="padding: 10px">
-            <div class="col-md-6"></div>
-            <div class="col-md-6" style="padding-left: 320px">
-              <button class="btn btn-warning" ng-click="refresh()">
-                Làm mới
-              </button>
-              <a href="#/khuyen-mai/create" class="btn btn-primary">
-                <span style="vertical-align: middle">Tạo Khuyến Mại</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <h5>
-            <img
-              src="/assets/images/list.png"
-              width="20px"
-              style="padding-right: 3px; vertical-align: middle"
-            />Danh sách khuyến mại
-          </h5>
-        </div>
-        <div class="col-lg-6"></div>
-      </div>
-      <div class="card overflow-hidden">
-        <div class="box">
-          <table class="table table-hover">
-            <thead>
-              <tr style="background-color: lightskyblue">
-                <th scope="col">STT</th>
-                <th scope="col">Mã khuyến mại</th>
-                <th scope="col">Tên khuyến mại</th>
-                <th scope="col">giảm giá</th>
-                <th scope="col">Hình Thức</th>
-                <th scope="col">Bắt Đầu</th>
-                <th scope="col">Kết Thúc</th>
-                <th scope="col">Trạng Thai</th>
-                <th scope="col" colspan="4">Chi Tiết Sản Phẩm</th>
-                <th scope="col">Thao Tác</th>
-              </tr>
-            </thead>
-            <tbody class="table">
-              <tr ng-repeat="gg in listGiamGia">
-                <td>{{$index + 1}}</td>
-                <td>{{gg.tenGiamGia}}</td>
-                <td>{{gg.maGiamGia}}</td>
-                <td>{{gg.mucGiam}}</td>
-                <td>{{gg.hinhThucGiam == 1 ? 'đ' : '%'}}</td>
-                <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{gg.trangThai == 1 ? 'còn hạn':'hết hạn'}}</td>
-                <td colspan="4">
-                  <a
-                    class="btn btn-outline-primary"
-                    ng-click="toggleDetail(gg)"
-                    data-toggle="modal"
-                    data-target="#detailsModal{{$index}}"
-                    >Xem Chi Tiết</a
-                  >
-                  <!-- Details Modal -->
-                  <div
-                    class="modal fade"
-                    id="detailsModal{{$index}}"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="detailsModalLabel{{$index}}"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5
-                            class="modal-title"
-                            id="detailsModalLabel{{$index}}"
-                          >
-                            Chi Tiết Sản Phẩm
-                          </h5>
-                          <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                          >
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body" ng-show="gg.showDetail">
-                          <!-- Display details here -->
-                          <table class="table table-hover">
-                            <thead>
-                              <tr style="background-color: lightskyblue">
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Giá bán</th>
-                                <th scope="col">Giá giảm</th>
-                              </tr>
-                            </thead>
-                            <tbody class="table">
-                              <tr ng-repeat="detail in gg.detailList">
-                                <td>{{$index + 1}}</td>
-                                <td>{{detail.productName}}</td>
-                                <td>{{detail.giaBan}}</td>
-                                <td>{{detail.donGiaKhiGiam}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+              <br />
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <input
+                      type="text"
+                      class="next-input"
+                      ng-model="tenSanPham"
+                      ng-change="searchProductKey()"
+                      placeholder="Nhập sản phẩm cần tìm"
+                    />
                   </div>
-                </td>
-                <td>
-                  <a href="#" class="btn btn-outline-primary">Sửa</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="col-lg-12">
-            <nav
-              aria-label="Page navigation example"
-              style="margin-left: 400px"
-            >
-              <ul class="pagination">
-                <li class="page-item">
-                  <a
-                    class="page-link"
-                    ng-href="#/khuyen-mai?page={{page - 1}}"
-                    ng-click="previousPage()"
-                    >Previous</a
-                  >
-                </li>
-                <li class="page-item" ng-repeat="page in getPageNumbers()">
-                  <a
-                    class="page-link"
-                    ng-href="#/khuyen-mai?page={{page}}"
-                    ng-click="updatePage(page)"
-                    >{{ page }}</a
-                  >
-                </li>
-                <li class="page-item">
-                  <a
-                    class="page-link"
-                    ng-href="#/khuyen-mai?page={{page + 1}}"
-                    ng-click="nextPage()"
-                    >Next</a
-                  >
-                </li>
-              </ul>
-            </nav>
+                  <div class="col-lg-4">
+                    <button
+                      class="btn btn-outline-primary"
+                      style="margin-left: 10px"
+                    >
+                      Làm mới
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3" style="padding: 20px">
+                    Danh Mục:
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="DanhMuc"
+                      ng-change="searchProductDanhMuc()"
+                      ng-options="tt.id as tt.tenDanhMuc for tt in listDanhMuc"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-3" style="padding: 20px">
+                    Thương hiệu:
+
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="ThuongHieu"
+                      ng-change="searchProductThuongHieu()"
+                      ng-options="tt.id as tt.tenThuongHieu for tt in listThuongHieu"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-3" style="padding: 20px">
+                    Chất liệu:
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="ChatLieu"
+                      ng-change="searchProductChatLieu()"
+                      ng-options="tt.id as tt.tenChatLieu for tt in listChatLieu"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" style="padding: 20px">
+                    Màu Sắc
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="MauSac"
+                      ng-change="searchProductMauSac()"
+                      ng-options="tt.id as tt.tenMauSac for tt in listMauSac"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" style="padding: 20px">
+                    Kiểu Đế:
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="KieuDe"
+                      ng-change="searchProductKieuDe()"
+                      ng-options="tt.id as tt.tenDe for tt in listKieuDe"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" style="padding: 20px">
+                    Giới Tính:
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="selectedGioiTinh"
+                    >
+                      <option value="">Tất cả</option>
+                      <option ng-repeat="tt in listThuongHieu">
+                        {{ tt.tenThuongHieu }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" style="padding: 20px">
+                    Size:
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="Size"
+                      ng-change="searchProductList()"
+                      ng-options="tt.id as tt.size for tt in listSize"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-3" style="padding: 20px">
+                    Xuất xứ:
+                    <select
+                      style="color: green"
+                      class="custom-select"
+                      ng-model="XuatXu"
+                      ng-change="searchProductXuatXu()"
+                      ng-options="tt.id as tt.tenXuatXu for tt in listXuatXu"
+                    >
+                      <option value="">Tất cả</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <table class="table">
+                <thead>
+                  <tr style="background-color: lightskyblue">
+                    <th scope="col">
+                      <input
+                        type="checkbox"
+                        style="margin-right: 15px"
+                        ng-model="selectAllProducts"
+                        ng-change="toggleAllProducts()"
+                      />
+                      {{$index + 1}}
+                    </th>
+                    <th scope="col">Ảnh sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Kiểu để</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Chất liệu</th>
+                    <th scope="col">Giá Sản Phẩm</th>
+                    <th scope="col">Số lượng Giảm giá</th>
+                    <th scope="col">Giá Bán Sau Khi Giảm</th>
+                    <th scope="col">Trạng Thái</th>
+                  </tr>
+                </thead>
+                <tbody class="table">
+                  <tr ng-repeat="gg in listProduct" ng-style="{'color': gg.giaGiam <= 500000 ? '#f70a0a' : 'inherit', 'font-weight': gg.giaGiam <= 500000 ? 'bold' : 'normal'}">
+                    <td style="padding-top: 75px">
+                      <input
+                        type="checkbox"
+                        style="margin-right: 15px"
+                        ng-model="selectedProductIds[gg.id]"
+                        ng-change="chonSanPham(gg.id)"
+                        ng-checked="selectAllProducts"
+                      />
+                      {{$index + 1}}
+                    </td>
+                    <td>
+                      <img src="{{gg.image}}" alt="" width="150px" />
+                    </td>
+                    <td>{{gg.productName}}</td>
+                    <td>{{gg.sizeName}}</td>
+                    <td>{{gg.kieuDeName}}</td>
+                    <td>{{gg.mauSacName}}</td>
+                    <td>{{gg.chatLieuName}}</td>
+                    <td>
+                      {{gg.giaBan}}
+                    </td>
+                    <td>
+                      {{gg.soLanGiam}}
+                    </td>
+                    <td>
+                      {{gg.giaGiam}}
+                    </td>
+                    <td>
+                      {{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH
+                      DOANH'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

@@ -1,137 +1,164 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>NICE SHOE</title>
-    <link rel="shortcut icon" type="image/png"
-        href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="cart-hover.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-
-</head>
-
-<body ng-app="myApp" ng-controller="CartController">
-    <!-- Header Section Begin -->
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png"
+    />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="cart-hover.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  </head>
+  <body ng-app="myApp" ng-controller="CartController">
     <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="/img/language.png" alt="">
-
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="header__top">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img
-                                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                                style="width: 125px" alt="" /></a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="../home-user.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li class="open-cart"><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
-                                <!-- DropDown-->
-                                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
-                                    <div class="shopping-cart">
-                                        <div class="row" ng-repeat="product in products">
-                                            <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px;">
-                                                <img width="300px" ng-src="{{product.tenimage}}"
-                                                    alt="{{product.tensanpham}}">
-                                                <p style="font-size: 0.7em; margin: 0;">
-                                                    <hr>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <span style="font-size: 0.7em; margin: 0;">{{product.tensanpham}}</span>
-                                                <span>{{product.giaban | number:0}}₫</span>
-                                                <p style="font-size: 0.7em; margin: 0;">Số lượng :{{product.soluong}}
-                                                </p>
-                                                <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
-                                                <hr>
-                                            </div>
-
-                                        </div>
-                                        <hr>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-1"></div>
-                                            <div class="col-md-2"> <span style="font-weight: bolder;"
-                                                    class="main-color-text">Total:</span></div>
-                                            <div class="col-md-3">
-                                                <span
-                                                    style="color: rgb(91, 80, 80);font-weight: bolder;">{{totalAmount}}VNĐ</span>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <hr>
-                                        <a href="#" class="button">THANH TOÁN</a>
-                                    </div>
-                                </div>
-
-
-                                <!--End Dropdown-->
-                            </li>
-                        </ul>
-                        <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Login</a>
-                        </div>
-                    </div>
-                </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="header__top__left">
+                <ul>
+                  <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                </ul>
+              </div>
             </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
+            <div class="col-lg-6">
+              <div class="header__top__right">
+                <div class="header__top__right__social">
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                  <a href="#"><i class="fa fa-linkedin"></i></a>
+                  <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                </div>
+                <div class="header__top__right__language">
+                  <img src="/img/language.png" alt="" />
+                  <div>English</div>
+                  <span class="arrow_carrot-down"></span>
+                  <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="header__logo">
+              <a href="./index.html"
+                ><img
+                  src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                  style="width: 125px"
+                  alt=""
+              /></a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <nav class="header__menu">
+              <ul>
+                <li class="active">
+                  <a href="#/home">Home</a>
+                </li>
+                <li>
+                  <a href="#/shop">Shop</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            <div class="header__cart">
+              <ul>
+                <li class="open-cart">
+                  <a href="#/cart"
+                    ><i class="fa fa-shopping-bag"></i> <span>3</span></a
+                  >
+                  <div
+                    class="container-cart"
+                    style="position: absolute; z-index: 9999; right: 70px"
+                  >
+                    <div class="shopping-cart">
+                      <div class="row" ng-repeat="product in products">
+                        <div
+                          class="col-md-4"
+                          style="margin-top: 5px; margin-bottom: 5px"
+                        >
+                          <img
+                            width="300px"
+                            ng-src="{{product.tenimage}}"
+                            alt="{{product.tensanpham}}"
+                          />
+                          <p style="font-size: 0.7em; margin: 0"></p>
+                          <hr />
+                        </div>
+                        <div class="col-md-8">
+                          <span style="font-size: 0.7em; margin: 0"
+                            >{{product.tensanpham}}</span
+                          >
+                          <span>{{product.giaban | number:0}}₫</span>
+                          <p style="font-size: 0.7em; margin: 0">
+                            Số lượng :{{product.soluong}}
+                          </p>
+                          <span
+                            class="icon_close"
+                            ng-click="deleteProduct(product.id)"
+                          ></span>
+                          <hr />
+                        </div>
+                      </div>
+                      <hr />
+                      <br />
+                      <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-2">
+                          <span
+                            style="font-weight: bolder"
+                            class="main-color-text"
+                            >Total:</span
+                          >
+                        </div>
+                        <div class="col-md-3">
+                          <span
+                            style="color: rgb(91, 80, 80); font-weight: bolder"
+                            >{{totalAmount}}VNĐ</span
+                          >
+                        </div>
+                      </div>
+                      <br />
+                      <hr />
+                      <a href="#" class="button">THANH TOÁN</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="humberger__open">
+          <i class="fa fa-bars"></i>
+        </div>
+      </div>
     </header>
     <!-- Header Section End -->
 
@@ -155,235 +182,324 @@
 
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Sản Phẩm</th>
-                                    <th>Giá</th>
-                                    <th>Số lượng</th>
-                                    <th>Tổng Tiền</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="product in products">
-                                    <td class="shoping__cart__item">
-                                        <img width="100px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}">
-                                        <h5>{{product.tensanpham}}</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        {{product.giaban | number:0}}₫
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <a class="dec qtybtn"
-                                                    ng-click="changeQuantity(product, 'decrease')">-</a>
-                                                <input type="text" ng-model="product.soluong">
-                                                <a class="inc qtybtn"
-                                                    ng-click="changeQuantity(product, 'increase')">+</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        {{product.giaban * product.soluong | number:0}}₫
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="shoping__cart__table">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="shoping__product">Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng Tiền</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="product in products">
+                    <td class="shoping__cart__item">
+                      <img
+                        width="100px"
+                        ng-src="{{product.tenimage}}"
+                        alt="{{product.tensanpham}}"
+                      />
+                      <h5>{{product.tensanpham}}</h5>
+                    </td>
+                    <td class="shoping__cart__price">
+                      {{product.giaban | number:0}}₫
+                    </td>
+                    <td class="shoping__cart__quantity">
+                      <div class="quantity">
+                        <div class="pro-qty">
+                          <a
+                            class="dec qtybtn"
+                            ng-click="changeQuantity(product, 'decrease')"
+                            >-</a
+                          >
+                          <input type="text" ng-model="product.soluong" />
+                          <a
+                            class="inc qtybtn"
+                            ng-click="changeQuantity(product, 'increase')"
+                            >+</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td class="shoping__cart__total">
+                      {{product.giaban * product.soluong | number:0}}₫
+                    </td>
+                    <td class="shoping__cart__item__close">
+                      <span
+                        class="icon_close"
+                        ng-click="deleteProduct(product.id)"
+                      ></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="row">
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-9">
-                </div>
-                <div class="col-md-1">
-                    <button
-                        class="inline-flex items-center px-4 py-2 bg-red-600 transition transform-gpu hover:scale-105 hover:bg-red-700 text-white text-sm font-medium rounded-md"
-                        ng-click="clearCart()">
-                        <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-5 w-5 mr-2"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
-                        </svg>
-                        clear
-                    </button>
-                </div>
-            </div>
-            <!-- check out row begin -->
-            <div class="row">
-                <h4>Chi Tiết Thanh Toán</h4>
-            </div>
-            <br>
-            <form action="#">
-                <div class="row">
-                    <div class="col-lg-6 col-md-5">
-                        <div class="checkout__input">
-                            <p>Họ Và Tên<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
-                        </div>
-                        <div class="checkout__input">
-                            <p>Địa Chỉ<span>*</span></p>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <select id="city" class="form-control" style="font-size: 14px; padding: 6px" ng-model="thanhPho" >
-                                        <option value="">Chọn tỉnh thành</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <select id="district" class="form-control" style="font-size: 14px; padding: 6px" ng-model="quanHuyen">
-                                        <option value="">Chọn quận huyện</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <select id="ward" class="form-control" style="font-size: 14px; padding: 6px" ng-model="phuongXa">
-                                        <option value="">Chọn phường xã</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkout__input">
-                            <p>Địa Chỉ Chi Tiết<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
-                        </div>
-                        <div class="checkout__input">
-                            <p>Số Điện Thoại<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" ng-model="soDienThoai" />
-                        </div>
-                        <div class="checkout__input">
-                            <p>Email<span>*</span></p>
-                            <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" />
-                        </div>
-                        <div class="checkout__input">
-                            <p>Ghi chú</p>
-                            <textarea type="text" class="form-control" rows="4"
-                                placeholder="Nhập lời nhắn cho shop"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-7">
-                        <div class="checkout__order">
-                            <h4>Hóa Đơn Của Bạn</h4>
-                            <div class="checkout__order__products">
-                                Sản Phẩm <span>Tổng Tiền</span>
-                            </div>
-                            <ul>
-                                <li style="font-size: 0.79em; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: black;"
-                                    ng-repeat="item in items">{{item.tensanpham}} <span>{{item.tongTien}}</span></li>
-                            </ul>
-                            <div class="checkout__order__total">
-                                Tổng Tiền Sản Phẩm <span>${{totalAmount}}</span>
-                            </div>
-                            <ul>
-                                <li>Phí Ship <span style="font-size: small;color: rgb(187, 161, 161); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">sẽ được thông báo cho quý khách  khi nhân viên gọi điện xác nhận</span></li>
-                            </ul>
-                            <hr />
-                            <br>
-                            <h5>Mã Giảm Giá</h5>
-                            <div class="row  mt-3 mb-3">
-                                <div class="col-6"> <input type="text" style="height: 45px;padding-left: 5px;"
-                                        placeholder="  Nhập mã phiếu giảm giá"></div>
-                            </div>
-                            <hr />
-                            <div class="checkout__order__total mt-3 mb-3">
-                                Tổng Cộng <span>${{totalAmount}}</span>
-
-                            </div>
-                            <h5>Hình thức thanh toán</h5>
-                            <div class="row mt-3 mb-3" style="margin-left: 50px;">
-                                <div class="custom-radio">
-                                    <input class="mb-2" type="radio" id="payment_cash" name="radio_checkout" checked>
-                                    <label for="payment_cash">Thanh toán khi nhận hàng</label>
-                                </div>
-                                <div class="custom-radio">
-                                    <input class="mb-2" type="radio" id="payment_vnpay" name="radio_checkout">
-                                    <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="site-btn" ng-click="thanhToan()">Đặt Hàng</button>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- Checkout row  End -->
-                </form> 
-    </section>
-    <!-- Shoping Cart Section End -->
-
-
-    <footer class="footer spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a href="./index.html"><img
-                                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                                    alt="" width="119px" /></a>
-                        </div>
-                        <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
-                        <h6>Useful Links</h6>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">Who We Are</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Innovation</a></li>
-                            <li><a href="#">Testimonials</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="footer__widget">
-                        <h6>Join Our Newsletter Now</h6>
-                        <p>
-                            Get E-mail updates about our latest shop and special offers.
-                        </p>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your mail" />
-                            <button type="submit" class="site-btn">Subscribe</button>
-                        </form>
-                        <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-9"></div>
+          <div class="col-md-1">
+            <button
+              class="inline-flex items-center px-4 py-2 bg-red-600 transition transform-gpu hover:scale-105 hover:bg-red-700 text-white text-sm font-medium rounded-md"
+              ng-click="clearCart()"
+            >
+              <svg
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                fill="none"
+                class="h-5 w-5 mr-2"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              clear
+            </button>
+          </div>
+        </div>
+        <!-- check out row begin -->
+        <div class="row">
+          <h4>Chi Tiết Thanh Toán</h4>
+        </div>
+        <br />
+        <form action="#">
+          <div class="row">
+            <div class="col-lg-6 col-md-5">
+              <div class="checkout__input">
+                <p>Họ Và Tên<span>*</span></p>
+                <input
+                  type="text"
+                  placeholder="Vui Lòng Nhập Họ Và Tên"
+                  ng-model="hoTen"
+                />
+              </div>
+              <div class="checkout__input">
+                <p>Địa Chỉ<span>*</span></p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <select
+                      id="city"
+                      class="form-control"
+                      style="font-size: 14px; padding: 6px"
+                      ng-model="thanhPho"
+                    >
+                      <option value="">Chọn tỉnh thành</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select
+                      id="district"
+                      class="form-control"
+                      style="font-size: 14px; padding: 6px"
+                      ng-model="quanHuyen"
+                    >
+                      <option value="">Chọn quận huyện</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select
+                      id="ward"
+                      class="form-control"
+                      style="font-size: 14px; padding: 6px"
+                      ng-model="phuongXa"
+                    >
+                      <option value="">Chọn phường xã</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="checkout__input">
+                <p>Địa Chỉ Chi Tiết<span>*</span></p>
+                <input
+                  type="text"
+                  placeholder="Vui Lòng Nhập Địa Chỉ"
+                  class="checkout__input__add"
+                  ng-model="diaChi"
+                />
+              </div>
+              <div class="checkout__input">
+                <p>Số Điện Thoại<span>*</span></p>
+                <input
+                  type="text"
+                  placeholder="Vui Lòng Nhập Số Điện Thoại"
+                  ng-model="soDienThoai"
+                />
+              </div>
+              <div class="checkout__input">
+                <p>Email<span>*</span></p>
+                <input
+                  type="text"
+                  placeholder="Vui Lòng Nhập Email"
+                  ng-model="email"
+                />
+              </div>
+              <div class="checkout__input">
+                <p>Ghi chú</p>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Nhập lời nhắn cho shop"
+                ></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-7">
+              <div class="checkout__order">
+                <h4>Hóa Đơn Của Bạn</h4>
+                <div class="checkout__order__products">
+                  Sản Phẩm <span>Tổng Tiền</span>
+                </div>
+                <ul>
+                  <li
+                    style="
+                      font-size: 0.79em;
+                      font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
+                        sans-serif;
+                      color: black;
+                    "
+                    ng-repeat="item in items"
+                  >
+                    {{item.tensanpham}} <span>{{item.tongTien}}</span>
+                  </li>
+                </ul>
+                <div class="checkout__order__total">
+                  Tổng Tiền Sản Phẩm <span>${{totalAmount}}</span>
+                </div>
+                <ul>
+                  <li>
+                    Phí Ship
+                    <span
+                      style="
+                        font-size: small;
+                        color: rgb(187, 161, 161);
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
+                          sans-serif;
+                      "
+                      >sẽ được thông báo cho quý khách khi nhân viên gọi điện
+                      xác nhận</span
+                    >
+                  </li>
+                </ul>
+                <hr />
+                <br />
+                <h5>Mã Giảm Giá</h5>
+                <div class="row mt-3 mb-3">
+                  <div class="col-6">
+                    <input
+                      type="text"
+                      style="height: 45px; padding-left: 5px"
+                      placeholder="  Nhập mã phiếu giảm giá"
+                    />
+                  </div>
+                </div>
+                <hr />
+                <div class="checkout__order__total mt-3 mb-3">
+                  Tổng Cộng <span>${{totalAmount}}</span>
+                </div>
+                <h5>Hình thức thanh toán</h5>
+                <div class="row mt-3 mb-3" style="margin-left: 50px">
+                  <div class="custom-radio">
+                    <input
+                      class="mb-2"
+                      type="radio"
+                      id="payment_cash"
+                      name="radio_checkout"
+                      checked
+                    />
+                    <label for="payment_cash">Thanh toán khi nhận hàng</label>
+                  </div>
+                  <div class="custom-radio">
+                    <input
+                      class="mb-2"
+                      type="radio"
+                      id="payment_vnpay"
+                      name="radio_checkout"
+                    />
+                    <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
+                  </div>
+                </div>
+
+                <button type="submit" class="site-btn" ng-click="thanhToan()">
+                  Đặt Hàng
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer class="footer spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="footer__about">
+              <div class="footer__about__logo">
+                <a href="./index.html"
+                  ><img
+                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                    alt=""
+                    width="119px"
+                /></a>
+              </div>
+              <ul>
+                <li>Address: 60-49 Road 11378 New York</li>
+                <li>Phone: +65 11.188.888</li>
+                <li>Email: hello@colorlib.com</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+            <div class="footer__widget">
+              <h6>Useful Links</h6>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">About Our Shop</a></li>
+                <li><a href="#">Secure Shopping</a></li>
+                <li><a href="#">Delivery infomation</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Our Sitemap</a></li>
+              </ul>
+              <ul>
+                <li><a href="#">Who We Are</a></li>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Innovation</a></li>
+                <li><a href="#">Testimonials</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="footer__widget">
+              <h6>Join Our Newsletter Now</h6>
+              <p>
+                Get E-mail updates about our latest shop and special offers.
+              </p>
+              <form action="#">
+                <input type="text" placeholder="Enter your mail" />
+                <button type="submit" class="site-btn">Subscribe</button>
+              </form>
+              <div class="footer__widget__social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
-
-    <!-- Js Plugins -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -397,58 +513,64 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
-        var citis = document.getElementById("city");
-        var districts = document.getElementById("district");
-        var wards = document.getElementById("ward");
-        var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
-        };
-        var promise = axios(Parameter);
-        promise.then(function (result) {
-            renderCity(result.data);
-        });
+      var citis = document.getElementById("city");
+      var districts = document.getElementById("district");
+      var wards = document.getElementById("ward");
+      var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+      };
+      var promise = axios(Parameter);
+      promise.then(function (result) {
+        renderCity(result.data);
+      });
 
-        function renderCity(data) {
-            for (const x of data) {
-                var opt = document.createElement('option');
-                opt.value = x.Name;
-                opt.text = x.Name;
-                opt.setAttribute('data-id', x.Id);
-                citis.options.add(opt);
-            }
-            citis.onchange = function () {
-                district.length = 1;
-                ward.length = 1;
-                if (this.options[this.selectedIndex].dataset.id != "") {
-                    const result = data.filter(n => n.Id === this.options[this.selectedIndex].dataset.id);
-
-                    for (const k of result[0].Districts) {
-                        var opt = document.createElement('option');
-                        opt.value = k.Name;
-                        opt.text = k.Name;
-                        opt.setAttribute('data-id', k.Id);
-                        district.options.add(opt);
-                    }
-                }
-            };
-            district.onchange = function () {
-                ward.length = 1;
-                const dataCity = data.filter((n) => n.Id === citis.options[citis.selectedIndex].dataset.id);
-                if (this.options[this.selectedIndex].dataset.id != "") {
-                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.options[this.selectedIndex].dataset.id)[0].Wards;
-
-                    for (const w of dataWards) {
-                        var opt = document.createElement('option');
-                        opt.value = w.Name;
-                        opt.text = w.Name;
-                        opt.setAttribute('data-id', w.Id);
-                        wards.options.add(opt);
-                    }
-                }
-            };
+      function renderCity(data) {
+        for (const x of data) {
+          var opt = document.createElement("option");
+          opt.value = x.Name;
+          opt.text = x.Name;
+          opt.setAttribute("data-id", x.Id);
+          citis.options.add(opt);
         }
+        citis.onchange = function () {
+          district.length = 1;
+          ward.length = 1;
+          if (this.options[this.selectedIndex].dataset.id != "") {
+            const result = data.filter(
+              (n) => n.Id === this.options[this.selectedIndex].dataset.id
+            );
+
+            for (const k of result[0].Districts) {
+              var opt = document.createElement("option");
+              opt.value = k.Name;
+              opt.text = k.Name;
+              opt.setAttribute("data-id", k.Id);
+              district.options.add(opt);
+            }
+          }
+        };
+        district.onchange = function () {
+          ward.length = 1;
+          const dataCity = data.filter(
+            (n) => n.Id === citis.options[citis.selectedIndex].dataset.id
+          );
+          if (this.options[this.selectedIndex].dataset.id != "") {
+            const dataWards = dataCity[0].Districts.filter(
+              (n) => n.Id === this.options[this.selectedIndex].dataset.id
+            )[0].Wards;
+
+            for (const w of dataWards) {
+              var opt = document.createElement("option");
+              opt.value = w.Name;
+              opt.text = w.Name;
+              opt.setAttribute("data-id", w.Id);
+              wards.options.add(opt);
+            }
+          }
+        };
+      }
     </script>
-</body>
+  </body>
 </html>

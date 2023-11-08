@@ -110,9 +110,9 @@
                 <i class="fa fa-bars"></i>
                 <span>BRAND</span>
               </div>
-              <ul>
+              <ul ng-repeat="th in listThuongHieu">
                 <li>
-                  <a href="#"></a>
+                  <a href="#">{{th.tenThuongHieu}}</a>
                 </li>
               </ul>
             </div>
@@ -225,8 +225,7 @@
                     <div class="product__details__price">
                       <div ng-show="sp.donGiaKhiGiam != null">
                         {{sp.donGiaKhiGiam | number}}₫
-                        <span
-                          style="text-decoration: line-through"
+                        <span style="text-decoration: line-through"
                           >{{sp.giaban | number}}₫</span
                         >
                       </div>
