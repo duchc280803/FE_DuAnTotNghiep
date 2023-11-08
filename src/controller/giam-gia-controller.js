@@ -1,64 +1,52 @@
 myApp.controller("GiamGiaController", function ($http, $scope, $location) {
   $scope.listGiamGia = [];
-  $scope.listThuongHieu = [];
+  $scope.listProductGiamGia = []; // Assuming this is the list of products related to promotions
+
   function fetchGiamGiaList() {
-    $http
-      .get("http://localhost:8080/api/v1/giam-gia/show")
+    $http.get("http://localhost:8080/api/v1/giam-gia/show")
       .then(function (response) {
         $scope.listGiamGia = response.data;
       });
   }
 
-  // //TODO: Get all hoa đơn tại quầy
-  // $scope.page = 1;
-  // $scope.size = 4;
-  // function fetchGiamGiaList() {
-  //   $http
-  //     .get(
-  //       "http://localhost:8080/api/v1/giam-gia/show?page=" +
-  //         $scope.page +
-  //         "&size=" +
-  //         $scope.size
-  //     )
-  //     .then(function (response) {
-  //       $scope.listGiamGia = response.data;
-  //     });
-  // };
-  // fetchGiamGiaList();
-  // // $scope.getListHoaDonTaiQuay();
+  function fetchProduct() {
+    $http.get("http://localhost:8080/api/v1/giam-gia/product")
+      .then(function (response) {
+        $scope.listProductGiamGia = response.data;
+      });
+  }
 
-  // $scope.getPageNumbers = function () {
-  //   var totalPages = Math.ceil($scope.listGiamGia.length / $scope.pageSize);
-  //   var pageNumbers = [];
-  //   for (var i = 1; i <= totalPages; i++) {
-  //     pageNumbers.push(i);
-  //   }
-  //   return pageNumbers;
-  // };
+  fetchProduct();
 
-  // // TODO: updatePage
-  // $scope.updatePage = function (pageNumber) {
-  //   $scope.pageNumber = pageNumber;
-  //   fetchGiamGiaList();
-  // };
+  $scope.updateGiamGia = function (id) {
+    // Gather data from your form inputs
+    var updateData = {
+      tenGiamGia: $scope.tenGiamGia,
+      ngayBatDau: $scope.ngayBatDau,
+      ngayKetThuc: $scope.ngayKetThuc,
+      hinhThucGiam: $scope.hinhThucGiam,
+      trangThai: $scope.trangThai
+    };
 
-  // // TODO: Quay lại trang
-  // $scope.previousPage = function () {
-  //   if ($scope.pageNumber > 0) {
-  //     $scope.pageNumber--;
-  //     fetchGiamGiaList();
-  //   }
-  // };
-
-  // // TODO: tiến đến trang khác
-  // $scope.nextPage = function () {
-  //   $scope.pageNumber++;
-  //   fetchGiamGiaList();
-  // };
+    $http.put("http://localhost:8080/api/v1/giam-gia/update/" + id, updateData)
+      .then(function (response) {
+        // Handle success (e.g., show a success message)
+        console.log(response.data);
+        // Redirect to the promotion list or perform any other action
+        $location.path("/khuyen-mai/list");
+      }, function (error) {
+        // Handle error (e.g., show an error message)
+        console.error("Error updating GiamGia:", error);
+      });
+  };
+  $scope.goToUpdatePage = function(id) {
+    // Redirect to the update page or perform any other action
+    $location.path("/khuyen-mai/update/" + id);
+ };
+ 
   $scope.toggleDetail = function (gg) {
     if (!gg.showDetail) {
-      $http
-        .get("http://localhost:8080/api/v1/giam-gia/detailList?id=" + gg.id)
+      $http.get("http://localhost:8080/api/v1/giam-gia/detailList?id=" + gg.id)
         .then(function (response) {
           gg.detailList = response.data;
         });
@@ -474,15 +462,6 @@ myApp.controller("GiamGiaController", function ($http, $scope, $location) {
       .then(function (exists) {
         if (exists) {
           alert("Tên khuyến mãi đã tồn tại. Vui lòng chọn tên khác.");
-        } else {
-          return checkGiamGiaSanPhamExists(
-            $scope.sanPhamDaChon.length > 0 ? $scope.sanPhamDaChon : null
-          );
-        }
-      })
-      .then(function (isProductCountValid) {
-        if (!isProductCountValid) {
-          alert("Sản phẩm này đã áp dụng tối đa 1 lần giảm giá");
         } else {
           var idDanhMuc;
 

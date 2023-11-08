@@ -599,17 +599,6 @@ myApp.controller("BanTaiQuayController", [
     };
     $scope.getListKieuDe();
 
-    // TODO: Lấy ra tất cả bản ghi của xuất xứ
-    $scope.listXuatXu = [];
-    $scope.getListXuatXu = function () {
-      $http
-        .get("http://localhost:8080/api/v1/xuat-xu/show")
-        .then(function (response) {
-          $scope.listXuatXu = response.data;
-        });
-    };
-    $scope.getListXuatXu();
-
     // TODO: Lấy ra tất cả bản ghi của sản phẩm
     $scope.listXuatXu = [];
     $scope.getListXuatXu = function () {

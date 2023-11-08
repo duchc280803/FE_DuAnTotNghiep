@@ -344,13 +344,8 @@
                   </div>
                   <br />
 
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                    ng-click="themKhuyenMai()"
-                  >
-                    Thêm
-                  </button>
+                  <button type="button" class="btn btn-outline-primary m-1" ng-click="updateGiamGia()">Sửa</button>
+
                 </div>
               </div>
             </div>
@@ -505,14 +500,11 @@
                     <th scope="col">Kiểu để</th>
                     <th scope="col">Color</th>
                     <th scope="col">Chất liệu</th>
-                    <th scope="col">Giá Sản Phẩm</th>
-                    <th scope="col">Số lượng Giảm giá</th>
-                    <th scope="col">Giá Bán Sau Khi Giảm</th>
                     <th scope="col">Trạng Thái</th>
                   </tr>
                 </thead>
                 <tbody class="table">
-                  <tr ng-repeat="gg in listProduct" ng-style="{'color': gg.giaGiam <= 500000 ? '#f70a0a' : 'inherit', 'font-weight': gg.giaGiam <= 500000 ? 'bold' : 'normal'}">
+                  <tr ng-repeat="gg in listProduct">
                     <td style="padding-top: 75px">
                       <input
                         type="checkbox"
@@ -531,15 +523,6 @@
                     <td>{{gg.kieuDeName}}</td>
                     <td>{{gg.mauSacName}}</td>
                     <td>{{gg.chatLieuName}}</td>
-                    <td>
-                      {{gg.giaBan}}
-                    </td>
-                    <td>
-                      {{gg.soLanGiam}}
-                    </td>
-                    <td>
-                      {{gg.giaGiam}}
-                    </td>
                     <td>
                       {{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH
                       DOANH'}}
