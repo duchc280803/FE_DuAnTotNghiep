@@ -22,8 +22,10 @@ myApp.controller("BanTaiQuayController", [
 
     $scope.luuIdHoaDon = function (id) {
       window.localStorage.setItem("idHoaDon", id);
-      $route.reload();
-      var hd = $scope.listHoaDonTaiQuay.find(function(hd) { return hd.id === id; });
+      $window.location.reload();
+      var hd = $scope.listHoaDonTaiQuay.find(function (hd) {
+        return hd.id === id;
+      });
       if (hd) {
         $scope.selectOrder(hd);
       }
@@ -58,6 +60,7 @@ myApp.controller("BanTaiQuayController", [
             $http.post(api, {}, config).then(function (response) {
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
+              $window.location.reload();
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -116,8 +119,13 @@ myApp.controller("BanTaiQuayController", [
 
     // TODO: tiến đến trang khác
     $scope.nextPage = function () {
-      $scope.pageNumber++;
-      $scope.getListHoaDonTaiQuay();
+      if (
+        ($scope.pageNumber + 1) * $scope.pageSize <
+        $scope.listHoaDonTaiQuay.length
+      ) {
+        $scope.pageNumber++;
+        $scope.getListHoaDonTaiQuay();
+      }
     };
 
     // tìm kiếm hóa đơn
@@ -254,6 +262,7 @@ myApp.controller("BanTaiQuayController", [
               .then(function (response) {
                 $scope.listCart.push(response.data);
                 $scope.listSanPhamInCart();
+                $window.location.reload();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -281,6 +290,7 @@ myApp.controller("BanTaiQuayController", [
         transformResponse: [
           function () {
             $scope.listSanPhamInCart();
+            $window.location.reload();
           },
         ],
       });
@@ -323,6 +333,7 @@ myApp.controller("BanTaiQuayController", [
         .then(function (response) {
           $scope.detailOrderCounterDetail(id);
           $scope.getListHoaDonTaiQuay();
+          $window.location.reload();
         });
     };
 
@@ -448,35 +459,56 @@ myApp.controller("BanTaiQuayController", [
     };
 
     //TODO:thanh toán hóa đơn
-    $scope.createHoaDonChiTiet = function (
-      tongTienHang,
-      tienKhachTra,
-      tienThua,
-      hoTen,
-      soDienThoai,
-      diaChi
-    ) {
-      var requestData = {
-        tongTien: tongTienHang,
-        tienKhachTra: tienKhachTra,
-        tienThua: tienThua,
-        hoTen: hoTen,
-        soDienThoai: soDienThoai,
-        diaChi: diaChi,
-        gioHangChiTietList: gioHangChiTietList,
+    setTimeout(() => {
+      $scope.createHoaDonChiTiet = function (
+        tongTienHang,
+        tienKhachTra,
+        tienThua,
+        hoTen,
+        soDienThoai,
+        diaChi
+      ) {
+        var requestData = {
+          tongTien: tongTienHang,
+          tienKhachTra: tienKhachTra,
+          tienThua: tienThua,
+          hoTen: hoTen,
+          soDienThoai: soDienThoai,
+          diaChi: diaChi,
+          gioHangChiTietList: gioHangChiTietList,
+        };
+        var api =
+          "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
+          id;
+        Swal.fire({
+          title: "Bạn muốn thanh toán hóa đơn này?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http.post(api, requestData).then(function (response) {
+              $scope.listHoaDonChiTiet.push(response.data);
+              $window.localStorage.removeItem("idHoaDon");
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Tạo hóa đơn thành công",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              $window.location.reload();
+              $location.path("/hoa-don");
+            });
+          }
+        });
       };
-      var api =
-        "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
-        id;
-      $http.post(api, requestData).then(function (response) {
-        $scope.listHoaDonChiTiet.push(response.data);
-        $window.localStorage.removeItem("idHoaDon");
-        $route.reload();
-        $location.path("/hoa-don");
-      });
-    };
+    }, 2000);
 
-    //TODO:thanh toán hóa đơn
+    //TODO:thanh toán hóa đơn giao
     $scope.createHoaDonChiTietGiao = function (
       tongTienHang,
       tienKhachTra,
@@ -769,18 +801,18 @@ myApp.controller("BanTaiQuayController", [
     };
 
     $scope.selectedOrder = null;
-$scope.selectOrder = function (hd) {
-  if ($scope.selectedOrder === hd) {
-    hd.isSelected = false;
-    $scope.selectedOrder = null;
-  } else {
-    if ($scope.selectedOrder) {
-      $scope.selectedOrder.isSelected = false;
-    }
-    hd.isSelected = true;
-    $scope.selectedOrder = hd;
-  }
-};
+    $scope.selectOrder = function (hd) {
+      if ($scope.selectedOrder === hd) {
+        hd.isSelected = false;
+        $scope.selectedOrder = null;
+      } else {
+        if ($scope.selectedOrder) {
+          $scope.selectedOrder.isSelected = false;
+        }
+        hd.isSelected = true;
+        $scope.selectedOrder = hd;
+      }
+    };
 
     let scanner = new Instascan.Scanner({
       video: document.getElementById("preview"),

@@ -31,6 +31,12 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/voucher/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
     })
+    .when("/khach-hang", {
+      templateUrl: "./pages/khach-hang.html",
+    })
+    .when("/nhan-vien", {
+      templateUrl: "./pages/nhan-vien.html",
+    })
     .when("/home", {
       templateUrl: "./pages/home.html",
     })

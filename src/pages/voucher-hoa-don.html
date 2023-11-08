@@ -56,7 +56,11 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
+            <a
+              class="sidebar-link"
+              href="#/order-counter"
+              aria-expanded="false"
+            >
               <span>
                 <img
                   src="/assets/images/shopping-cart-plus.png"
@@ -72,6 +76,8 @@
             <a
               href="#pageSubmenu"
               class="dropdown-toggle collapsed sidebar-link"
+              data-bs-toggle="collapse"
+              data-bs-target="#pageSubmenu"
             >
               <span>
                 <img
@@ -80,59 +86,14 @@
                   style="width: 21px; height: 21px"
                 />
               </span>
-              <span class="hide-menu">Quản Lý Sản Phẩm</span>
+              <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Sản Phẩm</a>
+                <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Đế Giày</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Xuất Xứ</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Danh Mục</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Chất Liệu</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Thương Hiệu</a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-item">
-            <a
-              href="#pageSubmenu1"
-              class="dropdown-toggle1 collapsed sidebar-link"
-            >
-              <span>
-                <img
-                  src="/assets/images/add-user.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
-              </span>
-              <span class="hide-menu">Quản Lý Tài Khoản</span>
-            </a>
-            <ul class="list-unstyled collapse" id="pageSubmenu1">
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/nhan-vien"
-                  style="margin-left: 35px"
-                  >Nhân Viên</a
-                >
-              </li>
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/khach-hang"
-                  style="margin-left: 35px"
-                  >Khách Hàng</a
-                >
+                <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
               </li>
             </ul>
           </li>
@@ -283,11 +244,14 @@
                 <span style="vertical-align: middle">Làm Mới</span>
               </button>
             </div>
-            <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px;">
+            <div
+              class="col-md-3 d-flex justify-content-start"
+              style="padding-top: 20px"
+            >
               <br />
-              <h6 class="text" style="padding-top: 10px;">Trạng thái:</h6>
+              <h6 class="text" style="padding-top: 10px">Trạng thái:</h6>
               <select
-                style="width: 150px; height: 40px;margin-left: 10px;"
+                style="width: 150px; height: 40px; margin-left: 10px"
                 class="form-control select2"
                 id="simple-select2"
                 ng-model="locMauSac"
@@ -299,7 +263,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-md-3" style="margin-top: 20px; margin-left: 90px;">
+            <div class="col-md-3" style="margin-top: 20px; margin-left: 90px">
               <a
                 href="#/voucher/create"
                 class="btn btn-primary"
