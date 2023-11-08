@@ -265,82 +265,22 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="product in relatedProducts">
             <div class="product__item">
-              <div class="product__item__pic set-bg" data-setbg="">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
-                  alt=""
-                />
+              <div class="product__item__pic set-bg" data-setbg="{{product.tenImage}}">
+                <img src="{{product.tenImage}}" alt="" />
               </div>
               <div class="product__item__text">
                 <h6>
-                  <a href="shop-details.html"
-                    >GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a
-                  >
+                  <a href="#">{{product.tenSanPham}}</a>
                 </h6>
-                <h5>2.490.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
-              <div class="product__item__pic set-bg" data-setbg="">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="product__item__text">
-                <h6>
-                  <a href="shop-details.html"
-                    >GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a
-                  >
-                </h6>
-                <h5>1.690.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
-              <div class="product__item__pic set-bg" data-setbg="">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="product__item__text">
-                <h6>
-                  <a href="shop-details.html"
-                    >GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a
-                  >
-                </h6>
-                <h5>2.490.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="product__item">
-              <div class="product__item__pic set-bg" data-setbg="">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="product__item__text">
-                <h6>
-                  <a href="shop-details.html"
-                    >GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a
-                  >
-                </h6>
-                <h5>3.829.000₫</h5>
+                <h5>{{product.giaban | currency: '₫'}}</h5>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- Related Product Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
