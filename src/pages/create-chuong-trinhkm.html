@@ -1,3 +1,178 @@
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Oswald");
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: arial;
+  }
+
+  .fl-left {
+    float: left;
+  }
+
+  .fl-right {
+    float: right;
+  }
+
+  .row {
+    overflow: hidden;
+  }
+  .vc_CornerBadge_valid {
+    background-color: var(--vc-corner-badge-bg-color, #eda500);
+  }
+
+  .card-voucher {
+    margin-left: 10px;
+    display: table-row;
+    width: 350px;
+    height: 105px;
+    background-color: #fff;
+    color: #989898;
+    margin-bottom: 10px;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .date-voucher {
+    display: table-cell;
+    width: 35%;
+    position: relative;
+    text-align: center;
+    border-right: 2px dashed #dadde6;
+  }
+
+  .date-voucher:before,
+  .date-voucher:after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-color: #dadde6;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    z-index: 1;
+    border-radius: 50%;
+  }
+
+  .date-voucher:after {
+    top: auto;
+    bottom: -15px;
+  }
+
+  .date-voucher time {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .date-voucher time span {
+    display: block;
+  }
+
+  .date-voucher time span:first-child {
+    color: #2b2b2b;
+    font-weight: 600;
+    font-size: 250%;
+  }
+
+  .date-voucher time span:last-child {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: -10px;
+  }
+
+  .card-cont-voucher {
+    display: table-cell;
+    width: 75%;
+    font-size: 85%;
+    padding: 10px 10px 30px 50px;
+    padding-top: 15px;
+  }
+
+  .card-cont-voucher h3 {
+    color: #3c3c3c;
+    font-size: 130%;
+  }
+
+  .row:last-child .card:last-of-type .card-cont-voucher h3 {
+    text-decoration: line-through;
+  }
+
+  .card-cont-voucher > div {
+    display: table-row;
+  }
+
+  .card-cont-voucher .even-date i,
+  .card-cont-voucher .even-info i,
+  .card-cont-voucher .even-date time,
+  .card-cont-voucher .even-info p {
+    display: table-cell;
+  }
+
+  .card-cont-voucher .even-date i,
+  .card-cont-voucher .even-info i {
+    padding: 5% 5% 0 0;
+  }
+
+  .card-cont-voucher .even-info p {
+    padding: 30px 50px 0 0;
+  }
+
+  .card-cont-voucher .even-date time span {
+    display: block;
+  }
+
+  .card-cont-voucher a {
+    display: block;
+    text-decoration: none;
+    width: 80px;
+    height: 30px;
+    background-color: #d8dde0;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 2px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .row:last-child .card:first-child .card-cont-voucher a {
+    background-color: #037fdd;
+  }
+
+  .row:last-child .card:last-child .card-cont-voucher a {
+    background-color: #f8504c;
+  }
+
+  @media screen and (max-width: 860px) {
+    .card {
+      display: block;
+      float: none;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .card + .card {
+      margin-left: 0;
+    }
+    .card-cont-voucher .even-date,
+    .card-cont-voucher .even-info {
+      font-size: 75%;
+    }
+  }
+</style>
 <div
   class="page-wrapper"
   id="main-wrapper"
@@ -56,7 +231,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/ban-tai-quay" aria-expanded="false">
+            <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/shopping-cart-plus.png"
@@ -72,6 +247,8 @@
             <a
               href="#pageSubmenu"
               class="dropdown-toggle collapsed sidebar-link"
+              data-bs-toggle="collapse"
+              data-bs-target="#pageSubmenu"
             >
               <span>
                 <img
@@ -80,59 +257,14 @@
                   style="width: 21px; height: 21px"
                 />
               </span>
-              <span class="hide-menu">Quản Lý Sản Phẩm</span>
+              <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Sản Phẩm</a>
+                <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Đế Giày</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Xuất Xứ</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Danh Mục</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Chất Liệu</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Thương Hiệu</a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-item">
-            <a
-              href="#pageSubmenu1"
-              class="dropdown-toggle1 collapsed sidebar-link"
-            >
-              <span>
-                <img
-                  src="/assets/images/add-user.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
-              </span>
-              <span class="hide-menu">Quản Lý Tài Khoản</span>
-            </a>
-            <ul class="list-unstyled collapse" id="pageSubmenu1">
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/nhan-vien"
-                  style="margin-left: 35px"
-                  >Nhân Viên</a
-                >
-              </li>
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/khach-hang"
-                  style="margin-left: 35px"
-                  >Khách Hàng</a
-                >
+                <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
               </li>
             </ul>
           </li>
@@ -150,7 +282,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
+            <a class="sidebar-link" href="#/voucher" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/ticket.png"
@@ -270,7 +402,10 @@
           >
             <div class="row">
               <div class="col-lg-6">
-                <span class="header-title">Mã Giảm Giá</span>
+                <span class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Mã voucher</span></span
+                >
                 <input
                   type="text"
                   class="next-input"
@@ -278,7 +413,10 @@
                 />
               </div>
               <div class="col-lg-6">
-                <span class="header-title">Tên Giảm Giá</span>
+                <span class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Tên voucher</span></span
+                >
                 <input
                   type="text"
                   class="next-input"
@@ -287,210 +425,59 @@
               </div>
             </div>
             <br />
-            <div class="form-group shadow-textarea">
-              <span class="header-title">Mô Tả</span>
-              <textarea
-                class="next-input"
-                id="exampleFormControlTextarea6"
-                rows="3"
-                placeholder="Nhập mô tả"
-              ></textarea>
-            </div>
-          </div>
-          <br />
-          <div
-            class="card overflow-hidden"
-            style="
-              padding-left: 20px;
-              padding-top: 20px;
-              padding-bottom: 20px;
-              padding-right: 20px;
-            "
-          >
-            <span class="header-title">Loại Giảm Giá</span>
-            <div class="row" style="border: 1px solid #e3e9ed">
-              <select class="custom-select">
-                <option value="default">Chọn</option>
-                <option value="discountOrder">Giảm giá trực tiếp</option>
-                <option value="discountProduct">Giảm giá số tiền cụ thể</option>
-                <option value="discountProduct">
-                  Giảm giá theo nhóm sản phẩm
-                </option>
-                <option value="discountProduct">
-                  Giảm giá cho khách hàng thân thiết
-                </option>
-                <option value="discountProduct">
-                  Giảm giá cho việc thanh toán trước
-                </option>
-                <option value="discountProduct">Giảm giá số tiền cụ thể</option>
-              </select>
-            </div>
-          </div>
-          <!-- Giảm giá đơn hàng -->
-          <div>
-            <div
-              class="card overflow-hidden"
-              style="
-                padding-left: 20px;
-                padding-top: 20px;
-                padding-bottom: 20px;
-                padding-right: 20px;
-              "
-            >
-              <span class="header-title">Giảm giá đơn hàng</span>
-              <div class="row">
-                <div class="col-lg-5">
-                  <span class="header-title">Mức Giảm</span>
-                  <input type="text" class="next-input" placeholder="0" />
-                </div>
-                <div class="col-lg-2">
-                  <select
-                    class="form-select"
-                    id="selectOption"
-                    aria-label="Default select example"
-                    onchange="toggleCheckbox()"
-                  >
-                    <option selected>đ</option>
-                    <option>%</option>
-                  </select>
-                </div>
-                <div
-                  class="col-lg-5"
-                  id="checkboxContainer"
-                  style="display: none"
+            <div class="row">
+              <div class="col-lg-6">
+                <span class="header-title"
+                  ><span style="color: red">*</span> <span>Số lượng</span></span
                 >
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault"
-                      >Giới Hạn Số Tiền Giảm</label
-                    >
-                    <input type="text" class="next-input" placeholder="0" />
-                  </div>
-                </div>
+                <input
+                  type="number"
+                  class="next-input"
+                  placeholder="Nhập số lượng"
+                />
+              </div>
+              <div class="col-lg-6">
+                <span class="header-title"
+                  ><span style="color: red">*</span><span>Giá giảm</span></span
+                >
+                <input
+                  type="text"
+                  class="next-input"
+                  placeholder="Nhập tên giá giảm"
+                />
               </div>
             </div>
             <br />
-            <div
-              class="card overflow-hidden"
-              style="
-                padding-left: 20px;
-                padding-top: 20px;
-                padding-bottom: 20px;
-                padding-right: 20px;
-              "
-            >
-              <span class="header-title">Điều Kiện Giảm Giá</span>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault1"
-                />
-                <label
-                  class="form-check-label"
-                  for="flexRadioDefault1"
-                  style="margin-bottom: 15px"
-                  >Tổng giá trị đơn hàng</label
-                >
-                <div
-                  id="inputContainer1"
-                  style="display: none; margin-bottom: 15px"
-                >
-                  <input
-                    type="text"
-                    class="next-input"
-                    placeholder="0"
-                    style="width: 315px"
-                  />
-                </div>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault1"
-                />
-                <label
-                  class="form-check-label"
-                  for="flexRadioDefault1"
-                  style="margin-bottom: 15px"
-                  >Số lượng sản phẩm trong đơn hàng</label
-                >
-                <div
-                  id="inputContainer1"
-                  style="display: none; margin-bottom: 15px"
-                >
-                  <input
-                    type="text"
-                    class="next-input"
-                    placeholder="0"
-                    style="width: 315px"
-                  />
-                </div>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault2"
-                />
-                <label
-                  class="form-check-label"
-                  for="flexRadioDefault2"
-                  style="margin-bottom: 15px"
-                  >Khách hàng mới hoặc khách hàng cũ</label
-                >
-                <div id="inputContainer2" style="display: none">
-                  <input
-                    type="text"
-                    class="next-input"
-                    placeholder="0"
-                    style="width: 315px; margin-bottom: 15px"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="card overflow-hidden"
-              style="
-                padding-left: 20px;
-                padding-top: 20px;
-                padding-bottom: 20px;
-                padding-right: 20px;
-              "
-            >
-              <div class="row">
-                <div class="col-lg-12">
-                  <span class="header-title">Số lượng mã</span>
-                  <input
-                    type="number"
-                    class="next-input"
-                    placeholder="Nhập số lượng mã"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card overflow-hidden"
-            style="
-              padding-left: 20px;
-              padding-top: 20px;
-              padding-bottom: 20px;
-              padding-right: 20px;
-            "
-          >
             <div class="row">
               <div class="col-lg-6">
-                <span class="header-title">Ngày Bắt Đầu</span>
+                <span class="header-title"
+                  ><span style="color: red">*</span
+                  ><span>Giá trị tối thiểu đơn hàng</span></span
+                >
+                <input
+                  type="number"
+                  class="next-input"
+                  placeholder="Nhập giá trị tối thiểu đơn hàng"
+                />
+              </div>
+              <div class="col-lg-6">
+                <select
+                  class="form-select"
+                  id="selectOption"
+                  aria-label="Default select example"
+                >
+                  <option value="1" selected>đ</option>
+                  <option value="2" selected>%</option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-lg-6">
+                <span class="header-title"
+                  ><span style="color: red">*</span
+                  ><span>Ngày bắt đầu</span></span
+                >
                 <input
                   type="date"
                   class="next-input"
@@ -498,7 +485,10 @@
                 />
               </div>
               <div class="col-lg-6">
-                <span class="header-title">Ngày Kết Thúc</span>
+                <span class="header-title"
+                  ><span style="color: red">*</span
+                  ><span>Ngày kết thúc</span></span
+                >
                 <input
                   type="date"
                   class="next-input"
@@ -507,25 +497,49 @@
               </div>
             </div>
           </div>
+          <button class="btn btn-primary" style="width: 125px;">Thêm voucher</button>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="padding-top: 20px">
           <div
             class="card overflow-hidden"
-            style="
-              padding-left: 20px;
-              padding-top: 20px;
-              padding-bottom: 20px;
-              padding-right: 20px;
-            "
+            style="padding-top: 20px; height: 350px; background-color: #dadde6"
           >
-            <label class="form-label">Mã Giảm Giá</label><br />
-            <label class="form-label">Tên Giảm Giá</label><br />
-            <label class="form-label">Loại giảm giá: </label><br />
-            <label class="form-label">Điều kiện giảm giá</label><br />
-            <label class="form-label">Giới hạn sử dụng</label><br />
-            <label class="form-label"
-              >Có hiệu lực từ 13:41 17/07/2023 - 13:41 24/07/2023</label
-            >
+            <article class="card-voucher fl-left">
+              <section class="date-voucher">
+                <time datetime="23th feb">
+                  <div
+                    data-testid="vcCornerBadge"
+                    class="vc_CornerBadge_cornerBadge vc_CornerBadge_levelCorner vc_CornerBadge_valid"
+                    style="width: 75px"
+                  >
+                    <div class="" style="font-size: 10px; color: #2b2b2b">
+                      Số lượng có hạn
+                    </div>
+                  </div>
+                  <img
+                    width="90px"
+                    style="padding-bottom: 0px"
+                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                    alt=""
+                    srcset=""
+                  />
+                </time>
+              </section>
+              <section class="card-cont-voucher">
+                <h6>Giảm 50k</h6>
+                <span>Đơn tối thiểu 2.000.000đ</span>
+                <div class="even-date">
+                  <i class="fa fa-calendar"></i>
+                  HSD: 11.11.2023
+                </div>
+              </section>
+            </article>
+            <article class="card-voucher fl-left" style="height: 300px">
+              <h6 style="padding-left: 10px; padding-top: 10px;">Hạn sử dụng mã</h6>
+              <span style="padding-left: 10px;">01 Th11 2023 00:00 - 11 Th11 2023 23:59</span>
+              <h6 style="padding-left: 10px; padding-top: 10px;">Áp dụng cho đơn hàng</h6>
+              <span style="padding-left: 10px;">Chỉ áp dụng trên web cho một số hóa đơn nhất định.</span>
+            </article>
           </div>
         </div>
       </div>

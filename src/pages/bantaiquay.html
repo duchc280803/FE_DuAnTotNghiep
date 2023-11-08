@@ -42,6 +42,9 @@
   tr.order_selected.ng-scope.selected {
     background-color: #c6eb34;
   }
+  .order.selected {
+    background-color: #c6fc03;
+  }
 </style>
 <div
   class="page-wrapper"
@@ -121,6 +124,8 @@
             <a
               href="#pageSubmenu"
               class="dropdown-toggle collapsed sidebar-link"
+              data-bs-toggle="collapse"
+              data-bs-target="#pageSubmenu"
             >
               <span>
                 <img
@@ -129,59 +134,14 @@
                   style="width: 21px; height: 21px"
                 />
               </span>
-              <span class="hide-menu">Quản Lý Sản Phẩm</span>
+              <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Sản Phẩm</a>
+                <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Đế Giày</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Xuất Xứ</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Danh Mục</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Chất Liệu</a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#">Thương Hiệu</a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-item">
-            <a
-              href="#pageSubmenu1"
-              class="dropdown-toggle1 collapsed sidebar-link"
-            >
-              <span>
-                <img
-                  src="/assets/images/add-user.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
-              </span>
-              <span class="hide-menu">Quản Lý Tài Khoản</span>
-            </a>
-            <ul class="list-unstyled collapse" id="pageSubmenu1">
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/nhan-vien"
-                  style="margin-left: 35px"
-                  >Nhân Viên</a
-                >
-              </li>
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link"
-                  href="#/admin/account/khach-hang"
-                  style="margin-left: 35px"
-                  >Khách Hàng</a
-                >
+                <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
               </li>
             </ul>
           </li>
@@ -199,7 +159,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/giam-gia" aria-expanded="false">
+            <a class="sidebar-link" href="#/voucher" aria-expanded="false">
               <span>
                 <img
                   src="/assets/images/ticket.png"
@@ -328,7 +288,7 @@
                     <div class="col-lg-6" style="padding-left: 270px">
                       <button
                         type="button"
-                        class="btn btn-outline-primary m-1"
+                        class="btn btn-primary"
                         ng-click="createHoaDon()"
                       >
                         Tạo hóa đơn
@@ -336,7 +296,7 @@
 
                       <button
                         type="button"
-                        class="btn btn-outline-primary m-1"
+                        class="btn btn-warning"
                         ng-click="getListHoaDonTaiQuay ()"
                       >
                         Làm mới
@@ -348,7 +308,7 @@
                     <div class="col-lg-12">
                       <div style="overflow-x: auto; width: 1104px">
                         <table
-                          class="table table-hover"
+                          class="table"
                           style="white-space: nowrap; width: 1104px"
                         >
                           <thead>
@@ -363,8 +323,12 @@
                               <th scope="col">Thao tác</th>
                             </tr>
                           </thead>
-                          <tbody class="table">
-                            <tr ng-repeat="hd in listHoaDonTaiQuay">
+                          <tbody>
+                            <tr
+                              class="order"
+                              ng-repeat="hd in listHoaDonTaiQuay"
+                              ng-class="{ 'selected': hd.isSelected}"
+                            >
                               <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
                               <td>{{hd.maHoaDon}}</td>
                               <td>{{hd.tenNhanVien}}</td>
@@ -378,11 +342,12 @@
                                 Công"}}
                               </td>
                               <td>
-                                <a
-                                  class="btn btn-outline-primary"
+                                <button
+                                  class="btn btn-primary"
                                   ng-click="luuIdHoaDon(hd.id)"
-                                  >Chọn</a
                                 >
+                                  Chọn
+                                </button>
                               </td>
                             </tr>
                           </tbody>
@@ -403,22 +368,15 @@
                               >Previous</a
                             >
                           </li>
-                          <li
-                            class="page-item"
-                            ng-repeat="page in getPageNumbers()"
-                          >
-                            <a
-                              class="page-link"
-                              ng-href="#/ban-tai-quay?pageNumber={{page}}"
-                              ng-click="updatePage(page)"
-                              >{{ page }}</a
-                            >
+                          <li class="page-item">
+                            <a class="page-link">{{ pageNumber + 1 }}</a>
                           </li>
                           <li class="page-item">
                             <a
                               class="page-link"
                               ng-href=""
                               ng-click="nextPage()"
+                              ng-disabled="pageNumber === totalNumberOfPages - 1"
                               >Next</a
                             >
                           </li>
@@ -439,8 +397,19 @@
               <div class="card overflow-hidden">
                 <div class="card-body p-4">
                   <h5 class="card-title mb-9 fw-semibold">
-                    Thông Tin Sản Phẩm / {{orderDetailCounter.maHoaDon}} /
-                    {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                    <div class="row">
+                      <div class="col-lg-6">Thông Tin Sản Phẩm</div>
+                      <div class="col-lg-6">
+                        <div ng-if="!selectedHoaDon || !isHoaDonExist(selectedHoaDon)">
+                          <p style="margin-left: 335px;">Vui lòng chọn hóa đơn.</p>
+                        </div>
+                        <div ng-if="selectedHoaDon && isHoaDonExist(selectedHoaDon)">
+                          <p style="margin-left: 230px;">{{selectedHoaDon.maHoaDon}} /
+                            {{selectedHoaDon.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </h5>
                   <div class="row">
                     <div class="col-lg-10">
@@ -452,7 +421,45 @@
                         data-bs-target="#exampleModal"
                       />
                     </div>
-                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2" style="padding-left: 125px">
+                      <a
+                        href=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal-qrcode"
+                        ><img
+                          src="/assets/images/qr-code.png"
+                          width="40px"
+                          alt=""
+                      /></a>
+                      <div
+                        class="modal fade"
+                        id="exampleModal-qrcode"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div
+                          class="modal-dialog modal-lg"
+                          style="width: 448px; margin-left: 600px"
+                        >
+                          <div class="modal-content custom-modal-content">
+                            <div class="modal-header"></div>
+                            <div class="modal-body">
+                              <video id="preview"></video>
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <br />
                   <div class="box">
@@ -485,7 +492,7 @@
                             <br />
                             Size: {{lc.size}}
                             <br />
-                            Kiểu đế: {{lc.kieuDe}}
+                            Chất liệu: {{lc.chatLieu}}
                             <br />
                             Màu sắc: {{lc.mauSac}}
                           </td>
@@ -495,27 +502,28 @@
                                 style="margin-left: -40px; width: 70px"
                                 type="number"
                                 class="next-input text-left min-width-100px position-relative"
-                                ng-model="lc.soLuong"
-                                ng-change="updateCart()"
+                                ng-value="lc.soLuong"
+                                ng-model="soLuong"
+                                ng-change="updateCart(lc.idGioHang,soLuong)"
                               />
                             </div>
                           </td>
                           <td style="padding-top: 60px">
-                            <div ng-show="lc.giaGiam != null">
+                            <div ng-show="lc.giaGiam != 0">
                               {{lc.giaGiam | number}}đ
                               <span>
                                 <strike>{{lc.giaBan | number}}₫</strike></span
                               >
                             </div>
-                            <div ng-show="lc.giaGiam == null">
+                            <div ng-show="lc.giaGiam == 0">
                               {{lc.giaBan | number}}đ
                             </div>
                           </td>
                           <td style="padding-top: 60px">
-                            <div ng-show="lc.giaGiam != null">
+                            <div ng-show="lc.giaGiam != 0">
                               {{lc.giaGiam * lc.soLuong | number}}đ
                             </div>
-                            <div ng-show="lc.giaGiam == null">
+                            <div ng-show="lc.giaGiam == 0">
                               {{lc.giaBan * lc.soLuong | number}}đ
                             </div>
                           </td>
@@ -547,7 +555,7 @@
                           <div class="row">
                             <div class="col-lg-8">
                               <input
-                                ng-model="keyName"
+                                ng-model="key"
                                 class="form-control"
                                 placeholder="Tìm sản phẩm"
                               />
@@ -577,9 +585,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="brand"
+                                ng-change="filterBrand()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="th in listThuongHieu">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="th in listThuongHieu"
+                                  value="{{th.tenThuongHieu}}"
+                                >
                                   {{th.tenThuongHieu}}
                                 </option>
                               </select>
@@ -589,9 +602,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locCategory"
+                                ng-change="filterCategory()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="dm in listDanhMuc">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="dm in listDanhMuc"
+                                  value="{{dm.tenDanhMuc}}"
+                                >
                                   {{dm.tenDanhMuc}}
                                 </option>
                               </select>
@@ -601,9 +619,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locOrigin"
+                                ng-change="filterOrigin()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="xx in listXuatXu">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="xx in listXuatXu"
+                                  value="{{xx.tenXuatXu}}"
+                                >
                                   {{xx.tenXuatXu}}
                                 </option>
                               </select>
@@ -613,9 +636,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locSole"
+                                ng-change="filterSole()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="kd in listKieuDe">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="kd in listKieuDe"
+                                  value="{{kd.tenDe}}"
+                                >
                                   {{kd.tenDe}}
                                 </option>
                               </select>
@@ -626,9 +654,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locMauSac"
+                                ng-change="filterColor()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="ms in listMauSac">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="ms in listMauSac"
+                                  value="{{ms.tenMauSac}}"
+                                >
                                   {{ms.tenMauSac}}
                                 </option>
                               </select>
@@ -639,9 +672,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locSize"
+                                ng-change="filterSize()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="s in listSize">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="s in listSize"
+                                  value="{{s.size}}"
+                                >
                                   {{s.size}}
                                 </option>
                               </select>
@@ -652,9 +690,14 @@
                               <select
                                 class="form-control select2"
                                 id="simple-select2"
+                                ng-model="locMaterial"
+                                ng-change="filterMaterial()"
                               >
-                                <option value="CA">Tất cả</option>
-                                <option ng-repeat="cl in listChatLieu">
+                                <option value="">Tất cả</option>
+                                <option
+                                  ng-repeat="cl in listChatLieu"
+                                  value="{{cl.tenChatLieu}}"
+                                >
                                   {{cl.tenChatLieu}}
                                 </option>
                               </select>
@@ -671,18 +714,19 @@
                                   <th scope="col">STT</th>
                                   <th scope="col">Ảnh</th>
                                   <th scope="col">Tên Sản Phẩm</th>
-                                  <th scope="col">Giá</th>
+                                  <th scope="col" style="width: 120px">Giá</th>
                                   <th scope="col">Số Lượng</th>
                                   <th scope="col">Thao Tác</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr
+                                  style="border: 1px solid #ccc"
                                   class="text-center"
                                   ng-repeat="sptq in listSanPhamTaiQuay"
                                 >
                                   <td style="padding-top: 55px">
-                                    {{$index + 1}}
+                                    {{$index + 1 + (pageNumberSp * pageSizeSp)}}
                                   </td>
                                   <td>
                                     <div class="d-flex justify-content-center">
@@ -714,19 +758,26 @@
                                     <span>{{sptq.chatLieu}}</span>
                                   </td>
                                   <td style="padding-top: 55px">
-                                    <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0">
+                                    <small
+                                      class="mb-0 text-muted h6"
+                                      ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0"
+                                    >
                                       <strong>
-                                        <span class="text-danger" >
-                                          {{ sptq.giaBan | number}}đ
+                                        <span class="text-danger">
+                                          {{sptq.giaBan - sptq.giaGiamGia |
+                                          number}}đ
                                         </span>
                                         <strike class="text-danger">
-                                          0đ {{ sptq.giaGiamGia | number:0}}đ
+                                          {{ sptq.giaBan | number}}đ
                                         </strike>
                                       </strong>
                                     </small>
-                                    <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == 0">
+                                    <small
+                                      class="mb-0 text-muted h6"
+                                      ng-show="sptq.giaGiamGia == 0"
+                                    >
                                       <strong>
-                                        <span class="text-danger" >
+                                        <span class="text-danger">
                                           {{ sptq.giaBan | number}}đ
                                         </span>
                                       </strong>
@@ -736,10 +787,10 @@
                                     <div class="quantity">
                                       <input
                                         ng-model="soLuongSanPham"
-                                        type="number"
-                                        class="next-input text-left min-width-100px position-relative quantity-decimal"
                                         min="1"
                                         max="{{sptq.soLuong}}"
+                                        type="number"
+                                        class="next-input text-left min-width-100px position-relative quantity-decimal"
                                       />
                                     </div>
                                     <h6
@@ -752,9 +803,8 @@
                                     <button
                                       type="button"
                                       class="btn btn-primary"
-                                      data-toggle="modal"
-                                      data-target="#myModal"
-                                      ng-click="themSanPhamCart()"
+                                      data-bs-dismiss="modal"
+                                      ng-click="themSanPhamCart(sptq.idSanPhamChiTiet, soLuongSanPham)"
                                     >
                                       Thêm vào giỏ hàng
                                     </button>
@@ -766,7 +816,7 @@
                         </div>
                         <nav
                           aria-label="Page navigation example"
-                          style="margin-left: 450px"
+                          style="margin-left: 480px"
                         >
                           <ul class="pagination">
                             <li class="page-item">
@@ -774,13 +824,8 @@
                                 >Previous</a
                               >
                             </li>
-                            <li
-                              class="page-item"
-                              ng-repeat="page in getPageNumbers()"
-                            >
-                              <a class="page-link" ng-click="updatePage(page)"
-                                >{{ page }}</a
-                              >
+                            <li class="page-item">
+                              <a class="page-link">{{pageNumberSp + 1}}</a>
                             </li>
                             <li class="page-item">
                               <a class="page-link" ng-click="nextPageSp()"
@@ -802,7 +847,6 @@
                     </div>
                   </div>
                 </div>
-
                 <!-- modal sản phẩm -->
               </div>
             </div>
@@ -815,13 +859,6 @@
                         <h5 class="card-title mb-9 fw-semibold">Khách hàng</h5>
                       </div>
                       <div class="col-lg-6" style="margin-left: -175px">
-                        <a
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal2"
-                          class="btn btn-outline-primary"
-                        >
-                          Chọn
-                        </a>
                         <!--SHOW KHÁCH AND  Thêm khách -->
                         <div
                           class="modal fade"
@@ -849,8 +886,7 @@
                                   >
                                     <button
                                       ng-click="searchKhach()"
-                                      type="button"
-                                      class="btn btn-outline-primary m-1"
+                                      class="btn btn-primary"
                                     >
                                       Tìm Kiếm
                                     </button>
@@ -872,7 +908,7 @@
                                   </div>
                                 </div>
                                 <div class="box">
-                                  <table class="table table-hover">
+                                  <table class="table">
                                     <thead>
                                       <tr
                                         style="background-color: lightskyblue"
@@ -1019,9 +1055,28 @@
                   </div>
                   <div class="col-lg-6">
                     <h5 class="card-title mb-9 fw-semibold">
-                      Thông Tin Thanh Toán / {{orderDetailCounter.maHoaDon}} /
-                      {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy h:mm:ss
-                      a'}}
+                      <div class="row">
+                        <div class="col-lg-6">Thông Tin Thanh Toán</div>
+                        <div class="col-lg-6">
+                          <div
+                            ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0"
+                          >
+                            <p style="margin-left: 350px">
+                              Vui lòng tạo hóa đơn.
+                            </p>
+                          </div>
+                          <div
+                            ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0"
+                          >
+                            <p style="margin-left: 230px">
+                              {{orderDetailCounter.maHoaDon}} /
+                              {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy
+                              h:mm:ss a'}}
+                            </p>
+                            <!-- Rest of your code -->
+                          </div>
+                        </div>
+                      </div>
                     </h5>
                   </div>
                 </div>
@@ -1029,46 +1084,28 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-6">
-                        <div ng-show="showInput">
-                          <input
-                            ng-model="hoTen"
-                            type="text"
-                            disabled
-                            class="form-control hidden-input"
-                            style="margin-left: -30px; margin-bottom: 30px"
-                            ng-value="orderDetailCounter.tenKhach"
-                            placeholder="Nhập họ và tên khách"
-                          />
-                          <input
-                            ng-show="orderDetailCounter.tenKhach != 'Khách lẻ'"
-                            ng-model="email"
-                            type="text"
-                            disabled
-                            class="form-control hidden-input"
-                            style="margin-left: -30px; margin-bottom: 30px"
-                            ng-value="orderDetailCounter.email"
-                            placeholder="Nhập email"
-                          />
-                          <input
-                            ng-show="orderDetailCounter.tenKhach != 'Khách lẻ'"
-                            ng-model="soDienThoai"
-                            type="text"
-                            disabled
-                            class="form-control hidden-input"
-                            style="margin-left: -30px; margin-bottom: 30px"
-                            ng-value="orderDetailCounter.soDienThoai"
-                            placeholder="Nhập số điện thoại"
-                          />
-                          <input
-                            ng-show="orderDetailCounter.tenKhach != 'Khách lẻ'"
-                            ng-model="diaChi"
-                            type="text"
-                            disabled
-                            class="form-control hidden-input"
-                            style="margin-left: -30px; margin-bottom: 30px"
-                            ng-value="orderDetailCounter.diaChi"
-                            placeholder="Nhập địa chỉ"
-                          />
+                        <div>
+                          <div class="row">
+                            <div class="col-lg-9">
+                              <input
+                                type="text"
+                                disabled
+                                class="form-control hidden-input"
+                                style="margin-left: -30px; margin-bottom: 30px"
+                                ng-value="orderDetailCounter.tenKhach"
+                                placeholder="Nhập họ và tên khách"
+                              />
+                            </div>
+                            <div class="col-lg-3">
+                              <a
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal2"
+                                class="btn btn-primary"
+                              >
+                                Chọn
+                              </a>
+                            </div>
+                          </div>
                         </div>
                         <div ng-show="!showInput">
                           <input
@@ -1179,7 +1216,7 @@
                                           <div class="row">
                                             <div class="col-lg-4">
                                               <button
-                                                class="btn btn-outline-primary"
+                                                class="btn btn-primary"
                                                 style="margin-left: 50px"
                                                 ng-click="createTransaction()"
                                               >
@@ -1188,16 +1225,16 @@
                                             </div>
                                             <div class="col-lg-4">
                                               <button
-                                                class="btn btn-outline-primary"
+                                                class="btn btn-primary"
                                                 style="margin-left: 50px"
-                                                ng-click="createTransactionVnpay(tongTienHang - totalAmountPaid)"
+                                                ng-click="ok(tongTienHang - totalAmountPaid)"
                                               >
                                                 Chuyển khoản
                                               </button>
                                             </div>
                                             <div class="col-lg-4">
                                               <button
-                                                class="btn btn-outline-primary"
+                                                class="btn btn-primary"
                                                 style="margin-left: 50px"
                                               >
                                                 QR Code
@@ -1346,7 +1383,7 @@
                                   />
                                 </div>
                                 <div class="col-lg-5">
-                                  <button class="btn btn-outline-primary">
+                                  <button class="btn btn-primary">
                                     Chọn mã
                                   </button>
                                 </div>
@@ -1483,20 +1520,20 @@
                     </div>
                   </div>
                   <button
-                    class="btn btn-outline-primary"
+                    class="btn btn-primary"
                     style="
                       margin-left: 900px;
                       margin-top: 25px;
                       font-weight: bold;
                     "
-                    ng-show="!showInput"
+                    ng-show="showInput"
                     ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)"
                   >
                     Xác Nhận Thanh Toán
                   </button>
                   <button
-                    ng-show="showInput"
-                    class="btn btn-outline-primary"
+                    ng-show="!showInput"
+                    class="btn btn-primary"
                     style="
                       margin-left: 900px;
                       margin-top: 25px;

@@ -91,7 +91,7 @@
             <div class="header__cart">
               <ul>
                 <li>
-                  <a href="#/cart"
+                  <a href="/src/pages/shoping-cart.html"
                     ><i class="fa fa-shopping-bag"></i> <span>3</span></a
                   >
                 </li>
@@ -113,42 +113,25 @@
               <div class="product__details__pic__item">
                 <img
                   class="product__details__pic__item--large"
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-02-800x800.jpg"
+                  src="{{detailProduct.tenImage}}"
                   alt=""
                 />
               </div>
-              <div class="product__details__pic__slider owl-carousel">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-02-800x800.jpg"
-                  alt=""
-                />
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-03-800x800.jpg"
-                  alt=""
-                />
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-04-800x800.jpg"
-                  alt=""
-                />
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-05-800x800.jpg"
-                  alt=""
-                />
-              </div>
+              <div class="product__details__pic__slider owl-carousel"></div>
             </div>
           </div>
           <div class="col-lg-6 col-md-6">
             <div class="product__details__text">
-              <h3>{{detailProduct.productName}}</h3>
+              <h3>{{detailProduct.tenSanPham}}</h3>
               <div class="product__details__price">
-                <div ng-show="detailProduct.giaGiam != null">
-                  {{detailProduct.giaGiam | number}}₫<span
-                    style="text-decoration: line-through; padding-left: 10px;"
-                    >{{detailProduct.price | number}}₫</span
+                <div ng-show="detailProduct.donGiaKhiGiam != null">
+                  {{detailProduct.donGiaKhiGiam | number}}₫<span
+                    style="text-decoration: line-through; padding-left: 10px"
+                    >{{detailProduct.giaban | number}}₫</span
                   >
                 </div>
-                <div ng-show="detailProduct.giaGiam == null">
-                  {{detailProduct.price | number}}₫
+                <div ng-show="detailProduct.donGiaKhiGiam == null">
+                  {{detailProduct.giaban | number}}₫
                 </div>
               </div>
               <h4 style="padding-bottom: 10px">Size:</h4>
@@ -158,58 +141,63 @@
                 ng-repeat="size in detailSizeProduct"
                 ng-class="{ 'selected': size.isSelected }"
               >
-                <label>{{size.size}}</label>
+                <label
+                  ng-model="keySize"
+                  ng-click="findMauSacChatLieuBySize(size.id)"
+                  >{{size.size}}</label
+                >
               </div>
               <div>
                 <div class="sidebar__item__size">
                   <h4 style="padding-bottom: 10px">Màu sắc:</h4>
                   <div
-                    ng-click="selectColor(color)"
-                    ng-class="{ 'selected': color.isSelected }"
                     class="sidebar__item__size"
-                    ng-repeat="color in detailSizeProduct"
+                    ng-click="selectColor(color)"
+                    ng-repeat="color in detailColorProduct"
+                    ng-class="{ 'selected': color.isSelected}"
                   >
-                    <label>{{color.mauSac}}</label>
+                    <label ng-click="findByMauSac(color.id)"
+                      >{{color.tenmausac}}</label
+                    >
                   </div>
                 </div>
               </div>
               <div>
                 <div class="sidebar__item__size">
-                  <h4 style="padding-bottom: 10px">Chất Liệu:</h4>
+                  <h4 style="padding-bottom: 10px">Chất liệu:</h4>
                   <div
                     class="sidebar__item__size"
-                    ng-repeat="chatLieu in detailSizeProduct"
-                    ng-click="selectChatLieu(chatLieu)"
-                    ng-class="{ 'selected': chatLieu.isSelected }"
+                    ng-click="selectMaterial(material)"
+                    ng-repeat="material in detailMaterialProduct"
+                    ng-class="{ 'selected': material.isSelected}"
                   >
-                    <label> {{chatLieu.chatLieu}} </label>
+                    <label ng-click="findByChatLieu(material.id)"
+                      >{{material.tenchatlieu}}</label
+                    >
                   </div>
                 </div>
               </div>
-              <h4 style="padding-bottom: 10px">Kiểu đế:</h4>
-              <div
-                class="sidebar__item__size"
-                class="sidebar__item__size"
-                ng-click="selectKieuDe(kieuDe)"
-                ng-class="{ 'selected': kieuDe.isSelected }"
-                ng-repeat="kieuDe in detailSizeProduct"
-              >
-                <label> {{kieuDe.kieuDe}} </label>
-              </div>
-
               <div class="quantity">
                 <input
                   style="margin-left: 0px"
                   type="number"
                   class="next-input text-left min-width-100px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
-                  value="1"
+                  ng-model="soluong"
                   min="1"
-                  max="{{detailQuantity.quantity}}"
+                  max="{{quantity.soluong}}"
                 />
               </div>
-              <p>Số Lượng Sản Phẩm Còn Lại: {{detailQuantity.quantity}}</p>
+
+              <p style="padding-top: 20px">
+                Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}
+              </p>
             </div>
-            <a href="#" class="primary-btn" ng-click="addToCart()"
+            <!-- <a href="#" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)"
+              >ADD TO CART</a> -->
+            <a
+              href=""
+              class="primary-btn"
+              ng-click="addToCart(quantity.sanPhamChiTietId)"
               >ADD TO CART</a
             >
           </div>
@@ -417,6 +405,7 @@
         </div>
       </div>
     </footer>
+
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
@@ -425,5 +414,6 @@
     <script src="/js/mixitup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

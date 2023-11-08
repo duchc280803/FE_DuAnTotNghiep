@@ -25,26 +25,35 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/giam-gia", {
+    .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
     })
-    .when("/giam-gia/create", {
+    .when("/voucher/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
+    })
+    .when("/khach-hang", {
+      templateUrl: "./pages/khach-hang.html",
+    })
+    .when("/nhan-vien", {
+      templateUrl: "./pages/nhan-vien.html",
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
-      controller: "sanPhamGiamGiaController"
+      controller: "sanPhamShopController"
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
-      controller: "sanPhamGiamGiaController"
+      controller: "sanPhamShopDetailController"
     })
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
+    })
+    .when("/thank-you", {
+      templateUrl: "./pages/shoping-cart.html",
     }).otherwise({
-      redirectTo: "/dashboard",
+      redirectTo: "/home",
     });
 });

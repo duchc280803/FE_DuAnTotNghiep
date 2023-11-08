@@ -110,9 +110,9 @@
                 <i class="fa fa-bars"></i>
                 <span>BRAND</span>
               </div>
-              <ul>
+              <ul ng-repeat="th in listThuongHieu">
                 <li>
-                  <a href="#"></a>
+                  <a href="#">{{th.tenThuongHieu}}</a>
                 </li>
               </ul>
             </div>
@@ -204,11 +204,11 @@
             <div class="row">
               <div
                 class="col-lg-4 col-md-6 col-sm-6"
-                ng-repeat="sp in listSpGiamGia"
+                ng-repeat="sp in listSanPhamShop"
               >
                 <div class="product__discount__item">
                   <div class="product__discount__item__pic set-bg">
-                    <img src="{{sp.image}}" alt="" />
+                    <img src="{{sp.tenImage}}" alt="" />
                     <div
                       class="product__discount__percent"
                       ng-show="sp.mucGiam != null"
@@ -218,20 +218,19 @@
                   </div>
                   <div class="product__discount__item__text">
                     <span style="padding-bottom: 25px; height: 45px"
-                      ><a href="#/shop/detail/{{sp.tenSp}}"
-                        >{{sp.tenSp}}</a
+                      ><a href="#/shop/detail/{{sp.tenSanPham}}"
+                        >{{sp.tenSanPham}}</a
                       ></span
                     >
                     <div class="product__details__price">
-                      <div ng-show="sp.giaGiamGia != null">
-                        {{sp.giaGiamGia | number}}₫
-                        <span
-                          style="text-decoration: line-through"
-                          >{{sp.giaBan | number}}₫</span
+                      <div ng-show="sp.donGiaKhiGiam != null">
+                        {{sp.donGiaKhiGiam | number}}₫
+                        <span style="text-decoration: line-through"
+                          >{{sp.giaban | number}}₫</span
                         >
                       </div>
-                      <div ng-show="sp.giaGiamGia == null">
-                        {{sp.giaBan | number}}₫
+                      <div ng-show="sp.donGiaKhiGiam == null">
+                        {{sp.giaban | number}}₫
                       </div>
                     </div>
                   </div>
@@ -326,5 +325,7 @@
     <script src="../app.js"></script>
     <script src="../routes.js"></script>
     <script src="/src/controller/product-giamgia-controller.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
   </body>
 </html>
