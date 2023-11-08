@@ -245,5 +245,19 @@ $scope.addToCart = function (idSanPhamChiTiet) {
     $scope.getDetailSizeProduct();
     $scope.getDetailMauSacProduct();
     $scope.getDetailChatLieuProduct();
+
+    function loadRelatedProducts() {
+      var idThuongHieu = "ef1877da-7d72-474b-b355-5611ae4382dd"; // Thay thế bằng id thương hiệu tương ứng
+      $http
+        .get("http://localhost:8080/api/v1/san-pham-giam-gia/show-sp-lien-quan?idthuonghieu=" + idThuongHieu)
+        .then(function (response) {
+          $scope.relatedProducts = response.data;
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi gọi API: " + error);
+        });
+    }
+  
+    loadRelatedProducts();
   }
 );
