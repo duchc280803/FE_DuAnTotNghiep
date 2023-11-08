@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+<style>
+/* Left box */
+.view-account {
+  width: 80%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+  width: 80%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the circular image */
+.profile-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden; /* Đảm bảo ảnh không bị cắt */
+  margin: 0 auto; /* Canh giữa ảnh */
+}
+
+.profile-image img {
+  width: 100%; /* Tự động thích ứng với kích thước của hình tròn */
+  height: 100%; /* Tự động thích ứng với kích thước của hình tròn */
+}
+
+/* Style for the list */
+.profile ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.profile li {
+  margin: 10px 0;
+  list-style: none;
+}
+
+/* Style for the links */
+.profile a {
+    font-size: 18px;
+  color: #333;
+  font-size: 400;
+  text-decoration: none;
+}
+
+.profile a:hover {
+  font-weight: 600;
+}
+</style>
+<link
+rel="shortcut icon"
+type="image/png"
+href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="/assets/css/styles.min.css" />
+<link rel="stylesheet" href="/css/custom/hinh-thuc-thah-toan.css" />
+<link rel="stylesheet" href="/css/custom/create-ctkm.css" />
+<link rel="stylesheet" href="/css/custom/combobox.css" />
+<link rel="stylesheet" href="/css/custom/trang-thai-hdct.css">
+<body>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="profile">
+        <div class="profile-image">
+          <img src="https://img.freepik.com/free-photo/handsome-bearded-guy-posing-against-white-wall_273609-20597.jpg" alt="">
+        </div>
+        <ul>
+          <li><p>Tên tài khoản</p></li>
+          <li><a href="#">Cập nhật thông tin</a></li>
+          <li><a href="#">Đơn hàng</a></li>
+          <li><a href="#">Địa chỉ</a></li>
+          <li><a href="#">Đăng xuất</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="view-account">
+        <div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-navbarbg="skin6"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+    <div class="container-fluid">
+      <div class="card overflow-hidden" style="width: 1152px">
+        <div>
+          <h5 style="padding-left: 20px; padding-top: 20px">
+            <div class="breadcrumb">
+              <a
+                class="breadcrumb__step breadcrumb__step--active"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Chờ xác nhận</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Xác nhận</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Chờ giao hàng</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Giao hàng</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Hoàn thành</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Trả hàng</a
+              >
+            </div>
+          </h5>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div
+            class="modal-content custom-modal-content"
+            style="width: 330px; margin-left: 250px; margin-top: 200px"
+          >
+            <div class="modal-header"></div>
+            <div class="modal-body" style="padding-left: 90px">
+              <h6>Xác nhận</h6>
+              <div class="quantity">
+                <input
+                  ng-model="soLuongSanPham"
+                  style="margin-left: -40px"
+                  class="next-input text-left min-width-100px position-relative quantity-decimal"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ng-click="allowBreadcrumbSelection = false"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card overflow-hidden" style="width: 1152px">
+        <div class="box">
+          <div class="d-flex align-items-center">
+            <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
+              Lịch sử thanh toán
+            </h5>
+            <a href="" type="button" class="btn btn-outline-primary mt-3 me-3"
+              >Chi tiết</a
+            >
+          </div>
+          <hr />
+          <table class="table">
+            <thead>
+              <tr
+                style="border: 1px solid #ccc; background-color: lightskyblue"
+              >
+                <th scope="col">STT</th>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Số tiền</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Hình thức thanh toán</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Người xác nhận</th>
+                <th scope="col">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody class="table">
+              <tr ng-repeat="item in lichSu">
+                <td>{{$index + 1}}</td>
+                <td>{{item.ma}}</td>
+                <td>{{item.soTienTra}}</td>
+                <td>{{item.ngayTao| date:'MM/dd/yyyy h:mm:ss a'}}</td>
+                <td>
+                  {{item.phuongThucThanhToan == 1 ? 'Tiền mặt' : 'Chuyển
+                  khoản'}}
+                </td>
+                <td>{{item.ghiChu}}</td>
+                <td>{{item.fullName}}</td>
+                <td>
+                  <a href="#" class="btn btn-outline-primary">Sửa</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card overflow-hidden" style="width: 1152px">
+        <div class="box">
+          <div class="d-flex align-items-center">
+            <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
+              Thông tin đơn hàng
+            </h5>
+            <a href="" type="button" class="btn btn-outline-primary mt-3 me-3"
+              >Thay đổi</a
+            >
+          </div>
+          <hr />
+          <div class="row" style="padding-left: 20px">
+            <div class="col-lg-6">
+              <h5>Trạng thái: {{ hoaDonChiTiet.trangThai === 1 ? 'Chờ Xác nhận' : 
+                hoaDonChiTiet.trangThai === 2 ? 'Xác nhận' :
+                hoaDonChiTiet.trangThai === 3 ? 'Chờ giao hàng' :
+                hoaDonChiTiet.trangThai === 4 ? 'Giao hàng' :
+                hoaDonChiTiet.trangThai === 5 ? 'Hoàn thành' :
+                hoaDonChiTiet.trangThai === 6 ? 'Đã hủy' :
+                hoaDonChiTiet.trangThai === 7 ? 'Trả hàng' :
+                'Unknown' }}</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Tên khách hàng: {{hoaDonChiTiet.tenNguoiNhan}}</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Loại: {{hoaDonChiTiet.tenLoaiDon}}</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Số điện thoại: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Địa chỉ: {{hoaDonChiTiet.diaChi}}</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Ghi chú: {{hoaDonChiTiet.ghiChu}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card overflow-hidden" style="width: 1152px">
+        <div class="box">
+          <table class="table">
+            <tbody class="table" style="border: 1px solid #ccc">
+              <tr></tr>
+              <tr ng-repeat="item in hoaDonChiTiet.sanPham">
+                <td style="padding-top: 80px">{{$index + 1}}</td>
+                <td>
+                  <div style="position: relative">
+                    <img src="{{item.tenImage}}" alt="" width="150px" />
+                  </div>
+                </td>
+                <td style="padding-top: 80px">{{item.tenSanPham}}</td>
+                <td style="padding-top: 80px">{{item.soLuong}}</td>
+                <td style="padding-top: 65px">
+                  <div ng-show="item.donGiaSauGiam != null">
+                    {{item.donGiaSauGiam | number}}₫
+                    <span>
+                      <strike
+                        >{{sp.giaBan | number}}₫</strike
+                      ></span
+                    >
+                  </div>
+                  <div ng-show="item.donGiaSauGiam == null">
+                    {{item.giaBan | number}}₫
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
