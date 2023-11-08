@@ -62,7 +62,7 @@ myApp.controller("BanTaiQuayController", [
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Tạo hóa đơn thành công",
+                title: "Tạo hóa đơn thành công thành công",
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -196,13 +196,6 @@ myApp.controller("BanTaiQuayController", [
             ($scope.pageNumber + 1) * $scope.pageSize
           );
         });
-    };
-
-    $scope.clearCart = function () {
-      $scope.listCart = [];
-      $scope.tongSoLuongSanPham = 0;
-      $scope.tongTienHang = 0;
-      $window.localStorage.removeItem("listCart");
     };
 
     $scope.listSanPhamInCart();
@@ -491,10 +484,18 @@ myApp.controller("BanTaiQuayController", [
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
-              $scope.clearCart();
               $window.localStorage.removeItem("idHoaDon");
               $location.path("/hoa-don");
-            });
+            }).then(function (error) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thanh toán thất bại",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              $location.path("/order-counter");
+            });;
           }
         });
       };
@@ -534,8 +535,15 @@ myApp.controller("BanTaiQuayController", [
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Đặt hàng thành công thành công",
+                showConfirmButton: false,
+                timer: 1500,
+              });
               $location.path("/hoa-don");
-            });
+            })
           }
         });
       };
@@ -606,17 +614,6 @@ myApp.controller("BanTaiQuayController", [
         });
     };
     $scope.getListKieuDe();
-
-    // TODO: Lấy ra tất cả bản ghi của xuất xứ
-    $scope.listXuatXu = [];
-    $scope.getListXuatXu = function () {
-      $http
-        .get("http://localhost:8080/api/v1/xuat-xu/show")
-        .then(function (response) {
-          $scope.listXuatXu = response.data;
-        });
-    };
-    $scope.getListXuatXu();
 
     // TODO: Lấy ra tất cả bản ghi của sản phẩm
     $scope.listXuatXu = [];

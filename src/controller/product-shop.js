@@ -22,14 +22,15 @@ myApp.controller("sanPhamShopController", function ($http, $scope) {
   };
   $scope.getlistCategory();
 
-  $scope.getlistSize = function () {
-    $http
-      .get("http://localhost:8080/api/v1/size/show")
-      .then(function (response) {
-        $scope.listSize = response.data;
-      });
-  };
-  $scope.getlistSize();
+  $scope.listKieuDe = [];
+    $scope.getListKieuDe = function () {
+      $http
+        .get("http://localhost:8080/api/v1/kieu-de/show")
+        .then(function (response) {
+          $scope.listKieuDe = response.data;
+        });
+    };
+    $scope.getListKieuDe();
 
   // TODO: Lấy ra tất cả bản ghi của thương hiệu
   $scope.listThuongHieu = [];
@@ -41,4 +42,14 @@ myApp.controller("sanPhamShopController", function ($http, $scope) {
       });
   };
   $scope.getListThuongHieu();
+
+  $scope.listXuatXu = [];
+  $scope.getListXuatXu = function () {
+    $http
+      .get("http://localhost:8080/api/v1/xuat-xu/show")
+      .then(function (response) {
+        $scope.listXuatXu = response.data;
+      });
+  };
+  $scope.getListXuatXu();
 });

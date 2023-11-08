@@ -129,7 +129,7 @@
             >
               <span>
                 <img
-                  src="/assets/images/delivery-box.png"
+                  src="/assets/images/user.png"
                   width="180"
                   style="width: 21px; height: 21px"
                 />
@@ -137,10 +137,10 @@
               <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
-              <li class="sidebar-item">
+              <li class="sidebar-item" style="margin-left: 37px">
                 <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
               </li>
-              <li class="sidebar-item">
+              <li class="sidebar-item" style="margin-left: 37px">
                 <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
               </li>
             </ul>
@@ -327,7 +327,6 @@
                             <tr
                               class="order"
                               ng-repeat="hd in listHoaDonTaiQuay"
-                              ng-class="{ 'selected': hd.isSelected}"
                             >
                               <td>{{$index + 1 + (pageNumber * pageSize)}}</td>
                               <td>{{hd.maHoaDon}}</td>
@@ -400,14 +399,20 @@
                     <div class="row">
                       <div class="col-lg-6">Thông Tin Sản Phẩm</div>
                       <div class="col-lg-6">
-                        <div ng-if="!selectedHoaDon || !isHoaDonExist(selectedHoaDon)">
-                          <p style="margin-left: 335px;">Vui lòng chọn hóa đơn.</p>
-                        </div>
-                        <div ng-if="selectedHoaDon && isHoaDonExist(selectedHoaDon)">
-                          <p style="margin-left: 230px;">{{selectedHoaDon.maHoaDon}} /
-                            {{selectedHoaDon.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
-                          </p>
-                        </div>
+                        <p
+                          style="margin-left: 230px"
+                          ng-show="orderDetailCounter.maHoaDon != null"
+                        >
+                          {{orderDetailCounter.maHoaDon}} /
+                          {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy
+                          h:mm:ss a'}}
+                        </p>
+                        <p
+                          style="margin-left: 350px"
+                          ng-show="orderDetailCounter.maHoaDon == null"
+                        >
+                          Vui lòng chọn hóa đơn
+                        </p>
                       </div>
                     </div>
                   </h5>
@@ -462,7 +467,18 @@
                     </div>
                   </div>
                   <br />
-                  <div class="box">
+                  <div ng-show="orderDetailCounter.maHoaDon == null">
+                    <img
+                      src="/assets/images/empty-cart.png"
+                      alt=""
+                      width="200px"
+                      style="margin-left: 430px"
+                    />
+                  </div>
+                  <div
+                    class="box"
+                    ng-show="orderDetailCounter.maHoaDon != null" ||
+                  >
                     <table class="table">
                       <thead>
                         <tr style="background-color: lightskyblue">
@@ -510,7 +526,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaGiam != 0">
-                              {{lc.giaGiam | number}}đ
+                              {{lc.giaBan-lc.giaGiam | number}}đ
                               <span>
                                 <strike>{{lc.giaBan | number}}₫</strike></span
                               >
@@ -521,7 +537,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaGiam != 0">
-                              {{lc.giaGiam * lc.soLuong | number}}đ
+                              {{lc.giaBan - lc.giaGiam * lc.soLuong | number}}đ
                             </div>
                             <div ng-show="lc.giaGiam == 0">
                               {{lc.giaBan * lc.soLuong | number}}đ
@@ -1058,23 +1074,20 @@
                       <div class="row">
                         <div class="col-lg-6">Thông Tin Thanh Toán</div>
                         <div class="col-lg-6">
-                          <div
-                            ng-if="!listHoaDonTaiQuay || listHoaDonTaiQuay.length === 0"
+                          <p
+                            style="margin-left: -56px"
+                            ng-show="orderDetailCounter.maHoaDon != null"
                           >
-                            <p style="margin-left: 350px">
-                              Vui lòng tạo hóa đơn.
-                            </p>
-                          </div>
-                          <div
-                            ng-if="listHoaDonTaiQuay && listHoaDonTaiQuay.length > 0"
+                            {{orderDetailCounter.maHoaDon}} /
+                            {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy
+                            h:mm:ss a'}}
+                          </p>
+                          <p
+                            style="margin-left: -90px"
+                            ng-show="orderDetailCounter.maHoaDon == null"
                           >
-                            <p style="margin-left: 230px">
-                              {{orderDetailCounter.maHoaDon}} /
-                              {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy
-                              h:mm:ss a'}}
-                            </p>
-                            <!-- Rest of your code -->
-                          </div>
+                            Vui lòng chọn hóa đơn
+                          </p>
                         </div>
                       </div>
                     </h5>
