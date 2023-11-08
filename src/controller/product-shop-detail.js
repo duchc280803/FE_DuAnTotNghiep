@@ -17,8 +17,15 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.detailProduct = response.data;
+    
+          // Lấy giá trị idThuongHieu từ $scope.detailProduct
+          var idThuongHieu = $scope.detailProduct .idThuongHieu;
+          console.log(idThuongHieu);
+          // Lưu giá trị idThuongHieu vào localStorage
+          window.localStorage.setItem('idThuongHieu', idThuongHieu);
         });
     };
+    
 
     $scope.getDetailSizeProduct = function () {
       $http
@@ -247,7 +254,7 @@ $scope.addToCart = function (idSanPhamChiTiet) {
     $scope.getDetailChatLieuProduct();
 
     function loadRelatedProducts() {
-      var idThuongHieu = "ef1877da-7d72-474b-b355-5611ae4382dd"; // Thay thế bằng id thương hiệu tương ứng
+      var idThuongHieu = window.localStorage.getItem("idThuongHieu"); // Thay thế bằng id thương hiệu tương ứng
       $http
         .get("http://localhost:8080/api/v1/san-pham-giam-gia/show-sp-lien-quan?idthuonghieu=" + idThuongHieu)
         .then(function (response) {
