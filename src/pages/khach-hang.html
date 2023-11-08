@@ -46,18 +46,10 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a
-              href="#pageSubmenu"
-              class="dropdown-toggle collapsed sidebar-link"
-              data-bs-toggle="collapse"
-              data-bs-target="#pageSubmenu"
-            >
+            <a href="#pageSubmenu" class="dropdown-toggle collapsed sidebar-link" data-bs-toggle="collapse"
+              data-bs-target="#pageSubmenu">
               <span>
-                <img
-                  src="/assets/images/delivery-box.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/delivery-box.png" width="180" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
@@ -187,7 +179,9 @@
                     <div class="row">
                       <div class="col-md-4 text-center">
                         <label>
-                          <img ng-src="/images/account/{{account.photo}}" class="logo" alt="">
+                          <div class="image-container">
+                            <img ng-src="/images/account/{{account.photo}}" class="logo" alt="">
+                          </div>
                         </label>
                       </div>
                       <div class="col-md-8">
@@ -263,7 +257,7 @@
             <!--Sửa tài khoản-->
             <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
-              <div class="modal-dialog modal-lg">
+              <div class="modal-dialog modal-lg" style="max-width: 80%;">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title">Sửa khách hàng</h5>
@@ -273,7 +267,9 @@
                     <div class="row">
                       <div class="col-md-4 text-center">
                         <label>
-                          <img ng-src="/images/account/{{account.photo}}" class="logo" alt="">
+                          <div class="image-container">
+                            <img ng-src="/images/account/{{account.photo}}" class="logo" alt="">
+                          </div>
                         </label>
                       </div>
                       <div class="col-md-8">
@@ -344,7 +340,7 @@
                           </div>
                         </form>
                       </div>
-                  </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
