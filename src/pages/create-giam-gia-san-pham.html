@@ -512,7 +512,7 @@
                   </tr>
                 </thead>
                 <tbody class="table">
-                  <tr ng-repeat="gg in listProduct">
+                  <tr ng-repeat="gg in listProduct" ng-style="{'color': gg.giaGiam <= 500000 ? '#f70a0a' : 'inherit', 'font-weight': gg.giaGiam <= 500000 ? 'bold' : 'normal'}">
                     <td style="padding-top: 75px">
                       <input
                         type="checkbox"
@@ -539,7 +539,7 @@
                     </td>
                     <td>
                       {{gg.giaGiam}}
-                          </td>
+                    </td>
                     <td>
                       {{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH
                       DOANH'}}
