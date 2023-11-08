@@ -165,7 +165,7 @@
                               </div>
                         </div> <!-- form-group -->
 
-                        <div class="form-group col-md-4 mt-3">
+                        <div class="form-group col-md-6 mt-3">
                           <div class="input-group">
                             <select class="form-control">
                               <option value="CA">Thương hiệu</option>
@@ -178,7 +178,7 @@
                           </div>
                         </div>
                         
-                        <div class="form-group col-md-4 mt-3">
+                        <div class="form-group col-md-6 mt-3">
                           <div class="input-group">
                             <select class="form-control">
                               <option value="CA">Danh mục</option>
@@ -191,7 +191,7 @@
                           </div>
                         </div>
                         
-                        <div class="form-group col-md-4 mt-3">
+                        <div class="form-group col-md-6 mt-3">
                           <div class="input-group">
                             <select class="form-control">
                               <option value="CA">Kiểu đế</option>
@@ -203,6 +203,52 @@
                             </div>
                           </div>
                         </div>
+
+                        <div class="form-group col-md-6 mt-3">
+                          <div class="input-group">
+                            <select class="form-control">
+                              <option value="CA">Xuất xứ</option>
+                            </select>
+                            <div class="input-group-append ml-3">
+                              <button class="btn btn-primary rounded" type="button" data-toggle="modal" data-target="#xuatXu">
+                                <i class="fe fe-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                           <!-- Brand Modal -->
+                           <div class="modal fade" id="xuatXu" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="myModalLabel">Thêm  xuất xứ</h5>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="form-group">
+                                    <span class="text-danger">*</span>
+                                    <label for="brandName">Tên xuất xứ:</label>
+                                    <input type="text" class="form-control" id="brandName" placeholder="Nhập tên xuất xứ">
+                                  </div>
+                                
+                                  <div class="form-group">
+                                    <span class="text-danger">*</span>
+                                    <label for="status">Trạng thái:</label>
+                                    <select class="form-control" id="status">
+                                      <option value="active">Hoạt động</option>
+                                      <option value="inactive">Ngưng hoạt động</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                         
                         <!-- Brand Modal -->
@@ -518,6 +564,57 @@
                                       </div>
                                     </div>
                                   </div>
+
+                                  <div class="col-8">
+                                    <div class="form-group">
+                                      <span class="text-danger">*</span>
+                                      <label for="status">Size:</label>
+                                      <div class="input-group">
+                                        <select class="form-control" id="status">
+                                          <option value="active">34</option>
+                                        </select>
+                                        <div class="input-group-append ml-3">
+                                          <button class="btn btn-primary rounded" data-toggle="modal" data-target="#sizeModal">
+                                            <i class="fe fe-plus"></i>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  <!-- Modal size -->
+                                  <div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">Thêm size</h5>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="form-group">
+                                            <span class="text-danger">*</span>
+                                            <label for="brandName">Size:</label>
+                                            <input type="text" class="form-control" id="brandName" placeholder="Nhập size">
+                                          </div>
+                                        
+                                          <div class="form-group">
+                                            <span class="text-danger">*</span>
+                                            <label for="status">Trạng thái:</label>
+                                            <select class="form-control" id="status">
+                                              <option value="active">Hoạt động</option>
+                                              <option value="inactive">Ngưng hoạt động</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                          <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+
                                   
                                   <!-- Modal -->
                                   <div class="modal fade" id="chatLieuModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -550,7 +647,9 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="col-8">
+
+                                  <div class="col-4"></div>
+                                  <div class="col-3">
                                     <div class="form-group">
                                       <span></span>
                                       <label for="status">Số lượng:</label>
