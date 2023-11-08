@@ -62,8 +62,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/proudct-update", {
       templateUrl: "./pages/san-pham-update.html",
-    })
-    .
+    }).
     when("/thank-you", {
       templateUrl: "./pages/shoping-cart.html",
     }).otherwise({
