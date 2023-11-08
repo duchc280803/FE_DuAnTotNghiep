@@ -13,7 +13,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/thuchi.html",
       controller: "hoaDonController",
     })
-    .when("/chi-tiet-hoa-don/:id", {
+    .when("/chi-tiet-hoa-don", {
       templateUrl: "./pages/chi-tiet-hoa-don.html",
       controller: "hoaDonChiTietController",
     })
@@ -43,6 +43,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
       controller: "sanPhamShopController"
+      controller: "sanPhamGiamGiaController"
+    }).when("/tai-khoan", {
+      templateUrl: "./pages/khach-hang.html",
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
