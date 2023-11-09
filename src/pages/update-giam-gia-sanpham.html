@@ -76,24 +76,67 @@
             <a
               href="#pageSubmenu"
               class="dropdown-toggle collapsed sidebar-link"
-              data-bs-toggle="collapse"
-              data-bs-target="#pageSubmenu"
             >
               <span>
                 <img
-                  src="/assets/images/user.png"
+                  src="/assets/images/delivery-box.png"
                   width="180"
                   style="width: 21px; height: 21px"
                 />
               </span>
-              <span class="hide-menu">Quản Lý tài khoản</span>
+              <span class="hide-menu">Quản Lý Sản Phẩm</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
-              <li class="sidebar-item" style="margin-left: 37px;">
-                <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Sản Phẩm</a>
               </li>
-              <li class="sidebar-item" style="margin-left: 37px;">
-                <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Đế Giày</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Xuất Xứ</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Danh Mục</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Chất Liệu</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#">Thương Hiệu</a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-item">
+            <a
+              href="#pageSubmenu1"
+              class="dropdown-toggle1 collapsed sidebar-link"
+            >
+              <span>
+                <img
+                  src="/assets/images/add-user.png"
+                  width="180"
+                  style="width: 21px; height: 21px"
+                />
+              </span>
+              <span class="hide-menu">Quản Lý Tài Khoản</span>
+            </a>
+            <ul class="list-unstyled collapse" id="pageSubmenu1">
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link"
+                  href="#/admin/account/nhan-vien"
+                  style="margin-left: 35px"
+                  >Nhân Viên</a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link"
+                  href="#/admin/account/khach-hang"
+                  style="margin-left: 35px"
+                  >Khách Hàng</a
+                >
               </li>
             </ul>
           </li>
@@ -301,13 +344,8 @@
                   </div>
                   <br />
 
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary m-1"
-                    ng-click="themKhuyenMai()"
-                  >
-                    Thêm
-                  </button>
+                  <button type="button" class="btn btn-outline-primary m-1" ng-click="updateGiamGia()">Sửa</button>
+
                 </div>
               </div>
             </div>
@@ -462,14 +500,11 @@
                     <th scope="col">Kiểu để</th>
                     <th scope="col">Color</th>
                     <th scope="col">Chất liệu</th>
-                    <th scope="col">Giá Sản Phẩm</th>
-                    <th scope="col">Số lượng Giảm giá</th>
-                    <th scope="col">Giá Bán Sau Khi Giảm</th>
                     <th scope="col">Trạng Thái</th>
                   </tr>
                 </thead>
                 <tbody class="table">
-                  <tr ng-repeat="gg in listProduct" ng-style="{'color': gg.giaGiam <= 500000 ? '#f70a0a' : 'inherit', 'font-weight': gg.giaGiam <= 500000 ? 'bold' : 'normal'}">
+                  <tr ng-repeat="gg in listProduct">
                     <td style="padding-top: 75px">
                       <input
                         type="checkbox"
@@ -488,15 +523,6 @@
                     <td>{{gg.kieuDeName}}</td>
                     <td>{{gg.mauSacName}}</td>
                     <td>{{gg.chatLieuName}}</td>
-                    <td>
-                      {{gg.giaBan}}
-                    </td>
-                    <td>
-                      {{gg.soLanGiam}}
-                    </td>
-                    <td>
-                      {{gg.giaGiam}}
-                    </td>
                     <td>
                       {{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH
                       DOANH'}}

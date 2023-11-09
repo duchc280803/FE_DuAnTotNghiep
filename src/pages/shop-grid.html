@@ -139,9 +139,6 @@
         </div>
       </div>
     </section>
-    <!-- Hero Section End -->
-
-    <!-- Product Section Begin -->
     <section class="product spad">
       <div class="container">
         <div class="row">
@@ -153,43 +150,17 @@
                   <li><a href="#">{{dm.tenDanhMuc}}</a></li>
                 </ul>
               </div>
-              <div></div>
               <div class="sidebar__item">
-                <h4>Price</h4>
-                <div class="price-range-wrap">
-                  <div
-                    class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                    data-min="0"
-                    data-max="540"
-                  >
-                    <div
-                      class="ui-slider-range ui-corner-all ui-widget-header"
-                    ></div>
-                    <span
-                      tabindex="0"
-                      class="ui-slider-handle ui-corner-all ui-state-default"
-                    ></span>
-                    <span
-                      tabindex="0"
-                      class="ui-slider-handle ui-corner-all ui-state-default"
-                    ></span>
-                  </div>
-                  <div class="range-slider">
-                    <div class="price-input">
-                      <input type="text" id="minamount" />
-                      <input type="text" id="maxamount" />
-                    </div>
-                  </div>
-                </div>
+                <h4>Kiểu đế</h4>
+                <ul ng-repeat="s in listKieuDe">
+                  <li><a href="#">{{s.tenDe}}</a></li>
+                </ul>
               </div>
               <div class="sidebar__item">
-                <h4>Size</h4>
-                <div class="sidebar__item__size" ng-repeat="s in listSize">
-                  <label for="large">
-                    {{s.size}}
-                    <input type="radio" id="large" />
-                  </label>
-                </div>
+                <h4>Xuất xứ</h4>
+                <ul ng-repeat="s in listXuatXu">
+                  <li><a href="#">{{s.tenXuatXu}}</a></li>
+                </ul>
               </div>
             </div>
           </div>
