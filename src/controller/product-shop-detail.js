@@ -241,13 +241,12 @@ $scope.addToCart = function (idSanPhamChiTiet) {
     $http
       .post(url)
       .then(function () {
+          alert("thanh cong")
       })
       .catch(function (error) {
       });
   }
-};
-
-    
+};    
     $scope.getDetailProduct();
     $scope.getDetailSizeProduct();
     $scope.getDetailMauSacProduct();

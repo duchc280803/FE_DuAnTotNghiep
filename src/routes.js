@@ -48,12 +48,16 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/shop-details.html",
       controller: "sanPhamShopDetailController"
     })
-    .when("/cart", {
-      templateUrl: "./pages/shoping-cart.html",
-    })
+    // .when("/cart", {
+    //   templateUrl: "./pages/shoping-cart.html",
+    // })
     .when("/thank-you", {
       templateUrl: "./pages/shoping-cart.html",
-    }).otherwise({
+    })
+    .when("/dia-chi", {
+      templateUrl: "./pages/dia-chi.html",
+    })
+    .otherwise({
       redirectTo: "/home",
     });
 });
