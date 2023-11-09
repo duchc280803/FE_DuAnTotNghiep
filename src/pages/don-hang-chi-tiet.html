@@ -8,7 +8,7 @@
 <style>
 /* Left box */
 .view-account {
-  width: 90%;
+  width: 99%;
   background: #fff;
   padding: 20px 30px;
   margin: 0 20px;
@@ -17,7 +17,7 @@
 }
 
 .profile {
-  width: 80%;
+  width: 100%;
   background: #fff;
   padding: 20px 30px;
   margin: 0 20px;
@@ -83,9 +83,8 @@ href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev
         </div>
         <ul>
           <li><p>Tên tài khoản</p></li>
-          <li><a href="#">Cập nhật thông tin</a></li>
-          <li><a href="#">Đơn hàng</a></li>
-          <li><a href="#">Địa chỉ</a></li>
+          <li><a href="dia-chi.html">Cập nhật thông tin</a></li>
+          <li style="font-weight: 600;  "><a style="color: #5D87FF;" href="/src/pages/don-hang.html">Đơn hàng</a></li>
           <li><a href="#">Đăng xuất</a></li>
         </ul>
       </div>
@@ -102,7 +101,7 @@ href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev
   data-header-position="fixed"
 >
     <div class="container-fluid">
-      <div class="card overflow-hidden" style="width: 1152px">
+      <div class="card overflow-hidden"  style="width: 1000px;text-align: center;"  >
         <div>
           <h5 style="padding-left: 20px; padding-top: 20px">
             <div class="breadcrumb">
@@ -158,6 +157,7 @@ href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
+      
       >
         <div class="modal-dialog modal-lg">
           <div
@@ -195,7 +195,7 @@ href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev
           </div>
         </div>
       </div>
-      <div class="card overflow-hidden" style="width: 1152px">
+      <div class="card overflow-hidden" style="width: 1000px">
         <div class="box">
           <div class="d-flex align-items-center">
             <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
@@ -218,94 +218,77 @@ href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev
                 <th scope="col">Hình thức thanh toán</th>
                 <th scope="col">Ghi chú</th>
                 <th scope="col">Người xác nhận</th>
-                <th scope="col">Thao Tác</th>
               </tr>
             </thead>
             <tbody class="table">
               <tr ng-repeat="item in lichSu">
-                <td>{{$index + 1}}</td>
-                <td>{{item.ma}}</td>
-                <td>{{item.soTienTra}}</td>
-                <td>{{item.ngayTao| date:'MM/dd/yyyy h:mm:ss a'}}</td>
-                <td>
-                  {{item.phuongThucThanhToan == 1 ? 'Tiền mặt' : 'Chuyển
-                  khoản'}}
-                </td>
-                <td>{{item.ghiChu}}</td>
-                <td>{{item.fullName}}</td>
-                <td>
-                  <a href="#" class="btn btn-outline-primary">Sửa</a>
-                </td>
+                <td>1</td>
+                <td>HD001</td>
+                <td>10000000</td>
+                <td>11/09/2023 10:53 AM</td>
+                <td>Chuyển khoản</td>
+                <td>Giao hỏa tốc luôn</td>
+                <td>NAMND53</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="card overflow-hidden" style="width: 1152px">
+      <div class="card overflow-hidden" style="width: 1000px">
         <div class="box">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center" >
             <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
               Thông tin đơn hàng
             </h5>
-            <a href="" type="button" class="btn btn-outline-primary mt-3 me-3"
-              >Thay đổi</a
-            >
           </div>
           <hr />
           <div class="row" style="padding-left: 20px">
             <div class="col-lg-6">
-              <h5>Trạng thái: {{ hoaDonChiTiet.trangThai === 1 ? 'Chờ Xác nhận' : 
-                hoaDonChiTiet.trangThai === 2 ? 'Xác nhận' :
-                hoaDonChiTiet.trangThai === 3 ? 'Chờ giao hàng' :
-                hoaDonChiTiet.trangThai === 4 ? 'Giao hàng' :
-                hoaDonChiTiet.trangThai === 5 ? 'Hoàn thành' :
-                hoaDonChiTiet.trangThai === 6 ? 'Đã hủy' :
-                hoaDonChiTiet.trangThai === 7 ? 'Trả hàng' :
-                'Unknown' }}</h5>
+              <h5>Trạng thái: Chờ Xác nhận</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Tên khách hàng: {{hoaDonChiTiet.tenNguoiNhan}}</h5>
+              <h5>Tên khách hàng: Nguyễn Đức Nam</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Loại: {{hoaDonChiTiet.tenLoaiDon}}</h5>
+              <h5>Loại: Online</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Số điện thoại: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
+              <h5>Số điện thoại: 0967493XXX</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Địa chỉ: {{hoaDonChiTiet.diaChi}}</h5>
+              <h5>Địa chỉ: Phú Cát-Quốc Oai-Hà Nội</h5>
             </div>
             <div class="col-lg-6">
-              <h5>Ghi chú: {{hoaDonChiTiet.ghiChu}}</h5>
+              <h5>Ghi chú: Giao hỏa tốc</h5>
             </div>
           </div>
         </div>
       </div>
-      <div class="card overflow-hidden" style="width: 1152px">
+      <div class="card overflow-hidden" style="width: 1000px">
         <div class="box">
           <table class="table">
             <tbody class="table" style="border: 1px solid #ccc">
               <tr></tr>
               <tr ng-repeat="item in hoaDonChiTiet.sanPham">
-                <td style="padding-top: 80px">{{$index + 1}}</td>
+                <td style="padding-top: 80px;">1</td>
                 <td>
                   <div style="position: relative">
-                    <img src="{{item.tenImage}}" alt="" width="150px" />
+                    <img src="https://m.media-amazon.com/images/I/61CW6ITtf0L._AC_UF894,1000_QL80_.jpg" alt="" width="150px" />
                   </div>
                 </td>
-                <td style="padding-top: 80px">{{item.tenSanPham}}</td>
-                <td style="padding-top: 80px">{{item.soLuong}}</td>
+                <td style="padding-top: 80px">Giày thể thao nữ V1 2023</td>
+                <td style="padding-top: 80px">2</td>
                 <td style="padding-top: 65px">
                   <div ng-show="item.donGiaSauGiam != null">
-                    {{item.donGiaSauGiam | number}}₫
+                    1800000₫
                     <span>
                       <strike
-                        >{{sp.giaBan | number}}₫</strike
+                        >2000000₫</strike
                       ></span
                     >
                   </div>
                   <div ng-show="item.donGiaSauGiam == null">
-                    {{item.giaBan | number}}₫
+                    <!-- {{item.giaBan | number}}₫ -->
                   </div>
                 </td>
               </tr>

@@ -194,50 +194,42 @@ app.controller("CartController", function ($scope, $http, $window) {
   // Lấy giá trị tổng tiền từ localStorage
   var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
 
-  // Hàm xử lý khi người dùng click nút "Đặt Hàng"
   $scope.thanhToan = function () {
-    // Hiển thị Sweet Alert để xác nhận
-    Swal.fire({
-      title: "Xác nhận đặt hàng?",
-      text: "Bạn có chắc chắn muốn đặt đơn hàng?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Đặt hàng",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Nếu người dùng xác nhận thanh toán, tiến hành gửi dữ liệu lên server
-        var data = {
-          hoTen: $scope.hoTen,
-          soDienThoai: $scope.soDienThoai,
-          email: $scope.email,
-          diaChi: $scope.diaChi,
-          thanhPho: $scope.thanhPho,
-          quanHuyen: $scope.quanHuyen,
-          phuongXa: $scope.phuongXa,
-          tongTien: totalAmount,
-          tienKhachTra: $scope.tienKhachTra,
-          gioHangChiTietList: gioHangChiTietList,
-        };
-
-        // Gửi dữ liệu POST đến server
-        $http({
-          method: "POST",
-          url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
-          data: data,
-        }).then(
-          function (response) {
-            // Xử lý phản hồi từ máy chủ nếu cần
-            $window.localStorage.removeItem("idgiohang");
-            $location.path("/thanh-you");
-          },
-          function (error) {
-            // Xử lý lỗi nếu có
-          }
-        );
-      }
-    });
+    // Hiển thị cửa sổ xác nhận mặc định của trình duyệt
+    var isConfirmed = window.confirm("Bạn có chắc chắn muốn đặt đơn hàng?");
+  
+    if (isConfirmed) {
+      // Nếu người dùng xác nhận thanh toán, tiến hành gửi dữ liệu lên server
+      var data = {
+        hoTen: $scope.hoTen,
+        soDienThoai: $scope.soDienThoai,
+        email: $scope.email,
+        diaChi: $scope.diaChi,
+        thanhPho: $scope.thanhPho,
+        quanHuyen: $scope.quanHuyen,
+        phuongXa: $scope.phuongXa,
+        tongTien: totalAmount,
+        tienKhachTra: $scope.tienKhachTra,
+        gioHangChiTietList: gioHangChiTietList,
+      };
+  
+      // Gửi dữ liệu POST đến server
+      $http({
+        method: "POST",
+        url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
+        data: data,
+      }).then(
+        function (response) {
+          // Xử lý phản hồi từ máy chủ nếu cần
+          $window.localStorage.removeItem("idgiohang");
+          $location.path("/thanh-you");
+        },
+        function (error) {
+          // Xử lý lỗi nếu có
+        }
+      );
+    }
   };
+  
+
 });

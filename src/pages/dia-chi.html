@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+<style>
+    /* Left box */
+    .view-account {
+        width: 99%;
+        background: #fff;
+        padding: 20px 30px;
+        margin: 0 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile {
+        width: 100%;
+        background: #fff;
+        padding: 20px 30px;
+        margin: 0 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the circular image */
+    .profile-image {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        /* Đảm bảo ảnh không bị cắt */
+        margin: 0 auto;
+        /* Canh giữa ảnh */
+    }
+
+    .profile-image img {
+        width: 100%;
+        /* Tự động thích ứng với kích thước của hình tròn */
+        height: 100%;
+        /* Tự động thích ứng với kích thước của hình tròn */
+    }
+
+    /* Style for the list */
+    .profile ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .profile li {
+        margin: 10px 0;
+        list-style: none;
+    }
+
+    /* Style for the links */
+    .profile a {
+        font-size: 18px;
+        color: #333;
+        font-size: 400;
+        text-decoration: none;
+    }
+
+    .profile a:hover {
+        font-weight: 600;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+    .btn:focus {
+        box-shadow: none;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+
+<body>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="profile" style="padding-top: 30px;margin-top: 20px;">
+                <div class="profile-image">
+                    <img src="https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-vui-nhon.jpg" alt="">
+                </div>
+                <ul>
+                    <li>
+                        <p>Tên tài khoản</p>
+                    </li>
+                    <li><a href="dia-chi.html" style="color: #5D87FF;font-weight: 600; " href="#">Cập nhật thông tin</a></li>
+                    <li><a href="/src/pages/don-hang.html">Đơn hàng</a></li>
+                    <li><a href="#">Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="view-account" style="padding-top: 30px;margin-top: 20px;">
+                <h2 style="text-align: center;">Thông tin tài khoản</h2>
+
+                <div class="view-account">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="profile-image">
+                                <img src="https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-vui-nhon.jpg"
+                                    alt="">
+                            </div>
+                            <hr>
+                            <input type="file" style="width: 100%;">
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-md-6"><label for="">Username</label><input type="text"
+                                        class="form-control" disabled></div>
+                                <div class="col-md-6"><label for="">Họ và Tên</label><input type="text"
+                                        class="form-control"></div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6"><label for="">Số điện thoại</label><input type="text"
+                                        class="form-control"></div>
+                                <div class="col-md-6"><label for="">Email</label><input type="email"
+                                        class="form-control"></div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6"><label for="">Ngày Sinh</label><input type="date"
+                                        class="form-control"></div>
+                                <div class="col-md-6">
+                                    <label for="">Giới tính</label> <br>
+                                    <input style="margin-right: 5px;" class="mt-2" type="radio" name="gioitinh" id=""><label style="margin-right: 10px;">Nam</label>
+                                    <input style="margin-right: 5px;" type="radio" name="gioitinh" id="">Nữ
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-account mt-5">
+                    <div class="row d-flex justify-content-between">
+                        <h3>Địa chỉ</h3>
+                        <a href="#" type="button" class="btn btn-outline-primary mt-3" style="margin-right: 15px;" data-toggle="modal" data-target="#addAddressModal">Thêm địa chỉ</a>
+                    </div>
+                    
+                    
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <div class="card mb-3">
+                                <div class="card-body d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title">Nguyen Duc Nam</h5>
+                                        <p class="card-text">(+84) 967439115</p>
+                                        <p class="card-text">Trường Tiểu Học A An Phú Truong Tieu Hoc A An Phu, Thoại Ngọc Hầu</p>
+                                        <p class="card-text">Thị Trấn An Phú, Huyện An Phú, An Giang</p>
+                                        <button class="btn btn-outline-danger" disabled>Mặc định</button>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary"data-toggle="modal" data-target="#addAddressModal">Cập nhật</button>
+                                        <button class="btn btn-outline-secondary">Thiết lập mặc định</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Thêm các địa chỉ khác tương tự nếu cần -->
+                        <div class="col-md-12">
+                            <div class="card mb-3">
+                                <div class="card-body d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title">Nguyen Duc Nam</h5>
+                                        <p class="card-text">(+84) 967439115</p>
+                                        <p class="card-text">Trường Tiểu Học A An Phú Truong Tieu Hoc A An Phu, Thoại Ngọc Hầu</p>
+                                        <p class="card-text">Thị Trấn An Phú, Huyện An Phú, An Giang</p>
+                                        <button class="btn btn-outline-danger" disabled>Mặc định</button>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" >Cập nhật</button>
+                                        <button class="btn btn-outline-secondary">Thiết lập mặc định</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAddressModalLabel">Thêm địa chỉ mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="phoneNumber">Họ và tên</label>
+                    <input type="text" class="form-control" id="phoneNumber">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Số điện thoại</label>
+                    <input type="text" class="form-control" id="phoneNumber">
+                </div>
+                 <!-- Thêm các trường địa chỉ ở đây -->
+                 <div class="form-group">
+                    <label for="addressName">Địa chỉ cụ thể</label>
+                    <input type="text" class="form-control" id="addressName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
