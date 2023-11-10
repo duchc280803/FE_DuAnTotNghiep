@@ -70,6 +70,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/dia-chi", {
       templateUrl: "./pages/dia-chi.html",
     })
+    .when("/don-hang", {
+      templateUrl: "./pages/don-hang.html",
+    })
     .otherwise({
       redirectTo: "/home",
     });
