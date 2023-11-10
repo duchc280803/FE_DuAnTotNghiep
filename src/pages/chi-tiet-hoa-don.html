@@ -696,7 +696,7 @@
                 >
                   <th>#</th>
                   <th>Image</th>
-                  <th>Tên sản phẩm</th>
+                  <th style="width: 400px">Tên sản phẩm</th>
                   <th>Số lượng</th>
                   <th>Đơn giá</th>
                   <th>Tổng tiền</th>
@@ -798,18 +798,28 @@
                                 </td>
                                 <td>
                                   <h6
-                                    style="font-size: 15px; font-weight: bold; height: 10px;"
+                                    style="
+                                      font-size: 15px;
+                                      font-weight: bold;
+                                      height: 10px;
+                                    "
                                   >
                                     GIÀY PUMA SLIPSTREAM CORD NAM - TRẮNG XÁM
                                   </h6>
-                                  <h6 style="height: 10px; padding-top: 30px;">Đơn giá: 1.990.000₫</h6>
-                                  <h6 style="height: 10px;">Size: 34</h6>
-                                  <h6 style="height: 10px;">Chất liệu: Cứng</h6>
-                                  <h6 style="height: 10px;">Màu sắc: Xanh</h6>
-                                  <h6 style="height: 10px;">x 4</h6>
+                                  <h6 style="height: 10px; padding-top: 30px">
+                                    Đơn giá: 1.990.000₫
+                                  </h6>
+                                  <h6 style="height: 10px">Size: 34</h6>
+                                  <h6 style="height: 10px">Chất liệu: Cứng</h6>
+                                  <h6 style="height: 10px">Màu sắc: Xanh</h6>
+                                  <h6 style="height: 10px">x 4</h6>
                                 </td>
                                 <td>
-                                    <h6 style="color: crimson; padding-top: 110px;">7.960.000₫</h6>
+                                  <h6
+                                    style="color: crimson; padding-top: 110px"
+                                  >
+                                    7.960.000₫
+                                  </h6>
                                 </td>
                               </tr>
                             </tbody>
@@ -819,7 +829,7 @@
                             <span>Ghi chú</span></span
                           >
                           <textarea
-                          style="height: 80px;"
+                            style="height: 80px"
                             type="text"
                             class="next-input"
                             placeholder="Nhập ghi chú"
@@ -1184,6 +1194,25 @@
           </div>
         </div>
         <hr />
+        <div class="row">
+          <div class="col-lg-12" style="margin-left: 900px">
+            <h6 style="font-size: 14px; font-weight: 600">
+              Tiền hàng: {{tongTienHang |number}}₫
+            </h6>
+            <h6 style="font-size: 14px; font-weight: 600">
+              Tiền ship: {{thongTinTienDonHang.tienShip |number}}₫
+            </h6>
+            <h6 style="font-size: 14px; font-weight: 600">
+              Tiền giảm giá:{{thongTinTienDonHang.tienGiamGia |number}}₫
+            </h6>
+            <h6 style="font-size: 14px; font-weight: 600">
+              Tiền thừa: {{thongTinTienDonHang.tienThua| number}}₫
+            </h6>
+            <h6 style="font-size: 14px; font-weight: 600">
+              Tổng tiền: {{thongTinTienDonHang.tongTien | number}}₫
+            </h6>
+          </div>
+        </div>
       </div>
     </div>
   </div>

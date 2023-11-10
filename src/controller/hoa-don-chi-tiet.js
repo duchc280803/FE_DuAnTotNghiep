@@ -33,6 +33,9 @@ myApp.controller(
     getHoaDonChiTiet(id);
 
     $scope.listSanPhamInOrder = [];
+    $scope.tongTienKhongGiam = 0;
+    $scope.tongTienSauGiam = 0;
+    $scope.tongTienHang = 0;
     // Hàm để tải sản phẩm từ API
     function getSanPham(id) {
       var apiUrl =
@@ -41,6 +44,20 @@ myApp.controller(
       $http.get(apiUrl).then(function (response) {
         // Gán dữ liệu sản phẩm vào biến $scope.hoaDonChiTiet.sanPham
         $scope.listSanPhamInOrder = response.data;
+        for (var i = 0; i < $scope.listSanPhamInOrder.length; i++) {
+          if ($scope.listSanPhamInOrder[i].donGiaSauGiam != 0) {
+            $scope.tongTienSauGiam +=
+              ($scope.listSanPhamInOrder[i].giaBan -
+                $scope.listSanPhamInOrder[i].donGiaSauGiam) *
+              $scope.listSanPhamInOrder[i].soLuong;
+          }
+          if ($scope.listSanPhamInOrder[i].donGiaSauGiam == 0) {
+            $scope.tongTienKhongGiam +=
+              $scope.listSanPhamInOrder[i].giaBan *
+              $scope.listSanPhamInOrder[i].soLuong;
+          }
+        }
+        $scope.tongTienHang = $scope.tongTienSauGiam + $scope.tongTienKhongGiam;
       });
     }
 
@@ -176,6 +193,17 @@ myApp.controller(
         });
       };
     }, 2000);
+
+    $scope.thongTinTienDonHang = {};
+    $scope.getAllMoneyByHoaDon = function () {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-tien/" + id)
+        .then(function (response) {
+          $scope.thongTinTienDonHang = response.data;
+          console.log($scope.thongTinTienDonHang);
+        });
+    };
+    $scope.getAllMoneyByHoaDon();
 
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
