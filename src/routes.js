@@ -54,7 +54,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/shop-details.html",
       controller: "sanPhamShopDetailController"
     })
-
+    .when("/the-loai", {
+      templateUrl: "./pages/the-loai.html",
+    })
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
     })
