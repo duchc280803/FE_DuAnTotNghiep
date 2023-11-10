@@ -29,9 +29,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/khuyen-mai/update", {
+    .when("/khuyen-mai/update/:id", {  // Update route to include promotion ID
       templateUrl: "./pages/update-giam-gia-sanpham.html",
-      controller: "GiamGiaController",
+      controller: "giamgiaChiTietController",  // Create a new controller for update page
     })
     .when("/giam-gia", {
       templateUrl: "./pages/voucher-hoa-don.html",

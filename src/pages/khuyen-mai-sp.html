@@ -378,8 +378,8 @@
             <tbody class="table">
                 <tr ng-repeat="gg in listGiamGia">
                     <td>{{$index + 1}}</td>
-                    <td>{{gg.tenGiamGia}}</td>
                     <td>{{gg.maGiamGia}}</td>
+                    <td>{{gg.tenGiamGia}}</td>
                     <td>{{gg.mucGiam}}</td>
                     <td>{{gg.hinhThucGiam == 1 ? 'đ' : '%'}}</td>
                     <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
@@ -394,10 +394,9 @@
                               </a>
                           </div>
                           <div class="col-md-4">
-                            <a href="#/khuyen-mai/update/" class="btn btn-outline-primary btn-equal-size" ng-click="goToUpdatePage({{gg.id}})">Sửa</a>
+                            <a href="#/khuyen-mai/update/{{gg.id}}" class="btn btn-outline-primary btn-equal-size" ng-click="goToUpdatePage({{gg.id}})">Sửa</a>
                          </div>
-                         
-                         
+                         <a class="btn btn-outline-primary btn-equal-size" ng-click="updateGiamGiaStatus(gg.id, $event)">Vô hiệu hóa</a>
                       </div>
       
                       <!-- Details Modal -->

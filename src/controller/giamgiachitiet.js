@@ -1,6 +1,24 @@
-myApp.controller("GiamGiaController", function ($http, $scope, $location,$route) {
-  $scope.listGiamGia = [];
-  $scope.listProductGiamGia = []; // Assuming this is the list of products related to promotions
+myApp.controller("giamgiaChiTietController", function ($http, $scope, $routeParams,$location) {
+
+  function getgiamgiachitiet(id) {
+    const apiUrl = "http://localhost:8080/api/v1/giam-gia/detailList?id=" + id;
+    $http.get(apiUrl).then(function (response) {
+        $scope.giamgiachitiet = response.data[0];
+
+
+        if ($scope.giamgiachitiet.productName) {
+            $scope.giamgiachitiet.tenSanPhamChecked = true;
+        } else {
+            $scope.giamgiachitiet.tenSanPhamChecked = false;
+        }
+    });
+}
+
+
+// Xác định `id` từ `$routeParams`
+var id = $routeParams.id;
+
+getgiamgiachitiet(id);
 
   function fetchGiamGiaList() {
     $http.get("http://localhost:8080/api/v1/giam-gia/show")
@@ -17,42 +35,6 @@ myApp.controller("GiamGiaController", function ($http, $scope, $location,$route)
   }
 
   fetchProduct();
-
-  $scope.updateGiamGia = function (id) {
-    // Gather data from your form inputs
-    var updateData = {
-      tenGiamGia: $scope.tenGiamGia,
-      ngayBatDau: $scope.ngayBatDau,
-      ngayKetThuc: $scope.ngayKetThuc,
-      hinhThucGiam: $scope.hinhThucGiam,
-      trangThai: $scope.trangThai
-    };
-
-    $http.put("http://localhost:8080/api/v1/giam-gia/update/" + id, updateData)
-      .then(function (response) {
-        // Handle success (e.g., show a success message)
-        console.log(response.data);
-        // Redirect to the promotion list or perform any other action
-        $location.path("/khuyen-mai/list");
-      }, function (error) {
-        // Handle error (e.g., show an error message)
-        console.error("Error updating GiamGia:", error);
-      });
-  };
-  $scope.goToUpdatePage = function(id) {
-    // Redirect to the update page or perform any other action
-    $location.path("/khuyen-mai/update/" + id);
- };
- 
-  $scope.toggleDetail = function (gg) {
-    if (!gg.showDetail) {
-      $http.get("http://localhost:8080/api/v1/giam-gia/detailList?id=" + gg.id)
-        .then(function (response) {
-          gg.detailList = response.data;
-        });
-    }
-    gg.showDetail = !gg.showDetail;
-  };
 
   function fetchlistThuongHieu() {
     $http
@@ -390,143 +372,43 @@ myApp.controller("GiamGiaController", function ($http, $scope, $location,$route)
     $scope.selectAllProducts =
       $scope.sanPhamDaChon.length === $scope.listProduct.length;
   };
-
-  // Define a function to check if the promotion name exists
-  function checkTenGiamGiaExists(tenGiamGia) {
-    return $http
-      .get("http://localhost:8080/api/v1/giam-gia/checkTenGiamGia", {
-        params: {
-          tenGiamGia: tenGiamGia,
-        },
-      })
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-        throw error; // Propagate the error for the calling function to handle
-      });
-  }
-
-  function checkGiamGiaSanPhamExists(idsanpham) {
-    // Check if idsanpham is null, if so, return a resolved promise with a default value
-    if (!idsanpham) {
-      return Promise.resolve(true); // Change this to the default value you want
-    }
-
-    return $http
-      .get("http://localhost:8080/api/v1/giam-gia/check-product-record-count", {
-        params: {
-          idsanpham: idsanpham,
-        },
-      })
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-        throw error;
-      });
-  }
-  $scope.themKhuyenMai = function () {
-    if (
-      !$scope.maGiamGia ||
-      !$scope.tenGiamGia ||
-      !$scope.mucGiam ||
-      !$scope.hinhThucGiam ||
-      !$scope.ngayBatDau ||
-      !$scope.ngayKetThuc
-    ) {
-      alert("Vui lòng nhập đầy đủ thông tin.");
-      return;
-    }
-  
-    var ngayBatDau = new Date($scope.ngayBatDau);
-    var ngayKetThuc = new Date($scope.ngayKetThuc);
+;
+  $scope.updateGiamGia = function (id) {
+    var ngayBatDau = new Date($scope.giamgiachitiet.ngayBatDau);
+    var ngayKetThuc = new Date($scope.giamgiachitiet.ngayKetThuc);
     if (ngayBatDau >= ngayKetThuc) {
-      alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
-      return;
+        alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
+        return;
     }
-  
+
     if (
-      $scope.hinhThucGiam == 2 &&
-      ($scope.mucGiam <= 0 || $scope.mucGiam > 100)
+        $scope.giamgiachitiet.hinhThucGiam == 2 &&
+        ($scope.giamgiachitiet.mucGiam <= 0 || $scope.giamgiachitiet.mucGiam > 100)
     ) {
-      alert(
-        "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm."
-      );
-      return;
+        alert(
+            "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm."
+        );
+        return;
     }
-  
-    var idDanhMuc;
-  
-    if ($scope.DanhMuc != null) {
-      idDanhMuc = $scope.DanhMuc;
-    } else if ($scope.ThuongHieu != null) {
-      idDanhMuc = $scope.ThuongHieu;
-    } else if ($scope.MauSac != null) {
-      idDanhMuc = $scope.MauSac;
-    } else if ($scope.KieuDe != null) {
-      idDanhMuc = $scope.KieuDe;
-    } else if ($scope.ChatLieu != null) {
-      idDanhMuc = $scope.ChatLieu;
-    } else if ($scope.Size != null) {
-      idDanhMuc = $scope.Size;
-    } else if ($scope.XuatXu != null) {
-      idDanhMuc = $scope.XuatXu;
-    } else {
-      idDanhMuc = null;
-    }
-  
-    // Proceed with adding the promotion without checking the existence of the discount name
+
+    // Include idsanpham in the dataToSend object
     var dataToSend = {
-      maGiamGia: $scope.maGiamGia,
-      tenGiamGia: $scope.tenGiamGia,
-      mucGiam: $scope.mucGiam,
-      hinhThucGiam: $scope.hinhThucGiam,
-      trangThai: $scope.trangThai,
-      ngayBatDau: $scope.ngayBatDau,
-      ngayKetThuc: $scope.ngayKetThuc,
-      idsanpham: $scope.sanPhamDaChon,
-      idDanhMuc: idDanhMuc,
+        maGiamGia: $scope.giamgiachitiet.maGiamGia,
+        tenGiamGia: $scope.giamgiachitiet.tenGiamGia,
+        mucGiam: $scope.giamgiachitiet.mucGiam,
+        hinhThucGiam: $scope.giamgiachitiet.hinhThucGiam,
+        trangThai: $scope.giamgiachitiet.trangThai,
+        ngayBatDau: $scope.giamgiachitiet.ngayBatDau,
+        ngayKetThuc: $scope.giamgiachitiet.ngayKetThuc,
+        idsanpham: $scope.sanPhamDaChon,  // Include selected product IDs
     };
-  
-    $http
-      .post("http://localhost:8080/api/v1/giam-gia/create", dataToSend)
-      .then(function (response) {
-        console.log(response.data);
-        $scope.maGiamGia = "";
-        $scope.tenGiamGia = "";
-        $scope.mucGiam = "";
-        $scope.hinhThucGiam = "";
-        $scope.trangThai = "";
-        $scope.ngayBatDau = "";
-        $scope.ngayKetThuc = "";
-        $scope.sanPhamDaChon = [];
-  
-        if (
-          confirm(
-            "Thêm khuyến mãi thành công.Bạn có muốn chuyển hướng trang"
-          )
-        ) {
-          $location.path("/khuyen-mai");
-        }
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-      });
-  };
-  
-  $scope.updateGiamGiaStatus = function (id, event) {
-    event.preventDefault();
 
     $http
-        .get("http://localhost:8080/api/v1/giam-gia/updateStatus/" + id)
+        .put("http://localhost:8080/api/v1/giam-gia/update/" + id, dataToSend)
         .then(function (response) {
             console.log(response.data);
-            if (confirm("Cập nhật khuyến mãi thành công")) {
-                // Reload the route to refresh the page
-                $route.reload();
+            if (confirm("Cập nhật khuyến mãi thành công. Bạn có muốn chuyển hướng trang")) {
+                $location.path("/khuyen-mai");
             }
         })
         .catch(function (error) {
