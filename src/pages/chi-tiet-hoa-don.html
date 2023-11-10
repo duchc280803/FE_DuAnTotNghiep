@@ -533,7 +533,7 @@
                       Xác nhận thanh toán
                     </h6>
                   </div>
-                  <hr>
+                  <hr />
                   <div class="modal-body">
                     <div class="modal-body-item">
                       <div class="row">
@@ -566,7 +566,7 @@
                             placeholder="Nhập tiền khách đưa"
                           />
                         </div>
-                        <div class="col-lg-12" style="margin-top: 15px;">
+                        <div class="col-lg-12" style="margin-top: 15px">
                           <span class="header-title"
                             ><span style="color: red">*</span>
                             <span>Ghi chú</span></span
@@ -578,12 +578,30 @@
                           />
                         </div>
                       </div>
-                      <div class="row" style="padding-top: 20px;">
+                      <div class="row" style="padding-top: 20px">
                         <div class="col-lg-6">
-                          <button style="margin-left: 80px;" class="btn btn-primary"><img src="/assets/images/payment-method.png" width="50px" alt=""></button>
+                          <button
+                            style="margin-left: 80px"
+                            class="btn btn-primary"
+                          >
+                            <img
+                              src="/assets/images/payment-method.png"
+                              width="50px"
+                              alt=""
+                            />
+                          </button>
                         </div>
                         <div class="col-lg-6">
-                          <button style="margin-left: 50px;" class="btn btn-primary"><img src="/assets/images/debit-card.png" width="50px" alt=""></button>
+                          <button
+                            style="margin-left: 50px"
+                            class="btn btn-primary"
+                          >
+                            <img
+                              src="/assets/images/debit-card.png"
+                              width="50px"
+                              alt=""
+                            />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -682,6 +700,7 @@
                   <th>Số lượng</th>
                   <th>Đơn giá</th>
                   <th>Tổng tiền</th>
+                  <th>Thoa tác</th>
                 </tr>
               </thead>
               <tr ng-repeat="item in listSanPhamInOrder">
@@ -724,6 +743,108 @@
                 </td>
                 <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
                   {{item.giaBan * item.soLuong |number}}đ
+                </td>
+                <td style="padding-top: 70px">
+                  <button
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#trahang"
+                  >
+                    <img
+                      src="/assets/images/exchange.png"
+                      alt=""
+                      srcset=""
+                      width="35px"
+                    />
+                  </button>
+                  <!-- Model trả hàng -->
+                  <div
+                    class="modal fade"
+                    id="trahang"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-lg">
+                      <div
+                        class="modal-content custom-modal-content"
+                        style="width: 110%; margin-left: -15px"
+                      >
+                        <div
+                          class="modal-header"
+                          style="height: 20px; margin-left: 350px"
+                        >
+                          <h6
+                            style="
+                              font-size: 15px;
+                              font-weight: bold;
+                              padding-top: 20px;
+                            "
+                          >
+                            Xác nhận trả hàng
+                          </h6>
+                        </div>
+                        <hr />
+                        <div class="modal-body">
+                          <table class="table">
+                            <tbody class="table">
+                              <tr>
+                                <td style="width: 150px">
+                                  <img
+                                    src="https://myshoes.vn/image/cache/catalog/2023/puma/pu01/Slipstream-Cord-Unisex-Sneakers_80-800x800.jpg"
+                                    alt=""
+                                    width="250px"
+                                  />
+                                </td>
+                                <td>
+                                  <h6
+                                    style="font-size: 15px; font-weight: bold; height: 10px;"
+                                  >
+                                    GIÀY PUMA SLIPSTREAM CORD NAM - TRẮNG XÁM
+                                  </h6>
+                                  <h6 style="height: 10px; padding-top: 30px;">Đơn giá: 1.990.000₫</h6>
+                                  <h6 style="height: 10px;">Size: 34</h6>
+                                  <h6 style="height: 10px;">Chất liệu: Cứng</h6>
+                                  <h6 style="height: 10px;">Màu sắc: Xanh</h6>
+                                  <h6 style="height: 10px;">x 4</h6>
+                                </td>
+                                <td>
+                                    <h6 style="color: crimson; padding-top: 110px;">7.960.000₫</h6>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <span class="header-title"
+                            ><span style="color: red">*</span>
+                            <span>Ghi chú</span></span
+                          >
+                          <textarea
+                          style="height: 80px;"
+                            type="text"
+                            class="next-input"
+                            placeholder="Nhập ghi chú"
+                          ></textarea>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal"
+                          >
+                            Trả hàng
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- modal trả hàng -->
                 </td>
               </tr>
             </tbody>
