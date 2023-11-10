@@ -81,7 +81,7 @@
     margin-right: 7px;
 }
 .button {
-    background: rgb(99, 148, 248) none repeat scroll 0 0;
+    background: #7fad39 none repeat scroll 0 0;
     border-radius: 30px;
     box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.15);
     color: rgb(255, 255, 255);
@@ -105,7 +105,7 @@
     text-decoration: none;
 }
 .button:hover {
-    background: rgb(114, 158, 249) none repeat scroll 0 0;
+    background: #90d626 none repeat scroll 0 0;
 }
 .button_viewcart:hover {
     background: rgb(255, 80, 70) none repeat scroll 0 0;

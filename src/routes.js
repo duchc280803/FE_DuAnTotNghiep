@@ -6,10 +6,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/dashboard.html",
     })
     .when("/order-counter", {
-      templateUrl: "./pages/don-tai-quay.html",
-      controller: "orderCounterController",
-    })
-    .when("/order-counter/carts/:id", {
       templateUrl: "./pages/bantaiquay.html",
       controller: "BanTaiQuayController",
     })
@@ -36,23 +32,45 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/giam-gia", {
       templateUrl: "./pages/voucher-hoa-don.html",
     })
-    .when("/giam-gia/create", {
+    .when("/voucher/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
+    })
+    .when("/khach-hang", {
+      templateUrl: "./pages/khach-hang.html",
+    })
+    .when("/nhan-vien", {
+      templateUrl: "./pages/nhan-vien.html",
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
-      controller: "sanPhamGiamGiaController"
+      controller: "sanPhamShopController"
+    }).when("/tai-khoan", {
+      templateUrl: "./pages/khach-hang.html",
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
-      controller: "sanPhamGiamGiaController"
+      controller: "sanPhamShopDetailController"
     })
+
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
-    }).otherwise({
-      redirectTo: "/dashboard",
+    })
+    .when("/proudct-new", {
+      templateUrl: "./pages/san-pham-new.html",
+    })
+    .when("/proudct-update", {
+      templateUrl: "./pages/san-pham-update.html",
+    }).
+    when("/thank-you", {
+      templateUrl: "./pages/shoping-cart.html",
+    })
+    .when("/dia-chi", {
+      templateUrl: "./pages/dia-chi.html",
+    })
+    .otherwise({
+      redirectTo: "/home",
     });
 });

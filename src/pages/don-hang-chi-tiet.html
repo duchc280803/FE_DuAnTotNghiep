@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+<style>
+/* Left box */
+.view-account {
+  width: 99%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+  width: 100%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the circular image */
+.profile-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden; /* Đảm bảo ảnh không bị cắt */
+  margin: 0 auto; /* Canh giữa ảnh */
+}
+
+.profile-image img {
+  width: 100%; /* Tự động thích ứng với kích thước của hình tròn */
+  height: 100%; /* Tự động thích ứng với kích thước của hình tròn */
+}
+
+/* Style for the list */
+.profile ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.profile li {
+  margin: 10px 0;
+  list-style: none;
+}
+
+/* Style for the links */
+.profile a {
+    font-size: 18px;
+  color: #333;
+  font-size: 400;
+  text-decoration: none;
+}
+
+.profile a:hover {
+  font-weight: 600;
+}
+</style>
+<link
+rel="shortcut icon"
+type="image/png"
+href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="/assets/css/styles.min.css" />
+<link rel="stylesheet" href="/css/custom/hinh-thuc-thah-toan.css" />
+<link rel="stylesheet" href="/css/custom/create-ctkm.css" />
+<link rel="stylesheet" href="/css/custom/combobox.css" />
+<link rel="stylesheet" href="/css/custom/trang-thai-hdct.css">
+<body>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="profile" style="padding-top: 30px;margin-top: 20px;">
+        <div class="profile-image">
+          <img src="https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-vui-nhon.jpg" alt="">
+        </div>
+        <ul>
+          <li><p>Tên tài khoản</p></li>
+          <li><a href="dia-chi.html">Cập nhật thông tin</a></li>
+          <li style="font-weight: 600;  "><a style="color: #5D87FF;" href="/src/pages/don-hang.html">Đơn hàng</a></li>
+          <li><a href="#">Đăng xuất</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="view-account" style="padding-top: 30px;margin-top: 20px;">
+        <div
+  class="page-wrapper"
+  id="main-wrapper"
+  data-layout="vertical"
+  data-navbarbg="skin6"
+  data-sidebartype="full"
+  data-sidebar-position="fixed"
+  data-header-position="fixed"
+>
+    <div class="container-fluid">
+      <div class="card overflow-hidden"  style="width: 1000px;text-align: center;"  >
+        <div>
+          <h5 style="padding-left: 20px; padding-top: 20px">
+            <div class="breadcrumb">
+              <a
+                class="breadcrumb__step breadcrumb__step--active"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Chờ xác nhận</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Xác nhận</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Chờ giao hàng</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Giao hàng</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Hoàn thành</a
+              >
+              <a
+                class="breadcrumb__step"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                href=""
+                >Trả hàng</a
+              >
+            </div>
+          </h5>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      
+      >
+        <div class="modal-dialog modal-lg">
+          <div
+            class="modal-content custom-modal-content"
+            style="width: 330px; margin-left: 250px; margin-top: 200px"
+          >
+            <div class="modal-header"></div>
+            <div class="modal-body" style="padding-left: 90px">
+              <h6>Xác nhận</h6>
+              <div class="quantity">
+                <input
+                  ng-model="soLuongSanPham"
+                  style="margin-left: -40px"
+                  class="next-input text-left min-width-100px position-relative quantity-decimal"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                ng-click="allowBreadcrumbSelection = false"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card overflow-hidden" style="width: 1000px">
+        <div class="box">
+          <div class="d-flex align-items-center">
+            <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
+              Lịch sử thanh toán
+            </h5>
+            <a href="" type="button" class="btn btn-outline-primary mt-3 me-3"
+              >Chi tiết</a
+            >
+          </div>
+          <hr />
+          <table class="table">
+            <thead>
+              <tr
+                style="border: 1px solid #ccc; background-color: lightskyblue"
+              >
+                <th scope="col">STT</th>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Số tiền</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Hình thức thanh toán</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Người xác nhận</th>
+              </tr>
+            </thead>
+            <tbody class="table">
+              <tr ng-repeat="item in lichSu">
+                <td>1</td>
+                <td>HD001</td>
+                <td>10000000</td>
+                <td>11/09/2023 10:53 AM</td>
+                <td>Chuyển khoản</td>
+                <td>Giao hỏa tốc luôn</td>
+                <td>NAMND53</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card overflow-hidden" style="width: 1000px">
+        <div class="box">
+          <div class="d-flex align-items-center" >
+            <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
+              Thông tin đơn hàng
+            </h5>
+          </div>
+          <hr />
+          <div class="row" style="padding-left: 20px">
+            <div class="col-lg-6">
+              <h5>Trạng thái: Chờ Xác nhận</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Tên khách hàng: Nguyễn Đức Nam</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Loại: Online</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Số điện thoại: 0967493XXX</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Địa chỉ: Phú Cát-Quốc Oai-Hà Nội</h5>
+            </div>
+            <div class="col-lg-6">
+              <h5>Ghi chú: Giao hỏa tốc</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card overflow-hidden" style="width: 1000px">
+        <div class="box">
+          <table class="table">
+            <tbody class="table" style="border: 1px solid #ccc">
+              <tr></tr>
+              <tr ng-repeat="item in hoaDonChiTiet.sanPham">
+                <td style="padding-top: 80px;">1</td>
+                <td>
+                  <div style="position: relative">
+                    <img src="https://m.media-amazon.com/images/I/61CW6ITtf0L._AC_UF894,1000_QL80_.jpg" alt="" width="150px" />
+                  </div>
+                </td>
+                <td style="padding-top: 80px">Giày thể thao nữ V1 2023</td>
+                <td style="padding-top: 80px">2</td>
+                <td style="padding-top: 65px">
+                  <div ng-show="item.donGiaSauGiam != null">
+                    1800000₫
+                    <span>
+                      <strike
+                        >2000000₫</strike
+                      ></span
+                    >
+                  </div>
+                  <div ng-show="item.donGiaSauGiam == null">
+                    <!-- {{item.giaBan | number}}₫ -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

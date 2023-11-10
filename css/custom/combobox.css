@@ -76,9 +76,9 @@ table {
 }
 .custom-modal-content {
   max-width: 1300px;
-  width: 130%;
+  width: 150%;
   margin: auto;
-  margin-left: -100px;
+  margin-left: -175px;
 }
 .quantity {
   display: flex;
