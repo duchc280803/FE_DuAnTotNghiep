@@ -66,6 +66,7 @@ app.controller("CartController", function ($scope, $http, $window) {
           loadCart();
           loadToTals();
           loadNameAndPrice();
+          loadQuanTiTy();
         },
       ],
     });
@@ -94,6 +95,7 @@ app.controller("CartController", function ($scope, $http, $window) {
           loadCart();
           loadToTals();
           loadNameAndPrice();
+          loadQuanTiTy();
         },
       ],
     });
@@ -133,6 +135,7 @@ app.controller("CartController", function ($scope, $http, $window) {
               loadCart();
                  loadToTals();
           loadNameAndPrice();
+          loadQuanTiTy();
             },
           ],
         });
@@ -231,5 +234,18 @@ app.controller("CartController", function ($scope, $http, $window) {
     }
   };
   
+  function loadQuanTiTy() {
+    // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+    var apiURL =
+      "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
+      idgh;
+
+    $http.get(apiURL).then(function (response) {
+      $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
+      console.log($scope.quantity_all)
+    });
+  }
+
+  loadQuanTiTy();
 
 });
