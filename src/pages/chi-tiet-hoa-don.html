@@ -505,7 +505,11 @@
             <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
               Lịch sử thanh toán
             </h5>
+            <h5 ng-show="thongTinTienDonHang.tongTien == soTienKhachTra" style="padding-left: 700px; padding-top: 20px" class="me-auto">
+              Khách đã thanh toán tiền đơn hàng
+            </h5>
             <button
+              ng-show="thongTinTienDonHang.tongTien != soTienKhachTra"
               class="btn btn-primary"
               style="margin-top: 20px; margin-right: 20px"
               data-bs-toggle="modal"
@@ -700,7 +704,7 @@
                   <th>Số lượng</th>
                   <th>Đơn giá</th>
                   <th>Tổng tiền</th>
-                  <th>Thoa tác</th>
+                  <th ng-show="status == 5">Thoa tác</th>
                 </tr>
               </thead>
               <tr ng-repeat="item in listSanPhamInOrder">
@@ -744,7 +748,7 @@
                 <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
                   {{item.giaBan * item.soLuong |number}}đ
                 </td>
-                <td style="padding-top: 70px">
+                <td style="padding-top: 70px" ng-show="status == 5">
                   <button
                     class="btn btn-primary"
                     data-bs-toggle="modal"

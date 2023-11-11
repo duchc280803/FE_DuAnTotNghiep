@@ -36,6 +36,7 @@ myApp.controller(
     $scope.tongTienKhongGiam = 0;
     $scope.tongTienSauGiam = 0;
     $scope.tongTienHang = 0;
+
     // Hàm để tải sản phẩm từ API
     function getSanPham(id) {
       var apiUrl =
@@ -64,24 +65,35 @@ myApp.controller(
     // Gọi hàm để lấy thông tin sản phẩm dựa trên `id`
     getSanPham(id);
 
-    function getLichSu(id) {
+    $scope.soTienKhachTra = 0;
+    $scope.getlichSuThanhToan = function() {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-lich-su/" + id;
 
       $http.get(apiUrl).then(function (response) {
         $scope.lichSu = response.data;
+        for (var i = 0; i < $scope.lichSu.length; i++) {
+          $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
+        }
       });
     }
 
     // Gọi hàm để lấy dữ liệu lịch sử dựa trên `id`
-    getLichSu(id);
+    $scope.getlichSuThanhToan(id);
 
-    var apiUrl =
-      "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" + id;
 
-    $http.get(apiUrl).then(function (response) {
-      $scope.lichSuThayDoi = response.data;
-    });
+    $scope.lichSuThayDoi = []
+    $scope.getlichSuThayDoi = function () {
+      var apiUrl =
+        "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
+        id;
+
+      $http.get(apiUrl).then(function (response) {
+        $scope.lichSuThayDoi = response.data;
+      });
+    };
+
+    $scope.getlichSuThayDoi();
 
     $scope.listTrangThaiHoaDon = [];
     $http
@@ -200,7 +212,6 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-tien/" + id)
         .then(function (response) {
           $scope.thongTinTienDonHang = response.data;
-          console.log($scope.thongTinTienDonHang);
         });
     };
     $scope.getAllMoneyByHoaDon();
