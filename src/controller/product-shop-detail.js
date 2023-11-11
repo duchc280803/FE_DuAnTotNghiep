@@ -17,15 +17,14 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.detailProduct = response.data;
-    
+
           // Lấy giá trị idThuongHieu từ $scope.detailProduct
-          var idThuongHieu = $scope.detailProduct .idThuongHieu;
+          var idThuongHieu = $scope.detailProduct.idThuongHieu;
           console.log(idThuongHieu);
           // Lưu giá trị idThuongHieu vào localStorage
-          window.localStorage.setItem('idThuongHieu', idThuongHieu);
+          window.localStorage.setItem("idThuongHieu", idThuongHieu);
         });
     };
-    
 
     $scope.getDetailSizeProduct = function () {
       $http
@@ -72,7 +71,6 @@ myApp.controller(
           $scope.loadmausac_chatlieu_not_login = response.data;
         });
     };
-
 
     $scope.listSizeChatLieuByMauSac = [];
     $scope.findByMauSac = function (id) {
@@ -145,27 +143,34 @@ myApp.controller(
         size.isSelected = true;
         $scope.selectedSize = size;
       }
-      if ($scope.quantity.sizeId && $scope.quantity.colorId && $scope.quantity.chatLieuId) {
+      if (
+        $scope.quantity.sizeId &&
+        $scope.quantity.colorId &&
+        $scope.quantity.chatLieuId
+      ) {
         $scope.getQuantity();
       }
-
     };
 
     $scope.selectedColor = null; // Changed from $scope.selectColor to $scope.selectedColor
     $scope.selectColor = function (color) {
-      var colorMatchSize = $scope.loadmausac_chatlieu_not_login.some(function(item) {
+      var colorMatchSize = $scope.loadmausac_chatlieu_not_login.some(function (
+        item
+      ) {
         return item.tenMauSac === color.tenmausac;
       });
 
-      var materialMatchSize = $scope.loadmausac_chatlieu_not_login.some(function(item) {
-        return item.tenChatLieu === color.tenchatlieu;
-      });
-    
+      var materialMatchSize = $scope.loadmausac_chatlieu_not_login.some(
+        function (item) {
+          return item.tenChatLieu === color.tenchatlieu;
+        }
+      );
+
       if (!colorMatchSize && !materialMatchSize) {
-        alert('không phù hợp với size đã chọn');
+        alert("không phù hợp với size đã chọn");
         return;
       }
-    
+
       $scope.quantity.colorId = color.id;
       if (color.isSelected) {
         color.isSelected = false;
@@ -176,26 +181,34 @@ myApp.controller(
         color.isSelected = true;
         $scope.selectedColor = color;
       }
-      if ($scope.quantity.sizeId && $scope.quantity.colorId && $scope.quantity.chatLieuId) {
+      if (
+        $scope.quantity.sizeId &&
+        $scope.quantity.colorId &&
+        $scope.quantity.chatLieuId
+      ) {
         $scope.getQuantity();
       }
     };
 
     $scope.selectedMaterial = null; // Changed from $scope.selectColor to $scope.selectedColor
     $scope.selectMaterial = function (material) {
-      var colorMatchMaterial = $scope.listSizeChatLieuByMauSac.some(function(item) {
+      var colorMatchMaterial = $scope.listSizeChatLieuByMauSac.some(function (
+        item
+      ) {
         return item.tenMauSac === material.tenmausac;
       });
 
-      var sizeMatchMaterial = $scope.loadmausac_chatlieu_not_login.some(function(item) {
-        return item.size === material.tenchatlieu;
-      });
-    
+      var sizeMatchMaterial = $scope.loadmausac_chatlieu_not_login.some(
+        function (item) {
+          return item.size === material.tenchatlieu;
+        }
+      );
+
       if (!colorMatchMaterial && !sizeMatchMaterial) {
-        alert('không phù hợp với đã chọn');
+        alert("không phù hợp với đã chọn");
         return;
       }
-      
+
       $scope.quantity.chatLieuId = material.id;
       if (material.isSelected) {
         material.isSelected = false;
@@ -205,48 +218,59 @@ myApp.controller(
         });
         material.isSelected = true;
         $scope.selectedMaterial = material; // Changed from $scope.selectColor to $scope.selectedColor
-        if ($scope.quantity.sizeId && $scope.quantity.colorId && $scope.quantity.chatLieuId) {
+        if (
+          $scope.quantity.sizeId &&
+          $scope.quantity.colorId &&
+          $scope.quantity.chatLieuId
+        ) {
           $scope.getQuantity();
         }
       }
     };
 
-// Tạo giỏ hàng mới và lưu idGioHang vào localStorage
-$scope.CreateNewCart = function () {
-  $http
-    .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang")
-    .then(function (response) {
-      // Lưu idGioHang vào localStorage
-      var idGioHang = response.data;     
-      localStorage.setItem('idgiohang', idGioHang);
-    })
-    .catch(function (error) {
-      // Xử lý lỗi nếu cần
-      console.error('Lỗi khi tạo giỏ hàng', error);
-    });
-};
+    // Tạo giỏ hàng mới và lưu idGioHang vào localStorage
+    $scope.CreateNewCart = function () {
+      $http
+        .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang")
+        .then(function (response) {
+          // Lưu idGioHang vào localStorage
+          var idGioHang = response.data;
+          localStorage.setItem("idgiohang", idGioHang);
+        })
+        .catch(function (error) {
+          // Xử lý lỗi nếu cần
+          console.error("Lỗi khi tạo giỏ hàng", error);
+        });
+    };
 
-// Thêm sản phẩm vào giỏ hàng
-$scope.addToCart = function (idSanPhamChiTiet) {
-  // Lấy idGioHang từ localStorage
-  var idGioHang = localStorage.getItem('idgiohang');
-  var soluong = $scope.soluong ;
-  if (!idGioHang) {
-    // Nếu không có idGioHang trong localStorage, gọi hàm CreateNewCart để tạo giỏ hàng mới
-    $scope.CreateNewCart();
+    // Thêm sản phẩm vào giỏ hàng
+    $scope.addToCart = function (idSanPhamChiTiet) {
+      // Lấy idGioHang từ localStorage
+      var idGioHang = localStorage.getItem("idgiohang");
+      var soluong = $scope.soluong;
+      if (!idGioHang) {
+        // Nếu không có idGioHang trong localStorage, gọi hàm CreateNewCart để tạo giỏ hàng mới
+        $scope.CreateNewCart();
+      } else {
+        // Nếu có idGioHang trong localStorage, thực hiện gọi API để thêm sản phẩm vào giỏ hàng
+        var url =
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/them-san-pham?idGioHang=" +
+          idGioHang +
+          "&idSanPhamChiTiet=" +
+          idSanPhamChiTiet +
+          "&soLuong=" +
+          soluong;
+        $http
+          .post(url)
+          .then(function () {
+            alert("thanh cong");
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    };
 
-  } else {
-    // Nếu có idGioHang trong localStorage, thực hiện gọi API để thêm sản phẩm vào giỏ hàng
-    var url = "http://localhost:8080/api/gio-hang-chi-tiet-not-login/them-san-pham?idGioHang=" + idGioHang + "&idSanPhamChiTiet=" + idSanPhamChiTiet + "&soLuong=" + soluong;
-    $http
-      .post(url)
-      .then(function () {
-          alert("thanh cong")
-      })
-      .catch(function (error) {
-      });
-  }
-};    
     $scope.getDetailProduct();
     $scope.getDetailSizeProduct();
     $scope.getDetailMauSacProduct();
@@ -255,7 +279,10 @@ $scope.addToCart = function (idSanPhamChiTiet) {
     function loadRelatedProducts() {
       var idThuongHieu = window.localStorage.getItem("idThuongHieu"); // Thay thế bằng id thương hiệu tương ứng
       $http
-        .get("http://localhost:8080/api/v1/san-pham-giam-gia/show-sp-lien-quan?idthuonghieu=" + idThuongHieu)
+        .get(
+          "http://localhost:8080/api/v1/san-pham-giam-gia/show-sp-lien-quan?idthuonghieu=" +
+            idThuongHieu
+        )
         .then(function (response) {
           $scope.relatedProducts = response.data;
         })
@@ -263,7 +290,7 @@ $scope.addToCart = function (idSanPhamChiTiet) {
           console.error("Lỗi khi gọi API: " + error);
         });
     }
-  
+
     loadRelatedProducts();
   }
 );
