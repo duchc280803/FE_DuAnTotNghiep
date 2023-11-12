@@ -31,10 +31,18 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
+      controller: "VoucherController",
     })
     .when("/voucher/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
+      controller: "VoucherController",
     })
+    
+    .when("/voucher/update/:id", {
+      templateUrl: "./pages/update-chuong-trinhkm.html",
+      controller: "voucherChiTietController",
+    })
+    
     .when("/khach-hang", {
       templateUrl: "./pages/khach-hang.html",
     })
@@ -46,15 +54,15 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
-      controller: "sanPhamShopController"
-    }).when("/tai-khoan", {
+      controller: "sanPhamShopController",
+    })
+    .when("/tai-khoan", {
       templateUrl: "./pages/khach-hang.html",
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
-      controller: "sanPhamShopDetailController"
+      controller: "sanPhamShopDetailController",
     })
-
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
     })
@@ -63,9 +71,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/proudct-update", {
       templateUrl: "./pages/san-pham-update.html",
-    }).
-    when("/thank-you", {
-      templateUrl: "./pages/shoping-cart.html",
+    })
+    .when("/thank-you", {
+      templateUrl: "./pages/thank-you.html",
     })
     .when("/dia-chi", {
       templateUrl: "./pages/dia-chi.html",
@@ -96,6 +104,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+    })
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
     })

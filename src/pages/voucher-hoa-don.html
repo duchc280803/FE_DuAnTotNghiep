@@ -295,18 +295,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>Jacob</td>
-                <td>0/5</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+              <tr ng-repeat="gg in listVoucher">
+                <td>{{$index + 1}}</td>
+                <td>{{gg.maVoucher}}</td>
+                <td>{{gg.tenVoucher}}</td>
+                <td>{{gg.giaTriToiThieuDonhang}}</td>
+                <td>{{gg.giaTriGiam}}</td>
+                <td>{{gg.soLuongMa}}</td>
+                <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{gg.trangThai == 1 ? 'còn hạn':'hết hạn'}}</td>
                 <td>
-                  <a href="#" class="btn btn-primary">Sửa</a>
+                  <a href="#/voucher/update/{{gg.id}}" class="btn btn-primary">Sửa</a>
                 </td>
               </tr>
             </tbody>
