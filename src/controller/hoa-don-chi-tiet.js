@@ -66,7 +66,7 @@ myApp.controller(
     getSanPham(id);
 
     $scope.soTienKhachTra = 0;
-    $scope.getlichSuThanhToan = function() {
+    $scope.getlichSuThanhToan = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-lich-su/" + id;
 
@@ -76,13 +76,12 @@ myApp.controller(
           $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
         }
       });
-    }
+    };
 
     // Gọi hàm để lấy dữ liệu lịch sử dựa trên `id`
-    $scope.getlichSuThanhToan(id);
+    $scope.getlichSuThanhToan();
 
-
-    $scope.lichSuThayDoi = []
+    $scope.lichSuThayDoi = [];
     $scope.getlichSuThayDoi = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
@@ -106,6 +105,7 @@ myApp.controller(
         for (var i = 0; i < $scope.listTrangThaiHoaDon.length; i++) {
           var item = $scope.listTrangThaiHoaDon[i];
           $scope.status = item.trangThai;
+          $window.localStorage.setItem("status", $scope.status);
           if (item.trangThai == 1) {
             $scope.statusChoThanhToan = item.trangThai;
           }
@@ -127,9 +127,19 @@ myApp.controller(
         }
       });
 
+    var status = $window.localStorage.getItem("status");
     $scope.newStatusOrder = {
       ghiChu: "",
-      newTrangThai: "",
+      newTrangThai:
+        status === "1"
+          ? 2
+          : status === "2"
+          ? 3
+          : status === "3"
+          ? 4
+          : status === "4"
+          ? 5
+          : "",
     };
 
     $scope.comfirmStatusOrder = function () {
@@ -203,6 +213,24 @@ myApp.controller(
             },
           ],
         });
+      };
+    }, 2000);
+
+    // xác nhận khách thanh toán
+    $scope.newTransaction = {};
+    setTimeout(() => {
+      $scope.createTransaction = function () {
+        $http
+          .post(
+            "http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-toan-hoa-don-online?idHoaDon=" +
+              id +
+              "&id=" + idKhach,
+            $scope.newTransaction
+          )
+          .then(function (response) {
+            $scope.lichSu.push(response.data);
+            $scope.getlichSuThanhToan();
+          });
       };
     }, 2000);
 

@@ -23,12 +23,12 @@ myApp.controller("BanTaiQuayController", [
     $scope.orderDetailCounter = {}; // hiển thị thông tin theo hóa đơn
 
     $scope.luuIdHoaDon = function (id) {
-      window.localStorage.setItem("idHoaDon", id);
-      $window.location.reload();
+      $window.localStorage.setItem("idHoaDon", id);
       var hd = $scope.listHoaDonTaiQuay.find(function (hd) {
         return hd.id === id;
       });
       $scope.selectOrder(hd);
+      $scope.listSanPhamInCart();
     };
 
     var id = $window.localStorage.getItem("idHoaDon");
@@ -61,13 +61,7 @@ myApp.controller("BanTaiQuayController", [
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
               $scope.luuIdHoaDon(response.data.id);
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Tạo hóa đơn thành công thành công",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              $window.location.reload();
             });
           }
         });
@@ -208,10 +202,6 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    $scope.listSanPhamInCart();
-
-    var idGioHangChiTiet = $window.localStorage.getItem("listCart");
-    var gioHangChiTietList = idGioHangChiTiet.split(",");
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
@@ -242,7 +232,7 @@ myApp.controller("BanTaiQuayController", [
           $window.localStorage.setItem("gioHangId", $scope.idCartChiTiet.id);
         });
     };
-    $scope.showIdCart(idKhach);
+    $scope.showIdCart();
 
     var gioHangId = $window.localStorage.getItem("gioHangId");
 

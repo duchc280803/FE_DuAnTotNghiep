@@ -295,6 +295,16 @@
                 Đã hủy
               </h6>
             </a>
+            <a
+              style="width: 180px"
+              ng-show="statusDaHuy == 7"
+              class="breadcrumb__step"
+              ng-class="{'breadcrumb__step--active': statusDaHuy === 6}"
+            >
+              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
+                Hoàn trả
+              </h6>
+            </a>
           </div>
         </h5>
         <div style="margin-top: 60px">
@@ -375,48 +385,29 @@
             <div class="modal-header"></div>
             <div class="modal-body">
               <div class="modal-body-item">
-                <span>Nhập ghi chú</span>
+                <span class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Nhập ghi chú</span></span
+                >
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Ghi chú"
                   ng-model="newStatusOrder.ghiChu"
                 />
+                <br />
+                <span
+                  ng-show="status == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'"
+                  class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Nhập tiền ship</span></span
+                >
                 <input
-                  hidden
-                  ng-show="status === 1"
+                  ng-show="status == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'"
                   type="text"
                   class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 2"
-                />
-                <input
-                  hidden
-                  ng-show="status === 2"
-                  type="text"
-                  class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 3"
-                />
-                <input
-                  hidden
-                  ng-show="status === 3"
-                  type="text"
-                  class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 3"
-                />
-                <input
-                  hidden
-                  ng-show="status === 4"
-                  type="text"
-                  class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 5"
+                  placeholder="Tiền ship"
+                  ng-model="newStatusOrder.ghiChu"
                 />
               </div>
               <br />
@@ -505,11 +496,15 @@
             <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
               Lịch sử thanh toán
             </h5>
-            <h5 ng-show="thongTinTienDonHang.tongTien == soTienKhachTra" style="padding-left: 700px; padding-top: 20px" class="me-auto">
+            <h5
+              ng-show="thongTinTienDonHang.tongTien == soTienKhachTra"
+              style="padding-left: 700px; padding-top: 20px"
+              class="me-auto"
+            >
               Khách đã thanh toán tiền đơn hàng
             </h5>
             <button
-              ng-show="thongTinTienDonHang.tongTien != soTienKhachTra"
+              ng-show="thongTinTienDonHang.tongTien != soTienKhachTra && status == 4 && status == 5"
               class="btn btn-primary"
               style="margin-top: 20px; margin-right: 20px"
               data-bs-toggle="modal"
