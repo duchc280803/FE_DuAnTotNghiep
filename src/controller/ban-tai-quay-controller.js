@@ -8,6 +8,8 @@ myApp.controller("BanTaiQuayController", [
   function ($scope, $http, $window, $routeParams, $route, $location) {
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
+    $scope.tongTienKhongGiamGia = 0;
+    $scope.tongTienGiamGia = 0;
     $scope.tongTienHang = 0; // tính tổng tiền hàng
     $scope.luuSoLuong = 1; // lấy ra tất cả số lượng của sản phẩm đó
     $scope.soLuongSanPham = 1; // số lượng thêm vào giỏ hàng
@@ -185,11 +187,19 @@ myApp.controller("BanTaiQuayController", [
 
           // Calculate the total quantity and total price for all products in the cart
           for (var i = 0; i < $scope.listCart.length; i++) {
+            if ($scope.listCart[i].giaGiam == 0) {
+              $scope.tongTienKhongGiamGia +=
+                $scope.listCart[i].giaBan * $scope.listCart[i].soLuong;
+            }
+            if ($scope.listCart[i].giaGiam != 0) {
+              $scope.tongTienGiamGia +=
+                ($scope.listCart[i].giaBan - $scope.listCart[i].giaGiam) *
+                $scope.listCart[i].soLuong;
+            }
             $scope.tongSoLuongSanPham += $scope.listCart[i].soLuong;
-            $scope.tongTienHang +=
-              $scope.listCart[i].giaBan * $scope.listCart[i].soLuong;
           }
-
+          $scope.tongTienHang +=
+            ($scope.tongTienKhongGiamGia + $scope.tongTienGiamGia) 
           // Slice the listCart array to display only 2 products per page
           $scope.listCart = $scope.listCart.slice(
             $scope.pageNumber * $scope.pageSize,
@@ -482,20 +492,23 @@ myApp.controller("BanTaiQuayController", [
           confirmButtonText: "Yes!",
         }).then((result) => {
           if (result.isConfirmed) {
-            $http.post(api, requestData).then(function (response) {
-              $scope.listHoaDonChiTiet.push(response.data);
-              $window.localStorage.removeItem("idHoaDon");
-              $location.path("/hoa-don");
-            }).then(function (error) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Thanh toán thất bại",
-                showConfirmButton: false,
-                timer: 1500,
+            $http
+              .post(api, requestData)
+              .then(function (response) {
+                $scope.listHoaDonChiTiet.push(response.data);
+                $window.localStorage.removeItem("idHoaDon");
+                $location.path("/hoa-don");
+              })
+              .then(function (error) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Thanh toán thất bại",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                $location.path("/order-counter");
               });
-              $location.path("/order-counter");
-            });;
           }
         });
       };
@@ -543,7 +556,7 @@ myApp.controller("BanTaiQuayController", [
                 timer: 1500,
               });
               $location.path("/hoa-don");
-            })
+            });
           }
         });
       };
