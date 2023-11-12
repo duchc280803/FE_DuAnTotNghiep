@@ -1,359 +1,582 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Ogani Template" />
-    <meta name="keywords" content="Ogani, unica, creative, html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>NICE SHOE</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png"
-    />
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/style.css" type="text/css" />
-    <style>
-      .sidebar__item__size {
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Ogani Template" />
+  <meta name="keywords" content="Ogani, unica, creative, html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>NICE SHOE</title>
+  <link rel="shortcut icon" type="image/png"
+    href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
+  <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
+  <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <style>
+      *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    .icon_close:hover {
+      margin: 0px 5px;
+    }
+
+    @import "https://fonts.googleapis.com/css?family=Lato:300,400,700";
+    @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
+
+
+    .container-cart {
+      background: rgb(255, 255, 255) none repeat scroll 0 0;
+      /* border-radius: 3px;
+      float: right;
+      margin: 20px 0;
+      padding: 20px;
+      position: relative; */
+      width: 320px;
+      border: 0.5px solid rgb(245, 241, 241);
+    }
+
+    .shopping-cart {
+      background: rgb(255, 255, 255) none repeat scroll 0 0;
+      border-radius: 3px;
+      float: right;
+      margin: 20px 0;
+      padding: 20px;
+      position: relative;
+      width: 320px;
+    }
+
+    .shopping-cart .shopping-cart-header {
+      border-bottom: 1px solid rgb(232, 232, 232);
+      padding-bottom: 15px;
+    }
+
+    .shopping-cart .shopping-cart-header .shopping-cart-total {
+      float: right;
+    }
+
+
+    .shopping-cart .shopping-cart-items {
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shopping-cart .shopping-cart-items li {
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+    }
+
+    .shopping-cart .shopping-cart-items img {
+      margin-right: 10px;
+    }
+
+
+    .shopping-cart .shopping-cart-items .item-name {
+      display: block;
+      font-size: 13px;
+      padding-top: 10px;
+    }
+
+    .shopping-cart .shopping-cart-items .item-price {
+      color: rgb(99, 148, 248);
+      font-size: 15px;
+      padding-top: 5px;
+      display: block;
+    }
+
+    .shopping-cart .shopping-cart-items .item-quantity {
+      color: rgb(171, 176, 190);
+      font-size: 13px;
+      display: block;
+      padding-top: 5px;
+    }
+
+    .shopping-cart::after {
+      -moz-border-bottom-colors: none;
+      -moz-border-left-colors: none;
+      -moz-border-right-colors: none;
+      -moz-border-top-colors: none;
+      border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgb(255, 255, 255);
+      border-image: none;
+      border-style: solid;
+      border-width: 8px;
+      bottom: 100%;
+      content: " ";
+      height: 0;
+      left: 89%;
+      margin-left: -8px;
+      pointer-events: none;
+      position: absolute;
+      width: 0;
+    }
+
+    .cart-icon {
+      color: rgb(81, 87, 131);
+      float: left;
+      font-size: 24px;
+      margin-right: 7px;
+    }
+
+    .button {
+      background: #7fad39 none repeat scroll 0 0;
+      border-radius: 30px;
+      box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.15);
+      color: rgb(255, 255, 255);
+      display: block;
+      font-size: 16px;
+      margin: 25px 0 15px;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .button_viewcart {
+      background: rgb(255, 93, 93) none repeat scroll 0 0;
+      border-radius: 30px;
+      box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.15);
+      color: rgb(255, 255, 255);
+      display: block;
+      font-size: 16px;
+      margin: 25px 0 15px;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background: #90d626 none repeat scroll 0 0;
+    }
+
+    .button_viewcart:hover {
+      background: rgb(255, 80, 70) none repeat scroll 0 0;
+    }
+
+    .clearfix::after {
+      clear: both;
+      content: "";
+      display: table;
+    }
+
+
+    .container-cart {
+      display: none;
+
+    }
+
+    .open-cart:hover .container-cart {
+      display: block;
+
+    }
+
+    .custom-radio {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      /* Khoảng cách giữa radio button và label */
+    }
+
+    .custom-radio input[type="radio"] {
+      margin-right: 5px;
+      /* Khoảng cách giữa radio button và label */
+    }
+
+    .custom-radio label {
+      font-weight: normal;
+      /* Loại bỏ đậm */
+      font-size: 16px;
+      /* Điều chỉnh kích thước văn bản */
+    }
+
+    /* Thiết lập kiểu thanh cuộn */
+    ::-webkit-scrollbar {
+      width: 3px;
+      /* Chiều rộng của thanh cuộn */
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #7fad39;
+      /* Màu nền của thanh cuộn */
+      border-radius: 20px;
+      /* Bo tròn cạnh của thanh cuộn */
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #e2e9d7;
+      /* Màu nền của phần track thanh cuộn */
+    }
+
+    .sidebar__item__size {
         cursor: pointer;
       }
       .sidebar__item__size.selected {
-        border: 1px solid black; /* Add your desired border style */
+        border: 2px ridge black; /* Add your desired border style */
+        border-radius: 5px;
+        background-color: aquamarine;
       }
-    </style>
-  </head>
-  <body>
-    <header class="header">
-      <div class="header__top">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="header__top__left">
-                <ul>
-                  <li><i class="fa fa-envelope"></i> hell o@colorlib.com</li>
-                  <li>Free Shipping for all Order of $99</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="header__top__right">
-                <div class="header__top__right__social">
-                  <a href="#"><i class="fa fa-facebook"></i></a>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                  <a href="#"><i class="fa fa-linkedin"></i></a>
-                  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                </div>
-                <div class="header__top__right__language">
-                  <img src="/img/language.png" alt="" />
-                  <div>English</div>
-                  <span class="arrow_carrot-down"></span>
-                  <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                  </ul>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#"><i class="fa fa-user"></i> Login</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      .sidebar__item__size {
+        cursor: pointer;
+      }
+      .sidebar__item__size_label.selected {
+        background-color: black;
+        color: white;
+      }
+      .sidebar__item__color_label.selected {
+        background-color: black;
+        color: white;
+      }
+      .sidebar__item__material_label.selected {
+        background-color: black;
+        color: white;
+      }
+      
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__top">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3">
-            <div class="header__logo">
-              <a href="./index.html"
-                ><img
-                  src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                  style="width: 125px"
-                  alt=""
-              /></a>
+          <div class="col-lg-6">
+            <div class="header__top__left">
+              <ul>
+                <li><i class="fa fa-envelope"></i> hell o@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+              </ul>
             </div>
           </div>
           <div class="col-lg-6">
-            <nav class="header__menu">
-              <ul>
-                <li class="active"><a href="#/home">Home</a></li>
-                <li><a href="#/shop">Shop</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="col-lg-3">
-            <div class="header__cart">
-              <ul>
-                <li>
-                  <a href="#/cart"
-                    ><i class="fa fa-shopping-bag"></i> <span>3</span></a
-                  >
-                </li>
-              </ul>
-              <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__top__right">
+              <div class="header__top__right__social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+              </div>
+              <div class="header__top__right__language">
+                <img src="/img/language.png" alt="" />
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                  <li><a href="#">Spanis</a></li>
+                  <li><a href="#">English</a></li>
+                </ul>
+              </div>
+              <div class="header__top__right__auth">
+                <a href="#"><i class="fa fa-user"></i> Login</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="humberger__open">
-          <i class="fa fa-bars"></i>
         </div>
       </div>
-    </header>
-    <section class="product-details spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="product__details__pic">
-              <div class="product__details__pic__item">
-                <img
-                  class="product__details__pic__item--large"
-                  src="{{detailProduct.tenImage}}"
-                  alt=""
-                />
-              </div>
-              <div class="product__details__pic__slider owl-carousel"></div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="header__logo">
+            <a href="./index.html"><img
+                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                style="width: 125px" alt="" /></a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav class="header__menu">
+            <ul>
+              <li class="active"><a style="color: black;" href="#/home">Home</a></li>
+              <li><a href="#/shop">Shop</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-3">
+          <div class="header__cart">
+            <ul>
+              <li class="open-cart">
+                <a href="/src/pages/shoping-cart.html"><i class="fa fa-shopping-bag"></i>
+                  <span>{{quantity_all.tongSoLuong}}</span></a>
+                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
+                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
+                    <div class="row" ng-repeat="product in products">
+                      <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
+                        <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
+                        <p style="font-size: 0.7em; margin: 0"></p>
+                        <hr />
+                      </div>
+                      <div class="col-md-8">
+                        <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
+                        <span>{{product.giaban | number:0}}₫</span>
+                        <p style="font-size: 0.7em; margin: 0">
+                          Số lượng :{{product.soluong}}
+                        </p>
+                        <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                      <span style="font-weight: bolder;margin-left: 30px;" class="main-color-text">Total:</span>
+                    </div>
+                    <div class="col-md-3">
+                      <span
+                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
+                    </div>
+                  </div>
+                  <a href="/src/pages/shoping-cart.html" style="width: 80%; margin-left: 30px;" class="button">CHECK
+                    OUT</a>
+                </div>
+              </li>
+            </ul>
+            <div class="header__top__right__auth">
+              <a href="#"><i class="fa fa-user"></i> Login</a>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="product__details__text">
-              <h3>{{detailProduct.tenSanPham}}</h3>
-              <div class="product__details__price">
-                <div ng-show="detailProduct.donGiaKhiGiam != null">
-                  {{detailProduct.donGiaKhiGiam | number}}₫<span
-                    style="text-decoration: line-through; padding-left: 10px"
-                    >{{detailProduct.giaban | number}}₫</span
-                  >
-                </div>
-                <div ng-show="detailProduct.donGiaKhiGiam == null">
-                  {{detailProduct.giaban | number}}₫
-                </div>
-              </div>
-              <h4 style="padding-bottom: 10px">Size:</h4>
-              <div
-                class="sidebar__item__size"
-                ng-click="selectSize(size)"
-                ng-repeat="size in detailSizeProduct"
-                ng-class="{ 'selected': size.isSelected }"
-              >
-                <label
-                  ng-model="keySize"
-                  ng-click="findMauSacChatLieuBySize(size.id)"
-                  >{{size.size}}</label
+        </div>
+      </div>
+      <div class="humberger__open">
+        <i class="fa fa-bars"></i>
+      </div>
+    </div>
+  </header>
+  <section class="product-details spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <div class="product__details__pic">
+            <div class="product__details__pic__item">
+              <img class="product__details__pic__item--large" src="{{detailProduct.tenImage}}" alt="" />
+            </div>
+            <div class="product__details__pic__slider owl-carousel"></div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="product__details__text">
+            <h3>{{detailProduct.tenSanPham}}</h3>
+            <div class="product__details__price">
+              <div ng-show="detailProduct.donGiaKhiGiam != null">
+                {{detailProduct.donGiaKhiGiam | number}}₫<span
+                  style="text-decoration: line-through; padding-left: 10px"
+                  >{{detailProduct.giaban | number}}₫</span
                 >
               </div>
-              <div>
-                <div class="sidebar__item__size">
-                  <h4 style="padding-bottom: 10px">Màu sắc:</h4>
-                  <div
-                    class="sidebar__item__size"
-                    ng-click="selectColor(color)"
-                    ng-repeat="color in detailColorProduct"
-                    ng-class="{ 'selected': color.isSelected}"
-                  >
-                    <label ng-click="findByMauSac(color.id)"
-                      >{{color.tenmausac}}</label
-                    >
-                  </div>
-                </div>
+              <div ng-show="detailProduct.donGiaKhiGiam == null">
+                {{detailProduct.giaban | number}}₫
               </div>
-              <div>
-                <div class="sidebar__item__size">
-                  <h4 style="padding-bottom: 10px">Chất liệu:</h4>
-                  <div
-                    class="sidebar__item__size"
-                    ng-click="selectMaterial(material)"
-                    ng-repeat="material in detailMaterialProduct"
-                    ng-class="{ 'selected': material.isSelected}"
-                  >
-                    <label ng-click="findByChatLieu(material.id)"
-                      >{{material.tenchatlieu}}</label
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="quantity">
-                <input
-                  style="margin-left: 0px"
-                  type="number"
-                  class="next-input text-left min-width-100px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
-                  ng-model="soluong"
-                  min="1"
-                  max="{{quantity.soluong}}"
-                />
-              </div>
-
-              <p style="padding-top: 20px">
-                Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}
-              </p>
             </div>
-            <!-- <a href="#" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)"
-              >ADD TO CART</a> -->
-            <a
-              href=""
-              class="primary-btn"
-              ng-click="addToCart(quantity.sanPhamChiTietId)"
-              >ADD TO CART</a
+            <h4 style="padding-bottom: 10px">Size:</h4>
+            <div
+              class="sidebar__item__size"
+              ng-click="selectSize(size)"
+              ng-repeat="size in detailSizeProduct"
+              ng-class="{ 'selected': size.isSelected }"
             >
+              <label class="sidebar__item__size_label"
+              ng-class="{ 'selected': size.isSelected }"
+                ng-model="keySize"
+                ng-click="findMauSacChatLieuBySize(size.id)"
+                >{{size.size}}</label
+              >
+            </div>
+            <div>
+           
+                <h4 style="padding-bottom: 10px">Màu sắc:</h4>
+                <div
+                  class="sidebar__item__size"
+                  ng-click="selectColor(color)"
+                  ng-repeat="color in detailColorProduct"
+                  ng-class="{ 'selected': color.isSelected}"
+                >
+                  <label  class="sidebar__item__color_label"
+                  ng-class="{ 'selected': color.isSelected }" ng-click="findByMauSac(color.id)">{{color.tenmausac}}</label>
+                </div>
+              
+            </div>
+            <div>
+              <div class="sidebar__item__size">
+                <h4 style="padding-bottom: 10px">Chất liệu:</h4>
+                <div
+                  class="sidebar__item__size"
+                  ng-click="selectMaterial(material)"
+                  ng-repeat="material in detailMaterialProduct"
+                  ng-class="{ 'selected': material.isSelected}"
+                >
+                  <label class="sidebar__item__material_label" ng-class="{ 'selected': material.isSelected}"   ng-click="findByChatLieu(material.id)">{{material.tenchatlieu}}</label>
+                </div>
+              </div>
+            </div>
+            <div class="quantity">
+              <input
+                placeholder="Nhập số lượng"
+                style="margin-left: 0px"
+                type="number"
+                class="next-input text-left max-width-10px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
+                ng-model="soluong"              
+                min="1"
+                max="{{quantity.soluong}}"
+              />
+            </div>
+            
+            <p style="padding-top: 20px;">Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}</p>
           </div>
-          <div class="col-lg-12">
-            <div class="product__details__tab">
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                  <a
-                    class="nav-link active"
-                    data-toggle="tab"
-                    href="#tabs-1"
-                    role="tab"
-                    aria-selected="true"
-                    >Mô Tả</a
-                  >
-                </li>
-              </ul>
-              <div class="tab-content">
-                <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                  <div class="product__details__tab__desc">
-                    <p>
-                      Vestibulum ac diam sit amet quam vehicula elementum sed
-                      sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-                      Proin eget tortor risus. Vivamus suscipit tortor eget
-                      felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Donec rutrum congue
-                      leo eget malesuada. Vivamus suscipit tortor eget felis
-                      porttitor volutpat. Curabitur arcu erat, accumsan id
-                      imperdiet et, porttitor at sem. Praesent sapien massa,
-                      convallis a pellentesque nec, egestas non nisi. Vestibulum
-                      ac diam sit amet quam vehicula elementum sed sit amet dui.
-                      Vestibulum ante ipsum primis in faucibus orci luctus et
-                      ultrices posuere cubilia Curae; Donec velit neque, auctor
-                      sit amet aliquam vel, ullamcorper sit amet ligula. Proin
-                      eget tortor risus.
-                    </p>
-                    <p>
-                      Praesent sapien massa, convallis a pellentesque nec,
-                      egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Mauris blandit aliquet elit, eget
-                      tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
-                      dictum porta. Cras ultricies ligula sed magna dictum
-                      porta. Sed porttitor lectus nibh. Mauris blandit aliquet
-                      elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam
-                      sit amet quam vehicula elementum sed sit amet dui. Sed
-                      porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Proin eget tortor
-                      risus.
-                    </p>
-                  </div>
+          <!-- <a href="#" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)"
+            >ADD TO CART</a> -->
+            <a href="" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)"
+            >ADD TO CART</a>
+        </div>
+        <div class="col-lg-12">
+          <div class="product__details__tab">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Mô Tả</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                <div class="product__details__tab__desc">
+                  <p>
+                    Vestibulum ac diam sit amet quam vehicula elementum sed
+                    sit amet dui. Pellentesque in ipsum id orci porta dapibus.
+                    Proin eget tortor risus. Vivamus suscipit tortor eget
+                    felis porttitor volutpat. Vestibulum ac diam sit amet quam
+                    vehicula elementum sed sit amet dui. Donec rutrum congue
+                    leo eget malesuada. Vivamus suscipit tortor eget felis
+                    porttitor volutpat. Curabitur arcu erat, accumsan id
+                    imperdiet et, porttitor at sem. Praesent sapien massa,
+                    convallis a pellentesque nec, egestas non nisi. Vestibulum
+                    ac diam sit amet quam vehicula elementum sed sit amet dui.
+                    Vestibulum ante ipsum primis in faucibus orci luctus et
+                    ultrices posuere cubilia Curae; Donec velit neque, auctor
+                    sit amet aliquam vel, ullamcorper sit amet ligula. Proin
+                    eget tortor risus.
+                  </p>
+                  <p>
+                    Praesent sapien massa, convallis a pellentesque nec,
+                    egestas non nisi. Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Mauris blandit aliquet elit, eget
+                    tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
+                    dictum porta. Cras ultricies ligula sed magna dictum
+                    porta. Sed porttitor lectus nibh. Mauris blandit aliquet
+                    elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam
+                    sit amet quam vehicula elementum sed sit amet dui. Sed
+                    porttitor lectus nibh. Vestibulum ac diam sit amet quam
+                    vehicula elementum sed sit amet dui. Proin eget tortor
+                    risus.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <section class="related-product">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="section-title related__product__title">
-              <h2>Sản Phẩm Liên Quan</h2>
-            </div>
+    </div>
+  </section>
+  <section class="related-product">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title related__product__title">
+            <h2>Sản Phẩm Liên Quan</h2>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="product in relatedProducts">
-            <div class="product__item">
-              <div class="product__item__pic set-bg" data-setbg="{{product.tenImage}}">
-                <img src="{{product.tenImage}}" alt="" />
-              </div>
-              <div class="product__item__text">
-                <h6>
-                  <a href="#">{{product.tenSanPham}}</a>
-                </h6>
-                <h5>{{product.giaban | currency: '₫'}}</h5>
-              </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="product in relatedProducts">
+          <div class="product__item">
+            <div class="product__item__pic set-bg" data-setbg="{{product.tenImage}}">
+              <img src="{{product.tenImage}}" alt="" />
+            </div>
+            <div class="product__item__text">
+              <h6>
+                <a href="#">{{product.tenSanPham}}</a>
+              </h6>
+              <h5>{{product.giaban | currency: '₫'}}</h5>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer__about">
-              <div class="footer__about__logo">
-                <a href="./index.html"
-                  ><img
-                    width="119px"
-                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                    alt=""
-                /></a>
-              </div>
-              <ul>
-                <li>Address: 60-49 Road 11378 New York</li>
-                <li>Phone: +65 11.188.888</li>
-                <li>Email: hello@colorlib.com</li>
-              </ul>
+  <!-- Footer Section Begin -->
+  <footer class="footer spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer__about">
+            <div class="footer__about__logo">
+              <a href="./index.html"><img width="119px"
+                  src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt="" /></a>
             </div>
+            <ul>
+              <li>Address: 60-49 Road 11378 New York</li>
+              <li>Phone: +65 11.188.888</li>
+              <li>Email: hello@colorlib.com</li>
+            </ul>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-            <div class="footer__widget">
-              <h6>Useful Links</h6>
-              <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">About Our Shop</a></li>
-                <li><a href="#">Secure Shopping</a></li>
-                <li><a href="#">Delivery infomation</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Our Sitemap</a></li>
-              </ul>
-              <ul>
-                <li><a href="#">Who We Are</a></li>
-                <li><a href="#">Our Services</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Innovation</a></li>
-                <li><a href="#">Testimonials</a></li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+          <div class="footer__widget">
+            <h6>Useful Links</h6>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">About Our Shop</a></li>
+              <li><a href="#">Secure Shopping</a></li>
+              <li><a href="#">Delivery infomation</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Our Sitemap</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Who We Are</a></li>
+              <li><a href="#">Our Services</a></li>
+              <li><a href="#">Projects</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Innovation</a></li>
+              <li><a href="#">Testimonials</a></li>
+            </ul>
           </div>
-          <div class="col-lg-4 col-md-12">
-            <div class="footer__widget">
-              <h6>Join Our Newsletter Now</h6>
-              <p>
-                Get E-mail updates about our latest shop and special offers.
-              </p>
-              <form action="#">
-                <input type="text" placeholder="Enter your mail" />
-                <button type="submit" class="site-btn">Subscribe</button>
-              </form>
-              <div class="footer__widget__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-              </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="footer__widget">
+            <h6>Join Our Newsletter Now</h6>
+            <p>
+              Get E-mail updates about our latest shop and special offers.
+            </p>
+            <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form>
+            <div class="footer__widget__social">
+              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a>
             </div>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.nice-select.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/jquery.slicknav.js"></script>
-    <script src="/js/mixitup.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </body>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nice-select.min.js"></script>
+  <script src="/js/jquery-ui.min.js"></script>
+  <script src="/js/jquery.slicknav.js"></script>
+  <script src="/js/mixitup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</body>
+
 </html>
