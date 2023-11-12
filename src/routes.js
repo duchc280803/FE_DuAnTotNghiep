@@ -72,29 +72,33 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/don-hang", {
       templateUrl: "./pages/don-hang.html",
     })
-    .when("/the-loai", {
-      templateUrl: "./pages/the-loai.html",
-    })
     .when("/xuat-xu", {
       templateUrl: "./pages/xuat-xu.html",
+      controller: "xuatXuController"
     })
     .when("/thuong-hieu", {
       templateUrl: "./pages/thuong-hieu.html",
+      controller: "thuongHieuController"
     })
     .when("/size", {
       templateUrl: "./pages/size.html",
+      controller: "sizeController"
     })
     .when("/mau-sac", {
       templateUrl: "./pages/mau-sac.html",
+      controller: "mauSacController"
     })
     .when("/kieu-de", {
       templateUrl: "./pages/kieu-de.html",
+      controller: "kieuDeController"
     })
     .when("/chat-lieu", {
       templateUrl: "./pages/chat-lieu.html",
+      controller: "chatLieuController"
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+      controller: "danhMucController"
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
     })
