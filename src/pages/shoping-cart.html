@@ -22,7 +22,6 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
 </head>
 <style>
-
   .icon_close:hover {
     margin: 0px 1px;
   }
@@ -200,26 +199,24 @@
     font-size: 16px;
     /* Điều chỉnh kích thước văn bản */
   }
-  table {
-  display: block;
-  height: 375px; /* Đặt chiều cao cố định cho tbody, điều này có thể điều chỉnh tùy thuộc vào chiều cao mong muốn */
-  overflow-y: auto; /* Sử dụng thanh cuộn dọc nếu nội dung vượt quá chiều cao của tbody */
-}
-/* Thiết lập kiểu thanh cuộn */
-::-webkit-scrollbar {
-  width: 3px; /* Chiều rộng của thanh cuộn */
-}
 
-::-webkit-scrollbar-thumb {
-  background-color: #7fad39; /* Màu nền của thanh cuộn */
-  border-radius: 20px; /* Bo tròn cạnh của thanh cuộn */
-}
+  /* Thiết lập kiểu thanh cuộn */
+  ::-webkit-scrollbar {
+    width: 3px;
+    /* Chiều rộng của thanh cuộn */
+  }
 
-::-webkit-scrollbar-track {
-  background-color: #e2e9d7; /* Màu nền của phần track thanh cuộn */
-}
+  ::-webkit-scrollbar-thumb {
+    background-color: #7fad39;
+    /* Màu nền của thanh cuộn */
+    border-radius: 20px;
+    /* Bo tròn cạnh của thanh cuộn */
+  }
 
-
+  ::-webkit-scrollbar-track {
+    background-color: #e2e9d7;
+    /* Màu nền của phần track thanh cuộn */
+  }
 </style>
 
 <body ng-app="myApp" ng-controller="CartController">
@@ -284,7 +281,7 @@
                 <a href="/src/pages/shoping-cart.html"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
                 <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
-                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;" >
+                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
                     <div class="row" ng-repeat="product in products">
                       <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
                         <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
@@ -309,10 +306,12 @@
                       <span style="font-weight: bolder;margin-left: 30px;" class="main-color-text">Total:</span>
                     </div>
                     <div class="col-md-3">
-                      <span style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
+                      <span
+                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
                     </div>
                   </div>
-                  <a href="/src/pages/shoping-cart.html" style="width: 80%; margin-left: 30px;" class="button">CHECK OUT</a>
+                  <a href="/src/pages/shoping-cart.html" style="width: 80%; margin-left: 30px;" class="button">CHECK
+                    OUT</a>
                 </div>
               </li>
             </ul>
@@ -353,42 +352,92 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="shoping__cart__table relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table>
-              <thead>
-                <tr>
-                  <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
-                  <th>Giá</th>
-                  <th>Số lượng</th>
-                  <th>Tổng Tiền</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="product in products" >
-                  <td class="shoping__cart__item">
-                    <img style="margin-left: 10px;" width="80px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
-                    <h7>{{product.tensanpham}}</h7>
-                  </td>
-                  <td class="shoping__cart__price">
-                    {{product.giaban | number:0}}₫
-                  </td>
-                  <td class="shoping__cart__quantity">
-                    <div class="quantity">
-                      <div class="pro-qty">
-                        <button class="dec qtybtn" ng-click="changeQuantity(product, 'decrease')">-</button>
-                        <input type="text" ng-model="product.soluong" />
-                        <button class="inc qtybtn" ng-click="changeQuantity(product, 'increase')">+</button>
+            <!-- 1 product -->
+            <div ng-if="products.length === 1">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng Tiền</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="product in products">
+                    <td class="shoping__cart__item">
+                      <img style="margin-left: 10px;" width="80px" ng-src="{{product.tenimage}}"
+                        alt="{{product.tensanpham}}" />
+                      <h7>{{product.tensanpham}}</h7>
+                    </td>
+                    <td class="shoping__cart__price">
+                      {{product.giaban | number:0}}₫
+                    </td>
+                    <td class="shoping__cart__quantity">
+                      <div class="quantity">
+                        <div class="pro-qty">
+                          <button class="dec qtybtn" ng-click="changeQuantity(product, 'decrease')">-</button>
+                          <input type="text" ng-model="product.soluong" />
+                          <button class="inc qtybtn" ng-click="changeQuantity(product, 'increase')">+</button>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td class="shoping__cart__total">
-                    {{product.giaban * product.soluong | number:0}}₫
-                  </td>
-                  <td class="shoping__cart__item__close">
-                    <span style="padding-right: 15px;" class="icon_close" ng-click="deleteProduct(product.id)"></span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                    <td class="shoping__cart__total">
+                      {{product.giaban * product.soluong | number:0}}₫
+                    </td>
+                    <td class="shoping__cart__item__close">
+                      <span style="padding-right: 15px;" class="icon_close" ng-click="deleteProduct(product.id)"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- many product -->
+            <div ng-if="products.length > 1">
+              <table style="display: block;
+              height: 375px; 
+              overflow-y: auto; ">
+                <thead>
+                  <tr>
+                    <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng Tiền</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="product in products">
+                    <td class="shoping__cart__item">
+                      <img style="margin-left: 10px;" width="80px" ng-src="{{product.tenimage}}"
+                        alt="{{product.tensanpham}}" />
+                      <h7>{{product.tensanpham}}</h7>
+                    </td>
+                    <td class="shoping__cart__price">
+                      {{product.giaban | number:0}}₫
+                    </td>
+                    <td class="shoping__cart__quantity">
+                      <div class="quantity">
+                        <div class="pro-qty">
+                          <button class="dec qtybtn" ng-click="changeQuantity(product, 'decrease')">-</button>
+                          <input type="text" ng-model="product.soluong" />
+                          <button class="inc qtybtn" ng-click="changeQuantity(product, 'increase')">+</button>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="shoping__cart__total">
+                      {{product.giaban * product.soluong | number:0}}₫
+                    </td>
+                    <td class="shoping__cart__item__close">
+                      <span style="padding-right: 15px;" class="icon_close" ng-click="deleteProduct(product.id)"></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- no product -->
+            <div ng-if="products.length === 0">
+              <p style="text-align: center;">No data</p>
+            </div>
           </div>
         </div>
       </div>
