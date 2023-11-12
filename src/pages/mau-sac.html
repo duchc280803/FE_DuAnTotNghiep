@@ -322,22 +322,29 @@
                         <th><p class="mb-0 text-muted"><strong>STT</strong></p></th>
                         <th><p class="mb-0 text-muted"><strong>Tên màu sắc</strong></p></th>
                         <th><p class="mb-0 text-muted"><strong>Trạng thái</strong></p></th>
+                        <th><p class="mb-0 text-muted"><strong>Ngày tạo</strong></p></th>
+                        <th><p class="mb-0 text-muted"><strong>Ngày cập nhật</strong></p></th>
                         <th><p class="mb-0 text-muted"><strong>Hành động</strong></p></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr ng-repeat="th in listMauSac">
                         <td>
-                         <small class="mb-0 text-muted ">1</small>
+                         <small class="mb-0 text-muted ">{{$index + 1 + (pageNumber * pageSize)}}</small>
                         </td>
                         <td>
-                          <small class="mb-0 text-muted ">Giày thể thao</small>
+                          <small class="mb-0 text-muted ">{{th.tenMauSac}}</small>
                         </td>
                         <td>
-                          <small class="mb-0 text-muted ">Đang hoạt động</small>
+                          <small>{{th.trangThai  == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}}</small>
                         </td>
                         <td>
-
+                          <small class="mb-0 text-muted ">{{th.ngayTao | date:'MM/dd/yyyy'}}</small>
+                        </td>
+                        <td>
+                          <small class="mb-0 text-muted ">{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</small>
+                        </td>
+                        <td>
                           <button class="btn btn-warning fe fe-eye fe-16"></button>
                           <button class="btn btn-success fe fe-tool fe-16"                                   data-toggle="modal"
                           data-target="#sizeModal"></button>
