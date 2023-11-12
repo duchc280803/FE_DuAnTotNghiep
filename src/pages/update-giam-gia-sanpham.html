@@ -281,27 +281,21 @@
                     <span class="header-title">Mã khuyến mại</span>
                     <span class="header-title" style="padding-left: 320px">
                       <input
-                        type="checkbox"
-                        ng-model="tuDongTaoMa"
-                        ng-change="onTuDongTaoMaChange()"
-                      />
-                      Tự động tạo
-                      <input
                         type="text"
                         disabled
                         class="next-input"
                         placeholder="nhập mã khuyến mãi"
-                        ng-model="maGiamGia"
+                        ng-value="giamgiachitiet.maGiamGia"
                       />
                     </span>
                   </div>
                   <div class="col-lg-6" style="padding-top: 15px">
-                    <span class="header-title">Tên khuyến mại</span>
+                    <span class="header-title">Tên khuyến mại </span>
                     <input
                       type="text"
                       class="next-input"
                       placeholder="Nhập tên khuyến mại"
-                      ng-model="tenGiamGia"
+                      ng-model="giamgiachitiet.tenGiamGia"
                     />
                   </div>
                   <div class="col-lg-5" style="padding-top: 15px">
@@ -310,51 +304,66 @@
                       type="text"
                       class="next-input"
                       placeholder="0"
-                      ng-model="mucGiam"
+                      ng-model="giamgiachitiet.mucGiam"
                     />
                   </div>
                   <div class="col-lg-2" style="padding-top: 10px">
                     <select
                       class="form-select"
                       id="selectOption"
-                      ng-model="hinhThucGiam"
+                      ng-value="giamgiachitiet.hinhThucGiam"
+                      ng-model="giamgiachitiet.hinhThucGiam"
                       aria-label="Default select example"
                     >
                       <option value="1" selected>đ</option>
                       <option value="2" selected>%</option>
                     </select>
                   </div>
+                  <!-- Ngày Bắt Đầu -->
                   <div class="col-lg-6" style="padding-top: 15px">
                     <span class="header-title">Ngày Bắt Đầu</span>
                     <input
                       type="date"
                       class="next-input"
                       placeholder="Nhập ngày bắt đầu"
-                      ng-model="ngayBatDau"
+                      ng-value="giamgiachitiet.ngayBatDau | date:'yyyy-MM-dd'"
+                      ng-model="giamgiachitiet.ngayBatDau"
                     />
                   </div>
+
+                  <!-- Ngày Kết Thúc -->
                   <div class="col-lg-6" style="padding-top: 15px">
                     <span class="header-title">Ngày Kết Thúc</span>
                     <input
                       type="date"
                       class="next-input"
                       placeholder="Nhập ngày kết thúc"
-                      ng-model="ngayKetThuc"
+                      ng-value="giamgiachitiet.ngayKetThuc | date:'yyyy-MM-dd'"
+                      ng-model="giamgiachitiet.ngayKetThuc"
                     />
                   </div>
+
                   <br />
 
-                  <button type="button" class="btn btn-outline-primary m-1" ng-click="updateGiamGia()">Sửa</button>
-
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary m-1"
+                    ng-click="updateGiamGia(giamgiachitiet.id)"
+                  >
+                    Sửa
+                  </button>
                 </div>
               </div>
             </div>
+
             <div
               class="card overflow-hidden"
-              style="margin-top: 20px;
-              margin-left: 20px;
-              margin-right: 20px;width: 1135px;"
-              
+              style="
+                margin-top: 20px;
+                margin-left: 20px;
+                margin-right: 20px;
+                width: 1135px;
+              "
             >
               <br />
               <div class="container">
@@ -500,11 +509,17 @@
                     <th scope="col">Kiểu để</th>
                     <th scope="col">Color</th>
                     <th scope="col">Chất liệu</th>
+                    <th scope="col">Giá Sản Phẩm</th>
+                    <th scope="col">Số lượng Giảm giá</th>
+                    <th scope="col">Giá Bán Sau Khi Giảm</th>
                     <th scope="col">Trạng Thái</th>
                   </tr>
                 </thead>
                 <tbody class="table">
-                  <tr ng-repeat="gg in listProduct">
+                  <tr
+                    ng-repeat="gg in listProduct"
+                    ng-style="{'color': gg.giaGiam <= 500000 ? '#f70a0a' : 'inherit', 'font-weight': gg.giaGiam <= 500000 ? 'bold' : 'normal'}"
+                  >
                     <td style="padding-top: 75px">
                       <input
                         type="checkbox"
@@ -523,6 +538,9 @@
                     <td>{{gg.kieuDeName}}</td>
                     <td>{{gg.mauSacName}}</td>
                     <td>{{gg.chatLieuName}}</td>
+                    <td>{{gg.giaBan}}</td>
+                    <td>{{gg.soLanGiam}}</td>
+                    <td>{{gg.giaGiam}}</td>
                     <td>
                       {{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH
                       DOANH'}}
