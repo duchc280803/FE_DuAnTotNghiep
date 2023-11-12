@@ -25,11 +25,12 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/khuyen-mai/update/:id", {  // Update route to include promotion ID
+    .when("/khuyen-mai/update/:id", {
+      // Update route to include promotion ID
       templateUrl: "./pages/update-giam-gia-sanpham.html",
-      controller: "giamgiaChiTietController",  // Create a new controller for update page
+      controller: "giamgiaChiTietController", // Create a new controller for update page
     })
-    .when("/giam-gia", {
+    .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
     })
     .when("/voucher/create", {
@@ -46,13 +47,14 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
-      controller: "sanPhamShopController"
-    }).when("/tai-khoan", {
+      controller: "sanPhamShopController",
+    })
+    .when("/tai-khoan", {
       templateUrl: "./pages/khach-hang.html",
     })
     .when("/shop/detail/:name", {
       templateUrl: "./pages/shop-details.html",
-      controller: "sanPhamShopDetailController"
+      controller: "sanPhamShopDetailController",
     })
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
@@ -62,8 +64,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/proudct-update", {
       templateUrl: "./pages/san-pham-update.html",
-    }).
-    when("/thank-you", {
+    })
+    .when("/thank-you", {
       templateUrl: "./pages/shoping-cart.html",
     })
     .when("/dia-chi", {
@@ -95,8 +97,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
-    .when("/don-hang-chi-tiet", {
-      templateUrl: "./pages/detail-don-hang.html",
     })
     .otherwise({
       redirectTo: "/home",

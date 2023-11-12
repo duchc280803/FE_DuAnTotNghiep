@@ -72,7 +72,6 @@ myApp.controller(
         for (var i = 0; i < $scope.lichSu.length; i++) {
           $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
         }
-        console.log($scope.soTienKhachTra);
       });
     };
     $scope.getlichSuThanhToan();
