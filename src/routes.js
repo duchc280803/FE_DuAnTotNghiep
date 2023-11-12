@@ -25,11 +25,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/khuyen-mai/update", {
+    .when("/khuyen-mai/update/:id", {  // Update route to include promotion ID
       templateUrl: "./pages/update-giam-gia-sanpham.html",
-      controller: "GiamGiaController",
+      controller: "giamgiaChiTietController",  // Create a new controller for update page
     })
-    .when("/voucher", {
+    .when("/giam-gia", {
       templateUrl: "./pages/voucher-hoa-don.html",
     })
     .when("/voucher/create", {
@@ -54,7 +54,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/shop-details.html",
       controller: "sanPhamShopDetailController"
     })
-
     .when("/cart", {
       templateUrl: "./pages/shoping-cart.html",
     })
@@ -73,6 +72,29 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/don-hang", {
       templateUrl: "./pages/don-hang.html",
     })
+    .when("/the-loai", {
+      templateUrl: "./pages/the-loai.html",
+    })
+    .when("/xuat-xu", {
+      templateUrl: "./pages/xuat-xu.html",
+    })
+    .when("/thuong-hieu", {
+      templateUrl: "./pages/thuong-hieu.html",
+    })
+    .when("/size", {
+      templateUrl: "./pages/size.html",
+    })
+    .when("/mau-sac", {
+      templateUrl: "./pages/mau-sac.html",
+    })
+    .when("/kieu-de", {
+      templateUrl: "./pages/kieu-de.html",
+    })
+    .when("/chat-lieu", {
+      templateUrl: "./pages/chat-lieu.html",
+    })
+    .when("/danh-muc", {
+      templateUrl: "./pages/danh-muc.html",
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
     })
