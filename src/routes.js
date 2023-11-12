@@ -96,6 +96,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+    .when("/don-hang-chi-tiet", {
+      templateUrl: "./pages/detail-don-hang.html",
     })
     .otherwise({
       redirectTo: "/home",
