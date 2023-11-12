@@ -202,6 +202,9 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
+    var idGioHangChiTiet = $window.localStorage.getItem("listCart");
+    var gioHangChiTietList = idGioHangChiTiet.split(",");
+
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
@@ -281,7 +284,7 @@ myApp.controller("BanTaiQuayController", [
         "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
         idGioHangChiTiet +
         "&quantity=" +
-        soLuong;
+        soLuong ;
       $http({
         url: apiURL,
         method: "PUT",
