@@ -6,6 +6,18 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
             $scope.listVoucher = response.data;
           });
       }
+      $scope.onTuDongTaoMaChange = function () {
+        if ($scope.tuDongTaoMa) {
+          // If the checkbox is checked, automatically generate the discount code
+          $scope. maVoucher = "GG_" + new Date().getTime();
+          // You might want to update other related properties as well
+        } else {
+          // If the checkbox is unchecked, clear the discount code or handle it as needed
+          $scope. maVoucher = "";
+          // You might want to update other related properties as well
+        }
+      };
+    
       fetchVoucherList();
       $scope.themVoucher = function () {
         // if (
@@ -65,5 +77,27 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
             console.error("Error:", error);
           });
       };
-      
+      $scope.isQuantityEnabled = true;
+
+      $scope.onQuantityEnabledChange = function () {
+          if (!$scope.isQuantityEnabled) {
+              // If the radio button is unchecked, set quantity to 0 and disable the input
+              $scope.soLuongMa = 0;
+          }
+      };
+      $scope.searchKey = function() {
+        var key = $scope.key;
+        if (!key) {
+            // Nếu giá trị là null, gọi lại danh sách đầy đủ
+            fetchVoucherList();
+        } else {
+            $http
+                .get("http://localhost:8080/api/v1/voucher/search", {
+                    params: { keyword: key },
+                })
+                .then(function(response) {
+                    $scope.listVoucher = response.data;
+                });
+        }
+    };
 });

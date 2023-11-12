@@ -81,7 +81,7 @@
             >
               <span>
                 <img
-                src="/assets/images/user.png"
+                  src="/assets/images/user.png"
                   width="180"
                   style="width: 21px; height: 21px"
                 />
@@ -89,10 +89,10 @@
               <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu">
-              <li class="sidebar-item" style="margin-left: 37px;">
+              <li class="sidebar-item" style="margin-left: 37px">
                 <a class="sidebar-link" href="#nhan-vien">Nhân viên</a>
               </li>
-              <li class="sidebar-item" style="margin-left: 37px;">
+              <li class="sidebar-item" style="margin-left: 37px">
                 <a class="sidebar-link" href="#khach-hang">Khách hàng</a>
               </li>
             </ul>
@@ -220,6 +220,7 @@
       <div class="card overflow-hidden" style="min-height: 120px">
         <div class="box">
           <div class="row" style="padding-top: 25px; padding-left: 60px">
+            <!-- HTML Template -->
             <div class="col-md-2">
               <p style="height: 7px; margin-left: -40px; font-weight: bold">
                 Nhập mã, tên voucher
@@ -227,16 +228,16 @@
               <input
                 class="form-control"
                 placeholder="Tìm khuyến mãi"
+                ng-model="key"
+                ng-change="searchKey()"
                 style="width: 220px; margin-left: -42px; font-weight: bold"
               />
             </div>
+
             <div
               class="col-md-3 d-flex justify-content-start"
               style="margin-top: 20px"
             >
-              <button class="btn btn-primary" style="height: 39px">
-                <span style="vertical-align: middle">Tìm Kiếm</span>
-              </button>
               <button
                 class="btn btn-warning"
                 style="height: 39px; margin-left: 10px"
@@ -254,10 +255,7 @@
                 style="width: 150px; height: 40px; margin-left: 10px"
                 class="form-control select2"
                 id="simple-select2"
-                ng-model="locMauSac"
-                ng-change="filterColor()"
               >
-                <option value="">Tất cả</option>
                 <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
                   {{ms.tenMauSac}}
                 </option>
@@ -301,12 +299,17 @@
                 <td>{{gg.tenVoucher}}</td>
                 <td>{{gg.giaTriToiThieuDonhang}}</td>
                 <td>{{gg.giaTriGiam}}</td>
-                <td>{{gg.soLuongMa}}</td>
-                <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                    <td>{{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                    <td>{{gg.trangThai == 1 ? 'còn hạn':'hết hạn'}}</td>
                 <td>
-                  <a href="#/voucher/update/{{gg.id}}" class="btn btn-primary">Sửa</a>
+                  {{gg.soLuongDung == null ? 0 : soLuongDung }} /
+                  {{gg.soLuongMa}}
+                </td>
+                <td>{{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{gg.trangThai == 1 ? 'còn hạn':'hết hạn'}}</td>
+                <td>
+                  <a href="#/voucher/update/{{gg.id}}" class="btn btn-primary"
+                    >Sửa</a
+                  >
                 </td>
               </tr>
             </tbody>
