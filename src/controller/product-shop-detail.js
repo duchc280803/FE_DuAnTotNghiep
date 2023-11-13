@@ -254,6 +254,7 @@ myApp.controller(
         await $scope.CreateNewCart();
       } else {
         try {
+          var idGioHang = localStorage.getItem("idgiohang");
           await $http.post(
             `http://localhost:8080/api/gio-hang-chi-tiet-not-login/them-san-pham?idGioHang=${idGioHang}&idSanPhamChiTiet=${idSanPhamChiTiet}&soLuong=${soLuong}`
           );
