@@ -306,8 +306,16 @@
                 </div>
               </li>
             </ul>
-            <div class="header__top__right__auth">
-              <a href="#"><i class="fa fa-user"></i> Login</a>
+            <div ng-controller="loginController">
+              <div class="header__top__right__auth" ng-if="!isLoggedIn">
+                <a href="#/login"><i class="fa fa-user"></i> Login</a>
+              </div>
+              <div class="header__top__right__auth" ng-if="isLoggedIn">
+                <a href="#/dia-chi" class="account-setting-active" style="background: none; border: none">
+                  <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                    alt="polyfood" style="width: 35px; height: 35px; border-radius: 35px" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

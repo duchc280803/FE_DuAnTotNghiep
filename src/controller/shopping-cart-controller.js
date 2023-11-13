@@ -1,6 +1,8 @@
 var app = angular.module("myApp", []);
 var idgh = localStorage.getItem('idgiohang');
 app.controller("CartController", function ($scope, $http, $window) {
+  
+
   function loadToTals() {
     // Gọi API và cập nhật giá trị totalAmount
 
