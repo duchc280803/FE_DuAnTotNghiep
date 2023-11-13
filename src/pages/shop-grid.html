@@ -339,19 +339,23 @@
                     OUT</a>
                 </div>
               </li>
-              <li class="account-hover">
+              <li class="account-hover" ng-controller="loginController">
                 <div class="header__top__right__auth">
                   <a href="#"><i class="fa fa-user"></i> NamND</a>
                   <div class="account-form">
-                    <a href="#/dia-chi" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="#/dia-chi" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
                       <i class="fa fa-user fs-6"></i>
                       <p class="mb-0 fs-3">Tài khoản của tôi</p>
                     </a>
-                    <a href="#/don-hang" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="#/don-hang" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đơn hàng</p>
                     </a>
-                    <a ng-click="logout()" class="d-flex align-items-center gap-2 dropdown-item" href="#">
+                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">Đăng nhập</p>
+                    </a>
+                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
                     </a>
