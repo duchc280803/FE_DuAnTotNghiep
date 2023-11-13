@@ -244,6 +244,33 @@
       background-color: black;
       color: white;
     }
+
+    .account-form {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      top: 50px;
+      right: 0;
+      z-index: 999;
+    }
+
+    .account-hover:hover .account-form {
+      display: block;
+    }
+
+    /* CSS để thay đổi màu nền khi click */
+    li.account-hover a:active {
+      background-color: #dcdcdc;
+      /* Màu xám nhạt */
+    }
+
+    /* CSS để xóa chọn văn bản khi click (nếu có) */
+    li.account-hover a:active,
+    li.account-hover a:focus {
+      outline: none;
+    }
   </style>
 </head>
 
@@ -306,7 +333,7 @@
           <div class="header__cart">
             <ul>
               <li class="open-cart">
-                <a href="/src/pages/shoping-cart.html"><i class="fa fa-shopping-bag"></i>
+                <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
                 <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
                   <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
@@ -337,55 +364,27 @@
                         style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
                     </div>
                   </div>
-                  <a href="/src/pages/shoping-cart.html" style="width: 80%; margin-left: 30px;" class="button">CHECK
+                  <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
                     OUT</a>
                 </div>
               </li>
-              <style>
-                .account-form {
-                  display: none;
-                  position: absolute;
-                  background-color: #fff;
-                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                  padding: 10px;
-                  top: 50px;
-                  right: 0;
-                  z-index: 999;
-                }
-
-                .account-hover:hover .account-form {
-                  display: block;
-                }
-
-                /* CSS để thay đổi màu nền khi click */
-                li.account-hover a:active {
-                  background-color: #dcdcdc;
-                  /* Màu xám nhạt */
-                }
-
-                /* CSS để xóa chọn văn bản khi click (nếu có) */
-                li.account-hover a:active,
-                li.account-hover a:focus {
-                  outline: none;
-                }
-              </style>
-              <li class="account-hover">
+              <li class="account-hover" ng-controller="loginController">
                 <div class="header__top__right__auth">
-                  <a href="#"><i class="fa fa-user"></i> NamND</a>
+                  <a href="#" ng-if="isLoggedIn"><i class="fa fa-user"></i> NamND</a>
                   <div class="account-form">
-                    <a class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="#/dia-chi" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
                       <i class="fa fa-user fs-6"></i>
                       <p class="mb-0 fs-3">Tài khoản của tôi</p>
                     </a>
-                    <a class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="#/don-hang" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đơn hàng</p>
                     </a>
-                    <a class="d-flex align-items-center gap-2 dropdown-item" href="#">
-                      <i class="fa fa-map-marker fs-6"></i>
-                      <p class="mb-0 fs-3">Địa chỉ</p>
+                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                      <i class="fa fa-sign-out fs-6"></i>
+                      <p class="mb-0 fs-3">Đăng nhập</p>
                     </a>
-                    <a class="d-flex align-items-center gap-2 dropdown-item" href="#">
+                    <a ng-click="logout()" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
                     </a>
@@ -393,17 +392,6 @@
                 </div>
               </li>
             </ul>
-            <!-- <div ng-controller="loginController">
-              <div class="header__top__right__auth" ng-if="!isLoggedIn">
-                <a href="#/login"><i class="fa fa-user"></i> Login</a>
-              </div>
-              <div class="header__top__right__auth" ng-if="isLoggedIn">
-                <a href="#/dia-chi" class="account-setting-active" style="background: none; border: none">
-                  <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
-                    alt="polyfood" style="width: 35px; height: 35px; border-radius: 35px" />
-                </a>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
