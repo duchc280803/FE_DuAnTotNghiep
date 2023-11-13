@@ -1,7 +1,7 @@
 var idgh = localStorage.getItem('idgiohang');
 myApp.controller("sanPhamShopController", function ($http, $scope,$window) {
   var token = $window.localStorage.getItem("token");
-  console.log(token);
+    console.log(token);
   $scope.listSanPhamShop = [];
   $scope.listThuongHieu = [];
   $scope.listDanhMuc = [];
@@ -124,7 +124,6 @@ myApp.controller("sanPhamShopController", function ($http, $scope,$window) {
   
       $http.get(apiURL).then(function (response) {
         $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
-        console.log($scope.quantity_all)
       });
     }
 
