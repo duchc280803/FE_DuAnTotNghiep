@@ -314,8 +314,59 @@
                     OUT</a>
                 </div>
               </li>
+              <style>
+                .account-form {
+                  display: none;
+                  position: absolute;
+                  background-color: #fff;
+                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                  padding: 10px;
+                  top: 50px;
+                  right: 0;
+                  z-index: 999;
+                }
+
+                .account-hover:hover .account-form {
+                  display: block;
+                }
+
+                /* CSS để thay đổi màu nền khi click */
+                li.account-hover a:active {
+                  background-color: #dcdcdc;
+                  /* Màu xám nhạt */
+                }
+
+                /* CSS để xóa chọn văn bản khi click (nếu có) */
+                li.account-hover a:active,
+                li.account-hover a:focus {
+                  outline: none;
+                }
+              </style>
+              <li class="account-hover">
+                <div class="header__top__right__auth">
+                  <a href="#"><i class="fa fa-user"></i> NamND</a>
+                  <div class="account-form">
+                    <a class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="fa fa-user fs-6"></i>
+                      <p class="mb-0 fs-3">Tài khoản của tôi</p>
+                    </a>
+                    <a class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">Đơn hàng</p>
+                    </a>
+                    <a class="d-flex align-items-center gap-2 dropdown-item" href="#">
+                      <i class="fa fa-map-marker fs-6"></i>
+                      <p class="mb-0 fs-3">Địa chỉ</p>
+                    </a>
+                    <a class="d-flex align-items-center gap-2 dropdown-item" href="#">
+                      <i class="fa fa-sign-out fs-6"></i>
+                      <p class="mb-0 fs-3">Đăng xuất</p>
+                    </a>
+                  </div>
+                </div>
+              </li>
             </ul>
-            <div ng-controller="loginController">
+            <!-- <div ng-controller="loginController">
               <div class="header__top__right__auth" ng-if="!isLoggedIn">
                 <a href="#/login"><i class="fa fa-user"></i> Login</a>
               </div>
@@ -326,7 +377,7 @@
                     alt="polyfood" style="width: 35px; height: 35px; border-radius: 35px" />
                 </a>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
