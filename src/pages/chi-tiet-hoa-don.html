@@ -208,7 +208,7 @@
                   <div ng-controller="loginController">
                     <div ng-if="!isLoggedIn">
                       <a
-                        href="pages/authentication-login.html"
+                        href="#/admin/login"
                         class="btn btn-outline-primary mx-3 mt-2 d-block"
                         >Login</a
                       >
@@ -295,6 +295,16 @@
                 Đã hủy
               </h6>
             </a>
+            <a
+              style="width: 180px"
+              ng-show="statusDaHuy == 7"
+              class="breadcrumb__step"
+              ng-class="{'breadcrumb__step--active': statusDaHuy === 6}"
+            >
+              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
+                Hoàn trả
+              </h6>
+            </a>
           </div>
         </h5>
         <div style="margin-top: 60px">
@@ -329,7 +339,7 @@
                     type="submit"
                     class="btn btn-danger m-1"
                     data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    data-bs-target="#huydon"
                     style="
                       text-decoration: none;
                       height: 39px;
@@ -362,7 +372,7 @@
           </div>
         </div>
       </div>
-      <!-- modal thông báo trạng thái HD -->
+      <!-- modal cập nhật trạng thái HD -->
       <div
         class="modal fade"
         id="exampleModal"
@@ -375,48 +385,28 @@
             <div class="modal-header"></div>
             <div class="modal-body">
               <div class="modal-body-item">
-                <span>Nhập ghi chú</span>
+                <span class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Nhập ghi chú</span></span
+                >
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Ghi chú"
                   ng-model="newStatusOrder.ghiChu"
                 />
+                <br />
+                <span
+                  ng-show="thongTinTienDonHang.tienShip != null"
+                  class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Nhập tiền ship</span></span
+                >
                 <input
-                  hidden
-                  ng-show="status === 1"
+                  ng-show="status == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'"
                   type="text"
                   class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 2"
-                />
-                <input
-                  hidden
-                  ng-show="status === 2"
-                  type="text"
-                  class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 3"
-                />
-                <input
-                  hidden
-                  ng-show="status === 3"
-                  type="text"
-                  class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 3"
-                />
-                <input
-                  hidden
-                  ng-show="status === 4"
-                  type="text"
-                  class="form-control"
-                  placeholder="trangThai"
-                  ng-model="newStatusOrder.newTrangThai"
-                  ng-init="newStatusOrder.newTrangThai = 5"
+                  placeholder="Tiền ship"
                 />
               </div>
               <br />
@@ -442,6 +432,55 @@
         </div>
       </div>
       <!-- modal Lịch sử -->
+      <!-- modal hủy hóa đơn -->
+      <div
+        class="modal fade"
+        id="huydon"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+              <div class="modal-body-item">
+                <span class="header-title"
+                  ><span style="color: red">*</span>
+                  <span>Nhập ghi chú hủy</span></span
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Ghi chú"
+                  ng-model="newStatusOrder.ghiChu"
+                />
+                <br />
+              </div>
+              <br />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Hủy
+              </button>
+              <button
+                type="button"
+                data-bs-dismiss="modal"
+                class="btn btn-outline-danger m-1"
+                ng-click="comfirmStatusOrder()"
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal hủy hóa đơn -->
+      <!-- modal thông báo trạng thái HD -->
       <div
         class="modal fade"
         id="lichsu"
@@ -499,13 +538,38 @@
           </div>
         </div>
       </div>
+      <!-- modal thông báo trạng thái HD -->
       <div class="card overflow-hidden" style="width: 1152px">
         <div class="box">
           <div class="d-flex align-items-center">
             <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
               Lịch sử thanh toán
             </h5>
+            <h5
+              ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia + thongTinTienDonHang.tienShip) <= soTienKhachTra && thongTinTienDonHang.tienShip != null"
+              style="padding-left: 700px; padding-top: 20px"
+              class="me-auto"
+            >
+              Khách đã thanh toán tiền đơn hàng
+            </h5>
+            <h5
+              ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia) <= soTienKhachTra && thongTinTienDonHang.tienShip == null"
+              style="padding-left: 700px; padding-top: 20px"
+              class="me-auto"
+            >
+              Khách đã thanh toán tiền đơn hàng
+            </h5>
             <button
+              ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia) > soTienKhachTra && thongTinTienDonHang.tienShip == null"
+              class="btn btn-primary"
+              style="margin-top: 20px; margin-right: 20px"
+              data-bs-toggle="modal"
+              data-bs-target="#thanhttoan"
+            >
+              Xác nhận
+            </button>
+            <button
+              ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia + thongTinTienDonHang.tienShip) > soTienKhachTra && thongTinTienDonHang.tienShip != null"
               class="btn btn-primary"
               style="margin-top: 20px; margin-right: 20px"
               data-bs-toggle="modal"
@@ -544,13 +608,26 @@
                         </div>
                         <div class="col-lg-4">
                           <h6
+                            ng-show="thongTinTienDonHang.tienShip != null"
                             style="
                               font-size: 15px;
                               font-weight: bold;
                               color: crimson;
                             "
                           >
-                            3343434đ
+                            {{tongTienHang + thongTinTienDonHang.tienGiamGia +
+                            thongTinTienDonHang.tienShip | number}}₫
+                          </h6>
+                          <h6
+                            ng-show="thongTinTienDonHang.tienShip == null"
+                            style="
+                              font-size: 15px;
+                              font-weight: bold;
+                              color: crimson;
+                            "
+                          >
+                            {{tongTienHang + thongTinTienDonHang.tienGiamGia|
+                            number}}₫
                           </h6>
                         </div>
                       </div>
@@ -564,6 +641,7 @@
                             type="text"
                             class="next-input"
                             placeholder="Nhập tiền khách đưa"
+                            ng-model="newTransaction.soTien"
                           />
                         </div>
                         <div class="col-lg-12" style="margin-top: 15px">
@@ -575,6 +653,7 @@
                             type="text"
                             class="next-input"
                             placeholder="Nhập ghi chú"
+                            ng-model="newTransaction.ghiChu"
                           />
                         </div>
                       </div>
@@ -583,6 +662,7 @@
                           <button
                             style="margin-left: 80px"
                             class="btn btn-primary"
+                            ng-click="button1Clicked(hoaDonChiTiet.idNhanVien)"
                           >
                             <img
                               src="/assets/images/payment-method.png"
@@ -595,6 +675,7 @@
                           <button
                             style="margin-left: 50px"
                             class="btn btn-primary"
+                            ng-click="button2Clicked(hoaDonChiTiet.idNhanVien)"
                           >
                             <img
                               src="/assets/images/debit-card.png"
@@ -660,7 +741,7 @@
           </div>
           <hr />
           <div class="row" style="padding-left: 20px">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <h5>
                 Trạng thái: {{ hoaDonChiTiet.trangThai === 1 ? 'Chờ Xác nhận' :
                 hoaDonChiTiet.trangThai === 2 ? 'Xác nhận' :
@@ -673,15 +754,10 @@
               <h5>Loại: {{hoaDonChiTiet.tenLoaiDon}}</h5>
               <h5>Địa chỉ: {{hoaDonChiTiet.diaChi}}</h5>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <h5>Tên khách hàng: {{hoaDonChiTiet.tenNguoiNhan}}</h5>
               <h5>Số điện thoại: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
               <h5>Ghi chú: {{hoaDonChiTiet.ghiChu}}</h5>
-            </div>
-            <div class="col-lg-4">
-              <h5>Tiền hàng: {{hoaDonChiTiet.tenNguoiNhan}}</h5>
-              <h5>Tiền giảm giá: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
-              <h5>Tổng số tiền: {{hoaDonChiTiet.ghiChu}}</h5>
             </div>
           </div>
         </div>
@@ -698,9 +774,9 @@
                   <th>Image</th>
                   <th style="width: 400px">Tên sản phẩm</th>
                   <th>Số lượng</th>
-                  <th>Đơn giá</th>
+                  <th style="width: 0px">Đơn giá</th>
                   <th>Tổng tiền</th>
-                  <th>Thoa tác</th>
+                  <th ng-show="status == 5">Thoa tác</th>
                 </tr>
               </thead>
               <tr ng-repeat="item in listSanPhamInOrder">
@@ -729,7 +805,7 @@
                 </td>
                 <td style="padding-top: 80px">
                   <div ng-show="item.donGiaSauGiam != 0">
-                    {{item.giaBan-item.donGiaSauGiam | number}}₫
+                    {{item.donGiaSauGiam | number}}₫
                     <span style="color: crimson">
                       <strike>{{item.giaBan | number}}₫</strike></span
                     >
@@ -739,12 +815,12 @@
                   </div>
                 </td>
                 <td style="padding-top: 80px" ng-show="item.donGiaSauGiam != 0">
-                  {{(item.giaBan - item.donGiaSauGiam) * item.soLuong|number}}đ
+                  {{(item.donGiaSauGiam) * item.soLuong|number}}đ
                 </td>
                 <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
                   {{item.giaBan * item.soLuong |number}}đ
                 </td>
-                <td style="padding-top: 70px">
+                <td style="padding-top: 70px" ng-show="status == 5">
                   <button
                     class="btn btn-primary"
                     data-bs-toggle="modal"
@@ -1199,17 +1275,43 @@
             <h6 style="font-size: 14px; font-weight: 600">
               Tiền hàng: {{tongTienHang |number}}₫
             </h6>
-            <h6 style="font-size: 14px; font-weight: 600">
+            <h6
+              style="font-size: 14px; font-weight: 600"
+              ng-show="thongTinTienDonHang.tienShip != null"
+            >
               Tiền ship: {{thongTinTienDonHang.tienShip |number}}₫
             </h6>
             <h6 style="font-size: 14px; font-weight: 600">
               Tiền giảm giá:{{thongTinTienDonHang.tienGiamGia |number}}₫
             </h6>
-            <h6 style="font-size: 14px; font-weight: 600">
-              Tiền thừa: {{thongTinTienDonHang.tienThua| number}}₫
+            <h6
+              style="font-size: 14px; font-weight: 600"
+              ng-show="thongTinTienDonHang.tienShip != null"
+            >
+              Tiền thừa: {{soTienKhachTra - (tongTienHang +
+              thongTinTienDonHang.tienGiamGia + thongTinTienDonHang.tienShip) |
+              number}}₫
             </h6>
-            <h6 style="font-size: 14px; font-weight: 600">
-              Tổng tiền: {{thongTinTienDonHang.tongTien | number}}₫
+            <h6
+              style="font-size: 14px; font-weight: 600"
+              ng-show="thongTinTienDonHang.tienShip == null"
+            >
+              Tiền thừa: {{soTienKhachTra - (tongTienHang +
+              thongTinTienDonHang.tienGiamGia) | number}}₫
+            </h6>
+            <h6
+              style="font-size: 14px; font-weight: 600"
+              ng-show="thongTinTienDonHang.tienShip != null"
+            >
+              Tổng tiền: {{tongTienHang + thongTinTienDonHang.tienGiamGia +
+              thongTinTienDonHang.tienShip | number}}₫
+            </h6>
+            <h6
+              style="font-size: 14px; font-weight: 600"
+              ng-show="thongTinTienDonHang.tienShip == null"
+            >
+              Tổng tiền: {{tongTienHang + thongTinTienDonHang.tienGiamGia |
+              number}}₫
             </h6>
           </div>
         </div>

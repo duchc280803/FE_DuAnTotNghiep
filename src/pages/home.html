@@ -1,475 +1,452 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myModule">
-  <head>
-    <meta charset="UTF-8" />
-    <title>NICE SHOE</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/style.css" type="text/css" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="header__top">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="header__top__left">
-                <ul>
-                  <li>
-                    <i class="fa fa-envelope"></i>hoangcongduc280803@gmail.com
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="header__top__right">
-                <div class="header__top__right__social">
-                  <a href="#"><i class="fa fa-facebook"></i></a>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                  <a href="#"><i class="fa fa-linkedin"></i></a>
-                  <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                </div>
-                <div class="header__top__right__language">
-                  <img src="/img/language.png" alt="" />
-                  <div>English</div>
-                  <span class="arrow_carrot-down"></span>
-                  <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>NICE SHOE</title>
+  <link rel="shortcut icon" type="image/png"
+    href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
+  <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
+  <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__top">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3">
-            <div class="header__logo">
-              <a href="./index.html"
-                ><img
-                  src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                  style="width: 125px"
-                  alt=""
-              /></a>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <nav class="header__menu">
-              <ul>
-                <li class="active"><a href="#/home">Home</a></li>
-                <li><a href="#/shop">Shop</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div class="col-lg-3">
-            <div class="header__cart">
+          <div class="col-lg-6 col-md-6">
+            <div class="header__top__left">
               <ul>
                 <li>
-                  <a href="#/cart"
-                    ><i class="fa fa-shopping-bag"></i> <span>3</span></a
-                  >
+                  <i class="fa fa-envelope"></i>hoangcongduc280803@gmail.com
                 </li>
               </ul>
-              <div class="header__top__right__auth">
-                <a href="#/login"
-                  ><i class="fa fa-user"></i> Login</a
-                >
-              </div>
-              <div class="same-style account-setting d-none d-lg-block">
-                <button class="account-setting-active" style="background: none; border: none">
-                  <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="polyfood" style="width: 35px; height: 35px; border-radius: 35px" />
-                </button>
-                <div class="account-dropdown d-none" style="visibility: visible; transform: rotateX(0deg); opacity: 1;">
-                  <ul>
-                    <li>
-                      <a href="/my-account">Tài Khoản của tôi</a>
-                      <a href="/order-history">Lịch sử đơn hàng</a>
-                      <a href="/">Đăng Xuất</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </header>
-    <!-- Header Section End -->
-
-    <!-- Featured Section Begin -->
-    <section class="featured spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="section-title">
-              <h2>Sản phẩm bán chạy</h2>
-            </div>
-            <div class="featured__controls">
-              <ul>
-                <li class="active" data-filter="*">Tất cả</li>
-                <li data-filter=".oranges">Nike</li>
-                <li data-filter=".fresh-meat">Adidas</li>
-                <li data-filter=".vegetables">Puma</li>
-                <li data-filter=".fastfood">Reebok</li>
-                <li data-filter=".fastfood">Vans</li>
-                <li data-filter=".fastfood">Converse</li>
-                <li data-filter=".fastfood">ASICS</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="row featured__filter">
-          <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
-                  alt="" />
+          <div class="col-lg-6 col-md-6">
+            <div class="header__top__right">
+              <div class="header__top__right__social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-pinterest-p"></i></a>
               </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a></h6>
-                <h5>2.490.000₫</h5>
+              <div class="header__top__right__language">
+                <img src="/img/language.png" alt="" />
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                  <li><a href="#">Spanis</a></li>
+                  <li><a href="#">English</a></li>
+                </ul>
               </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg" data-setbg="">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a></h6>
-                <h5>1.690.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a></h6>
-                <h5>2.490.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6>
-                  <a href="#">GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a>
-                </h6>
-                <h5>3.829.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-free-rn-nn-nam-den-trang-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6>
-                  <a href="#">GIÀY NIKE FREE RN NN 2023 NAM - ĐEN TRẮNG</a>
-                </h6>
-                <h5>2.790.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-zoom-bella-6-nu-trang-xanh-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE ZOOM BELLA 6 NỮ - TRẮNG XANH</a></h6>
-                <h5>2.190.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-sc-nam-trang-den-vang-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6>
-                  <a href="#">GIÀY NIKE AIR MAX SC NAM - TRẮNG ĐEN VÀNG</a>
-                </h6>
-                <h5>2.090.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-excee-nam-den-den-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE AIR MAX EXCEE NAM - ĐEN ĐEN</a></h6>
-                <h5>2.290.000₫</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="banner">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="banner__pic">
-              <img
-                src="/assets/images/sport-sneakers-shoes-sale-social-media-instagram-post-facebook-web-banner-template_70055-1452.avif"
-                alt="" />
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="banner__pic">
-              <img
-                src="/assets/images/e97d5e7351766db73ca3edc26f4aefaf.jpg"
-                alt="" />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <section class="featured spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="section-title">
-              <h2>Sản phẩm mới nhất</h2>
-            </div>
-            <div class="featured__controls">
-              <ul>
-                <li class="active" data-filter="*">Tất cả</li>
-                <li data-filter=".oranges">Nike</li>
-                <li data-filter=".fresh-meat">Adidas</li>
-                <li data-filter=".vegetables">Puma</li>
-                <li data-filter=".fastfood">Reebok</li>
-                <li data-filter=".fastfood">Vans</li>
-                <li data-filter=".fastfood">Converse</li>
-                <li data-filter=".fastfood">ASICS</li>
-              </ul>
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="header__logo">
+            <a href="./index.html"><img
+                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                style="width: 125px" alt="" /></a>
           </div>
         </div>
-        <div class="row featured__filter">
-          <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
-                  alt="" />
+        <div class="col-lg-5">
+          <nav class="header__menu">
+            <ul>
+              <li class="active"><a href="#/home">Home</a></li>
+              <li><a href="#/shop">Shop</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-4">
+          <div class="header__cart">
+            <ul>
+              <li>
+                <a href="#/cart"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
+              </li>
+            </ul>
+            <div ng-controller="loginController">
+              <div class="header__top__right__auth" ng-if="!isLoggedIn">
+                <a href="#/login"><i class="fa fa-user"></i> Login</a>
               </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a></h6>
-                <h5>2.490.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg" data-setbg="">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a></h6>
-                <h5>1.690.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a></h6>
-                <h5>2.490.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6>
-                  <a href="#">GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a>
-                </h6>
-                <h5>3.829.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-free-rn-nn-nam-den-trang-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6>
-                  <a href="#">GIÀY NIKE FREE RN NN 2023 NAM - ĐEN TRẮNG</a>
-                </h6>
-                <h5>2.790.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-zoom-bella-6-nu-trang-xanh-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE ZOOM BELLA 6 NỮ - TRẮNG XANH</a></h6>
-                <h5>2.190.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-sc-nam-trang-den-vang-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6>
-                  <a href="#">GIÀY NIKE AIR MAX SC NAM - TRẮNG ĐEN VÀNG</a>
-                </h6>
-                <h5>2.090.000₫</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg">
-                <img
-                  src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-excee-nam-den-den-01-800x800.jpg"
-                  alt="" />
-              </div>
-              <div class="featured__item__text">
-                <h6><a href="#">GIÀY NIKE AIR MAX EXCEE NAM - ĐEN ĐEN</a></h6>
-                <h5>2.290.000₫</h5>
+              <div class="header__top__right__auth" ng-if="isLoggedIn">
+                <a href="#/dia-chi" class="account-setting-active" style="background: none; border: none">
+                  <img
+                    src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                    alt="polyfood" style="width: 35px; height: 35px; border-radius: 35px" />
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <footer class="footer spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer__about">
-              <div class="footer__about__logo">
-                <a href=""
-                  ><img
-                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705.png"
-                    alt=""
-                    width="119px"
-                /></a>
-              </div>
-              <ul>
-                <li>Address: 60-49 Road 11378 New York</li>
-                <li>Phone: +65 11.188.888</li>
-                <li>Email: hello@colorlib.com</li>
-              </ul>
+  </header>
+  <section class="featured spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title">
+            <h2>Sản phẩm bán chạy</h2>
+          </div>
+          <div class="featured__controls">
+            <ul>
+              <li class="active" data-filter="*">Tất cả</li>
+              <li data-filter=".oranges">Nike</li>
+              <li data-filter=".fresh-meat">Adidas</li>
+              <li data-filter=".vegetables">Puma</li>
+              <li data-filter=".fastfood">Reebok</li>
+              <li data-filter=".fastfood">Vans</li>
+              <li data-filter=".fastfood">Converse</li>
+              <li data-filter=".fastfood">ASICS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row featured__filter">
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a></h6>
+              <h5>2.490.000₫</h5>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-            <div class="footer__widget">
-              <h6>Useful Links</h6>
-              <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">About Our Shop</a></li>
-                <li><a href="#">Secure Shopping</a></li>
-                <li><a href="#">Delivery infomation</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Our Sitemap</a></li>
-              </ul>
-              <ul>
-                <li><a href="#">Who We Are</a></li>
-                <li><a href="#">Our Services</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Innovation</a></li>
-                <li><a href="#">Testimonials</a></li>
-              </ul>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg" data-setbg="">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a></h6>
+              <h5>1.690.000₫</h5>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12">
-            <div class="footer__widget">
-              <h6>Join Our Newsletter Now</h6>
-              <p>
-                Get E-mail updates about our latest shop and special offers.
-              </p>
-              <form action="#">
-                <input type="text" placeholder="Enter your mail" />
-                <button type="submit" class="site-btn">Subscribe</button>
-              </form>
-              <div class="footer__widget__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-              </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a></h6>
+              <h5>2.490.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6>
+                <a href="#">GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a>
+              </h6>
+              <h5>3.829.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-free-rn-nn-nam-den-trang-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6>
+                <a href="#">GIÀY NIKE FREE RN NN 2023 NAM - ĐEN TRẮNG</a>
+              </h6>
+              <h5>2.790.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-zoom-bella-6-nu-trang-xanh-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE ZOOM BELLA 6 NỮ - TRẮNG XANH</a></h6>
+              <h5>2.190.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-sc-nam-trang-den-vang-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6>
+                <a href="#">GIÀY NIKE AIR MAX SC NAM - TRẮNG ĐEN VÀNG</a>
+              </h6>
+              <h5>2.090.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-excee-nam-den-den-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE AIR MAX EXCEE NAM - ĐEN ĐEN</a></h6>
+              <h5>2.290.000₫</h5>
             </div>
           </div>
         </div>
       </div>
-    </footer>
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.nice-select.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/jquery.slicknav.js"></script>
-    <script src="/js/mixitup.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-  </body>
+    </div>
+  </section>
+  <div class="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="banner__pic">
+            <img
+              src="/assets/images/sport-sneakers-shoes-sale-social-media-instagram-post-facebook-web-banner-template_70055-1452.avif"
+              alt="" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="banner__pic">
+            <img src="/assets/images/e97d5e7351766db73ca3edc26f4aefaf.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="featured spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title">
+            <h2>Sản phẩm mới nhất</h2>
+          </div>
+          <div class="featured__controls">
+            <ul>
+              <li class="active" data-filter="*">Tất cả</li>
+              <li data-filter=".oranges">Nike</li>
+              <li data-filter=".fresh-meat">Adidas</li>
+              <li data-filter=".vegetables">Puma</li>
+              <li data-filter=".fastfood">Reebok</li>
+              <li data-filter=".fastfood">Vans</li>
+              <li data-filter=".fastfood">Converse</li>
+              <li data-filter=".fastfood">ASICS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row featured__filter">
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a></h6>
+              <h5>2.490.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg" data-setbg="">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a></h6>
+              <h5>1.690.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a></h6>
+              <h5>2.490.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6>
+                <a href="#">GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a>
+              </h6>
+              <h5>3.829.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-free-rn-nn-nam-den-trang-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6>
+                <a href="#">GIÀY NIKE FREE RN NN 2023 NAM - ĐEN TRẮNG</a>
+              </h6>
+              <h5>2.790.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-zoom-bella-6-nu-trang-xanh-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE ZOOM BELLA 6 NỮ - TRẮNG XANH</a></h6>
+              <h5>2.190.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-sc-nam-trang-den-vang-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6>
+                <a href="#">GIÀY NIKE AIR MAX SC NAM - TRẮNG ĐEN VÀNG</a>
+              </h6>
+              <h5>2.090.000₫</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
+          <div class="featured__item">
+            <div class="featured__item__pic set-bg">
+              <img
+                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-excee-nam-den-den-01-800x800.jpg"
+                alt="" />
+            </div>
+            <div class="featured__item__text">
+              <h6><a href="#">GIÀY NIKE AIR MAX EXCEE NAM - ĐEN ĐEN</a></h6>
+              <h5>2.290.000₫</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer__about">
+            <div class="footer__about__logo">
+              <a href=""><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705.png" alt=""
+                  width="119px" /></a>
+            </div>
+            <ul>
+              <li>Address: 60-49 Road 11378 New York</li>
+              <li>Phone: +65 11.188.888</li>
+              <li>Email: hello@colorlib.com</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+          <div class="footer__widget">
+            <h6>Useful Links</h6>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">About Our Shop</a></li>
+              <li><a href="#">Secure Shopping</a></li>
+              <li><a href="#">Delivery infomation</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Our Sitemap</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Who We Are</a></li>
+              <li><a href="#">Our Services</a></li>
+              <li><a href="#">Projects</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Innovation</a></li>
+              <li><a href="#">Testimonials</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="footer__widget">
+            <h6>Join Our Newsletter Now</h6>
+            <p>
+              Get E-mail updates about our latest shop and special offers.
+            </p>
+            <form action="#">
+              <input type="text" placeholder="Enter your mail" />
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form>
+            <div class="footer__widget__social">
+              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nice-select.min.js"></script>
+  <script src="/js/jquery-ui.min.js"></script>
+  <script src="/js/jquery.slicknav.js"></script>
+  <script src="/js/mixitup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+
 </html>

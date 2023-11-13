@@ -5,6 +5,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/dashboard", {
       templateUrl: "./pages/dashboard.html",
     })
+    .when("/admin/login", {
+      templateUrl: "./pages/authentication-login.html",
+      controller: "loginController"
+    })
     .when("/order-counter", {
       templateUrl: "./pages/bantaiquay.html",
       controller: "BanTaiQuayController",
@@ -25,9 +29,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/khuyen-mai/update", {
+    .when("/khuyen-mai/update/:id", {
       templateUrl: "./pages/update-giam-gia-sanpham.html",
-      controller: "GiamGiaController",
+      controller: "giamgiaChiTietController", 
     })
     .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
@@ -45,9 +49,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
     
     .when("/khach-hang", {
       templateUrl: "./pages/khach-hang.html",
+      controller: "khachHangController"
     })
     .when("/nhan-vien", {
       templateUrl: "./pages/nhan-vien.html",
+      controller: "nhanVienController"
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
@@ -73,7 +79,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/san-pham-update.html",
     })
     .when("/thank-you", {
-      templateUrl: "./pages/thank-you.html",
+      templateUrl: "./pages/shoping-cart.html",
     })
     .when("/dia-chi", {
       templateUrl: "./pages/dia-chi.html",
@@ -81,29 +87,36 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/don-hang", {
       templateUrl: "./pages/don-hang.html",
     })
-    .when("/the-loai", {
-      templateUrl: "./pages/the-loai.html",
-    })
     .when("/xuat-xu", {
       templateUrl: "./pages/xuat-xu.html",
+      controller: "xuatXuController"
     })
     .when("/thuong-hieu", {
       templateUrl: "./pages/thuong-hieu.html",
+      controller: "thuongHieuController"
     })
     .when("/size", {
       templateUrl: "./pages/size.html",
+      controller: "sizeController"
     })
     .when("/mau-sac", {
       templateUrl: "./pages/mau-sac.html",
+      controller: "mauSacController"
     })
     .when("/kieu-de", {
       templateUrl: "./pages/kieu-de.html",
+      controller: "kieuDeController"
     })
     .when("/chat-lieu", {
       templateUrl: "./pages/chat-lieu.html",
+      controller: "chatLieuController"
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+    })
+    .when("/login", {
+      templateUrl: "./pages/login.html",
+      controller: "loginController"
     })
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",

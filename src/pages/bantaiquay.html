@@ -244,7 +244,7 @@
                   <div ng-controller="loginController">
                     <div ng-if="!isLoggedIn">
                       <a
-                        href="pages/authentication-login.html"
+                        href="#/admin/login"
                         class="btn btn-outline-primary mx-3 mt-2 d-block"
                         >Login</a
                       >
@@ -537,7 +537,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaGiam != 0">
-                              {{lc.giaBan - lc.giaGiam * lc.soLuong | number}}đ
+                              {{(lc.giaBan-lc.giaGiam) * lc.soLuong | number}}đ
                             </div>
                             <div ng-show="lc.giaGiam == 0">
                               {{lc.giaBan * lc.soLuong | number}}đ
