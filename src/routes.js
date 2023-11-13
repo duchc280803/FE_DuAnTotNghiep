@@ -41,9 +41,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/khach-hang", {
       templateUrl: "./pages/khach-hang.html",
+      controller: "khachHangController"
     })
     .when("/nhan-vien", {
       templateUrl: "./pages/nhan-vien.html",
+      controller: "nhanVienController"
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
@@ -77,33 +79,43 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/don-hang", {
       templateUrl: "./pages/don-hang.html",
     })
-    .when("/the-loai", {
-      templateUrl: "./pages/the-loai.html",
-    })
     .when("/xuat-xu", {
       templateUrl: "./pages/xuat-xu.html",
+      controller: "xuatXuController"
     })
     .when("/thuong-hieu", {
       templateUrl: "./pages/thuong-hieu.html",
+      controller: "thuongHieuController"
     })
     .when("/size", {
       templateUrl: "./pages/size.html",
+      controller: "sizeController"
     })
     .when("/mau-sac", {
       templateUrl: "./pages/mau-sac.html",
+      controller: "mauSacController"
     })
     .when("/kieu-de", {
       templateUrl: "./pages/kieu-de.html",
+      controller: "kieuDeController"
     })
     .when("/chat-lieu", {
       templateUrl: "./pages/chat-lieu.html",
+      controller: "chatLieuController"
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+<<<<<<< HEAD
     })
     .when("/login", {
       templateUrl: "./pages/login.html",
       controller: "loginController"
+=======
+      controller: "danhMucController"
+    })
+    .when("/don-hang-chi-tiet", {
+      templateUrl: "./pages/detail-don-hang.html",
+>>>>>>> 6133a8d5eca82f87194248a65c090968d7622c67
     })
     .otherwise({
       redirectTo: "/home",

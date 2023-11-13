@@ -86,7 +86,7 @@
                 <a class="sidebar-link" href="#thuong-hieu">Thương hiệu</a>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link" href="#the-loai">Thể loại</a>
+                <a class="sidebar-link" href="#xuat-xu">Xuất xứ</a>
               </li>
               <li class="sidebar-item">
                 <a class="sidebar-link" href="#mau-sac">Màu sắc</a>
@@ -301,7 +301,7 @@
                 <div class="card-body">
                     <div class="row align-items-center my-4">
                         <div class="col">
-                          <h2 class="h3 mb-0 page-title">Danh sách thể loại</h2>
+                          <h2 class="h3 mb-0 page-title">Danh sách xuất xứ</h2>
                         </div>
                         <div class="col-auto">
                             <div class="input-group-append ml-3">
@@ -310,7 +310,7 @@
                                   data-toggle="modal"
                                   data-target="#sizeModal"
                                 >
-                                Tạo thể loại
+                                Tạo xuất xứ
                                 </button>
                               </div>
 
@@ -320,21 +320,29 @@
                     <thead>
                       <tr>
                         <th><p class="mb-0 text-muted"><strong>STT</strong></p></th>
-                        <th><p class="mb-0 text-muted"><strong>Tên thể loại</strong></p></th>
+                        <th><p class="mb-0 text-muted"><strong>Tên xuất xứ</strong></p></th>
                         <th><p class="mb-0 text-muted"><strong>Trạng thái</strong></p></th>
+                        <th><p class="mb-0 text-muted"><strong>Ngày tạo</strong></p></th>
+                        <th><p class="mb-0 text-muted"><strong>Ngày cập nhật</strong></p></th>
                         <th><p class="mb-0 text-muted"><strong>Hành động</strong></p></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr ng-repeat="th in listXuatXu">
                         <td>
-                         <small class="mb-0 text-muted ">1</small>
+                         <small class="mb-0 text-muted ">{{$index + 1 + (pageNumber * pageSize)}}</small>
                         </td>
                         <td>
-                          <small class="mb-0 text-muted ">Giày thể thao</small>
+                          <small class="mb-0 text-muted ">{{th.tenXuatXu}}</small>
                         </td>
                         <td>
-                          <small class="mb-0 text-muted ">Đang hoạt động</small>
+                          <small>{{th.trangThai  == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}}</small>
+                        </td>
+                        <td>
+                          <small class="mb-0 text-muted ">{{th.ngayTao | date:'MM/dd/yyyy'}}</small>
+                        </td>
+                        <td>
+                          <small class="mb-0 text-muted ">{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</small>
                         </td>
                         <td>
 
@@ -375,17 +383,17 @@
                                 >
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Thể loại</h5>
+                                      <h5 class="modal-title">Xuất xứ</h5>
                                     </div>
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <span class="text-danger">*</span>
-                                        <label for="brandName">Tên thể loại:</label>
+                                        <label for="brandName">Tên xuất xứ:</label>
                                         <input
                                           type="text"
                                           class="form-control"
                                           id="brandName"
-                                          placeholder="Nhập tên thể loại"
+                                          placeholder="Nhập tên xuất xứ"
                                         />
                                       </div>
     
