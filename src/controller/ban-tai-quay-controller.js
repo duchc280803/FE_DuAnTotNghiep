@@ -1,11 +1,6 @@
-myApp.controller("BanTaiQuayController", [
-  "$scope",
-  "$http",
-  "$window",
-  "$routeParams",
-  "$route",
-  "$location",
-  function ($scope, $http, $window, $routeParams, $route, $location) {
+myApp.controller(
+  "BanTaiQuayController",
+  function ($scope, $http, $window, $location, CartService) {
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienKhongGiamGia = 0;
@@ -23,8 +18,7 @@ myApp.controller("BanTaiQuayController", [
     $scope.orderDetailCounter = {}; // hiển thị thông tin theo hóa đơn
 
     $scope.luuIdHoaDon = function (id) {
-      window.localStorage.setItem("idHoaDon", id);
-      $window.location.reload();
+      $window.localStorage.setItem("idHoaDon", id);
       var hd = $scope.listHoaDonTaiQuay.find(function (hd) {
         return hd.id === id;
       });
@@ -61,13 +55,8 @@ myApp.controller("BanTaiQuayController", [
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
               $scope.luuIdHoaDon(response.data.id);
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Tạo hóa đơn thành công thành công",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              $window.location.reload();
+              $location.path("/order-counter");
             });
           }
         });
@@ -199,7 +188,7 @@ myApp.controller("BanTaiQuayController", [
             $scope.tongSoLuongSanPham += $scope.listCart[i].soLuong;
           }
           $scope.tongTienHang +=
-            ($scope.tongTienKhongGiamGia + $scope.tongTienGiamGia) 
+            $scope.tongTienKhongGiamGia + $scope.tongTienGiamGia;
           // Slice the listCart array to display only 2 products per page
           $scope.listCart = $scope.listCart.slice(
             $scope.pageNumber * $scope.pageSize,
@@ -208,10 +197,13 @@ myApp.controller("BanTaiQuayController", [
         });
     };
 
-    $scope.listSanPhamInCart();
+    if (id != null) {
+      $scope.listSanPhamInCart();
+    }
 
     var idGioHangChiTiet = $window.localStorage.getItem("listCart");
     var gioHangChiTietList = idGioHangChiTiet.split(",");
+
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
@@ -232,19 +224,9 @@ myApp.controller("BanTaiQuayController", [
       $scope.listSanPhamInCart();
     };
 
-    // lấy ra id cart
-    $scope.idCartChiTiet = {};
-    $scope.showIdCart = function () {
-      $http
-        .get("http://localhost:8080/api/v1/don-hang/id_cart?id=" + id)
-        .then(function (response) {
-          $scope.idCartChiTiet = response.data;
-          $window.localStorage.setItem("gioHangId", $scope.idCartChiTiet.id);
-        });
-    };
-    $scope.showIdCart(idKhach);
-
-    var gioHangId = $window.localStorage.getItem("gioHangId");
+    CartService.setIdCart(id).then(function () {
+      console.log(CartService.getIdCart());
+    });
 
     setTimeout(() => {
       $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
@@ -258,10 +240,11 @@ myApp.controller("BanTaiQuayController", [
           confirmButtonText: "Yes!",
         }).then((result) => {
           if (result.isConfirmed) {
+            var idGioHang = CartService.getIdCart(); // Get the cart ID from the service
             $http
               .post(
                 "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
-                  gioHangId +
+                  idGioHang + // Use the cart ID in the URL
                   "&idSanPhamChiTiet=" +
                   idCtSp +
                   "&soLuong=" +
@@ -278,8 +261,9 @@ myApp.controller("BanTaiQuayController", [
                   showConfirmButton: false,
                   timer: 1500,
                 });
-              })
-              .catch(function (error) {});
+                $window.location.reload();
+                $location.path("/order-counter");
+              });
           }
         });
       };
@@ -329,6 +313,7 @@ myApp.controller("BanTaiQuayController", [
 
     // update khách hàng vào hóa đơn
     $scope.updateKhachHang = function (idcustom) {
+      var idGioHang = CartService.getIdCart();
       $http
         .put(
           "http://localhost:8080/api/khach-hang/update-hoa-don?id= " +
@@ -336,12 +321,12 @@ myApp.controller("BanTaiQuayController", [
             "&idHoaDon=" +
             id +
             "&idGioHang=" +
-            gioHangId
+            idGioHang
         )
         .then(function (response) {
           $scope.detailOrderCounterDetail(id);
           $scope.getListHoaDonTaiQuay();
-          $window.location.reload();
+          $location.path("/order-counter");
         });
     };
 
@@ -425,6 +410,7 @@ myApp.controller("BanTaiQuayController", [
           $scope.listTransaction.push(response.data);
           $scope.newTransaction.soTien = "";
           $scope.showTransaction();
+          $location.path("/order-counter");
         });
     };
 
@@ -497,17 +483,18 @@ myApp.controller("BanTaiQuayController", [
               .then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
                 $window.localStorage.removeItem("idHoaDon");
+                $window.localStorage.removeItem("idKhach");
                 $location.path("/hoa-don");
               })
               .then(function (error) {
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Thanh toán thất bại",
+                  title: "Thanh toán thành công",
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                $location.path("/order-counter");
+                $location.path("/hoa-don");
               });
           }
         });
@@ -548,6 +535,8 @@ myApp.controller("BanTaiQuayController", [
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
+              $window.localStorage.removeItem("idHoaDon");
+              $window.localStorage.removeItem("idKhach");
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -834,12 +823,11 @@ myApp.controller("BanTaiQuayController", [
       video: document.getElementById("preview"),
     });
     scanner.addListener("scan", function (content) {
-      console.log(content);
-      // Do something with the scanned content
+      var idGioHang = CartService.getIdCart();
       $http
         .post(
           "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham-qrcode?idGioHang=" +
-            gioHangId +
+            idGioHang +
             "&qrCode=" +
             content,
           {}
@@ -868,5 +856,5 @@ myApp.controller("BanTaiQuayController", [
       .catch(function (e) {
         console.error(e);
       });
-  },
-]);
+  }
+);

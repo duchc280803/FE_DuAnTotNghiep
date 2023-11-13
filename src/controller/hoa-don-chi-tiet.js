@@ -21,16 +21,15 @@ myApp.controller(
       };
     }
 
-    function getHoaDonChiTiet(id) {
+    // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
+    function getHoaDonChiTiet() {
       const apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
       $http.get(apiUrl).then(function (response) {
         $scope.hoaDonChiTiet = response.data;
       });
     }
-
-    // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
-    getHoaDonChiTiet(id);
+    getHoaDonChiTiet();
 
     $scope.listSanPhamInOrder = [];
     $scope.tongTienKhongGiam = 0;
@@ -38,7 +37,7 @@ myApp.controller(
     $scope.tongTienHang = 0;
 
     // Hàm để tải sản phẩm từ API
-    function getSanPham(id) {
+    function getSanPham() {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-san-pham/" + id;
 
@@ -48,8 +47,7 @@ myApp.controller(
         for (var i = 0; i < $scope.listSanPhamInOrder.length; i++) {
           if ($scope.listSanPhamInOrder[i].donGiaSauGiam != 0) {
             $scope.tongTienSauGiam +=
-              ($scope.listSanPhamInOrder[i].giaBan -
-                $scope.listSanPhamInOrder[i].donGiaSauGiam) *
+              $scope.listSanPhamInOrder[i].donGiaSauGiam *
               $scope.listSanPhamInOrder[i].soLuong;
           }
           if ($scope.listSanPhamInOrder[i].donGiaSauGiam == 0) {
@@ -62,11 +60,10 @@ myApp.controller(
       });
     }
 
-    // Gọi hàm để lấy thông tin sản phẩm dựa trên `id`
-    getSanPham(id);
+    getSanPham();
 
     $scope.soTienKhachTra = 0;
-    $scope.getlichSuThanhToan = function() {
+    $scope.getlichSuThanhToan = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-lich-su/" + id;
 
@@ -76,13 +73,11 @@ myApp.controller(
           $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
         }
       });
-    }
+    };
+    $scope.getlichSuThanhToan();
 
-    // Gọi hàm để lấy dữ liệu lịch sử dựa trên `id`
-    $scope.getlichSuThanhToan(id);
-
-
-    $scope.lichSuThayDoi = []
+    // Gọi hàm để lấy dữ liệu lịch trạng thái sử dựa trên `id`
+    $scope.lichSuThayDoi = [];
     $scope.getlichSuThayDoi = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
@@ -95,51 +90,79 @@ myApp.controller(
 
     $scope.getlichSuThayDoi();
 
-    $scope.listTrangThaiHoaDon = [];
-    $http
-      .get(
-        "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
-          id
-      )
-      .then(function (response) {
-        $scope.listTrangThaiHoaDon = response.data;
-        for (var i = 0; i < $scope.listTrangThaiHoaDon.length; i++) {
-          var item = $scope.listTrangThaiHoaDon[i];
-          $scope.status = item.trangThai;
-          if (item.trangThai == 1) {
-            $scope.statusChoThanhToan = item.trangThai;
-          }
-          if (item.trangThai == 2) {
-            $scope.statusXacNhan = item.trangThai;
-          }
-          if (item.trangThai == 3) {
-            $scope.statusChoGiaoHang = item.trangThai;
-          }
-          if (item.trangThai == 4) {
-            $scope.statusGiaoHang = item.trangThai;
-          }
-          if (item.trangThai == 5) {
-            $scope.statusThanhCong = item.trangThai;
-          }
-          if (item.trangThai == 6) {
-            $scope.statusDaHuy = item.trangThai;
-          }
-        }
-      });
 
+    $scope.listTrangThaiHoaDon = [];
+    $scope.getTrangThaiHoaDon = function () {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
+            id
+        )
+        .then(function (response) {
+          $scope.listTrangThaiHoaDon = response.data;
+          for (var i = 0; i < $scope.listTrangThaiHoaDon.length; i++) {
+            var item = $scope.listTrangThaiHoaDon[i];
+            $scope.status = item.trangThai;
+            $window.localStorage.setItem("status", $scope.status);
+            if (item.trangThai == 1) {
+              $scope.statusChoThanhToan = item.trangThai;
+            }
+            if (item.trangThai == 2) {
+              $scope.statusXacNhan = item.trangThai;
+            }
+            if (item.trangThai == 3) {
+              $scope.statusChoGiaoHang = item.trangThai;
+            }
+            if (item.trangThai == 4) {
+              $scope.statusGiaoHang = item.trangThai;
+            }
+            if (item.trangThai == 5) {
+              $scope.statusThanhCong = item.trangThai;
+            }
+            if (item.trangThai == 6) {
+              $scope.statusDaHuy = item.trangThai;
+            }
+          }
+        });
+    };
+
+    $scope.getTrangThaiHoaDon();
+
+    var status = $window.localStorage.getItem("status");
     $scope.newStatusOrder = {
       ghiChu: "",
-      newTrangThai: "",
+      newTrangThai:
+        status === "1"
+          ? 2
+          : status === "2"
+          ? 3
+          : status === "3"
+          ? 4
+          : status === "4"
+          ? 5
+          : 6,
     };
 
     $scope.comfirmStatusOrder = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
         .post(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" + id,
-          JSON.stringify($scope.newStatusOrder)
+          JSON.stringify($scope.newStatusOrder),
+          config
         )
         .then(function (response) {
           $scope.listTrangThaiHoaDon.push(response.data);
+          $scope.getTrangThaiHoaDon();
+          $scope.getlichSuThayDoi();
+          $scope.getlichSuThanhToan();
+          getSanPham();
           $window.location.reload();
         });
     };
@@ -170,7 +193,8 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
-                getSanPham(id);
+                getSanPham();
+                $window.location.reload();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -198,13 +222,47 @@ myApp.controller(
           method: "PUT",
           transformResponse: [
             function () {
-              getSanPham(id);
+              getSanPham();
+              $scope.getAllMoneyByHoaDon();
               $window.location.reload();
             },
           ],
         });
       };
     }, 2000);
+
+    // xác nhận khách thanh toán
+    $scope.newTransaction = {
+      soTien: "",
+      ghiChu: "",
+      trangThai: "",
+    };
+    setTimeout(() => {
+      $scope.createTransaction = function (idKhach) {
+        $http
+          .post(
+            "http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-toan-hoa-don-online?idHoaDon=" +
+              id +
+              "&id=" +
+              idKhach,
+            $scope.newTransaction
+          )
+          .then(function (response) {
+            $scope.lichSu.push(response.data);
+            $scope.getlichSuThanhToan();
+          });
+      };
+    }, 2000);
+
+    $scope.button1Clicked = function (idKhach) {
+      $scope.newTransaction.trangThai = 1;
+      $scope.createTransaction(idKhach);
+    };
+
+    $scope.button2Clicked = function (idKhach) {
+      $scope.newTransaction.trangThai = 2;
+      $scope.createTransaction(idKhach);
+    };
 
     $scope.thongTinTienDonHang = {};
     $scope.getAllMoneyByHoaDon = function () {
