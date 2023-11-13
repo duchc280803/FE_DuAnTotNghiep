@@ -69,7 +69,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/shop-details.html",
       controller: "sanPhamShopDetailController",
     })
-    .when("/cart", {
+    .when("/check-out", {
       templateUrl: "./pages/shoping-cart.html",
     })
     .when("/proudct-new", {
