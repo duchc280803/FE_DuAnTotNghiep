@@ -5,6 +5,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/dashboard", {
       templateUrl: "./pages/dashboard.html",
     })
+    .when("/admin/login", {
+      templateUrl: "./pages/authentication-login.html",
+      controller: "loginController"
+    })
     .when("/order-counter", {
       templateUrl: "./pages/bantaiquay.html",
       controller: "BanTaiQuayController",
@@ -26,9 +30,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
       controller: "GiamGiaController",
     })
     .when("/khuyen-mai/update/:id", {
-      // Update route to include promotion ID
       templateUrl: "./pages/update-giam-gia-sanpham.html",
-      controller: "giamgiaChiTietController", // Create a new controller for update page
+      controller: "giamgiaChiTietController", 
     })
     .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
@@ -97,6 +100,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+    })
+    .when("/login", {
+      templateUrl: "./pages/login.html",
+      controller: "loginController"
     })
     .otherwise({
       redirectTo: "/home",
