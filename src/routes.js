@@ -37,9 +37,11 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/khach-hang", {
       templateUrl: "./pages/khach-hang.html",
+      controller: "khachHangController"
     })
     .when("/nhan-vien", {
       templateUrl: "./pages/nhan-vien.html",
+      controller: "nhanVienController"
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
@@ -99,6 +101,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
       controller: "danhMucController"
+    })
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
     })
