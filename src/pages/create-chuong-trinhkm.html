@@ -406,9 +406,17 @@
                   ><span style="color: red">*</span>
                   <span>Mã voucher</span></span
                 >
+                <span class="header-title" style="padding-left: 320px">
+                  <input
+                    type="checkbox"
+                    ng-model="tuDongTaoMa"
+                    ng-change="onTuDongTaoMaChange()"
+                  />
+                  Tự động tạo
+                </span>
                 <input
                   type="text"
-                  class="next-input"
+                  class="next-input"    ng-model="maVoucher"
                   placeholder="Nhập mã khuyến mãi"
                 />
               </div>
@@ -419,7 +427,7 @@
                 >
                 <input
                   type="text"
-                  class="next-input"
+                  class="next-input"  ng-model="tenVoucher"
                   placeholder="Nhập tên khuyến mãi"
                 />
               </div>
@@ -427,22 +435,45 @@
             <br />
             <div class="row">
               <div class="col-lg-6">
-                <span class="header-title"
-                  ><span style="color: red">*</span> <span>Số lượng</span></span
-                >
+                <span class="header-title">
+                    <span style="color: red">*</span> <span>Số lượng</span>
+                </span>
                 <input
-                  type="number"
-                  class="next-input"
-                  placeholder="Nhập số lượng"
+                    type="number"
+                    class="next-input"
+                    ng-model="soLuongMa"
+                    placeholder="Nhập số lượng"
+                    ng-disabled="!isQuantityEnabled"
                 />
-              </div>
+                <br />
+                <label>
+                    <input
+                        type="radio"
+                        ng-model="isQuantityEnabled"
+                        ng-value="true"
+                        ng-change="onQuantityEnabledChange()"
+                    />
+                    Cho phép nhập số lượng
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        ng-model="isQuantityEnabled"
+                        ng-value="false"
+                        ng-change="onQuantityEnabledChange()"
+                    />
+                    Không nhập số lượng
+                </label>
+            </div>
+            
+            
               <div class="col-lg-6">
                 <span class="header-title"
                   ><span style="color: red">*</span><span>Giá giảm</span></span
                 >
                 <input
                   type="text"
-                  class="next-input"
+                  class="next-input"  ng-model="giaTriGiam"
                   placeholder="Nhập tên giá giảm"
                 />
               </div>
@@ -456,14 +487,14 @@
                 >
                 <input
                   type="number"
-                  class="next-input"
+                  class="next-input"  ng-model="giaTriToiThieuDonhang"
                   placeholder="Nhập giá trị tối thiểu đơn hàng"
                 />
               </div>
               <div class="col-lg-6">
                 <select
                   class="form-select"
-                  id="selectOption"
+                  id="selectOption"  ng-model="hinhThucGiam"
                   aria-label="Default select example"
                 >
                   <option value="1" selected>đ</option>
@@ -480,7 +511,7 @@
                 >
                 <input
                   type="date"
-                  class="next-input"
+                  class="next-input"  ng-model="ngayBatDau"
                   placeholder="Nhập ngày bắt đầu"
                 />
               </div>
@@ -491,14 +522,15 @@
                 >
                 <input
                   type="date"
-                  class="next-input"
+                  class="next-input"  ng-model="ngayKetThuc"
                   placeholder="Nhập ngày kết thúc"
                 />
               </div>
             </div>
           </div>
-          <button class="btn btn-primary" style="width: 125px;">Thêm voucher</button>
+          <button class="btn btn-primary"   ng-click="themVoucher()" style="width: 125px;">Thêm voucher</button>
         </div>
+        
         <div class="col-lg-4" style="padding-top: 20px">
           <div
             class="card overflow-hidden"
@@ -513,7 +545,7 @@
                     style="width: 75px"
                   >
                     <div class="" style="font-size: 10px; color: #2b2b2b">
-                      Số lượng có hạn
+                      Số lượng có hạn :  {{soLuongMa}} 
                     </div>
                   </div>
                   <img
@@ -526,22 +558,23 @@
                 </time>
               </section>
               <section class="card-cont-voucher">
-                <h6>Giảm 50k</h6>
-                <span>Đơn tối thiểu 2.000.000đ</span>
+                <h6>Giá trị giảm : {{giaTriGiam | number}} VNĐ </h6>
+                <span>Đơn tối thiểu  : {{giaTriToiThieuDonhang | number}} VNĐ</span>
                 <div class="even-date">
                   <i class="fa fa-calendar"></i>
-                  HSD: 11.11.2023
+                  HSD: {{ ngayKetThuc == null ? "..." : ngayKetThuc}}
                 </div>
               </section>
             </article>
             <article class="card-voucher fl-left" style="height: 300px">
               <h6 style="padding-left: 10px; padding-top: 10px;">Hạn sử dụng mã</h6>
-              <span style="padding-left: 10px;">01 Th11 2023 00:00 - 11 Th11 2023 23:59</span>
+              <span style="padding-left: 10px;">{{ ngayBatDau == null ? "..." : ngayBatDau }} - {{ ngayKetThuc == null ? "..." : ngayKetThuc}}</span>
               <h6 style="padding-left: 10px; padding-top: 10px;">Áp dụng cho đơn hàng</h6>
               <span style="padding-left: 10px;">Chỉ áp dụng trên web cho một số hóa đơn nhất định.</span>
             </article>
           </div>
         </div>
+
       </div>
     </div>
   </div>

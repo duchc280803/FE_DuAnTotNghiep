@@ -35,10 +35,18 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
+      controller: "VoucherController",
     })
     .when("/voucher/create", {
       templateUrl: "./pages/create-chuong-trinhkm.html",
+      controller: "VoucherController",
     })
+    
+    .when("/voucher/update/:id", {
+      templateUrl: "./pages/update-chuong-trinhkm.html",
+      controller: "voucherChiTietController",
+    })
+    
     .when("/khach-hang", {
       templateUrl: "./pages/khach-hang.html",
       controller: "khachHangController"
