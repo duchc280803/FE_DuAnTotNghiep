@@ -105,17 +105,13 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
-<<<<<<< HEAD
     })
     .when("/login", {
       templateUrl: "./pages/login.html",
       controller: "loginController"
-=======
-      controller: "danhMucController"
     })
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
->>>>>>> 6133a8d5eca82f87194248a65c090968d7622c67
     })
     .otherwise({
       redirectTo: "/home",
