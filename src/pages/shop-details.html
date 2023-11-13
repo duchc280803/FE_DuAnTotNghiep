@@ -19,11 +19,12 @@
   <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <style>
-      *,
+    *,
     *::before,
     *::after {
       box-sizing: border-box;
     }
+
     .icon_close:hover {
       margin: 0px 5px;
     }
@@ -215,30 +216,34 @@
     }
 
     .sidebar__item__size {
-        cursor: pointer;
-      }
-      .sidebar__item__size.selected {
-        border: 2px ridge black; /* Add your desired border style */
-        border-radius: 5px;
-        background-color: aquamarine;
-      }
+      cursor: pointer;
+    }
 
-      .sidebar__item__size {
-        cursor: pointer;
-      }
-      .sidebar__item__size_label.selected {
-        background-color: black;
-        color: white;
-      }
-      .sidebar__item__color_label.selected {
-        background-color: black;
-        color: white;
-      }
-      .sidebar__item__material_label.selected {
-        background-color: black;
-        color: white;
-      }
-      
+    .sidebar__item__size.selected {
+      border: 2px ridge black;
+      /* Add your desired border style */
+      border-radius: 5px;
+      background-color: aquamarine;
+    }
+
+    .sidebar__item__size {
+      cursor: pointer;
+    }
+
+    .sidebar__item__size_label.selected {
+      background-color: black;
+      color: white;
+    }
+
+    .sidebar__item__color_label.selected {
+      background-color: black;
+      color: white;
+    }
+
+    .sidebar__item__material_label.selected {
+      background-color: black;
+      color: white;
+    }
   </style>
 </head>
 
@@ -289,7 +294,7 @@
                 style="width: 125px" alt="" /></a>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <nav class="header__menu">
             <ul>
               <li class="active"><a style="color: black;" href="#/home">Home</a></li>
@@ -336,10 +341,69 @@
                     OUT</a>
                 </div>
               </li>
+              <style>
+                .account-form {
+                  display: none;
+                  position: absolute;
+                  background-color: #fff;
+                  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                  padding: 10px;
+                  top: 50px;
+                  right: 0;
+                  z-index: 999;
+                }
+
+                .account-hover:hover .account-form {
+                  display: block;
+                }
+
+                /* CSS để thay đổi màu nền khi click */
+                li.account-hover a:active {
+                  background-color: #dcdcdc;
+                  /* Màu xám nhạt */
+                }
+
+                /* CSS để xóa chọn văn bản khi click (nếu có) */
+                li.account-hover a:active,
+                li.account-hover a:focus {
+                  outline: none;
+                }
+              </style>
+              <li class="account-hover">
+                <div class="header__top__right__auth">
+                  <a href="#"><i class="fa fa-user"></i> NamND</a>
+                  <div class="account-form">
+                    <a class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="fa fa-user fs-6"></i>
+                      <p class="mb-0 fs-3">Tài khoản của tôi</p>
+                    </a>
+                    <a class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">Đơn hàng</p>
+                    </a>
+                    <a class="d-flex align-items-center gap-2 dropdown-item" href="#">
+                      <i class="fa fa-map-marker fs-6"></i>
+                      <p class="mb-0 fs-3">Địa chỉ</p>
+                    </a>
+                    <a class="d-flex align-items-center gap-2 dropdown-item" href="#">
+                      <i class="fa fa-sign-out fs-6"></i>
+                      <p class="mb-0 fs-3">Đăng xuất</p>
+                    </a>
+                  </div>
+                </div>
+              </li>
             </ul>
-            <div class="header__top__right__auth">
-              <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
+            <!-- <div ng-controller="loginController">
+              <div class="header__top__right__auth" ng-if="!isLoggedIn">
+                <a href="#/login"><i class="fa fa-user"></i> Login</a>
+              </div>
+              <div class="header__top__right__auth" ng-if="isLoggedIn">
+                <a href="#/dia-chi" class="account-setting-active" style="background: none; border: none">
+                  <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                    alt="polyfood" style="width: 35px; height: 35px; border-radius: 35px" />
+                </a>
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -365,73 +429,49 @@
             <div class="product__details__price">
               <div ng-show="detailProduct.donGiaKhiGiam != null">
                 {{detailProduct.donGiaKhiGiam | number}}₫<span
-                  style="text-decoration: line-through; padding-left: 10px"
-                  >{{detailProduct.giaban | number}}₫</span
-                >
+                  style="text-decoration: line-through; padding-left: 10px">{{detailProduct.giaban | number}}₫</span>
               </div>
               <div ng-show="detailProduct.donGiaKhiGiam == null">
                 {{detailProduct.giaban | number}}₫
               </div>
             </div>
             <h4 style="padding-bottom: 10px">Size:</h4>
-            <div
-              class="sidebar__item__size"
-              ng-click="selectSize(size)"
-              ng-repeat="size in detailSizeProduct"
-              ng-class="{ 'selected': size.isSelected }"
-            >
-              <label class="sidebar__item__size_label"
-              ng-class="{ 'selected': size.isSelected }"
-                ng-model="keySize"
-                ng-click="findMauSacChatLieuBySize(size.id)"
-                >{{size.size}}</label
-              >
+            <div class="sidebar__item__size" ng-click="selectSize(size)" ng-repeat="size in detailSizeProduct"
+              ng-class="{ 'selected': size.isSelected }">
+              <label class="sidebar__item__size_label" ng-class="{ 'selected': size.isSelected }" ng-model="keySize"
+                ng-click="findMauSacChatLieuBySize(size.id)">{{size.size}}</label>
             </div>
             <div>
-           
-                <h4 style="padding-bottom: 10px">Màu sắc:</h4>
-                <div
-                  class="sidebar__item__size"
-                  ng-click="selectColor(color)"
-                  ng-repeat="color in detailColorProduct"
-                  ng-class="{ 'selected': color.isSelected}"
-                >
-                  <label  class="sidebar__item__color_label"
-                  ng-class="{ 'selected': color.isSelected }" ng-click="findByMauSac(color.id)">{{color.tenmausac}}</label>
-                </div>
-              
+
+              <h4 style="padding-bottom: 10px">Màu sắc:</h4>
+              <div class="sidebar__item__size" ng-click="selectColor(color)" ng-repeat="color in detailColorProduct"
+                ng-class="{ 'selected': color.isSelected}">
+                <label class="sidebar__item__color_label" ng-class="{ 'selected': color.isSelected }"
+                  ng-click="findByMauSac(color.id)">{{color.tenmausac}}</label>
+              </div>
+
             </div>
             <div>
               <div class="sidebar__item__size">
                 <h4 style="padding-bottom: 10px">Chất liệu:</h4>
-                <div
-                  class="sidebar__item__size"
-                  ng-click="selectMaterial(material)"
-                  ng-repeat="material in detailMaterialProduct"
-                  ng-class="{ 'selected': material.isSelected}"
-                >
-                  <label class="sidebar__item__material_label" ng-class="{ 'selected': material.isSelected}"   ng-click="findByChatLieu(material.id)">{{material.tenchatlieu}}</label>
+                <div class="sidebar__item__size" ng-click="selectMaterial(material)"
+                  ng-repeat="material in detailMaterialProduct" ng-class="{ 'selected': material.isSelected}">
+                  <label class="sidebar__item__material_label" ng-class="{ 'selected': material.isSelected}"
+                    ng-click="findByChatLieu(material.id)">{{material.tenchatlieu}}</label>
                 </div>
               </div>
             </div>
             <div class="quantity">
-              <input
-                placeholder="Nhập số lượng"
-                style="margin-left: 0px"
-                type="number"
+              <input placeholder="Nhập số lượng" style="margin-left: 0px" type="number"
                 class="next-input text-left max-width-10px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
-                ng-model="soluong"              
-                min="1"
-                max="{{quantity.soluong}}"
-              />
+                ng-model="soluong" min="1" max="{{quantity.soluong}}" />
             </div>
-            
+
             <p style="padding-top: 20px;">Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}</p>
           </div>
           <!-- <a href="#" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)"
             >ADD TO CART</a> -->
-            <a href="" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)"
-            >ADD TO CART</a>
+          <a href="" class="primary-btn" ng-click="addToCart(quantity.sanPhamChiTietId)">ADD TO CART</a>
         </div>
         <div class="col-lg-12">
           <div class="product__details__tab">
