@@ -176,11 +176,11 @@ myApp.controller(
 
           // Calculate the total quantity and total price for all products in the cart
           for (var i = 0; i < $scope.listCart.length; i++) {
-            if ($scope.listCart[i].giaGiam == 0) {
+            if ($scope.listCart[i].giaBan == $scope.listCart[i].giaGiam) {
               $scope.tongTienKhongGiamGia +=
                 $scope.listCart[i].giaBan * $scope.listCart[i].soLuong;
             }
-            if ($scope.listCart[i].giaGiam != 0) {
+            if ($scope.listCart[i].giaBan != $scope.listCart[i].giaGiam) {
               $scope.tongTienGiamGia +=
                 ($scope.listCart[i].giaBan - $scope.listCart[i].giaGiam) *
                 $scope.listCart[i].soLuong;
@@ -856,5 +856,15 @@ myApp.controller(
       .catch(function (e) {
         console.error(e);
       });
+
+    $scope.listVoucher = [];
+    $scope.getALlVoucher = function () {
+      $http
+        .get("http://localhost:8080/api/v1/voucher-counter/show")
+        .then(function (response) {
+          $scope.listVoucher = response.data;
+        });
+    };
+    $scope.getALlVoucher()
   }
 );
