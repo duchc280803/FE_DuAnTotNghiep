@@ -1,8 +1,6 @@
 var app = angular.module("myApp", []);
 var idgh = localStorage.getItem('idgiohang');
 app.controller("CartController", function ($scope, $http, $window) {
-  
-
   function loadToTals() {
     // Gọi API và cập nhật giá trị totalAmount
 
@@ -234,7 +232,7 @@ app.controller("CartController", function ($scope, $http, $window) {
       );
     }
   };
-  
+
   function loadQuanTiTy() {
     // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
     var apiURL =
@@ -246,7 +244,5 @@ app.controller("CartController", function ($scope, $http, $window) {
       console.log($scope.quantity_all)
     });
   }
-
   loadQuanTiTy();
-
 });
