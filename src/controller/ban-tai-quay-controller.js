@@ -23,9 +23,12 @@ myApp.controller(
         return hd.id === id;
       });
       $scope.selectOrder(hd);
+      $window.location.reload();
     };
 
     var id = $window.localStorage.getItem("idHoaDon");
+    var idKhach = $window.localStorage.getItem("idKhach");
+    console.log(idKhach);
 
     $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
     // tạo hóa đơn
@@ -56,7 +59,6 @@ myApp.controller(
               $scope.getListHoaDonTaiQuay();
               $scope.luuIdHoaDon(response.data.id);
               $window.location.reload();
-              $location.path("/order-counter");
             });
           }
         });
@@ -126,7 +128,7 @@ myApp.controller(
         });
     };
 
-    $scope.detailOrderCounterDetail = function (id) {
+    $scope.detailOrderCounterDetail = function () {
       $http
         .get("http://localhost:8080/api/v1/don-hang/order-counter/" + id)
         .then(function (response) {
@@ -138,9 +140,7 @@ myApp.controller(
         });
     };
 
-    $scope.detailOrderCounterDetail(id);
-
-    var idKhach = $window.localStorage.getItem("idKhach");
+    $scope.detailOrderCounterDetail();
 
     $scope.showInput = true;
 
@@ -161,9 +161,7 @@ myApp.controller(
     $scope.listSanPhamInCart = function () {
       $http
         .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
-            idKhach +
-            "&pageNumber=0&pageSize=9999" // Fetch all products in a single request
+          "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" + idKhach
         )
         .then(function (response) {
           $scope.listCart = response.data;
@@ -224,9 +222,7 @@ myApp.controller(
       $scope.listSanPhamInCart();
     };
 
-    CartService.setIdCart(id).then(function () {
-      console.log(CartService.getIdCart());
-    });
+    CartService.setIdCart(id).then(function () {});
 
     setTimeout(() => {
       $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
@@ -262,7 +258,6 @@ myApp.controller(
                   timer: 1500,
                 });
                 $window.location.reload();
-                $location.path("/order-counter");
               });
           }
         });
@@ -393,7 +388,9 @@ myApp.controller(
         });
     };
 
-    $scope.showTransaction();
+    if (id != null) {
+      $scope.showTransaction();
+    }
 
     // TODO: thanh toán tiền mặt
     $scope.newTransaction = {};
@@ -446,6 +443,11 @@ myApp.controller(
       $scope.Vnpay(amount);
     };
 
+    $scope.removeItem = function () {
+      $window.localStorage.removeItem("idHoaDon");
+      $window.localStorage.removeItem("idKhach");
+    };
+
     //TODO:thanh toán hóa đơn
     setTimeout(() => {
       $scope.createHoaDonChiTiet = function (
@@ -482,8 +484,7 @@ myApp.controller(
               .post(api, requestData)
               .then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
-                $window.localStorage.removeItem("idHoaDon");
-                $window.localStorage.removeItem("idKhach");
+                $scope.removeItem();
                 $location.path("/hoa-don");
               })
               .then(function (error) {
@@ -535,8 +536,7 @@ myApp.controller(
           if (result.isConfirmed) {
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
-              $window.localStorage.removeItem("idHoaDon");
-              $window.localStorage.removeItem("idKhach");
+              $scope.removeItem();
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -865,6 +865,21 @@ myApp.controller(
           $scope.listVoucher = response.data;
         });
     };
-    $scope.getALlVoucher()
+    $scope.getALlVoucher();
+
+    $scope.updateOrder = function (idVoucher, thanhTien) {
+      $http
+        .put(
+          "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
+            id +
+            "&idVoucher=" +
+            idVoucher +
+            "&thanhTien=" +
+            thanhTien
+        )
+        .then(function (response) {
+          $window.location.reload();
+        });
+    };
   }
 );

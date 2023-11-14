@@ -242,7 +242,7 @@
                       <button type="button" class="btn btn-primary" ng-click="createHoaDon()">
                         Tạo hóa đơn
                       </button>
-                      <button type="button" class="btn btn-warning" ng-click="getListHoaDonTaiQuay ()">
+                      <button type="button" class="btn btn-warning" ng-click="removeItem()">
                         Làm mới
                       </button>
                     </div>
@@ -411,7 +411,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaBan != lc.giaGiam">
-                              {{(lc.giaBan-lc.giaGiam) * lc.soLuong | number}}đ
+                              {{(lc.giaGiam) * lc.soLuong | number}}đ
                             </div>
                             <div ng-show="lc.giaBan == lc.giaGiam">
                               {{lc.giaBan * lc.soLuong | number}}đ
@@ -1004,15 +1004,15 @@
                                     </thead>
                                     <tbody>
                                       <tr ng-repeat="v in listVoucher">
-                                        <td>{{$index}}</td>
+                                        <td>{{$index + 1}}</td>
                                         <td>{{v.voucherCode}}</td>
                                         <td>{{v.nameVoucher}}</td>
                                         <td>{{v.price |number}}{{v.style == 1 ? '%' : 'đ'}}</td>
                                         <td>{{v.priceOrder | number}}</td>
                                         <td>{{v.soLuongDung}}/{{v.soLuong}}</td>
-                                        <td>{{v.dateStart | date:'MM/dd/yyyy h:mm:ss a'}} {{v.dateEnd | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+                                        <td>{{v.dateStart | date:'MM/dd/yyyy h:mm:ss a'}} - {{v.dateEnd | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                                         <td>
-                                          <button class="btn btn-primary" ng-click="luuIdHoaDon(hd.id)">
+                                          <button ng-click="updateOrder(v.id, tongTienHang)" class="btn btn-primary">
                                             Chọn
                                           </button>
                                         </td>
@@ -1079,7 +1079,7 @@
                               <span class="header-title">Tiền giảm giá</span>
                             </div>
                             <div class="omni-layout-card--item-stack fill text-right">
-                              <span class="header-title">0đ</span>
+                              <span class="header-title">{{orderDetailCounter.tienGiamGia |number}}đ</span>
                             </div>
                           </div>
                         </div>
