@@ -90,7 +90,6 @@ myApp.controller(
 
     $scope.getlichSuThayDoi();
 
-
     $scope.listTrangThaiHoaDon = [];
     $scope.getTrangThaiHoaDon = function () {
       $http
