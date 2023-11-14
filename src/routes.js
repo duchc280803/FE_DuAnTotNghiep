@@ -76,6 +76,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/proudct-new", {
       templateUrl: "./pages/san-pham-new.html",
     })
+    when("/san-pham", {
+      templateUrl: "./pages/san-pham.html",
+    })
     .when("/proudct-update", {
       templateUrl: "./pages/san-pham-update.html",
     })
