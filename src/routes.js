@@ -119,6 +119,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+      controller: "danhMucController"
     })
     .when("/login", {
       templateUrl: "./pages/login.html",
