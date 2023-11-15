@@ -1,8 +1,6 @@
-var app = angular.module("myApp", []);
-var idgh = localStorage.getItem('idgiohang');
-app.controller("CartController", function ($scope, $http, $window) {
-  
 
+var idgh = localStorage.getItem('idgiohang');
+myApp.controller("CartController", function ($scope, $http, $window, $location) {
   function loadToTals() {
     // Gọi API và cập nhật giá trị totalAmount
 
@@ -33,7 +31,7 @@ app.controller("CartController", function ($scope, $http, $window) {
         showConfirmButton: false, // Ẩn nút xác nhận
         timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
       });
-      
+
     } else if (change === "decrease" && product.soluong > 1) {
       product.soluong--;
       Swal.fire({
@@ -134,10 +132,11 @@ app.controller("CartController", function ($scope, $http, $window) {
                 showConfirmButton: false, // Ẩn nút xác nhận
                 timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
               });
+              localStorage.removeItem("idgiohang");
               loadCart();
-                 loadToTals();
-          loadNameAndPrice();
-          loadQuanTiTy();
+              loadToTals();
+              loadNameAndPrice();
+              loadQuanTiTy();
             },
           ],
         });
@@ -200,11 +199,11 @@ app.controller("CartController", function ($scope, $http, $window) {
   var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
 
   $scope.thanhToan = function () {
-    // Hiển thị cửa sổ xác nhận mặc định của trình duyệt
+    // Display a confirmation dialog
     var isConfirmed = window.confirm("Bạn có chắc chắn muốn đặt đơn hàng?");
-  
+
     if (isConfirmed) {
-      // Nếu người dùng xác nhận thanh toán, tiến hành gửi dữ liệu lên server
+      // If the user confirms, proceed with form submission
       var data = {
         hoTen: $scope.hoTen,
         soDienThoai: $scope.soDienThoai,
@@ -217,24 +216,30 @@ app.controller("CartController", function ($scope, $http, $window) {
         tienKhachTra: $scope.tienKhachTra,
         gioHangChiTietList: gioHangChiTietList,
       };
-  
-      // Gửi dữ liệu POST đến server
+
+      // Send data to the server
       $http({
         method: "POST",
         url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
         data: data,
       }).then(
         function (response) {
-          // Xử lý phản hồi từ máy chủ nếu cần
-          $window.localStorage.removeItem("idgiohang");
+          // Handle the response if needed
+          localStorage.removeItem("idgiohang");
+          // Redirect to the "thank-you" route
+          $location.path("/thank-you");
         },
         function (error) {
-          // Xử lý lỗi nếu có
+          console.log(error);
         }
       );
+    } else {
+      $location.path("/check-out");
     }
-  };
-  
+  };//close check out
+
+
+
   function loadQuanTiTy() {
     // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
     var apiURL =
@@ -246,7 +251,53 @@ app.controller("CartController", function ($scope, $http, $window) {
       console.log($scope.quantity_all)
     });
   }
-
   loadQuanTiTy();
 
+
+
+
+
+
+  // Kiểm tra xem người dùng đã đăng nhập hay chưa
+  var token = $window.localStorage.getItem("token");
+  if (token) {
+    // Người dùng đã đăng nhập, nên ta có thể load thông tin từ server
+    // Gọi API để lấy thông tin khách hàng và địa chỉ mặc định
+    var apiEndpoint = "http://localhost:8080/api/v1/account/profile";
+    var apiAddress = "http://localhost:8080/api/v1/account/dia-chi";
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    $http.get(apiEndpoint, config).then(
+      function (response) {
+        console.log(response.data);
+        // Lấy thông tin từ server và gán vào các biến $scope
+        $scope.hoTen = response.data.hoTen;
+        $scope.email = response.data.email;
+        $scope.soDienThoai = response.data.soDienThoai;
+
+        // Gọi API địa chỉ
+        $http.get(apiAddress, config).then(
+          function (addressResponse) {
+            // Lọc các địa chỉ có trạng thái là 1
+            $scope.filteredAddresses = addressResponse.data.filter(function (address) {
+              return address.trangThai === '1';
+            });
+
+            // Lấy địa chỉ đầu tiên từ danh sách đã lọc và gán vào $scope.diaChi
+            $scope.diaChi = $scope.filteredAddresses.length > 0 ? $scope.filteredAddresses[0].diaChi : "";
+          },
+          function (addressError) {
+            console.error("Lỗi khi gọi API địa chỉ: " + addressError);
+          }
+        );
+      },
+      function (error) {
+        console.error("Lỗi khi gọi API thông tin cá nhân: " + error);
+      }
+    );
+  }
 });

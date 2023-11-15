@@ -24,17 +24,17 @@
     .icon_close:hover {
       margin: 0px 5px;
     }
-
+  
     @import "https://fonts.googleapis.com/css?family=Lato:300,400,700";
     @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
-
+  
     *,
     *::before,
     *::after {
       box-sizing: border-box;
     }
-
-
+  
+  
     .container-cart {
       background: rgb(255, 255, 255) none repeat scroll 0 0;
       /* border-radius: 3px;
@@ -45,7 +45,7 @@
       width: 320px;
       border: 0.5px solid rgb(245, 241, 241);
     }
-
+  
     .shopping-cart {
       background: rgb(255, 255, 255) none repeat scroll 0 0;
       border-radius: 3px;
@@ -55,54 +55,54 @@
       position: relative;
       width: 320px;
     }
-
+  
     .shopping-cart .shopping-cart-header {
       border-bottom: 1px solid rgb(232, 232, 232);
       padding-bottom: 15px;
     }
-
+  
     .shopping-cart .shopping-cart-header .shopping-cart-total {
       float: right;
     }
-
-
+  
+  
     .shopping-cart .shopping-cart-items {
       padding-top: 20px;
       display: flex;
       flex-direction: column;
     }
-
+  
     .shopping-cart .shopping-cart-items li {
       margin-bottom: 18px;
       display: flex;
       align-items: center;
     }
-
+  
     .shopping-cart .shopping-cart-items img {
       margin-right: 10px;
     }
-
-
+  
+  
     .shopping-cart .shopping-cart-items .item-name {
       display: block;
       font-size: 13px;
       padding-top: 10px;
     }
-
+  
     .shopping-cart .shopping-cart-items .item-price {
       color: rgb(99, 148, 248);
       font-size: 15px;
       padding-top: 5px;
       display: block;
     }
-
+  
     .shopping-cart .shopping-cart-items .item-quantity {
       color: rgb(171, 176, 190);
       font-size: 13px;
       display: block;
       padding-top: 5px;
     }
-
+  
     .shopping-cart::after {
       -moz-border-bottom-colors: none;
       -moz-border-left-colors: none;
@@ -121,14 +121,14 @@
       position: absolute;
       width: 0;
     }
-
+  
     .cart-icon {
       color: rgb(81, 87, 131);
       float: left;
       font-size: 24px;
       margin-right: 7px;
     }
-
+  
     .button {
       background: #7fad39 none repeat scroll 0 0;
       border-radius: 30px;
@@ -141,7 +141,7 @@
       text-align: center;
       text-decoration: none;
     }
-
+  
     .button_viewcart {
       background: rgb(255, 93, 93) none repeat scroll 0 0;
       border-radius: 30px;
@@ -154,63 +154,59 @@
       text-align: center;
       text-decoration: none;
     }
-
+  
     .button:hover {
       background: #90d626 none repeat scroll 0 0;
     }
-
+  
     .button_viewcart:hover {
       background: rgb(255, 80, 70) none repeat scroll 0 0;
     }
-
+  
     .clearfix::after {
       clear: both;
       content: "";
       display: table;
     }
-
-
+  
+  
     .container-cart {
       display: none;
-
+  
     }
-
+  
     .open-cart:hover .container-cart {
       display: block;
-
+  
     }
-
+  
     .custom-radio {
       display: flex;
       align-items: center;
       margin-right: 20px;
       /* Khoảng cách giữa radio button và label */
     }
-
+  
     .custom-radio input[type="radio"] {
       margin-right: 5px;
       /* Khoảng cách giữa radio button và label */
     }
-
+  
     .custom-radio label {
       font-weight: normal;
       /* Loại bỏ đậm */
       font-size: 16px;
       /* Điều chỉnh kích thước văn bản */
     }
-
     /* Thiết lập kiểu thanh cuộn */
-    ::-webkit-scrollbar {
-      width: 3px;
-      /* Chiều rộng của thanh cuộn */
-    }
+::-webkit-scrollbar {
+  width: 3px; /* Chiều rộng của thanh cuộn */
+}
 
-    ::-webkit-scrollbar-thumb {
-      background-color: #7fad39;
-      /* Màu nền của thanh cuộn */
-      border-radius: 20px;
-      /* Bo tròn cạnh của thanh cuộn */
-    }
+::-webkit-scrollbar-thumb {
+  background-color: #7fad39; /* Màu nền của thanh cuộn */
+  border-radius: 20px; /* Bo tròn cạnh của thanh cuộn */
+}
 
     ::-webkit-scrollbar-track {
       background-color: #e2e9d7;
@@ -223,7 +219,7 @@
       background-color: #fff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding: 10px;
-      top: 50px;
+      top: 45px;
       right: 0;
       z-index: 999;
     }
@@ -303,10 +299,10 @@
           <div class="header__cart">
             <ul>
               <li class="open-cart">
-                <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
+                <a href="/src/pages/shoping-cart.html"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
                 <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
-                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
+                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;" >
                     <div class="row" ng-repeat="product in products">
                       <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
                         <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
@@ -331,8 +327,7 @@
                       <span style="font-weight: bolder;margin-left: 30px;" class="main-color-text">Total:</span>
                     </div>
                     <div class="col-md-3">
-                      <span
-                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
+                      <span style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
                     </div>
                   </div>
                   <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
@@ -341,7 +336,7 @@
               </li>
               <li class="account-hover" ng-controller="loginController">
                 <div class="header__top__right__auth">
-                  <a href="#"><i class="fa fa-user"></i> NamND</a>
+                  <a href="#"><i class="fa fa-user">{{ loggedInUsername }}</i></a>
                   <div class="account-form">
                     <a href="#/dia-chi" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
                       <i class="fa fa-user fs-6"></i>
@@ -363,6 +358,9 @@
                 </div>
               </li>
             </ul>
+            <div class="header__top__right__auth">
+              <a href="#"><i class="fa fa-user"></i> Login</a>
+            </div>
           </div>
         </div>
       </div>
@@ -376,10 +374,11 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="hero__categories">
-            <div class="hero__categories__all">
+            <div class="hero__categories__all" ng-click="showBrandContent = !showBrandContent">
               <i class="fa fa-bars"></i>
               <span>BRAND</span>
             </div>
+            
             <ul ng-repeat="th in listThuongHieu">
               <li>
                 <a href="#">{{th.tenThuongHieu}}</a>
@@ -390,10 +389,13 @@
         <div class="col-lg-9">
           <div class="hero__search">
             <div class="hero__search__form">
-              <form action="#">
-                <input type="text" placeholder="SEARCH" />
-                <button type="submit" class="site-btn">SEARCH</button>
-              </form>
+                <input
+                type="text"
+                class="next-input"
+                ng-model="tenSanPham"
+                ng-change="searchProductKey()"
+                placeholder="Nhập sản phẩm cần tìm"
+              />
             </div>
             <div class="hero__search__phone">
               <div class="hero__search__phone__icon">
@@ -412,25 +414,44 @@
   <section class="product spad">
     <div class="container">
       <div class="row">
-        <div class="col-lg-3 col-md-5">
-          <div class="sidebar">
-            <div class="sidebar__item">
+       <div class="col-lg-3 col-md-5" >
+
+          <div class="sidebar" ng-show="showBrandContent">
+            <!-- <div class="sidebar__item">
               <h4>CATEGORY</h4>
               <ul ng-repeat="dm in listDanhMuc">
                 <li><a href="#">{{dm.tenDanhMuc}}</a></li>
               </ul>
-            </div>
+            </div> -->
             <div class="sidebar__item">
+              <h4>CATEGORY</h4>
+              <select ng-model="DanhMuc" ng-change="searchProductDanhMuc()" ng-options="dm.id as dm.tenDanhMuc for dm in listDanhMuc">
+                <option value="">-- Tất Cả--</option>
+              </select>
+            </div>
+            <!-- <div class="sidebar__item">
               <h4>Kiểu đế</h4>
-              <ul ng-repeat="s in listKieuDe">
+              <ul ng-repeat="s in listKieuDe" >
                 <li><a href="#">{{s.tenDe}}</a></li>
               </ul>
-            </div>
+            </div> -->
             <div class="sidebar__item">
+              <h4>Kiểu đế</h4>
+              <select ng-model="KieuDe" ng-change="searchProductKieuDe()" ng-options="dm.id as dm.tenDe for dm in listKieuDe">
+                <option value="">-- Tất Cả--</option>
+              </select>
+            </div>
+            <!-- <div class="sidebar__item">
               <h4>Xuất xứ</h4>
               <ul ng-repeat="s in listXuatXu">
                 <li><a href="#">{{s.tenXuatXu}}</a></li>
               </ul>
+            </div> -->
+            <div class="sidebar__item">
+              <h4>Xuất xứ</h4>
+              <select ng-model="XuatXu" ng-change="searchProductXuatXu()" ng-options="dm.id as dm.tenXuatXu for dm in listXuatXu">
+                <option value="">-- Tất Cả--</option>
+              </select>
             </div>
           </div>
         </div>

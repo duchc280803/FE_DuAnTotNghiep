@@ -1,6 +1,6 @@
 myApp.controller("GiamGiaController", function ($http, $scope, $location,$route) {
   $scope.listGiamGia = [];
-  $scope.listProductGiamGia = []; // Assuming this is the list of products related to promotions
+  $scope.listProductGiamGia = []; 
 
   function fetchGiamGiaList() {
     $http.get("http://localhost:8080/api/v1/giam-gia/show")

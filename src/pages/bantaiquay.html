@@ -242,7 +242,7 @@
                       <button type="button" class="btn btn-primary" ng-click="createHoaDon()">
                         Tạo hóa đơn
                       </button>
-                      <button type="button" class="btn btn-warning" ng-click="getListHoaDonTaiQuay ()">
+                      <button type="button" class="btn btn-warning" ng-click="removeItem()">
                         Làm mới
                       </button>
                     </div>
@@ -359,7 +359,7 @@
                     </div>
                   </div>
                   <br />
-                  <div ng-show="orderDetailCounter.maHoaDon == null">
+                  <div ng-show="orderDetailCounter.maHoaDon == null || listCart == null">
                     <img src="/assets/images/empty-cart.png" alt="" width="200px" style="margin-left: 430px" />
                   </div>
                   <div class="box" ng-show="orderDetailCounter.maHoaDon != null" ||>
@@ -411,7 +411,7 @@
                           </td>
                           <td style="padding-top: 60px">
                             <div ng-show="lc.giaBan != lc.giaGiam">
-                              {{(lc.giaBan-lc.giaGiam) * lc.soLuong | number}}đ
+                              {{(lc.giaGiam) * lc.soLuong | number}}đ
                             </div>
                             <div ng-show="lc.giaBan == lc.giaGiam">
                               {{lc.giaBan * lc.soLuong | number}}đ
@@ -982,7 +982,7 @@
                           <div class="modal fade" id="voucher" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-lg">
-                              <div class="modal-content custom-modal-content" style="width: 142%; margin-left: -140px">
+                              <div class="modal-content custom-modal-content" style="width: 145%; margin-left: -140px">
                                 <div class="modal-header" style="height: 50px">
                                   <input class="form-control" style="margin-top:20px" placeholder="Tìm voucher"
                                     ng-model="searchKeyword" ng-change="searchOrder(searchKeyword)" />
@@ -1004,15 +1004,15 @@
                                     </thead>
                                     <tbody>
                                       <tr ng-repeat="v in listVoucher">
-                                        <td>{{$index}}</td>
+                                        <td>{{$index + 1}}</td>
                                         <td>{{v.voucherCode}}</td>
                                         <td>{{v.nameVoucher}}</td>
                                         <td>{{v.price |number}}{{v.style == 1 ? '%' : 'đ'}}</td>
                                         <td>{{v.priceOrder | number}}</td>
                                         <td>{{v.soLuongDung}}/{{v.soLuong}}</td>
-                                        <td>{{v.dateStart | date:'MM/dd/yyyy h:mm:ss a'}} {{v.dateEnd | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+                                        <td>{{v.dateStart | date:'MM/dd/yyyy h:mm:ss a'}} - {{v.dateEnd | date:'MM/dd/yyyy h:mm:ss a'}}</td>
                                         <td>
-                                          <button class="btn btn-primary" ng-click="luuIdHoaDon(hd.id)">
+                                          <button ng-click="updateOrder(v.id, tongTienHang)" class="btn btn-primary">
                                             Chọn
                                           </button>
                                         </td>
@@ -1079,7 +1079,7 @@
                               <span class="header-title">Tiền giảm giá</span>
                             </div>
                             <div class="omni-layout-card--item-stack fill text-right">
-                              <span class="header-title">0đ</span>
+                              <span class="header-title">{{orderDetailCounter.tienGiamGia |number}}đ</span>
                             </div>
                           </div>
                         </div>
