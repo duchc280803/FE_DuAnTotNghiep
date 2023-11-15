@@ -54,7 +54,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
-      controller: "sanPhamShopController",
+      // controller: "sanPhamShopController",
+      controller: "homeController",
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
