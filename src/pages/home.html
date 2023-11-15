@@ -306,116 +306,20 @@
         </div>
       </div>
       <div class="row featured__filter">
-        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat"  ng-repeat="th in listNewProduct">
           <div class="featured__item">
             <div class="featured__item__pic set-bg">
               <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-air-winflo-10-nam-xanh-den-01-800x800.jpg"
+                src="{{th.tenImage}}"
                 alt="" />
             </div>
             <div class="featured__item__text">
-              <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NAM - XANH ĐEN</a></h6>
-              <h5>2.490.000₫</h5>
+              <h6><a href="#">{{th.tenSanPham}}</a></h6>
+              <h5>{{th.giaBan}}</h5>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk08/giay-nike-sb-chron-2-nam-nau-trang-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">GIÀY NIKE SB CHRON 2 NAM - NÂU TRẮNG</a></h6>
-              <h5>1.690.000₫</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-winflo-10-nu-trang-tim-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">GIÀY NIKE AIR WINFLO 10 NỮ - TRẮNG TÍM</a></h6>
-              <h5>2.490.000₫</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-zoom-structure-25-nam-xanh-den-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6>
-                <a href="#">GIÀY NIKE AIR ZOOM STRUCTURE 25 NAM - XANH ĐEN</a>
-              </h6>
-              <h5>3.829.000₫</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-free-rn-nn-nam-den-trang-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6>
-                <a href="#">GIÀY NIKE FREE RN NN 2023 NAM - ĐEN TRẮNG</a>
-              </h6>
-              <h5>2.790.000₫</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-zoom-bella-6-nu-trang-xanh-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">GIÀY NIKE ZOOM BELLA 6 NỮ - TRẮNG XANH</a></h6>
-              <h5>2.190.000₫</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-sc-nam-trang-den-vang-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6>
-                <a href="#">GIÀY NIKE AIR MAX SC NAM - TRẮNG ĐEN VÀNG</a>
-              </h6>
-              <h5>2.090.000₫</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg">
-              <img
-                src="https://myshoes.vn/image/cache/catalog/2023/nike/nk1/giay-nike-air-max-excee-nam-den-den-01-800x800.jpg"
-                alt="" />
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">GIÀY NIKE AIR MAX EXCEE NAM - ĐEN ĐEN</a></h6>
-              <h5>2.290.000₫</h5>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </section>
