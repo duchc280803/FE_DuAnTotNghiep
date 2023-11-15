@@ -5,6 +5,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
     $scope.selectedKhachHang = null;
     $scope.pageNumber = 0;
     var id = $location.search().id;
+    $scope.folderName = "D:\image"; // Đổi your-folder-name thành tên thư mục thật của bạn
 
     function fetchKhachHangList(trangThai, pageNumber) {
         var url = `http://localhost:8080/api/ql-khach-hang/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
@@ -18,6 +19,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
         }
 
         $http.get(url).then(function (response) {
+            response.data.ngaySinh = new Date(response.data.ngaySinh);
             $scope.listKhachHang = response.data;
             console.log("Dữ liệu trả về: ", response.data);
 
@@ -40,12 +42,26 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
         fetchKhachHangList($scope.selectedTrangThai, $scope.pageNumber);
     };
 
+    $scope.uploadFileInModal = function (file) {
+        var url = `http://localhost:8080/upload/${$scope.folderName}`;
 
+        var formData = new FormData();
+        formData.append("file", file);
 
+        $http.post(url, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': 'multipart/form-data' } // Sửa thành 'multipart/form-data'
+        }).then(function (response) {
+            $scope.newKhachHang.photo = response.data.filename;
+        }).catch(function (error) {
+            console.error("Error uploading file:", error);
+        });
+    };
 
     function fetchKhachHangDetail(id) {
         var detailUrl = "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
         $http.get(detailUrl).then(function (response) {
+            response.data.ngaySinh = new Date(response.data.ngaySinh);
             $scope.selectedKhachHang = response.data;
             console.log("Thông tin chi tiết khách hàng: ", $scope.selectedKhachHang);
             if ($scope.selectedKhachHang.trangThai === 1) {
@@ -75,14 +91,9 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
         });
     };
 
-
     $scope.newKhachHang = {};
     $scope.createKhachHang = function () {
-        $http
-            .post(
-                "http://localhost:8080/api/ql-khach-hang/create",
-                $scope.newKhachHang
-            )
+        $http.post("http://localhost:8080/api/ql-khach-hang/create", $scope.newKhachHang)
             .then(function (response) {
                 $scope.listKhachHang.push(response.data);
                 fetchKhachHangList($scope.selectedTrangThai, "", "", "");

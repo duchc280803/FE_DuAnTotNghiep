@@ -238,8 +238,8 @@
                       <div class="col-md-4 text-center">
                         <label>
                           <div class="image-container">
-                            <img ng-src="{{imageSrc}}" class="logo" alt="" />
-                          </div>
+                            <img ng-src="{{newKhachHang.photo ? newKhachHang.photo : 'path_to_default_image'}}" class="logo" alt="" />
+                        </div>
                         </label>
                       </div>
                       <div class="col-md-8">
@@ -314,9 +314,9 @@
                           <br />
                           <div class="form-group">
                             <label>Photo</label>
-                            <input type="file" accept="image/*" ng-model="selectedFile" ng-change="imageChanged()"
-                              ng-model="newKhachHang.hoTen" />
-                          </div>
+                            <input type="file" accept="image/*" ng-model="selectedFile" ng-change="uploadFileInModal('your-folder-name', selectedFile)" />
+                        </div>
+                        
                         </form>
                       </div>
                     </div>
@@ -360,7 +360,7 @@
                           <br />
                           <div class="form-group">
                             <label>Ngày sinh</label>
-                            <input required type="text" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
+                            <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
                           </div>
                           <br />
                           <div class="form-group">
