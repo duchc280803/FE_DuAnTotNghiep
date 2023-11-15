@@ -185,14 +185,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label for="simple-select2">Tìm kiếm</label>
-                                        <div class="form-outline">
-                                            <input type="search" id="form1" class="form-control" />
-                                        </div>
-                                    </div> <!-- form-group -->
-
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3 mt-3">
                                         <label for="simple-select2">Trạng thái</label>
                                         <select class="form-control select2" id="simple-select2">
                                             <option value="WA">Tất cả</option>
@@ -200,33 +193,48 @@
                                             <option value="WA">Washington</option>
                                         </select>
                                     </div> <!-- form-group -->
-
-                                    <div class="form-group col-md-4">
-                                        <label for="simple-select2">ㅤ</label>
-                                        <div class="form-outline">
-                                            <button class="btn btn-primary">Tìm kiếm</button>
-                                            <button class="btn btn-danger">Làm mới</button>
-                                        </div>
+                                    <div class="form-group col-md-3 mt-3">
+                                        <label for="simple-select2">Kích cỡ</label>
+                                        <select class="form-control select2" id="simple-select2" ng-model="locSize"
+                                            ng-change="filterSize()">
+                                            <option value="">Tất cả</option>
+                                            <option ng-repeat="s in listSize" value="{{s.size}}">
+                                                {{s.size}}
+                                            </option>
+                                        </select>
+                                    </div> <!-- form-group -->
+                                    <div class="form-group col-md-3 mt-3">
+                                        <label for="simple-select2">Chất liệu</label>
+                                        <select class="form-control select2" id="simple-select2" ng-model="locMaterial"
+                                            ng-change="filterMaterial()">
+                                            <option value="">Tất cả</option>
+                                            <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
+                                                {{cl.tenChatLieu}}
+                                            </option>
+                                        </select>
+                                    </div> <!-- form-group -->
+                                    <div class="form-group col-md-3 mt-3">
+                                        <label for="simple-select2">Màu sắc</label>
+                                        <select class="form-control select2" id="simple-select2" ng-model="locMauSac"
+                                            ng-change="filterColor()">
+                                            <option value="">Tất cả</option>
+                                            <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
+                                                {{ms.tenMauSac}}
+                                            </option>
+                                        </select>
                                     </div> <!-- form-group -->
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-4 mt-3">
-                                        <label for="simple-select2">Kích cỡ</label>
-                                        <select class="form-control select2" id="simple-select2">
-                                            <option value="CA">Tất cả</option>
-                                        </select>
+                                    <div class="form-group col-md-3 mt-3">
                                     </div> <!-- form-group -->
-                                    <div class="form-group col-md-4 mt-3">
-                                        <label for="simple-select2">Chất liệu</label>
-                                        <select class="form-control select2" id="simple-select2">
-                                            <option value="CA">Tất cả</option>
-                                        </select>
+                                    <div class="form-group col-md-3 mt-3">
                                     </div> <!-- form-group -->
-                                    <div class="form-group col-md-4 mt-3">
-                                        <label for="simple-select2">Màu sắc</label>
-                                        <select class="form-control select2" id="simple-select2">
-                                            <option value="CA">Tất cả</option>
-                                        </select>
+                                    <div class="form-group col-md-3 mt-3">
+
+                                    </div> <!-- form-group -->
+                                    <div class="form-group col-md-3 mt-3">
+                                        <button class="btn btn-primary">Làm mới</button>
+                                        <button class="btn btn-secondary">Sửa</button>
                                     </div> <!-- form-group -->
                                 </div>
                             </div>
@@ -271,33 +279,39 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="spct in listSanPhamChiTiet">
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{$index +1}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted "><img width="100px" src="{{spct.image}}"
+                                                        alt=""></small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{spct.tenSanPham}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{spct.soLuong}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{spct.giaBan}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{spct.size}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{spct.mauSac}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">{{spct.chatLieu}}</small>
                                             </td>
                                             <td>
-                                                <small class="mb-0 text-muted "></small>
+                                                <small class="mb-0 text-muted ">
+                                                    <span
+                                                        style=" background-color: #cceeff;color: #0077cc; padding: 4px 8px;border-radius: 4px; display: inline-block;">{{spct.trangThai
+                                                        == 1 ? "Đang bán": "Ngừng bán"}}
+                                                    </span>
+                                                </small>
                                             </td>
                                         </tr>
                                     </tbody>

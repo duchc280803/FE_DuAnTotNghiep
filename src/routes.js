@@ -1,8 +1,7 @@
 myApp.config(function ($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix("");
 
-  $routeProvider
-    .when("/dashboard", {
+  $routeProvider.when("/dashboard", {
       templateUrl: "./pages/dashboard.html",
     })
     .when("/admin/login", {
@@ -41,12 +40,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/create-chuong-trinhkm.html",
       controller: "VoucherController",
     })
-    
     .when("/voucher/update/:id", {
       templateUrl: "./pages/update-chuong-trinhkm.html",
       controller: "voucherChiTietController",
     })
-    
     .when("/khach-hang", {
       templateUrl: "./pages/khach-hang.html",
       controller: "khachHangController"
@@ -76,11 +73,13 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/proudct-new", {
       templateUrl: "./pages/san-pham-new.html",
     })
-    .when("/san-pham-chi-tiet", {
+    .when("/san-pham-chi-tiet/:id", {
       templateUrl: "./pages/sanphamchitiet.html",
+      controller: 'sanPhamChiTietController'
     })
     .when("/san-pham", {
       templateUrl: "./pages/san-pham.html",
+      controller: 'sanPhamController'
     })
     .when("/proudct-update", {
       templateUrl: "./pages/san-pham-update.html",

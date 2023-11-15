@@ -5,7 +5,6 @@ myApp.controller(
     $scope.loggedInUsername = "";
 
     var token = $window.localStorage.getItem("token");
-    console.log(token);
     if (token) {
       $scope.isLoggedIn = true;
 
