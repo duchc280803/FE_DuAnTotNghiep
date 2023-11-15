@@ -86,7 +86,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/san-pham-update.html",
     })
     .when("/thank-you", {
-      templateUrl: "./pages/shoping-cart.html",
+      templateUrl: "./pages/thankyou.html",
     })
     .when("/dia-chi", {
       templateUrl: "./pages/dia-chi.html",
