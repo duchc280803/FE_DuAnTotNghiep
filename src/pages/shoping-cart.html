@@ -245,6 +245,7 @@
     outline: none;
   }
 </style>
+
 <body ng-app="myApp" ng-controller="CartController">
   <header class="header">
     <div class="header__top">
@@ -356,7 +357,8 @@
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đăng nhập</p>
                     </a>
-                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
+                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
+                      ng-if="isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
                     </a>
@@ -469,8 +471,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2">
-          <a href="http://127.0.0.1:5503/src/index.html#/shop" class="flex items-center">
+        <div class="col-md-3">
+          <a href="/src/index.html#/shop" class="flex items-center">
             <button type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               <svg style="margin-right: 1px;" class="w-3.5 h-3.5 me-2" aria-hidden="true"
@@ -483,7 +485,7 @@
           </a>
 
         </div>
-        <div class="col-md-8"></div>
+        <div class="col-md-7"></div>
         <div class="col-md-2">
           <button
             class="inline-flex items-center px-4 py-2 bg-red-600 transition transform-gpu hover:scale-105 hover:bg-red-700 text-white text-sm font-medium rounded-md"
@@ -503,7 +505,7 @@
         <h4>Chi Tiết Thanh Toán</h4>
       </div>
       <br />
-      <form action="#">
+      <form action="#" ng-submit="thanhToan()" class="ng-pristine ng-valid">
         <div class="row">
           <div class="col-lg-6 col-md-5">
             <div class="checkout__input">
@@ -540,7 +542,7 @@
             </div>
             <div class="checkout__input">
               <p>Email<span>*</span></p>
-              <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" />
+              <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" style="color: #d4bcbc;" />
             </div>
             <div class="checkout__input">
               <p>Ghi chú</p>
@@ -593,16 +595,18 @@
               <h5>Hình thức thanh toán</h5>
               <div class="row mt-3 mb-3" style="margin-left: 50px">
                 <div class="custom-radio">
-                  <input class="mb-2" type="radio" id="payment_cash" name="radio_checkout" checked />
+                  <input class="mb-2" type="radio" id="payment_cash" name="radio_checkout" ng-model="paymentMethod"
+                    value="cash" checked />
                   <label for="payment_cash">Thanh toán khi nhận hàng</label>
                 </div>
                 <div class="custom-radio">
-                  <input class="mb-2" type="radio" id="payment_vnpay" name="radio_checkout" />
+                  <input class="mb-2" type="radio" id="payment_vnpay" name="radio_checkout" ng-model="paymentMethod"
+                    value="vnpay" />
                   <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
                 </div>
               </div>
 
-              <button type="submit" class="site-btn" ng-click="thanhToan()">
+              <button type="submit" class="site-btn">
                 Đặt Hàng
               </button>
 
