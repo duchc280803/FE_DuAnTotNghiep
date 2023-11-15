@@ -1,6 +1,6 @@
 
 var idgh = localStorage.getItem('idgiohang');
-myApp.controller("CartController", function ($scope, $http, $window) {
+myApp.controller("CartController", function ($scope, $http, $window, $location) {
   function loadToTals() {
     // Gọi API và cập nhật giá trị totalAmount
 
@@ -31,7 +31,7 @@ myApp.controller("CartController", function ($scope, $http, $window) {
         showConfirmButton: false, // Ẩn nút xác nhận
         timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
       });
-      
+
     } else if (change === "decrease" && product.soluong > 1) {
       product.soluong--;
       Swal.fire({
@@ -132,10 +132,11 @@ myApp.controller("CartController", function ($scope, $http, $window) {
                 showConfirmButton: false, // Ẩn nút xác nhận
                 timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
               });
+              localStorage.removeItem("idgiohang");
               loadCart();
-                 loadToTals();
-          loadNameAndPrice();
-          loadQuanTiTy();
+              loadToTals();
+              loadNameAndPrice();
+              loadQuanTiTy();
             },
           ],
         });
@@ -198,11 +199,11 @@ myApp.controller("CartController", function ($scope, $http, $window) {
   var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
 
   $scope.thanhToan = function () {
-    // Hiển thị cửa sổ xác nhận mặc định của trình duyệt
+    // Display a confirmation dialog
     var isConfirmed = window.confirm("Bạn có chắc chắn muốn đặt đơn hàng?");
-  
+
     if (isConfirmed) {
-      // Nếu người dùng xác nhận thanh toán, tiến hành gửi dữ liệu lên server
+      // If the user confirms, proceed with form submission
       var data = {
         hoTen: $scope.hoTen,
         soDienThoai: $scope.soDienThoai,
@@ -215,23 +216,28 @@ myApp.controller("CartController", function ($scope, $http, $window) {
         tienKhachTra: $scope.tienKhachTra,
         gioHangChiTietList: gioHangChiTietList,
       };
-  
-      // Gửi dữ liệu POST đến server
+
+      // Send data to the server
       $http({
         method: "POST",
         url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
         data: data,
       }).then(
         function (response) {
-          // Xử lý phản hồi từ máy chủ nếu cần
+          // Handle the response if needed
           localStorage.removeItem("idgiohang");
+          // Redirect to the "thank-you" route
+          $location.path("/thank-you");
         },
         function (error) {
-         console.log(error);
+          console.log(error);
         }
       );
+    } else {
+      $location.path("/check-out");
     }
-  };
+  };//close check out
+
 
 
   function loadQuanTiTy() {
@@ -252,7 +258,7 @@ myApp.controller("CartController", function ($scope, $http, $window) {
 
 
 
-   // Kiểm tra xem người dùng đã đăng nhập hay chưa
+  // Kiểm tra xem người dùng đã đăng nhập hay chưa
   var token = $window.localStorage.getItem("token");
   if (token) {
     // Người dùng đã đăng nhập, nên ta có thể load thông tin từ server
