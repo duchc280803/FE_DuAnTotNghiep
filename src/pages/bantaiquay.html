@@ -359,7 +359,7 @@
                     </div>
                   </div>
                   <br />
-                  <div ng-show="orderDetailCounter.maHoaDon == null">
+                  <div ng-show="orderDetailCounter.maHoaDon == null || listCart == null">
                     <img src="/assets/images/empty-cart.png" alt="" width="200px" style="margin-left: 430px" />
                   </div>
                   <div class="box" ng-show="orderDetailCounter.maHoaDon != null" ||>
@@ -982,7 +982,7 @@
                           <div class="modal fade" id="voucher" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-lg">
-                              <div class="modal-content custom-modal-content" style="width: 142%; margin-left: -140px">
+                              <div class="modal-content custom-modal-content" style="width: 145%; margin-left: -140px">
                                 <div class="modal-header" style="height: 50px">
                                   <input class="form-control" style="margin-top:20px" placeholder="Tìm voucher"
                                     ng-model="searchKeyword" ng-change="searchOrder(searchKeyword)" />

@@ -28,7 +28,6 @@ myApp.controller(
 
     var id = $window.localStorage.getItem("idHoaDon");
     var idKhach = $window.localStorage.getItem("idKhach");
-    console.log(idKhach);
 
     $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
     // tạo hóa đơn
@@ -200,8 +199,7 @@ myApp.controller(
     }
 
     var idGioHangChiTiet = $window.localStorage.getItem("listCart");
-    var gioHangChiTietList = idGioHangChiTiet.split(",");
-
+    var gioHangChiTietList = idGioHangChiTiet ? idGioHangChiTiet.split(",") : [];
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;

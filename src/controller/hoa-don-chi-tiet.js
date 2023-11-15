@@ -1,6 +1,6 @@
 myApp.controller(
   "hoaDonChiTietController",
-  function ($http, $scope, $routeParams, $window) {
+  function ($http, $scope, $routeParams, $window, StatusService) {
     // Xác định `id` từ `$routeParams`
     var id = $routeParams.id;
 
@@ -103,41 +103,45 @@ myApp.controller(
             var item = $scope.listTrangThaiHoaDon[i];
             $scope.status = item.trangThai;
             $window.localStorage.setItem("status", $scope.status);
-            if (item.trangThai == 1) {
-              $scope.statusChoThanhToan = item.trangThai;
-            }
-            if (item.trangThai == 2) {
-              $scope.statusXacNhan = item.trangThai;
-            }
-            if (item.trangThai == 3) {
-              $scope.statusChoGiaoHang = item.trangThai;
-            }
-            if (item.trangThai == 4) {
-              $scope.statusGiaoHang = item.trangThai;
-            }
-            if (item.trangThai == 5) {
-              $scope.statusThanhCong = item.trangThai;
-            }
-            if (item.trangThai == 6) {
-              $scope.statusDaHuy = item.trangThai;
-            }
           }
         });
     };
+    var status = $window.localStorage.getItem("status");
 
     $scope.getTrangThaiHoaDon();
 
-    var status = $window.localStorage.getItem("status");
+    $scope.getStatusOrder = {};
+    $scope.statusOrder = function () {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/status-order/" +
+            id
+        )
+        .then(function (response) {
+          $scope.getStatusOrder = response.data;
+          $window.localStorage.setItem(
+            "statusOrder",
+            $scope.getStatusOrder.trangThai
+          );
+        });
+    };
+    $scope.statusOrder();
+    var statusOrder = $window.localStorage.getItem("statusOrder");
+
+    // StatusService.fetchStatusOrder(id).then(function () {});
+    // var idGioHang = StatusService.getStatusOrder(); 
+    // console.log(idGioHang);
+
     $scope.newStatusOrder = {
       ghiChu: "",
       newTrangThai:
-        status === "1"
+        statusOrder === "1"
           ? 2
-          : status === "2"
+          : statusOrder === "2"
           ? 3
-          : status === "3"
+          : statusOrder === "3"
           ? 4
-          : status === "4"
+          : statusOrder === "4"
           ? 5
           : 6,
     };
@@ -154,6 +158,35 @@ myApp.controller(
         .post(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" + id,
           JSON.stringify($scope.newStatusOrder),
+          config
+        )
+        .then(function (response) {
+          $scope.listTrangThaiHoaDon.push(response.data);
+          $scope.getTrangThaiHoaDon();
+          $scope.getlichSuThayDoi();
+          $scope.getlichSuThanhToan();
+          getSanPham();
+          $window.location.reload();
+        });
+    };
+
+    $scope.newStatusHuyDon = {
+      ghiChu: "",
+      newTrangThai: 6
+    };
+
+    $scope.comfirmStatusHuyDon = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      $http
+        .post(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" + id,
+          JSON.stringify($scope.newStatusHuyDon),
           config
         )
         .then(function (response) {
@@ -193,7 +226,6 @@ myApp.controller(
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
                 getSanPham();
-                $window.location.reload();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
