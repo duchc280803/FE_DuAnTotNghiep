@@ -15,7 +15,71 @@ myApp.controller("sanPhamShopController", function ($http, $scope,$window) {
       });
   };
   $scope.listSanPhamGiamGia();
-
+  $scope.searchProductDanhMuc = function () {
+    var id = $scope.DanhMuc;
+  
+    if (!id) {
+      // Nếu giá trị là null, gọi lại danh sách đầy đủ
+      $scope.listSanPhamGiamGia();
+    } else {
+      $http
+        .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
+          params: { id: id },
+        })
+        .then(function (response) {
+          $scope.listSanPhamShop = response.data;
+        });
+    }
+  };
+  $scope.searchProductKieuDe = function () {
+    var id = $scope.KieuDe;
+  
+    if (!id) {
+      // Nếu giá trị là null, gọi lại danh sách đầy đủ
+      $scope.listSanPhamGiamGia();
+    } else {
+      $http
+        .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
+          params: { id: id },
+        })
+        .then(function (response) {
+          $scope.listSanPhamShop = response.data;
+        });
+    }
+  };
+  $scope.searchProductKey = function () {
+    var key = $scope.tenSanPham;
+  
+    if (!key) {
+      // Nếu giá trị là null, gọi lại danh sách đầy đủ
+      $scope.listSanPhamGiamGia();
+    } else {
+      $http
+        .get("http://localhost:8080/api/v1/san-pham-giam-gia/searchString_bykey", {
+          params: { key: key },
+        })
+        .then(function (response) {
+          $scope.listSanPhamShop = response.data;
+        });
+    }
+  };
+  
+  $scope.searchProductXuatXu = function () {
+    var id = $scope.XuatXu;
+  
+    if (!id) {
+      // Nếu giá trị là null, gọi lại danh sách đầy đủ
+      $scope.listSanPhamGiamGia();
+    } else {
+      $http
+        .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
+          params: { id: id },
+        })
+        .then(function (response) {
+          $scope.listSanPhamShop = response.data;
+        });
+    }
+  };
   $scope.getlistCategory = function () {
     $http
       .get("http://localhost:8080/api/v1/danh-muc/show")

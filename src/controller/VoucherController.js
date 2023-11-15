@@ -100,4 +100,5 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
                 });
         }
     };
+    $scope.showBrandSelect = false;
 });
