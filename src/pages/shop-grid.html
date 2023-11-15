@@ -208,9 +208,37 @@
   border-radius: 20px; /* Bo tròn cạnh của thanh cuộn */
 }
 
-::-webkit-scrollbar-track {
-  background-color: #e2e9d7; /* Màu nền của phần track thanh cuộn */
-}
+    ::-webkit-scrollbar-track {
+      background-color: #e2e9d7;
+      /* Màu nền của phần track thanh cuộn */
+    }
+
+    .account-form {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      top: 45px;
+      right: 0;
+      z-index: 999;
+    }
+
+    .account-hover:hover .account-form {
+      display: block;
+    }
+
+    /* CSS để thay đổi màu nền khi click */
+    li.account-hover a:active {
+      background-color: #dcdcdc;
+      /* Màu xám nhạt */
+    }
+
+    /* CSS để xóa chọn văn bản khi click (nếu có) */
+    li.account-hover a:active,
+    li.account-hover a:focus {
+      outline: none;
+    }
   </style>
 </head>
 
@@ -302,7 +330,31 @@
                       <span style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
                     </div>
                   </div>
-                  <a href="/src/pages/shoping-cart.html" style="width: 80%; margin-left: 30px;" class="button">CHECK OUT</a>
+                  <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
+                    OUT</a>
+                </div>
+              </li>
+              <li class="account-hover" ng-controller="loginController">
+                <div class="header__top__right__auth">
+                  <a href="#"><i class="fa fa-user">{{ loggedInUsername }}</i></a>
+                  <div class="account-form">
+                    <a href="#/dia-chi" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
+                      <i class="fa fa-user fs-6"></i>
+                      <p class="mb-0 fs-3">Tài khoản của tôi</p>
+                    </a>
+                    <a href="#/don-hang" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">Đơn hàng</p>
+                    </a>
+                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">Đăng nhập</p>
+                    </a>
+                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
+                      <i class="fa fa-sign-out fs-6"></i>
+                      <p class="mb-0 fs-3">Đăng xuất</p>
+                    </a>
+                  </div>
                 </div>
               </li>
             </ul>

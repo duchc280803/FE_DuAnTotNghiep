@@ -76,6 +76,12 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/proudct-new", {
       templateUrl: "./pages/san-pham-new.html",
     })
+    .when("/san-pham-chi-tiet", {
+      templateUrl: "./pages/sanphamchitiet.html",
+    })
+    .when("/san-pham", {
+      templateUrl: "./pages/san-pham.html",
+    })
     .when("/proudct-update", {
       templateUrl: "./pages/san-pham-update.html",
     })
@@ -114,6 +120,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/danh-muc", {
       templateUrl: "./pages/danh-muc.html",
+      controller: "danhMucController"
     })
     .when("/login", {
       templateUrl: "./pages/login.html",
@@ -122,6 +129,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
     })
+    .when("/dia-chi", {
+      templateUrl: "./pages/dia-chi.html",
+      controller: "DiaChiController",
+  })
     .otherwise({
       redirectTo: "/home",
     });

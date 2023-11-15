@@ -46,24 +46,16 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a
-              href="#pageSubmenu"
-              class="dropdown-toggle collapsed sidebar-link"
-              data-bs-toggle="collapse"
-              data-bs-target="#pageSubmenu1"
-            >
+            <a href="#pageSubmenu" class="dropdown-toggle collapsed sidebar-link" data-bs-toggle="collapse"
+              data-bs-target="#pageSubmenu1">
               <span>
-                <img
-                  src="/assets/images/product.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/product.png" width="180" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý sản phẩm</span>
             </a>
             <ul class="list-unstyled collapse" id="pageSubmenu1">
               <li class="sidebar-item" style="margin-left: 37px;">
-                <a class="sidebar-link" href="#/">Sản phẩm</a>
+                <a class="sidebar-link" href="#/san-pham">Sản phẩm</a>
               </li>
               <li class="sidebar-item" style="margin-left: 37px;">
                 <a class="sidebar-link" href="#/size">Size</a>
@@ -89,18 +81,10 @@
             </ul>
           </li>
           <li class="sidebar-item">
-            <a
-              href="#pageSubmenu"
-              class="dropdown-toggle collapsed sidebar-link"
-              data-bs-toggle="collapse"
-              data-bs-target="#pageSubmenu"
-            >
+            <a href="#pageSubmenu" class="dropdown-toggle collapsed sidebar-link" data-bs-toggle="collapse"
+              data-bs-target="#pageSubmenu">
               <span>
-                <img
-                  src="/assets/images/group.png"
-                  width="180"
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/group.png" width="180" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý tài khoản</span>
             </a>
@@ -172,11 +156,7 @@
                   </a>
                   <div ng-controller="loginController">
                     <div ng-if="!isLoggedIn">
-                      <a
-                        href="#/admin/login"
-                        class="btn btn-outline-primary mx-3 mt-2 d-block"
-                        >Login</a
-                      >
+                      <a href="#/admin/login" class="btn btn-outline-primary mx-3 mt-2 d-block">Login</a>
 
                     </div>
                     <div ng-if="isLoggedIn">
@@ -190,27 +170,28 @@
         </div>
       </nav>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="nhanVienController">
       <div class="card overflow-hidden" style="min-height: 120px">
         <div class="box">
           <div class="row" style="padding-top: 25px; padding-left: 60px">
             <div class="col-md-2">
-              <input class="form-control" placeholder="Tìm nhân viên" ng-model="searchName" style="margin-top: 4px" />
+              <input class="form-control" placeholder="Tìm nhân viên" ng-model="searchQuery" style="margin-top: 4px" />
             </div>
             <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px">
-              <button class="btn btn-primary" style="height: 39px">
+              <button class="btn btn-primary" style="height: 39px" ng-click="searchNhanVien()">
                 <span style="vertical-align: middle">Tìm Kiếm</span>
               </button>
-              <button class="btn btn-warning" style="height: 39px; margin-left: 10px">
+              <button class="btn btn-warning" style="height: 39px; margin-left: 10px" ng-click="clearSearch()">
                 <span style="vertical-align: middle">Làm mới</span>
               </button>
             </div>
             <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
               <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
-              <select style="color: green" class="custom-select">
-                <option>Tất cả</option>
-                <option>Hoạt động</option>
-                <option>Nghỉ làm</option>
+              <select style="color: green" class="custom-select" ng-model="selectedTrangThai"
+                ng-change="onTrangThaiChange()">
+                <option value="">Tất cả</option>
+                <option value="1">Hoạt động</option>
+                <option value="2">Nghỉ làm</option>
               </select>
             </div>
             <div class="col-md-3">
@@ -243,69 +224,72 @@
                           </label>
                         </div>
                         <div class="col-md-8">
-                          <form name="frmAccount">
+                          <form name="frmNhanVien">
                             <div class="form-group">
-                              <label>Họ và tên</label>
-                              <input required type="text" class="form-control" />
+                              <label for="fullName">Họ và tên</label>
+                              <input type="text" class="form-control" id="fullName" ng-model="newNhanVien.fullName" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Ngày sinh</label>
-                              <input required type="date" class="form-control" />
+                              <input required type="date" class="form-control" ng-model="newNhanVien.ngaySinh" />
                             </div>
                             <br />
                             <div class="form-group">
-                              <label>Số điện thoại</label>
-                              <input required type="text" class="form-control" />
+                              <label for="soDienThoai">Số điện thoại</label>
+                              <input type="text" class="form-control" id="soDienThoai"
+                                ng-model="newNhanVien.soDienThoai" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label class="mr-2">Giới tính</label>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" checked />
+                                <input class="form-check-input" type="radio" name="gender"
+                                  ng-model="newNhanVien.gioiTinh" value="true" checked />
                                 <label class="form-check-label"> Nam </label>
                               </div>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" />
+                                <input class="form-check-input" type="radio" name="gender"
+                                  ng-model="newNhanVien.gioiTinh" value="false" />
                                 <label class="form-check-label"> Nữ </label>
                               </div>
                             </div>
-
                             <br />
                             <div class="form-group">
                               <label>Email</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="newNhanVien.email" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Tên tài khoản</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="newNhanVien.username" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Mật khẩu</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="newNhanVien.password" />
                             </div>
                             <br />
                             <div class="form-group">
-                              <label>Chức vụ</label>
-                              <select required class="form-control">
-                                <option value="option1">Nhân Viên</option>
-                                <option value="option2">Quản lý</option>
-                                <option value="option3">Admin</option>
+                              <label for="trangThai">Chức vụ</label>
+                              <select required class="form-control" ng-model="newNhanVienRole.idLoaiTaiKhoan"
+                                ng-options="role.id as role.tenVaiTro for role in listNhanVienRole">
+                                <option value="">Chọn vai trò</option>
                               </select>
                             </div>
                             <br />
                             <div class="form-group">
                               <label class="mr-2">Trạng thái</label>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" checked />
+                                <input class="form-check-input" type="radio" name="status"
+                                  ng-model="newNhanVien.trangThai" value="1" checked />
                                 <label class="form-check-label">
                                   Hoạt động
                                 </label>
                               </div>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" />
+                                <input class="form-check-input" type="radio" name="status"
+                                  ng-model="newNhanVien.trangThai" value="2" />
                                 <label class="form-check-label">
                                   Nghỉ làm
                                 </label>
@@ -323,12 +307,8 @@
                     </div>
 
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-outline-danger m-1">
-                        Thêm
-                      </button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-outline-danger" ng-click="createNhanVien()">Thêm</button>
                     </div>
                   </div>
                 </div>
@@ -347,7 +327,7 @@
                         <div class="col-md-4 text-center">
                           <label>
                             <div class="image-container">
-                              <img ng-src="/images/account/{{account.photo}}" class="logo" alt="" />
+                              <img ng-src="/images/account/{{selectedNhanVien.image}}" class="logo" alt="" />
                             </div>
                           </label>
                         </div>
@@ -355,44 +335,46 @@
                           <form name="frmAccount">
                             <div class="form-group">
                               <label>Họ và tên</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Ngày sinh</label>
-                              <input required type="date" class="form-control" />
+                              <input required type="date" class="form-control" ng-model="selectedKhachHang.ten" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Số điện thoại</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label class="mr-2">Giới tính</label>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" checked />
+                                <input class="form-check-input" type="radio" name="gender"
+                                  ng-model="selectedKhachHang.gioiTinh" value="true" />
                                 <label class="form-check-label"> Nam </label>
                               </div>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" />
+                                <input class="form-check-input" type="radio" name="gender"
+                                  ng-model="selectedKhachHang.gioiTinh" value="false" />
                                 <label class="form-check-label"> Nữ </label>
                               </div>
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Email</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Tên tài khoản</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
                             </div>
                             <br />
                             <div class="form-group">
                               <label>Mật khẩu</label>
-                              <input required type="text" class="form-control" />
+                              <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
                             </div>
                             <br />
                             <div class="form-group">
@@ -407,16 +389,14 @@
                             <div class="form-group">
                               <label class="mr-2">Trạng thái</label>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" />
-                                <label class="form-check-label">
-                                  Hoạt động
-                                </label>
+                                <input class="form-check-input" type="radio" name="status"
+                                  ng-model="selectedKhachHang.trangThai" value="0" />
+                                <label class="form-check-label"> Hoạt động </label>
                               </div>
                               <div class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" />
-                                <label class="form-check-label">
-                                  Nghỉ làm
-                                </label>
+                                <input class="form-check-input" type="radio" name="status"
+                                  ng-model="selectedKhachHang.trangThai" value="1" />
+                                <label class="form-check-label"> Nghỉ làm </label>
                               </div>
                             </div>
                             <br />
@@ -430,15 +410,9 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-outline-danger m-1">
-                        Nghỉ làm
-                      </button>
-                      <button type="button" class="btn btn-outline-danger m-1">
-                        Chỉnh Sửa
-                      </button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-outline-danger"
+                        ng-click="updateNhanVien(selectedNhanVien)">Chỉnh Sửa</button>
                     </div>
                   </div>
                 </div>
@@ -481,7 +455,7 @@
                       padding: 4px 8px;
                       border-radius: 4px;
                       display: inline-block;
-                    ">{{nv.trangthai == 1 ? "Nghỉ làm" : "Hoạt động"}}
+                    ">{{nv.trangThai == 1 ? "Hoạt động": "Nghỉ làm"}}
                   </span>
                 </td>
                 <td>
@@ -492,6 +466,22 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="col-lg-12">
+          <nav aria-label="Page navigation example" style="margin-left: 400px">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link">{{ pageNumber + 1 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" ng-href="" ng-click="nextPage()"
+                  ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
