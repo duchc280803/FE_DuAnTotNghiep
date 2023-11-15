@@ -1,6 +1,6 @@
-var app = angular.module("myApp", []);
+
 var idgh = localStorage.getItem('idgiohang');
-app.controller("CartController", function ($scope, $http, $window) {
+myApp.controller("CartController", function ($scope, $http, $window) {
   function loadToTals() {
     // Gọi API và cập nhật giá trị totalAmount
 
@@ -224,14 +224,15 @@ app.controller("CartController", function ($scope, $http, $window) {
       }).then(
         function (response) {
           // Xử lý phản hồi từ máy chủ nếu cần
-          $window.localStorage.removeItem("idgiohang");
+          localStorage.removeItem("idgiohang");
         },
         function (error) {
-          // Xử lý lỗi nếu có
+         console.log(error);
         }
       );
     }
   };
+
 
   function loadQuanTiTy() {
     // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
@@ -245,4 +246,52 @@ app.controller("CartController", function ($scope, $http, $window) {
     });
   }
   loadQuanTiTy();
+
+
+
+
+
+
+   // Kiểm tra xem người dùng đã đăng nhập hay chưa
+  var token = $window.localStorage.getItem("token");
+  if (token) {
+    // Người dùng đã đăng nhập, nên ta có thể load thông tin từ server
+    // Gọi API để lấy thông tin khách hàng và địa chỉ mặc định
+    var apiEndpoint = "http://localhost:8080/api/v1/account/profile";
+    var apiAddress = "http://localhost:8080/api/v1/account/dia-chi";
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    $http.get(apiEndpoint, config).then(
+      function (response) {
+        console.log(response.data);
+        // Lấy thông tin từ server và gán vào các biến $scope
+        $scope.hoTen = response.data.hoTen;
+        $scope.email = response.data.email;
+        $scope.soDienThoai = response.data.soDienThoai;
+
+        // Gọi API địa chỉ
+        $http.get(apiAddress, config).then(
+          function (addressResponse) {
+            // Lọc các địa chỉ có trạng thái là 1
+            $scope.filteredAddresses = addressResponse.data.filter(function (address) {
+              return address.trangThai === '1';
+            });
+
+            // Lấy địa chỉ đầu tiên từ danh sách đã lọc và gán vào $scope.diaChi
+            $scope.diaChi = $scope.filteredAddresses.length > 0 ? $scope.filteredAddresses[0].diaChi : "";
+          },
+          function (addressError) {
+            console.error("Lỗi khi gọi API địa chỉ: " + addressError);
+          }
+        );
+      },
+      function (error) {
+        console.error("Lỗi khi gọi API thông tin cá nhân: " + error);
+      }
+    );
+  }
 });
