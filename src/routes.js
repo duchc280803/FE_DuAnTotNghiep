@@ -128,6 +128,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/don-hang-chi-tiet", {
       templateUrl: "./pages/detail-don-hang.html",
     })
+    .when("/dia-chi", {
+      templateUrl: "./pages/dia-chi.html",
+      controller: "DiaChiController",
+  })
     .otherwise({
       redirectTo: "/home",
     });
