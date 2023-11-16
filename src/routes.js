@@ -54,7 +54,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/home", {
       templateUrl: "./pages/home.html",
-      controller: "sanPhamShopController",
+      // controller: "sanPhamShopController",
+      controller: "homeController",
     })
     .when("/shop", {
       templateUrl: "./pages/shop-grid.html",
@@ -69,6 +70,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/check-out", {
       templateUrl: "./pages/shoping-cart.html",
+      controller :"CartController"
     })
     .when("/product-new", {
       templateUrl: "./pages/san-pham-new.html",
@@ -85,7 +87,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/san-pham-update.html",
     })
     .when("/thank-you", {
-      templateUrl: "./pages/shoping-cart.html",
+      templateUrl: "./pages/thankyou.html",
     })
     .when("/dia-chi", {
       templateUrl: "./pages/dia-chi.html",
