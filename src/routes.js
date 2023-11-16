@@ -72,7 +72,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/shoping-cart.html",
       controller :"CartController"
     })
-    .when("/proudct-new", {
+    .when("/product-new", {
       templateUrl: "./pages/san-pham-new.html",
     })
     .when("/san-pham-chi-tiet/:id", {

@@ -78,6 +78,8 @@ myApp.controller(
 
     // Gọi hàm để lấy dữ liệu lịch trạng thái sử dựa trên `id`
     $scope.lichSuThayDoi = [];
+    $scope.status = 0;
+
     $scope.getlichSuThayDoi = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
@@ -85,65 +87,17 @@ myApp.controller(
 
       $http.get(apiUrl).then(function (response) {
         $scope.lichSuThayDoi = response.data;
+        for (var i = 0; i < $scope.lichSuThayDoi.length; i++) {
+          $scope.status = $scope.lichSuThayDoi[i].trangThai;
+        }
       });
     };
 
     $scope.getlichSuThayDoi();
 
-    $scope.listTrangThaiHoaDon = [];
-    $scope.getTrangThaiHoaDon = function () {
-      $http
-        .get(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
-            id
-        )
-        .then(function (response) {
-          $scope.listTrangThaiHoaDon = response.data;
-          for (var i = 0; i < $scope.listTrangThaiHoaDon.length; i++) {
-            var item = $scope.listTrangThaiHoaDon[i];
-            $scope.status = item.trangThai;
-            $window.localStorage.setItem("status", $scope.status);
-          }
-        });
-    };
-    var status = $window.localStorage.getItem("status");
-
-    $scope.getTrangThaiHoaDon();
-
-    $scope.getStatusOrder = {};
-    $scope.statusOrder = function () {
-      $http
-        .get(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/status-order/" +
-            id
-        )
-        .then(function (response) {
-          $scope.getStatusOrder = response.data;
-          $window.localStorage.setItem(
-            "statusOrder",
-            $scope.getStatusOrder.trangThai
-          );
-        });
-    };
-    $scope.statusOrder();
-    var statusOrder = $window.localStorage.getItem("statusOrder");
-
-    // StatusService.fetchStatusOrder(id).then(function () {});
-    // var idGioHang = StatusService.getStatusOrder(); 
-    // console.log(idGioHang);
-
     $scope.newStatusOrder = {
       ghiChu: "",
-      newTrangThai:
-        statusOrder === "1"
-          ? 2
-          : statusOrder === "2"
-          ? 3
-          : statusOrder === "3"
-          ? 4
-          : statusOrder === "4"
-          ? 5
-          : 6,
+      newTrangThai: "",
     };
 
     $scope.comfirmStatusOrder = function () {
@@ -161,40 +115,11 @@ myApp.controller(
           config
         )
         .then(function (response) {
-          $scope.listTrangThaiHoaDon.push(response.data);
-          $scope.getTrangThaiHoaDon();
+          $scope.lichSuThayDoi.push(response.data);
           $scope.getlichSuThayDoi();
           $scope.getlichSuThanhToan();
           getSanPham();
-          $window.location.reload();
-        });
-    };
-
-    $scope.newStatusHuyDon = {
-      ghiChu: "",
-      newTrangThai: 6
-    };
-
-    $scope.comfirmStatusHuyDon = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .post(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" + id,
-          JSON.stringify($scope.newStatusHuyDon),
-          config
-        )
-        .then(function (response) {
-          $scope.listTrangThaiHoaDon.push(response.data);
-          $scope.getTrangThaiHoaDon();
-          $scope.getlichSuThayDoi();
-          $scope.getlichSuThanhToan();
-          getSanPham();
+          console.log($scope.newStatusOrder.newTrangThai);
           $window.location.reload();
         });
     };
@@ -225,6 +150,8 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
+                $scope.getlichSuThayDoi();
+                $scope.getlichSuThanhToan();
                 getSanPham();
                 Swal.fire({
                   position: "top-end",
@@ -253,6 +180,8 @@ myApp.controller(
           method: "PUT",
           transformResponse: [
             function () {
+              $scope.getlichSuThayDoi();
+              $scope.getlichSuThanhToan();
               getSanPham();
               $scope.getAllMoneyByHoaDon();
               $window.location.reload();
