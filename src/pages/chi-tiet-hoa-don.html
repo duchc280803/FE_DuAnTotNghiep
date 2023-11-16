@@ -21,7 +21,6 @@
     /* Ngăn chặn việc xuống dòng */
     margin-bottom: 20px;
   }
-
 </style>
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
   data-sidebar-position="fixed" data-header-position="fixed">
@@ -197,14 +196,6 @@
     <div class="container-fluid">
       <div class="card overflow-hidden" style="width: 1152px">
         <div class="box">
-          <div class="row">
-            <div class="col-lg-6">
-              <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
-                Lịch sử trạng thái hóa đơn
-              </h5>
-            </div>
-          </div>
-          <hr />
           <div class="scroll-container">
             <div class="content">
               <div style="display: flex; align-items: center">
@@ -215,22 +206,28 @@
                   ng-show="item.trangThai === 8">
                   <img src="/assets/images/chinhsuadon.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
-                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 2">
+                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+                  ng-show="item.trangThai === 2">
                   <img src="/assets/images/xacnhan.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
-                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 3">
+                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+                  ng-show="item.trangThai === 3">
                   <img src="/assets/images/chogiao.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
-                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 4">
+                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+                  ng-show="item.trangThai === 4">
                   <img src="/assets/images/danggiaohang.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
-                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 5">
+                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+                  ng-show="item.trangThai === 5">
                   <img src="/assets/images/thanhcong.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
-                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 6">
+                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+                  ng-show="item.trangThai === 6">
                   <img src="/assets/images/dahuy.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
-                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 7">
+                <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+                  ng-show="item.trangThai === 7">
                   <img src="/assets/images/trahang.png" width="280px" style="margin-left: -25px" alt="" />
                 </div>
               </div>
@@ -254,7 +251,7 @@
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 2">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: 10px">
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px">
                   {{item.trangThai == 2 ? 'Xác nhận' : ''}}
                 </h6>
                 <h6 style="font-size: 15px; font-weight: 600; margin-left: -40px">
@@ -262,8 +259,9 @@
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 3">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: 20px;">{{item.trangThai == 3 ? 'Chờ giao hàng' : ''}}</h6>
-                <h6 style="font-size: 15px; font-weight: 600; margin-left: 5px">
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px;">{{item.trangThai == 3 ? 'Chờ giao
+                  hàng' : ''}}</h6>
+                <h6 style="font-size: 15px; font-weight: 600; margin-left: -20px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
                 </h6>
               </div>
@@ -274,10 +272,10 @@
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 5">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px">
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: -10px">
                   {{item.trangThai == 5 ? 'Hoàn thành' : ''}}
                 </h6>
-                <h6 style="font-size: 15px; font-weight: 600; margin-left: -30px">
+                <h6 style="font-size: 15px; font-weight: 600; margin-left: -45px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
                 </h6>
               </div>
@@ -372,11 +370,11 @@
               <br>
               <div>
                 <h6 class="text">Trạng thái:</h6>
-                <select class="form-control select2" id="simple-select2">
-                  <option ng-model="newTrangThai" value="2" {{ hoaDonChiTiet.trangThai==1 ? 'selected' : '' }}>Xác nhận</option>
-                  <option ng-model="newTrangThai" value="3" {{ hoaDonChiTiet.trangThai==2 ? 'selected' : '' }}>Chờ giao</option>
-                  <option ng-model="newTrangThai" value="4" {{ hoaDonChiTiet.trangThai==3 ? 'selected' : '' }}>Đang Giao</option>
-                  <option ng-model="newTrangThai" value="5" {{ hoaDonChiTiet.trangThai==4 ? 'selected' : '' }}>Hoàn thành</option>
+                <select class="form-control select2" id="simple-select2" ng-model="newStatusOrder.newTrangThai">
+                  <option value="2" ng-if="hoaDonChiTiet.trangThai == 1">Xác nhận</option>
+                  <option value="3" ng-show="hoaDonChiTiet.trangThai == 2">Chờ giao</option>
+                  <option value="4" ng-show="hoaDonChiTiet.trangThai == 3">Đang Giao</option>
+                  <option value="5" ng-show="hoaDonChiTiet.trangThai == 4">Hoàn thành</option>
                 </select>
               </div>
               <br />
@@ -593,6 +591,7 @@
         <hr />
         <div class="row" style="padding-left: 20px">
           <div class="col-lg-4">
+            <h5>Mã hóa đơn: {{hoaDonChiTiet.ma}}</h5>
             <h5>
               Trạng thái: {{ hoaDonChiTiet.trangThai === 1 ? 'Chờ Xác nhận' :
               hoaDonChiTiet.trangThai === 2 ? 'Xác nhận' :
@@ -603,11 +602,15 @@
               === 7 ? 'Trả hàng' : 'Unknown' }}
             </h5>
             <h5>Loại: {{hoaDonChiTiet.tenLoaiDon}}</h5>
-            <h5>Địa chỉ: {{hoaDonChiTiet.diaChi}}</h5>
           </div>
           <div class="col-lg-4">
             <h5>Tên khách hàng: {{hoaDonChiTiet.tenNguoiNhan}}</h5>
-            <h5>Số điện thoại: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
+            <h5>Số người nhận: {{hoaDonChiTiet.sdtNguoiNhan}}</h5>
+            <h5>Địa chỉ: {{hoaDonChiTiet.diaChi}}</h5>
+          </div>
+          <div class="col-lg-4">
+            <h5>Tên người giao: {{hoaDonChiTiet.tenNguoiShp}}</h5>
+            <h5>Số người giao: {{hoaDonChiTiet.sdtNguoiShip}}</h5>
             <h5>Ghi chú: {{hoaDonChiTiet.ghiChu}}</h5>
           </div>
         </div>
@@ -625,7 +628,7 @@
                 <th>Số lượng</th>
                 <th style="width: 0px">Đơn giá</th>
                 <th>Tổng tiền</th>
-                <th ng-show="status == 5 || status == 1 || status == 8">
+                <th ng-show="status == 1 || status == 8 || status == 5">
                   Thao tác
                 </th>
               </tr>
@@ -664,10 +667,10 @@
               <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
                 {{item.giaBan * item.soLuong |number}}đ
               </td>
-              <td style="padding-top: 70px" ng-show="status == 1 || status == 8">
+              <td style="padding-top: 70px" ng-show="status === 1 || status === 8">
                 <button class="btn btn-primary">Xóa</button>
               </td>
-              <td style="padding-top: 70px" ng-show="status == 5">
+              <td style="padding-top: 70px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 5">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trahang">
                   <img src="/assets/images/exchange.png" alt="" srcset="" width="35px" />
                 </button>
@@ -962,25 +965,17 @@
       <div class="row">
         <div class="col-lg-12" style="margin-left: 900px">
           <h6 style="font-size: 14px; font-weight: 600">
-            Tiền hàng: {{tongTienHang |number}}₫
+            Tiền hàng: {{tongTienHang | number}}₫
           </h6>
-          <h6 style="font-size: 14px; font-weight: 600" ng-show="thongTinTienDonHang.tienShip != null">
-            Tiền ship: {{thongTinTienDonHang.tienShip |number}}₫
+          <h6 style="font-size: 14px; font-weight: 600">
+            Tiền ship: {{thongTinTienDonHang.tienShip | number}}₫
           </h6>
           <h6 style="font-size: 14px; font-weight: 600">
             Tiền giảm giá:{{thongTinTienDonHang.tienGiamGia |number}}₫
           </h6>
-          <h6 style="font-size: 14px; font-weight: 600" ng-show="thongTinTienDonHang.tienShip == null">
-            Tiền thừa: {{soTienKhachTra - (tongTienHang +
-            thongTinTienDonHang.tienGiamGia) | number}}₫
-          </h6>
-          <h6 style="font-size: 14px; font-weight: 600" ng-show="thongTinTienDonHang.tienShip != null">
+          <h6 style="font-size: 14px; font-weight: 600">
             Tổng tiền: {{tongTienHang + thongTinTienDonHang.tienGiamGia +
             thongTinTienDonHang.tienShip | number}}₫
-          </h6>
-          <h6 style="font-size: 14px; font-weight: 600" ng-show="thongTinTienDonHang.tienShip == null">
-            Tổng tiền: {{tongTienHang + thongTinTienDonHang.tienGiamGia |
-            number}}₫
           </h6>
         </div>
       </div>

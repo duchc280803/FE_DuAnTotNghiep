@@ -78,15 +78,7 @@ myApp.controller(
 
     // Gọi hàm để lấy dữ liệu lịch trạng thái sử dựa trên `id`
     $scope.lichSuThayDoi = [];
-    $scope.choXacNhan = "";
-    $scope.xacNhan = "";
-    $scope.choGiao = "";
-    $scope.dangGiaoHang = "";
-    $scope.giaoHang = "";
-    $scope.hoanThanh = "";
-    $scope.daHuy = "";
-    $scope.trahang = "";
-    $scope.chinhSuaDon = [];
+    $scope.status = 0;
 
     $scope.getlichSuThayDoi = function () {
       var apiUrl =
@@ -95,6 +87,9 @@ myApp.controller(
 
       $http.get(apiUrl).then(function (response) {
         $scope.lichSuThayDoi = response.data;
+        for (var i = 0; i < $scope.lichSuThayDoi.length; i++) {
+          $scope.status = $scope.lichSuThayDoi[i].trangThai;
+        }
       });
     };
 
@@ -102,7 +97,7 @@ myApp.controller(
 
     $scope.newStatusOrder = {
       ghiChu: "",
-      newTrangThai: 0,
+      newTrangThai: "",
     };
 
     $scope.comfirmStatusOrder = function () {
@@ -120,40 +115,11 @@ myApp.controller(
           config
         )
         .then(function (response) {
-          $scope.listTrangThaiHoaDon.push(response.data);
-          $scope.getTrangThaiHoaDon();
+          $scope.lichSuThayDoi.push(response.data);
           $scope.getlichSuThayDoi();
           $scope.getlichSuThanhToan();
           getSanPham();
-          $window.location.reload();
-        });
-    };
-
-    $scope.newStatusHuyDon = {
-      ghiChu: "",
-      newTrangThai: 6,
-    };
-
-    $scope.comfirmStatusHuyDon = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .post(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" + id,
-          JSON.stringify($scope.newStatusHuyDon),
-          config
-        )
-        .then(function (response) {
-          $scope.listTrangThaiHoaDon.push(response.data);
-          $scope.getTrangThaiHoaDon();
-          $scope.getlichSuThayDoi();
-          $scope.getlichSuThanhToan();
-          getSanPham();
+          console.log($scope.newStatusOrder.newTrangThai);
           $window.location.reload();
         });
     };
@@ -184,6 +150,8 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
+                $scope.getlichSuThayDoi();
+                $scope.getlichSuThanhToan();
                 getSanPham();
                 Swal.fire({
                   position: "top-end",
@@ -212,6 +180,8 @@ myApp.controller(
           method: "PUT",
           transformResponse: [
             function () {
+              $scope.getlichSuThayDoi();
+              $scope.getlichSuThanhToan();
               getSanPham();
               $scope.getAllMoneyByHoaDon();
               $window.location.reload();
