@@ -70,7 +70,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/check-out", {
       templateUrl: "./pages/shoping-cart.html",
     })
-    .when("/proudct-new", {
+    .when("/product-new", {
       templateUrl: "./pages/san-pham-new.html",
     })
     .when("/san-pham-chi-tiet/:id", {

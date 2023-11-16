@@ -78,6 +78,16 @@ myApp.controller(
 
     // Gọi hàm để lấy dữ liệu lịch trạng thái sử dựa trên `id`
     $scope.lichSuThayDoi = [];
+    $scope.choXacNhan = "";
+    $scope.xacNhan = "";
+    $scope.choGiao = "";
+    $scope.dangGiaoHang = "";
+    $scope.giaoHang = "";
+    $scope.hoanThanh = "";
+    $scope.daHuy = "";
+    $scope.trahang = "";
+    $scope.chinhSuaDon = [];
+
     $scope.getlichSuThayDoi = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
@@ -90,60 +100,9 @@ myApp.controller(
 
     $scope.getlichSuThayDoi();
 
-    $scope.listTrangThaiHoaDon = [];
-    $scope.getTrangThaiHoaDon = function () {
-      $http
-        .get(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-trang-thai/" +
-            id
-        )
-        .then(function (response) {
-          $scope.listTrangThaiHoaDon = response.data;
-          for (var i = 0; i < $scope.listTrangThaiHoaDon.length; i++) {
-            var item = $scope.listTrangThaiHoaDon[i];
-            $scope.status = item.trangThai;
-            $window.localStorage.setItem("status", $scope.status);
-          }
-        });
-    };
-    var status = $window.localStorage.getItem("status");
-
-    $scope.getTrangThaiHoaDon();
-
-    $scope.getStatusOrder = {};
-    $scope.statusOrder = function () {
-      $http
-        .get(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/status-order/" +
-            id
-        )
-        .then(function (response) {
-          $scope.getStatusOrder = response.data;
-          $window.localStorage.setItem(
-            "statusOrder",
-            $scope.getStatusOrder.trangThai
-          );
-        });
-    };
-    $scope.statusOrder();
-    var statusOrder = $window.localStorage.getItem("statusOrder");
-
-    // StatusService.fetchStatusOrder(id).then(function () {});
-    // var idGioHang = StatusService.getStatusOrder(); 
-    // console.log(idGioHang);
-
     $scope.newStatusOrder = {
       ghiChu: "",
-      newTrangThai:
-        statusOrder === "1"
-          ? 2
-          : statusOrder === "2"
-          ? 3
-          : statusOrder === "3"
-          ? 4
-          : statusOrder === "4"
-          ? 5
-          : 6,
+      newTrangThai: 0,
     };
 
     $scope.comfirmStatusOrder = function () {
@@ -172,7 +131,7 @@ myApp.controller(
 
     $scope.newStatusHuyDon = {
       ghiChu: "",
-      newTrangThai: 6
+      newTrangThai: 6,
     };
 
     $scope.comfirmStatusHuyDon = function () {
