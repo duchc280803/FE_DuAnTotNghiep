@@ -1,21 +1,30 @@
-<div
-  class="page-wrapper"
-  id="main-wrapper"
-  data-layout="vertical"
-  data-navbarbg="skin6"
-  data-sidebartype="full"
-  data-sidebar-position="fixed"
-  data-header-position="fixed"
->
+<style>
+  .star-image {
+    position: relative;
+  }
+
+  .star {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: red;
+    font-size: 24px;
+  }
+
+  .delete-button {
+    position: absolute;
+    top: 5px;
+    right: -5px;
+  }
+</style>
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+  data-sidebar-position="fixed" data-header-position="fixed">
   <aside class="left-sidebar">
     <div>
       <div class="brand-logo d-flex align-items-center justify-content-between">
         <a href="./index.html" class="text-nowrap logo-img">
-          <img
-            src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-            width="130"
-            alt=""
-          />
+          <img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" width="130"
+            alt="" />
         </a>
       </div>
       <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
@@ -39,25 +48,15 @@
           <li class="sidebar-item">
             <a class="sidebar-link" href="#/hoa-don" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/receipt.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/receipt.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Hóa Đơn</span>
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#/ban-tai-quay" aria-expanded="false">
+            <a class="sidebar-link" href="#/order-couter" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/shopping-cart-plus.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/shopping-cart-plus.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Bán Tại Quầy</span>
             </a>
@@ -117,12 +116,7 @@
           <li class="sidebar-item">
             <a class="sidebar-link" href="#/khuyen-mai" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/ticket.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý Khuyến Mại</span>
             </a>
@@ -130,12 +124,7 @@
           <li class="sidebar-item">
             <a class="sidebar-link" href="#/voucher" aria-expanded="false">
               <span>
-                <img
-                  src="/assets/images/ticket.png"
-                  width="180"
-                  alt=""
-                  style="width: 21px; height: 21px"
-                />
+                <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
               </span>
               <span class="hide-menu">Quản Lý Voucher</span>
             </a>
@@ -149,11 +138,7 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav">
           <li class="nav-item d-block d-xl-none">
-            <a
-              class="nav-link sidebartoggler nav-icon-hover"
-              id="headerCollapse"
-              href="javascript:void(0)"
-            >
+            <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
               <i class="ti ti-menu-2"></i>
             </a>
           </li>
@@ -165,65 +150,33 @@
           </li>
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-          <ul
-            class="navbar-nav flex-row ms-auto align-items-center justify-content-end"
-          >
+          <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
             <li class="nav-item dropdown">
-              <a
-                class="nav-link nav-icon-hover"
-                href="javascript:void(0)"
-                id="drop2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  src="/assets/images/profile/user-1.jpg"
-                  alt=""
-                  width="35"
-                  height="35"
-                  class="rounded-circle"
-                />
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <img src="/assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle" />
               </a>
-              <div
-                class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
-                aria-labelledby="drop2"
-              >
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                 <div class="message-body">
-                  <a
-                    href="javascript:void(0)"
-                    class="d-flex align-items-center gap-2 dropdown-item"
-                  >
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                     <i class="ti ti-user fs-6"></i>
                     <p class="mb-0 fs-3">My Profile</p>
                   </a>
-                  <a
-                    href="javascript:void(0)"
-                    class="d-flex align-items-center gap-2 dropdown-item"
-                  >
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                     <i class="ti ti-mail fs-6"></i>
                     <p class="mb-0 fs-3">My Account</p>
                   </a>
-                  <a
-                    href="javascript:void(0)"
-                    class="d-flex align-items-center gap-2 dropdown-item"
-                  >
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                     <i class="ti ti-list-check fs-6"></i>
                     <p class="mb-0 fs-3">My Task</p>
                   </a>
                   <div ng-controller="loginController">
                     <div ng-if="!isLoggedIn">
-                      <a
-                        href="pages/authentication-login.html"
-                        class="btn btn-outline-primary mx-3 mt-2 d-block"
-                        >Login</a
-                      >
+                      <a href="pages/authentication-login.html"
+                        class="btn btn-outline-primary mx-3 mt-2 d-block">Login</a>
                     </div>
                     <div ng-if="isLoggedIn">
-                      <a
-                        ng-click="logout()"
-                        class="btn btn-outline-primary mx-3 mt-2 d-block"
-                        >Logout</a
-                      >
+                      <a ng-click="logout()" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                     </div>
                   </div>
                 </div>
@@ -248,124 +201,89 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                       <div class="form-outline">
-                        <input
-                          type="text"
-                          id="form1"
-                          class="form-control"
-                          placeholder="Tên sản phẩm"
-                        />
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Mã sản phẩm</span></span>
+                        <input type="text" id="form1" class="form-control" placeholder="Mã sản phẩm"
+                          ng-model="product.ma" disabled />
                       </div>
                     </div>
-                    <!-- form-group -->
-
                     <div class="form-group col-md-6">
                       <div class="form-outline">
-                        <input
-                          type="text"
-                          id="form1"
-                          class="form-control"
-                          placeholder="Giá sản phẩm"
-                        />
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Tên sản phẩm</span></span>
+                        <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm"
+                          ng-model="product.ten" disabled />
                       </div>
                     </div>
-                    <!-- form-group -->
-
+                    <br>
+                    <div class="form-group col-md-6" style="padding-top: 10px;">
+                      <div class="form-outline">
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Giá bán</span></span>
+                        <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm" disabled
+                          ng-model="product.giaBan" />
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6" style="padding-top: 10px;">
+                      <div class="form-outline">
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Bảo hành</span></span>
+                        <input type="number" id="form1" class="form-control" placeholder="Bảo hành"
+                          ng-model="product.baoHang" disabled />
+                      </div>
+                    </div>
                     <div class="form-group col-md-12 mt-3">
                       <div class="form-outline">
-                        <textarea
-                          id="form1"
-                          class="form-control"
-                          placeholder="Mô tả"
-                        ></textarea>
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Mô tả</span></span>
+                        <textarea id="form1" class="form-control" placeholder="Mô tả" ng-model="product.mota"
+                          disabled /></textarea>
                       </div>
                     </div>
-                    <!-- form-group -->
-
                     <div class="form-group col-md-6 mt-3">
+                      <span class="header-title"><span style="color: red">*</span>
+                        <span>Xuất xứ</span></span>
                       <div class="input-group">
-                        <select class="form-control">
-                          <option value="CA">Thương hiệu</option>
+                        <select class="form-control" disabled>
+                          <option>{{product.tenXuatXu}}
+                          </option>
                         </select>
-                        <div class="input-group-append ml-3">
-                          <button
-                            class="btn btn-primary rounded"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#brandModal"
-                          >
-                            <i class="fe fe-plus"></i>
-                          </button>
-                        </div>
                       </div>
                     </div>
-
                     <div class="form-group col-md-6 mt-3">
+                      <span class="header-title"><span style="color: red">*</span>
+                        <span>Danh mục</span></span>
                       <div class="input-group">
-                        <select class="form-control">
-                          <option value="CA">Danh mục</option>
+                        <select class="form-control" disabled>
+                          <option>{{product.tenDanhMuc}}
+                          </option>
                         </select>
-                        <div class="input-group-append ml-3">
-                          <button
-                            class="btn btn-primary rounded"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#categoryModal"
-                          >
-                            <i class="fe fe-plus"></i>
-                          </button>
-                        </div>
                       </div>
                     </div>
-
                     <div class="form-group col-md-6 mt-3">
+                      <span class="header-title"><span style="color: red">*</span>
+                        <span>Kiểu đế</span></span>
                       <div class="input-group">
-                        <select class="form-control">
-                          <option value="CA">Kiểu đế</option>
+                        <select class="form-control" disabled>
+                          <option>{{product.tenKieuDe}}
+                          </option>
                         </select>
-                        <div class="input-group-append ml-3">
-                          <button
-                            class="btn btn-primary rounded"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#soleModal"
-                          >
-                            <i class="fe fe-plus"></i>
-                          </button>
-                        </div>
                       </div>
                     </div>
-
                     <div class="form-group col-md-6 mt-3">
+                      <span class="header-title"><span style="color: red">*</span>
+                        <span>Thương hiệu</span></span>
                       <div class="input-group">
-                        <select class="form-control">
-                          <option value="CA">Xuất xứ</option>
+                        <select class="form-control" disabled>
+                          <option>{{product.tenThuongHieu}}
+                          </option>
                         </select>
-                        <div class="input-group-append ml-3">
-                          <button
-                            class="btn btn-primary rounded"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#xuatXu"
-                          >
-                            <i class="fe fe-plus"></i>
-                          </button>
-                        </div>
                       </div>
                     </div>
-
                     <!-- Brand Modal -->
-                    <div
-                      class="modal fade"
-                      id="xuatXu"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="brandModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
+                    <div class="modal fade" id="xuatXu" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered size-modal" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel">
@@ -376,12 +294,7 @@
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="brandName">Tên xuất xứ:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên xuất xứ"
-                              />
+                              <input type="text" class="form-control" id="brandName" placeholder="Nhập tên xuất xứ" />
                             </div>
 
                             <div class="form-group">
@@ -395,40 +308,20 @@
                               </select>
                             </div>
                           </div>
-
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
                               Đóng
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
                               Thêm
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <!-- Brand Modal -->
-                    <div
-                      class="modal fade"
-                      id="brandModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="brandModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
+                    <div class="modal fade" id="brandModal" tabindex="-1" role="dialog"
+                      aria-labelledby="brandModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered size-modal" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel">
@@ -439,14 +332,9 @@
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="brandName">Tên thương hiệu:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên thương hiệu"
-                              />
+                              <input type="text" class="form-control" id="brandName"
+                                placeholder="Nhập tên thương hiệu" />
                             </div>
-
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -458,40 +346,20 @@
                               </select>
                             </div>
                           </div>
-
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
                               Đóng
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
                               Thêm
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <!-- Category Modal -->
-                    <div
-                      class="modal fade"
-                      id="categoryModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="categoryModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
+                    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog"
+                      aria-labelledby="categoryModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered size-modal" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel">
@@ -502,14 +370,8 @@
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="brandName">Tên danh mục:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên danh mục"
-                              />
+                              <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục" />
                             </div>
-
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -521,40 +383,20 @@
                               </select>
                             </div>
                           </div>
-
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
                               Đóng
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
                               Thêm
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <!-- Sole Modal -->
-                    <div
-                      class="modal fade"
-                      id="soleModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="soleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
+                    <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered size-modal" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel">
@@ -565,14 +407,8 @@
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="brandName">Tên kiểu đế:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên kiểu đế"
-                              />
+                              <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế" />
                             </div>
-
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -584,40 +420,20 @@
                               </select>
                             </div>
                           </div>
-
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
                               Đóng
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
                               Thêm
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <!-- Sole Modal -->
-                    <div
-                      class="modal fade"
-                      id="soleModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="soleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
+                    <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered size-modal" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel">
@@ -628,14 +444,8 @@
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="brandName">Tên kiểu đế:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên kiểu đế"
-                              />
+                              <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế" />
                             </div>
-
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -647,41 +457,20 @@
                               </select>
                             </div>
                           </div>
-
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
                               Đóng
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
                               Thêm
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <!-- Color -->
-
-                    <div
-                      class="modal fade"
-                      id="soleModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-labelledby="soleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="modal-dialog modal-dialog-centered size-modal"
-                        role="document"
-                      >
+                    <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered size-modal" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="myModalLabel">
@@ -692,14 +481,8 @@
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="brandName">Tên kiểu đế:</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="brandName"
-                                placeholder="Nhập tên kiểu đế"
-                              />
+                              <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế" />
                             </div>
-
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Trạng thái:</label>
@@ -711,44 +494,24 @@
                               </select>
                             </div>
                           </div>
-
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
                               Đóng
                             </button>
-                            <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">
                               Thêm
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                    <div class="form-group col-md-12 text-right mt-3">
-                      <button type="button" class="btn btn-primary">
-                        Xác nhận
-                      </button>
-                    </div>
-                    <!-- form-group -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- .col-12 -->
         </div>
-        <!-- .row -->
       </div>
-      <!-- .container-fluid -->
-
       <div class="container-fluid mt-4">
         <div class="row justify-content-center">
           <div class="col-12">
@@ -787,341 +550,113 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="text-center">
+                    <tr class="text-center" ng-repeat="pd in productDetail">
                       <td>
-                        <small class="mb-0 text-muted">Đỏ</small>
+                        <small class="mb-0 text-muted">{{pd.color}}</small>
                       </td>
 
                       <td>
-                        <small class="mb-0 text-muted">Vải</small>
+                        <small class="mb-0 text-muted">{{pd.chatLieu}}</small>
                       </td>
                       <td>
-                        <small class="mb-0 text-muted">1</small>
+                        <small class="mb-0 text-muted">{{pd.size}}</small>
                       </td>
                       <small class="mb-0 text-muted">
                         <td class="col-1">
-                          <div class="input-group">
-                            <input
-                              type="number"
-                              name="quant[1]"
-                              class="form-control text-center"
-                              value="1"
-                              min="1"
-                              max="10000"
-                            />
+                          <div class="input-group" style="width: 90px;">
+                            <input type="number" name="quant[1]" class="form-control text-center"
+                              value="{{pd.quantity}}" min="1" max="10000" />
                           </div>
                         </td>
                       </small>
                       <td>
-                        <button class="btn btn-success">Kích hoạt</button>
-                        <button class="btn btn-danger">Hủy kích hoạt</button>
+                        <span style="
+                        background-color: #cceeff;
+                        color: #0077cc;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        display: inline-block;
+                      ">{{pd.trangThai == 1 ? "Đã kích hoạt": "Chưa kích hoạt"}}
+                        </span>
                       </td>
                       <td>
-                        <button class="btn btn-warning">Tải kích hoạt</button>
-                        <button class="btn btn-secondary">Hủy kích hoạt</button>
+                        <button class="btn btn-warning" ng-show="pd.trangThai == 2"
+                          ng-click="updateStatusHuy(pd.id)">Kích
+                          hoạt</button>
+                        <button class="btn btn-secondary" ng-show="pd.trangThai == 1"
+                          ng-click="updateStatusKichHoat(pd.id)">Hủy kích hoạt</button>
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="col-12 text-center">
-                  <button
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#productDetailModal"
-                  >
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#productDetailModal">
                     Thêm chi tiết sản phẩm
                   </button>
                 </div>
-
-                <!-- Modal -->
-                <div
-                  class="modal fade"
-                  id="productDetailModal"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-hidden="true"
-                >
-                  <div
-                    class="modal-dialog modal-dialog-centered"
-                    role="document"
-                  >
+                <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                      <!-- Không có tiêu đề -->
                       <div class="modal-body">
-                        <!-- Nội dung của modal ở đây -->
-
                         <div class="row">
-                          <div class="col-8">
+                          <div class="col-12">
                             <div class="form-group">
                               <span class="text-danger">*</span>
                               <label for="status">Màu sắc:</label>
-                              <div class="input-group">
-                                <select class="form-control" id="status">
-                                  <option value="active">Đỏ</option>
+                              <select class="form-control" id="status" ng-model="newProductDetail.idMauSac">
+                                <option ng-repeat="ms in listMauSac" value="{{ms.id}}">
+                                  {{ms.tenMauSac}}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Chất liệu:</label>
+                                <select class="form-control" id="status" ng-model="newProductDetail.idChatLieu">
+                                  <option ng-repeat="cl in listChatLieu" value="{{cl.id}}">
+                                    {{cl.tenChatLieu}}
+                                  </option>
                                 </select>
-                                <div class="input-group-append ml-3">
-                                  <button
-                                    class="btn btn-primary rounded"
-                                    data-toggle="modal"
-                                    data-target="#colorModal"
-                                  >
-                                    <i class="fe fe-plus"></i>
-                                  </button>
-                                </div>
                               </div>
                             </div>
-                          </div>
-
-                          <!-- Modal -->
-                          <div
-                            class="modal fade"
-                            id="colorModal"
-                            tabindex="-1"
-                            role="dialog"
-                            aria-hidden="true"
-                          >
-                            <div
-                              class="modal-dialog modal-dialog-centered size-modal"
-                              role="document"
-                            >
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Thêm màu sắc</h5>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <span class="text-danger">*</span>
-                                    <label for="brandName">Màu sắc:</label>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      id="brandName"
-                                      placeholder="Nhập tên màu sắc"
-                                    />
-                                  </div>
-
-                                  <div class="form-group">
-                                    <span class="text-danger">*</span>
-                                    <label for="status">Trạng thái:</label>
-                                    <select class="form-control" id="status">
-                                      <option value="active">Hoạt động</option>
-                                      <option value="inactive">
-                                        Ngưng hoạt động
-                                      </option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-dismiss="modal"
-                                  >
-                                    Đóng
-                                  </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-dismiss="modal"
-                                  >
-                                    Thêm
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-8">
-                            <div class="form-group">
-                              <span class="text-danger">*</span>
-                              <label for="status">Chất liệu:</label>
-                              <div class="input-group">
-                                <select class="form-control" id="status">
-                                  <option value="active">Vải</option>
+                            <div class="col-12">
+                              <div class="form-group">
+                                <span class="text-danger">*</span>
+                                <label for="status">Size:</label>
+                                <select class="form-control" id="status" ng-model="newProductDetail.idSize">
+                                  <option ng-repeat="s in listSize" value="{{s.id}}">
+                                    {{s.size}}
+                                  </option>
                                 </select>
-                                <div class="input-group-append ml-3">
-                                  <button
-                                    class="btn btn-primary rounded"
-                                    data-toggle="modal"
-                                    data-target="#chatLieuModal"
-                                  >
-                                    <i class="fe fe-plus"></i>
-                                  </button>
-                                </div>
                               </div>
                             </div>
-                          </div>
-
-                          <div class="col-8">
-                            <div class="form-group">
-                              <span class="text-danger">*</span>
-                              <label for="status">Size:</label>
-                              <div class="input-group">
-                                <select class="form-control" id="status">
-                                  <option value="active">34</option>
-                                </select>
-                                <div class="input-group-append ml-3">
-                                  <button
-                                    class="btn btn-primary rounded"
-                                    data-toggle="modal"
-                                    data-target="#sizeModal"
-                                  >
-                                    <i class="fe fe-plus"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- Modal size -->
-                          <div
-                            class="modal fade"
-                            id="sizeModal"
-                            tabindex="-1"
-                            role="dialog"
-                            aria-hidden="true"
-                          >
-                            <div
-                              class="modal-dialog modal-dialog-centered size-modal"
-                              role="document"
-                            >
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Thêm size</h5>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <span class="text-danger">*</span>
-                                    <label for="brandName">Size:</label>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      id="brandName"
-                                      placeholder="Nhập size"
-                                    />
-                                  </div>
-                                  <div class="form-group">
-                                    <span class="text-danger">*</span>
-                                    <label for="status">Trạng thái:</label>
-                                    <select class="form-control" id="status">
-                                      <option value="active">Hoạt động</option>
-                                      <option value="inactive">
-                                        Ngưng hoạt động
-                                      </option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-dismiss="modal"
-                                  >
-                                    Đóng
-                                  </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-dismiss="modal"
-                                  >
-                                    Thêm
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- Modal -->
-                          <div
-                            class="modal fade"
-                            id="chatLieuModal"
-                            tabindex="-1"
-                            role="dialog"
-                            aria-hidden="true"
-                          >
-                            <div
-                              class="modal-dialog modal-dialog-centered size-modal"
-                              role="document"
-                            >
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Thêm chất liệu</h5>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="form-group">
-                                    <span class="text-danger">*</span>
-                                    <label for="brandName">Chất liệu:</label>
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      id="brandName"
-                                      placeholder="Nhập tên chất liệu"
-                                    />
-                                  </div>
-
-                                  <div class="form-group">
-                                    <span class="text-danger">*</span>
-                                    <label for="status">Trạng thái:</label>
-                                    <select class="form-control" id="status">
-                                      <option value="active">Hoạt động</option>
-                                      <option value="inactive">
-                                        Ngưng hoạt động
-                                      </option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-dismiss="modal"
-                                  >
-                                    Đóng
-                                  </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-dismiss="modal"
-                                  >
-                                    Thêm
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-4"></div>
-                          <div class="col-3">
-                            <div class="form-group">
-                              <span></span>
-                              <label for="status">Số lượng:</label>
-                              <small class="mb-0 text-muted">
-                                <div class="row">
-                                  <div class="input-group col-4">
-                                    <div class="input-group">
-                                      <input
-                                        type="number"
-                                        name="quant[1]"
-                                        class="form-control text-center"
-                                        value="1"
-                                        min="1"
-                                        max="10000"
-                                      />
+                            <div class="col-12">
+                              <div class="form-group">
+                                <label for="status">Số lượng:</label>
+                                <small class="mb-0 text-muted">
+                                  <div class="row">
+                                    <div class="input-group col-4">
+                                      <div class="input-group">
+                                        <input type="number" ng-model="newProductDetail.soLuong"
+                                          class="form-control text-center" value="1" min="1" max="10000" />
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </small>
+                                </small>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="modal-footer text-center">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          data-dismiss="modal"
-                        >
-                          Xác nhận
-                        </button>
+                        <div class="modal-footer text-center">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            cancel
+                          </button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            ng-click="createProductDetail()">
+                            Xác nhận
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1129,82 +664,36 @@
               </div>
             </div>
           </div>
-          <!-- .col-12 -->
         </div>
-        <!-- .row -->
-      </div>
-      <!-- .container-fluid -->
-
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-12 mt-4">
-            <div class="row mb-4">
-              <div class="col-md-12">
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <form
-                      action="/file-upload"
-                      class="dropzone bg-light rounded-lg"
-                      id="tinydash-dropzone"
-                    >
-                      <div class="dz-message needsclick">
-                        <div class="circle circle-lg bg-primary">
-                          <i class="fe fe-upload fe-24 text-white"></i>
-                        </div>
-                        <h5 class="text-muted mt-4">Thêm ảnh</h5>
-                      </div>
-                    </form>
-                    <!-- Preview -->
-                    <!-- <div class="dropzone-previews mt-3" id="file-previews"></div> -->
-                    <!-- file preview template -->
-                    <div class="d-none" id="uploadPreviewTemplate">
-                      <div class="card mt-1 mb-0 shadow-none border">
-                        <div class="p-2">
-                          <div class="row align-items-center">
-                            <div class="col-auto">
-                              <img
-                                data-dz-thumbnail
-                                src="#"
-                                class="avatar-sm rounded bg-light"
-                                alt=""
-                              />
-                            </div>
-                            <div class="col pl-0">
-                              <a
-                                href="javascript:void(0);"
-                                class="text-muted font-weight-bold"
-                                data-dz-name
-                              ></a>
-                              <p class="mb-0" data-dz-size></p>
-                            </div>
-                            <div class="col-auto">
-                              <!-- Button -->
-                              <a
-                                href=""
-                                class="btn btn-link btn-lg text-muted"
-                                data-dz-remove
-                              >
-                                <i class="dripicons-cross"></i>
-                              </a>
-                            </div>
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 mt-4">
+              <div class="row mb-4">
+                <div class="col-md-12">
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-lg-2" ng-repeat="i in image">
+                          <div class="star-image">
+                            <img width="180px" src="{{i.tenImage}}" alt="" srcset="">
+                            <button class="btn btn-warning star" style="width: 10px;height: 30px;"><img style="margin-top: -30px;
+                              margin-left: -11px;" src="/assets/images/star.png" width="20px" alt=""></button>
+                            <button style="width: 30px;height: 30px;" class="btn btn-warning delete-button"><img
+                                style="margin-left: -12px;margin-top: -10px;" src="/assets/images/trash-bin.png"
+                                width="25px" alt=""></button>
                           </div>
                         </div>
                       </div>
+                      <input class="form-control" type="file" id="formFile" ng-model="selectedFiles" multiple>
+                      <button style="margin-top: 20px;margin-left: 510px;" class="btn btn-primary"
+                        ng-click="uploadImages()">Submit</button>
                     </div>
                   </div>
-                  <!-- .card-body -->
                 </div>
-                <!-- .card -->
               </div>
-              <!-- .col -->
             </div>
-            <!-- .row -->
           </div>
         </div>
-        <!-- .row -->
-      </div>
-      <!-- .container-fluid -->
     </main>
-    <!-- main -->
   </div>
 </div>
