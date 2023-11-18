@@ -243,23 +243,23 @@
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 8">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: -15px">
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px">
                   {{item.trangThai == 8 ? 'Chỉnh sửa đơn' : ''}}
                 </h6>
-                <h6 style="font-size: 15px; font-weight: 600; margin-left: -40px">
+                <h6 style="font-size: 15px; font-weight: 600; margin-left: -10px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 2">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px">
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: 20px">
                   {{item.trangThai == 2 ? 'Xác nhận' : ''}}
                 </h6>
-                <h6 style="font-size: 15px; font-weight: 600; margin-left: -40px">
+                <h6 style="font-size: 15px; font-weight: 600; margin-left: -15px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 3">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px;">{{item.trangThai == 3 ? 'Chờ giao
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: -10px;">{{item.trangThai == 3 ? 'Chờ giao
                   hàng' : ''}}</h6>
                 <h6 style="font-size: 15px; font-weight: 600; margin-left: -20px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
@@ -267,15 +267,15 @@
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 4">
                 <h6 style="font-size: 20px; font-weight: 600">{{item.trangThai == 4 ? 'Giao hàng' : ''}}</h6>
-                <h6 style="font-size: 15px; font-weight: 600; margin-left: -45px">
+                <h6 style="font-size: 15px; font-weight: 600; margin-left: -30px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}M
                 </h6>
               </div>
               <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 5">
-                <h6 style="font-size: 20px; font-weight: 600; margin-left: -10px">
+                <h6 style="font-size: 20px; font-weight: 600; margin-left: 0px">
                   {{item.trangThai == 5 ? 'Hoàn thành' : ''}}
                 </h6>
-                <h6 style="font-size: 15px; font-weight: 600; margin-left: -45px">
+                <h6 style="font-size: 15px; font-weight: 600; margin-left: -30px">
                   {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
                 </h6>
               </div>
@@ -670,12 +670,12 @@
               <td style="padding-top: 70px" ng-show="status === 1 || status === 8">
                 <button class="btn btn-primary">Xóa</button>
               </td>
-              <td style="padding-top: 70px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 5">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trahang">
+              <td style="padding-top: 70px">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oki">
                   <img src="/assets/images/exchange.png" alt="" srcset="" width="35px" />
                 </button>
                 <!-- Model trả hàng -->
-                <div class="modal fade" id="trahang" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="oki" tabindex="-1" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content custom-modal-content" style="width: 110%; margin-left: -15px">
