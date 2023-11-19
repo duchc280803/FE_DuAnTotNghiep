@@ -22,14 +22,14 @@ myApp.controller(
     }
 
     // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
-    function getHoaDonChiTiet() {
+    $scope.getHoaDonChiTiet = function () {
       const apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
       $http.get(apiUrl).then(function (response) {
         $scope.hoaDonChiTiet = response.data;
       });
-    }
-    getHoaDonChiTiet();
+    };
+    $scope.getHoaDonChiTiet();
 
     $scope.listSanPhamInOrder = [];
     $scope.tongTienKhongGiam = 0;
@@ -37,7 +37,7 @@ myApp.controller(
     $scope.tongTienHang = 0;
 
     // Hàm để tải sản phẩm từ API
-    function getSanPham() {
+    $scope.getSanPham = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-san-pham/" + id;
 
@@ -58,9 +58,9 @@ myApp.controller(
         }
         $scope.tongTienHang = $scope.tongTienSauGiam + $scope.tongTienKhongGiam;
       });
-    }
+    };
 
-    getSanPham();
+    $scope.getSanPham();
 
     $scope.soTienKhachTra = 0;
     $scope.getlichSuThanhToan = function () {
@@ -112,10 +112,12 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.lichSuThayDoi.push(response.data);
-          $scope.getlichSuThayDoi();
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
           $scope.getlichSuThanhToan();
-          getSanPham();
-          console.log($scope.newStatusOrder.newTrangThai);
+          $scope.getlichSuThayDoi();
+          $scope.getAllMoneyByHoaDon();
+          $scope.selectMoney(id);
           $window.location.reload();
         });
     };
@@ -146,9 +148,12 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
-                $scope.getlichSuThayDoi();
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
                 $scope.getlichSuThanhToan();
-                getSanPham();
+                $scope.getlichSuThayDoi();
+                $scope.getAllMoneyByHoaDon();
+                $scope.selectMoney(id);
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -176,10 +181,12 @@ myApp.controller(
           method: "PUT",
           transformResponse: [
             function () {
-              $scope.getlichSuThayDoi();
+              $scope.getHoaDonChiTiet();
+              $scope.getSanPham();
               $scope.getlichSuThanhToan();
-              getSanPham();
+              $scope.getlichSuThayDoi();
               $scope.getAllMoneyByHoaDon();
+              $scope.selectMoney(id);
               $window.location.reload();
             },
           ],
@@ -219,16 +226,6 @@ myApp.controller(
       $scope.newTransaction.trangThai = 2;
       $scope.createTransaction(idKhach);
     };
-
-    $scope.thongTinTienDonHang = {};
-    $scope.getAllMoneyByHoaDon = function () {
-      $http
-        .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-tien/" + id)
-        .then(function (response) {
-          $scope.thongTinTienDonHang = response.data;
-        });
-    };
-    $scope.getAllMoneyByHoaDon();
 
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
@@ -509,9 +506,12 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamInOrder.push(response.data);
-          $scope.getlichSuThayDoi();
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
           $scope.getlichSuThanhToan();
-          getSanPham();
+          $scope.getlichSuThayDoi();
+          $scope.getAllMoneyByHoaDon();
+          $scope.selectMoney(id);
         });
     };
 
@@ -526,12 +526,24 @@ myApp.controller(
         )
         .then(function () {
           $scope.listSanPhamInOrder.splice(index, 1);
-          $scope.getlichSuThayDoi();
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
           $scope.getlichSuThanhToan();
-          getSanPham();
+          $scope.getlichSuThayDoi();
           $scope.getAllMoneyByHoaDon();
-          $location.path('/order-detail/' + id)
+          $scope.selectMoney(id);
+          $location.path("/order-detail/" + id);
         });
     };
+
+    $scope.fillMoney = {};
+    $scope.selectMoney = function (id) {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-tien/" + id)
+        .then(function (response) {
+          $scope.fillMoney = response.data;
+        });
+    };
+    $scope.selectMoney(id);
   }
 );

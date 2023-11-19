@@ -45,7 +45,7 @@
             <h6 style="font-size: 15px; font-weight: 600; margin-left: 30px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
-          </div>
+          </div>    
           <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
             ng-show="item.trangThai === 2">
             <img src="/assets/images/xacnhan.png" width="280px" style="margin-left: -25px" alt="" />
@@ -100,7 +100,7 @@
             ng-show="item.trangThai === 7">
             <img src="/assets/images/trahang.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
-              Chờ xác nhận
+              Trả hàng
             </h6>
             <h6 style="font-size: 15px; font-weight: 600; margin-left: 55px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
@@ -789,14 +789,13 @@
         Tiền hàng: {{tongTienHang | number}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền ship: {{thongTinTienDonHang.tienShip != null ? (thongTinTienDonHang.tienShip | number) + '₫' : '0₫'}}
+        Tiền ship: {{fillMoney.tienShip != null ? (fillMoney.tienShip | number) + '₫' : '0₫'}}
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền giảm giá:{{thongTinTienDonHang.tienGiamGia |number}}₫
+        Tiền giảm giá:{{fillMoney.tienGiamGia |number}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tổng tiền: {{tongTienHang + thongTinTienDonHang.tienGiamGia +
-        thongTinTienDonHang.tienShip | number}}₫
+        Tổng tiền: {{fillMoney.tongTien | number}}₫
       </h6>
     </div>
   </div>
