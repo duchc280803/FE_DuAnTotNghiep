@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+</head>
+<style>
+  @media print {
+      @page {
+        size: A6;
+      }
+      body {
+        width: 105mm;
+        margin: 0;
+        padding: 0;
+      }
+      .print-button {
+      display: none;
+    }
+      .card {
+        width: 100%;
+      }
+      /* Add any additional print styles here */
+    }
+</style>
+<body>
+  <div class="card overflow-hidden" style="width: 1000px;">
+    <div class="card-body p-4">
+      <img width="135px" style="margin-left: 400px;margin-bottom: 10px;"
+        src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt="">
+        <center> <p style="font-size: 15px;font-weight: 600;color: black;">ĐC: Cổng số 1,
+          Tòa nhà FPT Polytechnic, 13 phố Trịnh Văn Bô, phường Phương Canh, quận
+          Nam Từ Liêm, TP Hà Nội</p></center>
+        <center><p style="font-size: 15px;font-weight: 600;color: black;padding-bottom: 60px;">Hotline: 0971066455</p></center>
+      <div class="invoice">
+        <center>
+          <h4 style="height: 20px;color: black;">Hóa đơn bán hàng</h4>
+        </center>
+        <br>
+        <table class="table">
+          <thead>
+            <tr style="font-size: 15px;font-weight: bold;color: black;background-color: #f5f3ed;">
+              <th>Mã hóa đơn</th>
+              <th>Ngày lập</th>
+              <th>Trạng Thái đơn</th>
+              <th>Người tạo</th>
+              <th>Tên người mua</th>
+              <th>Số điện thoại</th>
+              <th>Địa chỉ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>poly__202311172339234254</td>
+              <td>11/17/2023 11:39:23 PM</td>
+              <td>Đang xử lý</td>
+              <td>Hoàng Công Đức</td>
+              <td>Nguyễn đức nam</td>
+              <td>0971066455</td>
+              <td>hà nội</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <center>
+          <h4 style="height: 20px;color: black;">Danh sách sản phẩm</h4>
+        </center>
+        <br>
+        <table class="table">
+          <thead>
+            <tr style="font-size: 15px;font-weight: bold;color: black;background-color: #f5f3ed;">
+              <th>Mã sản phẩm</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Áo thun</td>
+              <td>$15</td>
+              <td>2</td>
+              <td>$30</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="invoice-total">
+          <div class="discount" style="display: flex;justify-content: space-between;">
+            <h6 style="padding-left: 750px;">Tổng tiền hàng:</h6>
+            <h6>$100</h6>
+          </div>
+          <div class="discount" style="display: flex;justify-content: space-between;">
+            <h6 style="padding-left: 750px;">Giảm giá:</h6>
+            <h6>$100</h6>
+          </div>
+          <div class="discount" style="display: flex;justify-content: space-between;">
+            <h6 style="padding-left: 750px;">Phí ship:</h6>
+            <h6>$100</h6>
+          </div>
+          <div class="discount" style="display: flex;justify-content: space-between;">
+            <h6 style="padding-left: 750px;">Tổng cộng:</h6>
+            <h6>$100</h6>
+          </div>
+        </div>
+        <button class="print-button" onclick="window.print()">In hóa đơn</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

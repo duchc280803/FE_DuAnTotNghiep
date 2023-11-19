@@ -1,0 +1,200 @@
+<div class="row justify-content-center">
+  <div class="col-12">
+
+    <div class="card shadow mb-4">
+      <div class="card-header">
+        <strong class="h3 mb-0 page-title"><span class="fe fe-filter fe-24 mr-2"></span>Lọc</strong>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="simple-select2">Tìm kiếm</label>
+            <div class="form-outline">
+              <input type="search" id="form1" class="form-control" ng-model="searchQuery" />
+            </div>
+          </div> <!-- form-group -->
+
+          <div class="form-group col-md-4">
+            <label for="simple-select2">Trạng thái</label>
+            <select class="form-control select2" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
+              id="simple-select2">
+              <option value="">Tất cả</option>
+              <option value="1">Hoạt động</option>
+              <option value="2">Ngừng hoạt động</option>
+            </select>
+          </div> <!-- form-group -->
+
+          <div class="form-group col-md-4">
+            <label for="simple-select2">ㅤ</label>
+            <div class="form-outline">
+              <button class="btn btn-primary" ng-click="searchMauSac()">Tìm kiếm</button>
+              <button class="btn btn-danger" ng-click="clearSearch()">Làm mới bộ lọc</button>
+            </div>
+          </div> <!-- form-group -->
+
+
+        </div>
+      </div>
+    </div> <!-- / .card -->
+  </div> <!-- .col-12 -->
+</div> <!-- row justify-content-center -->
+
+
+<div class="row justify-content-center">
+  <div class="col-12">
+
+    <!-- table -->
+    <div class="card shadow">
+
+      <div class="card-body">
+        <div class="row align-items-center my-4">
+          <div class="col">
+            <h2 class="h3 mb-0 page-title">Danh sách màu sắc</h2>
+          </div>
+          <div class="col-auto">
+            <div class="input-group-append ml-3">
+              <button class="btn btn-primary rounded" data-toggle="modal" data-target="#sizeModal">
+                Tạo màu sắc
+              </button>
+            </div>
+
+          </div>
+        </div>
+        <table class="table table-borderless table-hover">
+          <thead>
+            <tr>
+              <th>
+                <p class="mb-0 text-muted"><strong>STT</strong></p>
+              </th>
+              <th>
+                <p class="mb-0 text-muted"><strong>Tên màu sắc</strong></p>
+              </th>
+              <th>
+                <p class="mb-0 text-muted"><strong>Trạng thái</strong></p>
+              </th>
+              <th>
+                <p class="mb-0 text-muted"><strong>Ngày tạo</strong></p>
+              </th>
+              <th>
+                <p class="mb-0 text-muted"><strong>Ngày cập nhật</strong></p>
+              </th>
+              <th>
+                <p class="mb-0 text-muted"><strong>Hành động</strong></p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="th in listMauSac">
+              <td>
+                <small class="mb-0 text-muted ">{{$index + 1}}</small>
+              </td>
+              <td>
+                <small class="mb-0 text-muted ">{{th.tenMauSac}}</small>
+              </td>
+              <td>
+                <small>{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}</small>
+              </td>
+              <td>
+                <small class="mb-0 text-muted ">{{th.ngayTao | date:'MM/dd/yyyy'}}</small>
+              </td>
+              <td>
+                <small class="mb-0 text-muted ">{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</small>
+              </td>
+              <td>
+                <button class="btn btn-warning fe fe-eye fe-16" ng-click="deleteMauSac(th.id)"></button>
+                <button class="btn btn-success fe fe-tool fe-16" data-toggle="modal" ng-click="fetchMauSacdetail(th.id)"
+                  data-target="#sua"></button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link">{{ pageNumber + 1 }}</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" ng-href="" ng-click="nextPage()"
+            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div> <!-- .col-12 -->
+</div> <!-- .row -->
+<!-- Thêm -->
+<div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm mới màu sắc</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <span class="text-danger">*</span>
+          <label for="brandName">Tên màu sắc:</label>
+          <input type="text" class="form-control" id="brandName" ng-model="newMauSac.tenMauSac"
+            placeholder="Nhập tên màu sắc" />
+        </div>
+
+        <div class="form-group">
+          <span class="text-danger">*</span>
+          <label for="status">Trạng thái:</label>
+          <select class="form-control" id="status" ng-model="newMauSac.trangThai">
+            <option value="1">Hoạt động</option>
+            <option value="2">Ngừng hoạt động</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Đóng
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="createMauSac()" data-dismiss="modal">
+          Thêm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- sửa -->
+<div class="modal fade" id="sua" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm mới màu sắc</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <span class="text-danger">*</span>
+          <label for="brandName">Tên màu sắc:</label>
+          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên màu sắc"
+            ng-model="selectedMauSac.tenMauSac" />
+        </div>
+
+        <div class="form-group">
+          <span class="text-danger">*</span>
+          <label for="status">Trạng thái:</label>
+          <select class="form-control" id="status" ng-model="selectedMauSac.trangThai">
+            <option value="1">Hoạt động</option>
+            <option value="2">Ngừng hoạt động</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Đóng
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="updateMauSac(selectedMauSac)" data-dismiss="modal">
+          Sửa
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,303 @@
+<div class="card overflow-hidden" style="width: 1152px; height: 130px">
+  <div class="row" style="padding-top: 30px; padding-left: 80px">
+    <div class="col-md-7">
+      <input class="form-control" placeholder="Tìm hóa đơn" style="width: 100%" ng-model="searchQuery" />
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-outline-primary" style="width: 100%" ng-click="searchHoaDon()">
+        Tìm Kiếm
+      </button>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-outline-secondary" style="width: 100%" ng-click="clearSearch()">
+        Chỉnh sửa
+      </button>
+    </div>
+  </div>
+  <div class="row" style="padding: 20px">
+    <div class="col-md-4">
+      Loại Đơn :
+      <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
+        <option value="">Tất cả</option>
+        <option value="2">Tại quầy</option>
+        <option value="1">Online</option>
+      </select>
+    </div>
+    <div ng-hide="!isAdmin" class="col-md-4">
+      Nhân Viên :
+      <select style="color: green" class="custom-select" ng-model="selectedNguoiXacNhan"
+        ng-change="filterHoaDonByNguoiXacNhan()">
+        <option value="">Tất cả</option>
+        <option ng-repeat="nguoiXacNhan in tenNguoiXacNhanOptions" value="{{nguoiXacNhan}}">
+          {{nguoiXacNhan}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="card overflow-hidden">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="margin-bottom: 10px">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" style="font-weight: 800">
+        <li class="nav-item active">
+          <a class="nav-link" href="" onclick="openCity('Choxacnhan')" style="color: darkgoldenrod">Chờ xác nhận</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="" onclick="openCity('Xacnhan')" style="color: darkgoldenrod">Xác nhận</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="" onclick="openCity('Chogiaohang')" style="color: darkgoldenrod">Chờ giao hàng</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="" onclick="openCity('Giaohang')" style="color: darkgoldenrod">Giao hàng</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="" onclick="openCity('Hoanthanh')" style="color: darkgoldenrod">Hoàn thành</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="" onclick="openCity('Dahuy')" style="color: darkgoldenrod">Đã hủy</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="status" id="Choxacnhan">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon1">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status" id="Xacnhan" style="display: none">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon2">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+
+          <td>
+            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status" id="Chogiaohang" style="display: none">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon3">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status" id="Giaohang" style="display: none">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon4">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status" id="Hoanthanh" style="display: none">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon5">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status" id="Dahuy" style="display: none">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon6">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status" id="Trahang" style="display: none">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">SĐT khách hàng</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody class="table" style="border: 1px solid #ccc">
+        <tr ng-repeat="hd in listHoaDon7">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+              Detail
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
