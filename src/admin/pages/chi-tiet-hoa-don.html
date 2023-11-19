@@ -27,11 +27,7 @@
     <div class="scroll-container">
       <div class="content">
         <div style="display: flex; align-items: center">
-          <div
-            style="margin-right: 125px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 1"
-          >
+          <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 1">
             <img src="/assets/images/choxacnhan.png" width="280px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
               Chờ xác nhận
@@ -40,107 +36,59 @@
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 8"
-          >
-            <img
-              src="/assets/images/chinhsuadon.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 8">
+            <img src="/assets/images/chinhsuadon.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Chỉnh sửa đơn
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 40px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 30px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 2"
-          >
-            <img
-              src="/assets/images/xacnhan.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 2">
+            <img src="/assets/images/xacnhan.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
               Xác nhận
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 45px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 3"
-          >
-            <img
-              src="/assets/images/chogiao.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 3">
+            <img src="/assets/images/chogiao.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Chờ giao hàng
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 40px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 4"
-          >
-            <img
-              src="/assets/images/danggiaohang.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 4">
+            <img src="/assets/images/danggiaohang.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 70px">
               Giao hàng
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 50px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 5"
-          >
-            <img
-              src="/assets/images/thanhcong.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 5">
+            <img src="/assets/images/thanhcong.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 60px">
               Hoàn thành
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 40px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 6"
-          >
-            <img
-              src="/assets/images/dahuy.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 6">
+            <img src="/assets/images/dahuy.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
               Chờ xác nhận
             </h6>
@@ -148,17 +96,9 @@
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
-          <div
-            style="margin-right: 125px; margin-left: -120px"
-            ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 7"
-          >
-            <img
-              src="/assets/images/trahang.png"
-              width="280px"
-              style="margin-left: -25px"
-              alt=""
-            />
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 7">
+            <img src="/assets/images/trahang.png" width="280px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
               Chờ xác nhận
             </h6>
@@ -172,53 +112,28 @@
   </div>
   <div class="row" style="margin-bottom: 20px; margin-left: 10px">
     <div class="col-lg-6">
-      <button
-        ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6"
-        type="submit"
-        class="btn btn-danger m-1"
-        data-bs-toggle="modal"
-        data-bs-target="#huydon"
-        style="text-decoration: none; height: 39px"
-      >
+      <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit"
+        class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#huydon"
+        style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Hủy</span>
       </button>
-      <button
-        ng-show="hoaDonChiTiet.trangThai != 5"
-        type="submit"
-        class="btn btn-danger m-1"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        style="text-decoration: none; height: 39px"
-      >
+      <button ng-show="hoaDonChiTiet.trangThai != 5" type="submit" class="btn btn-danger m-1" data-bs-toggle="modal"
+        data-bs-target="#exampleModal" style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Xác nhận</span>
       </button>
     </div>
     <div class="col-lg-6" style="padding-left: 445px">
-      <button
-        type="submit"
-        class="btn btn-danger m-1"
-        data-bs-toggle="modal"
-        data-bs-target="#lichsutrangthai"
-        style="text-decoration: none; height: 39px"
-      >
+      <button type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#lichsutrangthai"
+        style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">lịch sử</span>
       </button>
     </div>
   </div>
 </div>
 <!-- modal Lịch sử trạng thái HD -->
-<div
-  class="modal fade"
-  id="lichsutrangthai"
-  tabindex="-1"
-  aria-labelledby="lichsutrangthai"
-  aria-hidden="true"
->
+<div class="modal fade" id="lichsutrangthai" tabindex="-1" aria-labelledby="lichsutrangthai" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div
-      class="modal-content custom-modal-content"
-      style="width: 110%; margin-left: -15px"
-    >
+    <div class="modal-content custom-modal-content" style="width: 110%; margin-left: -15px">
       <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
       <div class="modal-body">
         <table class="table">
@@ -256,35 +171,18 @@
 </div>
 <!-- modal Lịch sử trang thai HD -->
 <!-- modal cập nhật trạng thái HD -->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header"></div>
       <div class="modal-body">
         <div class="modal-body-item">
-          <span class="header-title"
-            ><span style="color: red">*</span> <span>Nhập ghi chú</span></span
-          >
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Ghi chú"
-            ng-model="newStatusOrder.ghiChu"
-          />
+          <span class="header-title"><span style="color: red">*</span> <span>Nhập ghi chú</span></span>
+          <input type="text" class="form-control" placeholder="Ghi chú" ng-model="newStatusOrder.ghiChu" />
           <br />
           <div>
             <h6 class="text">Trạng thái:</h6>
-            <select
-              class="form-control select2"
-              id="simple-select2"
-              ng-model="newStatusOrder.newTrangThai"
-            >
+            <select class="form-control select2" id="simple-select2" ng-model="newStatusOrder.newTrangThai">
               <option value="2" ng-if="hoaDonChiTiet.trangThai == 1">
                 Xác nhận
               </option>
@@ -300,15 +198,10 @@
             </select>
           </div>
           <br />
-          <span ng-show="thongTinTienDonHang.tienShip == 0" class="header-title"
-            ><span style="color: red">*</span> <span>Nhập tiền ship</span></span
-          >
-          <input
-            ng-show="status == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'"
-            type="text"
-            class="form-control"
-            placeholder="Tiền ship"
-          />
+          <span ng-show="thongTinTienDonHang.tienShip == 0" class="header-title"><span style="color: red">*</span>
+            <span>Nhập tiền ship</span></span>
+          <input ng-show="status == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="text" class="form-control"
+            placeholder="Tiền ship" />
         </div>
         <br />
       </div>
@@ -316,12 +209,8 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button
-          type="button"
-          data-bs-dismiss="modal"
-          class="btn btn-outline-danger m-1"
-          ng-click="comfirmStatusOrder()"
-        >
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
+          ng-click="comfirmStatusOrder()">
           Xác nhận
         </button>
       </div>
@@ -330,28 +219,15 @@
 </div>
 <!-- modal Lịch sử -->
 <!-- modal hủy hóa đơn -->
-<div
-  class="modal fade"
-  id="huydon"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="huydon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header"></div>
       <div class="modal-body">
         <div class="modal-body-item">
-          <span class="header-title"
-            ><span style="color: red">*</span>
-            <span>Nhập ghi chú hủy đơn</span></span
-          >
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Ghi chú"
-            ng-model="newStatusHuyDon.ghiChu"
-          />
+          <span class="header-title"><span style="color: red">*</span>
+            <span>Nhập ghi chú hủy đơn</span></span>
+          <input type="text" class="form-control" placeholder="Ghi chú" ng-model="newStatusHuyDon.ghiChu" />
           <br />
         </div>
         <br />
@@ -360,12 +236,8 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button
-          type="button"
-          data-bs-dismiss="modal"
-          class="btn btn-outline-danger m-1"
-          ng-click="comfirmStatusHuyDon()"
-        >
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
+          ng-click="comfirmStatusHuyDon()">
           Xác nhận
         </button>
       </div>
@@ -374,13 +246,7 @@
 </div>
 <!-- modal hủy hóa đơn -->
 <!-- modal thông báo trạng thái HD -->
-<div
-  class="modal fade"
-  id="lichsu"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="lichsu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -407,43 +273,27 @@
       </h5>
       <h5
         ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia + thongTinTienDonHang.tienShip) <= soTienKhachTra && thongTinTienDonHang.tienShip != null"
-        style="padding-left: 700px; padding-top: 20px"
-        class="me-auto"
-      >
+        style="padding-left: 700px; padding-top: 20px" class="me-auto">
         Khách đã thanh toán tiền đơn hàng
       </h5>
       <h5
         ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia) <= soTienKhachTra && thongTinTienDonHang.tienShip == null"
-        style="padding-left: 700px; padding-top: 20px"
-        class="me-auto"
-      >
+        style="padding-left: 700px; padding-top: 20px" class="me-auto">
         Khách đã thanh toán tiền đơn hàng
       </h5>
       <button
         ng-show="(tongTienHang + thongTinTienDonHang.tienGiamGia) > soTienKhachTra && thongTinTienDonHang.tienShip == null"
-        class="btn btn-primary"
-        style="margin-top: 20px; margin-right: 20px"
-        data-bs-toggle="modal"
-        data-bs-target="#thanhttoan"
-      >
+        class="btn btn-primary" style="margin-top: 20px; margin-right: 20px" data-bs-toggle="modal"
+        data-bs-target="#thanhttoan">
         Xác nhận
       </button>
       <button
         ng-show="hoaDonChiTiet.trangThai != 6 && (tongTienHang + thongTinTienDonHang.tienGiamGia + thongTinTienDonHang.tienShip) > soTienKhachTra && thongTinTienDonHang.tienShip != null"
-        class="btn btn-primary"
-        style="margin-top: 20px; margin-right: 20px"
-        data-bs-toggle="modal"
-        data-bs-target="#thanhttoan"
-      >
+        class="btn btn-primary" style="margin-top: 20px; margin-right: 20px" data-bs-toggle="modal"
+        data-bs-target="#thanhttoan">
         Xác nhận
       </button>
-      <div
-        class="modal fade"
-        id="thanhttoan"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="thanhttoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header" style="height: 20px">
@@ -461,17 +311,13 @@
                     </h6>
                   </div>
                   <div class="col-lg-4">
-                    <h6
-                      ng-show="thongTinTienDonHang.tienShip != null"
-                      style="font-size: 15px; font-weight: bold; color: crimson"
-                    >
+                    <h6 ng-show="thongTinTienDonHang.tienShip != null"
+                      style="font-size: 15px; font-weight: bold; color: crimson">
                       {{tongTienHang + thongTinTienDonHang.tienGiamGia +
                       thongTinTienDonHang.tienShip | number}}₫
                     </h6>
-                    <h6
-                      ng-show="thongTinTienDonHang.tienShip == null"
-                      style="font-size: 15px; font-weight: bold; color: crimson"
-                    >
+                    <h6 ng-show="thongTinTienDonHang.tienShip == null"
+                      style="font-size: 15px; font-weight: bold; color: crimson">
                       {{tongTienHang + thongTinTienDonHang.tienGiamGia|
                       number}}₫
                     </h6>
@@ -479,66 +325,35 @@
                 </div>
                 <div class="row">
                   <div class="col-lg-12">
-                    <span class="header-title"
-                      ><span style="color: red">*</span>
-                      <span>Tiền khách đưa</span></span
-                    >
-                    <input
-                      type="text"
-                      class="next-input"
-                      placeholder="Nhập tiền khách đưa"
-                      ng-model="newTransaction.soTien"
-                    />
+                    <span class="header-title"><span style="color: red">*</span>
+                      <span>Tiền khách đưa</span></span>
+                    <input type="text" class="next-input" placeholder="Nhập tiền khách đưa"
+                      ng-model="newTransaction.soTien" />
                   </div>
                   <div class="col-lg-12" style="margin-top: 15px">
-                    <span class="header-title"
-                      ><span style="color: red">*</span>
-                      <span>Ghi chú</span></span
-                    >
-                    <input
-                      type="text"
-                      class="next-input"
-                      placeholder="Nhập ghi chú"
-                      ng-model="newTransaction.ghiChu"
-                    />
+                    <span class="header-title"><span style="color: red">*</span>
+                      <span>Ghi chú</span></span>
+                    <input type="text" class="next-input" placeholder="Nhập ghi chú" ng-model="newTransaction.ghiChu" />
                   </div>
                 </div>
                 <div class="row" style="padding-top: 20px">
                   <div class="col-lg-6">
-                    <button
-                      style="margin-left: 80px"
-                      class="btn btn-primary"
-                      ng-click="button1Clicked(hoaDonChiTiet.idNhanVien)"
-                    >
-                      <img
-                        src="/assets/images/payment-method.png"
-                        width="50px"
-                        alt=""
-                      />
+                    <button style="margin-left: 80px" class="btn btn-primary"
+                      ng-click="button1Clicked(hoaDonChiTiet.idNhanVien)">
+                      <img src="/assets/images/payment-method.png" width="50px" alt="" />
                     </button>
                   </div>
                   <div class="col-lg-6">
-                    <button
-                      style="margin-left: 50px"
-                      class="btn btn-primary"
-                      ng-click="button2Clicked(hoaDonChiTiet.idNhanVien)"
-                    >
-                      <img
-                        src="/assets/images/debit-card.png"
-                        width="50px"
-                        alt=""
-                      />
+                    <button style="margin-left: 50px" class="btn btn-primary"
+                      ng-click="button2Clicked(hoaDonChiTiet.idNhanVien)">
+                      <img src="/assets/images/debit-card.png" width="50px" alt="" />
                     </button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Hủy
               </button>
             </div>
@@ -621,9 +436,7 @@
             <th>Số lượng</th>
             <th style="width: 0px">Đơn giá</th>
             <th>Tổng tiền</th>
-            <th
-              ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 5"
-            >
+            <th ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 5">
               Thao tác
             </th>
           </tr>
@@ -638,15 +451,9 @@
           <td style="padding-top: 80px">{{item.tenSanPham}}</td>
           <td style="padding-top: 80px" ng-show="hoaDonChiTiet.trangThai == 1">
             <div class="quantity">
-              <input
-                style="margin-left: 0px; width: 70px"
-                type="number"
-                class="next-input text-left min-width-100px position-relative"
-                min="1"
-                ng-value="item.soLuong"
-                ng-model="soLuong"
-                ng-change="updateOrder(item.idHoaDonChiTiet,soLuong)"
-              />
+              <input style="margin-left: 0px; width: 70px" type="number"
+                class="next-input text-left min-width-100px position-relative" min="1" ng-value="item.soLuong"
+                ng-model="soLuong" ng-change="updateOrder(item.idHoaDonChiTiet,soLuong)" />
             </div>
           </td>
           <td style="padding-top: 80px" ng-show="hoaDonChiTiet.trangThai != 1">
@@ -656,8 +463,7 @@
             <div ng-show="item.donGiaSauGiam != item.giaBan">
               {{item.donGiaSauGiam | number}}₫
               <span style="color: crimson">
-                <strike>{{item.giaBan | number}}₫</strike></span
-              >
+                <strike>{{item.giaBan | number}}₫</strike></span>
             </div>
             <div ng-show="item.donGiaSauGiam == item.giaBan">
               {{item.giaBan | number}}₫
@@ -670,45 +476,23 @@
             {{item.giaBan * item.soLuong |number}}đ
           </td>
           <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai == 1">
-            <button class="btn btn-primary">Xóa</button>
+            <button class="btn btn-primary" ng-click="deleteProduct($event, $index)">Xóa</button>
           </td>
-          <td style="padding-top: 70px">
-            <button
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#oki"
-            >
-              <img
-                src="/assets/images/exchange.png"
-                alt=""
-                srcset=""
-                width="35px"
-              />
+          <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai === 5">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oki"
+              ng-click="selectProductTraHang(item.idHoaDonChiTiet)">
+              <img src="/assets/images/exchange.png" alt="" srcset="" width="35px" />
             </button>
             <!-- Model trả hàng -->
-            <div
-              class="modal fade"
-              id="oki"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+            <div class="modal fade" id="oki" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
-                <div
-                  class="modal-content custom-modal-content"
-                  style="width: 110%; margin-left: -15px"
-                >
-                  <div
-                    class="modal-header"
-                    style="height: 20px; margin-left: 350px"
-                  >
-                    <h6
-                      style="
+                <div class="modal-content custom-modal-content" style="width: 110%; margin-left: -15px">
+                  <div class="modal-header" style="height: 20px; margin-left: 350px">
+                    <h6 style="
                         font-size: 15px;
                         font-weight: bold;
                         padding-top: 20px;
-                      "
-                    >
+                      ">
                       Xác nhận trả hàng
                     </h6>
                   </div>
@@ -718,62 +502,60 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img
-                              src="https://myshoes.vn/image/cache/catalog/2023/puma/pu01/Slipstream-Cord-Unisex-Sneakers_80-800x800.jpg"
-                              alt=""
-                              width="250px"
-                            />
+                            <img src="{{fillProductTraHang.tenImage}}" alt="" width="250px" />
                           </td>
                           <td>
-                            <h6
-                              style="
+                            <h6 style="
                                 font-size: 15px;
                                 font-weight: bold;
                                 height: 10px;
-                              "
-                            >
-                              GIÀY PUMA SLIPSTREAM CORD NAM - TRẮNG XÁM
+                              ">
+                              {{fillProductTraHang.tenSanPham}}
                             </h6>
-                            <h6 style="height: 10px; padding-top: 30px">
-                              Đơn giá: 1.990.000₫
+                            <h6 style="height: 10px; padding-top: 30px"
+                              ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
+                              Đơn giá: {{fillProductTraHang.donGia}}₫
                             </h6>
-                            <h6 style="height: 10px">Size: 34</h6>
-                            <h6 style="height: 10px">Chất liệu: Cứng</h6>
-                            <h6 style="height: 10px">Màu sắc: Xanh</h6>
-                            <h6 style="height: 10px">x 4</h6>
+                            <h6 style="height: 10px; padding-top: 30px"
+                              ng-show="fillProductTraHang.donGia !=  fillProductTraHang.donGiaSauGiam">
+                              Đơn giá: {{fillProductTraHang.donGiaSauGiam |number}}₫
+                              <span style="color: crimson">
+                                <strike>{{fillProductTraHang.donGia
+                                  |number}}₫</strike></span>
+                            </h6>
+                            <h6 style="height: 10px">Size: {{fillProductTraHang.size}}</h6>
+                            <h6 style="height: 10px">Chất liệu: {{fillProductTraHang.tenChatLieu}}</h6>
+                            <h6 style="height: 10px">Màu sắc: {{fillProductTraHang.tenMauSac}}</h6>
+                            <h6 style="height: 10px">x {{fillProductTraHang.soLuong}}</h6>
                           </td>
                           <td>
-                            <h6 style="color: crimson; padding-top: 110px">
-                              7.960.000₫
+                            <h6 style="color: crimson; padding-top: 110px"
+                              ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
+                              {{fillProductTraHang.donGia * fillProductTraHang.soLuong |number}}₫
+                            </h6>
+                            <h6 style="color: crimson; padding-top: 110px"
+                              ng-show="fillProductTraHang.donGia != fillProductTraHang.donGiaSauGiam">
+                              {{fillProductTraHang.donGiaSauGiam * fillProductTraHang.soLuong | number}}₫
                             </h6>
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                    <span class="header-title"
-                      ><span style="color: red">*</span>
-                      <span>Ghi chú</span></span
-                    >
-                    <textarea
-                      style="height: 80px"
-                      type="text"
-                      class="next-input"
-                      placeholder="Nhập ghi chú"
-                    ></textarea>
+                    <span class="header-title"><span style="color: red">*</span>
+                      <span>Số lượng trả</span></span>
+                    <div class="quantity">
+                      <input style="margin-left: 0px; width: 100px" type="number"
+                        class="next-input text-left min-width-100px position-relative" min="1" ng-model="newOrderDetail.soLuong"/>
+                    </div>
+                    <span class="header-title"><span style="color: red">*</span>
+                      <span>Ghi chú</span></span>
+                    <textarea style="height: 80px" type="text" class="next-input" placeholder="Nhập ghi chú" ng-model="newOrderDetail.ghiChu"></textarea>
                   </div>
                   <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                       Close
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="traHang(item.idHoaDonChiTiet)">
                       Trả hàng
                     </button>
                   </div>
@@ -788,22 +570,11 @@
   </div>
   <div class="row">
     <div class="col-lg-3">
-      <button
-        ng-show="hoaDonChiTiet.trangThai == 1"
-        class="btn btn-primary"
-        style="width: 150px; margin-left: 25px"
-        data-bs-toggle="modal"
-        data-bs-target="#sanpham"
-      >
+      <button ng-show="hoaDonChiTiet.trangThai == 1" class="btn btn-primary" style="width: 150px; margin-left: 25px"
+        data-bs-toggle="modal" data-bs-target="#sanpham">
         Thêm sản phẩm
       </button>
-      <div
-        class="modal fade"
-        id="sanpham"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="sanpham" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content custom-modal-content">
             <div class="modal-header">
@@ -812,26 +583,14 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-lg-8">
-                  <input
-                    ng-model="key"
-                    class="form-control"
-                    placeholder="Tìm sản phẩm"
-                  />
+                  <input ng-model="key" class="form-control" placeholder="Tìm sản phẩm" />
                 </div>
                 <div class="col-lg-4 d-flex justify-content-start">
-                  <button
-                    ng-click="searchSanPham()"
-                    type="button"
-                    class="btn btn-primary"
-                  >
+                  <button ng-click="searchSanPham()" type="button" class="btn btn-primary">
                     Tìm Kiếm
                   </button>
-                  <button
-                    type="button"
-                    ng-click="getListSanPhamTaiQuay()"
-                    class="btn btn-warning"
-                    style="margin-left: 10px"
-                  >
+                  <button type="button" ng-click="getListSanPhamTaiQuay()" class="btn btn-warning"
+                    style="margin-left: 10px">
                     Làm mới
                   </button>
                 </div>
@@ -840,63 +599,36 @@
               <div class="row">
                 <div class="form-group col-md-3">
                   <h6 class="text">Thương hiệu:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="brand"
-                    ng-change="filterBrand()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="brand" ng-change="filterBrand()">
                     <option value="">Tất cả</option>
-                    <option
-                      ng-repeat="th in listThuongHieu"
-                      value="{{th.tenThuongHieu}}"
-                    >
+                    <option ng-repeat="th in listThuongHieu" value="{{th.tenThuongHieu}}">
                       {{th.tenThuongHieu}}
                     </option>
                   </select>
                 </div>
                 <div class="form-group col-md-3">
                   <h6 class="text">Danh mục:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="locCategory"
-                    ng-change="filterCategory()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="locCategory"
+                    ng-change="filterCategory()">
                     <option value="">Tất cả</option>
-                    <option
-                      ng-repeat="dm in listDanhMuc"
-                      value="{{dm.tenDanhMuc}}"
-                    >
+                    <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
                       {{dm.tenDanhMuc}}
                     </option>
                   </select>
                 </div>
                 <div class="form-group col-md-3">
                   <h6 class="text">Xuất xứ:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="locOrigin"
-                    ng-change="filterOrigin()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="locOrigin"
+                    ng-change="filterOrigin()">
                     <option value="">Tất cả</option>
-                    <option
-                      ng-repeat="xx in listXuatXu"
-                      value="{{xx.tenXuatXu}}"
-                    >
+                    <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
                       {{xx.tenXuatXu}}
                     </option>
                   </select>
                 </div>
                 <div class="form-group col-md-3">
                   <h6 class="text">Kiểu đế:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="locSole"
-                    ng-change="filterSole()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="locSole" ng-change="filterSole()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
                       {{kd.tenDe}}
@@ -906,17 +638,10 @@
                 <div class="form-group col-md-4">
                   <br />
                   <h6 class="text">Màu sắc:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="locMauSac"
-                    ng-change="filterColor()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="locMauSac"
+                    ng-change="filterColor()">
                     <option value="">Tất cả</option>
-                    <option
-                      ng-repeat="ms in listMauSac"
-                      value="{{ms.tenMauSac}}"
-                    >
+                    <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
                       {{ms.tenMauSac}}
                     </option>
                   </select>
@@ -924,12 +649,7 @@
                 <div class="form-group col-md-4">
                   <br />
                   <h6 class="text">Size:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="locSize"
-                    ng-change="filterSize()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="locSize" ng-change="filterSize()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="s in listSize" value="{{s.size}}">
                       {{s.size}}
@@ -939,17 +659,10 @@
                 <div class="form-group col-md-4">
                   <br />
                   <h6 class="text">Chất liệu:</h6>
-                  <select
-                    class="form-control select2"
-                    id="simple-select2"
-                    ng-model="locMaterial"
-                    ng-change="filterMaterial()"
-                  >
+                  <select class="form-control select2" id="simple-select2" ng-model="locMaterial"
+                    ng-change="filterMaterial()">
                     <option value="">Tất cả</option>
-                    <option
-                      ng-repeat="cl in listChatLieu"
-                      value="{{cl.tenChatLieu}}"
-                    >
+                    <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
                       {{cl.tenChatLieu}}
                     </option>
                   </select>
@@ -959,10 +672,7 @@
               <div class="box">
                 <table class="table table-borderless">
                   <thead>
-                    <tr
-                      class="text-center"
-                      style="background-color: lightskyblue"
-                    >
+                    <tr class="text-center" style="background-color: lightskyblue">
                       <th scope="col">STT</th>
                       <th scope="col">Ảnh</th>
                       <th scope="col">Tên Sản Phẩm</th>
@@ -972,28 +682,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      style="border: 1px solid #ccc"
-                      class="text-center"
-                      ng-repeat="sptq in listSanPhamTaiQuay"
-                    >
+                    <tr style="border: 1px solid #ccc" class="text-center" ng-repeat="sptq in listSanPhamTaiQuay">
                       <td style="padding-top: 55px">
                         {{$index + 1 + (pageNumberSp * pageSizeSp)}}
                       </td>
                       <td>
                         <div class="d-flex justify-content-center">
-                          <img
-                            src="{{sptq.imgage}}"
-                            alt="..."
-                            class="img-fluid"
-                            style="max-width: 100px; max-height: 100px"
-                          />
+                          <img src="{{sptq.imgage}}" alt="..." class="img-fluid"
+                            style="max-width: 100px; max-height: 100px" />
                         </div>
                       </td>
                       <td style="padding-top: 25px">
-                        <small class="mb-0 text-muted h5"
-                          ><strong>{{sptq.tenSanPham}} </strong></small
-                        >
+                        <small class="mb-0 text-muted h5"><strong>{{sptq.tenSanPham}} </strong></small>
                         <br />
                         <span>Size:</span>
                         <span>{{sptq.size}}</span>
@@ -1005,10 +705,7 @@
                         <span>{{sptq.chatLieu}}</span>
                       </td>
                       <td style="padding-top: 55px">
-                        <small
-                          class="mb-0 text-muted h6"
-                          ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0"
-                        >
+                        <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0">
                           <strong>
                             <span class="text-danger">
                               {{sptq.giaBan - sptq.giaGiamGia | number}}đ
@@ -1018,10 +715,7 @@
                             </strike>
                           </strong>
                         </small>
-                        <small
-                          class="mb-0 text-muted h6"
-                          ng-show="sptq.giaGiamGia == 0"
-                        >
+                        <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == 0">
                           <strong>
                             <span class="text-danger">
                               {{ sptq.giaBan | number}}đ
@@ -1031,25 +725,16 @@
                       </td>
                       <td style="padding-top: 55px">
                         <div class="quantity">
-                          <input
-                            ng-model="soLuongSanPham"
-                            min="1"
-                            max="{{sptq.soLuong}}"
-                            type="number"
-                            class="next-input text-left min-width-100px position-relative quantity-decimal"
-                          />
+                          <input ng-model="soLuongSanPham" min="1" max="{{sptq.soLuong}}" type="number"
+                            class="next-input text-left min-width-100px position-relative quantity-decimal" />
                         </div>
                         <h6 style="margin-left: 0px; padding-top: 5px">
                           {{sptq.soLuong}} sản phẩm có sẵn
                         </h6>
                       </td>
                       <td style="padding-top: 55px">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          data-bs-dismiss="modal"
-                          ng-click="themSanPhamHoaDonChiTiet(sptq.idSanPhamChiTiet, soLuongSanPham)"
-                        >
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                          ng-click="themSanPhamHoaDonChiTiet(sptq.idSanPhamChiTiet, soLuongSanPham)">
                           Thêm vào hóa đơn
                         </button>
                       </td>
@@ -1058,10 +743,7 @@
                 </table>
               </div>
             </div>
-            <nav
-              aria-label="Page navigation example"
-              style="margin-left: 480px"
-            >
+            <nav aria-label="Page navigation example" style="margin-left: 480px">
               <ul class="pagination">
                 <li class="page-item">
                   <a class="page-link" ng-click="previousPageSp()">Previous</a>
@@ -1075,11 +757,7 @@
               </ul>
             </nav>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Close
               </button>
             </div>
@@ -1091,21 +769,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 600px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()"
-              >Previous</a
-            >
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
-            <a
-              class="page-link"
-              ng-href=""
-              ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1"
-              >Next</a
-            >
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
           </li>
         </ul>
       </nav>
@@ -1118,7 +789,7 @@
         Tiền hàng: {{tongTienHang | number}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền ship: {{thongTinTienDonHang.tienShip | number}}₫
+        Tiền ship: {{thongTinTienDonHang.tienShip != null ? (thongTinTienDonHang.tienShip | number) + '₫' : '0₫'}}
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
         Tiền giảm giá:{{thongTinTienDonHang.tienGiamGia |number}}₫

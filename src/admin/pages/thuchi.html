@@ -118,11 +118,20 @@
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
           <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td>{{hd.tenNhanVien}}</td>
+          <td ng-show="!isAdmin">
+            {{hd.tenNhanVien}}
+          </td>
+          <td ng-show="isAdmin">
+            <select class="form-control select2">
+              <option>
+                {{hd.tenNhanVien}}
+              </option>
+            </select>
+          </td>
           <td>{{hd.loaiDon}}</td>
 
           <td>
-            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
               Detail
             </a>
           </td>
@@ -153,10 +162,19 @@
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
           <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td>{{hd.tenNhanVien}}</td>
+          <td ng-show="!isAdmin">
+            {{hd.tenNhanVien}}
+          </td>
+          <td ng-show="isAdmin">
+            <select class="form-control select2">
+              <option>
+                {{hd.tenNhanVien}}
+              </option>
+            </select>
+          </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
               Detail
             </a>
           </td>
@@ -187,10 +205,19 @@
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
           <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td>{{hd.tenNhanVien}}</td>
+          <td ng-show="!isAdmin">
+            {{hd.tenNhanVien}}
+          </td>
+          <td ng-show="isAdmin">
+            <select class="form-control select2">
+              <option>
+                {{hd.tenNhanVien}}
+              </option>
+            </select>
+          </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
               Detail
             </a>
           </td>
@@ -221,10 +248,19 @@
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
           <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td>{{hd.tenNhanVien}}</td>
+          <td ng-show="!isAdmin">
+            {{hd.tenNhanVien}}
+          </td>
+          <td ng-show="isAdmin">
+            <select class="form-control select2">
+              <option>
+                {{hd.tenNhanVien}}
+              </option>
+            </select>
+          </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
               Detail
             </a>
           </td>
@@ -255,44 +291,19 @@
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
           <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td>{{hd.tenNhanVien}}</td>
-          <td>{{hd.loaiDon}}</td>
-          <td>
-            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
-              Detail
-            </a>
+          <td ng-show="!isAdmin">
+            {{hd.tenNhanVien}}
           </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="status" id="Trahang" style="display: none">
-    <table class="table">
-      <thead>
-        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
-          <th scope="col">STT</th>
-          <th scope="col">Mã đơn hàng</th>
-          <th scope="col">Tên khách hàng</th>
-          <th scope="col">Ngày tạo</th>
-          <th scope="col">SĐT khách hàng</th>
-          <th scope="col">Thành tiền</th>
-          <th scope="col">Người xác nhận</th>
-          <th scope="col">Loại đơn</th>
-          <th scope="col">Thao Tác</th>
-        </tr>
-      </thead>
-      <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon7">
-          <th>{{$index + 1}}</th>
-          <td>{{hd.ma}}</td>
-          <td>{{hd.tenKhachHang}}</td>
-          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
-          <td>{{hd.soDienThoai}}</td>
-          <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td>{{hd.tenNhanVien}}</td>
+          <td ng-show="isAdmin">
+            <select class="form-control select2">
+              <option>
+                {{hd.tenNhanVien}}
+              </option>
+            </select>
+          </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/chi-tiet-hoa-don/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
               Detail
             </a>
           </td>

@@ -483,5 +483,55 @@ myApp.controller(
           });
       }
     };
+
+    $scope.fillProductTraHang = {};
+    $scope.selectProductTraHang = function (id) {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/detail-product?idhdct=" +
+            id
+        )
+        .then(function (response) {
+          $scope.fillProductTraHang = response.data;
+        });
+    };
+
+    $scope.id = function (id) {
+      console.log(id);
+    };
+
+    $scope.newOrderDetail = {};
+    $scope.traHang = function (id) {
+      $http
+        .post(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang?idhdct=" + id,
+          JSON.stringify($scope.newOrderDetail)
+        )
+        .then(function (response) {
+          $scope.listSanPhamInOrder.push(response.data);
+          $scope.getlichSuThayDoi();
+          $scope.getlichSuThanhToan();
+          getSanPham();
+        });
+    };
+
+    // delete sản phẩm trong giỏ hàng
+    $scope.deleteProduct = function (event, index) {
+      event.preventDefault();
+      let p = $scope.listSanPhamInOrder[index];
+      $http
+        .delete(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/delete?id=" +
+            p.idHoaDonChiTiet
+        )
+        .then(function () {
+          $scope.listSanPhamInOrder.splice(index, 1);
+          $scope.getlichSuThayDoi();
+          $scope.getlichSuThanhToan();
+          getSanPham();
+          $scope.getAllMoneyByHoaDon();
+          $location.path('/order-detail/' + id)
+        });
+    };
   }
 );

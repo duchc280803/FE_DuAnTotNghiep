@@ -39,7 +39,6 @@ myApp.controller("loginController", function ($scope, $http, $window, $location)
       });
   };
 
-  var role = $window.localStorage.getItem("role");
   $scope.logout = function () {
     // Xóa token khỏi localStorage
     $window.localStorage.removeItem("token");
