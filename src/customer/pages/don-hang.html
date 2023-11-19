@@ -151,10 +151,10 @@
                     </h6>
                     <table class="table">
                       <tbody class="table">
-                        <tr>
+                        <tr ng-repeat="item in listDonHang">
                           <td style="width: 150px">
                             <img
-                              src="https://myshoes.vn/image/cache/catalog/2023/puma/pu01/Slipstream-Cord-Unisex-Sneakers_80-800x800.jpg"
+                              src="{{item.tenImage}}"
                               alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
@@ -163,18 +163,20 @@
                                   font-weight: bold;
                                   height: 10px;
                                 ">
-                              GIÀY ADIDAS GALAXY 6 NAM - TRANG NG
+                              {{item.tenSanPham}}
                               <br />
-                              Size: 41
+                              {{item.size}}
                               <br />
-                              Chất liệu: Vai
+                              {{item.tenChatLieu}}
                               <br />
-                              Màu sắc: blue
+                              {{item.tenMauSac}}
+                              <br>
+                              X3
                             </h6>
                           </td>
                           <td>
                             <h6 style="color: crimson; padding-top: 90px">
-                              7.960.000₫
+                              {{item.thanhTien}}₫
                             </h6>
                           </td>
                         </tr>
@@ -197,12 +199,20 @@
                               Chất liệu: Vai
                               <br />
                               Màu sắc: blue
+                              <br>
+                              Số lượng: x3
                             </h6>
                           </td>
-                          <td>
-                            <h6 style="color: crimson; padding-top: 90px">
-                              7.960.000₫
-                            </h6>
+                          <td style="padding-top: 80px">
+                            <div ng-show="item.donGiaSauGiam != item.donGia">
+                              {{item.donGiaSauGiam | number}}₫
+                              <span style="color: crimson">
+                                <strike>{{item.donGia | number}}₫</strike></span
+                              >
+                            </div>
+                            <div ng-show="item.donGiaSauGiam == item.giaBan">
+                              {{item.donGia | number}}₫
+                            </div>
                           </td>
                         </tr>
                       </tbody>
@@ -256,6 +266,7 @@
                               Chất liệu: Vai
                               <br />
                               Màu sắc: blue
+                             
                             </h6>
                           </td>
                           <td>
