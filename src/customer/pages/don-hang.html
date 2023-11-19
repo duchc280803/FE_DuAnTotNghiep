@@ -67,6 +67,24 @@
   .profile a:hover {
     font-weight: 600;
   }
+    /* Thiết lập kiểu thanh cuộn */
+    ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    /* Chiều rộng của thanh cuộn */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #7fad39;
+    /* Màu nền của thanh cuộn */
+    border-radius: 20px;
+    /* Bo tròn cạnh của thanh cuộn */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #e2e9d7;
+    /* Màu nền của phần track thanh cuộn */
+  }
 </style>
 <link rel="shortcut icon" type="image/png"
   href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
@@ -138,6 +156,7 @@
                     </button>
                   </div>
                 </div>
+                <br>
                 <div class="card overflow-hidden" style="left: -30px; width: 1100px " ng-repeat="item in listDonHang">
                   <div class="card-body p-4">
                     <h6 style="
