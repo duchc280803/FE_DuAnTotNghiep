@@ -503,18 +503,14 @@
                   <div class="row">
                     <div class="col-lg-2" ng-repeat="i in image">
                       <div class="star-image">
-                        <img width="180px" src="{{i.tenImage}}" alt="" srcset="">
-                        <button class="btn btn-warning star" style="width: 10px;height: 30px;"><img style="margin-top: -30px;
-                              margin-left: -11px;" src="/assets/images/star.png" width="20px" alt=""></button>
-                        <button style="width: 30px;height: 30px;" class="btn btn-warning delete-button"><img
-                            style="margin-left: -12px;margin-top: -10px;" src="/assets/images/trash-bin.png"
-                            width="25px" alt=""></button>
+                        <img width="160px" src="/assets/ảnh giày/{{i.tenImage}}" alt="" srcset="">
                       </div>
                     </div>
                   </div>
-                  <input class="form-control" type="file" id="formFile" ng-model="selectedFiles" multiple>
-                  <button style="margin-top: 20px;margin-left: 510px;" class="btn btn-primary"
-                    ng-click="uploadImages()">Submit</button>
+                  <input style="margin-top: 15px;" class="form-control" type="file" id="formFile" ng-model="files"
+                    ng-show="image.length < 6" multiple>
+                  <button style="margin-top: 20px; margin-left: 510px;" class="btn btn-primary"
+                    ng-click="uploadImages()" ng-show="image.length < 6">Submit</button>
                 </div>
               </div>
             </div>

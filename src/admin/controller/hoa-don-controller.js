@@ -1,17 +1,14 @@
 myApp.controller(
   "hoaDonController",
-  function ($http, $scope, $window, $routeParams) {
+  function ($http, $scope, $window) {
     $scope.listHoaDon = [];
     $scope.tenNhanVienOptions = [];
     $scope.selectedLoaiDon = ""; // Giá trị mặc định
     $scope.searchQuery = ""; // Giá trị trường nhập văn bản
     $scope.isAdmin = false;
-
-    var id = $routeParams.id;
-
     function getRole() {
       var role = $window.localStorage.getItem("role");
-      if (role == "ADMIN") {
+      if (role == "ADMIN" || role == "MANAGER") {
         $scope.isAdmin = true;
       }
     }
@@ -65,7 +62,6 @@ myApp.controller(
           ...new Set($scope.tenNhanVienOptions),
         ];
         // Kiểm tra dữ liệu trả về
-        console.log("Dữ liệu trả về: ", response.data);
       });
     }
 

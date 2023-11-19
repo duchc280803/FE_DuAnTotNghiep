@@ -101,32 +101,26 @@ myApp.controller(
 
     $scope.uploadImages = function () {
       var formData = new FormData();
-      var files = $scope.selectedFiles;
-    
-      if (files && files.length > 0) {
-        // Thêm các tệp vào FormData để gửi lên server
-        for (var i = 0; i < files.length; i++) {
-          formData.append("files", files[i]);
-        }
-    
-        formData.append("sanPhamId", id);
-    
-        $http
-          .post("http://localhost:8080/api/v1/images/create", formData, {
-            transformRequest: angular.identity,
-            headers: { "Content-Type": undefined },
-          })
-          .then(function (response) {
-            // Xử lý phản hồi từ server khi request thành công
-            console.log("Phản hồi từ server:", response.data);
-          })
-          .catch(function (error) {
-            // Xử lý lỗi khi gửi request
-            console.error("Lỗi:", error);
-          });
-      } else {
-        console.error("Lỗi: selectedFiles không được xác định hoặc rỗng.");
+      var input = document.getElementById("formFile");
+      for (var i = 0; i < input.files.length; i++) {
+        formData.append("files", input.files[i]);
       }
+      formData.append("sanPhamId", id); // $scope.sanPhamId chứa ID sản phẩm
+
+      $http
+        .post("http://localhost:8080/api/v1/images/create", formData, {
+          transformRequest: angular.identity,
+          headers: { "Content-Type": undefined },
+        })
+        .then(function (response) {
+          $scope.image.push(response.data);
+          $scope.getImage();
+        })
+        .catch(function (error) {
+          // Xử lý lỗi
+          console.error("Error:", error);
+          // Đoạn mã xử lý khi gặp lỗi trong quá trình gửi yêu cầu
+        });
     };
   }
 );
