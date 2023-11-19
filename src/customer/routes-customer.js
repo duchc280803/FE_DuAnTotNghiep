@@ -23,6 +23,7 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
     })
     .when("/don-hang", {
       templateUrl: "./pages/don-hang.html",
+      controller: "donHangController",
     })
     .when("/login", {
       templateUrl: "/src/customer/pages/login.html",
