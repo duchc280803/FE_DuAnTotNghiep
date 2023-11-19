@@ -1,0 +1,187 @@
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <strong class="h3 mb-0 page-title"><span class="fe fe-filter fe-24 mr-2"></span>Lọc</strong>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-md-3 mt-3">
+                        <label for="simple-select2">Trạng thái</label>
+                        <select class="form-control select2" id="simple-select2">
+                            <option value="WA">Tất cả</option>
+                            <option value="CA">Đang kinh doanh</option>
+                            <option value="WA">Washington</option>
+                        </select>
+                    </div> <!-- form-group -->
+                    <div class="form-group col-md-3 mt-3">
+                        <label for="simple-select2">Kích cỡ</label>
+                        <select class="form-control select2" id="simple-select2" ng-model="locSize"
+                            ng-change="filterSize()">
+                            <option value="">Tất cả</option>
+                            <option ng-repeat="s in listSize" value="{{s.size}}">
+                                {{s.size}}
+                            </option>
+                        </select>
+                    </div> <!-- form-group -->
+                    <div class="form-group col-md-3 mt-3">
+                        <label for="simple-select2">Chất liệu</label>
+                        <select class="form-control select2" id="simple-select2" ng-model="locMaterial"
+                            ng-change="filterMaterial()">
+                            <option value="">Tất cả</option>
+                            <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
+                                {{cl.tenChatLieu}}
+                            </option>
+                        </select>
+                    </div> <!-- form-group -->
+                    <div class="form-group col-md-3 mt-3">
+                        <label for="simple-select2">Màu sắc</label>
+                        <select class="form-control select2" id="simple-select2" ng-model="locMauSac"
+                            ng-change="filterColor()">
+                            <option value="">Tất cả</option>
+                            <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
+                                {{ms.tenMauSac}}
+                            </option>
+                        </select>
+                    </div> <!-- form-group -->
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3 mt-3">
+                    </div> <!-- form-group -->
+                    <div class="form-group col-md-3 mt-3">
+                    </div> <!-- form-group -->
+                    <div class="form-group col-md-3 mt-3">
+
+                    </div> <!-- form-group -->
+                    <div class="form-group col-md-3 mt-3">
+                        <button class="btn btn-primary">Làm mới</button>
+                        <button class="btn btn-secondary">Sửa</button>
+                    </div> <!-- form-group -->
+                </div>
+            </div>
+        </div> <!-- / .card -->
+    </div> <!-- .col-12 -->
+</div> <!-- row justify-content-center -->
+<div class="row justify-content-center">
+    <div class="col-12">
+        <!-- table -->
+        <div class="card shadow">
+            <div class="card-body">
+                <table class="table table-borderless table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>STT</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Ảnh</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Tên sản phẩm</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Số lượng</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Giá bán</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Kích thước</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Màu sắc</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Chất liệu</strong></p>
+                            </th>
+                            <th>
+                                <p class="mb-0 text-muted"><strong>Trạng thái</strong></p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="spct in listSanPhamChiTiet">
+                            <td>
+                                <small class="mb-0 text-muted ">{{$index +1}}</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted "><img width="100px" src="{{spct.image}}" alt=""></small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">{{spct.tenSanPham}}</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">{{spct.soLuong}}</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">{{spct.giaBan |number}}đ</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">{{spct.size}}</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">{{spct.mauSac}}</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">{{spct.chatLieu}}</small>
+                            </td>
+                            <td>
+                                <small class="mb-0 text-muted ">
+                                    <span
+                                        style=" background-color: #cceeff;color: #0077cc; padding: 4px 8px;border-radius: 4px; display: inline-block;">{{spct.trangThai
+                                        == 1 ? "Đang bán": "Ngừng bán"}}
+                                    </span>
+                                </small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <nav aria-label=" Table Paging" class="my-3 d-flex justify-content-center">
+            <ul class="pagination mb-0">
+                <li class="page-item"><a class="page-link fe fe-chevron-left" href="#"></a></span></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link fe fe-chevron-right" href="#"></a></li>
+            </ul>
+        </nav>
+    </div>
+</div> <!-- .row -->
+
+<!-- Modal size -->
+<div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered size-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Danh mục</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <span class="text-danger">*</span>
+                    <label for="brandName">Tên danh mục:</label>
+                    <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục" />
+                </div>
+
+                <div class="form-group">
+                    <span class="text-danger">*</span>
+                    <label for="status">Trạng thái:</label>
+                    <select class="form-control" id="status">
+                        <option value="active">Hoạt động</option>
+                        <option value="inactive">
+                            Ngưng hoạt động
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Đóng
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    Thêm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

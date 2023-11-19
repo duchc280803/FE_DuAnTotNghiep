@@ -1,0 +1,144 @@
+    <div class="row justify-content-center">
+      <div class="col-12">
+
+        <div class="card shadow mb-4">
+
+          <div class="card-body">
+            <div class="row mt-5">
+              <div class="form-group col-md-2">
+                <div class="form-outline">
+                  <input type="search" id="form1" placeholder="Tìm kiếm" class="form-control" ng-model="value" />
+                </div>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-3">
+                <div class="form-outline">
+                  <button class="btn btn-primary" ng-click="findByNameOrCode()">Tìm kiếm</button>
+                  <button class="btn btn-warning">Làm mới</button>
+                </div>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-7 text-right">
+                <div class="form-outline">
+                  <a href="#/product/create">
+                    <button class="btn btn-primary">Tạo sản phẩm</button>
+                  </a>
+                </div>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-4 mt-3">
+                <label for="simple-select2">Danh mục</label>
+                <select class="form-control select2" id="simple-select2" ng-model="danhMuc" ng-change="findByDanhMuc()">
+                  <option value="">Tất cả</option>
+                  <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
+                    {{dm.tenDanhMuc}}
+                  </option>
+                </select>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-4 mt-3">
+                <label for="simple-select2">Thương hiệu</label>
+                <select class="form-control select2" id="simple-select2" ng-model="thuongHieu"
+                  ng-change="findByThuongHieu()">
+                  <option value="">Tất cả
+                  </option>
+                  <option ng-repeat="th in listThuongHieu" value="{{th.tenThuongHieu}}">{{th.tenThuongHieu}}
+                  </option>
+                </select>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-4 mt-3">
+                <label for="simple-select2">Xuất xứ</label>
+                <select class="form-control select2" id="simple-select2" ng-model="xuatXu" ng-change="findByXuatXu()">
+                  <option value="">Tất cả</option>
+                  <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
+                    {{xx.tenXuatXu}}
+                  </option>
+                </select>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-4 mt-3">
+                <label for="simple-select2">Kiểu đế</label>
+                <select class="form-control select2" id="simple-select2" ng-model="kieuDe" ng-change="findByKieuDe()">
+                  <option value="">Tất cả</option>
+                  <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
+                    {{kd.tenDe}}
+                  </option>
+                </select>
+              </div> <!-- form-group -->
+              <div class="form-group col-md-4 mt-3">
+                <label for="simple-select2">Trạng thái</label>
+                <select class="form-control select2" id="simple-select2" ng-model="status" ng-change="findByStatus()">
+                  <option value="">Tất cả</option>
+                  <option value="1">Đang bán</option>
+                  <option value="2">Ngừng bán</option>
+                </select>
+              </div> <!-- form-group -->
+            </div> <!-- form-group -->
+          </div>
+          <table class="table table-borderless table-hover mt-3">
+            <thead>
+              <tr>
+                <th>
+                  <p class="mb-0 text-muted"><strong>STT</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Ảnh</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Mã sản phẩm</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Tên sản phẩm</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Giá</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Ngày tạo</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Trạng thái</strong></p>
+                </th>
+                <th>
+                  <p class="mb-0 text-muted"><strong>Hành động</strong></p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="sp in listSanPham">
+                <td>
+                  <small class="mb-0 text-muted ">{{$index + 1}}</small>
+                </td>
+                <td>
+                  <small class="mb-0 text-muted ">
+                    <img width="50px" src="{{sp.image}}" alt="">
+                  </small>
+                </td>
+                <td>
+                  <small class="mb-0 text-muted ">{{sp.maSanPham}}</small>
+                </td>
+                <td>
+                  <small class="mb-0 text-muted ">{{sp.tenSanPham}}</small>
+                </td>
+                <td>
+                  <small class="mb-0 text-muted ">{{sp.giaBan | number}}đ</small>
+                </td>
+                <td>
+                  <small class="mb-0 text-muted ">{{sp.ngayTao}}</small>
+                </td>
+                <td>
+                  <small class="mb-0 text-muted ">{{sp.trangThai == 1 ? 'Đang bán' : 'Ngừng bán'}}</small>
+                </td>
+                <td>
+                  <a href="#/san-pham-chi-tiet/{{sp.id}}" class="btn btn-outline-primary ">Chi tiết</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
+            <ul class="pagination mb-0">
+              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div> <!-- / .card -->
+    </div> <!-- .col-12 -->
