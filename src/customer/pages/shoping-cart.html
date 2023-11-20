@@ -12,7 +12,7 @@
     href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
   <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="cart-hover.css" />
+  <link rel="stylesheet" href="/css/cart-hover.css" />
   <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
   <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
@@ -473,7 +473,7 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <a href="/src/index.html#/shop" class="flex items-center">
+          <a href="/src/customer/index-customer.html#/shop" class="flex items-center">
             <button type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               <svg style="margin-right: 1px;" class="w-3.5 h-3.5 me-2" aria-hidden="true"
@@ -513,7 +513,7 @@
               <p>Họ Và Tên<span>*</span></p>
               <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
             </div>
-            <div class="checkout__input">
+            <!-- <div class="checkout__input">
               <p>Địa Chỉ<span>*</span></p>
               <div class="row">
                 <div class="col-md-4">
@@ -532,9 +532,9 @@
                   </select>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="checkout__input">
-              <p>Địa Chỉ Chi Tiết<span>*</span></p>
+              <p>Địa Chỉ Giao Hàng<span>*</span></p>
               <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
             </div>
             <div class="checkout__input">
@@ -586,7 +586,7 @@
               <h5>Mã Giảm Giá</h5>
               <div class="row mt-3 mb-3">
                 <div class="col-6">
-                  <input type="text" style="height: 45px; padding-left: 5px" placeholder="  Nhập mã phiếu giảm giá" />
+                  <input type="text" style="height: 45px; padding-left: 5px; text-indent: 5px;" placeholder="Nhập mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" />
                 </div>
               </div>
               <hr />
@@ -606,7 +606,6 @@
                   <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
                 </div>
               </div>
-              <button type="submit" class="site-btn">
               <button ng-click="thanhToan()" type="submit" class="site-btn">
                 Đặt Hàng
               </button>
@@ -614,6 +613,46 @@
           </div>
         </div>
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="discountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Danh sách mã giảm giá</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Danh sách mã giảm giá -->
+        <table class="table">
+          <tr ng-repeat="voucher in vouchers">
+            <td style="width: 150px">
+              <img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt="" width="100px" />
+            </td>
+            <td style="width: 250px">
+              <span style="font-weight: bolder;">{{ voucher.tenvoucher }}</span><br>
+              <span style="font-size: small; font-weight: 600">Đơn tối thiểu: {{ voucher.giatritoithieudonhang }} đ</span><br>
+              <span style="font-size: smaller;">Giá giảm: {{ voucher.giatrigiam }}đ</span> <br>
+              <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'dd/MM/yyyy' }}</span>
+            </td>
+            <td>
+              <input type="radio" class="form-check-input mt-4 bg-green-50" name="voucher_radio">
+            </td>
+          </tr>
+        </table>
+        <div class="row">
+          <div class="col-md-9"></div>
+          <div class="col-md-3">
+            <button class="btn btn-success" ng-click="applyVoucher()">Áp dụng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- close modal -->
   </section>
   <footer class="footer spad">
     <div class="container">
@@ -686,68 +725,6 @@
   <script src="/src/controller/shopping-cart-controller.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-
-  <script>
-
-    var citis = document.getElementById("city");
-    var districts = document.getElementById("district");
-    var wards = document.getElementById("ward");
-    var Parameter = {
-      url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-      method: "GET",
-      responseType: "application/json",
-    };
-    var promise = axios(Parameter);
-    promise.then(function (result) {
-      renderCity(result.data);
-    });
-
-    function renderCity(data) {
-      for (const x of data) {
-        var opt = document.createElement("option");
-        opt.value = x.Name;
-        opt.text = x.Name;
-        opt.setAttribute("data-id", x.Id);
-        citis.options.add(opt);
-      }
-      citis.onchange = function () {
-        district.length = 1;
-        ward.length = 1;
-        if (this.options[this.selectedIndex].dataset.id != "") {
-          const result = data.filter(
-            (n) => n.Id === this.options[this.selectedIndex].dataset.id
-          );
-
-          for (const k of result[0].Districts) {
-            var opt = document.createElement("option");
-            opt.value = k.Name;
-            opt.text = k.Name;
-            opt.setAttribute("data-id", k.Id);
-            district.options.add(opt);
-          }
-        }
-      };
-      district.onchange = function () {
-        ward.length = 1;
-        const dataCity = data.filter(
-          (n) => n.Id === citis.options[citis.selectedIndex].dataset.id
-        );
-        if (this.options[this.selectedIndex].dataset.id != "") {
-          const dataWards = dataCity[0].Districts.filter(
-            (n) => n.Id === this.options[this.selectedIndex].dataset.id
-          )[0].Wards;
-
-          for (const w of dataWards) {
-            var opt = document.createElement("option");
-            opt.value = w.Name;
-            opt.text = w.Name;
-            opt.setAttribute("data-id", w.Id);
-            wards.options.add(opt);
-          }
-        }
-      };
-    }
-  </script>
 </body>
 
 </html>

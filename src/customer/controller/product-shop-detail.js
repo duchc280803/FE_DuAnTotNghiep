@@ -270,6 +270,11 @@ myAppCustom.controller(
             showConfirmButton: false, // Ẩn nút xác nhận
             timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
           });
+          
+         // Chờ 3 giây trước khi làm mới trang
+      setTimeout(() => {
+        $window.location.reload();
+      }, 2000);
         } catch (error) {
           // Xử lý lỗi nếu cần
           console.log(error);
