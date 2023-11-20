@@ -562,6 +562,7 @@ myApp.controller(
           $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
+          $window.location.reload();
         });
     };
 
