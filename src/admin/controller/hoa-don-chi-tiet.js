@@ -22,22 +22,25 @@ myApp.controller(
     }
 
     // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
-    function getHoaDonChiTiet() {
+    $scope.getHoaDonChiTiet = function () {
       const apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
       $http.get(apiUrl).then(function (response) {
         $scope.hoaDonChiTiet = response.data;
       });
-    }
-    getHoaDonChiTiet();
+    };
+    $scope.getHoaDonChiTiet();
 
     $scope.listSanPhamInOrder = [];
     $scope.tongTienKhongGiam = 0;
     $scope.tongTienSauGiam = 0;
+    $scope.tongTienKhongGiamHoanTra = 0;
+    $scope.tongTienSauGiamHoanTra = 0;
     $scope.tongTienHang = 0;
+    $scope.tongTienHoanTra = 0;
 
     // Hàm để tải sản phẩm từ API
-    function getSanPham() {
+    $scope.getSanPham = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-san-pham/" + id;
 
@@ -45,24 +48,36 @@ myApp.controller(
         // Gán dữ liệu sản phẩm vào biến $scope.hoaDonChiTiet.sanPham
         $scope.listSanPhamInOrder = response.data;
         for (var i = 0; i < $scope.listSanPhamInOrder.length; i++) {
-          if ($scope.listSanPhamInOrder[i].donGiaSauGiam != 0) {
+          if ($scope.listSanPhamInOrder[i].donGiaSauGiam != $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai != 7) {
             $scope.tongTienSauGiam +=
               $scope.listSanPhamInOrder[i].donGiaSauGiam *
               $scope.listSanPhamInOrder[i].soLuong;
           }
-          if ($scope.listSanPhamInOrder[i].donGiaSauGiam == 0) {
+          if ($scope.listSanPhamInOrder[i].donGiaSauGiam == $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai != 7) {
             $scope.tongTienKhongGiam +=
+              $scope.listSanPhamInOrder[i].giaBan *
+              $scope.listSanPhamInOrder[i].soLuong;
+          }
+          if ($scope.listSanPhamInOrder[i].donGiaSauGiam != $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai == 7) {
+            $scope.tongTienSauGiamHoanTra +=
+              $scope.listSanPhamInOrder[i].donGiaSauGiam *
+              $scope.listSanPhamInOrder[i].soLuong;
+          }
+          if ($scope.listSanPhamInOrder[i].donGiaSauGiam == $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai == 7) {
+            $scope.tongTienKhongGiamHoanTra +=
               $scope.listSanPhamInOrder[i].giaBan *
               $scope.listSanPhamInOrder[i].soLuong;
           }
         }
         $scope.tongTienHang = $scope.tongTienSauGiam + $scope.tongTienKhongGiam;
+        $scope.tongTienHoanTra = $scope.tongTienSauGiamHoanTra + $scope.tongTienKhongGiamHoanTra;
       });
-    }
+    };
 
-    getSanPham();
+    $scope.getSanPham();
 
     $scope.soTienKhachTra = 0;
+    $scope.soTienHoan = 0;
     $scope.getlichSuThanhToan = function () {
       var apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-lich-su/" + id;
@@ -70,7 +85,12 @@ myApp.controller(
       $http.get(apiUrl).then(function (response) {
         $scope.lichSu = response.data;
         for (var i = 0; i < $scope.lichSu.length; i++) {
-          $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
+          if($scope.lichSu[i].tenLoai == 'Khách thanh toán') {
+            $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
+          }
+          if($scope.lichSu[i].tenLoai == 'Nhân viên hoàn tiền') {
+            $scope.soTienHoan += $scope.lichSu[i].soTienTra;
+          }
         }
       });
     };
@@ -112,10 +132,11 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.lichSuThayDoi.push(response.data);
-          $scope.getlichSuThayDoi();
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
           $scope.getlichSuThanhToan();
-          getSanPham();
-          console.log($scope.newStatusOrder.newTrangThai);
+          $scope.getlichSuThayDoi();
+          $scope.selectMoney(id);
           $window.location.reload();
         });
     };
@@ -146,9 +167,11 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
-                $scope.getlichSuThayDoi();
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
                 $scope.getlichSuThanhToan();
-                getSanPham();
+                $scope.getlichSuThayDoi();
+                $scope.selectMoney(id);
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -176,10 +199,11 @@ myApp.controller(
           method: "PUT",
           transformResponse: [
             function () {
-              $scope.getlichSuThayDoi();
+              $scope.getHoaDonChiTiet();
+              $scope.getSanPham();
               $scope.getlichSuThanhToan();
-              getSanPham();
-              $scope.getAllMoneyByHoaDon();
+              $scope.getlichSuThayDoi();
+              $scope.selectMoney(id);
               $window.location.reload();
             },
           ],
@@ -192,6 +216,7 @@ myApp.controller(
       soTien: "",
       ghiChu: "",
       trangThai: "",
+      tenLoai: "Khách thanh toán"
     };
     setTimeout(() => {
       $scope.createTransaction = function (idKhach) {
@@ -220,15 +245,38 @@ myApp.controller(
       $scope.createTransaction(idKhach);
     };
 
-    $scope.thongTinTienDonHang = {};
-    $scope.getAllMoneyByHoaDon = function () {
-      $http
-        .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-tien/" + id)
-        .then(function (response) {
-          $scope.thongTinTienDonHang = response.data;
-        });
+    $scope.newTransactionTra = {
+      soTien: "",
+      ghiChu: "",
+      trangThai: "",
+      tenLoai: "Nhân viên hoàn tiền"
     };
-    $scope.getAllMoneyByHoaDon();
+    setTimeout(() => {
+      $scope.createTransactionTraHang = function (idKhach) {
+        $http
+          .post(
+            "http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-toan-hoa-don-online?idHoaDon=" +
+              id +
+              "&id=" +
+              idKhach,
+            $scope.newTransactionTra
+          )
+          .then(function (response) {
+            $scope.lichSu.push(response.data);
+            $scope.getlichSuThanhToan();
+          });
+      };
+    }, 2000);
+
+    $scope.button1ClickedTra = function (idKhach) {
+      $scope.newTransactionTra.trangThai = 1;
+      $scope.createTransactionTraHang(idKhach);
+    };
+
+    $scope.button2ClickedTra = function (idKhach) {
+      $scope.newTransactionTra.trangThai = 2;
+      $scope.createTransactionTraHang(idKhach);
+    };
 
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
@@ -509,10 +557,12 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamInOrder.push(response.data);
-          console.log(id);
-          $scope.getlichSuThayDoi();
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
           $scope.getlichSuThanhToan();
-          getSanPham();
+          $scope.getlichSuThayDoi();
+          $scope.selectMoney(id);
+          $window.location.reload();
         });
     };
 
@@ -527,12 +577,33 @@ myApp.controller(
         )
         .then(function () {
           $scope.listSanPhamInOrder.splice(index, 1);
-          $scope.getlichSuThayDoi();
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
           $scope.getlichSuThanhToan();
-          getSanPham();
-          $scope.getAllMoneyByHoaDon();
-          $location.path('/order-detail/' + id)
+          $scope.getlichSuThayDoi();
+          $scope.selectMoney(id);
+          $location.path("/order-detail/" + id);
         });
     };
+
+    $scope.fillMoney = {};
+    $scope.selectMoney = function (id) {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-tien/" + id)
+        .then(function (response) {
+          $scope.fillMoney = response.data;
+        });
+    };
+    $scope.selectMoney(id);
+
+    $scope.traHangis = false;
+    $scope.isTraHang = function (id) {
+      $http
+        .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang/" + id)
+        .then(function (response) {
+          $scope.traHangis = response.data;
+        });
+    };
+    $scope.isTraHang(id);
   }
 );

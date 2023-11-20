@@ -29,8 +29,9 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
       templateUrl: "/src/customer/pages/login.html",
       controller: "loginCutomController",
     })
-    .when("/don-hang-chi-tiet", {
+    .when("/don-hang-chi-tiet/:idHoaDon", {
       templateUrl: "./pages/detail-don-hang.html",
+      controller: "detailDonHangController",
     })
     .when("/dia-chi", {
       templateUrl: "./pages/dia-chi.html",

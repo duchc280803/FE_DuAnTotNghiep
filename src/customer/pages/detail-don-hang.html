@@ -96,169 +96,101 @@
     <div class="col-md-9">
       <div class="card overflow-hidden" style="left: 20px; top: 20px; width: 1235px">
         <div class="card-body p-4">
-          <h6 style="
+          <div>
+            <h6 style="
                 font-weight: bold;
                 height: 10px;
                 font-size: 15px;
                 padding-left: 709px;
                 padding-bottom: 10px;
               ">
-            MÃ ĐƠN HÀNG. 230816T3UE6MMC | ĐƠN HÀNG ĐÃ HOÀN THÀNH
-          </h6>
-          <hr />
-          <div class="breadcrumb">
-            <a style="width: 235px" class="breadcrumb__step">
-              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
-                Chờ xác nhận
-              </h6>
-            </a>
-            <a style="width: 235px" class="breadcrumb__step">
-              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
-                Xác nhận
-              </h6>
-            </a>
-            <a style="width: 235px" class="breadcrumb__step">
-              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
-                Chờ giao hàng
-              </h6>
-            </a>
-            <a style="width: 235px" class="breadcrumb__step">
-              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
-                Giao hàng
-              </h6>
-            </a>
-            <a style="width: 235px" class="breadcrumb__step">
-              <h6 style="height: 30px; font-size: 17px; padding-top: 7px">
-                Hoàn thành
-              </h6>
-            </a>
+              MÃ ĐƠN HÀNG. {{listThongTin.ma}} | ĐƠN HÀNG ĐÃ HOÀN THÀNH
+            </h6>
           </div>
-          <div class="row">
-            <div class="col-lg-2" style="margin-left: 35px;">
-              <h6 style="font-weight: 600; font-size: 15px">
-                Đơn đã được xác nhận
-              </h6>
-              <span style="margin-left: 20px;">12:16 18-08-2023</span>
-            </div>
-            <div class="col-lg-2" style="margin-left: 50px;">
-              <h6 style="font-weight: 600; font-size: 15px">
-                Đơn đã được xác nhận
-              </h6>
-              <span style="margin-left: 20px;">12:16 18-08-2023</span>
-            </div>
-            <div class="col-lg-2" style="margin-left: 40px;">
-              <h6 style="font-weight: 600; font-size: 15px">
-                Đơn đang chờ giao hàng
-              </h6>
-              <span style="margin-left: 20px;">12:16 18-08-2023</span>
-            </div>
-            <div class="col-lg-2" style="margin-left: 30px;">
-              <h6 style="font-weight: 600; font-size: 15px">
-                Đơn đã được giao hàng
-              </h6>
-              <span style="margin-left: 20px;">12:16 18-08-2023</span>
-            </div>
-            <div class="col-lg-2" style="margin-left: 25px;">
-              <h6 style="font-weight: 600; font-size: 15px">
-                Nhận hàng thành công
-              </h6>
-              <span style="margin-left: 20px;">12:16 18-08-2023</span>
-            </div>
-          </div>
-
           <hr />
           <div class="row">
             <div class="col-lg-4">
               <h6 style="font-weight: bold; font-size: 15px">
-                Địa chỉ nhận hàng
+                Thông tin nhận hàng
               </h6>
-              <span>Hoàng công đức</span>
+              <span>{{listThongTin.tenNguoiNhan}}</span>
               <br />
-              <span>0971066455</span>
+              <span>{{listThongTin.sdtNguoiNhan}}</span>
               <br />
-              <span>Đơn Nguyên 3- Kí Túc Xá Mỹ Đình, Đường Hàm Nghi, Phường Cầu
-                Diễn, Quận Nam Từ Liêm, Hà Nội</span>
+              <span>{{listThongTin.diaChi}}</span>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-4">
               <h6 style="font-weight: bold; font-size: 15px">
-                Lịch sử giao hàng
+                Thông tin người giao
               </h6>
-              <span>Chờ xác nhận: 12:16 18-08-2023 Đã xác nhận đơn hàng này</span>
+              <span>{{listThongTin.tenNguoiShip}}</span>
               <br />
-              <span>Xác nhận: 12:16 18-08-2023 Đã xác nhận đơn hàng này</span>
-              <br />
-              <span>Chờ giao hàng: 12:16 18-08-2023 Đang chờ giao hàng</span>
-              <br />
-              <span>Giao hàng: 12:16 18-08-2023 Đang giao hàng</span>
-              <br />
-              <span>Thành công: 12:16 18-08-2023 Đặt hàng thành công</span>
-              <br />
-              <span>Đã hủy: 12:16 18-08-2023 Đơn đã bị hủy</span>
-              <br />
-              <span>Trả hàng: 12:16 18-08-2023 Đơn đã bị trả hàng</span>
+              <span>{{listThongTin.sdtNguoiShip}}</span>
+            </div>
+            <div class="col-lg-4">
+              <h6 style="font-weight: bold; font-size: 15px">Lịch sử giao hàng</h6>
+              <div ng-repeat="item in listTrangThai">
+                <span>
+                  {{
+                  item.trangThai == 1 ? "Chờ xác nhận" :
+                  item.trangThai == 2 ? "Đã xác nhận" :
+                  item.trangThai == 3 ? "Chờ giao hàng" :
+                  item.trangThai == 4 ? "Giao hàng" :
+                  item.trangThai == 5 ? "Hoàn thành" :
+                  item.trangThai == 6 ? "Đã hủy" :
+                  item.trangThai == 7 ? 'Trả hàng' : 'Chỉnh sửa đơn'
+                  }}: {{ item.thoiGian | date:'HH:mm dd-MM-yyyy' }}
+                </span>
+                <br />
+              </div>
             </div>
           </div>
           <br />
           <table class="table">
             <tbody class="table">
-              <tr>
+              <tr ng-repeat="item in listSanPham">
                 <td style="width: 150px">
-                  <img
-                    src="https://myshoes.vn/image/cache/catalog/2023/puma/pu01/Slipstream-Cord-Unisex-Sneakers_80-800x800.jpg"
-                    alt="" width="200px" />
+                  <img src="{{item.tenImage}}" alt="" width="200px" />
                 </td>
                 <td style="padding-top: 50px">
                   <h6 style="font-size: 15px; font-weight: bold; height: 10px">
-                    GIÀY ADIDAS GALAXY 6 NAM - TRANG NG
+                    {{item.tenSanPham}}
                     <br />
-                    Size: 41
                     <br />
-                    Chất liệu: Vai
+                    Size: {{item.size}}
                     <br />
-                    Màu sắc: blue
+                    Chất Liệu: {{item.tenChatLieu}}
+                    <br />
+                    Màu Sắc: {{item.tenMauSac}}
+                    <br>
+                    Số lượng: {{item.soLuong}}
                   </h6>
                 </td>
-                <td>
-                  <h6 style="color: crimson; padding-top: 90px">
-                    7.960.000₫
-                  </h6>
+                <td style="padding-top: 80px">
+                  <div ng-show="item.donGiaSauGiam != null">
+                    {{item.donGiaSauGiam | number}}₫
+                    <span style="text-decoration: line-through;color: crimson">{{item.donGia |
+                      number}}₫</span>
+                  </div>
+                  <div ng-show="item.donGiaSauGiam == null">
+                    {{item.donGia | number}}₫
+                  </div>
                 </td>
               </tr>
-              <tr>
-                <td style="width: 150px">
-                  <img
-                    src="https://myshoes.vn/image/cache/catalog/2023/puma/pu01/Slipstream-Cord-Unisex-Sneakers_80-800x800.jpg"
-                    alt="" width="200px" />
-                </td>
-                <td style="padding-top: 50px">
-                  <h6 style="font-size: 15px; font-weight: bold; height: 10px">
-                    GIÀY ADIDAS GALAXY 6 NAM - TRANG NG
-                    <br />
-                    Size: 41
-                    <br />
-                    Chất liệu: Vai
-                    <br />
-                    Màu sắc: blue
-                  </h6>
-                </td>
-                <td>
-                  <h6 style="color: crimson; padding-top: 90px">
-                    7.960.000₫
-                  </h6>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
           <div class="omni-layout-card--section-section">
             <div>
               <button type="button" class="btn btn-outline-danger m-1">Hủy đơn</button>
+              <a type="button" href="/src/customer/index-customer.html?#/shop" class="btn btn-outline-danger m-1">Trang chủ</a>
             </div>
             <div class="omni-layout-card--item-stack-cover">
               <div class="omni-layout-card--item-stack fill">
                 <span class="header-title" style="padding-left: 860px">Tổng tiền hàng</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">0đ</span>
+                <span class="header-title">{{thanhTien.tongTien}}đ</span>
               </div>
             </div>
           </div>
@@ -268,7 +200,7 @@
                 <span class="header-title" style="padding-left: 860px">Tiền ship</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">0đ</span>
+                <span class="header-title">{{thanhTien.tienShip}}đ</span>
               </div>
             </div>
           </div>
@@ -278,7 +210,7 @@
                 <span class="header-title" style="padding-left: 860px">Tiền giảm giá</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">0đ</span>
+                <span class="header-title">{{thanhTien.tienGiamGia}}đ</span>
               </div>
             </div>
           </div>
