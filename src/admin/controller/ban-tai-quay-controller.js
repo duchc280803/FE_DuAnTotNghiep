@@ -493,7 +493,7 @@ myApp.controller(
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                $location.path("/hoa-don");
+                $location.path("/order");
               });
           }
         });
@@ -542,7 +542,7 @@ myApp.controller(
                 showConfirmButton: false,
                 timer: 1500,
               });
-              $location.path("/hoa-don");
+              $location.path("/order");
             });
           }
         });
