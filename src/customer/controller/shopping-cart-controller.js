@@ -137,6 +137,7 @@ myAppCustom.controller("CartController", function ($scope, $http, $window, $loca
               loadToTals();
               loadNameAndPrice();
               loadQuanTiTy();
+              $window.location.reload();
             },
           ],
         });
@@ -198,48 +199,48 @@ myAppCustom.controller("CartController", function ($scope, $http, $window, $loca
   // Lấy giá trị tổng tiền từ localStorage
   var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
 
-// Kiểm tra xem có token đăng nhập hay không
-var token = $window.localStorage.getItem("token");
+  // Kiểm tra xem có token đăng nhập hay không
+  var token = $window.localStorage.getItem("token");
 
-if (token) {
-  // Nếu có token, gọi API để lấy thông tin khách hàng
-  var apiEndpoint = "http://localhost:8080/api/v1/account/profile";
-  var apiAddress = "http://localhost:8080/api/v1/account/dia-chi";
-  var config = {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  };
+  if (token) {
+    // Nếu có token, gọi API để lấy thông tin khách hàng
+    var apiEndpoint = "http://localhost:8080/api/v1/account/profile";
+    var apiAddress = "http://localhost:8080/api/v1/account/dia-chi";
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
 
-  $http.get(apiEndpoint, config).then(
-    function (response) {
-      console.log(response.data);
-      // Lấy thông tin từ server và gán vào các biến $scope
-      $scope.hoTen = response.data.hoTen;
-      $scope.email = response.data.email;
-      $scope.soDienThoai = response.data.soDienThoai;
+    $http.get(apiEndpoint, config).then(
+      function (response) {
+        console.log(response.data);
+        // Lấy thông tin từ server và gán vào các biến $scope
+        $scope.hoTen = response.data.hoTen;
+        $scope.email = response.data.email;
+        $scope.soDienThoai = response.data.soDienThoai;
 
-      // Gọi API địa chỉ
-      $http.get(apiAddress, config).then(
-        function (addressResponse) {
-          // Lọc các địa chỉ có trạng thái là 1
-          $scope.filteredAddresses = addressResponse.data.filter(function (address) {
-            return address.trangThai === '1';
-          });
+        // Gọi API địa chỉ
+        $http.get(apiAddress, config).then(
+          function (addressResponse) {
+            // Lọc các địa chỉ có trạng thái là 1
+            $scope.filteredAddresses = addressResponse.data.filter(function (address) {
+              return address.trangThai === '1';
+            });
 
-          // Lấy địa chỉ đầu tiên từ danh sách đã lọc và gán vào $scope.diaChi
-          $scope.diaChi = $scope.filteredAddresses.length > 0 ? $scope.filteredAddresses[0].diaChi : "";
-        },
-        function (addressError) {
-          console.error("Lỗi khi gọi API địa chỉ: " + addressError);
-        }
-      );
-    },
-    function (error) {
-      console.error("Lỗi khi gọi API thông tin cá nhân: " + error);
-    }
-  );
-}
+            // Lấy địa chỉ đầu tiên từ danh sách đã lọc và gán vào $scope.diaChi
+            $scope.diaChi = $scope.filteredAddresses.length > 0 ? $scope.filteredAddresses[0].diaChi : "";
+          },
+          function (addressError) {
+            console.error("Lỗi khi gọi API địa chỉ: " + addressError);
+          }
+        );
+      },
+      function (error) {
+        console.error("Lỗi khi gọi API thông tin cá nhân: " + error);
+      }
+    );
+  }
   //THANH TOAN LOGIC
   $scope.thanhToan = function () {
     // Display a confirmation dialog
@@ -260,39 +261,37 @@ if (token) {
         gioHangChiTietList: gioHangChiTietList,
       };
 
-      if(token){
+      if (token) {
         $http.post("http://localhost:8080/api/checkout-not-login/thanh-toan-login", data, config)
-        .then(
+          .then(
+            function (response) {
+              // Xử lý response nếu cần thiết
+              localStorage.removeItem("idgiohang");
+              // Chuyển hướng đến trang "thank-you"
+              $location.path("/thank-you");
+            },
+            function (error) {
+              console.log(error);
+            }
+          );
+      } else {
+        // Send data to the server
+        $http({
+          method: "POST",
+          url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
+          data: data,
+        }).then(
           function (response) {
-            // Xử lý response nếu cần thiết
+            // Handle the response if needed
             localStorage.removeItem("idgiohang");
-            // Chuyển hướng đến trang "thank-you"
+            // Redirect to the "thank-you" route            
             $location.path("/thank-you");
           },
           function (error) {
             console.log(error);
           }
         );
-      }else{
-      // Send data to the server
-      $http({
-        method: "POST",
-        url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
-        data: data,
-      }).then(
-        function (response) {
-          // Handle the response if needed
-          localStorage.removeItem("idgiohang");
-          // Redirect to the "thank-you" route            
-          $location.path("/thank-you");
-        },
-        function (error) {
-          console.log(error);
-        }
-      );
       }
-
-
     } else {
       alert("Đã hủy")
     }
@@ -301,7 +300,7 @@ if (token) {
 
 
 
-  
+
 
   function loadQuanTiTy() {
     // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
@@ -319,7 +318,12 @@ if (token) {
 
 
 
-
-
+  // voucher here
+  $scope.vouchers = [];
+  // Gửi yêu cầu API và xử lý kết quả
+  $http.get('http://localhost:8080/api/v1/voucher-login/show')
+    .then(function (response) {
+      $scope.vouchers = response.data;
+    });
 
 });
