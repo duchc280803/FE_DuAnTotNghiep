@@ -509,6 +509,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamInOrder.push(response.data);
+          console.log(id);
           $scope.getlichSuThayDoi();
           $scope.getlichSuThanhToan();
           getSanPham();
