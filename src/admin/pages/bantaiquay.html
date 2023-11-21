@@ -530,7 +530,7 @@
                                 width: 620px;
                                 margin: auto;
                                 margin-left: 80px;
-                                height: 500px;
+                                height: 600px;
                               ">
                         <div class="modal-header">
                           <h5 class="modal-title">Thêm Khách Hàng</h5>
@@ -559,6 +559,22 @@
                               <input type="date" ng-model="newKhachHang.ngaySinh" class="form-control" />
                             </div>
                           </div>
+                          <br>
+                          <select class="form-control select2" ng-model="selectedProvince"
+                            ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                            <option value="">Chọn tỉnh</option>
+                          </select>
+                          <br>
+                          <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                            ng-options="district.name for district in districts" ng-change="getWards()">
+                            <option value="">Chọn huyện</option>
+                          </select>
+                          <br>
+                          <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                            ng-options="ward.name for ward in wards">
+                            <option value="">Chọn phường</option>
+                          </select>
+                          <br>
                           <br />
                           <div class="row">
                             <div class="col-lg-12">
@@ -566,7 +582,6 @@
                               <input class="form-control" placeholder="Nhập địa chỉ" ng-model="newKhachHang.diaChi" />
                             </div>
                           </div>
-                          <br />
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" ng-click="createKhachHang()"
@@ -748,11 +763,9 @@
                                         </div>
                                         <div class="omni-layout-card--item-stack fill text-right">
                                           <span class="header-title">
-                                            {{ (tongTienHang -
-                                            totalAmountPaid) >= 0 ?
-                                            (tongTienHang -
-                                            totalAmountPaid) : '0' |
-                                            number }}₫
+                                            {{ (tongTienHang - orderDetailCounter.tienGiamGia + tienGiao -
+                                            totalAmountPaid) >= 0 ? (tongTienHang - orderDetailCounter.tienGiamGia +
+                                            tienGiao - totalAmountPaid) : '0' | number }}₫
                                           </span>
                                         </div>
                                       </div>
@@ -820,7 +833,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr ng-repeat="v in listVoucher">
+                                <tr ng-repeat="v in listVoucher" ng-if="v.priceOrder >= tongTienHang">
                                   <td>{{$index + 1}}</td>
                                   <td>{{v.voucherCode}}</td>
                                   <td>{{v.nameVoucher}}</td>
@@ -908,7 +921,7 @@
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
                         <span class="header-title">
-                          {{totalAmountPaid- tongTienHang |number }}₫
+                          {{ (totalAmountPaid - (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao) | number }}₫
                         </span>
                         <input hidden ng-model="requestData.tienThua" type="text"
                           ng-value="totalAmountPaid - tongTienHang" />
@@ -921,7 +934,8 @@
                         <span class="header-title">Tổng tiền</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{tongTienHang | number}}₫</span>
+                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao|
+                          number}}₫</span>
                         <input hidden ng-model="requestData.tongTien" type="text" ng-value="tongTienHang" />
                       </div>
                     </div>
@@ -934,7 +948,7 @@
                       margin-top: 25px;
                       font-weight: bold;
                     " ng-show="showInput"
-              ng-click="createHoaDonChiTiet(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
+              ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
               Xác Nhận Thanh Toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary" style="
@@ -942,7 +956,7 @@
                       margin-top: 25px;
                       font-weight: bold;
                     "
-              ng-click="createHoaDonChiTietGiao(tongTienHang, totalAmountPaid, totalAmountPaid - tongTienHang)">
+              ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao, totalAmountPaid, totalAmountPaid - tongTienHang)">
               Xác Nhận Giao Hàng
             </button>
           </div>

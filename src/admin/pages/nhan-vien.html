@@ -261,9 +261,7 @@
       <tbody>
         <tr ng-repeat="nv in listNhanVien">
           <th>{{$index + 1}}</th>
-          <td>
-            <img src="{{nv.image}}" alt="Ảnh nhân viên" style="width: 35px; height: 35px; border-radius: 50%;" />
-          </td>
+          <td><img src="{{kh.image}}" width="40px" alt=""></td>
           <td>{{nv.maTaiKhoan}}</td>
           <td>{{nv.fullName}}</td>
           <td>{{nv.gioiTinh == false ? "Nữ" : "Nam"}}</td>
