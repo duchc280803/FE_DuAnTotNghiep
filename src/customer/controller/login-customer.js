@@ -1,6 +1,6 @@
 myAppCustom.controller(
   "loginCutomController",
-  function ($scope, $http, $window, $location) {
+  function ($scope, $http, $window) {
     $scope.loggedInUsername = "";
 
     var token = $window.localStorage.getItem("token");
