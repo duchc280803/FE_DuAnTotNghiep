@@ -433,7 +433,7 @@
     </tbody>
   </table>
   <div class="row">
-    <div class="col-lg-9" ng-show="fillMoney.tongTien < soTienKhachTra">
+    <div class="col-lg-9" ng-show="fillMoney.tongTien <= soTienKhachTra">
       <span style="
           color: #fc5e03;
           padding: 4px 8px;
@@ -444,7 +444,7 @@
           padding-left: 740px;
         ">Đã thanh toán:</span>
     </div>
-    <div class="col-lg-3" ng-show="fillMoney.tongTien < soTienKhachTra">
+    <div class="col-lg-3" ng-show="fillMoney.tongTien <= soTienKhachTra">
       <span style="
           color: #fc5e03;
           padding: 4px 8px;
@@ -455,7 +455,7 @@
           padding-left: 100px;
         ">{{fillMoney.tongTien | number }}₫</span>
     </div>
-    <div class="col-lg-9" ng-show="traHangis === true &&  tongTienHoanTra < soTienHoan">
+    <div class="col-lg-9" ng-show="traHangis === true &&  tongTienHoanTra <= soTienHoan">
       <span style="
           color: #fc5e03;
           padding: 4px 8px;
@@ -466,7 +466,7 @@
           padding-left: 740px;
         ">Đã hoàn trả:</span>
     </div>
-    <div class="col-lg-3" ng-show="traHangis === true &&  tongTienHoanTra < soTienHoan">
+    <div class="col-lg-3" ng-show="traHangis === true &&  tongTienHoanTra <= soTienHoan">
       <span style="
           color: #fc5e03;
           padding: 4px 8px;
@@ -525,7 +525,7 @@
             <th>Số lượng</th>
             <th style="width: 0px">Đơn giá</th>
             <th>Tổng tiền</th>
-            <th ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 5">
+            <th ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 5 && soTienKhachTra >= fillMoney.tongTien">
               Thao tác
             </th>
           </tr>
@@ -569,9 +569,9 @@
               Xóa
             </button>
           </td>
-          <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai === 5">
+          <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oki"
-              ng-click="selectProductTraHang(item.idHoaDonChiTiet)" ng-show="item.trangThai === 5">
+              ng-click="selectProductTraHang(item.idHoaDonChiTiet)" ng-show="item.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien">
               <img src="/assets/images/exchange.png" alt="" srcset="" width="35px" />
             </button>
             <span ng-show="item.trangThai === 7" style="
