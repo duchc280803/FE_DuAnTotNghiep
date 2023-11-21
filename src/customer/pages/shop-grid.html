@@ -237,6 +237,25 @@
     li.account-hover a:focus {
       outline: none;
     }
+
+    /* Thêm một số style để cải thiện giao diện */
+    .filter__item {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    /* Hiệu ứng hover cho nút Áp dụng */
+    .btn-apply {
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-apply:hover {
+      background-color: #0056b3;
+      /* Màu khi hover */
+    }
   </style>
 </head>
 
@@ -301,8 +320,8 @@
               <li class="open-cart">
                 <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
-                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
-                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
+                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px">
+                  <div class="shopping-cart" style="max-height: 270px; overflow-y: auto">
                     <div class="row" ng-repeat="product in products">
                       <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
                         <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
@@ -319,20 +338,21 @@
                         <hr />
                       </div>
                     </div>
-
                   </div>
                   <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-2">
-                      <span style="font-weight: bolder;margin-left: 30px;" class="main-color-text">Total:</span>
+                      <span style="font-weight: bolder; margin-left: 30px" class="main-color-text">Total:</span>
                     </div>
                     <div class="col-md-3">
-                      <span
-                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
+                      <span style="
+                            color: rgb(91, 80, 80);
+                            font-weight: bolder;
+                            margin-left: 30px;
+                          ">{{totalAmount}}VNĐ</span>
                     </div>
                   </div>
-                  <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
-                    OUT</a>
+                  <a href="#/check-out" style="width: 80%; margin-left: 30px" class="button">CHECK OUT</a>
                 </div>
               </li>
               <li class="account-hover" ng-controller="loginCutomController">
@@ -440,17 +460,27 @@
 
             <div class="filter__item">
               <div class="row">
-                <div class="col-lg-4 col-md-5">
-                  <!-- Thêm phần thanh trượt cho khoảng giá -->
-                  <label for="price-range">Khoảng giá:</label>
-                  <input type="text" id="price-range" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                  <div id="slider-range"></div>
+                <div class="col-md-4">
+                  <label for="min-price">
+                    <i class="fas fa-dollar-sign"></i> Từ:
+                  </label>
+                  <input type="text" id="min-price" ng-model="minPrice" placeholder="Nhập giá tối thiểu"
+                    class="form-control" />
                 </div>
-                <div class="col-lg-4 col-md-4"></div>
-                <div class="col-lg-4 col-md-3"></div>
+                <div class="col-md-4">
+                  <label for="max-price">
+                    <i class="fas fa-dollar-sign"></i> Đến:
+                  </label>
+                  <input type="text" id="max-price" ng-model="maxPrice" placeholder="Nhập giá tối đa"
+                    class="form-control" />
+                </div>
+                <div class="col-md-4">
+                  <button class="btn btn-primary btn-apply" ng-click="searchProductByPriceRange()">
+                    Áp dụng
+                  </button>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -574,22 +604,6 @@
   <script src="/src/controller/product-giamgia-controller.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-  <script>
-    $(function () {
-      $("#slider-range").slider({
-        range: true,
-        min: 0,
-        max: 1000, // Thay đổi giá trị tối đa tùy thuộc vào khoảng giá của bạn
-        values: [0, 500],
-        slide: function (event, ui) {
-          $("#price-range").val(ui.values[0] + "₫ - " + ui.values[1] + "₫");
-          // Thêm các xử lý tìm kiếm theo khoảng giá ở đây
-        }
-      });
-      $("#price-range").val($("#slider-range").slider("values", 0) +
-        "₫ - " + $("#slider-range").slider("values", 1) + "₫");
-    });
-  </script>
 </body>
 
 </html>
