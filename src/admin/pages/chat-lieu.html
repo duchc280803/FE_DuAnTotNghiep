@@ -97,10 +97,10 @@
                 <small class="mb-0 text-muted ">{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</small>
               </td>
               <td>
-                <button class="btn btn-warning fe fe-eye fe-16" ng-click="deleteChatLieu(th.id)"></button>
+                <button class="btn btn-warning" ng-click="deleteChatLieu(th.id)"><img width="25px" src="/assets/images/disabled.png" alt=""></button>
 
-                <button class="btn btn-success fe fe-tool fe-16" ng-click="fetchChatLieuDetail(th.id)"
-                  data-toggle="modal" data-target="#sizeModal"></button>
+                <button class="btn btn-success" ng-click="fetchChatLieuDetail(th.id)"
+                  data-toggle="modal" data-target="#sizeModal"><img width="25px" src="/assets/images/update.png" alt=""></button>
               </td>
             </tr>
 

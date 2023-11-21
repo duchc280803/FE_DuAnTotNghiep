@@ -153,7 +153,7 @@ myApp.controller("sanPhamController", function ($http, $scope) {
       .then(function (response) {
         $scope.listXuatXu.push(response.data);
         window.location.href =
-          "http://127.0.0.1:5504/src/admin/index-admin.html#/product-update/" +
+          "http://127.0.0.1:5505/src/admin/index-admin.html#/product-update/" +
           response.data.id;
       });
   };
