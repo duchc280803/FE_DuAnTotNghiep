@@ -6,48 +6,28 @@
         <p style="height: 7px; margin-left: -40px; font-weight: bold">
           Nhập mã, tên voucher
         </p>
-        <input
-          class="form-control"
-          placeholder="Tìm khuyến mãi"
-          ng-model="key"
-          ng-change="searchKey()"
-          style="width: 220px; margin-left: -42px; font-weight: bold"
-        />
+        <input class="form-control" placeholder="Tìm khuyến mãi" ng-model="key" ng-change="searchKey()"
+          style="width: 220px; margin-left: -42px; font-weight: bold" />
       </div>
 
-      <div
-        class="col-md-3 d-flex justify-content-start"
-        style="margin-top: 20px"
-      >
+      <div class="col-md-3 d-flex justify-content-start" style="margin-top: 20px">
         <button class="btn btn-warning" style="height: 39px; margin-left: 10px">
           <span style="vertical-align: middle">Làm Mới</span>
         </button>
       </div>
-      <div
-        class="col-md-3 d-flex justify-content-start"
-        style="padding-top: 20px"
-      >
+      <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px">
         <br />
         <h6 class="text" style="padding-top: 10px">Trạng thái:</h6>
-        <select
-          style="width: 150px; height: 40px; margin-left: 10px"
-          class="form-control select2"
-          id="simple-select2"
-        >
-          <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
-            {{ms.tenMauSac}}
-          </option>
+        <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai"
+          ng-change="searchStatus()" id="simple-select2">
+          <option value="">Tất cả</option>
+          <option value="1">Còn Hiệu Lực </option>
+          <option value="2">Hết Hiệu Lực</option>
         </select>
       </div>
       <div class="col-md-3" style="margin-top: 20px; margin-left: 90px">
-        <a
-          href="#/voucher/create"
-          class="btn btn-primary"
-          style="text-decoration: none; height: 39px"
-        >
-          <span style="vertical-align: middle" class="hide-menu"
-            >Thêm voucher</span
-          >
+        <a href="#/voucher/create" class="btn btn-primary" style="text-decoration: none; height: 39px">
+          <span style="vertical-align: middle" class="hide-menu">Thêm voucher</span>
         </a>
       </div>
     </div>
