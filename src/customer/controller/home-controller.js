@@ -1,5 +1,5 @@
 var idgh = localStorage.getItem('idgiohang');
-myAppCustom.controller("homeController", function ($http, $scope) {
+myAppCustom.controller("homeController", function ($http, $scope, $window) {
   $scope.listNewProduct = [];
 
   function listTop8NewProduct() {
