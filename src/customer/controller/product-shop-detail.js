@@ -15,7 +15,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-name-price-image/" +
-          name
+            name
         )
         .then(function (response) {
           $scope.detailProduct = response.data;
@@ -42,7 +42,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-all-mau-sac/" +
-          name
+            name
         )
         .then(function (response) {
           $scope.detailColorProduct = response.data;
@@ -53,7 +53,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-all-chat-lieu/" +
-          name
+            name
         )
         .then(function (response) {
           $scope.detailMaterialProduct = response.data;
@@ -65,9 +65,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-by-size/" +
-          name +
-          "?idsize=" +
-          idsize
+            name +
+            "?idsize=" +
+            idsize
         )
         .then(function (response) {
           $scope.loadmausac_chatlieu_not_login = response.data;
@@ -79,9 +79,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-by-mau-sac/" +
-          name +
-          "?idmausac=" +
-          id
+            name +
+            "?idmausac=" +
+            id
         )
         .then(function (response) {
           $scope.listSizeChatLieuByMauSac = response.data;
@@ -93,9 +93,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-by-chat-lieu/" +
-          name +
-          "?idchatlieu=" +
-          id
+            name +
+            "?idchatlieu=" +
+            id
         )
         .then(function (response) {
           $scope.listMauSizeByChatLieu = response.data;
@@ -117,13 +117,13 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-idspct-soluong/" +
-          name +
-          "?idmausac=" +
-          idMauSac +
-          "&idsize=" +
-          idSize +
-          "&idchatlieu=" +
-          idChatLieu
+            name +
+            "?idmausac=" +
+            idMauSac +
+            "&idsize=" +
+            idSize +
+            "&idchatlieu=" +
+            idChatLieu
         )
         .then(function (response) {
           $scope.showQuantity = response.data;
@@ -294,7 +294,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-sp-lien-quan?idthuonghieu=" +
-          idThuongHieu
+            idThuongHieu
         )
         .then(function (response) {
           $scope.relatedProducts = response.data;
@@ -355,7 +355,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-          idgh
+            idgh
         )
         .then(function (response) {
           // Lấy giá trị tổng tiền từ phản hồi API
@@ -381,8 +381,5 @@ myAppCustom.controller(
     }
 
     loadQuanTiTy();
-
   }
-
-
 );

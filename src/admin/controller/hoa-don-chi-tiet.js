@@ -22,6 +22,7 @@ myApp.controller(
     }
 
     // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
+    $scope.hoaDonChiTiet = {}
     $scope.getHoaDonChiTiet = function () {
       const apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
@@ -132,6 +133,29 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.lichSuThayDoi.push(response.data);
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
+          $scope.getlichSuThanhToan();
+          $scope.getlichSuThayDoi();
+          $scope.selectMoney(id);
+          $window.location.reload();
+        });
+    };
+
+    $scope.newOrderClient = {
+      hoVaTenNguoiShip:"",
+      soDienThoai:"",
+      tienShip:"",
+      diaChi:"",
+    };
+
+    $scope.confirmOrderClient = function () {
+      $http
+        .put(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" + id,
+          JSON.stringify($scope.newOrderClient)
+        )
+        .then(function (response) {
           $scope.getHoaDonChiTiet();
           $scope.getSanPham();
           $scope.getlichSuThanhToan();
