@@ -248,9 +248,9 @@
         <section class="date-voucher">
           <time datetime="23th feb">
             <div data-testid="vcCornerBadge"
-              class="vc_CornerBadge_cornerBadge vc_CornerBadge_levelCorner vc_CornerBadge_valid" style="width: 75px">
+              class="vc_CornerBadge_cornerBadge vc_CornerBadge_levelCorner vc_CornerBadge_valid" style="width: 100px">
               <div class="" style="font-size: 10px; color: #2b2b2b">
-                Số lượng có hạn
+                Số lượng có hạn : {{voucherchitiet.soLuongMa}}
               </div>
             </div>
             <img width="90px" style="padding-bottom: 0px"
@@ -258,17 +258,21 @@
           </time>
         </section>
         <section class="card-cont-voucher">
-          <h6>Giảm 50k</h6>
-          <span>Đơn tối thiểu 2.000.000đ</span>
+          <h6>Giá trị giảm : {{voucherchitiet.giaTriGiam | number}} VNĐ </h6>
+          <span>Đơn tối thiểu : {{voucherchitiet.giaTriToiThieuDonhang | number}} VNĐ</span>
           <div class="even-date">
             <i class="fa fa-calendar"></i>
-            HSD: 11.11.2023
+            HSD: {{ voucherchitiet.ngayKetThuc == null ? "..." : voucherchitiet.ngayKetThuc | date:'MM/dd/yyyy h:mm:ss
+            a'}}
           </div>
         </section>
       </article>
       <article class="card-voucher fl-left" style="height: 300px">
         <h6 style="padding-left: 10px; padding-top: 10px;">Hạn sử dụng mã</h6>
-        <span style="padding-left: 10px;">01 Th11 2023 00:00 - 11 Th11 2023 23:59</span>
+        <span style="padding-left: 10px;">{{ voucherchitiet.ngayBatDau == null ? "..." : voucherchitiet.ngayBatDau |
+          date:'MM/dd/yyyy h:mm:ss a'}} -
+          {{ voucherchitiet.ngayKetThuc == null ?
+          "..." : voucherchitiet.ngayKetThuc | date:'MM/dd/yyyy h:mm:ss a'}}</span>
         <h6 style="padding-left: 10px; padding-top: 10px;">Áp dụng cho đơn hàng</h6>
         <span style="padding-left: 10px;">Chỉ áp dụng trên web cho một số hóa đơn nhất định.</span>
       </article>
