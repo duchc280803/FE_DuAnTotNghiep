@@ -2,7 +2,7 @@ var idgh = localStorage.getItem("idgiohang");
 myAppCustom.controller(
   "sanPhamShopController",
   function ($http, $scope, $window) {
-    var token = $window.localStorage.getItem("token");
+    var token = $window.localStorage.getItem("token-customer");
     console.log(token);
     $scope.listSanPhamShop = [];
     $scope.listThuongHieu = [];

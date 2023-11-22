@@ -199,7 +199,7 @@ myAppCustom.controller("CartController", function ($scope, $http, $window, $loca
   var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
 
   // Kiểm tra xem có token đăng nhập hay không
-  var token = $window.localStorage.getItem("token");
+  var token = $window.localStorage.getItem("token-customer");
 
   if (token) {
     // Nếu có token, gọi API để lấy thông tin khách hàng

@@ -3,7 +3,7 @@ myAppCustom.controller(
   function ($scope, $http, $window) {
     $scope.loggedInUsername = "";
 
-    var token = $window.localStorage.getItem("token");
+    var token = $window.localStorage.getItem("token-customer");
     if (token) {
       $scope.isLoggedIn = true;
     } else {
@@ -25,7 +25,7 @@ myAppCustom.controller(
       $http
         .post("http://localhost:8080/api/v1/auth/login", data)
         .then(function (response) {
-          $window.localStorage.setItem("token", response.data.accessToken);
+          $window.localStorage.setItem("token-customer", response.data.accessToken);
           $window.localStorage.setItem("role", response.data.role);
           $window.localStorage.setItem("username", response.data.username); // Lưu tên người dùng
 
@@ -39,7 +39,7 @@ myAppCustom.controller(
 
     $scope.logout = function () {
       // Xóa token khỏi localStorage
-      $window.localStorage.removeItem("token");
+      $window.localStorage.removeItem("token-customer");
       $window.localStorage.removeItem("username"); // Xóa tên người dùng khi đăng xuất
       $scope.isLoggedIn = false;
       $scope.loggedInUsername = ""; // Đặt giá trị về rỗng khi đăng xuất
