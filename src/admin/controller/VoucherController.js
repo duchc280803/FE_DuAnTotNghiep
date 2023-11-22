@@ -7,6 +7,15 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
         $scope.listVoucher = response.data;
       });
   }
+  $scope.listVoucherHistory = [];
+  function fetchVoucherHistortyList() {
+    $http
+      .get("http://localhost:8080/api/v1/audilog/voucher")
+      .then(function (response) {
+        $scope.listVoucherHistory = response.data;
+      });
+  }
+  fetchVoucherHistortyList();
   $scope.onTuDongTaoMaChange = function () {
     if ($scope.tuDongTaoMa) {
       // If the checkbox is checked, automatically generate the discount code
@@ -112,4 +121,22 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
     }
   };
   $scope.showBrandSelect = false;
+
+  $scope.searchDateHistory = function () {
+    var startDate = $scope.startDate;
+    var endDate = $scope.endDate;
+
+    if (!startDate && !endDate) {
+      // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
+      fetchVoucherHistortyList();
+    } else {
+      $http
+        .get("http://localhost:8080/api/v1/audilog/vouchersearch", {
+          params: { startDate: startDate, endDate: endDate },
+        })
+        .then(function (response) {
+          $scope.listVoucherHistory = response.data;
+        });
+    }
+  };
 });
