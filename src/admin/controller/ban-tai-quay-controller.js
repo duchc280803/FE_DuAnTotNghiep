@@ -171,7 +171,8 @@ myApp.controller(
 
           // Calculate the total quantity and total price for all products in the cart
           for (var i = 0; i < $scope.listCart.length; i++) {
-              $scope.tongTienHang += $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
+            $scope.tongTienHang +=
+              $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
           }
           // Slice the listCart array to display only 2 products per page
           $scope.listCart = $scope.listCart.slice(
@@ -190,7 +191,7 @@ myApp.controller(
     var gioHangChiTietList = idGioHangChiTiet
       ? idGioHangChiTiet.split(",")
       : [];
-      console.log(gioHangChiTietList);
+    console.log(gioHangChiTietList);
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
@@ -871,16 +872,40 @@ myApp.controller(
         });
     };
 
+    $scope.newKhachHang = {};
+
+    $scope.createKhachHang = function () {
+      // Set the selected province, district, and ward to the newKhachHang object
+      $scope.newKhachHang.tinh = $scope.selectedProvince.name;
+      $scope.newKhachHang.huyen = $scope.selectedDistrict.name;
+      $scope.newKhachHang.phuong = $scope.selectedWard.name;
+
+      // Then make the API call to create the customer
+      $http
+        .post(
+          "http://localhost:8080/api/khach-hang/create",
+          $scope.newKhachHang
+        )
+        .then(function (response) {
+          $scope.listKhachHang.push(response.data);
+          $scope.showKhachHang();
+        });
+    };
+
     // API ĐỊA CHỈ
     $scope.provinces = [];
     $scope.districts = [];
     $scope.wards = [];
 
-    $http
-      .get("https://provinces.open-api.vn/api/?depth=1")
-      .then(function (response) {
-        $scope.provinces = response.data;
-      });
+    $scope.getTinh = function () {
+      $http
+        .get("https://provinces.open-api.vn/api/?depth=1")
+        .then(function (response) {
+          $scope.provinces = response.data;
+        });
+    };
+
+    $scope.getTinh();
 
     $scope.getDistricts = function () {
       $http
