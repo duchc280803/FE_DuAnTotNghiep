@@ -1,12 +1,13 @@
 myApp.config(function ($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix("");
 
-  $routeProvider.when("/dashboard", {
+  $routeProvider
+    .when("/dashboard", {
       templateUrl: "./pages/dashboard.html",
     })
     .when("/admin/login", {
       templateUrl: "./pages/authentication-login.html",
-      controller: "loginController"
+      controller: "loginController",
     })
     .when("/order-counter", {
       templateUrl: "./pages/bantaiquay.html",
@@ -30,7 +31,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/promotion/update/:id", {
       templateUrl: "./pages/update-giam-gia-sanpham.html",
-      controller: "giamgiaChiTietController", 
+      controller: "giamgiaChiTietController",
     })
     .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
@@ -44,57 +45,61 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/update-chuong-trinhkm.html",
       controller: "voucherChiTietController",
     })
+    .when("/voucher/history", {
+      templateUrl: "./pages/voucher-history.html",
+      controller: "VoucherController",
+    })
     .when("/customer", {
       templateUrl: "./pages/khach-hang.html",
-      controller: "khachHangController"
+      controller: "khachHangController",
     })
     .when("/staff", {
       templateUrl: "./pages/nhan-vien.html",
-      controller: "nhanVienController"
+      controller: "nhanVienController",
     })
     .when("/product/create", {
       templateUrl: "./pages/san-pham-new.html",
-      controller: 'sanPhamController'
+      controller: "sanPhamController",
     })
     .when("/product-detail/:id", {
       templateUrl: "./pages/sanphamchitiet.html",
-      controller: 'sanPhamChiTietController'
+      controller: "sanPhamChiTietController",
     })
     .when("/product", {
       templateUrl: "./pages/san-pham.html",
-      controller: 'sanPhamController'
+      controller: "sanPhamController",
     })
     .when("/product-update/:id", {
       templateUrl: "./pages/san-pham-update.html",
-      controller: 'sanPhamUpdateController'
+      controller: "sanPhamUpdateController",
     })
     .when("/origin", {
       templateUrl: "./pages/xuat-xu.html",
-      controller: "xuatXuController"
+      controller: "xuatXuController",
     })
     .when("/brand", {
       templateUrl: "./pages/thuong-hieu.html",
-      controller: "thuongHieuController"
+      controller: "thuongHieuController",
     })
     .when("/size", {
       templateUrl: "./pages/size.html",
-      controller: "sizeController"
+      controller: "sizeController",
     })
     .when("/color", {
       templateUrl: "./pages/mau-sac.html",
-      controller: "mauSacController"
+      controller: "mauSacController",
     })
     .when("/sole", {
       templateUrl: "./pages/kieu-de.html",
-      controller: "kieuDeController"
+      controller: "kieuDeController",
     })
     .when("/material", {
       templateUrl: "./pages/chat-lieu.html",
-      controller: "chatLieuController"
+      controller: "chatLieuController",
     })
     .when("/category", {
       templateUrl: "./pages/danh-muc.html",
-      controller: "danhMucController"
+      controller: "danhMucController",
     })
     .when("/dashboard", {
       templateUrl: "./pages/thong-ke.html",
