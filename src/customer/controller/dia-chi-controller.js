@@ -2,7 +2,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
 
     // Tạo một hàm để gọi API lấy thông tin tài khoản
     $scope.loadProfile = function () {
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,
@@ -21,7 +21,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
     };
     // Hàm để load thông tin địa chỉ
     function loadDiaChi() {
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,
@@ -47,7 +47,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
             return;
         }
 
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,
@@ -83,7 +83,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
 
     // Trong controller Angular của bạn
     $scope.updateAddress = function () {
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,
@@ -106,7 +106,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
 
     //set default
     $scope.setAsDefault = function (diaChi) {
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,
@@ -143,7 +143,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
             return;
         }
 
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,

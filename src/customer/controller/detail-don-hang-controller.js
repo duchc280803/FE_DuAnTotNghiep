@@ -6,7 +6,7 @@ myAppCustom.controller("detailDonHangController", function ($http, $scope, $wind
     var idHoaDon = $routeParams.idHoaDon;
 
     function getThongTin() {
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,
@@ -38,7 +38,7 @@ myAppCustom.controller("detailDonHangController", function ($http, $scope, $wind
     }
 
     function getSanPham() {
-        var token = $window.localStorage.getItem("token");
+        var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
                 Authorization: "Bearer " + token,

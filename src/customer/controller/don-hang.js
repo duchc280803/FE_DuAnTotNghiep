@@ -19,7 +19,7 @@ myAppCustom.controller("donHangController", function ($http, $scope, $window) {
 
     $scope.listDonHang2 = [];
 
-    var token = $window.localStorage.getItem("token");
+    var token = $window.localStorage.getItem("token-customer");
     var config = {
         headers: {
             Authorization: "Bearer " + token,
@@ -54,7 +54,7 @@ myAppCustom.controller("donHangController", function ($http, $scope, $window) {
     //////////////////
     /// SEARCH HERE///
     //////////////////
-    var token = $window.localStorage.getItem("token");
+    var token = $window.localStorage.getItem("token-customer");
     var config = {
         headers: {
             Authorization: "Bearer " + token,
