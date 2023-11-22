@@ -1,4 +1,3 @@
-
 var idgh = localStorage.getItem('idgiohang');
 myAppCustom.controller("CartController", function ($scope, $http, $window, $location) {
   function loadToTals() {

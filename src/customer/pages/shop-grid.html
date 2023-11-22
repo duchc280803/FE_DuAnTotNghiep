@@ -311,7 +311,13 @@
                       </div>
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
-                        <span>{{product.giaban | number:0}}₫</span>
+                        <div ng-show="product.dongiakhigiam != null">
+                          {{product.dongiakhigiam | number:0}}₫
+                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
+                        </div>
+                        <div ng-show="product.dongiakhigiam == null">
+                          {{product.giaban | number:0}}₫
+                        </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
                         </p>
