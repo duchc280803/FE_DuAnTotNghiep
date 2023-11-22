@@ -39,6 +39,18 @@ myAppCustom.controller("donHangController", function ($http, $scope, $window) {
             });
     };
 
+    $scope.loadTraHang = function () {
+        // Gọi API với trạng thái mới
+        $http.get(`http://localhost:8080/api/v1/don-hang-khach-hang/load-tra-hang`, config)
+            .then(function (response) {
+                $scope.listDonHang2 = response.data;
+                $scope.hasOrders = $scope.listDonHang2.length > 0;
+            })
+            .catch(function (error) {
+                console.error('Error fetching data:', error);
+            });
+    };
+
     //////////////////
     /// SEARCH HERE///
     //////////////////
@@ -166,10 +178,9 @@ myAppCustom.controller("donHangController", function ($http, $scope, $window) {
             //Search 7
             $scope.searchQuery7 = ''; // Initialize search query
             $scope.searchOrders7 = function () {
-                $http.get('http://localhost:8080/api/v1/don-hang-khach-hang/search', {
+                $http.get('http://localhost:8080/api/v1/don-hang-khach-hang/search-tra-hang', {
                     params: {
                         tensanpham: $scope.searchQuery7,
-                        trangthai: "7",
                         mahoadon: $scope.searchQuery7 // Set the default mahoadon value or modify as needed
                     },
                     ...config // Spread the config object here

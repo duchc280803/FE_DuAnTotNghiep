@@ -317,7 +317,13 @@
                       </div>
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
-                        <span>{{product.giaban | number:0}}₫</span>
+                        <div ng-show="product.dongiakhigiam != null">
+                          {{product.dongiakhigiam | number:0}}₫
+                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
+                        </div>
+                        <div ng-show="product.dongiakhigiam == null">
+                          {{product.giaban | number:0}}₫
+                        </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
                         </p>
@@ -400,9 +406,15 @@
                       <h7>{{product.tensanpham}}</h7>
                     </td>
                     <td class="shoping__cart__price">
-                      {{product.giaban | number:0}}₫
+                      <div ng-show="product.dongiakhigiam != null">
+                        {{product.dongiakhigiam | number:0}}₫
+                        <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
+                      </div>
+                      <div ng-show="product.dongiakhigiam == null">
+                        {{product.giaban | number:0}}₫
+                      </div>
                     </td>
-                    <td class="shoping__cart__quantity">
+                    <td class="shoping__cart__quantity" style="padding-left: 50px;">
                       <div class="quantity">
                         <div class="pro-qty">
                           <button class="dec qtybtn" ng-click="changeQuantity(product, 'decrease')">-</button>
@@ -412,7 +424,13 @@
                       </div>
                     </td>
                     <td class="shoping__cart__total">
-                      {{product.giaban * product.soluong | number:0}}₫
+                      
+                      <div ng-show="product.dongiakhigiam != null">
+                        {{product.dongiakhigiam * product.soluong | number:0}}₫
+                      </div>
+                      <div ng-show="product.dongiakhigiam == null">
+                        {{product.giaban * product.soluong | number:0}}₫
+                      </div>
                     </td>
                     <td class="shoping__cart__item__close">
                       <span style="padding-right: 15px;" class="icon_close" ng-click="deleteProduct(product.id)"></span>
@@ -442,9 +460,15 @@
                       <h7>{{product.tensanpham}}</h7>
                     </td>
                     <td class="shoping__cart__price">
-                      {{product.giaban | number:0}}₫
+                      <div ng-show="product.dongiakhigiam != null">
+                        {{product.dongiakhigiam | number:0}}₫
+                        <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
+                      </div>
+                      <div ng-show="product.dongiakhigiam == null">
+                        {{product.giaban | number:0}}₫
+                      </div>
                     </td>
-                    <td class="shoping__cart__quantity">
+                    <td class="shoping__cart__quantity" style="padding-left: 50px;">
                       <div class="quantity">
                         <div class="pro-qty">
                           <button class="dec qtybtn" ng-click="changeQuantity(product, 'decrease')">-</button>
@@ -454,7 +478,13 @@
                       </div>
                     </td>
                     <td class="shoping__cart__total">
-                      {{product.giaban * product.soluong | number:0}}₫
+                      
+                      <div ng-show="product.dongiakhigiam != null">
+                        {{product.dongiakhigiam * product.soluong | number:0}}₫
+                      </div>
+                      <div ng-show="product.dongiakhigiam == null">
+                        {{product.giaban * product.soluong | number:0}}₫
+                      </div>
                     </td>
                     <td class="shoping__cart__item__close">
                       <span style="padding-right: 15px;" class="icon_close" ng-click="deleteProduct(product.id)"></span>
