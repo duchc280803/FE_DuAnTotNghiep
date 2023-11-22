@@ -102,7 +102,7 @@
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
               Trả hàng
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 25px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
@@ -307,7 +307,7 @@
     </button>
     <button ng-show="traHangis === true && tongTienHoanTra > soTienHoan" class="btn btn-primary"
       style="margin-top: 20px; margin-right: 20px" data-bs-toggle="modal" data-bs-target="#hoantra">
-      Hoàn trả
+      Hoàn tiền
     </button>
     <!-- modal thanh toán -->
     <div class="modal fade" id="thanhttoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -600,10 +600,10 @@
               Xóa
             </button>
           </td>
-          <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai === 5 && fillMoney.tongTien <= soTienKhachTra">
+          <td style="padding-top: 70px">
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oki"
               ng-click="selectProductTraHang(item.idHoaDonChiTiet)"
-              ng-show="hoaDonChiTiet.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien">
+              ng-show="hoaDonChiTiet.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien && item.trangThai != 7">
               <img src="/assets/images/exchange.png" alt="" srcset="" width="35px" />
             </button>
             <span ng-show="item.trangThai === 7" style="
@@ -925,10 +925,6 @@
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
         Tiền giảm giá:{{fillMoney.tienGiamGia |number}}₫
-      </h6>
-      <h6 style="font-size: 14px; font-weight: 600"
-        ng-show="hoaDonChiTiet.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien">
-        Trả hàng: {{tongTienHoanTra | number}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
         Tổng tiền: {{fillMoney.tongTien | number}}₫

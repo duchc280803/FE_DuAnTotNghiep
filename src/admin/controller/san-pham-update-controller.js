@@ -1,6 +1,6 @@
 myApp.controller(
   "sanPhamUpdateController",
-  function ($scope, $http, $routeParams) {
+  function ($scope, $http, $routeParams, $window) {
     var id = $routeParams.id;
 
     $scope.product = {};
@@ -121,6 +121,55 @@ myApp.controller(
           console.error("Error:", error);
           // Đoạn mã xử lý khi gặp lỗi trong quá trình gửi yêu cầu
         });
+    };
+
+    // Cleaned up code
+    $scope.deleteImage = function (id) {
+      Swal.fire({
+        title: "Xác nhận xóa?",
+        text: "Bạn có chắc chắn muốn xóa ảnh này ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $http
+            .delete("http://localhost:8080/api/v1/images/remove?id=" + id)
+            .then(function () {
+              var index = $scope.image.findIndex((img) => img.id === id);
+              if (index !== -1) {
+                $scope.image.splice(index, 1);
+              }
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Xóa thành công",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            });
+        }
+      });
+    };
+
+    $scope.updateQuantity = function (id, soLuong) {
+      var apiURL =
+        "http://localhost:8080/api/v1/san-pham-chi-tiet/update-quantity?id=" +
+        id +
+        "&soLuong=" +
+        soLuong;
+      $http({
+        url: apiURL,
+        method: "PUT",
+        transformResponse: [
+          function () {
+            $scope.getProductDetail();
+          },
+        ],
+      });
     };
   }
 );

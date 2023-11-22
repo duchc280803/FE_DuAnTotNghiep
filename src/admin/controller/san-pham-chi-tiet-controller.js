@@ -3,6 +3,8 @@ myApp.controller(
   function ($http, $scope, $routeParams) {
     var id = $routeParams.id;
 
+    $scope.idUpdate = id;
+
     $scope.listSanPhamChiTiet = [];
     $scope.getlistSanPhamChiTiet = function () {
       $http
