@@ -117,9 +117,9 @@
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Hủy</span>
       </button>
-      <button
-        ng-show="hoaDonChiTiet.trangThai != 5 "
-        type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      <button ng-hide="hoaDonChiTiet.trangThai == 4 && fillMoney.tongTien > soTienKhachTra" 
+        ng-show="hoaDonChiTiet.trangThai != 5 && (hoaDonChiTiet.tenNguoiShip != null || hoaDonChiTiet.tenLoaiDon != 'ONLINE')" type="submit"
+        class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Xác nhận</span>
       </button>
@@ -926,7 +926,8 @@
       <h6 style="font-size: 14px; font-weight: 600">
         Tiền giảm giá:{{fillMoney.tienGiamGia |number}}₫
       </h6>
-      <h6 style="font-size: 14px; font-weight: 600" ng-show="hoaDonChiTiet.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien">
+      <h6 style="font-size: 14px; font-weight: 600"
+        ng-show="hoaDonChiTiet.trangThai === 5 && soTienKhachTra >= fillMoney.tongTien">
         Trả hàng: {{tongTienHoanTra | number}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
