@@ -1,6 +1,6 @@
 myApp.service("CartService", function ($http) {
   this.idCartChiTiet = {};
-  this.idKhachHangByIdHoaDon = {};
+  this.cartDetail = [];
 
   this.setIdCart = function (id) {
     return $http
@@ -17,18 +17,18 @@ myApp.service("CartService", function ($http) {
     return this.idCartChiTiet.id;
   };
 
-  this.setIdKhach = function (id) {
+  this.setIdCartDetail = function (id) {
     return $http
-      .get("http://localhost:8080/api/v1/don-hang/order-counter/" + id)
-      .then(
-        function (response) {
-          this.idKhachHangByIdHoaDon = response.data;
-          return this.idKhachHangByIdHoaDon.idKhach;
-        }.bind(this)
-      );
+      .get("http://localhost:8080/api/gio-hang-chi-tiet/fill-id?id=" + id)
+      .then((response) => {
+        this.cartDetail = response.data;
+        this.idList = this.cartDetail.map((item) => {
+          return item.id;
+        });
+      });
   };
 
-  this.getIdKhach = function () {
-    return this.idKhachHangByIdHoaDon.idKhach;
+  this.getIdCartDetail = function () {
+    return this.idList;
   };
 });

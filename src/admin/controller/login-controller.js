@@ -32,6 +32,7 @@ myApp.controller("loginController", function ($scope, $http, $window, $location)
         $location.path("/dashboard")
         // Cập nhật biến loggedInUsername khi đăng nhập thành công
         $scope.loggedInUsername = response.data.username;
+        $window.location.reload();
       })
       .catch(function (error) {
         $scope.errorUsername = error.data.username;

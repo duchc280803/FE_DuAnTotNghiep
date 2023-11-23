@@ -162,10 +162,10 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listCart = response.data;
-          $window.localStorage.setItem(
-            "listCart",
-            $scope.listCart.map((item) => item.idGioHang)
-          );
+          // $window.localStorage.setItem(
+          //   "listCart",
+          //   $scope.listCart.map((item) => item.idGioHang)
+          // );
           $scope.tongSoLuongSanPham = 0;
           $scope.tongTienHang = 0;
 
@@ -187,11 +187,10 @@ myApp.controller(
       $scope.listSanPhamInCart();
     }
 
-    var idGioHangChiTiet = $window.localStorage.getItem("listCart");
-    var gioHangChiTietList = idGioHangChiTiet
-      ? idGioHangChiTiet.split(",")
-      : [];
-    console.log(gioHangChiTietList);
+    // var idGioHangChiTiet = $window.localStorage.getItem("listCart");
+    // var gioHangChiTietList = idGioHangChiTiet
+    //   ? idGioHangChiTiet.split(",")
+    //   : [];
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
@@ -213,6 +212,14 @@ myApp.controller(
     };
 
     CartService.setIdCart(id).then(function () {});
+
+    CartService.setIdCart(id).then(function () {
+      var idCart = CartService.getIdCart();
+      if (idCart != null) {
+        CartService.setIdCartDetail(idCart).then(function () {
+        })
+      }
+    });
 
     setTimeout(() => {
       $scope.themSanPhamCart = function (idCtSp, soLuongSanPham) {
@@ -425,13 +432,7 @@ myApp.controller(
         .post("http://localhost:8080/api/v1/payment/pay?amount=" + amount)
         .then(function (response) {
           $scope.addVnPay = response.data;
-          $window.location.href = response.data.value;
         });
-    };
-
-    $scope.ok = function (amount) {
-      $scope.createTransactionVnpay(amount);
-      $scope.Vnpay(amount);
     };
 
     $scope.removeItem = function () {
@@ -449,6 +450,7 @@ myApp.controller(
         soDienThoai,
         diaChi
       ) {
+        var idDetail = CartService.getIdCartDetail();
         var requestData = {
           tongTien: tongTienHang,
           tienKhachTra: tienKhachTra,
@@ -456,7 +458,7 @@ myApp.controller(
           hoTen: hoTen,
           soDienThoai: soDienThoai,
           diaChi: diaChi,
-          gioHangChiTietList: gioHangChiTietList,
+          gioHangChiTietList: idDetail,
         };
         var api =
           "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
@@ -499,6 +501,7 @@ myApp.controller(
         tienKhachTra,
         tienThua
       ) {
+        var idDetail = CartService.getIdCartDetail();
         var requestData = {
           tongTien: tongTienHang,
           tienKhachTra: tienKhachTra,
@@ -509,7 +512,7 @@ myApp.controller(
           soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
           soDienThoai: $scope.soDienThoai,
           diaChi: $scope.diaChi,
-          gioHangChiTietList: gioHangChiTietList,
+          gioHangChiTietList: idDetail,
         };
         var api =
           "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +

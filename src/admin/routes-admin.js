@@ -3,7 +3,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
 
   $routeProvider
     .when("/dashboard", {
-      templateUrl: "./pages/dashboard.html",
+      templateUrl: "./pages/thong-ke.html",
     })
     .when("/admin/login", {
       templateUrl: "./pages/authentication-login.html",
@@ -101,8 +101,9 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/danh-muc.html",
       controller: "danhMucController",
     })
-    .when("/dashboard", {
-      templateUrl: "./pages/thong-ke.html",
+    .when("/vnpay", {
+      templateUrl: "./pages/QRCODE.html",
+      controller: "YourController",
     })
     .otherwise({
       redirectTo: "/dashboard",
