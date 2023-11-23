@@ -4,7 +4,6 @@
     border: 2px solid #1e98e9;; /* Điều chỉnh màu và độ rộng của đường viền tại đây */
     border-radius: 50%; /* Tạo hình dạng hình tròn */
     overflow: hidden; /* Đảm bảo rằng hình ảnh không bị tràn ra khỏi đường viền hình tròn */
-    margin-top: 100px;
   }
   
   .image-container img {

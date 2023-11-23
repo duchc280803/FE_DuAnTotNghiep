@@ -482,7 +482,7 @@ myApp.controller(
               .post(api, requestData)
               .then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
-                $window.localStorage.removeItem("listCart");
+                $scope.removeItem();
               })
               .then(function (error) {
                 Swal.fire({
@@ -946,7 +946,6 @@ myApp.controller(
           $scope.voucherName = response.data.voucherName;
         });
     };
-
     $scope.getVoucherName();
   }
 );
