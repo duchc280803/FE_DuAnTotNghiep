@@ -95,39 +95,9 @@
               </select>
             </div>
             <div class="col-md-3" style="padding: 20px">
-              Chất liệu:
-              <select style="color: green" class="custom-select" ng-model="ChatLieu" ng-change="searchProductChatLieu()"
-                ng-options="tt.id as tt.tenChatLieu for tt in listChatLieu">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-            <div class="col-md-3" style="padding: 20px">
-              Màu Sắc
-              <select style="color: green" class="custom-select" ng-model="MauSac" ng-change="searchProductMauSac()"
-                ng-options="tt.id as tt.tenMauSac for tt in listMauSac">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-            <div class="col-md-3" style="padding: 20px">
               Kiểu Đế:
               <select style="color: green" class="custom-select" ng-model="KieuDe" ng-change="searchProductKieuDe()"
                 ng-options="tt.id as tt.tenDe for tt in listKieuDe">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-            <div class="col-md-3" style="padding: 20px">
-              Giới Tính:
-              <select style="color: green" class="custom-select" ng-model="selectedGioiTinh">
-                <option value="">Tất cả</option>
-                <option ng-repeat="tt in listThuongHieu">
-                  {{ tt.tenThuongHieu }}
-                </option>
-              </select>
-            </div>
-            <div class="col-md-3" style="padding: 20px">
-              Size:
-              <select style="color: green" class="custom-select" ng-model="Size" ng-change="searchProductList()"
-                ng-options="tt.id as tt.size for tt in listSize">
                 <option value="">Tất cả</option>
               </select>
             </div>
@@ -152,10 +122,8 @@
               </th>
               <th scope="col">Ảnh sản phẩm</th>
               <th scope="col">Tên sản phẩm</th>
-              <th scope="col">Size</th>
               <th scope="col">Kiểu để</th>
               <th scope="col">Color</th>
-              <th scope="col">Chất liệu</th>
               <th scope="col">Giá Sản Phẩm</th>
               <th scope="col">Số lượng Giảm giá</th>
               <th scope="col">Giá Bán Sau Khi Giảm</th>
@@ -167,17 +135,17 @@
               ng-style="{'color': gg.giaGiam <= 500000 ? '#f70a0a' : 'inherit', 'font-weight': gg.giaGiam <= 500000 ? 'bold' : 'normal'}">
               <td style="padding-top: 75px">
                 <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
-                  ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />
+                  ng-change="chonSanPham(gg.id)"
+                  ng-checked="selectAllProducts || isIdEqual(giamgiachitiet.idSanPham, gg.id)" />
+
                 {{$index + 1}}
               </td>
               <td>
                 <img src="{{gg.image}}" alt="" width="150px" />
               </td>
-              <td>{{gg.productName}}</td>
-              <td>{{gg.sizeName}}</td>
+              <td>{{gg.productName}} </td>
               <td>{{gg.kieuDeName}}</td>
               <td>{{gg.mauSacName}}</td>
-              <td>{{gg.chatLieuName}}</td>
               <td>{{gg.giaBan}}</td>
               <td>{{gg.soLanGiam}}</td>
               <td>{{gg.giaGiam}}</td>

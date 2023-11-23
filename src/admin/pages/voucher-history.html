@@ -88,16 +88,23 @@
     <div class="table-container">
         <form id="search-form">
             <div class="form-group">
-                <label for="start-date">Từ ngày:</label>
-                <input type="date" id="start-date" ng-model="startDate">
+                <label>Tìm theo ngày cụ thể :</label>
+                <input type="datetime-local" ng-model="searchDate" ng-change="searchVouchersByDay()">
+
             </div>
+            <div class="form-group">
+                <label for="start-date">Từ ngày: </label>
+                <input type="datetime-local" id="start-date" ng-model="startDate">
+            </div>
+            <label for="end-date" style="position: absolute;left: 980px;top: 215px;">To</label>
             <div class="form-group">
                 <label for="end-date">Đến ngày:</label>
-                <input type="date" id="end-date" ng-model="endDate">
+                <input type="datetime-local" id="end-date" ng-model="endDate">
             </div>
+
             <div class="form-group">
-                <button type="button" style="position: relative; left: 50px; top: 10px;"
-                    ng-click="searchDateHistory()">Tìm kiếm</button>
+                <button type="button" style="position: relative; left: 50px; top: 10px;" ng-click="searchVouchers()">Tìm
+                    kiếm</button>
             </div>
         </form>
 
@@ -141,6 +148,7 @@
             pageLength: 5 // Số hàng trên mỗi trang mặc định
         });
     });
+
 </script>
 
 </html>
