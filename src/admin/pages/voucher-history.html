@@ -116,8 +116,7 @@
             </thead>
             <tbody ng-repeat="gg in listVoucherHistory">
                 <tr>
-
-                    <td> {{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
+                    <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
                     <td>{{gg.action}}</td>
                     <td><img src="{{gg.password}}" alt="Xóa dữ liệu"></td>
                     <td>{{gg.username}}</td>
@@ -126,6 +125,7 @@
                     <td>{{gg.ten}}</td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 

@@ -39,7 +39,7 @@ myApp.controller(
             // Handle success (e.g., show a success message)
             console.log(response.data);
             // Redirect to the promotion list or perform any other action
-            $location.path("/khuyen-mai/list");
+            $location.path("/promotion");
           },
           function (error) {
             // Handle error (e.g., show an error message)
@@ -519,7 +519,7 @@ myApp.controller(
           if (
             confirm("Thêm khuyến mãi thành công.Bạn có muốn chuyển hướng trang")
           ) {
-            $location.path("/khuyen-mai");
+            $location.path("/promotion");
           }
         })
         .catch(function (error) {

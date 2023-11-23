@@ -8,14 +8,28 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
       });
   }
   $scope.listVoucherHistory = [];
+  $scope.previousDate = null;
+
   function fetchVoucherHistortyList() {
     $http
       .get("http://localhost:8080/api/v1/audilog/voucher")
       .then(function (response) {
         $scope.listVoucherHistory = response.data;
+
+        // Lọc và chỉ giữ lại các bản ghi có ngày khác với ngày trước đó
+        $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+          gg
+        ) {
+          var isDifferentDate =
+            !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+          $scope.previousDate = gg.timestamp;
+          return isDifferentDate;
+        });
       });
   }
+
   fetchVoucherHistortyList();
+
   $scope.onTuDongTaoMaChange = function () {
     if ($scope.tuDongTaoMa) {
       // If the checkbox is checked, automatically generate the discount code
