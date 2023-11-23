@@ -216,8 +216,7 @@ myApp.controller(
     CartService.setIdCart(id).then(function () {
       var idCart = CartService.getIdCart();
       if (idCart != null) {
-        CartService.setIdCartDetail(idCart).then(function () {
-        })
+        CartService.setIdCartDetail(idCart).then(function () {});
       }
     });
 
@@ -359,6 +358,7 @@ myApp.controller(
             )
             .then(function () {
               $scope.listCart.splice(index, 1);
+              $scope.listSanPhamInCart();
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -429,7 +429,12 @@ myApp.controller(
     $scope.addVnPay = {};
     $scope.Vnpay = function (amount) {
       $http
-        .post("http://localhost:8080/api/v1/payment/pay?amount=" + amount)
+        .post(
+          "http://localhost:8080/api/v1/payment/pay?amount=" +
+            amount +
+            "&idHoaDon=" +
+            id
+        )
         .then(function (response) {
           $scope.addVnPay = response.data;
         });
@@ -933,5 +938,15 @@ myApp.controller(
           $scope.wards = response.data.wards;
         });
     };
+    $scope.voucherName = "";
+    $scope.getVoucherName = function () {
+      $http
+        .get("http://localhost:8080/api/v1/voucher-counter/name?id=" + id)
+        .then(function (response) {
+          $scope.voucherName = response.data.voucherName;
+        });
+    };
+
+    $scope.getVoucherName();
   }
 );

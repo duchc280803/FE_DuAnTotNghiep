@@ -101,8 +101,8 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/danh-muc.html",
       controller: "danhMucController",
     })
-    .when("/vnpay", {
-      templateUrl: "./pages/QRCODE.html",
+    .when("/transaction-done", {
+      templateUrl: "./pages/vnpay-done.html",
       controller: "YourController",
     })
     .otherwise({

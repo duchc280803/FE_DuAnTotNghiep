@@ -860,7 +860,7 @@
                       <div class="omni-layout-card--item-stack fill">
                         <div class="row">
                           <div class="col-lg-7">
-                            <input disabled type="text" class="form-control" />
+                            <input disabled type="text" class="form-control" ng-model="voucherName"/>
                           </div>
                           <div class="col-lg-5">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#voucher">
@@ -896,7 +896,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr ng-repeat="v in listVoucher" ng-if="v.priceOrder >= tongTienHang">
+                                <tr ng-repeat="v in listVoucher" ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao">
                                   <td>{{$index + 1}}</td>
                                   <td>{{v.voucherCode}}</td>
                                   <td>{{v.nameVoucher}}</td>
