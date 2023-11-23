@@ -41,6 +41,13 @@ myApp.controller(
 
         var api = "http://localhost:8080/api/v1/don-hang/create";
 
+        if ($scope.listHoaDonTaiQuay.length >= 5) {
+          alert(
+            "You cannot add more invoices as the limit of 5 has been reached."
+          );
+          return;
+        }
+
         Swal.fire({
           title: "Bạn có muốn tạo hóa đơn?",
           text: "",
@@ -74,47 +81,12 @@ myApp.controller(
             $scope.pageSize
         )
         .then(function (response) {
-          $scope.listHoaDonTaiQuay = response.data;
+          if ($scope.listHoaDonTaiQuay.length < 5) {
+            $scope.listHoaDonTaiQuay = response.data;
+          }
         });
     };
     $scope.getListHoaDonTaiQuay();
-
-    // hiển thị số trang
-    $scope.getPageNumbers = function () {
-      var totalPages = Math.ceil(
-        $scope.listHoaDonTaiQuay.length / $scope.pageSize
-      );
-      var pageNumbers = [];
-      for (var i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-      return pageNumbers;
-    };
-
-    // TODO: updatePage
-    $scope.updatePage = function (pageNumber) {
-      $scope.pageNumber = pageNumber;
-      $scope.getListHoaDonTaiQuay();
-    };
-
-    // TODO: Quay lại trang
-    $scope.previousPage = function () {
-      if ($scope.pageNumber > 0) {
-        $scope.pageNumber--;
-        $scope.getListHoaDonTaiQuay();
-      }
-    };
-
-    // TODO: tiến đến trang khác
-    $scope.nextPage = function () {
-      if (
-        ($scope.pageNumber + 1) * $scope.pageSize <
-        $scope.listHoaDonTaiQuay.length
-      ) {
-        $scope.pageNumber++;
-        $scope.getListHoaDonTaiQuay();
-      }
-    };
 
     // tìm kiếm hóa đơn
     $scope.searchOrder = function (ma) {
