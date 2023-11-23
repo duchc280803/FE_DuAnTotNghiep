@@ -542,26 +542,48 @@
               <p>Họ Và Tên<span>*</span></p>
               <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
             </div>
-            <!-- <div class="checkout__input">
+
+            <div class="checkout__input">
               <p>Địa Chỉ<span>*</span></p>
               <div class="row">
-                <div class="col-md-4">
-                  <select id="city" class="form-control" style="font-size: 14px; padding: 6px" ng-model="thanhPho">
-                    <option value="">Chọn tỉnh thành</option>
+                <div class="col-lg-4" style="margin-left: 0px;">
+                  <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                  <select class="form-control select2" ng-model="selectedProvince"
+                    ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                    <option value="">Chọn tỉnh</option>
+                    <option ng-repeat="province in provinces" ng-model="thanhPho"
+                      value="{{province.name}}">
+                      {{province.name}}
+                    </option>
                   </select>
                 </div>
-                <div class="col-md-4">
-                  <select id="district" class="form-control" style="font-size: 14px; padding: 6px" ng-model="quanHuyen">
-                    <option value="">Chọn quận huyện</option>
+                <div class="col-lg-4">
+                  <span class="header-title"><span style="color: red">*</span>
+                    <span>Huyện</span></span>
+                  <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                    ng-options="district.name for district in districts" ng-change="getWards()">
+                    <option value="">Chọn huyện</option>
+                    <option ng-repeat="district in districts" ng-model="quanHuyen"
+                      value="{{district.name}}">
+                      {{district.name}}
+                    </option>
                   </select>
                 </div>
-                <div class="col-md-4">
-                  <select id="ward" class="form-control" style="font-size: 14px; padding: 6px" ng-model="phuongXa">
-                    <option value="">Chọn phường xã</option>
+                <div class="col-lg-4">
+                  <span class="header-title"><span style="color: red">*</span>
+                    <span>Phường</span></span>
+                  <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                    ng-options="ward.name for ward in wards">
+                    <option value="">Chọn phường</option>
+                    <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
+                      {{ward.name}}
+                    </option>
                   </select>
                 </div>
               </div>
-            </div> -->
+            </div>
+
+            
             <div class="checkout__input">
               <p>Địa Chỉ Giao Hàng<span>*</span></p>
               <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />

@@ -29,6 +29,67 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
   }
 
   fetchVoucherHistortyList();
+  $scope.searchVouchers = function () {
+    // Make sure both startDate and endDate are provided
+    if (!$scope.startDate || !$scope.endDate) {
+      // Handle error or provide user feedback
+      return;
+    }
+
+    // Convert dates to YYYY-MM-DD format
+    var formattedStartDate = new Date($scope.startDate)
+      .toISOString()
+      .split("T")[0];
+    var formattedEndDate = new Date($scope.endDate).toISOString().split("T")[0];
+
+    var searchUrl =
+      "http://localhost:8080/api/v1/audilog/vouchersearch?startDate=" +
+      encodeURIComponent(formattedStartDate) +
+      "&endDate=" +
+      encodeURIComponent(formattedEndDate);
+
+    $http.get(searchUrl).then(function (response) {
+      // Update the listVoucherHistory with the search results
+      $scope.listVoucherHistory = response.data;
+
+      // If you want to filter and keep only records with different dates, you can add this block
+      $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+        gg
+      ) {
+        var isDifferentDate =
+          !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+        $scope.previousDate = gg.timestamp;
+        return isDifferentDate;
+      });
+    });
+  };
+  $scope.searchVouchersByDay = function () {
+    // Convert start date to YYYY-MM-DD format
+    var formattedStartDate = new Date($scope.searchDate)
+      .toISOString()
+      .split("T")[0];
+
+    // Construct the API URL with the correct parameter names
+    var searchUrl =
+      "http://localhost:8080/api/v1/audilog/auditlogbydate?searchDate=" +
+      encodeURIComponent(formattedStartDate);
+
+    console.log("Search URL:", searchUrl); // Log the URL
+
+    $http.get(searchUrl).then(function (response) {
+      console.log("Response data:", response.data); // Log the response data
+
+      $scope.listVoucherHistory = response.data;
+      $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+        gg
+      ) {
+        var isDifferentDate =
+          !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+        $scope.previousDate = gg.timestamp;
+        return isDifferentDate;
+      });
+    });
+  };
 
   $scope.onTuDongTaoMaChange = function () {
     if ($scope.tuDongTaoMa) {

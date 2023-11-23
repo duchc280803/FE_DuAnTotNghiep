@@ -36,13 +36,13 @@ myApp.controller(
         .put("http://localhost:8080/api/v1/voucher/update/" + id, dataToSend)
         .then(function (response) {
           console.log(response.data);
-          // if (
-          //   confirm(
-          //     "Cập nhật khuyến mãi thành công. Bạn có muốn chuyển hướng trang"
-          //   )
-          // ) {
-          $location.path("/voucher");
-          // }
+          if (
+            confirm(
+              "Cập nhật khuyến mãi thành công. Bạn có muốn chuyển hướng trang"
+            )
+          ) {
+            $location.path("/voucher");
+          }
         })
         .catch(function (error) {
           console.error("Error updating GiamGia:", error);

@@ -240,6 +240,46 @@ myAppCustom.controller("CartController", function ($scope, $http, $window, $loca
       }
     );
   }
+  
+ // API ĐỊA CHỈ
+ $scope.provinces = [];
+ $scope.districts = [];
+ $scope.wards = [];
+
+ $scope.getTinh = function () {
+   $http
+     .get("https://provinces.open-api.vn/api/?depth=1")
+     .then(function (response) {
+       $scope.provinces = response.data;
+     });
+ };
+
+ $scope.getTinh();
+
+ $scope.getDistricts = function () {
+   $http
+     .get(
+       "https://provinces.open-api.vn/api/p/" +
+         $scope.selectedProvince.code +
+         "?depth=2"
+     )
+     .then(function (response) {
+       $scope.districts = response.data.districts;
+     });
+ };
+
+ $scope.getWards = function () {
+   $http
+     .get(
+       "https://provinces.open-api.vn/api/d/" +
+         $scope.selectedDistrict.code +
+         "?depth=2"
+     )
+     .then(function (response) {
+       $scope.wards = response.data.wards;
+     });
+ };
+
   //THANH TOAN LOGIC
   $scope.thanhToan = function () {
     // Display a confirmation dialog
@@ -252,9 +292,9 @@ myAppCustom.controller("CartController", function ($scope, $http, $window, $loca
         soDienThoai: $scope.soDienThoai,
         email: $scope.email,
         diaChi: $scope.diaChi,
-        thanhPho: $scope.thanhPho,
-        quanHuyen: $scope.quanHuyen,
-        phuongXa: $scope.phuongXa,
+        thanhPho: $scope.selectedProvince.name,
+        quanHuyen: $scope.selectedDistrict.name,
+        phuongXa: $scope.selectedWard.name,
         tongTien: totalAmount,
         tienKhachTra: $scope.tienKhachTra,
         gioHangChiTietList: gioHangChiTietList,
