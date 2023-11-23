@@ -87,9 +87,12 @@ myAppCustom.controller(
       var key2 = $scope.maxPrice || 5000000;
 
       $http
-        .get("http://localhost:8080/api/public/searchMoneybykey", {
-          params: { key1: key1, key2: key2 },
-        })
+        .get(
+          "http://localhost:8080/api/v1/san-pham-giam-gia/searchMoneybykey",
+          {
+            params: { key1: key1, key2: key2 },
+          }
+        )
         .then(function (response) {
           $scope.listSanPhamShop = response.data;
         });
