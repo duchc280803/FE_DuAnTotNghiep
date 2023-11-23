@@ -7,6 +7,9 @@ myApp.controller('YourController', ['$scope', '$location', function($scope, $loc
 
     $scope.vnp_OrderInfo = $scope.queryParams.vnp_OrderInfo;
 
-    console.log($scope.vnp_OrderInfo);
+    $scope.vnp_OrderType = $scope.queryParams.vnp_OrderType;
 
+    console.log($scope.amountParamValue);
+    console.log($scope.vnp_OrderInfo);
+    console.log($scope.vnp_OrderType);
 }]);
