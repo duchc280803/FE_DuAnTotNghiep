@@ -74,10 +74,10 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
       "http://localhost:8080/api/v1/audilog/auditlogbydate?searchDate=" +
       encodeURIComponent(formattedStartDate);
 
-    console.log("Search URL:", searchUrl); // Log the URL
+    // console.log("Search URL:", searchUrl); // Log the URL
 
     $http.get(searchUrl).then(function (response) {
-      console.log("Response data:", response.data); // Log the response data
+      // console.log("Response data:", response.data); // Log the response data
 
       $scope.listVoucherHistory = response.data;
       $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
