@@ -107,22 +107,6 @@
           </table>
         </div>
       </div>
-      <div class="col-lg-12">
-        <nav aria-label="Page navigation example" style="margin-left: 400px">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link">{{ pageNumber + 1 }}</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" ng-href="" ng-click="nextPage()"
-                ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
   </div>
 </div>
@@ -767,7 +751,7 @@
                                       </div>
                                       <div class="col-lg-4">
                                         <button class="btn btn-primary" style="margin-left: 50px"
-                                          ng-click="ok(tongTienHang - totalAmountPaid)">
+                                          ng-click="Vnpay(tongTienHang - totalAmountPaid)">
                                           Chuyển khoản
                                         </button>
                                       </div>
@@ -822,12 +806,10 @@
                                         </div>
                                         <div class="omni-layout-card--item-stack fill text-right">
                                           <span class="header-title">
-                                            {{ (tongTienHang -
-                                            orderDetailCounter.tienGiamGia +
-                                            tienGiao - totalAmountPaid) >= 0 ?
-                                            (tongTienHang -
-                                            orderDetailCounter.tienGiamGia +
-                                            tienGiao - totalAmountPaid) : '0' |
+                                            {{ (tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao :
+                                            0) - totalAmountPaid) >= 0 ?
+                                            (tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)
+                                            - totalAmountPaid) : '0' |
                                             number }}₫
                                           </span>
                                         </div>
@@ -860,7 +842,7 @@
                       <div class="omni-layout-card--item-stack fill">
                         <div class="row">
                           <div class="col-lg-7">
-                            <input disabled type="text" class="form-control" ng-model="voucherName"/>
+                            <input disabled type="text" class="form-control" ng-model="voucherName" />
                           </div>
                           <div class="col-lg-5">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#voucher">
@@ -896,7 +878,8 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr ng-repeat="v in listVoucher" ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao">
+                                <tr ng-repeat="v in listVoucher"
+                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao">
                                   <td>{{$index + 1}}</td>
                                   <td>{{v.voucherCode}}</td>
                                   <td>{{v.nameVoucher}}</td>
@@ -989,12 +972,11 @@
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
                         <span class="header-title">
-                          {{ (totalAmountPaid - (tongTienHang -
-                          orderDetailCounter.tienGiamGia) + tienGiao) | number
-                          }}₫
-                        </span>
-                        <input hidden ng-model="requestData.tienThua" type="text"
-                          ng-value="totalAmountPaid - tongTienHang" />
+                          {{ ((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)) < 0 ? '0' :
+                            (tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)) | number) }}₫
+                            </span>
+                            <input hidden ng-model="requestData.tienThua" type="text"
+                              ng-value="totalAmountPaid - tongTienHang" />
                       </div>
                     </div>
                   </div>
@@ -1004,8 +986,8 @@
                         <span class="header-title">Tổng tiền</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia) +
-                          tienGiao| number}}₫</span>
+                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ?
+                          +tienGiao : 0)) | number}}₫</span>
                         <input hidden ng-model="requestData.tongTien" type="text" ng-value="tongTienHang" />
                       </div>
                     </div>
@@ -1015,12 +997,12 @@
             </div>
             <button class="btn btn-primary" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
               ng-show="showInput"
-              ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao, totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
+              ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
               Xác Nhận Thanh Toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
               style="margin-left: 900px; margin-top: -125px; font-weight: bold"
-              ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao, totalAmountPaid, totalAmountPaid - tongTienHang)">
+              ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang)">
               Xác Nhận Đặt Hàng
             </button>
           </div>
