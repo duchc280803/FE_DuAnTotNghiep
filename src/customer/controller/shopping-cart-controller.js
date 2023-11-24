@@ -1,7 +1,7 @@
 var idgh = localStorage.getItem("idgiohang");
 myAppCustom.controller(
   "CartController",
-  function ($scope, $http, $window, $location,$route,$routeParams) {
+  function ($scope, $http, $window, $location, $route, $routeParams) {
     function loadToTals() {
       // Gọi API và cập nhật giá trị totalAmount
       $http
@@ -23,13 +23,13 @@ myAppCustom.controller(
         .catch(function (error) {
           console.error("Lỗi khi gọi API: " + error);
         });
-        
+
     } //close loadToTal()
 
     loadToTals();
     // Hàm thay đổi số lượng sản phẩm
     $scope.changeQuantity = function (product, change) {
-      if (change === "increase") {        
+      if (change === "increase") {
         product.soluong++;
         Swal.fire({
           title: "Success",
@@ -55,7 +55,7 @@ myAppCustom.controller(
       // Gọi API để cập nhật số lượng
       console.log(product.id);
       console.log(product.soluong);
-      updateQuantity(product.id, product.soluong);     
+      updateQuantity(product.id, product.soluong);
     };
 
     // Hàm gọi API cập nhật số lượng
@@ -78,7 +78,7 @@ myAppCustom.controller(
           },
         ],
       });
-      
+
     }
 
     //delete product
@@ -124,7 +124,7 @@ myAppCustom.controller(
       }).then((result) => {
         if (result.isConfirmed) {
           if (idgh) {
-          
+
             var apiURL =
               "http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=" +
               idgh;
@@ -142,7 +142,7 @@ myAppCustom.controller(
                     toast: true, // Hiển thị thông báo nhỏ
                     showConfirmButton: false, // Ẩn nút xác nhận
                     timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-                  });               
+                  });
                   localStorage.removeItem("idgiohang");
                   localStorage.removeItem("idVoucher");
                   localStorage.removeItem("giatrigiam");
@@ -154,12 +154,12 @@ myAppCustom.controller(
                   loadToTals();
                   loadNameAndPrice();
                   loadQuanTiTy();
-                
-         
+
+
                 },
               ],
             });
-          } 
+          }
           else {
             console.log("Không có giỏ hàng để xóa.");
           }
@@ -326,7 +326,14 @@ myAppCustom.controller(
     };
 
     var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
+    // Kiểm tra xem có voucher được chọn không
+    if (idGiamGiaVoucher === null || idGiamGiaVoucher === undefined) {
+      // Nếu không có voucher, có thể đặt idGiamGiaVoucher thành null hoặc giá trị mặc định
+      idGiamGiaVoucher = "beca564d-5d14-4d0c-82cd-75b8db667ced"; // hoặc giá trị mặc định
+    }
     //THANH TOAN LOGIC
+
+    $scope.giamGiaVoucher = 0;
     // Lấy giá trị từ localStorage
     var hinhThucGiam = $window.localStorage.getItem('hinhthucgiam');
     var giatrigiam = parseFloat($window.localStorage.getItem('giatrigiam'));
@@ -336,7 +343,8 @@ myAppCustom.controller(
       // Giảm giá theo tỷ lệ %
       console.log('Giảm giá theo tỷ lệ %');
       $scope.giamGiaVoucher = (totalAmount * giatrigiam) / 100;
-    } else {
+    }
+    if (hinhThucGiam === "2") {
       // Giảm giá theo giá trị VNĐ
       console.log('Giảm giá theo giá trị VNĐ');
       $scope.giamGiaVoucher = giatrigiam;
@@ -344,12 +352,11 @@ myAppCustom.controller(
 
     if (!$scope.giamGiaVoucher) {
       $scope.tongCong = totalAmount;
-    } else {
+    }
+    if ($scope.giamGiaVoucher) {
       // Tính tổng cộng dựa trên giá trị giảm giá
       $scope.tongCong = totalAmount - $scope.giamGiaVoucher;
     }
-
-
 
     $scope.thanhToan = function () {
       // Display a confirmation dialog
@@ -479,7 +486,7 @@ myAppCustom.controller(
         showConfirmButton: false, // Ẩn nút xác nhận
         timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
       });
-    
+
     };
 
     // Gọi hàm để hiển thị thông tin trong ô input
