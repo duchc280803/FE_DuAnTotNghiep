@@ -492,7 +492,7 @@ myApp.controller(
           tenNguoiShip: $scope.tenNguoiShip,
           soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
           soDienThoai: $scope.soDienThoai,
-          diaChi: $scope.diaChi,
+          diaChi: $scope.diaChi + ', ' + $scope.selectedWard.name + ', ' + $scope.selectedDistrict.name + ', ' + $scope.selectedProvince.name,
           gioHangChiTietList: idDetail,
         };
         var api =
