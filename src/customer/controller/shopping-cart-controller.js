@@ -123,8 +123,8 @@ myAppCustom.controller(
         cancelButtonText: "Hủy",
       }).then((result) => {
         if (result.isConfirmed) {
-          // if (idgh) {
-          // } 
+          if (idgh) {
+          
             var apiURL =
               "http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=" +
               idgh;
@@ -159,10 +159,10 @@ myAppCustom.controller(
                 },
               ],
             });
-         
-          // else {
-          //   console.log("Không có giỏ hàng để xóa.");
-          // }
+          } 
+          else {
+            console.log("Không có giỏ hàng để xóa.");
+          }
         }
       });
     };
@@ -368,11 +368,11 @@ myAppCustom.controller(
           // tongTien: totalAmount,
           tienKhachTra: $scope.tienKhachTra,
           gioHangChiTietList: gioHangChiTietList,
-          idGiamGia: idGiamGiaVoucher,
-          tienGiamGia: $scope.tienGiamGia
+          idGiamGia: idGiamGiaVoucher
         };
 
         data.tongTien = $scope.tongCong;
+        data.tienGiamGia = $scope.giamGiaVoucher;
 
         if (token) {
           $http
