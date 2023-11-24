@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+
+<head>
+    <meta charset="UTF-8">
+
+
+    <meta charset="UTF-8" />
+    <title>NICE SHOE</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:200,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png"
+        href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/css/cart-hover.css" />
+
+</head>
+<style>
+    .account-form {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        top: 50px;
+        right: 0;
+        z-index: 999;
+    }
+
+    /* CSS */
+    /* CSS */
+    .horizontal-list {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        /* căn giữa theo chiều ngang */
+        align-items: center;
+        /* căn giữa theo chiều dọc */
+        margin-top: 10px;
+        /* thêm khoảng cách ở trên nếu cần */
+    }
+
+    .horizontal-list li {
+        margin-right: 10px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .horizontal-list li.active {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    /* Add more styling as needed */
+
+
+    /* Add more styling as needed */
+
+    .account-hover:hover .account-form {
+        display: block;
+    }
+
+    /* CSS để thay đổi màu nền khi click */
+    li.account-hover a:active {
+        background-color: #dcdcdc;
+        /* Màu xám nhạt */
+    }
+
+    /* CSS để xóa chọn văn bản khi click (nếu có) */
+    li.account-hover a:active,
+    li.account-hover a:focus {
+        outline: none;
+    }
+</style>
+
+<body>
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="/img/language.png" alt="" />
+                                <div>English</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img
+                                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                                style="width: 125px" alt="" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active">
+                                <a href="#/home">Home</a>
+                            </li>
+                            <li>
+                                <a href="#/shop">Shop</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li class="open-cart">
+                                <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
+                                    <span>{{quantity_all.tongSoLuong}}</span></a>
+                                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
+                                    <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
+                                        <div class="row" ng-repeat="product in products">
+                                            <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
+                                                <img width="300px" ng-src="{{product.tenimage}}"
+                                                    alt="{{product.tensanpham}}" />
+                                                <p style="font-size: 0.7em; margin: 0"></p>
+                                                <hr />
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
+                                                <span>{{product.giaban | number:0}}₫</span>
+                                                <p style="font-size: 0.7em; margin: 0">
+                                                    Số lượng :{{product.soluong}}
+                                                </p>
+                                                <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
+                                                <hr />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <span style="font-weight: bolder;margin-left: 30px;"
+                                                class="main-color-text">Total:</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span
+                                                style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
+                                        </div>
+                                    </div>
+                                    <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
+                                        OUT</a>
+                                </div>
+                            </li>
+                            <li class="account-hover" ng-controller="loginCutomController">
+                                <div class="header__top__right__auth">
+                                    <a href="#"><i class="fa fa-user">{{ loggedInUsername }}</i></a>
+                                    <div class="account-form">
+                                        <a href="#/dia-chi" class="d-flex align-items-center gap-2 dropdown-item"
+                                            ng-if="isLoggedIn">
+                                            <i class="fa fa-user fs-6"></i>
+                                            <p class="mb-0 fs-3">Tài khoản của tôi</p>
+                                        </a>
+                                        <a href="#/don-hang" class="d-flex align-items-center gap-2 dropdown-item"
+                                            ng-if="isLoggedIn">
+                                            <i class="ti ti-list-check fs-6"></i>
+                                            <p class="mb-0 fs-3">Đơn hàng</p>
+                                        </a>
+                                        <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item"
+                                            ng-if="!isLoggedIn">
+                                            <i class="ti ti-list-check fs-6"></i>
+                                            <p class="mb-0 fs-3">Đăng nhập</p>
+                                        </a>
+                                        <a ng-click="logout()" href="#"
+                                            class="d-flex align-items-center gap-2 dropdown-item" ng-if="isLoggedIn">
+                                            <i class="fa fa-sign-out fs-6"></i>
+                                            <p class="mb-0 fs-3">Đăng xuất</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- partial:index.partial.html -->
+    <section id="contact">
+
+        <h1 class="section-header">Liên hệ với chúng tôi</h1>
+
+        <div class="contact-wrapper">
+
+            <!-- Left contact page -->
+
+            <form id="contact-form" class="form-horizontal" role="form">
+
+                <div class="form-group">
+                    <div class="col-sm-13">
+                        <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn" name="name" value=""
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-13">
+                        <input type="text" class="form-control" id="name" placeholder="Nhập email của bạn" name="name" value=""
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-13">
+                        <input type="email" class="form-control" id="email" placeholder="Nhập số điện thoại của bạn" name="email" value=""
+                            required>
+                    </div>
+                </div>
+                <textarea class="form-control" rows="10" placeholder="Nội dung của bạn" name="message" required></textarea>
+
+                <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND">
+                    <div class="alt-send-button">
+                        <i class="fa fa-paper-plane"></i><span class="send-text">SEND</span>
+                    </div>
+
+                </button>
+
+            </form>
+
+            <!-- Left contact page -->
+
+            <div class="direct-contact-container">
+
+                <ul class="contact-list">
+                    <li class="list-item"><i class="fa fa-map-marker fa-2x"><span class="contact-text place">Hà Nội</span></i></li>
+
+                    <li class="list-item"><i class="fa fa-phone fa-2x"><span class="contact-text phone"><a
+                                    href="tel:1-212-555-5555" title="Give me a call">(212) 555-2368</a></span></i></li>
+
+                    <li class="list-item"><i class="fa fa-envelope fa-2x"><span class="contact-text gmail"><a
+                                    href="mailto:#" title="Send me an email">niceshoepoly@gmail.com</a></span></i></li>
+                </ul>
+
+                <hr>
+                <ul class="social-media-list">
+                    <li><a href="#" target="_blank" class="contact-icon">
+                            <i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href="#" target="_blank" class="contact-icon">
+                            <i class="fa fa-codepen" aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href="#" target="_blank" class="contact-icon">
+                            <i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </li>
+                    <li><a href="#" target="_blank" class="contact-icon">
+                            <i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+                <hr>
+
+
+            </div>
+
+        </div>
+
+    </section>
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="#"><img
+                                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt=""
+                                width="119px" /></a>
+                          </div>
+                        <ul>
+                            <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
+                            <li>Phone: 0362.885.875</li>
+                            <li>Email: niceshoepoly@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Dịch vụ khách hàng</h6>
+                        <ul>
+                            <li><a href="#">Chính sách vận chuyển và giao nhận</a></li>
+                            <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và bảo hành</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                            <li><a href="#">Chính sách xử lý khiếu nại</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Hỗ trợ</h6>
+                        <ul>
+                            <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
+                            <li><a href="#">Hình thức thanh toán</a></li>
+                            <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
