@@ -106,44 +106,30 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   };
 
   $scope.createKhachHang = function () {
-    var file = $scope.file;
-    $http({
-      method: "POST",
-      url: "http://localhost:8080/api/ql-khach-hang/create",
-      headers: { "Content-Type": undefined }, // Để cho phép gửi file multipart/form-data
-      transformRequest: function (data) {
-        var formData = new FormData();
-        formData.append("file", data.file);
-        formData.append(
-          "createQLKhachHangRequest",
-          new Blob([angular.toJson(data.createQLKhachHangRequest)], {
-            type: "application/json",
-          })
-        );
-        return formData;
-      },
-      data: {
-        file: file, // Đối tượng tải lên
-        createQLKhachHangRequest: {
-          ten: "Tên khách hàng",
-          email: "Email",
-          soDienThoai: "Số điện thoại",
-          gioiTinh: true,
-          userName: "Tên đăng nhập",
-          matKhau: "Mật khẩu",
-          ngaySinh: new Date(),
-          trangThai: 1,
-          maTaiKhoan: "Mã tài khoản",
-        },
-      },
-    }).then(
-      function (response) {
+    var input = document.getElementById("formFile");
+    var formData = new FormData();
+    formData.append("file", input.file);
+    formData.append("ten", $scope.createQLKhachHangRequest.ten);
+    formData.append("email", $scope.createQLKhachHangRequest.email);
+    formData.append("email", $scope.createQLKhachHangRequest.email);
+    formData.append("soDienThoai", $scope.createQLKhachHangRequest.soDienThoai);
+    formData.append("gioiTinh", $scope.createQLKhachHangRequest.gioiTinh);
+    formData.append("ngaySinh", $scope.createQLKhachHangRequest.ngaySinh);
+    formData.append("trangThai", $scope.createQLKhachHangRequest.trangThai);
+    $http
+      .post("http://localhost:8080/api/ql-khach-hang/create", formData, {
+        transformRequest: angular.identity,
+        headers: { "Content-Type": undefined },
+      })
+      .then(function (response) {
         $scope.listKhachHang.push(response.data);
-      },
-      function (error) {
-        // Xử lý lỗi
-      }
-    );
+        console.log("Thêm Thành Công:", response.data.message);
+        // Xử lý các hành động sau khi thêm thành công
+      })
+      .catch(function (error) {
+        console.error("Lỗi khi tạo khách hàng:", error);
+        // Xử lý lỗi nếu cần thiết
+      });
   };
 
   $scope.fetchKhachHangDetail = function (id) {
