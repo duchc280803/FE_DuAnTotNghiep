@@ -22,7 +22,7 @@ myApp.controller(
     }
 
     // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
-    $scope.hoaDonChiTiet = {}
+    $scope.hoaDonChiTiet = {};
     $scope.getHoaDonChiTiet = function () {
       const apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
@@ -49,29 +49,46 @@ myApp.controller(
         // Gán dữ liệu sản phẩm vào biến $scope.hoaDonChiTiet.sanPham
         $scope.listSanPhamInOrder = response.data;
         for (var i = 0; i < $scope.listSanPhamInOrder.length; i++) {
-          if ($scope.listSanPhamInOrder[i].donGiaSauGiam != $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai != 7) {
+          if (
+            $scope.listSanPhamInOrder[i].donGiaSauGiam !=
+              $scope.listSanPhamInOrder[i].giaBan &&
+            $scope.listSanPhamInOrder[i].trangThai != 7
+          ) {
             $scope.tongTienSauGiam +=
               $scope.listSanPhamInOrder[i].donGiaSauGiam *
               $scope.listSanPhamInOrder[i].soLuong;
           }
-          if ($scope.listSanPhamInOrder[i].donGiaSauGiam == $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai != 7) {
+          if (
+            $scope.listSanPhamInOrder[i].donGiaSauGiam ==
+              $scope.listSanPhamInOrder[i].giaBan &&
+            $scope.listSanPhamInOrder[i].trangThai != 7
+          ) {
             $scope.tongTienKhongGiam +=
               $scope.listSanPhamInOrder[i].giaBan *
               $scope.listSanPhamInOrder[i].soLuong;
           }
-          if ($scope.listSanPhamInOrder[i].donGiaSauGiam != $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai == 7) {
+          if (
+            $scope.listSanPhamInOrder[i].donGiaSauGiam !=
+              $scope.listSanPhamInOrder[i].giaBan &&
+            $scope.listSanPhamInOrder[i].trangThai == 7
+          ) {
             $scope.tongTienSauGiamHoanTra +=
               $scope.listSanPhamInOrder[i].donGiaSauGiam *
               $scope.listSanPhamInOrder[i].soLuong;
           }
-          if ($scope.listSanPhamInOrder[i].donGiaSauGiam == $scope.listSanPhamInOrder[i].giaBan && $scope.listSanPhamInOrder[i].trangThai == 7) {
+          if (
+            $scope.listSanPhamInOrder[i].donGiaSauGiam ==
+              $scope.listSanPhamInOrder[i].giaBan &&
+            $scope.listSanPhamInOrder[i].trangThai == 7
+          ) {
             $scope.tongTienKhongGiamHoanTra +=
               $scope.listSanPhamInOrder[i].giaBan *
               $scope.listSanPhamInOrder[i].soLuong;
           }
         }
         $scope.tongTienHang = $scope.tongTienSauGiam + $scope.tongTienKhongGiam;
-        $scope.tongTienHoanTra = $scope.tongTienSauGiamHoanTra + $scope.tongTienKhongGiamHoanTra;
+        $scope.tongTienHoanTra =
+          $scope.tongTienSauGiamHoanTra + $scope.tongTienKhongGiamHoanTra;
       });
     };
 
@@ -86,10 +103,10 @@ myApp.controller(
       $http.get(apiUrl).then(function (response) {
         $scope.lichSu = response.data;
         for (var i = 0; i < $scope.lichSu.length; i++) {
-          if($scope.lichSu[i].tenLoai == 'Khách thanh toán') {
+          if ($scope.lichSu[i].tenLoai == "Khách thanh toán") {
             $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
           }
-          if($scope.lichSu[i].tenLoai == 'Nhân viên hoàn tiền') {
+          if ($scope.lichSu[i].tenLoai == "Nhân viên hoàn tiền") {
             $scope.soTienHoan += $scope.lichSu[i].soTienTra;
           }
         }
@@ -142,18 +159,13 @@ myApp.controller(
         });
     };
 
-    $scope.newOrderClient = {
-      hoVaTenNguoiShip:"",
-      soDienThoai:"",
-      tienShip:"",
-      diaChi:"",
-    };
-
+    $scope.newOrderClient = {};
     $scope.confirmOrderClient = function () {
       $http
         .put(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" + id,
-          JSON.stringify($scope.newOrderClient)
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
+            id,
+          $scope.newOrderClient
         )
         .then(function (response) {
           $scope.getHoaDonChiTiet();
@@ -240,7 +252,7 @@ myApp.controller(
       soTien: "",
       ghiChu: "",
       trangThai: "",
-      tenLoai: "Khách thanh toán"
+      tenLoai: "Khách thanh toán",
     };
     setTimeout(() => {
       $scope.createTransaction = function (idKhach) {
@@ -273,7 +285,7 @@ myApp.controller(
       soTien: "",
       ghiChu: "",
       trangThai: "",
-      tenLoai: "Nhân viên hoàn tiền"
+      tenLoai: "Nhân viên hoàn tiền",
     };
     setTimeout(() => {
       $scope.createTransactionTraHang = function (idKhach) {
@@ -629,5 +641,58 @@ myApp.controller(
         });
     };
     $scope.isTraHang(id);
+
+    // API ĐỊA CHỈ
+    $scope.provinces = [];
+    $scope.districts = [];
+    $scope.wards = [];
+
+    $scope.getTinh = function () {
+      $http
+        .get("https://provinces.open-api.vn/api/?depth=1")
+        .then(function (response) {
+          $scope.provinces = response.data;
+        });
+    };
+
+    $scope.getTinh();
+
+    $scope.getDistricts = function () {
+      $http
+        .get(
+          "https://provinces.open-api.vn/api/p/" +
+            $scope.selectedProvince.code +
+            "?depth=2"
+        )
+        .then(function (response) {
+          $scope.districts = response.data.districts;
+        });
+    };
+
+    $scope.getWards = function () {
+      $http
+        .get(
+          "https://provinces.open-api.vn/api/d/" +
+            $scope.selectedDistrict.code +
+            "?depth=2"
+        )
+        .then(function (response) {
+          $scope.wards = response.data.wards;
+        });
+    };
+
+    $scope.orderDetailUpdate = {};
+    $scope.getOrderDetailUpdate = function () {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/order-detail-update/" +
+            id
+        )
+        .then(function (response) {
+          $scope.orderDetailUpdate = response.data;
+        });
+    };
+
+    $scope.getOrderDetailUpdate();
   }
 );
