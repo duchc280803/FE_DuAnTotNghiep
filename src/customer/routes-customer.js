@@ -56,6 +56,12 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
     .when("/chinh-sach-doi-tra", {
       templateUrl: "./pages/chinh-sach-doi-tra.html",
     })
+    .when("/hinh-thuc-thanh-toan", {
+      templateUrl: "./pages/hinh-thuc-thanh-toan.html",
+    })
+    .when("/chinh-sach-xu-ly-khieu-nai", {
+      templateUrl: "./pages/chinh-sach-xu-ly-khieu-nai.html",
+    })
     .otherwise({
       redirectTo: "/home",
     });
