@@ -31,4 +31,5 @@ myApp.service("CartService", function ($http) {
   this.getIdCartDetail = function () {
     return this.idList;
   };
+  
 });

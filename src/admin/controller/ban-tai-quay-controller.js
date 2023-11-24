@@ -1,6 +1,6 @@
 myApp.controller(
   "BanTaiQuayController",
-  function ($scope, $http, $window, $location, CartService) {
+  function ($scope, $http, $window, $location, $routeParams, CartService, TransactionService) {
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
@@ -397,6 +397,9 @@ myApp.controller(
         });
     };
 
+    var transactionData = TransactionService.getTransactionData();
+    console.log(transactionData); // Dữ liệu giao dịch từ URL VNPAY
+
     // TODO: ApiVNPay
     $scope.addVnPay = {};
     $scope.Vnpay = function (amount) {
@@ -409,6 +412,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.addVnPay = response.data;
+          $window.location.href = $scope.addVnPay.value;
         });
     };
 
