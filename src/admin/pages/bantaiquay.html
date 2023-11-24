@@ -656,7 +656,7 @@
                         <select class="form-control select2" ng-model="selectedProvince"
                           ng-options="province.name for province in provinces" ng-change="getDistricts()">
                           <option value="">Chọn tỉnh</option>
-                          <option ng-repeat="province in provinces" ng-model="newKhachHang.tinh"
+                          <option ng-repeat="province in provinces" ng-model="diaChi"
                             value="{{province.name}}">
                             {{province.name}}
                           </option>
@@ -668,7 +668,7 @@
                         <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
                           ng-options="district.name for district in districts" ng-change="getWards()">
                           <option value="">Chọn huyện</option>
-                          <option ng-repeat="district in districts" ng-model="newKhachHang.huyen"
+                          <option ng-repeat="district in districts" ng-model="diaChi"
                             value="{{district.name}}">
                             {{district.name}}
                           </option>
@@ -680,7 +680,7 @@
                         <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
                           ng-options="ward.name for ward in wards">
                           <option value="">Chọn phường</option>
-                          <option ng-repeat="ward in wards" ng-model="newKhachHang.phuong" value="{{ward.name}}">
+                          <option ng-repeat="ward in wards" ng-model="diaChi" value="{{ward.name}}">
                             {{ward.name}}
                           </option>
                         </select>
