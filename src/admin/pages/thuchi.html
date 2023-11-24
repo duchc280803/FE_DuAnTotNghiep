@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="row" style="padding: 20px">
-    <div class="col-md-4">
+    <div class="col-md-3">
       Loại Đơn :
       <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
         <option value="">Tất cả</option>
@@ -23,7 +23,7 @@
         <option value="1">Online</option>
       </select>
     </div>
-    <div ng-hide="!isAdmin" class="col-md-4">
+    <div ng-hide="!isAdmin" class="col-md-4" style="margin-left: -85px;">
       Nhân Viên :
       <select style="color: green" class="custom-select" ng-model="selectedNguoiXacNhan"
         ng-change="filterHoaDonByNguoiXacNhan()">

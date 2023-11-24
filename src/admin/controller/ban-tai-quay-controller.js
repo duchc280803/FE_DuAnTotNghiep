@@ -914,6 +914,7 @@ myApp.controller(
           $scope.wards = response.data.wards;
         });
     };
+    
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
       $http

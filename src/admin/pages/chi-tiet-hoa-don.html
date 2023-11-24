@@ -42,7 +42,7 @@
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Chỉnh sửa đơn
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 30px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 40px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
@@ -117,16 +117,11 @@
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Hủy</span>
       </button>
-      <button ng-hide="hoaDonChiTiet.trangThai == 4 && fillMoney.tongTien > soTienKhachTra" 
-        ng-show="hoaDonChiTiet.trangThai != 5 && (hoaDonChiTiet.tenNguoiShip != null || hoaDonChiTiet.tenLoaiDon != 'ONLINE')" type="submit"
-        class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      <button ng-hide="hoaDonChiTiet.trangThai == 4 && fillMoney.tongTien > soTienKhachTra"
+        ng-show="hoaDonChiTiet.trangThai != 5 && (hoaDonChiTiet.tenNguoiShip != null || hoaDonChiTiet.tenLoaiDon != 'ONLINE')"
+        type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Xác nhận</span>
-      </button>
-      <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="submit"
-        class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao"
-        style="text-decoration: none; height: 39px">
-        <span style="vertical-align: middle">Update</span>
       </button>
     </div>
     <div class="col-lg-6" style="padding-left: 445px">
@@ -183,16 +178,33 @@
     <div class="modal-content custom-modal-content" style="width: 110%; margin-left: -15px">
       <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
       <div class="modal-body">
+        <span class="header-title"><span style="color: red">*</span><span>Tên khách</span></span>
+        <input type="text" class="form-control" placeholder="Tên người nhận" ng-model="newOrderClient.hoVatenClient"
+          ng-value="orderDetailUpdate.nameCustomer" />
+        <br>
+        <span class="header-title"><span style="color: red">*</span><span>Số khách</span></span>
+        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="newOrderClient.sdtClient"
+          ng-value="orderDetailUpdate.numberPhoneCustom" />
+        <br>
+        <span class="header-title"><span style="color: red">*</span><span>Email</span></span>
+        <input type="text" class="form-control" placeholder="Email" ng-model="newOrderClient.email"
+          ng-value="orderDetailUpdate.email" />
+        <br>
         <span class="header-title"><span style="color: red">*</span><span>Tên người ship</span></span>
-        <input type="text" class="form-control" placeholder="Tên người ship"
-          ng-model="newOrderClient.hoVaTenNguoiShip" />
-        <span class="header-title"><span style="color: red">*</span><span>Số điện thoại</span></span>
-        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="newOrderClient.soDienThoai" />
+        <input type="text" class="form-control" placeholder="Tên người ship" ng-model="newOrderClient.hoVaTenNguoiShip"
+          ng-value="orderDetailUpdate.tenNguoiGiao" />
+        <br>
+        <span class="header-title"><span style="color: red">*</span><span>Số người ship</span></span>
+        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="newOrderClient.soDienThoaiShip"
+          ng-value="orderDetailUpdate.sdtNguoiGiao" />
+        <br>
         <span class="header-title"><span style="color: red">*</span><span>Tiền ship</span></span>
-        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="newOrderClient.tienShip" />
-        <span class="header-title"><span style="color: red">*</span>
-          <span>Địa chỉ</span></span>
-        <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="newOrderClient.diaChi" />
+        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="newOrderClient.tienShip"
+          ng-value="orderDetailUpdate.tienShip" />
+        <br>
+        <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+        <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="newOrderClient.diaChi"
+          ng-value="orderDetailUpdate.diaChi" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -513,9 +525,15 @@
 <div class="card overflow-hidden" style="width: 1152px">
   <div class="box">
     <div class="d-flex align-items-center">
-      <h5 style="padding-left: 20px; padding-top: 10px" class="me-auto">
+      <h5 style="padding-top: 20px; padding-left: 20px;" class="me-auto">
         Thông tin đơn hàng
       </h5>
+      <div class="why">
+        <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="submit"
+          class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
+          <span style="vertical-align: middle">Cập nhập</span>
+        </button>
+      </div>
     </div>
     <hr />
     <div class="row" style="padding-left: 20px">
@@ -539,6 +557,7 @@
       <div class="col-lg-4">
         <h5>Tên người giao: {{hoaDonChiTiet.tenNguoiShip}}</h5>
         <h5>Số người giao: {{hoaDonChiTiet.sdtNguoiShip}}</h5>
+        <h5>Email: {{hoaDonChiTiet.sdtNguoiShip}}</h5>
       </div>
     </div>
   </div>
@@ -548,18 +567,6 @@
     <table class="table">
       <tbody class="table" style="border: 1px solid #ccc">
         <thead>
-          <tr style="border: 1px solid #ccc; background-color: lightskyblue">
-            <th>#</th>
-            <th>Image</th>
-            <th style="width: 400px">Tên sản phẩm</th>
-            <th>Số lượng</th>
-            <th style="width: 0px">Đơn giá</th>
-            <th>Tổng tiền</th>
-            <th
-              ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 5 && fillMoney.tongTien <= soTienKhachTra">
-              Thao tác
-            </th>
-          </tr>
         </thead>
         <tr ng-repeat="item in listSanPhamInOrder">
           <td style="padding-top: 80px">{{$index + 1}}</td>
