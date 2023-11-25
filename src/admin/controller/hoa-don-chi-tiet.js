@@ -51,26 +51,6 @@ myApp.controller(
           if (
             $scope.listSanPhamInOrder[i].donGiaSauGiam !=
               $scope.listSanPhamInOrder[i].giaBan &&
-
-            $scope.listSanPhamInOrder[i].trangThai != 7
-          ) {
-            $scope.tongTienSauGiam +=
-              $scope.listSanPhamInOrder[i].donGiaSauGiam *
-              $scope.listSanPhamInOrder[i].soLuong;
-          }
-          if (
-            $scope.listSanPhamInOrder[i].donGiaSauGiam ==
-              $scope.listSanPhamInOrder[i].giaBan &&
-            $scope.listSanPhamInOrder[i].trangThai != 7
-          ) {
-            $scope.tongTienKhongGiam +=
-              $scope.listSanPhamInOrder[i].giaBan *
-              $scope.listSanPhamInOrder[i].soLuong;
-          }
-          if (
-            $scope.listSanPhamInOrder[i].donGiaSauGiam !=
-              $scope.listSanPhamInOrder[i].giaBan &&
-
             $scope.listSanPhamInOrder[i].trangThai == 7
           ) {
             $scope.tongTienSauGiamHoanTra +=
@@ -87,7 +67,6 @@ myApp.controller(
               $scope.listSanPhamInOrder[i].soLuong;
           }
         }
-
         $scope.tongTienHoanTra =
           $scope.tongTienSauGiamHoanTra + $scope.tongTienKhongGiamHoanTra;
       });
@@ -162,27 +141,13 @@ myApp.controller(
         });
     };
 
-
-    $scope.newOrderClient = {
-      hoVaTenNguoiShip: "",
-      soDienThoai: "",
-      tienShip: "",
-      diaChi: "",
-    };
-
-
     $scope.newOrderClient = {};
-
     $scope.confirmOrderClient = function () {
       $http
         .put(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
             id,
-
-          JSON.stringify($scope.newOrderClient)
-
           $scope.newOrderClient
-
         )
         .then(function (response) {
           $scope.getHoaDonChiTiet();
@@ -199,7 +164,6 @@ myApp.controller(
     $scope.soLuongSanPham = 1; // số lượng thêm vào giỏ hàng
 
     setTimeout(() => {
-      
       $scope.themSanPhamHoaDonChiTiet = function (idCtSp, soLuongSanPham) {
         var token = $window.localStorage.getItem("token");
 
@@ -218,7 +182,6 @@ myApp.controller(
           confirmButtonText: "Yes!",
         }).then((result) => {
           if (result.isConfirmed) {
-
             $http
               .post(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/them-san-pham?idHoaDon=" +
@@ -262,7 +225,7 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-    
+
       $scope.updateOrder = function (idHoaDonChiTiet, soLuong) {
         var apiURL =
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/update-quantity?idHoaDonChiTiet=" +
@@ -292,7 +255,6 @@ myApp.controller(
     // xác nhận khách thanh toán
     var token = $window.localStorage.getItem("token");
 
-
     $scope.newTransaction = {
       soTien: "",
       ghiChu: "",
@@ -304,9 +266,8 @@ myApp.controller(
         Authorization: "Bearer " + token,
       },
     };
-    
-    setTimeout(() => {
 
+    setTimeout(() => {
       $scope.createTransaction = function (idKhach) {
         $http
           .post(
@@ -684,9 +645,11 @@ myApp.controller(
       };
       $http
         .delete(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/delete?id=" +
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/delete?idHoaDon=" +
+            id +
+            "&id=" +
             p.idHoaDonChiTiet,
-            config
+          config
         )
         .then(function () {
           $scope.listSanPhamInOrder.splice(index, 1);
