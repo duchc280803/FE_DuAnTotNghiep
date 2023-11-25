@@ -37,6 +37,31 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/dia-chi.html",
       controller: "DiaChiController",
     })
+    .when("/dia-chi", {
+      templateUrl: "./pages/dia-chi.html",
+      controller: "DiaChiController",
+    })
+    .when("/lien-he", {
+      templateUrl: "./pages/lien-he.html",
+    })
+    .when("/huong-dan", {
+      templateUrl: "./pages/huong-dan.html",
+    })
+    .when("/chinh-sach-van-chuyen", {
+      templateUrl: "./pages/chinh-sach-van-chuyen.html",
+    })
+    .when("/chinh-sach-bao-mat", {
+      templateUrl: "./pages/chinh-sach-bao-mat.html",
+    })
+    .when("/chinh-sach-doi-tra", {
+      templateUrl: "./pages/chinh-sach-doi-tra.html",
+    })
+    .when("/hinh-thuc-thanh-toan", {
+      templateUrl: "./pages/hinh-thuc-thanh-toan.html",
+    })
+    .when("/chinh-sach-xu-ly-khieu-nai", {
+      templateUrl: "./pages/chinh-sach-xu-ly-khieu-nai.html",
+    })
     .otherwise({
       redirectTo: "/home",
     });

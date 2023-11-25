@@ -37,7 +37,6 @@ myApp.controller(
     $scope.tongTienSauGiam = 0;
     $scope.tongTienKhongGiamHoanTra = 0;
     $scope.tongTienSauGiamHoanTra = 0;
-    $scope.tongTienHang = 0;
     $scope.tongTienHoanTra = 0;
 
     // Hàm để tải sản phẩm từ API
@@ -52,6 +51,7 @@ myApp.controller(
           if (
             $scope.listSanPhamInOrder[i].donGiaSauGiam !=
               $scope.listSanPhamInOrder[i].giaBan &&
+
             $scope.listSanPhamInOrder[i].trangThai != 7
           ) {
             $scope.tongTienSauGiam +=
@@ -70,6 +70,7 @@ myApp.controller(
           if (
             $scope.listSanPhamInOrder[i].donGiaSauGiam !=
               $scope.listSanPhamInOrder[i].giaBan &&
+
             $scope.listSanPhamInOrder[i].trangThai == 7
           ) {
             $scope.tongTienSauGiamHoanTra +=
@@ -86,7 +87,7 @@ myApp.controller(
               $scope.listSanPhamInOrder[i].soLuong;
           }
         }
-        $scope.tongTienHang = $scope.tongTienSauGiam + $scope.tongTienKhongGiam;
+
         $scope.tongTienHoanTra =
           $scope.tongTienSauGiamHoanTra + $scope.tongTienKhongGiamHoanTra;
       });
@@ -155,9 +156,12 @@ myApp.controller(
           $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
+          $scope.getTongTienHang();
+          $scope.getOrderDetailUpdate();
           $window.location.reload();
         });
     };
+
 
     $scope.newOrderClient = {
       hoVaTenNguoiShip: "",
@@ -166,12 +170,19 @@ myApp.controller(
       diaChi: "",
     };
 
+
+    $scope.newOrderClient = {};
+
     $scope.confirmOrderClient = function () {
       $http
         .put(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
             id,
+
           JSON.stringify($scope.newOrderClient)
+
+          $scope.newOrderClient
+
         )
         .then(function (response) {
           $scope.getHoaDonChiTiet();
@@ -179,6 +190,8 @@ myApp.controller(
           $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
+          $scope.getTongTienHang();
+          $scope.getOrderDetailUpdate();
           $window.location.reload();
         });
     };
@@ -224,6 +237,8 @@ myApp.controller(
                 $scope.getlichSuThanhToan();
                 $scope.getlichSuThayDoi();
                 $scope.selectMoney(id);
+                $scope.getTongTienHang();
+                $scope.getOrderDetailUpdate();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -265,6 +280,8 @@ myApp.controller(
               $scope.getlichSuThanhToan();
               $scope.getlichSuThayDoi();
               $scope.selectMoney(id);
+              $scope.getTongTienHang();
+              $scope.getOrderDetailUpdate();
               $window.location.reload();
             },
           ],
@@ -336,6 +353,12 @@ myApp.controller(
           .then(function (response) {
             $scope.lichSu.push(response.data);
             $scope.getlichSuThanhToan();
+            $scope.getHoaDonChiTiet();
+            $scope.getSanPham();
+            $scope.getlichSuThayDoi();
+            $scope.selectMoney(id);
+            $scope.getTongTienHang();
+            $scope.getOrderDetailUpdate();
           });
       };
     }, 2000);
@@ -642,6 +665,8 @@ myApp.controller(
           $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
+          $scope.getTongTienHang();
+          $scope.getOrderDetailUpdate();
           $window.location.reload();
         });
     };
@@ -670,6 +695,8 @@ myApp.controller(
           $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
+          $scope.getTongTienHang();
+          $scope.getOrderDetailUpdate();
           $location.path("/order-detail/" + id);
         });
     };
@@ -693,5 +720,91 @@ myApp.controller(
         });
     };
     $scope.isTraHang(id);
+
+    // API ĐỊA CHỈ
+    $scope.provinces = [];
+    $scope.districts = [];
+    $scope.wards = [];
+
+    $scope.getTinh = function () {
+      $http
+        .get("https://provinces.open-api.vn/api/?depth=1")
+        .then(function (response) {
+          $scope.provinces = response.data;
+        });
+    };
+
+    $scope.getTinh();
+
+    $scope.getDistricts = function () {
+      $http
+        .get(
+          "https://provinces.open-api.vn/api/p/" +
+            $scope.selectedProvince.code +
+            "?depth=2"
+        )
+        .then(function (response) {
+          $scope.districts = response.data.districts;
+        });
+    };
+
+    $scope.getWards = function () {
+      $http
+        .get(
+          "https://provinces.open-api.vn/api/d/" +
+            $scope.selectedDistrict.code +
+            "?depth=2"
+        )
+        .then(function (response) {
+          $scope.wards = response.data.wards;
+        });
+    };
+
+    $scope.orderDetailUpdate = {};
+    $scope.getOrderDetailUpdate = function () {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/order-detail-update/" +
+            id
+        )
+        .then(function (response) {
+          $scope.orderDetailUpdate = response.data;
+        });
+    };
+
+    $scope.getOrderDetailUpdate();
+
+    $scope.generatePDF = function () {
+      $http
+        .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+          responseType: "arraybuffer",
+        })
+        .then(function (response) {
+          var file = new Blob([response.data], { type: "application/pdf" });
+          var fileURL = URL.createObjectURL(file);
+          var a = document.createElement("a");
+          a.href = fileURL;
+          a.download =
+            "pdf_" +
+            new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
+            ".pdf";
+          document.body.appendChild(a);
+          a.click();
+        });
+    };
+
+    $scope.tongTienHang = 0;
+    $scope.getTongTienHang = function () {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/tong-tien-don-hang/" +
+            id
+        )
+        .then(function (response) {
+          $scope.tongTienHang = response.data;
+        });
+    };
+
+    $scope.getTongTienHang();
   }
 );

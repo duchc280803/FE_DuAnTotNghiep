@@ -54,6 +54,10 @@ myApp.controller(
         });
     }
     fetchlistProduct();
+
+    $scope.isIdEqual = function (id1, id2) {
+      return id1 === id2;
+    };
     function fetchlistChatLieu() {
       $http
         .get("http://localhost:8080/api/v1/chat-lieu/show")

@@ -10,9 +10,8 @@
   <title>NICE SHOE</title>
   <link rel="shortcut icon" type="image/png"
     href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
-  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/cart-hover.css" />
+  <!-- <link rel="stylesheet" href="/css/cart-hover.css" /> -->
   <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
   <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
@@ -20,6 +19,7 @@
   <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  
 </head>
 <style>
   .icon_close:hover {
@@ -224,8 +224,8 @@
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
+    right: 1px;
     top: 45px;
-    right: 0;
     z-index: 999;
   }
 
@@ -307,45 +307,6 @@
               <li class="open-cart">
                 <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
-                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
-                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
-                    <div class="row" ng-repeat="product in products">
-                      <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
-                        <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
-                        <p style="font-size: 0.7em; margin: 0"></p>
-                        <hr />
-                      </div>
-                      <div class="col-md-8">
-                        <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
-                        <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam | number:0}}₫
-                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
-                        </div>
-                        <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban | number:0}}₫
-                        </div>
-                        <p style="font-size: 0.7em; margin: 0">
-                          Số lượng :{{product.soluong}}
-                        </p>
-                        <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
-                        <hr />
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-2">
-                      <span style="font-weight: bolder;margin-left: 30px;" class="main-color-text">Total:</span>
-                    </div>
-                    <div class="col-md-3">
-                      <span
-                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
-                    </div>
-                  </div>
-                  <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
-                    OUT</a>
-                </div>
               </li>
               <li class="account-hover" ng-controller="loginCutomController">
                 <div class="header__top__right__auth">
@@ -408,7 +369,8 @@
                     <td class="shoping__cart__price">
                       <div ng-show="product.dongiakhigiam != null">
                         {{product.dongiakhigiam | number:0}}₫
-                        <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
+                        <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
+                            number:0}}₫ <br></strike> </span>
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
                         {{product.giaban | number:0}}₫
@@ -424,7 +386,7 @@
                       </div>
                     </td>
                     <td class="shoping__cart__total">
-                      
+
                       <div ng-show="product.dongiakhigiam != null">
                         {{product.dongiakhigiam * product.soluong | number:0}}₫
                       </div>
@@ -462,7 +424,8 @@
                     <td class="shoping__cart__price">
                       <div ng-show="product.dongiakhigiam != null">
                         {{product.dongiakhigiam | number:0}}₫
-                        <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number:0}}₫ <br></strike> </span>
+                        <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
+                            number:0}}₫ <br></strike> </span>
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
                         {{product.giaban | number:0}}₫
@@ -478,7 +441,7 @@
                       </div>
                     </td>
                     <td class="shoping__cart__total">
-                      
+
                       <div ng-show="product.dongiakhigiam != null">
                         {{product.dongiakhigiam * product.soluong | number:0}}₫
                       </div>
@@ -513,11 +476,10 @@
               Mua tiếp
             </button>
           </a>
-
         </div>
         <div class="col-md-7"></div>
         <div class="col-md-2">
-          <button
+          <button 
             class="inline-flex items-center px-4 py-2 bg-red-600 transition transform-gpu hover:scale-105 hover:bg-red-700 text-white text-sm font-medium rounded-md"
             ng-click="clearCart()">
             <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-5 w-5 mr-2"
@@ -535,153 +497,172 @@
         <h4>Chi Tiết Thanh Toán</h4>
       </div>
       <br />
-      
-        <div class="row">
-          <div class="col-lg-6 col-md-5">
-            <div class="checkout__input">
-              <p>Họ Và Tên<span>*</span></p>
-              <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
-            </div>
-            <!-- <div class="checkout__input">
+      <div class="row" style=" transform: scale(0.95);">
+        <div class="col-lg-6 col-md-5">
+          <div class="checkout__input">
+            <p>Họ Và Tên<span>*</span></p>
+            <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
+          </div>
+
+          <div class="checkout__input">
               <p>Địa Chỉ<span>*</span></p>
               <div class="row">
-                <div class="col-md-4">
-                  <select id="city" class="form-control" style="font-size: 14px; padding: 6px" ng-model="thanhPho">
-                    <option value="">Chọn tỉnh thành</option>
+                <div class="col-lg-4" style="margin-left: 0px;">
+                  <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                  <select class="form-control select2" ng-model="selectedProvince"
+                    ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                    <option value="">Chọn tỉnh</option>
+                    <option ng-repeat="province in provinces" ng-model="thanhPho" value="{{province.name}}">
+                      {{province.name}}
+                    </option>
                   </select>
                 </div>
-                <div class="col-md-4">
-                  <select id="district" class="form-control" style="font-size: 14px; padding: 6px" ng-model="quanHuyen">
-                    <option value="">Chọn quận huyện</option>
+                <div class="col-lg-4">
+                  <span class="header-title"><span style="color: red">*</span>
+                    <span>Huyện</span></span>
+                  <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                    ng-options="district.name for district in districts" ng-change="getWards()">
+                    <option value="">Chọn huyện</option>
+                    <option ng-repeat="district in districts" ng-model="quanHuyen" value="{{district.name}}">
+                      {{district.name}}
+                    </option>
                   </select>
                 </div>
-                <div class="col-md-4">
-                  <select id="ward" class="form-control" style="font-size: 14px; padding: 6px" ng-model="phuongXa">
-                    <option value="">Chọn phường xã</option>
+                <div class="col-lg-4">
+                  <span class="header-title"><span style="color: red">*</span>
+                    <span>Phường</span></span>
+                  <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                    ng-options="ward.name for ward in wards">
+                    <option value="">Chọn phường</option>
+                    <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
+                      {{ward.name}}
+                    </option>
                   </select>
                 </div>
               </div>
-            </div> -->
-            <div class="checkout__input">
-              <p>Địa Chỉ Giao Hàng<span>*</span></p>
-              <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
             </div>
-            <div class="checkout__input">
-              <p>Số Điện Thoại<span>*</span></p>
-              <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" ng-model="soDienThoai" />
-            </div>
-            <div class="checkout__input">
-              <p>Email<span>*</span></p>
-              <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" style="color: #d4bcbc;" />
-            </div>
-            <div class="checkout__input">
-              <p>Ghi chú</p>
-              <textarea type="text" class="form-control" rows="4" placeholder="Nhập lời nhắn cho shop"></textarea>
-            </div>
+          <div class="checkout__input">
+            <p>Địa Chỉ Giao Hàng<span>*</span></p>
+            <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
           </div>
-          <div class="col-lg-6 col-md-7">
-            <div class="checkout__order">
-              <h4>Hóa Đơn Của Bạn</h4>
-              <div class="checkout__order__products">
-                Sản Phẩm <span>Tổng Tiền</span>
-              </div>
-              <ul>
-                <li style="
+          <div class="checkout__input">
+            <p>Số Điện Thoại<span>*</span></p>
+            <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" ng-model="soDienThoai" />
+          </div>
+          <div class="checkout__input">
+            <p>Email<span>*</span></p>
+            <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email"/>
+          </div>
+          <div class="checkout__input">
+            <p>Ghi chú</p>
+            <textarea type="text" class="form-control" rows="4" placeholder="Nhập lời nhắn cho shop"></textarea>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-7">
+          <div class="checkout__order">
+            <h4>Hóa Đơn Của Bạn</h4>
+            <div class="checkout__order__products">
+              Sản Phẩm <span>Tổng Tiền</span>
+            </div>
+            <ul>
+              <li style="
                       font-size: 0.79em;
                       font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
                         sans-serif;
                       color: black;
                     " ng-repeat="item in items">
-                  {{item.tensanpham}} <span>{{item.tongTien |number}}đ</span>
-                </li>
-              </ul>
-              <div class="checkout__order__total">
-                Tổng Tiền Sản Phẩm <span>${{totalAmount |number}}đ</span>
-              </div>
-              <ul>
-                <li>
-                  Phí Ship
-                  <span style="
+                {{item.tensanpham}} <span>{{item.tongTien |number}}đ</span>
+              </li>
+            </ul>
+            <div class="checkout__order__total">
+              Tổng Tiền Sản Phẩm <span>{{totalAmount |number}}đ</span>
+            </div>
+            <ul>
+              <li>
+                Phí Ship
+                <span style="
                         font-size: small;
                         color: rgb(187, 161, 161);
                         font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
                           sans-serif;
                       ">sẽ được thông báo cho quý khách khi nhân viên gọi điện
-                    xác nhận</span>
-                </li>
-              </ul>
-              <hr />
-              <br />
-              <h5>Mã Giảm Giá</h5>
-              <div class="row mt-3 mb-3">
-                <div class="col-6">
-                  <input type="text" style="height: 45px; padding-left: 5px; text-indent: 5px;" placeholder="Nhập mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" />
-                </div>
+                  xác nhận</span>
+              </li>
+            </ul>
+            <hr />
+            <br />
+            <h5>Mã Giảm Giá</h5>
+            <div class="row mt-3 mb-3">
+              <div class="col-6">
+                <input id="discountInput" type="text" ng-model="magiamgia" style="height: 45px; padding-left: 4px; text-indent: 5px;text-align: center;font-weight: bolder;border-radius: 10px;"
+                  placeholder="Chọn mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" readonly  />
               </div>
-              <hr />
-              <div class="checkout__order__total mt-3 mb-3">
-                Tổng Cộng <span>${{totalAmount | number}}đ</span>
-              </div>
-              <h5>Hình thức thanh toán</h5>
-              <div class="row mt-3 mb-3" style="margin-left: 50px">
-                <div class="custom-radio">
-                  <input class="mb-2" type="radio" id="payment_cash" name="radio_checkout" ng-model="paymentMethod"
-                    value="cash" checked />
-                  <label for="payment_cash">Thanh toán khi nhận hàng</label>
-                </div>
-                <div class="custom-radio">
-                  <input class="mb-2" type="radio" id="payment_vnpay" name="radio_checkout" ng-model="paymentMethod"
-                    value="vnpay" />
-                  <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
-                </div>
-              </div>
-              <button ng-click="thanhToan()" type="submit" class="site-btn">
-                Đặt Hàng
-              </button>
             </div>
-          </div>
-        </div>
-    </div>
-
-<!-- Modal -->
-<div class="modal fade" id="discountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Danh sách mã giảm giá</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Danh sách mã giảm giá -->
-        <table class="table">
-          <tr ng-repeat="voucher in vouchers">
-            <td style="width: 150px">
-              <img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt="" width="100px" />
-            </td>
-            <td style="width: 250px">
-              <span style="font-weight: bolder;">{{ voucher.tenvoucher }}</span><br>
-              <span style="font-size: small; font-weight: 600">Đơn tối thiểu: {{ voucher.giatritoithieudonhang }} đ</span><br>
-              <span style="font-size: smaller;">Giá giảm: {{ voucher.giatrigiam }}đ</span> <br>
-              <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'dd/MM/yyyy' }}</span>
-            </td>
-            <td>
-              <input type="radio" class="form-check-input mt-4 bg-green-50" name="voucher_radio">
-            </td>
-          </tr>
-        </table>
-        <div class="row">
-          <div class="col-md-9"></div>
-          <div class="col-md-3">
-            <button class="btn btn-success" ng-click="applyVoucher()">Áp dụng</button>
+            <hr />
+            <div class="checkout__order__total mt-3 mb-3">
+              Giảm giá từ voucher <span>{{ giamGiaVoucher | number }}đ</span>
+            </div>
+            <div class="checkout__order__total mt-3 mb-3">
+              Tổng Cộng <span>{{ tongCong | number }}đ</span>
+            </div>
+            <h5>Hình thức thanh toán</h5>
+            <div class="row mt-3 mb-3" style="margin-left: 50px">
+              <div class="custom-radio">
+                <input class="mb-2" type="radio" id="payment_cash" name="radio_checkout" ng-model="paymentMethod"
+                  value="cash" checked />
+                <label for="payment_cash">Thanh toán khi nhận hàng</label>
+              </div>
+              <div class="custom-radio">
+                <input class="mb-2" type="radio" id="payment_vnpay" name="radio_checkout" ng-model="paymentMethod"
+                  value="vnpay" />
+                <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
+              </div>
+            </div>
+            <button ng-click="thanhToan()" type="submit" class="site-btn">
+              Đặt Hàng
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- close modal -->
+    <!-- modal  -->
+    <div class="modal fade" id="discountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Danh sách mã giảm giá</h5>
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="font-size: small;">&times;</span>
+            </button>            
+          </div>
+          <div class="modal-body">
+            <!-- Danh sách mã giảm giá -->
+            <table class="table">
+              <tr ng-repeat="voucher in vouchers">
+                <td style="width: 150px">
+                  <img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" alt=""
+                    width="100px" />
+                </td>
+                <td style="width: 300px">
+                  <span style="font-weight: bolder;">{{ voucher.tenvoucher }}</span><br>
+                  <span style="font-size: small; font-weight: 600">Đơn tối thiểu: {{ voucher.giatritoithieudonhang }}
+                    vnđ</span><br>
+                  <span ng-show="{{voucher.hinhthucgiam===2}}" style="font-size: smaller;">Giá giảm: {{ voucher.giatrigiam }} vnđ</span>
+                  <span ng-show="{{voucher.hinhthucgiam===1}}" style="font-size: smaller;">Giá giảm: {{ voucher.giatrigiam }} %</span>
+                  <br>
+                  <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'dd/MM/yyyy' }}</span>
+                </td>
+                <td style="width: 28%;">
+                  <button class="btn btn-success mt-3" ng-click="voucherId(voucher.id,voucher.giatrigiam,voucher.hinhthucgiam,voucher.mavoucher,voucher.giatritoithieudonhang)" data-dismiss="modal" aria-label="Close">Áp dụng</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- close modal  -->
   </section>
   <footer class="footer spad">
     <div class="container">

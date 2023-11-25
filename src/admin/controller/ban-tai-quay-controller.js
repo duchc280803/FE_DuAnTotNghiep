@@ -1,6 +1,6 @@
 myApp.controller(
   "BanTaiQuayController",
-  function ($scope, $http, $window, $location, CartService) {
+  function ($scope, $http, $window, $location, $routeParams, CartService, TransactionService) {
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
@@ -41,6 +41,13 @@ myApp.controller(
 
         var api = "http://localhost:8080/api/v1/don-hang/create";
 
+        if ($scope.listHoaDonTaiQuay.length >= 5) {
+          alert(
+            "You cannot add more invoices as the limit of 5 has been reached."
+          );
+          return;
+        }
+
         Swal.fire({
           title: "Bạn có muốn tạo hóa đơn?",
           text: "",
@@ -74,47 +81,12 @@ myApp.controller(
             $scope.pageSize
         )
         .then(function (response) {
-          $scope.listHoaDonTaiQuay = response.data;
+          if ($scope.listHoaDonTaiQuay.length < 5) {
+            $scope.listHoaDonTaiQuay = response.data;
+          }
         });
     };
     $scope.getListHoaDonTaiQuay();
-
-    // hiển thị số trang
-    $scope.getPageNumbers = function () {
-      var totalPages = Math.ceil(
-        $scope.listHoaDonTaiQuay.length / $scope.pageSize
-      );
-      var pageNumbers = [];
-      for (var i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-      return pageNumbers;
-    };
-
-    // TODO: updatePage
-    $scope.updatePage = function (pageNumber) {
-      $scope.pageNumber = pageNumber;
-      $scope.getListHoaDonTaiQuay();
-    };
-
-    // TODO: Quay lại trang
-    $scope.previousPage = function () {
-      if ($scope.pageNumber > 0) {
-        $scope.pageNumber--;
-        $scope.getListHoaDonTaiQuay();
-      }
-    };
-
-    // TODO: tiến đến trang khác
-    $scope.nextPage = function () {
-      if (
-        ($scope.pageNumber + 1) * $scope.pageSize <
-        $scope.listHoaDonTaiQuay.length
-      ) {
-        $scope.pageNumber++;
-        $scope.getListHoaDonTaiQuay();
-      }
-    };
 
     // tìm kiếm hóa đơn
     $scope.searchOrder = function (ma) {
@@ -425,6 +397,9 @@ myApp.controller(
         });
     };
 
+    var transactionData = TransactionService.getTransactionData();
+    console.log(transactionData); // Dữ liệu giao dịch từ URL VNPAY
+
     // TODO: ApiVNPay
     $scope.addVnPay = {};
     $scope.Vnpay = function (amount) {
@@ -437,6 +412,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.addVnPay = response.data;
+          $window.location.href = $scope.addVnPay.value;
         });
     };
 
@@ -482,7 +458,7 @@ myApp.controller(
               .post(api, requestData)
               .then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
-                $window.localStorage.removeItem("listCart");
+                $scope.removeItem();
               })
               .then(function (error) {
                 Swal.fire({
@@ -516,7 +492,7 @@ myApp.controller(
           tenNguoiShip: $scope.tenNguoiShip,
           soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
           soDienThoai: $scope.soDienThoai,
-          diaChi: $scope.diaChi,
+          diaChi: $scope.diaChi + ', ' + $scope.selectedWard.name + ', ' + $scope.selectedDistrict.name + ', ' + $scope.selectedProvince.name,
           gioHangChiTietList: idDetail,
         };
         var api =
@@ -938,6 +914,7 @@ myApp.controller(
           $scope.wards = response.data.wards;
         });
     };
+    
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
       $http
@@ -946,7 +923,6 @@ myApp.controller(
           $scope.voucherName = response.data.voucherName;
         });
     };
-
     $scope.getVoucherName();
   }
 );

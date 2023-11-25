@@ -1,146 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch sử Thao tác</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .table-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        #search-form {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            flex: 1;
-            margin-right: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input[type="date"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        button {
-            padding: 8px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        #history-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        #history-table th,
-        #history-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        #history-table img {
-            max-width: 50px;
-            max-height: 50px;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Lịch sử Thao tác</h1>
-    <div class="table-container">
-        <form id="search-form">
+<div class="card overflow-hidden" style="min-height: 120px">
+    <h5 style="padding-left: 20px; padding-top: 16px; margin-bottom: 0">
+        <img src="/assets/images/filter-filled-tool-symbol.png" width="20px" style="padding-right: 3px" />Bộ lọc
+    </h5>
+    <hr />
+    <div class="box">
+        <div class="row" style="padding: 10px">
             <div class="form-group">
-                <label for="start-date">Từ ngày:</label>
-                <input type="date" id="start-date" ng-model="startDate">
-            </div>
-            <div class="form-group">
-                <label for="end-date">Đến ngày:</label>
-                <input type="date" id="end-date" ng-model="endDate">
-            </div>
-            <div class="form-group">
-                <button type="button" style="position: relative; left: 50px; top: 10px;"
-                    ng-click="searchDateHistory()">Tìm kiếm</button>
-            </div>
-        </form>
+                <label>Tìm theo ngày cụ thể :</label>
+                <input type="datetime-local" class="form-control" ng-model="searchDate"
+                    ng-change="searchVouchersByDay()">
 
-        <table id="history-table" class="display">
+            </div>
+        </div>
+        <div class="row" style="padding: 10px">
+            <label for="">Tìm Kiếm thời gian theo khoảng</label>
+            <div class="col-md-6">
+                <input type="datetime-local" class="form-control" ng-model="startDate" style="margin-top: 4px" />
+            </div>
+            <div class="col-md-6">
+                <input type="datetime-local" class="form-control" ng-model="endDate" style="margin-top: 4px" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" ng-click="searchVouchers()" style="margin-top: 10px">
+                    Tìm kiếm
+                </button>
+            </div>
+
+
+
+        </div>
+
+        <div class="row" style="padding: 10px">
+            <div class="col-md-6"></div>
+            <div class="col-md-6" style="padding-left: 320px">
+                <button class="btn btn-outline-primary m-1" ng-click="refresh()">
+                    Làm mới
+                </button>
+                <a href="#/promotion/create" class="btn btn-outline-primary m-1">
+                    <span style="vertical-align: middle">Tạo Khuyến Mại</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <h5>
+            <img src="/assets/images/list.png" width="20px" style="padding-right: 3px; vertical-align: middle" />Lịch sử
+            Thao Tác
+        </h5>
+    </div>
+    <div class="col-lg-6"></div>
+</div>
+<div class="card overflow-hidden">
+    <div class="box">
+        <table class="table">
             <thead>
-                <tr style="background-color: #42bcf5; font-weight: bold">
-                    <th>Thời gian</th>
-                    <th>Thao tác</th>
-                    <th>Ảnh</th>
-                    <th>UserName</th>
-                    <th>Id</th>
-                    <th>Mã</th>
-                    <th>Tên</th>
-
+                <tr style="background-color: lightskyblue">
+                    <th scope="col">STT</th>
+                    <th scope="col">Thời gian</th>
+                    <th scope="col">Thao tác</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Nội dung truyền vào</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="gg in listVoucherHistory">
-                <tr>
+            <tbody class="table">
+                <tr ng-repeat="gg in listVoucherHistory">
+                    <td>{{$index + 1}}</td>
+                    <td>{{gg.username}}</td>
                     <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
                     <td>{{gg.action}}</td>
-                    <td><img src="{{gg.password}}" alt="Xóa dữ liệu"></td>
-                    <td>{{gg.username}}</td>
-                    <td>{{gg.id}}</td>
-                    <td>{{gg.ma}}</td>
                     <td>{{gg.ten}}</td>
                 </tr>
             </tbody>
-
         </table>
+        <div class="col-lg-12">
+            <nav aria-label="Page navigation example" style="margin-left: 400px">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" ng-href="#/khuyen-mai?page={{page - 1}}"
+                            ng-click="previousPage()">Previous</a>
+                    </li>
+                    <li class="page-item" ng-repeat="page in getPageNumbers()">
+                        <a class="page-link" ng-href="#/khuyen-mai?page={{page}}" ng-click="updatePage(page)">{{ page
+                            }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-href="#/khuyen-mai?page={{page + 1}}" ng-click="nextPage()">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-
-</body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-<script>
-    $(document).ready(function () {
-        // Khởi tạo DataTables và cấu hình phân trang
-        $('#history-table').DataTable({
-            paging: true, // Bật phân trang
-            lengthMenu: [5, 10, 20], // Chọn số hàng trên mỗi trang
-            pageLength: 5 // Số hàng trên mỗi trang mặc định
-        });
-    });
-</script>
-
-</html>
+</div>

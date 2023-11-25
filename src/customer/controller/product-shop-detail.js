@@ -22,7 +22,6 @@ myAppCustom.controller(
 
           // Lấy giá trị idThuongHieu từ $scope.detailProduct
           var idThuongHieu = $scope.detailProduct.idThuongHieu;
-          console.log(idThuongHieu);
           // Lưu giá trị idThuongHieu vào localStorage
           window.localStorage.setItem("idThuongHieu", idThuongHieu);
         });
@@ -127,7 +126,6 @@ myAppCustom.controller(
         )
         .then(function (response) {
           $scope.showQuantity = response.data;
-          console.log($scope.showQuantity);
           $scope.quantity.soluong = response.data.soluong;
           $scope.quantity.sanPhamChiTietId = response.data.id;
         });
@@ -261,26 +259,12 @@ myAppCustom.controller(
           loadCart();
           loadToTals();
           loadQuanTiTy();
-          Swal.fire({
-            title: "Success",
-            text: "Thêm thành công",
-            icon: "success",
-            position: "bottom-start", // Đặt vị trí ở góc trái
-            toast: true, // Hiển thị thông báo nhỏ
-            showConfirmButton: false, // Ẩn nút xác nhận
-            timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-          });
-          
-         // Chờ 3 giây trước khi làm mới trang
-      setTimeout(() => {
         $window.location.reload();
-      }, 2000);
         } catch (error) {
           // Xử lý lỗi nếu cần
-          console.log(error);
         }
       }
-
+ 
       // localStorage.removeItem("idgiohang");
     };
 
@@ -376,7 +360,6 @@ myAppCustom.controller(
 
       $http.get(apiURL).then(function (response) {
         $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
-        console.log($scope.quantity_all);
       });
     }
 
