@@ -27,8 +27,6 @@
           <span style="vertical-align: middle">Tạo Nhân Viên</span>
         </button>
       </div>
-      <!--tạo tài khoản-->
-
       <div class="modal-dialog modal-lg">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg" style="max-width: 80%">
@@ -37,88 +35,105 @@
                 <h5 class="modal-title">Tạo Nhân Viên</h5>
                 <br />
               </div>
-
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-4 text-center">
                     <label>
-                      <img ng-src="/images/account/{{account.photo}}" class="logo" alt="" />
                       <div class="image-container">
-                        <img ng-src="/images/account/{{account.photo}}" class="logo" alt="" />
+                        <img id="selectedImage" src="#" alt="Selected Image"
+                          style="display: none;">
                       </div>
                     </label>
                   </div>
                   <div class="col-md-8">
                     <form name="frmNhanVien">
                       <div class="form-group">
-                        <label for="fullName">Họ và tên</label>
-                        <input type="text" class="form-control" ng-model="newNhanVien.fullName" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Họ và tên</span></span>
+                        <input type="text" class="form-control" ng-model="ten" />
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Ngày sinh</label>
-                        <input required type="date" class="form-control" ng-model="newNhanVien.ngaySinh" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Ngày sinh</span></span>
+                        <input required type="date" class="form-control" ng-model="ngaySinh" />
                       </div>
                       <br />
                       <div class="form-group">
-                        <label for="soDienThoai">Số điện thoại</label>
-                        <input type="text" class="form-control" ng-model="newNhanVien.soDienThoai" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Số điện thoại</span></span>
+                        <input type="text" class="form-control" ng-model="soDienThoai" />
                       </div>
                       <br />
                       <div class="form-group">
-                        <label class="mr-2">Giới tính</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Giới tính</span></span>
                         <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" ng-model="newNhanVien.gioiTinh"
-                            value="true" checked />
+                          <input class="form-check-input" type="radio" name="gender" ng-model="gioiTinh" value="true"
+                            checked />
                           <label class="form-check-label"> Nam </label>
                         </div>
                         <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" ng-model="newNhanVien.gioiTinh"
+                          <input class="form-check-input" type="radio" name="gender" ng-model="gioiTinh"
                             value="false" />
                           <label class="form-check-label"> Nữ </label>
                         </div>
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Email</label>
-                        <input required type="text" class="form-control" ng-model="newNhanVien.email" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Email</span></span>
+                        <input type="text" class="form-control" ng-model="email" />
                       </div>
                       <br />
-                      <div class="form-group">
-                        <label>Mã nhân viên</label>
-                        <input required type="text" class="form-control" ng-model="newNhanVien.maTaiKhoan" />
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                          <select class="form-control select2" ng-model="selectedProvince"
+                            ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                            <option value="">Chọn tỉnh</option>
+                            <option ng-repeat="province in provinces" ng-model="newKhachHang.tinh"
+                              value="{{province.name}}">
+                              {{province.name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Huyện</span></span>
+                          <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                            ng-options="district.name for district in districts" ng-change="getWards()">
+                            <option value="">Chọn huyện</option>
+                            <option ng-repeat="district in districts" ng-model="newKhachHang.huyen"
+                              value="{{district.name}}">
+                              {{district.name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Phường</span></span>
+                          <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                            ng-options="ward.name for ward in wards">
+                            <option value="">Chọn phường</option>
+                            <option ng-repeat="ward in wards" ng-model="newKhachHang.phuong" value="{{ward.name}}">
+                              {{ward.name}}
+                            </option>
+                          </select>
+                        </div>
                       </div>
-                      <br />
+                      <br>
                       <div class="form-group">
-                        <label>Tên tài khoản</label>
-                        <input required type="text" class="form-control" ng-model="newNhanVien.username" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+                        <input required type="text" class="form-control" ng-model="diaChi" />
                       </div>
-                      <br />
+                      <br>
                       <div class="form-group">
-                        <label>Mật khẩu</label>
-                        <input required type="text" class="form-control" ng-model="newNhanVien.password" />
-                      </div>
-                      <br />
-                      <div class="form-group">
-                        <label for="trangThai">Chức vụ</label>
-                        <select required class="form-control" ng-model="newNhanVienRole.idLoaiTaiKhoan"
-                          ng-options="role.id as role.tenVaiTro for role in listNhanVienRole">
-                          <option value="">Chọn vai trò</option>
-                        </select>
-                      </div>
-                      <br />
-                      <div class="form-group">
-                        <label class="mr-2">Trạng thái</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Trạng thái</span></span>
                         <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="status" ng-model="newNhanVien.trangThai"
-                            value="1" checked />
+                          <input class="form-check-input" type="radio" name="status" ng-model="trangThai" value="1"
+                            checked />
                           <label class="form-check-label">
                             Hoạt động
                           </label>
                         </div>
                         <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="status" ng-model="newNhanVien.trangThai"
-                            value="2" />
+                          <input class="form-check-input" type="radio" name="status" ng-model="trangThai" value="2" />
                           <label class="form-check-label">
                             Nghỉ làm
                           </label>
@@ -126,15 +141,13 @@
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" accept="image/*"
-                          onchange="angular.element(this).scope().imageChanged(this.files)" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Photo</span></span>
+                        <input type="file" name="file" id="fileInput" onchange="displayImage(event)" />
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-outline-danger" ng-click="createNhanVien()">Thêm</button>
@@ -261,7 +274,7 @@
       <tbody>
         <tr ng-repeat="nv in listNhanVien">
           <th>{{$index + 1}}</th>
-          <td><img src="{{kh.image}}" width="40px" alt=""></td>
+          <td><img src="/assets/ảnh giày/{{nv.image}}" width="70px" alt=""></td>
           <td>{{nv.maTaiKhoan}}</td>
           <td>{{nv.fullName}}</td>
           <td>{{nv.gioiTinh == false ? "Nữ" : "Nam"}}</td>

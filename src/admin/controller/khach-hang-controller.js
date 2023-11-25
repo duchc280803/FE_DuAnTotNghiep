@@ -97,7 +97,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   };
 
   $scope.createKhachHang = function () {
-    var yourFile = document.getElementById('fileInput').files[0];
+    var yourFile = document.getElementById("fileInput").files[0];
     $http({
       method: "POST",
       url: "http://localhost:8080/api/ql-khach-hang/create",
@@ -122,12 +122,15 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
         soDienThoai: $scope.soDienThoai,
         gioiTinh: $scope.gioiTinh,
         ngaySinh: $scope.ngaySinh,
-        trangThai: 1,
-        maTaiKhoan: $scope.trangThai,
+        trangThai: $scope.trangThai,
+        diaChi: $scope.diaChi,
+        tinh: $scope.selectedProvince.name,
+        huyen: $scope.selectedDistrict.name,
+        phuong: $scope.selectedWard.name,
       },
     }).then(
       function (response) {
-        $scope.selectedKhachHang.push(response.data)
+        $scope.selectedKhachHang.push(response.data);
       },
       function (error) {
         // Xử lý error ở đây
@@ -157,4 +160,43 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   } else {
     $scope.onTrangThaiChange();
   }
+
+  // API ĐỊA CHỈ
+  $scope.provinces = [];
+  $scope.districts = [];
+  $scope.wards = [];
+
+  $scope.getTinh = function () {
+    $http
+      .get("https://provinces.open-api.vn/api/?depth=1")
+      .then(function (response) {
+        $scope.provinces = response.data;
+      });
+  };
+
+  $scope.getTinh();
+
+  $scope.getDistricts = function () {
+    $http
+      .get(
+        "https://provinces.open-api.vn/api/p/" +
+          $scope.selectedProvince.code +
+          "?depth=2"
+      )
+      .then(function (response) {
+        $scope.districts = response.data.districts;
+      });
+  };
+
+  $scope.getWards = function () {
+    $http
+      .get(
+        "https://provinces.open-api.vn/api/d/" +
+          $scope.selectedDistrict.code +
+          "?depth=2"
+      )
+      .then(function (response) {
+        $scope.wards = response.data.wards;
+      });
+  };
 });
