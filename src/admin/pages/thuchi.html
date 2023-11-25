@@ -122,14 +122,13 @@
             {{hd.tenNhanVien}}
           </td>
           <td ng-show="isAdmin">
-            <select class="form-control select2">
-              <option>
-                {{hd.tenNhanVien}}
+            <select class="form-control select2" ng-model="selectedNhanVien" ng-change="updateNhanVien(hd.id, selectedNhanVien)">
+              <option ng-repeat="nv in listNhanVien" value="{{nv.id}}" ng-selected="nv.id === hd.idNhanVien">
+                {{nv.fullName}}
               </option>
             </select>
           </td>
           <td>{{hd.loaiDon}}</td>
-
           <td>
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
               Detail
