@@ -135,6 +135,10 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
         formData.append("gioiTinh", data.gioiTinh);
         formData.append("ngaySinh", data.ngaySinh);
         formData.append("trangThai", data.trangThai);
+        formData.append("diaChi", data.diaChi);
+        formData.append("tinh", data.tinh);
+        formData.append("huyen", data.huyen);
+        formData.append("phuong", data.phuong);
         return formData;
       },
       data: {

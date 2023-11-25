@@ -42,8 +42,8 @@
                   <div class="col-md-4 text-center">
                     <label>
                       <div class="image-container">
-                        <img src="" class="logo"
-                          alt="" />
+                        <img id="selectedImage" src="#" alt="Selected Image"
+                          style="display: none;">
                       </div>
                     </label>
                   </div>
@@ -142,7 +142,7 @@
                     <br />
                     <div class="form-group">
                       <span class="header-title"><span style="color: red">*</span> <span>Photo</span></span>
-                      <input type="file" name="file" id="fileInput" />
+                      <input type="file" name="file" id="fileInput" onchange="displayImage(event)" />
                     </div>
                   </div>
                 </div>

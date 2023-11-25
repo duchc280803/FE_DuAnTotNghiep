@@ -113,6 +113,10 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
         formData.append("gioiTinh", data.gioiTinh);
         formData.append("ngaySinh", data.ngaySinh);
         formData.append("trangThai", data.trangThai);
+        formData.append("diaChi", data.diaChi);
+        formData.append("tinh", data.tinh);
+        formData.append("huyen", data.huyen);
+        formData.append("phuong", data.phuong);
         return formData;
       },
       data: {
@@ -200,3 +204,15 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
       });
   };
 });
+function displayImage(event) {
+  var image = document.getElementById('selectedImage');
+  image.style.display = 'block';
+  var selectedFile = event.target.files[0];
+  var reader = new FileReader();
+
+  reader.onload = function (event) {
+    image.src = event.target.result;
+  };
+
+  reader.readAsDataURL(selectedFile);
+}
