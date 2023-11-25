@@ -694,5 +694,19 @@ myApp.controller(
     };
 
     $scope.getOrderDetailUpdate();
+
+    $scope.generatePDF = function() {
+      $http.get('http://localhost:8080/api/v1/pdf/pdf/generate/' + id, { responseType: 'arraybuffer' })
+        .then(function(response) {
+          var file = new Blob([response.data], { type: 'application/pdf' });
+          var fileURL = URL.createObjectURL(file);
+          var a = document.createElement('a');
+          a.href = fileURL;
+          a.download = 'pdf_' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.pdf';
+          document.body.appendChild(a);
+          a.click();
+        });
+    };
+
   }
 );
