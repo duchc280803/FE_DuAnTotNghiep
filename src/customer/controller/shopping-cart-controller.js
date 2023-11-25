@@ -2,27 +2,49 @@ var idgh = localStorage.getItem("idgiohang");
 myAppCustom.controller(
   "CartController",
   function ($scope, $http, $window, $location, $route, $routeParams) {
+
     function loadToTals() {
-      // Gọi API và cập nhật giá trị totalAmount
-      $http
-        .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-          idgh
-        )
-        .then(function (response) {
-          // Lấy giá trị tổng tiền từ phản hồi API
-          $scope.totalAmount = response.data[0].tongSoTien;
-          $window.localStorage.setItem("totalAmount", $scope.totalAmount);
-          if (!$scope.giamGiaVoucher) {
-            $scope.tongCong = totalAmount;
-          } else {
-            // Tính tổng cộng dựa trên giá trị giảm giá
-            $scope.tongCong = totalAmount - $scope.giamGiaVoucher;
-          }
-        })
-        .catch(function (error) {
-          console.error("Lỗi khi gọi API: " + error);
-        });
+      if (idgh) {
+        // Gọi API và cập nhật giá trị totalAmount
+        $http
+          .get(
+            "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
+            idgh
+          )
+          .then(function (response) {
+            // Lấy giá trị tổng tiền từ phản hồi API
+            $scope.totalAmount = response.data[0].tongSoTien;
+            $window.localStorage.setItem("totalAmount", $scope.totalAmount);
+            var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
+            $scope.giamGiaVoucher = 0;
+            // Lấy giá trị từ localStorage
+            var hinhThucGiam = $window.localStorage.getItem('hinhthucgiam');
+            var giatrigiam = parseFloat($window.localStorage.getItem('giatrigiam'));
+
+            // Kiểm tra hình thức giảm giá
+            if (hinhThucGiam === "1") {
+              // Giảm giá theo tỷ lệ %
+              console.log('Giảm giá theo tỷ lệ %');
+              $scope.giamGiaVoucher = (totalAmount * giatrigiam) / 100;
+            }
+            if (hinhThucGiam === "2") {
+              // Giảm giá theo giá trị VNĐ
+              console.log('Giảm giá theo giá trị VNĐ');
+              $scope.giamGiaVoucher = giatrigiam;
+            }
+            if (!$scope.giamGiaVoucher) {
+              $scope.tongCong = totalAmount;
+            } else {
+              // Tính tổng cộng dựa trên giá trị giảm giá
+              $scope.tongCong = totalAmount - $scope.giamGiaVoucher;
+            }
+          })
+          .catch(function (error) {
+            console.error("Lỗi khi gọi API: " + error);
+          });
+      } else {
+        console.log("No cart!!!")
+      }
 
     } //close loadToTal()
 
@@ -60,25 +82,28 @@ myAppCustom.controller(
 
     // Hàm gọi API cập nhật số lượng
     function updateQuantity(productId, newQuantity) {
-      var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/update-quantity?idgiohangchitiet=" +
-        productId +
-        "&quantity=" +
-        newQuantity;
+      if (idgh) {
+        var apiURL =
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/update-quantity?idgiohangchitiet=" +
+          productId +
+          "&quantity=" +
+          newQuantity;
 
-      $http({
-        url: apiURL,
-        method: "PUT",
-        transformResponse: [
-          function () {
-            loadCart();
-            loadToTals();
-            loadNameAndPrice();
-            loadQuanTiTy();
-          },
-        ],
-      });
-
+        $http({
+          url: apiURL,
+          method: "PUT",
+          transformResponse: [
+            function () {
+              loadCart();
+              loadToTals();
+              loadNameAndPrice();
+              loadQuanTiTy();
+            },
+          ],
+        });
+      } else {
+        console.log("No cart!!!")
+      }
     }
 
     //delete product
@@ -112,113 +137,129 @@ myAppCustom.controller(
 
     //delete all product
     $scope.clearCart = function () {
-      Swal.fire({
-        title: "Xác nhận xóa?",
-        text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Xóa",
-        cancelButtonText: "Hủy",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (idgh) {
+      if (idgh) {
+        Swal.fire({
+          title: "Xác nhận xóa?",
+          text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Xóa",
+          cancelButtonText: "Hủy",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (idgh) {
 
-            var apiURL =
-              "http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=" +
-              idgh;
+              var apiURL =
+                "http://localhost:8080/api/gio-hang-chi-tiet-not-login/xoa-tat-ca-san-pham?idGioHang=" +
+                idgh;
 
-            $http({
-              url: apiURL,
-              method: "DELETE",
-              transformResponse: [
-                function () {
-                  Swal.fire({
-                    title: "Success",
-                    text: "Xóa thành công",
-                    icon: "success",
-                    position: "bottom-start", // Đặt vị trí ở góc trái
-                    toast: true, // Hiển thị thông báo nhỏ
-                    showConfirmButton: false, // Ẩn nút xác nhận
-                    timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-                  });
-                  localStorage.removeItem("idgiohang");
-                  localStorage.removeItem("idVoucher");
-                  localStorage.removeItem("giatrigiam");
-                  localStorage.removeItem("hinhthucgiam");
-                  localStorage.removeItem("maVoucher");
-                  localStorage.removeItem("totalAmount");
-                  localStorage.removeItem("listCart");
-                  loadCart();
-                  loadToTals();
-                  loadNameAndPrice();
-                  loadQuanTiTy();
-
-
-                },
-              ],
-            });
+              $http({
+                url: apiURL,
+                method: "DELETE",
+                transformResponse: [
+                  function () {
+                    Swal.fire({
+                      title: "Success",
+                      text: "Xóa thành công",
+                      icon: "success",
+                      position: "bottom-start", // Đặt vị trí ở góc trái
+                      toast: true, // Hiển thị thông báo nhỏ
+                      showConfirmButton: false, // Ẩn nút xác nhận
+                      timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+                    });
+                    localStorage.removeItem("idgiohang");
+                    localStorage.removeItem("idVoucher");
+                    localStorage.removeItem("giatrigiam");
+                    localStorage.removeItem("hinhthucgiam");
+                    localStorage.removeItem("maVoucher");
+                    localStorage.removeItem("totalAmount");
+                    localStorage.removeItem("listCart");
+                    loadCart();
+                    loadToTals();
+                    loadNameAndPrice();
+                    loadQuanTiTy();
+                  },
+                ],
+              });
+            }
+            else {
+              console.log("Không có giỏ hàng để xóa.");
+            }
           }
-          else {
-            console.log("Không có giỏ hàng để xóa.");
-          }
-        }
-      });
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 2500);
+      } else {
+        console.log("No cart!!!")
+      }
+
     };
 
 
     function loadCart() {
-      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-      var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
-        idgh;
-
-      $http.get(apiURL).then(function (response) {
-        $scope.products = response.data; // Dữ liệu sản phẩm từ API
-        $window.localStorage.setItem(
-          "listCart",
-          $scope.products.map((item) => item.id)
-        );
-      });
       if (idgh) {
-        var listCartGet = $window.localStorage.getItem("listCart");
-        console.log("listCartGet" + listCartGet)
-        // Kiểm tra nếu giỏ hàng trống, thực hiện xóa local storage
-        if (listCartGet.length === 0) {
-          localStorage.removeItem("idgiohang");
-          localStorage.removeItem("idVoucher");
-          localStorage.removeItem("giatrigiam");
-          localStorage.removeItem("hinhthucgiam");
-          localStorage.removeItem("maVoucher");
-          localStorage.removeItem("totalAmount");
-          localStorage.removeItem("listCart");
+        // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+        var apiURL =
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
+          idgh;
+
+        $http.get(apiURL).then(function (response) {
+          $scope.products = response.data; // Dữ liệu sản phẩm từ API
+          $window.localStorage.setItem(
+            "listCart",
+            $scope.products.map((item) => item.id)
+          );
+        });
+        if (idgh) {
+          var listCartGet = $window.localStorage.getItem("listCart");
+          console.log("listCartGet" + listCartGet)
+          // Kiểm tra nếu giỏ hàng trống, thực hiện xóa local storage
+          if (listCartGet.length === 0) {
+            localStorage.removeItem("idgiohang");
+            localStorage.removeItem("idVoucher");
+            localStorage.removeItem("giatrigiam");
+            localStorage.removeItem("hinhthucgiam");
+            localStorage.removeItem("maVoucher");
+            localStorage.removeItem("totalAmount");
+            localStorage.removeItem("listCart");
+          }
         }
+        else {
+          console.log("Không có giỏ hàng để xóa.");
+        }
+      } else {
+        console.log("No cart!!!")
       }
-      else {
-        console.log("Không có giỏ hàng để xóa.");
-      }
+
     }
     loadCart();
     // Gọi API và cập nhật danh sách sản phẩm và tổng tiền
     function loadNameAndPrice() {
-      $http
-        .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=" +
-          idgh
-        )
-        .then(function (response) {
-          $scope.items = response.data;
+      if (idgh) {
+        $http
+          .get(
+            "http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=" +
+            idgh
+          )
+          .then(function (response) {
+            $scope.items = response.data;
 
-          // Tính tổng tiền sản phẩm
-          $scope.totalAmount = 0;
-          for (var i = 0; i < $scope.items.length; i++) {
-            $scope.totalAmount += parseFloat($scope.items[i].tongTien);
-          }
-        })
-        .catch(function (error) {
-          console.error("Lỗi khi gọi API: " + error);
-        });
+            // Tính tổng tiền sản phẩm
+            $scope.totalAmount = 0;
+            for (var i = 0; i < $scope.items.length; i++) {
+              $scope.totalAmount += parseFloat($scope.items[i].tongTien);
+            }
+          })
+          .catch(function (error) {
+            console.error("Lỗi khi gọi API: " + error);
+          });
+      } else {
+        console.log("No cart!!!")
+      }
+
     }
     loadNameAndPrice();
     // Khai báo biến để lưu các giá trị đã binding
@@ -233,8 +274,10 @@ myAppCustom.controller(
     $scope.tienKhachTra = 0; // Để tránh lỗi nếu không có giá trị tiền khách trả
     $scope.gioHangChiTietList = $scope.gioHangChiTietList;
 
-    var idGioHangChiTiet = $window.localStorage.getItem("listCart");
+    if(idgh){
+      var idGioHangChiTiet = $window.localStorage.getItem("listCart");
     var gioHangChiTietList = idGioHangChiTiet.split(",");
+    }
     // Lấy giá trị tổng tiền từ localStorage
     var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
 
@@ -363,34 +406,58 @@ myAppCustom.controller(
       var isConfirmed = window.confirm("Bạn có chắc chắn muốn đặt đơn hàng?");
 
       if (isConfirmed) {
-        // If the user confirms, proceed with form submission
-        var data = {
-          hoTen: $scope.hoTen,
-          soDienThoai: $scope.soDienThoai,
-          email: $scope.email,
-          diaChi: $scope.diaChi,
-          thanhPho: $scope.selectedProvince.name,
-          quanHuyen: $scope.selectedDistrict.name,
-          phuongXa: $scope.selectedWard.name,
-          // tongTien: totalAmount,
-          tienKhachTra: $scope.tienKhachTra,
-          gioHangChiTietList: gioHangChiTietList,
-          idGiamGia: idGiamGiaVoucher
-        };
+        if (idgh) {
+          // If the user confirms, proceed with form submission
+          var data = {
+            hoTen: $scope.hoTen,
+            soDienThoai: $scope.soDienThoai,
+            email: $scope.email,
+            diaChi: $scope.diaChi,
+            thanhPho: $scope.selectedProvince.name,
+            quanHuyen: $scope.selectedDistrict.name,
+            phuongXa: $scope.selectedWard.name,
+            // tongTien: totalAmount,
+            tienKhachTra: $scope.tienKhachTra,
+            gioHangChiTietList: gioHangChiTietList,
+            idGiamGia: idGiamGiaVoucher
+          };
 
-        data.tongTien = $scope.tongCong;
-        data.tienGiamGia = $scope.giamGiaVoucher;
+          data.tongTien = $scope.tongCong;
+          data.tienGiamGia = $scope.giamGiaVoucher;
 
-        if (token) {
-          $http
-            .post(
-              "http://localhost:8080/api/checkout-not-login/thanh-toan-login",
-              data,
-              config
-            )
-            .then(
+          if (token) {
+            $http
+              .post(
+                "http://localhost:8080/api/checkout-not-login/thanh-toan-login",
+                data,
+                config
+              )
+              .then(
+                function (response) {
+                  // Xử lý response nếu cần thiết
+                  localStorage.removeItem("idgiohang");
+                  localStorage.removeItem("idVoucher");
+                  localStorage.removeItem("giatrigiam");
+                  localStorage.removeItem("hinhthucgiam");
+                  localStorage.removeItem("maVoucher");
+                  localStorage.removeItem("totalAmount");
+                  localStorage.removeItem("listCart");
+                  // Chuyển hướng đến trang "thank-you"
+                  $location.path("/thank-you");
+                },
+                function (error) {
+                  console.log(error);
+                }
+              );
+          } else {
+            // Send data to the server
+            $http({
+              method: "POST",
+              url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
+              data: data,
+            }).then(
               function (response) {
-                // Xử lý response nếu cần thiết
+                // Handle the response if needed
                 localStorage.removeItem("idgiohang");
                 localStorage.removeItem("idVoucher");
                 localStorage.removeItem("giatrigiam");
@@ -398,36 +465,14 @@ myAppCustom.controller(
                 localStorage.removeItem("maVoucher");
                 localStorage.removeItem("totalAmount");
                 localStorage.removeItem("listCart");
-                // Chuyển hướng đến trang "thank-you"
+                // Redirect to the "thank-you" route
                 $location.path("/thank-you");
               },
               function (error) {
                 console.log(error);
               }
             );
-        } else {
-          // Send data to the server
-          $http({
-            method: "POST",
-            url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
-            data: data,
-          }).then(
-            function (response) {
-              // Handle the response if needed
-              localStorage.removeItem("idgiohang");
-              localStorage.removeItem("idVoucher");
-              localStorage.removeItem("giatrigiam");
-              localStorage.removeItem("hinhthucgiam");
-              localStorage.removeItem("maVoucher");
-              localStorage.removeItem("totalAmount");
-              localStorage.removeItem("listCart");
-              // Redirect to the "thank-you" route
-              $location.path("/thank-you");
-            },
-            function (error) {
-              console.log(error);
-            }
-          );
+          }
         }
       } else {
         alert("Đã hủy");
@@ -446,7 +491,11 @@ myAppCustom.controller(
     };
     $scope.voucher();
     // Khi áp dụng mã giảm giá
-    $scope.voucherId = function (id, giatrigiam, hinhthucgiam, magiamgia) {
+    $scope.voucherId = function (id, giatrigiam, hinhthucgiam, magiamgia,giatritoithieudonhang) {
+     
+      //Get tổng giá trị 
+      var tongtienIF = $window.localStorage.getItem('totalAmount');
+     if(tongtienIF>=giatritoithieudonhang){
       $window.localStorage.setItem('idVoucher', id);
       console.log($window.localStorage.getItem('idVoucher'));
       $window.localStorage.setItem('giatrigiam', giatrigiam);
@@ -456,16 +505,13 @@ myAppCustom.controller(
       $window.localStorage.setItem('maVoucher', magiamgia);
       console.log($window.localStorage.getItem('maVoucher'));
 
-      // Gọi hàm để hiển thị thông tin trong ô input
-      $scope.magiamgia = $window.localStorage.getItem('maVoucher');
-      var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
-      //THANH TOAN LOGIC
-      // Lấy giá trị từ localStorage
-      var hinhThucGiam = $window.localStorage.getItem('hinhthucgiam');
-      var giatrigiam = parseFloat($window.localStorage.getItem('giatrigiam'));
-
-      // Kiểm tra hình thức giảm giá
-      if (hinhThucGiam === "1") {
+       // Lấy giá trị từ localStorage
+       $scope.magiamgia = $window.localStorage.getItem('maVoucher');
+       var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
+       var hinhThucGiam = $window.localStorage.getItem('hinhthucgiam');
+       var giatrigiam = parseFloat($window.localStorage.getItem('giatrigiam'));
+       // Kiểm tra hình thức giảm giá
+       if (hinhThucGiam === "1") {
         // Giảm giá theo tỷ lệ %
         console.log('Giảm giá theo tỷ lệ %');
         $scope.giamGiaVoucher = (totalAmount * giatrigiam) / 100;
@@ -486,21 +532,36 @@ myAppCustom.controller(
         showConfirmButton: false, // Ẩn nút xác nhận
         timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
       });
+     }else{
+      Swal.fire({
+        title: "Sorry",
+        text: "Giá trị đơn hàng chưa đủ ",
+        icon: "error",
+        position: "bottom-start", // Đặt vị trí ở góc trái
+        toast: true, // Hiển thị thông báo nhỏ
+        showConfirmButton: false, // Ẩn nút xác nhận
+        timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+      });
+     }
 
     };
 
     // Gọi hàm để hiển thị thông tin trong ô input
     $scope.magiamgia = $window.localStorage.getItem('maVoucher');
     function loadQuanTiTy() {
-      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-      var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
-        idgh;
+      if (idgh) {
+        // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+        var apiURL =
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
+          idgh;
 
-      $http.get(apiURL).then(function (response) {
-        $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API      
-      });
+        $http.get(apiURL).then(function (response) {
+          $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API      
+        });
 
+      } else {
+        console.log("No cart!!!")
+      }
     }
     loadQuanTiTy();
   });
