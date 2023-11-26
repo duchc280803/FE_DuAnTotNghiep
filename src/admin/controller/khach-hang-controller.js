@@ -23,14 +23,11 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
       .then(function (response) {
         response.data.ngaySinh = new Date(response.data.ngaySinh);
         $scope.listKhachHang = response.data;
-        console.log("Dữ liệu trả về: ", response.data);
 
         $scope.currentPageNumber = response.data.number;
         $scope.totalNumberOfPages = response.data.totalPages;
       })
-      .catch(function (error) {
-        console.error("Lỗi khi tìm kiếm: ", error);
-      });
+      .catch(function (error) {});
   }
 
   $scope.previousPage = function () {
@@ -69,7 +66,6 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
     $http.get(detailUrl).then(function (response) {
       response.data.ngaySinh = new Date(response.data.ngaySinh);
       $scope.selectedKhachHang = response.data;
-      console.log("Thông tin chi tiết khách hàng: ", $scope.selectedKhachHang);
       if ($scope.selectedKhachHang.trangThai === 1) {
         $scope.selectedKhachHang.trangThai = "1";
       } else {
@@ -93,11 +89,6 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
     $http
       .put(updateUrl, updatedData)
       .then(function (response) {
-        console.log(
-          "Cập nhật thông tin khách hàng thành công: ",
-          response.data
-        );
-
         fetchKhachHangList($scope.selectedTrangThai, "", "", "");
       })
       .catch(function (error) {
@@ -106,42 +97,47 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   };
 
   $scope.createKhachHang = function () {
-    var file = $scope.file;
+    var yourFile = document.getElementById("fileInput").files[0];
     $http({
       method: "POST",
       url: "http://localhost:8080/api/ql-khach-hang/create",
-      headers: { "Content-Type": undefined }, // Để cho phép gửi file multipart/form-data
+      headers: {
+        "Content-Type": undefined,
+      },
       transformRequest: function (data) {
         var formData = new FormData();
         formData.append("file", data.file);
-        formData.append(
-          "createQLKhachHangRequest",
-          new Blob([angular.toJson(data.createQLKhachHangRequest)], {
-            type: "application/json",
-          })
-        );
+        formData.append("ten", data.ten);
+        formData.append("email", data.email);
+        formData.append("soDienThoai", data.soDienThoai);
+        formData.append("gioiTinh", data.gioiTinh);
+        formData.append("ngaySinh", data.ngaySinh);
+        formData.append("trangThai", data.trangThai);
+        formData.append("diaChi", data.diaChi);
+        formData.append("tinh", data.tinh);
+        formData.append("huyen", data.huyen);
+        formData.append("phuong", data.phuong);
         return formData;
       },
       data: {
-        file: file, // Đối tượng tải lên
-        createQLKhachHangRequest: {
-          ten: "Tên khách hàng",
-          email: "Email",
-          soDienThoai: "Số điện thoại",
-          gioiTinh: true,
-          userName: "Tên đăng nhập",
-          matKhau: "Mật khẩu",
-          ngaySinh: new Date(),
-          trangThai: 1,
-          maTaiKhoan: "Mã tài khoản",
-        },
+        file: yourFile,
+        ten: $scope.ten,
+        email: $scope.email,
+        soDienThoai: $scope.soDienThoai,
+        gioiTinh: $scope.gioiTinh,
+        ngaySinh: $scope.ngaySinh,
+        trangThai: $scope.trangThai,
+        diaChi: $scope.diaChi,
+        tinh: $scope.selectedProvince.name,
+        huyen: $scope.selectedDistrict.name,
+        phuong: $scope.selectedWard.name,
       },
     }).then(
       function (response) {
-        $scope.listKhachHang.push(response.data);
+        $scope.selectedKhachHang.push(response.data);
       },
       function (error) {
-        // Xử lý lỗi
+        // Xử lý error ở đây
       }
     );
   };
@@ -168,4 +164,55 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   } else {
     $scope.onTrangThaiChange();
   }
+
+  // API ĐỊA CHỈ
+  $scope.provinces = [];
+  $scope.districts = [];
+  $scope.wards = [];
+
+  $scope.getTinh = function () {
+    $http
+      .get("https://provinces.open-api.vn/api/?depth=1")
+      .then(function (response) {
+        $scope.provinces = response.data;
+      });
+  };
+
+  $scope.getTinh();
+
+  $scope.getDistricts = function () {
+    $http
+      .get(
+        "https://provinces.open-api.vn/api/p/" +
+          $scope.selectedProvince.code +
+          "?depth=2"
+      )
+      .then(function (response) {
+        $scope.districts = response.data.districts;
+      });
+  };
+
+  $scope.getWards = function () {
+    $http
+      .get(
+        "https://provinces.open-api.vn/api/d/" +
+          $scope.selectedDistrict.code +
+          "?depth=2"
+      )
+      .then(function (response) {
+        $scope.wards = response.data.wards;
+      });
+  };
 });
+function displayImage(event) {
+  var image = document.getElementById('selectedImage');
+  image.style.display = 'block';
+  var selectedFile = event.target.files[0];
+  var reader = new FileReader();
+
+  reader.onload = function (event) {
+    image.src = event.target.result;
+  };
+
+  reader.readAsDataURL(selectedFile);
+}
