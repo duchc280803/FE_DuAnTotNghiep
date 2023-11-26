@@ -389,6 +389,28 @@ myApp.controller(
         });
     };
 
+    $scope.listTransaction = [];// Lấy các tham số từ URL
+    $scope.queryParams = $location.search();
+
+    // Lấy giá trị của tham số 'vnp_Amount'
+    $scope.amountParamValue = $scope.queryParams.vnp_Amount;
+
+    // TODO: thanh toán chuyển khoản
+    $scope.createTransactionVnpay = function () {
+      $http
+        .post(
+          "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
+            id +
+            "&id=" +
+            idKhach +
+            "&vnp_Amount=" +
+            $scope.amountParamValue
+        )
+        .then(function (response) {
+          $scope.listTransaction.push(response.data);
+        });
+    };
+
     var transactionData = TransactionService.getTransactionData();
     console.log(transactionData); // Dữ liệu giao dịch từ URL VNPAY
 
