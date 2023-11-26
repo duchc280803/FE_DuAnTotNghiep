@@ -1,6 +1,6 @@
 myApp.controller(
   "voucherChiTietController",
-  function ($http, $scope, $routeParams, $location) {
+  function ($http, $scope, $routeParams, $location, $window) {
     function getvoucherchitiet(id) {
       const apiUrl = "http://localhost:8080/api/v1/voucher/" + id;
       $http.get(apiUrl).then(function (response) {
@@ -12,6 +12,7 @@ myApp.controller(
     var id = $routeParams.id;
 
     getvoucherchitiet(id);
+
     $scope.updateVoucher = function (id) {
       var ngayBatDau = new Date($scope.voucherchitiet.ngayBatDau);
       var ngayKetThuc = new Date($scope.voucherchitiet.ngayKetThuc);
@@ -31,9 +32,20 @@ myApp.controller(
         ngayKetThuc: $scope.voucherchitiet.ngayKetThuc,
         trangThai: 1,
       };
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
 
       $http
-        .put("http://localhost:8080/api/v1/voucher/update/" + id, dataToSend)
+        .put(
+          "http://localhost:8080/api/v1/voucher/update/" + id,
+          dataToSend,
+          config
+        )
         .then(function (response) {
           console.log(response.data);
           if (

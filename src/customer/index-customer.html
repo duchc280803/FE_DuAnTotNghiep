@@ -6,18 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="shortcut icon" type="image/png"
-  href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-<link rel="stylesheet" href="/assets/css/feather.css">
-<link rel="stylesheet" href="/assets/css/dropzone.css">
-<link rel="stylesheet" href="/assets/css/select2.css">
-<link rel="stylesheet" href="/assets/css/styles.min.css" />
-<link rel="stylesheet" href="/css/custom/hinh-thuc-thah-toan.css" />
-<link rel="stylesheet" href="/css/custom/create-ctkm.css" />
-<link rel="stylesheet" href="/css/custom/combobox.css" />
-<link rel="stylesheet" href="/css/custom/trang-thai-hdct.css" />
-<link rel="stylesheet" href="/css/custom/boder-anh.css" />
-<link rel="stylesheet" href="/css/custom/lien-he.css" />
+    href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="/assets/css/feather.css">
+  <link rel="stylesheet" href="/assets/css/dropzone.css">
+  <link rel="stylesheet" href="/assets/css/select2.css">
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/css/custom/hinh-thuc-thah-toan.css" />
+  <link rel="stylesheet" href="/css/custom/create-ctkm.css" />
+  <link rel="stylesheet" href="/css/custom/combobox.css" />
+  <link rel="stylesheet" href="/css/custom/trang-thai-hdct.css" />
+  <link rel="stylesheet" href="/css/custom/boder-anh.css" />
+  <link rel="stylesheet" href="/css/custom/lien-he.css" />
+
+  <!-- Đoạn mã chat Facebook -->
+  <div id="fb-root"></div>
+  <!-- Your Plugin chat code -->
+  <div id="fb-customer-chat" class="fb-customerchat"></div>
+  <script>
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "161544427049020");
+    chatbox.setAttribute("attribution", "biz_inbox");
+  </script>
+  <!-- Your SDK code -->
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        xfbml: true,
+        version: 'v18.0'
+      });
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <!-- Kết thúc đoạn mã chat Facebook -->
+
 </head>
 
 <body>
