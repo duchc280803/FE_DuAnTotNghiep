@@ -111,10 +111,9 @@
               </th>
               <th scope="col">Ảnh sản phẩm</th>
               <th scope="col">Tên sản phẩm</th>
-              <th scope="col">Giá Sản Phẩm</th>
+              <th scope="col">Đơn giá</th>
               <th scope="col">Số lượng Giảm giá</th>
-              <th scope="col">Giá Bán Sau Khi Giảm</th>
-              <th scope="col">Trạng Thái</th>
+              <th scope="col">Giá sau giảm</th>
             </tr>
           </thead>
           <tbody class="table">
@@ -125,22 +124,18 @@
                   ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />
                 {{$index + 1}}
               </td>
-              <td>
+              <td> 
                 <img src="{{gg.image}}" alt="" width="150px" />
               </td>
               <td>{{gg.productName}}</td>
               <td>
-                {{gg.giaBan}}
+                {{gg.giaBan | number}}₫
               </td>
               <td>
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{gg.giaGiam}}
-              </td>
-              <td>
-                {{gg.trangThai == 1 ? 'DANG KINH DOANH' : 'NGUNG KINH
-                DOANH'}}
+                {{gg.giaBan - gg.giaGiam | number}}₫
               </td>
             </tr>
           </tbody>
