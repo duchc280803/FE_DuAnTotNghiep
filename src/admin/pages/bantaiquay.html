@@ -751,7 +751,7 @@
                                       </div>
                                       <div class="col-lg-4">
                                         <button class="btn btn-primary" style="margin-left: 50px"
-                                          ng-click="Vnpay(tongTienHang - totalAmountPaid)">
+                                          ng-click="Vnpay(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao : 0))">
                                           Chuyển khoản
                                         </button>
                                       </div>
@@ -986,8 +986,7 @@
                         <span class="header-title">Tổng tiền</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ?
-                          +tienGiao : 0)) | number}}₫</span>
+                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao : 0)) | number}}₫</span>
                         <input hidden ng-model="requestData.tongTien" type="text" ng-value="tongTienHang" />
                       </div>
                     </div>

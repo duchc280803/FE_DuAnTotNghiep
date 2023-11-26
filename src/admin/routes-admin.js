@@ -103,7 +103,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/transaction-done", {
       templateUrl: "./pages/vnpay-done.html",
-      controller: "YourController",
+      controller: "BanTaiQuayController",
     })
     .otherwise({
       redirectTo: "/dashboard",

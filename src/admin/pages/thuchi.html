@@ -118,7 +118,7 @@
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
           <td>{{ hd.thanhTien ? (hd.thanhTien | number) + 'đ' : '' }}</td>
-          <td ng-show="!isAdmin">
+          <!-- <td ng-show="!isAdmin">
             {{hd.tenNhanVien}}
           </td>
           <td ng-show="isAdmin">
@@ -127,7 +127,8 @@
                 {{nv.fullName}}
               </option>
             </select>
-          </td>
+          </td> -->
+          <td>{{hd.tenNhanVien}}</td>
           <td>{{hd.loaiDon}}</td>
           <td>
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-outline-primary m-1">
