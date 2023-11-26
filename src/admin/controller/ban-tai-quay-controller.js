@@ -615,6 +615,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
+          console.log(response.data);
           $scope.keyName = "";
         });
     };
