@@ -1,6 +1,14 @@
 myApp.controller(
   "BanTaiQuayController",
-  function ($scope, $http, $window, $location, $routeParams, CartService, TransactionService) {
+  function (
+    $scope,
+    $http,
+    $window,
+    $location,
+    $routeParams,
+    CartService,
+    TransactionService
+  ) {
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
@@ -381,22 +389,6 @@ myApp.controller(
         });
     };
 
-    // TODO: thanh toán chuyển khoản
-    $scope.createTransactionVnpay = function (amount) {
-      $http
-        .post(
-          "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
-            id +
-            "&id=" +
-            idKhach +
-            "&vnp_Amount=" +
-            amount
-        )
-        .then(function (response) {
-          $scope.listTransaction.push(response.data);
-        });
-    };
-
     var transactionData = TransactionService.getTransactionData();
     console.log(transactionData); // Dữ liệu giao dịch từ URL VNPAY
 
@@ -404,12 +396,7 @@ myApp.controller(
     $scope.addVnPay = {};
     $scope.Vnpay = function (amount) {
       $http
-        .post(
-          "http://localhost:8080/api/v1/payment/pay?amount=" +
-            amount +
-            "&idHoaDon=" +
-            id
-        )
+        .post("http://localhost:8080/api/v1/payment/pay?amount=" + amount)
         .then(function (response) {
           $scope.addVnPay = response.data;
           $window.location.href = $scope.addVnPay.value;
@@ -492,7 +479,14 @@ myApp.controller(
           tenNguoiShip: $scope.tenNguoiShip,
           soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
           soDienThoai: $scope.soDienThoai,
-          diaChi: $scope.diaChi + ', ' + $scope.selectedWard.name + ', ' + $scope.selectedDistrict.name + ', ' + $scope.selectedProvince.name,
+          diaChi:
+            $scope.diaChi +
+            ", " +
+            $scope.selectedWard.name +
+            ", " +
+            $scope.selectedDistrict.name +
+            ", " +
+            $scope.selectedProvince.name,
           gioHangChiTietList: idDetail,
         };
         var api =
@@ -915,7 +909,7 @@ myApp.controller(
           $scope.wards = response.data.wards;
         });
     };
-    
+
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
       $http
