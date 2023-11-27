@@ -24,44 +24,43 @@
       </select>
     </div>
     <div ng-hide="!isAdmin" class="col-md-4" style="margin-left: -85px;">
-      Nhân Viên :
-      <select style="color: green" class="custom-select" ng-model="selectedNguoiXacNhan"
-        ng-change="filterHoaDonByNguoiXacNhan()">
-        <option value="">Tất cả</option>
-        <option ng-repeat="nguoiXacNhan in tenNguoiXacNhanOptions" value="{{nguoiXacNhan}}">
-          {{nguoiXacNhan}}
-        </option>
+      Nhân Viên:
+      <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien" ng-change="filterHoaDonByNguoiXacNhan()">
+          <option value="">Tất cả</option>
+          <option ng-repeat="tenNhanVien in allTenNhanVienOptions" value="{{tenNhanVien}}">
+              {{tenNhanVien}}
+          </option>
       </select>
-    </div>
+  </div>
+
   </div>
 </div>
 <div class="card overflow-hidden">
-  <nav class="navbar navbar-expand-lg navbar-dark" style="margin-bottom: 10px">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="margin-bottom: 10px" ng-init="setDefaultTrangThai()">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav" style="font-weight: 800">
-        <li class="nav-item active">
-          <a class="nav-link" href="" onclick="openCity('Choxacnhan')" style="color: darkgoldenrod">Chờ xác nhận</a>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 1 }">
+          <a class="nav-link" href="" ng-click="openCity(1)" style="color: darkgoldenrod">Chờ xác nhận</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="" onclick="openCity('Xacnhan')" style="color: darkgoldenrod">Xác nhận</a>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 2 }">
+          <a class="nav-link" href="" ng-click="openCity(2)" style="color: darkgoldenrod">Xác nhận</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="" onclick="openCity('Chogiaohang')" style="color: darkgoldenrod">Chờ giao hàng</a>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 3 }">
+          <a class="nav-link" href="" ng-click="openCity(3)" style="color: darkgoldenrod">Chờ giao hàng</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="" onclick="openCity('Giaohang')" style="color: darkgoldenrod">Giao hàng</a>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 4 }">
+          <a class="nav-link" href="" ng-click="openCity(4)" style="color: darkgoldenrod">Giao hàng</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="" onclick="openCity('Hoanthanh')" style="color: darkgoldenrod">Hoàn thành</a>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 5 }">
+          <a class="nav-link" href="" ng-click="openCity(5)" style="color: darkgoldenrod">Hoàn thành</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="" onclick="openCity('Dahuy')" style="color: darkgoldenrod">Đã hủy</a>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 6 }">
+          <a class="nav-link" href="" ng-click="openCity(6)" style="color: darkgoldenrod">Đã hủy</a>
         </li>
       </ul>
     </div>
   </nav>
-  <div class="status" id="Choxacnhan">
+  <div class="status" id="1" ng-show="selectedTrangThai === 1">
     <table class="table">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -77,7 +76,10 @@
         </tr>
       </thead>
       <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon1">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -94,8 +96,24 @@
         </tr>
       </tbody>
     </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="status" id="Xacnhan" style="display: none">
+  <div class="status" id="2" ng-show="selectedTrangThai === 2">
     <table class="table">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -111,7 +129,10 @@
         </tr>
       </thead>
       <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon2">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -138,8 +159,24 @@
         </tr>
       </tbody>
     </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="status" id="Chogiaohang" style="display: none">
+  <div class="status" id="3" ng-show="selectedTrangThai === 3">
     <table class="table">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -155,7 +192,10 @@
         </tr>
       </thead>
       <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon3">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -181,8 +221,24 @@
         </tr>
       </tbody>
     </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="status" id="Giaohang" style="display: none">
+  <div class="status" id="4" ng-show="selectedTrangThai === 4">
     <table class="table">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -198,7 +254,10 @@
         </tr>
       </thead>
       <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon4">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -224,8 +283,24 @@
         </tr>
       </tbody>
     </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="status" id="Hoanthanh" style="display: none">
+  <div class="status" id="5" ng-show="selectedTrangThai === 5">
     <table class="table">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -241,7 +316,10 @@
         </tr>
       </thead>
       <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon5">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -267,8 +345,24 @@
         </tr>
       </tbody>
     </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <div class="status" id="Dahuy" style="display: none">
+  <div class="status" id="6" ng-show="selectedTrangThai === 6">
     <table class="table">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -284,7 +378,12 @@
         </tr>
       </thead>
       <tbody class="table" style="border: 1px solid #ccc">
-        <tr ng-repeat="hd in listHoaDon6">
+        <!-- Kiểm tra nếu không có hóa đơn thì hiển thị thông báo -->
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <!-- Nếu có dữ liệu, hiển thị từng dòng như bình thường -->
+        <tr ng-repeat="hd in listHoaDon">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -310,5 +409,22 @@
         </tr>
       </tbody>
     </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
+
 </div>
