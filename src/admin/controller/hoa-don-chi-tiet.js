@@ -269,6 +269,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.createTransaction = function (idKhach) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         $http
           .post(
             "http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-toan-hoa-don-online?idHoaDon=" +
@@ -281,6 +288,12 @@ myApp.controller(
           .then(function (response) {
             $scope.lichSu.push(response.data);
             $scope.getlichSuThanhToan();
+            $scope.getHoaDonChiTiet();
+            $scope.getSanPham();
+            $scope.getlichSuThayDoi();
+            $scope.selectMoney(id);
+            $scope.getTongTienHang();
+            $scope.getOrderDetailUpdate();
           });
       };
     }, 2000);
@@ -621,9 +634,9 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamInOrder.push(response.data);
+          $scope.getlichSuThanhToan();
           $scope.getHoaDonChiTiet();
           $scope.getSanPham();
-          $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
           $scope.getTongTienHang();
