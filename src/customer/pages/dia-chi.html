@@ -173,7 +173,7 @@
         <div class="view-account mt-5">
           <h3>Địa chỉ</h3>
           <div class="btn_address" style="text-align: end">
-            <a href="" type="button" class="btn btn-outline-primary mt-3" style="margin-right: 15px" data-toggle="modal"
+            <a style="border-radius: 20px;" href="" type="button" class="btn btn-outline-primary mt-3" style="margin-right: 15px" data-toggle="modal"
               data-target="#addAddressModal">Thêm địa chỉ</a>
           </div>
 
@@ -186,16 +186,16 @@
                     <p class="card-text">{{ diaChi.soDienThoai }}</p>
                     <p class="card-text">{{ diaChi.diaChi }}</p>
                     <!-- Thêm các thông tin khác nếu cần -->
-                    <button class="btn btn-outline-danger" ng-if="diaChi.trangThai == 1" disabled>
+                    <button style="border-radius: 20px;" class="btn btn-outline-danger" ng-if="diaChi.trangThai == 1" disabled>
                       Mặc định
                     </button>
                   </div>
                   <div>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#updateAddressModal"
+                    <button style="border-radius: 20px;" class="btn btn-primary" data-toggle="modal" data-target="#updateAddressModal"
                       ng-click="prepareUpdateAddress(diaChi)">
                       Cập nhật
                     </button>
-                    <button class="btn btn-outline-secondary" ng-click="setAsDefault(diaChi)">
+                    <button style="border-radius: 20px;" class="btn btn-outline-secondary" ng-click="setAsDefault(diaChi)">
                       Thiết lập mặc định
                     </button>
                   </div>

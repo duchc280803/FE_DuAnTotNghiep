@@ -83,9 +83,16 @@ myAppCustom.controller(
     };
 
     $scope.searchProductByPriceRange = function () {
-      var key1 = $scope.minPrice || 0;
-      var key2 = $scope.maxPrice || 5000000;
-
+      var selectedRange = $scope.selectedPriceRange;
+      var key1, key2;
+    
+      // Tách giá trị của option thành khoảng giá key1 và key2
+      if (selectedRange) {
+        var rangeValues = selectedRange.split("-");
+        key1 = rangeValues[0];
+        key2 = rangeValues.length > 1 ? rangeValues[1] : null;
+      }
+    
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/searchMoneybykey",
@@ -97,6 +104,7 @@ myAppCustom.controller(
           $scope.listSanPhamShop = response.data;
         });
     };
+    
 
     $scope.searchProductXuatXu = function (id) {
       if (!id) {
