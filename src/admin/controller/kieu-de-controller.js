@@ -19,7 +19,6 @@ myApp.controller("kieuDeController", function ($http, $scope, $location) {
         $scope.listKieuDe = response.data;
         console.log("Dữ liệu trả về: ", response.data);
 
-        // Update currentPageNumber based on the response
         $scope.currentPageNumber = response.data.number;
         $scope.totalNumberOfPages = response.data.totalPages;
       })
@@ -54,47 +53,123 @@ myApp.controller("kieuDeController", function ($http, $scope, $location) {
     });
   }
 
-  $scope.updateKieuDe = function (updatedData) {
-    var updateUrl =
-      "http://localhost:8080/api/v1/kieu-de/update?id=" +
-      $scope.selectedKieuDe.kieuDeId;
-
-    $http
-      .put(updateUrl, updatedData)
-      .then(function (response) {
-        console.log("Cập nhật thông tin thành công: ", response.data);
-
-        kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi cập nhật thông tin: ", error);
+  setTimeout(() => {
+    $scope.updateKieuDe = function (updatedData) {
+      Swal.fire({
+        title: "Bạn có muốn thêm kiểu đế mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var updateUrl =
+            "http://localhost:8080/api/v1/kieu-de/update?id=" +
+            $scope.selectedKieuDe.kieuDeId;
+          $http
+            .put(updateUrl, updatedData)
+            .then(function (response) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Update thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            })
+            .catch(function (error) {
+              console.error("Lỗi khi cập nhật thông tin: ", error);
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
   $scope.newKieuDe = {};
-  $scope.createKieuDe = function () {
-    $http
-      .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe)
-      .then(function (response) {
-        $scope.listKieuDe.push(response.data);
-        kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
+  setTimeout(() => {
+    $scope.createKieuDe = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm kiểu đế mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $http
+            .post(
+              "http://localhost:8080/api/v1/kieu-de/create",
+              $scope.newKieuDe
+            )
+            .then(function (response) {
+              $scope.listKieuDe.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm mới thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            })
+            .catch(function (error) {
+              console.error("Error:", error);
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
   $scope.deleteKieuDe = function (id) {
-    var deleteUrl = "http://localhost:8080/api/v1/kieu-de/delete?id=" + id;
+    Swal.fire({
+      title: "Bạn có muốn vô hiệu hóa kiểu đế này không?",
+      text: "",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+      reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var deleteUrl = "http://localhost:8080/api/v1/kieu-de/delete?id=" + id;
 
-    $http
-      .put(deleteUrl)
-      .then(function (response) {
-        console.log("Xóa chất liệu thành công: ", response.data);
-
-        // Sau khi xóa thành công, làm mới danh sách hoặc thực hiện các bước cần thiết khác
-        kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi xóa chất liệu: ", error);
-      });
+        $http
+          .put(deleteUrl)
+          .then(function (response) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Vô hiệu hóa thành công",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            }).then(() => {
+              kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
+            });
+          })
+          .catch(function (error) {
+            console.error("Lỗi khi xóa chất liệu: ", error);
+          });
+      }
+    });
   };
 
   $scope.fetchKieuDeDetail = function (id) {

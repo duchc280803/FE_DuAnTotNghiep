@@ -5,7 +5,6 @@ myApp.controller(
     $http,
     $window,
     $location,
-    $routeParams,
     CartService,
     TransactionService
   ) {
@@ -167,10 +166,6 @@ myApp.controller(
       $scope.listSanPhamInCart();
     }
 
-    // var idGioHangChiTiet = $window.localStorage.getItem("listCart");
-    // var gioHangChiTietList = idGioHangChiTiet
-    //   ? idGioHangChiTiet.split(",")
-    //   : [];
     // TODO: updatePage
     $scope.updatePage = function (pageNumber) {
       $scope.pageNumber = pageNumber;
