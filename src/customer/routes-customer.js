@@ -62,6 +62,12 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
     .when("/chinh-sach-xu-ly-khieu-nai", {
       templateUrl: "./pages/chinh-sach-xu-ly-khieu-nai.html",
     })
+    .when("/quen-mat-khau", {
+      templateUrl: "./pages/forgot-password.html",
+    })
+    .when("/login-register", {
+      templateUrl: "./pages/login-register.html",
+    })
     .otherwise({
       redirectTo: "/home",
     });

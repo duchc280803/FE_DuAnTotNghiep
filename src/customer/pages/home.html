@@ -314,26 +314,27 @@
     font-weight: 500;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  .product__discount__percent {
-      position: absolute;
-      margin-top: 10px;
-      margin-right: 10px;
-      top: 0;
-      right: 0;
-      background-color: red;
-      color: white;
-      border-radius: 50%;
-      padding: 10px;
-      font-size: 14px;
-    }
 
-    .card {
-      position: relative;
-    }
+  .product__discount__percent {
+    position: absolute;
+    margin-top: 10px;
+    margin-right: 10px;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .card {
+    position: relative;
+  }
 </style>
 
 <body>
-  <header class="header">
+  <header class="header" style="background: #F3F6FA">
     <div class="header__top">
       <div class="container">
         <div class="row">
@@ -417,7 +418,6 @@
                         <hr />
                       </div>
                     </div>
-
                   </div>
                   <div class="row">
                     <div class="col-md-1"></div>
@@ -445,15 +445,16 @@
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đơn hàng</p>
                     </a>
-                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                    <a href="#/login-register" class="d-flex align-items-center gap-2 dropdown-item"
+                      ng-if="!isLoggedIn">
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đăng nhập</p>
                     </a>
-                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
+                    <button ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
                       ng-if="isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
-                    </a>
+                      </a>
                   </div>
                 </div>
               </li>
@@ -461,8 +462,65 @@
           </div>
         </div>
       </div>
-      <div class="humberger__open">
-        <i class="fa fa-bars"></i>
+    </div>
+    <div class="modal fade" id="login-custom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content custom-modal-content"
+          style="width: 875px; margin-left: -15px;height: 407px;top: 80px;">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6" ng-controller="loginCutomController">
+                <h3 style="font-weight: normal; font-size: 25px;">ĐĂNG NHẬP</h3>
+                <br>
+                <span class="header-title"><span style="color: red">*</span>
+                  <span style="font-size: 15px;">Tên tài khoản</span></span>
+                <input ng-model="username" type="text" class="form-control" placeholder="Tên tài khoản ..."
+                  required="" />
+                <span style="color: red">{{errorUsername}}</span>
+                <br>
+                <span class="header-title"><span style="color: red">*</span>
+                  <span style="font-size: 15px;">Mật khẩu</span></span>
+                <input ng-model="password" type="password" class="form-control" placeholder="Mật khẩu ..."
+                  required="" />
+                <span style="color: red">{{errorUsername}}</span>
+                <br>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" value="">GHI NHỚ MẬT KHẨU
+                  </label>
+                </div>
+                <br>
+                <br>
+                <button class="btn btn-warning" style="color: white;" ng-click="loginCusTom()">ĐĂNG NHẬP</button>
+                <br>
+                <a href="#/quen-mat-khau">Quên mật khẩu?</a>
+              </div>
+              <div class="col-lg-6" ng-controller="registerCutomController">
+                <h3 style="font-weight: normal; font-size: 25px;">ĐĂNG KÝ</h3>
+                <br>
+                <span class="header-title"><span style="color: red">*</span>
+                  <span style="font-size: 15px;">Tên tài khoản</span></span>
+                <input ng-model="usernameRegis" type="text" id="email" class="form-control"
+                  placeholder="Tên tài khoản ..." required="" />
+                <span style="color: red">{{errorUsername}}</span>
+                <br>
+                <span class="header-title"><span style="color: red">*</span>
+                  <span style="font-size: 15px;">Email</span></span>
+                <input ng-model="emailRegis" type="email" id="email" class="form-control" placeholder="Email ..."
+                  required="" />
+                <span style="color: red">{{errorUsername}}</span>
+                <br>
+                <span class="header-title"><span style="color: red">*</span>
+                  <span style="font-size: 15px;">Mật khẩu</span></span>
+                <input ng-model="passwordRegis" type="password" id="email" class="form-control"
+                  placeholder="Mật khẩu ..." required="" />
+                <span style="color: red">{{errorUsername}}</span>
+                <br>
+                <button class="btn btn-warning" style="color: white;" ng-click="register()">Đăng ký</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>

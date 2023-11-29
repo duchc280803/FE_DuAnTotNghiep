@@ -422,7 +422,7 @@
 </head>
 
 <body>
-  <header class="header">
+  <header class="header" style="background: #F3F6FA">
     <div class="header__top">
       <div class="container">
         <div class="row">
@@ -506,7 +506,6 @@
                         <hr />
                       </div>
                     </div>
-
                   </div>
                   <div class="row">
                     <div class="col-md-1"></div>
@@ -534,24 +533,21 @@
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đơn hàng</p>
                     </a>
-                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                    <a href="#/login-register" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đăng nhập</p>
-                    </a>
-                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
+                  </a>
+                    <button ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
                       ng-if="isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
-                    </a>
+                      </a>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
         </div>
-      </div>
-      <div class="humberger__open">
-        <i class="fa fa-bars"></i>
       </div>
     </div>
   </header>
@@ -685,39 +681,39 @@
           </div>
         </div>
       </div>
- 
 
-        <div class="row featured__filter">
-          <div class="col-lg-4 col-md-6 col-sm-6 custom-margin" ng-repeat="product in relatedProducts">
-            <div class="card">
-              <img ng-if="product.tenImage" src="{{product.tenImage}}" class="card-img-top" alt="...">
-              <div class="product__discount__percent" ng-show="product.mucGiam != null">
-                -{{product.mucGiam}}%
-              </div>
-              <div class="card-body d-flex flex-column justify-content-between text-center">
-                <p ng-if="product.tenSanPham" class="card-text">{{product.tenSanPham}}</p>
-                <div class="text-center">
-                  <h5 ng-show="product.donGiaKhiGiam != null">
-                    {{product.donGiaKhiGiam | number}}₫
-                    <strike style="color: red;">{{product.giaban | number}}₫</strike>
-                  </h5>
-                  <h5 ng-show="product.donGiaKhiGiam == null">
-                    {{product.giaban | number}}₫
-                  </h5>
-                  <a class="abc mt-2" style="margin-left: 20px;" ng-if="product.tenSanPham"
-                    href="#/shop/detail/{{product.tenSanPham}}"><span>Xem sản phẩm</span></a>
-                </div>
+
+      <div class="row featured__filter">
+        <div class="col-lg-4 col-md-6 col-sm-6 custom-margin" ng-repeat="product in relatedProducts">
+          <div class="card">
+            <img ng-if="product.tenImage" src="{{product.tenImage}}" class="card-img-top" alt="...">
+            <div class="product__discount__percent" ng-show="product.mucGiam != null">
+              -{{product.mucGiam}}%
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between text-center">
+              <p ng-if="product.tenSanPham" class="card-text">{{product.tenSanPham}}</p>
+              <div class="text-center">
+                <h5 ng-show="product.donGiaKhiGiam != null">
+                  {{product.donGiaKhiGiam | number}}₫
+                  <strike style="color: red;">{{product.giaban | number}}₫</strike>
+                </h5>
+                <h5 ng-show="product.donGiaKhiGiam == null">
+                  {{product.giaban | number}}₫
+                </h5>
+                <a class="abc mt-2" style="margin-left: 20px;" ng-if="product.tenSanPham"
+                  href="#/shop/detail/{{product.tenSanPham}}"><span>Xem sản phẩm</span></a>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-  
+
     </div>
   </section>
 
   <!-- Footer Section Begin -->
-  <footer class="footer spad">
+  <footer>
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -761,18 +757,18 @@
         </div>
       </div>
     </div>
-  </footer>
+    </footer>
 
-  <script src="/js/jquery-3.3.1.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/jquery.nice-select.min.js"></script>
-  <script src="/js/jquery-ui.min.js"></script>
-  <script src="/js/jquery.slicknav.js"></script>
-  <script src="/js/mixitup.min.js"></script>
-  <script src="/js/owl.carousel.min.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.slicknav.js"></script>
+    <script src="/js/mixitup.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </body>
 
 </html>
