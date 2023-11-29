@@ -67,37 +67,117 @@ myApp.controller(
     $scope.getListMauSac();
 
     $scope.newProductDetail = {};
-    $scope.createProductDetail = function () {
-      $http
-        .post(
-          "http://localhost:8080/api/v1/san-pham-chi-tiet/create/" + id,
-          $scope.newProductDetail
-        )
-        .then(function (response) {
-          $scope.productDetail.push(response.data);
-          $scope.getProductDetail();
+    setTimeout(() => {
+      $scope.createProductDetail = function () {
+        Swal.fire({
+          title: "Bạn có muốn thêm mới không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .post(
+                "http://localhost:8080/api/v1/san-pham-chi-tiet/create/" + id,
+                $scope.newProductDetail
+              )
+              .then(function (response) {
+                $scope.productDetail.push(response.data);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Thêm thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
+                }).then(() => {
+                  $scope.getProductDetail();
+                });
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
-    $scope.updateStatusHuy = function (id) {
-      $http
-        .put(
-          "http://localhost:8080/api/v1/san-pham-chi-tiet/update-huy?id=" + id
-        )
-        .then(function (response) {
-          $scope.getProductDetail();
+    setTimeout(() => {
+      $scope.updateStatusHuy = function (id) {
+        Swal.fire({
+          title: "Bạn có muốn hủy kích hoạt không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .put(
+                "http://localhost:8080/api/v1/san-pham-chi-tiet/update-huy?id=" +
+                  id
+              )
+              .then(function (response) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Hủy thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
+                }).then(() => {
+                  $scope.getProductDetail();
+                });
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
-    $scope.updateStatusKichHoat = function (id) {
-      $http
-        .put(
-          "http://localhost:8080/api/v1/san-pham-chi-tiet/update-kich?id=" + id
-        )
-        .then(function (response) {
-          $scope.getProductDetail();
+    setTimeout(() => {
+      $scope.updateStatusKichHoat = function (id) {
+        Swal.fire({
+          title: "Bạn có muốn kích hoạt không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .put(
+                "http://localhost:8080/api/v1/san-pham-chi-tiet/update-kich?id=" +
+                  id
+              )
+              .then(function (response) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Kích hoạt thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
+                }).then(() => {
+                  $scope.getProductDetail();
+                });
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
     $scope.uploadImages = function () {
       var formData = new FormData();
@@ -124,52 +204,63 @@ myApp.controller(
     };
 
     // Cleaned up code
-    $scope.deleteImage = function (id) {
-      Swal.fire({
-        title: "Xác nhận xóa?",
-        text: "Bạn có chắc chắn muốn xóa ảnh này ?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Xóa",
-        cancelButtonText: "Hủy",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $http
-            .delete("http://localhost:8080/api/v1/images/remove?id=" + id)
-            .then(function () {
-              var index = $scope.image.findIndex((img) => img.id === id);
-              if (index !== -1) {
-                $scope.image.splice(index, 1);
-              }
+    setTimeout(() => {
+      $scope.deleteImage = function (id) {
+        Swal.fire({
+          title: "Xác nhận xóa?",
+          text: "Bạn có chắc chắn muốn xóa ảnh này ?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Xóa",
+          cancelButtonText: "Hủy",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .delete("http://localhost:8080/api/v1/images/remove?id=" + id)
+              .then(function () {
+                var index = $scope.image.findIndex((img) => img.id === id);
+                if (index !== -1) {
+                  $scope.image.splice(index, 1);
+                }
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Xóa thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              });
+          }
+        });
+      };
+    }, 2000);
+
+    setTimeout(() => {
+      $scope.updateQuantity = function (id, soLuong) {
+        var apiURL =
+          "http://localhost:8080/api/v1/san-pham-chi-tiet/update-quantity?id=" +
+          id +
+          "&soLuong=" +
+          soLuong;
+        $http({
+          url: apiURL,
+          method: "PUT",
+          transformResponse: [
+            function () {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Xóa thành công",
+                title: "Thành công",
                 showConfirmButton: false,
                 timer: 1500,
               });
-            });
-        }
-      });
-    };
-
-    $scope.updateQuantity = function (id, soLuong) {
-      var apiURL =
-        "http://localhost:8080/api/v1/san-pham-chi-tiet/update-quantity?id=" +
-        id +
-        "&soLuong=" +
-        soLuong;
-      $http({
-        url: apiURL,
-        method: "PUT",
-        transformResponse: [
-          function () {
-            $scope.getProductDetail();
-          },
-        ],
-      });
-    };
+              $scope.getProductDetail();
+            },
+          ],
+        });
+      };
+    }, 2000);
   }
 );

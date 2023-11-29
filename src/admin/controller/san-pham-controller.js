@@ -147,57 +147,182 @@ myApp.controller("sanPhamController", function ($http, $scope) {
   $scope.getListXuatXu();
 
   $scope.newProduct = {};
-  $scope.createProduct = function () {
-    $http
-      .post("http://localhost:8080/api/v1/san-pham/create", $scope.newProduct)
-      .then(function (response) {
-        $scope.listXuatXu.push(response.data);
-        window.location.href =
-          "http://127.0.0.1:5505/src/admin/index-admin.html#/product-update/" +
-          response.data.id;
+  setTimeout(() => {
+    $scope.createProduct = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      }).then((result) => {
+        $http
+          .post(
+            "http://localhost:8080/api/v1/san-pham/create",
+            $scope.newProduct
+          )
+          .then(function (response) {
+            $scope.listXuatXu.push(response.data);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Thêm thành công",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            });
+            window.location.href =
+              "http://127.0.0.1:5505/src/admin/index-admin.html#/product-update/" +
+              response.data.id;
+          });
       });
-  };
+    };
+  });
 
   $scope.newThuongHieu = {};
-  $scope.createThuongHieu = function () {
-    $http
-      .post(
-        "http://localhost:8080/api/v1/thuong-hieu/create",
-        $scope.newThuongHieu
-      )
-      .then(function (response) {
-        $scope.listThuongHieu.push(response.data);
-        $scope.getListThuongHieu();
+  setTimeout(() => {
+    $scope.createThuongHieu = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      }).then((result) => {
+        $http
+          .post(
+            "http://localhost:8080/api/v1/thuong-hieu/create",
+            $scope.newThuongHieu
+          )
+          .then(function (response) {
+            $scope.listThuongHieu.push(response.data);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Thêm thành công",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            }).then(() => {
+              $scope.getListThuongHieu();
+            });
+          });
       });
-  };
+    };
+  });
 
   $scope.newKieuDe = {};
-  $scope.createKieuDe = function () {
-    $http
-      .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe)
-      .then(function (response) {
-        $scope.listKieuDe.push(response.data);
-        $scope.getListKieuDe();
+  setTimeout(() => {
+    $scope.createKieuDe = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      }).then((result) => {
+        $http
+          .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe)
+          .then(function (response) {
+            $scope.listKieuDe.push(response.data);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Thêm thành công",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            }).then(() => {
+              $scope.getListKieuDe();
+            });
+          });
       });
-  };
+    };
+  });
 
   $scope.newDanhMuc = {};
-  $scope.createDanhMuc = function () {
-    $http
-      .post("http://localhost:8080/api/v1/danh-muc/create", $scope.newDanhMuc)
-      .then(function (response) {
-        $scope.listDanhMuc.push(response.data);
-        $scope.getListDanhMuc();
+  setTimeout(() => {
+    $scope.createDanhMuc = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      }).then((result) => {
+        $http
+          .post(
+            "http://localhost:8080/api/v1/danh-muc/create",
+            $scope.newDanhMuc
+          )
+          .then(function (response) {
+            $scope.listDanhMuc.push(response.data);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Thêm thành công",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            }).then(() => {
+              $scope.getListDanhMuc();
+            });
+          });
       });
-  };
+    };
+  });
 
   $scope.newXuatXu = {};
-  $scope.createXuatXu = function () {
-    $http
-      .post("http://localhost:8080/api/v1/xuat-xu/create", $scope.newXuatXu)
-      .then(function (response) {
-        $scope.listXuatXu.push(response.data);
-        $scope.getListXuatXu();
+  setTimeout(() => {
+    $scope.createXuatXu = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $http
+            .post(
+              "http://localhost:8080/api/v1/xuat-xu/create",
+              $scope.newXuatXu
+            )
+            .then(function (response) {
+              $scope.listXuatXu.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                $scope.getListXuatXu();
+              });
+            });
+        }
       });
-  };
+    };
+  });
 });

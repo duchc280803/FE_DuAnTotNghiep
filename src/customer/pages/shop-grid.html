@@ -608,29 +608,19 @@
         </div>
 
         <div class="col-lg-9 col-md-7">
-          <!-- <div class="filter__item">
-            <div class="row">
-              <div class="col-lg-4 col-md-5"></div>
-              <div class="col-lg-4 col-md-4"></div>
-              <div class="col-lg-4 col-md-3"></div>
-            </div>
-          </div> -->
           <div class="row featured__filter">
             <div class="col-lg-4 col-md-6 col-sm-6 custom-margin" ng-repeat="sp in listSanPhamShop">
               <div class="card">
-                <img ng-if="sp.tenImage" src="{{sp.tenImage}}" class="card-img-top" alt="...">
-                <div class="product__discount__percent" ng-show="sp.mucGiam != null">
-                  -{{sp.mucGiam}}%
-                </div>
+                <img ng-if="sp.imgage" src="{{sp.imgage}}" class="card-img-top" alt="...">
                 <div class="card-body d-flex flex-column justify-content-between text-center">
                   <p ng-if="sp.tenSanPham" class="card-text">{{sp.tenSanPham}}</p>
                   <div class="text-center">
-                    <h5 ng-show="sp.donGiaKhiGiam != null">
-                      {{sp.donGiaKhiGiam | number}}₫
-                      <strike style="color: red;">{{sp.giaban | number}}₫</strike>
+                    <h5 ng-show="sp.giaGiamGia != sp.giaBan">
+                      {{sp.giaGiamGia}}₫
+                      <strike style="color: red;">{{sp.giaBan}}₫</strike>
                     </h5>
-                    <h5 ng-show="sp.donGiaKhiGiam == null">
-                      {{sp.giaban | number}}₫
+                    <h5 ng-show="sp.giaGiamGia == sp.giaBan">
+                      {{sp.giaBan}}₫
                     </h5>
                     <a class="abc mt-2" style="margin-left: 20px;" ng-if="sp.tenSanPham"
                       href="#/shop/detail/{{sp.tenSanPham}}"><span>Xem sản phẩm</span></a>
@@ -639,8 +629,6 @@
               </div>
             </div>
           </div>
-
-
           <div class="row" style="text-align: center;">
             <div class="product__pagination">
               <a href="#">1</a>

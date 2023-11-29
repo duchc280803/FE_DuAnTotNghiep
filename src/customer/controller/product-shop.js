@@ -16,6 +16,7 @@ myAppCustom.controller(
           $scope.listSanPhamShop = response.data;
         });
     };
+    
     $scope.listSanPhamGiamGia();
     $scope.searchProductDanhMuc = function (id) {
       if (!id) {

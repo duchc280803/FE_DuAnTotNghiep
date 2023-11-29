@@ -847,20 +847,20 @@
                         <span>{{sptq.chatLieu}}</span>
                       </td>
                       <td style="padding-top: 55px">
-                        <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0">
+                        <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                           <strong>
                             <span class="text-danger">
-                              {{sptq.giaBan - sptq.giaGiamGia | number}}đ
+                              {{sptq.giaGiamGia}}đ
                             </span>
                             <strike class="text-danger">
-                              {{ sptq.giaBan | number}}đ
+                              {{ sptq.giaBan}}đ
                             </strike>
                           </strong>
                         </small>
-                        <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == 0">
+                        <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == sptq.giaBan">
                           <strong>
                             <span class="text-danger">
-                              {{ sptq.giaBan | number}}đ
+                              {{ sptq.giaBan}}đ
                             </span>
                           </strong>
                         </small>

@@ -561,7 +561,7 @@
         <div class="col-lg-5 col-md-5">
           <div class="product__details__pic">
             <div class="product__details__pic__item">
-              <img class="product__details__pic__item--large" src="{{detailProduct.tenImage}}" alt="" />
+              <img class="product__details__pic__item--large" src="{{detailProduct.imgage}}" alt="" />
             </div>
             <div class="product__details__pic__slider owl-carousel"></div>
           </div>
@@ -570,12 +570,16 @@
           <div class="product__details__text">
             <h3>{{detailProduct.tenSanPham}}</h3>
             <div class="product__details__price">
-              <div ng-show="detailProduct.donGiaKhiGiam != null">
-                {{detailProduct.donGiaKhiGiam | number}}₫<span
-                  style="text-decoration: line-through; padding-left: 10px">{{detailProduct.giaban | number}}₫</span>
+              <div ng-show="detailProduct.giaGiamGia != detailProduct.giaBan">
+                <h5>
+                  {{detailProduct.giaGiamGia}}₫
+                  <strike style="color: red;">{{detailProduct.giaBan}}₫</strike>
+                </h5>
               </div>
-              <div ng-show="detailProduct.donGiaKhiGiam == null">
-                {{detailProduct.giaban | number}}₫
+              <div ng-show="detailProduct.giaGiamGia == detailProduct.giaBan">
+                <h5>
+                  {{ detailProduct.giaBan}}₫
+                </h5>
               </div>
             </div>
             <h4 style="padding-bottom: 10px">Size:</h4>
