@@ -25,13 +25,14 @@
     </div>
     <div ng-hide="!isAdmin" class="col-md-4" style="margin-left: -85px;">
       Nhân Viên:
-      <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien" ng-change="filterHoaDonByNguoiXacNhan()">
-          <option value="">Tất cả</option>
-          <option ng-repeat="tenNhanVien in allTenNhanVienOptions" value="{{tenNhanVien}}">
-              {{tenNhanVien}}
-          </option>
+      <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien"
+        ng-change="filterHoaDonByNguoiXacNhan()">
+        <option value="">Tất cả</option>
+        <option ng-repeat="tenNhanVien in allTenNhanVienOptions" value="{{tenNhanVien}}">
+          {{tenNhanVien}}
+        </option>
       </select>
-  </div>
+    </div>
 
   </div>
 </div>
@@ -79,7 +80,7 @@
         <tr ng-if="listHoaDon.length === 0">
           <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
         </tr>
-        <tr ng-repeat="hd in listHoaDon">
+        <tr ng-repeat="hd in listHoaDon | filter: {trangThai: 1, loaiDon: 'ONLINE'}">
           <th>{{$index + 1}}</th>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
@@ -106,13 +107,15 @@
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+            <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
+              Next
+            </a>
           </li>
         </ul>
       </nav>
     </div>
   </div>
+
   <div class="status" id="2" ng-show="selectedTrangThai === 2">
     <table class="table">
       <thead>
