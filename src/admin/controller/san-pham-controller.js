@@ -147,25 +147,13 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   $scope.getListXuatXu();
 
   $scope.newProduct = {};
-  $scope.createProduct = function () {
-    var token = $window.localStorage.getItem("token");
+  var token = $window.localStorage.getItem("token");
 
-    var config = {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
-    $http
-      .post(
-        "http://localhost:8080/api/v1/san-pham/create",
-        $scope.newProduct,
-        config
-      )
-      .then(function (response) {
-        $scope.listXuatXu.push(response.data);
-        window.location.href =
-          "http://127.0.0.1:5505/src/admin/index-admin.html#/product-update/" +
-          response.data.id;
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
   setTimeout(() => {
     $scope.createProduct = function () {
       Swal.fire({
@@ -181,7 +169,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         $http
           .post(
             "http://localhost:8080/api/v1/san-pham/create",
-            $scope.newProduct
+            $scope.newProduct,
+            config
           )
           .then(function (response) {
             $scope.listXuatXu.push(response.data);

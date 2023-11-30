@@ -17,7 +17,7 @@ myApp.controller(
         .then(function (response) {
           $scope.listGiamGia = response.data;
         });
-    }
+    };
     function fetchVoucherHistortyList() {
       $http
         .get("http://localhost:8080/api/v1/audilog/khuyenmai")
@@ -106,7 +106,7 @@ myApp.controller(
       $scope.pageNumber = pageNumber;
       $scope.fetchGiamGiaList();
     };
-  
+
     // TODO: Quay lại trang
     $scope.previousPage = function () {
       if ($scope.pageNumber > 0) {
@@ -114,7 +114,7 @@ myApp.controller(
         $scope.fetchGiamGiaList();
       }
     };
-  
+
     // TODO: tiến đến trang khác
     $scope.nextPage = function () {
       $scope.pageNumber++;
@@ -574,9 +574,19 @@ myApp.controller(
               idsanpham: $scope.sanPhamDaChon,
               idDanhMuc: idDanhMuc,
             };
+            var token = $window.localStorage.getItem("token");
 
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
             $http
-              .post("http://localhost:8080/api/v1/giam-gia/create", dataToSend)
+              .post(
+                "http://localhost:8080/api/v1/giam-gia/create",
+                dataToSend,
+                config
+              )
               .then(function (response) {
                 $scope.listGiamGia.push(response.data);
                 Swal.fire({
@@ -597,29 +607,6 @@ myApp.controller(
           }
         });
       };
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .post(
-          "http://localhost:8080/api/v1/giam-gia/create",
-          dataToSend,
-          config
-        )
-        .then(function (response) {
-          console.log(response.data);
-          $scope.maGiamGia = "";
-          $scope.tenGiamGia = "";
-          $scope.mucGiam = "";
-          $scope.hinhThucGiam = "";
-          $scope.trangThai = "";
-          $scope.ngayBatDau = "";
-          $scope.ngayKetThuc = "";
-          $scope.sanPhamDaChon = [];
     }, 2000);
 
     setTimeout(() => {
