@@ -1,6 +1,6 @@
 myApp.controller(
   "giamgiaChiTietController",
-  function ($http, $scope, $routeParams, $location) {
+  function ($http, $scope, $routeParams, $location, $window) {
     function getgiamgiachitiet(id) {
       const apiUrl =
         "http://localhost:8080/api/v1/giam-gia/detailList?id=" + id;
@@ -408,9 +408,19 @@ myApp.controller(
         ngayKetThuc: $scope.giamgiachitiet.ngayKetThuc,
         idsanpham: $scope.sanPhamDaChon, // Include selected product IDs
       };
+      var token = $window.localStorage.getItem("token");
 
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .put("http://localhost:8080/api/v1/giam-gia/update/" + id, dataToSend)
+        .put(
+          "http://localhost:8080/api/v1/giam-gia/update/" + id,
+          dataToSend,
+          config
+        )
         .then(function (response) {
           console.log(response.data);
           if (

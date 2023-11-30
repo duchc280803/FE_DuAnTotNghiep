@@ -1,4 +1,4 @@
-myApp.controller("sanPhamController", function ($http, $scope) {
+myApp.controller("sanPhamController", function ($http, $scope, $window) {
   $scope.listSanPham = [];
   $scope.filterSanPham = function () {
     $http
@@ -148,8 +148,19 @@ myApp.controller("sanPhamController", function ($http, $scope) {
 
   $scope.newProduct = {};
   $scope.createProduct = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .post("http://localhost:8080/api/v1/san-pham/create", $scope.newProduct)
+      .post(
+        "http://localhost:8080/api/v1/san-pham/create",
+        $scope.newProduct,
+        config
+      )
       .then(function (response) {
         $scope.listXuatXu.push(response.data);
         window.location.href =

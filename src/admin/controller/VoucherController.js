@@ -1,22 +1,62 @@
-myApp.controller("VoucherController", function ($http, $scope, $location) {
-  $scope.listVoucher = [];
-  function fetchVoucherList() {
-    $http
-      .get("http://localhost:8080/api/v1/voucher/show")
-      .then(function (response) {
-        $scope.listVoucher = response.data;
-      });
-  }
-  $scope.listVoucherHistory = [];
-  $scope.previousDate = null;
+myApp.controller(
+  "VoucherController",
+  function ($http, $scope, $location, $window) {
+    $scope.listVoucher = [];
+    function fetchVoucherList() {
+      $http
+        .get("http://localhost:8080/api/v1/voucher/show")
+        .then(function (response) {
+          $scope.listVoucher = response.data;
+        });
+    }
+    $scope.listVoucherHistory = [];
+    $scope.previousDate = null;
 
-  function fetchVoucherHistortyList() {
-    $http
-      .get("http://localhost:8080/api/v1/audilog/voucher")
-      .then(function (response) {
+    function fetchVoucherHistortyList() {
+      $http
+        .get("http://localhost:8080/api/v1/audilog/voucher")
+        .then(function (response) {
+          $scope.listVoucherHistory = response.data;
+
+          // Lọc và chỉ giữ lại các bản ghi có ngày khác với ngày trước đó
+          $scope.listVoucherHistory = $scope.listVoucherHistory.filter(
+            function (gg) {
+              var isDifferentDate =
+                !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+              $scope.previousDate = gg.timestamp;
+              return isDifferentDate;
+            }
+          );
+        });
+    }
+
+    fetchVoucherHistortyList();
+    $scope.searchVouchers = function () {
+      // Make sure both startDate and endDate are provided
+      if (!$scope.startDate || !$scope.endDate) {
+        // Handle error or provide user feedback
+        return;
+      }
+
+      // Convert dates to YYYY-MM-DD format
+      var formattedStartDate = new Date($scope.startDate)
+        .toISOString()
+        .split("T")[0];
+      var formattedEndDate = new Date($scope.endDate)
+        .toISOString()
+        .split("T")[0];
+
+      var searchUrl =
+        "http://localhost:8080/api/v1/audilog/vouchersearch?startDate=" +
+        encodeURIComponent(formattedStartDate) +
+        "&endDate=" +
+        encodeURIComponent(formattedEndDate);
+
+      $http.get(searchUrl).then(function (response) {
+        // Update the listVoucherHistory with the search results
         $scope.listVoucherHistory = response.data;
 
-        // Lọc và chỉ giữ lại các bản ghi có ngày khác với ngày trước đó
+        // If you want to filter and keep only records with different dates, you can add this block
         $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
           gg
         ) {
@@ -26,192 +66,165 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
           return isDifferentDate;
         });
       });
-  }
+    };
+    $scope.searchVouchersByDay = function () {
+      // Convert start date to YYYY-MM-DD format
+      var formattedStartDate = new Date($scope.searchDate)
+        .toISOString()
+        .split("T")[0];
 
-  fetchVoucherHistortyList();
-  $scope.searchVouchers = function () {
-    // Make sure both startDate and endDate are provided
-    if (!$scope.startDate || !$scope.endDate) {
-      // Handle error or provide user feedback
-      return;
-    }
+      // Construct the API URL with the correct parameter names
+      var searchUrl =
+        "http://localhost:8080/api/v1/audilog/auditlogbydate?searchDate=" +
+        encodeURIComponent(formattedStartDate);
 
-    // Convert dates to YYYY-MM-DD format
-    var formattedStartDate = new Date($scope.startDate)
-      .toISOString()
-      .split("T")[0];
-    var formattedEndDate = new Date($scope.endDate).toISOString().split("T")[0];
+      // console.log("Search URL:", searchUrl); // Log the URL
 
-    var searchUrl =
-      "http://localhost:8080/api/v1/audilog/vouchersearch?startDate=" +
-      encodeURIComponent(formattedStartDate) +
-      "&endDate=" +
-      encodeURIComponent(formattedEndDate);
+      $http.get(searchUrl).then(function (response) {
+        // console.log("Response data:", response.data); // Log the response data
 
-    $http.get(searchUrl).then(function (response) {
-      // Update the listVoucherHistory with the search results
-      $scope.listVoucherHistory = response.data;
-
-      // If you want to filter and keep only records with different dates, you can add this block
-      $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
-        gg
-      ) {
-        var isDifferentDate =
-          !$scope.previousDate || gg.timestamp !== $scope.previousDate;
-        $scope.previousDate = gg.timestamp;
-        return isDifferentDate;
+        $scope.listVoucherHistory = response.data;
+        $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+          gg
+        ) {
+          var isDifferentDate =
+            !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+          $scope.previousDate = gg.timestamp;
+          return isDifferentDate;
+        });
       });
-    });
-  };
-  $scope.searchVouchersByDay = function () {
-    // Convert start date to YYYY-MM-DD format
-    var formattedStartDate = new Date($scope.searchDate)
-      .toISOString()
-      .split("T")[0];
-
-    // Construct the API URL with the correct parameter names
-    var searchUrl =
-      "http://localhost:8080/api/v1/audilog/auditlogbydate?searchDate=" +
-      encodeURIComponent(formattedStartDate);
-
-    // console.log("Search URL:", searchUrl); // Log the URL
-
-    $http.get(searchUrl).then(function (response) {
-      // console.log("Response data:", response.data); // Log the response data
-
-      $scope.listVoucherHistory = response.data;
-      $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
-        gg
-      ) {
-        var isDifferentDate =
-          !$scope.previousDate || gg.timestamp !== $scope.previousDate;
-        $scope.previousDate = gg.timestamp;
-        return isDifferentDate;
-      });
-    });
-  };
-
-  $scope.onTuDongTaoMaChange = function () {
-    if ($scope.tuDongTaoMa) {
-      // If the checkbox is checked, automatically generate the discount code
-      $scope.maVoucher = "GG_" + new Date().getTime();
-      // You might want to update other related properties as well
-    } else {
-      // If the checkbox is unchecked, clear the discount code or handle it as needed
-      $scope.maVoucher = "";
-      // You might want to update other related properties as well
-    }
-  };
-
-  fetchVoucherList();
-  $scope.themVoucher = function () {
-    // if (
-    //   !$scope.maVoucher ||
-    //   !$scope.tenVoucher ||
-    //   !$scope.soLuongDung ||
-    //   !$scope.giaTriToiThieuDonhang ||
-    //   !$scope.giaTriGiam ||
-    //   !$scope.ngayBatDau ||
-    //   !$scope.ngayKetThuc
-    // ) {
-    //   alert("Vui lòng nhập đầy đủ thông tin.");
-    //   return;
-    // }
-
-    var ngayBatDau = new Date($scope.ngayBatDau);
-    var ngayKetThuc = new Date($scope.ngayKetThuc);
-    if (ngayBatDau >= ngayKetThuc) {
-      alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
-      return;
-    }
-    var dataToSend = {
-      maVoucher: $scope.maVoucher,
-      tenVoucher: $scope.tenVoucher,
-      soLuongMa: $scope.soLuongMa,
-      giaTriToiThieuDonhang: $scope.giaTriToiThieuDonhang,
-      giaTriGiam: $scope.giaTriGiam,
-      hinhThucGiam: $scope.hinhThucGiam,
-      trangThai: 1,
-      ngayBatDau: $scope.ngayBatDau,
-      ngayKetThuc: $scope.ngayKetThuc,
     };
 
-    $http
-      .post("http://localhost:8080/api/v1/voucher/create", dataToSend)
-      .then(function (response) {
-        console.log(response.data);
+    $scope.onTuDongTaoMaChange = function () {
+      if ($scope.tuDongTaoMa) {
+        // If the checkbox is checked, automatically generate the discount code
+        $scope.maVoucher = "GG_" + new Date().getTime();
+        // You might want to update other related properties as well
+      } else {
+        // If the checkbox is unchecked, clear the discount code or handle it as needed
         $scope.maVoucher = "";
-        $scope.tenVoucher = "";
-        $scope.soLuongMa = "";
-        $scope.giaTriToiThieuDonhang = "";
-        $scope.giaTriGiam = "";
-        $scope.trangThai = 1;
-        $scope.ngayBatDau = "";
-        $scope.ngayKetThuc = "";
+        // You might want to update other related properties as well
+      }
+    };
 
-        if (confirm("Thêm voucher thành công.Bạn có muốn chuyển hướng trang")) {
-          $location.path("/voucher");
-        }
-      })
-      .catch(function (error) {
-        console.error("Error:", error);
-      });
-  };
-  $scope.isQuantityEnabled = true;
+    fetchVoucherList();
+    $scope.themVoucher = function () {
+      // if (
+      //   !$scope.maVoucher ||
+      //   !$scope.tenVoucher ||
+      //   !$scope.soLuongDung ||
+      //   !$scope.giaTriToiThieuDonhang ||
+      //   !$scope.giaTriGiam ||
+      //   !$scope.ngayBatDau ||
+      //   !$scope.ngayKetThuc
+      // ) {
+      //   alert("Vui lòng nhập đầy đủ thông tin.");
+      //   return;
+      // }
 
-  $scope.onQuantityEnabledChange = function () {
-    if (!$scope.isQuantityEnabled) {
-      // If the radio button is unchecked, set quantity to 0 and disable the input
-      $scope.soLuongMa = 0;
-    }
-  };
-  $scope.searchKey = function () {
-    var key = $scope.key;
-    if (!key) {
-      // Nếu giá trị là null, gọi lại danh sách đầy đủ
-      fetchVoucherList();
-    } else {
+      var ngayBatDau = new Date($scope.ngayBatDau);
+      var ngayKetThuc = new Date($scope.ngayKetThuc);
+      if (ngayBatDau >= ngayKetThuc) {
+        alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
+        return;
+      }
+      var dataToSend = {
+        maVoucher: $scope.maVoucher,
+        tenVoucher: $scope.tenVoucher,
+        soLuongMa: $scope.soLuongMa,
+        giaTriToiThieuDonhang: $scope.giaTriToiThieuDonhang,
+        giaTriGiam: $scope.giaTriGiam,
+        hinhThucGiam: $scope.hinhThucGiam,
+        trangThai: 1,
+        ngayBatDau: $scope.ngayBatDau,
+        ngayKetThuc: $scope.ngayKetThuc,
+      };
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/voucher/search", {
-          params: { keyword: key },
-        })
+        .post("http://localhost:8080/api/v1/voucher/create", dataToSend, config)
         .then(function (response) {
-          $scope.listVoucher = response.data;
-        });
-    }
-  };
-  $scope.searchStatus = function () {
-    var trangThai = $scope.trangThai;
-    if (!trangThai) {
-      // Nếu giá trị là null, gọi lại danh sách đầy đủ
-      fetchVoucherList();
-    } else {
-      $http
-        .get("http://localhost:8080/api/v1/voucher/searchByTrangThai", {
-          params: { trangThai: trangThai },
-        })
-        .then(function (response) {
-          $scope.listVoucher = response.data;
-        });
-    }
-  };
-  $scope.showBrandSelect = false;
+          console.log(response.data);
+          $scope.maVoucher = "";
+          $scope.tenVoucher = "";
+          $scope.soLuongMa = "";
+          $scope.giaTriToiThieuDonhang = "";
+          $scope.giaTriGiam = "";
+          $scope.trangThai = 1;
+          $scope.ngayBatDau = "";
+          $scope.ngayKetThuc = "";
 
-  $scope.searchDateHistory = function () {
-    var startDate = $scope.startDate;
-    var endDate = $scope.endDate;
-
-    if (!startDate && !endDate) {
-      // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
-      fetchVoucherHistortyList();
-    } else {
-      $http
-        .get("http://localhost:8080/api/v1/audilog/vouchersearch", {
-          params: { startDate: startDate, endDate: endDate },
+          if (
+            confirm("Thêm voucher thành công.Bạn có muốn chuyển hướng trang")
+          ) {
+            $location.path("/voucher");
+          }
         })
-        .then(function (response) {
-          $scope.listVoucherHistory = response.data;
+        .catch(function (error) {
+          console.error("Error:", error);
         });
-    }
-  };
-});
+    };
+    $scope.isQuantityEnabled = true;
+
+    $scope.onQuantityEnabledChange = function () {
+      if (!$scope.isQuantityEnabled) {
+        // If the radio button is unchecked, set quantity to 0 and disable the input
+        $scope.soLuongMa = 0;
+      }
+    };
+    $scope.searchKey = function () {
+      var key = $scope.key;
+      if (!key) {
+        // Nếu giá trị là null, gọi lại danh sách đầy đủ
+        fetchVoucherList();
+      } else {
+        $http
+          .get("http://localhost:8080/api/v1/voucher/search", {
+            params: { keyword: key },
+          })
+          .then(function (response) {
+            $scope.listVoucher = response.data;
+          });
+      }
+    };
+    $scope.searchStatus = function () {
+      var trangThai = $scope.trangThai;
+      if (!trangThai) {
+        // Nếu giá trị là null, gọi lại danh sách đầy đủ
+        fetchVoucherList();
+      } else {
+        $http
+          .get("http://localhost:8080/api/v1/voucher/searchByTrangThai", {
+            params: { trangThai: trangThai },
+          })
+          .then(function (response) {
+            $scope.listVoucher = response.data;
+          });
+      }
+    };
+    $scope.showBrandSelect = false;
+
+    $scope.searchDateHistory = function () {
+      var startDate = $scope.startDate;
+      var endDate = $scope.endDate;
+
+      if (!startDate && !endDate) {
+        // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
+        fetchVoucherHistortyList();
+      } else {
+        $http
+          .get("http://localhost:8080/api/v1/audilog/vouchersearch", {
+            params: { startDate: startDate, endDate: endDate },
+          })
+          .then(function (response) {
+            $scope.listVoucherHistory = response.data;
+          });
+      }
+    };
+  }
+);

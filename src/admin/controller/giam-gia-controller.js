@@ -1,6 +1,6 @@
 myApp.controller(
   "GiamGiaController",
-  function ($http, $scope, $location, $route) {
+  function ($http, $scope, $location, $route, $window) {
     $scope.listGiamGia = [];
     $scope.listProductGiamGia = [];
 
@@ -11,6 +11,87 @@ myApp.controller(
           $scope.listGiamGia = response.data;
         });
     }
+    function fetchVoucherHistortyList() {
+      $http
+        .get("http://localhost:8080/api/v1/audilog/khuyenmai")
+        .then(function (response) {
+          $scope.listVoucherHistory = response.data;
+
+          // Lọc và chỉ giữ lại các bản ghi có ngày khác với ngày trước đó
+          $scope.listVoucherHistory = $scope.listVoucherHistory.filter(
+            function (gg) {
+              var isDifferentDate =
+                !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+              $scope.previousDate = gg.timestamp;
+              return isDifferentDate;
+            }
+          );
+        });
+    }
+    fetchVoucherHistortyList();
+    $scope.searchVouchers = function () {
+      // Make sure both startDate and endDate are provided
+      if (!$scope.startDate || !$scope.endDate) {
+        // Handle error or provide user feedback
+        return;
+      }
+
+      // Convert dates to YYYY-MM-DD format
+      var formattedStartDate = new Date($scope.startDate)
+        .toISOString()
+        .split("T")[0];
+      var formattedEndDate = new Date($scope.endDate)
+        .toISOString()
+        .split("T")[0];
+
+      var searchUrl =
+        "http://localhost:8080/api/v1/audilog/vouchersearch?startDate=" +
+        encodeURIComponent(formattedStartDate) +
+        "&endDate=" +
+        encodeURIComponent(formattedEndDate);
+
+      $http.get(searchUrl).then(function (response) {
+        // Update the listVoucherHistory with the search results
+        $scope.listVoucherHistory = response.data;
+
+        // If you want to filter and keep only records with different dates, you can add this block
+        $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+          gg
+        ) {
+          var isDifferentDate =
+            !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+          $scope.previousDate = gg.timestamp;
+          return isDifferentDate;
+        });
+      });
+    };
+    $scope.searchVouchersByDay = function () {
+      // Convert start date to YYYY-MM-DD format
+      var formattedStartDate = new Date($scope.searchDate)
+        .toISOString()
+        .split("T")[0];
+
+      // Construct the API URL with the correct parameter names
+      var searchUrl =
+        "http://localhost:8080/api/v1/audilog/auditlogbydate?searchDate=" +
+        encodeURIComponent(formattedStartDate);
+
+      // console.log("Search URL:", searchUrl); // Log the URL
+
+      $http.get(searchUrl).then(function (response) {
+        // console.log("Response data:", response.data); // Log the response data
+
+        $scope.listVoucherHistory = response.data;
+        $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+          gg
+        ) {
+          var isDifferentDate =
+            !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+          $scope.previousDate = gg.timestamp;
+          return isDifferentDate;
+        });
+      });
+    };
 
     function fetchProduct() {
       $http
@@ -502,9 +583,19 @@ myApp.controller(
         idsanpham: $scope.sanPhamDaChon,
         idDanhMuc: idDanhMuc,
       };
+      var token = $window.localStorage.getItem("token");
 
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .post("http://localhost:8080/api/v1/giam-gia/create", dataToSend)
+        .post(
+          "http://localhost:8080/api/v1/giam-gia/create",
+          dataToSend,
+          config
+        )
         .then(function (response) {
           console.log(response.data);
           $scope.maGiamGia = "";
