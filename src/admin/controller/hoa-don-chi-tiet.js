@@ -330,7 +330,7 @@ myApp.controller(
     $scope.getListXuatXu();
 
     $scope.pageNumberSp = 0; // Trang hiện tại
-    $scope.pageSizeSp = 5; // Số bản ghi trên mỗi trang
+    $scope.pageSizeSp = 20; // Số bản ghi trên mỗi trang
     // TODO: Get ALL sản phẩm tại quầy
     $scope.getListSanPhamTaiQuay = function () {
       $http

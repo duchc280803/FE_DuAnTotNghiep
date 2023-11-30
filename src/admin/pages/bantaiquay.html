@@ -199,19 +199,16 @@
                     </td>
                     <td style="padding-top: 60px">
                       <div ng-show="lc.giaBan != lc.giaGiam">
-                        {{lc.giaGiam | number}}đ
-                        <span> <strike>{{lc.giaBan | number}}₫</strike></span>
+                        {{lc.giaGiam.toLocaleString('vi-VN')}}đ
+                        <span> <strike style="color: #dd2222;">{{lc.giaBan.toLocaleString('vi-VN')}}₫</strike></span>
                       </div>
                       <div ng-show="lc.giaBan == lc.giaGiam">
-                        {{lc.giaBan | number}}đ
+                        {{lc.giaBan.toLocaleString('vi-VN')}}đ
                       </div>
                     </td>
                     <td style="padding-top: 60px">
-                      <div ng-show="lc.giaBan != lc.giaGiam">
-                        {{(lc.giaGiam) * lc.soLuong | number}}đ
-                      </div>
-                      <div ng-show="lc.giaBan == lc.giaGiam">
-                        {{lc.giaBan * lc.soLuong | number}}đ
+                      <div >
+                        {{lc.tongTien.toLocaleString('vi-VN')}}đ
                       </div>
                     </td>
                     <td style="padding-top: 60px">
@@ -372,7 +369,7 @@
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{ sptq.giaBan}}đ
+                                    {{sptq.giaBan}}đ
                                   </span>
                                 </strong>
                               </small>
@@ -927,20 +924,10 @@
                   <div class="omni-layout-card--section-section">
                     <div class="omni-layout-card--item-stack-cover">
                       <div class="omni-layout-card--item-stack fill">
-                        <span class="header-title">Số lượng sản phẩm</span>
-                      </div>
-                      <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{tongSoLuongSanPham}}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="omni-layout-card--section-section">
-                    <div class="omni-layout-card--item-stack-cover">
-                      <div class="omni-layout-card--item-stack fill">
                         <span class="header-title">Tiền hàng</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title" ng-model="newTransaction.tongTien">{{tongTienHang | number}}₫</span>
+                        <span class="header-title" ng-model="newTransaction.tongTien">{{ tongTienHang.toLocaleString('vi-VN') }}₫</span>
                       </div>
                     </div>
                   </div>
@@ -986,7 +973,7 @@
                         <span class="header-title">Tổng tiền</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao : 0)) | number}}₫</span>
+                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao : 0)).toLocaleString('vi-VN')}}₫</span>
                         <input hidden ng-model="requestData.tongTien" type="text" ng-value="tongTienHang" />
                       </div>
                     </div>
