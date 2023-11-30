@@ -47,7 +47,7 @@ myApp.controller(
               tenVoucher: $scope.voucherchitiet.tenVoucher,
               soLuongMa: $scope.voucherchitiet.soLuongMa,
               giaTriToiThieuDonhang:
-            $scope.voucherchitiet.giaTriToiThieuDonhang,
+                $scope.voucherchitiet.giaTriToiThieuDonhang,
               giaTriGiam: $scope.voucherchitiet.giaTriGiam,
               hinhThucGiam: $scope.voucherchitiet.hinhThucGiam,
               ngayBatDau: $scope.voucherchitiet.ngayBatDau,
