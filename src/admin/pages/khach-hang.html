@@ -42,8 +42,7 @@
                   <div class="col-md-4 text-center">
                     <label>
                       <div class="image-container">
-                        <img id="selectedImage" src="#" alt="Selected Image"
-                          style="display: none;">
+                        <img id="selectedImage" src="#" alt="Selected Image" style="display: none;">
                       </div>
                     </label>
                   </div>
@@ -226,9 +225,8 @@
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" accept="image/*"
-                          onchange="angular.element(this).scope().imageChanged(this.files)" />
+                        <span class="header-title"><span style="color: red">*</span> <span>Photo</span></span>
+                        <input type="file" name="file" id="fileInput" onchange="displayImage(event)" />
                       </div>
                     </form>
                   </div>

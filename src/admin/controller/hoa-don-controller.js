@@ -1,18 +1,27 @@
 myApp.controller("hoaDonController", function ($http, $scope, $window) {
   $scope.listHoaDon = [];
   $scope.tenNhanVienOptions = [];
-  $scope.selectedLoaiDon = ""; // Giá trị mặc định
-  $scope.searchQuery = ""; // Giá trị trường nhập văn bản
+  $scope.allTenNhanVienOptions = []; // Thêm dòng này
+  $scope.selectedTrangThai = "";
+  $scope.selectedLoaiDon = "";
+  $scope.searchQuery = "";
+  $scope.pageNumber = 0;
   $scope.isAdmin = false;
+
   function getRole() {
     var role = $window.localStorage.getItem("role");
-    if (role == "ADMIN" || role == "MANAGER") {
+    if (role === "ADMIN" || role === "MANAGER") {
       $scope.isAdmin = true;
     }
   }
+
   getRole();
-  // Hàm tải dữ liệu dựa trên trạng thái và loại đơn
-  function fetchHoaDon(trangThai, loaiDon, tenNhanVien) {
+
+  $scope.fetchHoaDon = function (trangThai, loaiDon, tenNhanVien, pageNumber) {
+    trangThai = trangThai || "";
+    loaiDon = loaiDon || "";
+    tenNhanVien = tenNhanVien || "";
+
     var token = $window.localStorage.getItem("token");
     var config = {
       headers: {
@@ -20,86 +29,79 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
       },
     };
 
-    var url =
-      "http://localhost:8080/api/v1/hoa-don/hien-thi?trangThaiHD=" + trangThai;
+    var url = `http://localhost:8080/api/v1/hoa-don/hien-thi?trangThaiHD=${trangThai}&pageNumber=${pageNumber}`;
 
-    if (loaiDon !== undefined && loaiDon !== "") {
+    if (loaiDon !== "") {
       url += "&loaiDon=" + loaiDon;
     }
 
-    if (tenNhanVien !== undefined && tenNhanVien !== "") {
+    if (tenNhanVien !== "") {
       url += "&tenNhanVien=" + tenNhanVien;
     }
 
-    // Thêm tenNhanVien vào URL nếu tenNhanVien được chọn
-    if ($scope.tenNhanVien !== undefined && $scope.tenNhanVien !== "") {
-      var tenNhanVienParam = "&tenNhanVien=" + $scope.tenNhanVien;
-      url += tenNhanVienParam;
-    }
-
     if ($scope.searchQuery !== "") {
-      if (!isNaN($scope.searchQuery)) {
-        url += "&soDienThoai=" + $scope.searchQuery;
-      } else {
-        url += "&ma=" + $scope.searchQuery;
-      }
+      url += isNaN($scope.searchQuery) ? "&ma=" + $scope.searchQuery : "&soDienThoai=" + $scope.searchQuery;
     }
 
     $http.get(url, config).then(function (response) {
-      $scope["listHoaDon" + trangThai] = response.data;
+      if (Array.isArray(response.data) && response.data.length > 0 && response.data[0].hasOwnProperty("tenNhanVien")) {
+        $scope.listHoaDon = response.data;
 
-      response.data.forEach(function (hoaDon) {
-        if (hoaDon.tenNhanVien) {
-          $scope.tenNhanVienOptions.push(hoaDon.tenNhanVien);
-        }
-      });
+        // Thêm dữ liệu vào mảng chung allTenNhanVienOptions
+        $scope.allTenNhanVienOptions = [...new Set([...$scope.allTenNhanVienOptions, ...response.data.map(hoaDon => hoaDon.tenNhanVien).filter(Boolean)])];
 
-      $scope.tenNhanVienOptions = [...new Set($scope.tenNhanVienOptions)];
-      // Kiểm tra dữ liệu trả về
+        // Cập nhật mảng tenNhanVienOptions
+        $scope.tenNhanVienOptions = [...new Set(response.data.map(hoaDon => hoaDon.tenNhanVien).filter(Boolean))];
+      } else {
+        console.error("Invalid data format from API");
+        // Nếu không có dữ liệu, đặt $scope.listHoaDon về mảng rỗng
+        $scope.listHoaDon = [];
+      }
     });
-  }
-
-  // Hàm lọc dựa trên trạng thái và loại đơn
-  function filterHoaDonByLoaiDon(loaiDon) {
-    // Sử dụng trạng thái mặc định (ví dụ: 1) hoặc trạng thái của bạn.
-    var trangThai = 1;
-
-    // Sử dụng giá trị loaiDon để lọc dữ liệu
-    fetchHoaDon(trangThai, loaiDon);
-  }
-
-  // Gọi hàm để tải dữ liệu cho từng trạng thái ban đầu
-  for (var i = 1; i <= 7; i++) {
-    fetchHoaDon(i, $scope.selectedLoaiDon);
-  }
-
-  // Hàm lọc khi loại đơn thay đổi
-  $scope.filterHoaDon = function () {
-    var loaiDon = $scope.selectedLoaiDon;
-    for (var i = 1; i <= 7; i++) {
-      fetchHoaDon(i, loaiDon);
-    }
   };
 
-  $scope.filterHoaDonByTenNhanien = function () {
-    var tenNhanVien = $scope.selectedTenNhanVien;
-    for (var i = 1; i <= 7; i++) {
-      fetchHoaDon(i, $scope.selectedLoaiDon, tenNhanVien);
-    }
-  };
-
-  // Hàm tìm kiếm
-  $scope.searchHoaDon = function () {
-    for (var i = 1; i <= 7; i++) {
-      fetchHoaDon(i, $scope.selectedLoaiDon);
-    }
-  };
-
-  // Hàm xóa thông tin tìm kiếm
   $scope.clearSearch = function () {
-    $scope.searchQuery = ""; // Đặt trường tìm kiếm về chuỗi rỗng
-    for (var i = 1; i <= 7; i++) {
-      fetchHoaDon(i, $scope.selectedLoaiDon);
+    $scope.searchQuery = "";
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.searchHoaDon = function () {
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.filterHoaDon = function () {
+    // Gọi hàm fetchHoaDon với các tham số hiện tại
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.filterHoaDonByNguoiXacNhan = function () {
+    // Gọi hàm fetchHoaDon với các tham số hiện tại
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.setDefaultTrangThai = function () {
+    // Đặt giá trị mặc định cho selectedTrangThai
+    $scope.selectedTrangThai = 1;
+    // Gọi hàm fetchHoaDon để hiển thị danh sách theo giá trị mặc định
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.openCity = function (trangThai) {
+    console.log("Selected Trang Thai:", trangThai);
+    $scope.selectedTrangThai = trangThai;
+    $scope.pageNumber = 0;
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.nextPage = function () {
+    $scope.pageNumber++;
+    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+  };
+
+  $scope.previousPage = function () {
+    if ($scope.pageNumber > 0) {
+      $scope.pageNumber--;
+      $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
     }
   };
 
@@ -127,4 +129,5 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
         $window.location.reload();
       });
   };
+
 });

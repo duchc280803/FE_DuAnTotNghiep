@@ -209,17 +209,6 @@
           </span>
           <input type="number" class="next-input" ng-model="soLuongMa" placeholder="Nhập số lượng"
             ng-disabled="!isQuantityEnabled" />
-          <!-- <br /> -->
-          <!-- <label>
-                  <input type="radio" ng-model="isQuantityEnabled" ng-value="true"
-                    ng-change="onQuantityEnabledChange()" />
-                  Cho phép nhập số lượng
-                </label>
-                <label>
-                  <input type="radio" ng-model="isQuantityEnabled" ng-value="false"
-                    ng-change="onQuantityEnabledChange()" />
-                  Không nhập số lượng
-                </label> -->
         </div>
         <div class="col-lg-6">
           <span class="header-title"><span style="color: red">*</span><span>Giá trị tối thiểu đơn
@@ -273,8 +262,8 @@
           </time>
         </section>
         <section class="card-cont-voucher">
-          <h6>Giá trị giảm : {{giaTriGiam | number}} VNĐ </h6>
-          <span>Đơn tối thiểu : {{giaTriToiThieuDonhang | number}} VNĐ</span>
+          <h6>Giá trị giảm : {{giaTriGiam.toLocaleString('vi-VN')}} VNĐ </h6>
+          <span>Đơn tối thiểu : {{giaTriToiThieuDonhang.toLocaleString('vi-VN')}} VNĐ</span>
           <div class="even-date">
             <i class="fa fa-calendar"></i>
             HSD: {{ ngayKetThuc == null ? "..." : ngayKetThuc | date:'MM/dd/yyyy h:mm:ss a'}}

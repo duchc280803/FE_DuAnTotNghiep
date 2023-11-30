@@ -42,25 +42,6 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
     fetchKhachHangList($scope.selectedTrangThai, $scope.pageNumber);
   };
 
-  $scope.uploadFileInModal = function (file) {
-    var url = `http://localhost:8080/upload/${$scope.folderName}`;
-
-    var formData = new FormData();
-    formData.append("file", file);
-
-    $http
-      .post(url, formData, {
-        transformRequest: angular.identity,
-        headers: { "Content-Type": "multipart/form-data" }, // Sửa thành 'multipart/form-data'
-      })
-      .then(function (response) {
-        $scope.newKhachHang.photo = response.data.filename;
-      })
-      .catch(function (error) {
-        console.error("Error uploading file:", error);
-      });
-  };
-
   function fetchKhachHangDetail(id) {
     var detailUrl = "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
     $http.get(detailUrl).then(function (response) {
@@ -81,20 +62,40 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
     });
   }
 
-  $scope.updateKhachHang = function (updatedData) {
-    var updateUrl =
-      "http://localhost:8080/api/ql-khach-hang/update?khachHangId=" +
-      $scope.selectedKhachHang.khachHangId;
-
-    $http
-      .put(updateUrl, updatedData)
-      .then(function (response) {
-        fetchKhachHangList($scope.selectedTrangThai, "", "", "");
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi cập nhật thông tin khách hàng: ", error);
-      });
+  $scope.updateKhachHang = function(createQLKhachHangRequest) {
+    var file = document.getElementById("fileInput").files[0];
+    // Tạo formData để chứa dữ liệu cần gửi
+    var formData = new FormData();
+    formData.append('file', file);
+    formData.append('ten', createQLKhachHangRequest.ten);
+    formData.append('email', createQLKhachHangRequest.email);
+    formData.append('soDienThoai', createQLKhachHangRequest.soDienThoai);
+    formData.append('gioiTinh', createQLKhachHangRequest.gioiTinh);
+    formData.append('ngaySinh', createQLKhachHangRequest.ngaySinh);
+    formData.append('trangThai', createQLKhachHangRequest.trangThai);
+    formData.append('tinh', createQLKhachHangRequest.tinh);
+    formData.append('huyen', createQLKhachHangRequest.huyen);
+    formData.append('phuong', createQLKhachHangRequest.phuong);
+    formData.append('diaChi', createQLKhachHangRequest.diaChi);
+  
+    // Gửi HTTP request
+    $http({
+      method: 'PUT',
+      url:
+        "http://localhost:8080/api/ql-khach-hang/update?khachHangId=" +
+        $scope.selectedKhachHang.khachHangId,
+      data: formData,
+      headers: { 'Content-Type': undefined }, // Set header để formData tự định dạng
+      transformRequest: angular.identity // Đảm bảo dữ liệu không bị chuyển đổi
+    }).then(function(response) {
+      // Xử lý response từ server nếu cần
+      console.log('Update thành công!', response.data);
+    }, function(error) {
+      // Xử lý lỗi nếu có
+      console.error('Lỗi khi update khách hàng', error);
+    });
   };
+  
 
   $scope.createKhachHang = function () {
     var yourFile = document.getElementById("fileInput").files[0];
@@ -204,9 +205,10 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
       });
   };
 });
+
 function displayImage(event) {
-  var image = document.getElementById('selectedImage');
-  image.style.display = 'block';
+  var image = document.getElementById("selectedImage");
+  image.style.display = "block";
   var selectedFile = event.target.files[0];
   var reader = new FileReader();
 

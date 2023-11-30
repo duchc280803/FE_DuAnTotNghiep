@@ -30,6 +30,7 @@ myAppCustom.controller(
           $window.localStorage.setItem("username", response.data.username); // Lưu tên người dùng
 
           $scope.loggedInUsername = response.data.username;
+          $window.location.reload();
         })
         .catch(function (error) {
           $scope.errorUsername = error.data.username;
