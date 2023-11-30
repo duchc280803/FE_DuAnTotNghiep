@@ -157,6 +157,7 @@ myApp.controller("sanPhamController", function ($http, $scope) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes!",
+        reverseButtons: true,
       }).then((result) => {
         $http
           .post(
@@ -194,6 +195,7 @@ myApp.controller("sanPhamController", function ($http, $scope) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes!",
+        reverseButtons: true,
       }).then((result) => {
         $http
           .post(
@@ -230,6 +232,7 @@ myApp.controller("sanPhamController", function ($http, $scope) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes!",
+        reverseButtons: true,
       }).then((result) => {
         $http
           .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe)
@@ -263,6 +266,7 @@ myApp.controller("sanPhamController", function ($http, $scope) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes!",
+        reverseButtons: true,
       }).then((result) => {
         $http
           .post(
@@ -299,6 +303,7 @@ myApp.controller("sanPhamController", function ($http, $scope) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes!",
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           $http

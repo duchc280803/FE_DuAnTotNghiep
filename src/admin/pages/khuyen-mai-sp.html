@@ -123,8 +123,8 @@
                         <tr ng-repeat="detail in gg.detailList">
                           <td>{{$index + 1}}</td>
                           <td>{{detail.productName}}</td>
-                          <td>{{detail.giaBan}}</td>
-                          <td>{{detail.donGiaKhiGiam}}</td>
+                          <td>{{detail.giaBan.toLocaleString('vi-VN')}}</td>
+                          <td>{{detail.donGiaKhiGiam.toLocaleString('vi-VN')}}</td>
                         </tr>
                       </tbody>
                     </table>

@@ -54,48 +54,121 @@ myApp.controller("sizeController", function ($http, $scope, $location) {
     });
   }
 
-  $scope.updateSize = function (updatedData) {
-    var updateUrl =
-      "http://localhost:8080/api/v1/size/update?id=" +
-      $scope.selectedSize.sizeId;
+  setTimeout(() => {
+    $scope.updateSize = function (updatedData) {
+      Swal.fire({
+        title: "Bạn có muốn update không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var updateUrl =
+            "http://localhost:8080/api/v1/size/update?id=" +
+            $scope.selectedSize.sizeId;
 
-    $http
-      .put(updateUrl, updatedData)
-      .then(function (response) {
-        console.log("Cập nhật thông tin thành công: ", response.data);
-
-        sizeList($scope.selectedTrangThai, $scope.pageNumber);
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi cập nhật thông tin: ", error);
+          $http
+            .put(updateUrl, updatedData)
+            .then(function (response) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                sizeList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            })
+            .catch(function (error) {
+              console.error("Lỗi khi cập nhật thông tin: ", error);
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
   $scope.newSize = {};
-  $scope.createSize = function () {
-    $http
-      .post("http://localhost:8080/api/v1/size/create", $scope.newSize)
-      .then(function (response) {
-        $scope.listSize.push(response.data);
-        sizeList($scope.selectedTrangThai, $scope.pageNumber);
+  setTimeout(() => {
+    $scope.createSize = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $http
+            .post("http://localhost:8080/api/v1/size/create", $scope.newSize)
+            .then(function (response) {
+              $scope.listSize.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                sizeList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
-  $scope.deleteSize = function (id) {
-    var deleteUrl = "http://localhost:8080/api/v1/size/delete?id=" + id;
+  setTimeout(() => {
+    $scope.deleteSize = function (id) {
+      Swal.fire({
+        title: "Bạn có muốn vô hiệu hóa không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var deleteUrl = "http://localhost:8080/api/v1/size/delete?id=" + id;
 
-    $http
-      .put(deleteUrl)
-      .then(function (response) {
-        console.log("Xóa chất liệu thành công: ", response.data);
-
-        // Sau khi xóa thành công, làm mới danh sách hoặc thực hiện các bước cần thiết khác
-        sizeList($scope.selectedTrangThai, $scope.pageNumber);
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi xóa chất liệu: ", error);
+          $http
+            .put(deleteUrl)
+            .then(function (response) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Vô hiệu hóa thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                sizeList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            })
+            .catch(function (error) {
+              console.error("Lỗi khi xóa chất liệu: ", error);
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
   $scope.fetchSizedetail = function (id) {
     fetchSizedetail(id);

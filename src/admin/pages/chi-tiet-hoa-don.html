@@ -26,83 +26,83 @@
   <div class="box">
     <div class="scroll-container">
       <div class="content">
-        <div style="display: flex; align-items: center">
+        <div style="display: flex; align-items: center; padding-left: 20px;">
           <div style="margin-right: 125px" ng-repeat="item in lichSuThayDoi" ng-show="item.trangThai === 1">
-            <img src="/assets/images/choxacnhan.png" width="280px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
+            <img src="/assets/images/choxacnhan.png" width="220px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Chờ xác nhận
-            </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 55px">
-              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
-            </h6>
-          </div>
-          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 8">
-            <img src="/assets/images/chinhsuadon.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
-              Chỉnh sửa đơn
-            </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 40px">
-              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
-            </h6>
-          </div>
-          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 2">
-            <img src="/assets/images/xacnhan.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
-              Xác nhận
-            </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
-              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
-            </h6>
-          </div>
-          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 3">
-            <img src="/assets/images/chogiao.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
-              Chờ giao hàng
-            </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
-              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
-            </h6>
-          </div>
-          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 4">
-            <img src="/assets/images/danggiaohang.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 70px">
-              Giao hàng
-            </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
-              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
-            </h6>
-          </div>
-          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 5">
-            <img src="/assets/images/thanhcong.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 60px">
-              Hoàn thành
             </h6>
             <h6 style="font-size: 15px; font-weight: 600; margin-left: 30px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
           <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 6">
-            <img src="/assets/images/dahuy.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 80px">
-              Đã hủy
+            ng-show="item.trangThai === 8">
+            <img src="/assets/images/chinhsuadon.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 20px">
+              Chỉnh sửa đơn
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 10px">
+              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
+            </h6>
+          </div>
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 2">
+            <img src="/assets/images/xacnhan.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 45px">
+              Xác nhận
+            </h6>
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 10px">
+              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
+            </h6>
+          </div>
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 3">
+            <img src="/assets/images/chogiao.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 25px">
+              Chờ giao hàng
+            </h6>
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 15px">
+              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
+            </h6>
+          </div>
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 4">
+            <img src="/assets/images/danggiaohang.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 45px">
+              Giao hàng
+            </h6>
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 15px">
+              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
+            </h6>
+          </div>
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 5">
+            <img src="/assets/images/thanhcong.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 35px">
+              Hoàn thành
+            </h6>
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 10px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
           <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
             ng-show="item.trangThai === 7">
-            <img src="/assets/images/trahang.png" width="280px" style="margin-left: -25px" alt="" />
-            <h6 style="font-size: 20px; font-weight: 600; padding-left: 75px">
+            <img src="/assets/images/trahang.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Trả hàng
             </h6>
-            <h6 style="font-size: 15px; font-weight: 600; margin-left: 35px">
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 10px">
+              {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
+            </h6>
+          </div>
+          <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
+            ng-show="item.trangThai === 6">
+            <img src="/assets/images/dahuy.png" width="220px" style="margin-left: -25px" alt="" />
+            <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
+              Đã hủy
+            </h6>
+            <h6 style="font-size: 15px; font-weight: 600; margin-left: 10px">
               {{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}
             </h6>
           </div>
@@ -117,7 +117,7 @@
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Hủy</span>
       </button>
-      <button ng-hide="hoaDonChiTiet.trangThai == 4 && fillMoney.tongTien > soTienKhachTra"
+      <button
         ng-show="hoaDonChiTiet.trangThai != 5 && (hoaDonChiTiet.tenNguoiShip != null || hoaDonChiTiet.tenLoaiDon != 'ONLINE')"
         type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
         style="text-decoration: none; height: 39px">
@@ -317,139 +317,6 @@
     <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
       Lịch sử thanh toán
     </h5>
-    <button ng-show="hoaDonChiTiet.trangThai == 4 && fillMoney.tongTien > soTienKhachTra" class="btn btn-primary"
-      style="margin-top: 20px; margin-right: 20px" data-bs-toggle="modal" data-bs-target="#thanhttoan">
-      Thanh toán
-    </button>
-    <button ng-show="traHangis === true && tongTienHoanTra > soTienHoan" class="btn btn-primary"
-      style="margin-top: 20px; margin-right: 20px" data-bs-toggle="modal" data-bs-target="#hoantra">
-      Hoàn tiền
-    </button>
-    <!-- modal thanh toán -->
-    <div class="modal fade" id="thanhttoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="height: 20px">
-            <h6 style="font-size: 15px; font-weight: bold; padding-top: 20px">
-              Xác nhận thanh toán
-            </h6>
-          </div>
-          <hr />
-          <div class="modal-body">
-            <div class="modal-body-item">
-              <div class="row">
-                <div class="col-lg-8">
-                  <h6 style="font-size: 15px; font-weight: bold">
-                    Số tiền khách cần trả
-                  </h6>
-                </div>
-                <div class="col-lg-4">
-                  <h6 style="font-size: 15px; font-weight: bold; color: crimson">
-                    {{fillMoney.tongTien| number}}₫
-                  </h6>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Tiền khách đưa</span></span>
-                  <input type="number" class="next-input" placeholder="Nhập tiền khách đưa"
-                    ng-model="newTransaction.soTien" />
-                </div>
-                <div class="col-lg-12" style="margin-top: 15px">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Ghi chú</span></span>
-                  <input type="text" class="next-input" placeholder="Nhập ghi chú" ng-model="newTransaction.ghiChu" />
-                </div>
-              </div>
-              <div class="row" style="padding-top: 20px">
-                <div class="col-lg-6">
-                  <button style="margin-left: 80px" class="btn btn-primary"
-                    ng-click="button1Clicked(hoaDonChiTiet.idNhanVien)">
-                    <img src="/assets/images/payment-method.png" width="50px" alt="" />
-                  </button>
-                </div>
-                <div class="col-lg-6">
-                  <button style="margin-left: 50px" class="btn btn-primary"
-                    ng-click="button2Clicked(hoaDonChiTiet.idNhanVien)">
-                    <img src="/assets/images/debit-card.png" width="50px" alt="" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Hủy
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- modal thanh toán  -->
-    <!-- modal hoàn trả -->
-    <div class="modal fade" id="hoantra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="height: 20px">
-            <h6 style="font-size: 15px; font-weight: bold; padding-top: 20px">
-              Xác nhận hoàn trả
-            </h6>
-          </div>
-          <hr />
-          <div class="modal-body">
-            <div class="modal-body-item">
-              <div class="row">
-                <div class="col-lg-8">
-                  <h6 style="font-size: 15px; font-weight: bold">
-                    Số tiền hoàn trả
-                  </h6>
-                </div>
-                <div class="col-lg-4">
-                  <h6 style="font-size: 15px; font-weight: bold; color: crimson">
-                    {{tongTienHoanTra | number}}₫
-                  </h6>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Tiền hoàn trả</span></span>
-                  <input type="number" class="next-input" placeholder="Nhập tiền khách đưa"
-                    ng-model="newTransactionTra.soTien" />
-                </div>
-                <div class="col-lg-12" style="margin-top: 15px">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Ghi chú</span></span>
-                  <input type="text" class="next-input" placeholder="Nhập ghi chú"
-                    ng-model="newTransactionTra.ghiChu" />
-                </div>
-              </div>
-              <div class="row" style="padding-top: 20px">
-                <div class="col-lg-6">
-                  <button style="margin-left: 80px" class="btn btn-primary"
-                    ng-click="button1ClickedTra(hoaDonChiTiet.idNhanVien)">
-                    <img src="/assets/images/payment-method.png" width="50px" alt="" />
-                  </button>
-                </div>
-                <div class="col-lg-6">
-                  <button style="margin-left: 50px" class="btn btn-primary"
-                    ng-click="button2ClickedTra(hoaDonChiTiet.idNhanVien)">
-                    <img src="/assets/images/debit-card.png" width="50px" alt="" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Hủy
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- modal hoàn trả  -->
   </div>
   <!-- modal hoàn trả  -->
   <hr />
@@ -471,7 +338,7 @@
         <td>{{$index + 1}}</td>
         <td>{{item.ma}}</td>
         <td>{{item.tenLoai}}</td>
-        <td>{{item.soTienTra |number}}đ</td>
+        <td>{{item.soTienTra.toLocaleString('vi-VN')}}đ</td>
         <td>{{item.ngayTao| date:'MM/dd/yyyy h:mm:ss a'}}</td>
         <td>{{item.phuongThucThanhToan == 1 ? 'Tiền mặt' : 'Chuyển khoản'}}</td>
         <td>{{item.ghiChu}}</td>
@@ -500,7 +367,7 @@
           font-size: 15px;
           font-weight: 900;
           padding-left: 100px;
-        ">{{fillMoney.tongTien | number }}₫</span>
+        ">{{fillMoney.tongTien.toLocaleString('vi-VN')}}₫</span>
     </div>
     <div class="col-lg-9" ng-show="traHangis === true &&  tongTienHoanTra <= soTienHoan">
       <span style="
@@ -522,7 +389,7 @@
           font-size: 15px;
           font-weight: 900;
           padding-left: 100px;
-        ">{{soTienHoan | number }}₫</span>
+        ">{{soTienHoan.toLocaleString('vi-VN')}}₫</span>
     </div>
   </div>
 </div>
@@ -534,8 +401,8 @@
       </h5>
       <div class="why">
         <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="submit"
-          class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao"">
-          <span style="vertical-align: middle">Cập nhập</span>
+          class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
+          <span style=" vertical-align: middle">Cập nhập</span>
         </button>
       </div>
     </div>
@@ -592,19 +459,19 @@
           </td>
           <td style="padding-top: 80px">
             <div ng-show="item.donGiaSauGiam != item.giaBan">
-              {{item.donGiaSauGiam | number}}₫
+              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}₫
               <span style="color: crimson">
-                <strike>{{item.giaBan | number}}₫</strike></span>
+                <strike>{{item.giaBan.toLocaleString('vi-VN')}}₫</strike></span>
             </div>
             <div ng-show="item.donGiaSauGiam == item.giaBan">
-              {{item.giaBan | number}}₫
+              {{item.giaBan.toLocaleString('vi-VN')}}₫
             </div>
           </td>
           <td style="padding-top: 80px" ng-show="item.donGiaSauGiam != 0">
-            {{(item.donGiaSauGiam) * item.soLuong|number}}đ
+            {{(item.donGiaSauGiam * item.soLuong).toLocaleString('vi-VN')}}đ
           </td>
           <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
-            {{item.giaBan * item.soLuong |number}}đ
+            {{(item.giaBan * item.soLuong).toLocaleString('vi-VN')}}đ
           </td>
           <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai == 1">
             <button class="btn btn-primary" ng-click="deleteProduct($event, $index)">
@@ -653,13 +520,13 @@
                   </h6>
                   <h6 style="height: 10px; padding-top: 30px"
                     ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
-                    Đơn giá: {{fillProductTraHang.donGia}}₫
+                    Đơn giá: {{fillProductTraHang.donGia.toLocaleString('vi-VN')}}₫
                   </h6>
                   <h6 style="height: 10px; padding-top: 30px"
                     ng-show="fillProductTraHang.donGia !=  fillProductTraHang.donGiaSauGiam">
-                    Đơn giá: {{fillProductTraHang.donGiaSauGiam |number}}₫
+                    Đơn giá: {{fillProductTraHang.donGiaSauGiam.toLocaleString('vi-VN')}}₫
                     <span style="color: crimson">
-                      <strike>{{fillProductTraHang.donGia |number}}₫</strike></span>
+                      <strike>{{fillProductTraHang.donGia.toLocaleString('vi-VN')}}₫</strike></span>
                   </h6>
                   <h6 style="height: 10px">
                     Size: {{fillProductTraHang.size}}
@@ -675,13 +542,12 @@
                 <td>
                   <h6 style="color: crimson; padding-top: 110px"
                     ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
-                    {{fillProductTraHang.donGia * fillProductTraHang.soLuong
-                    |number}}₫
+                    {{(fillProductTraHang.donGia * fillProductTraHang.soLuong).toLocaleString('vi-VN')}}₫
                   </h6>
                   <h6 style="color: crimson; padding-top: 110px"
                     ng-show="fillProductTraHang.donGia != fillProductTraHang.donGiaSauGiam">
-                    {{fillProductTraHang.donGiaSauGiam *
-                    fillProductTraHang.soLuong | number}}₫
+                    {{(fillProductTraHang.donGiaSauGiam *
+                    fillProductTraHang.soLuong).toLocaleString('vi-VN')}}₫
                   </h6>
                 </td>
               </tr>

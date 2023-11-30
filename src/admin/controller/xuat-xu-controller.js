@@ -77,7 +77,7 @@ myApp.controller("xuatXuController", function ($http, $scope, $location) {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Thêm thành công",
+                title: "Update thành công",
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {
@@ -119,7 +119,7 @@ myApp.controller("xuatXuController", function ($http, $scope, $location) {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Update thành công",
+                title: "Thêm thành công",
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {

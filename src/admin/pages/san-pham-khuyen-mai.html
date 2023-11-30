@@ -27,13 +27,13 @@
                     </td>
                     <td>{{gg.productName}}</td>
                     <td>
-                        {{gg.giaBan | number}}₫
+                        {{gg.giaBan.toLocaleString('vi-VN')}}₫
                     </td>
                     <td>
                         {{gg.soLanGiam}}
                     </td>
                     <td>
-                        {{gg.giaBan - gg.giaGiam | number}}₫
+                        {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
                     </td>
                 </tr>
             </tbody>

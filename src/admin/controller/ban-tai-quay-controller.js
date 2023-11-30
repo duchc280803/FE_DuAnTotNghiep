@@ -63,13 +63,14 @@ myApp.controller(
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
         }).then((result) => {
           if (result.isConfirmed) {
             $http.post(api, {}, config).then(function (response) {
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
               $scope.luuIdHoaDon(response.data.id);
-              $window.location.reload();
+              $location.path("/order-counter")
             });
           }
         });
@@ -141,19 +142,11 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listCart = response.data;
-          // $window.localStorage.setItem(
-          //   "listCart",
-          //   $scope.listCart.map((item) => item.idGioHang)
-          // );
-          $scope.tongSoLuongSanPham = 0;
-          $scope.tongTienHang = 0;
-
           // Calculate the total quantity and total price for all products in the cart
           for (var i = 0; i < $scope.listCart.length; i++) {
             $scope.tongTienHang +=
               $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
           }
-          // Slice the listCart array to display only 2 products per page
           $scope.listCart = $scope.listCart.slice(
             $scope.pageNumber * $scope.pageSize,
             ($scope.pageNumber + 1) * $scope.pageSize
@@ -384,7 +377,7 @@ myApp.controller(
         });
     };
 
-    $scope.listTransaction = [];// Lấy các tham số từ URL
+    $scope.listTransaction = []; // Lấy các tham số từ URL
     $scope.queryParams = $location.search();
 
     // Lấy giá trị của tham số 'vnp_Amount'
@@ -407,7 +400,6 @@ myApp.controller(
     };
 
     var transactionData = TransactionService.getTransactionData();
-    console.log(transactionData); // Dữ liệu giao dịch từ URL VNPAY
 
     // TODO: ApiVNPay
     $scope.addVnPay = {};
@@ -614,7 +606,7 @@ myApp.controller(
     $scope.getListXuatXu();
 
     $scope.pageNumberSp = 0; // Trang hiện tại
-    $scope.pageSizeSp = 5; // Số bản ghi trên mỗi trang
+    $scope.pageSizeSp = 20; // Số bản ghi trên mỗi trang
     // TODO: Get ALL sản phẩm tại quầy
     $scope.getListSanPhamTaiQuay = function () {
       $http
@@ -626,7 +618,6 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
-          console.log(response.data);
           $scope.keyName = "";
         });
     };

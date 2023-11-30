@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
-  
+
 </head>
 <style>
   .icon_close:hover {
@@ -244,10 +244,23 @@
   li.account-hover a:focus {
     outline: none;
   }
+
+  .vertical-line {
+    border-left: 1px solid #000;
+    /* Đường kẻ đứng màu đen */
+    height: 404px;
+    /* Độ cao của đường kẻ */
+    margin-left: 50%;
+    /* Điều chỉnh vị trí so với nội dung */
+    position: absolute;
+    /* Đặt vị trí tuyệt đối để điều chỉnh */
+    margin-top: -15px;
+    /* Điều chỉnh vị trí theo chiều dọc */
+  }
 </style>
 
 <body>
-  <header class="header">
+  <header class="header" style="background: #F3F6FA">
     <div class="header__top">
       <div class="container">
         <div class="row">
@@ -284,8 +297,7 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="header__logo">
-            <a href="#"><img
-                src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+            <a href="#"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
                 style="width: 125px" alt="" /></a>
           </div>
         </div>
@@ -307,6 +319,45 @@
               <li class="open-cart">
                 <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
+                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
+                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
+                    <div class="row" ng-repeat="product in products">
+                      <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
+                        <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
+                        <p style="font-size: 0.7em; margin: 0"></p>
+                        <hr />
+                      </div>
+                      <div class="col-md-8">
+                        <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
+                        <div ng-show="product.dongiakhigiam != null">
+                          {{product.dongiakhigiam | number:0}}₫
+                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
+                              number:0}}₫ <br></strike> </span>
+                        </div>
+                        <div ng-show="product.dongiakhigiam == null">
+                          {{product.giaban | number:0}}₫
+                        </div>
+                        <p style="font-size: 0.7em; margin: 0">
+                          Số lượng :{{product.soluong}}
+                        </p>
+                        <span class="icon_close" ng-click="deleteProduct(product.id)"></span>
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                      <span style="font-weight: bolder;margin-left: 30px;" class="main-color-text">Total:</span>
+                    </div>
+                    <div class="col-md-3">
+                      <span
+                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: 30px;">{{totalAmount}}VNĐ</span>
+                    </div>
+                  </div>
+                  <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">CHECK
+                    OUT</a>
+                </div>
               </li>
               <li class="account-hover" ng-controller="loginCutomController">
                 <div class="header__top__right__auth">
@@ -320,15 +371,16 @@
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đơn hàng</p>
                     </a>
-                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                    <a href="#/login-register" class="d-flex align-items-center gap-2 dropdown-item"
+                      ng-if="!isLoggedIn">
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đăng nhập</p>
                     </a>
-                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
+                    <button ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
                       ng-if="isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
-                    </a>
+                      </a>
                   </div>
                 </div>
               </li>
@@ -336,13 +388,8 @@
           </div>
         </div>
       </div>
-      <div class="humberger__open">
-        <i class="fa fa-bars"></i>
-      </div>
     </div>
   </header>
-  <!-- Header Section End -->
-  <!-- Shoping Cart Section Begin -->
   <section class="shoping-cart spad">
     <div class="container">
       <div class="row">
@@ -479,7 +526,7 @@
         </div>
         <div class="col-md-7"></div>
         <div class="col-md-2">
-          <button 
+          <button
             class="inline-flex items-center px-4 py-2 bg-red-600 transition transform-gpu hover:scale-105 hover:bg-red-700 text-white text-sm font-medium rounded-md"
             ng-click="clearCart()">
             <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-5 w-5 mr-2"
@@ -505,42 +552,42 @@
           </div>
 
           <div class="checkout__input">
-              <p>Địa Chỉ<span>*</span></p>
-              <div class="row">
-                <div class="col-lg-4" style="margin-left: 0px;">
-                  <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
-                  <select class="form-control select2" ng-model="selectedProvince"
-                    ng-options="province.name for province in provinces" ng-change="getDistricts()">
-                    <option value="">Chọn tỉnh</option>
-                    <option ng-repeat="province in provinces" ng-model="thanhPho" value="{{province.name}}">
-                      {{province.name}}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-lg-4">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Huyện</span></span>
-                  <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
-                    ng-options="district.name for district in districts" ng-change="getWards()">
-                    <option value="">Chọn huyện</option>
-                    <option ng-repeat="district in districts" ng-model="quanHuyen" value="{{district.name}}">
-                      {{district.name}}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-lg-4">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Phường</span></span>
-                  <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
-                    ng-options="ward.name for ward in wards">
-                    <option value="">Chọn phường</option>
-                    <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
-                      {{ward.name}}
-                    </option>
-                  </select>
-                </div>
+            <p>Địa Chỉ<span>*</span></p>
+            <div class="row">
+              <div class="col-lg-4" style="margin-left: 0px;">
+                <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                <select class="form-control select2" ng-model="selectedProvince"
+                  ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                  <option value="">Chọn tỉnh</option>
+                  <option ng-repeat="province in provinces" ng-model="thanhPho" value="{{province.name}}">
+                    {{province.name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <span class="header-title"><span style="color: red">*</span>
+                  <span>Huyện</span></span>
+                <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                  ng-options="district.name for district in districts" ng-change="getWards()">
+                  <option value="">Chọn huyện</option>
+                  <option ng-repeat="district in districts" ng-model="quanHuyen" value="{{district.name}}">
+                    {{district.name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <span class="header-title"><span style="color: red">*</span>
+                  <span>Phường</span></span>
+                <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                  ng-options="ward.name for ward in wards">
+                  <option value="">Chọn phường</option>
+                  <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
+                    {{ward.name}}
+                  </option>
+                </select>
               </div>
             </div>
+          </div>
           <div class="checkout__input">
             <p>Địa Chỉ Giao Hàng<span>*</span></p>
             <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
@@ -551,7 +598,7 @@
           </div>
           <div class="checkout__input">
             <p>Email<span>*</span></p>
-            <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email"/>
+            <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" />
           </div>
           <div class="checkout__input">
             <p>Ghi chú</p>
@@ -594,8 +641,9 @@
             <h5>Mã Giảm Giá</h5>
             <div class="row mt-3 mb-3">
               <div class="col-6">
-                <input id="discountInput" type="text" ng-model="magiamgia" style="height: 45px; padding-left: 4px; text-indent: 5px;text-align: center;font-weight: bolder;border-radius: 10px;"
-                  placeholder="Chọn mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" readonly  />
+                <input id="discountInput" type="text" ng-model="magiamgia"
+                  style="height: 45px; padding-left: 4px; text-indent: 5px;text-align: center;font-weight: bolder;border-radius: 10px;"
+                  placeholder="Chọn mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" readonly />
               </div>
             </div>
             <hr />
@@ -634,7 +682,7 @@
             <h5 class="modal-title" id="exampleModalLabel">Danh sách mã giảm giá</h5>
             <button type="button" class="close " data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true" style="font-size: small;">&times;</span>
-            </button>            
+            </button>
           </div>
           <div class="modal-body">
             <!-- Danh sách mã giảm giá -->
@@ -646,15 +694,20 @@
                 </td>
                 <td style="width: 300px">
                   <span style="font-weight: bolder;">{{ voucher.tenvoucher }}</span><br>
-                  <span style="font-size: small; font-weight: 600">Đơn tối thiểu: {{ voucher.giatritoithieudonhang | number}}
+                  <span style="font-size: small; font-weight: 600">Đơn tối thiểu: {{ voucher.giatritoithieudonhang |
+                    number}}
                     vnđ</span><br>
-                  <span ng-show="{{voucher.hinhthucgiam===2}}" style="font-size: smaller;">Giá giảm: {{ voucher.giatrigiam | number}} vnđ</span>
-                  <span ng-show="{{voucher.hinhthucgiam===1}}" style="font-size: smaller;">Giá giảm: {{ voucher.giatrigiam | number}}%</span>
+                  <span ng-show="{{voucher.hinhthucgiam===2}}" style="font-size: smaller;">Giá giảm: {{
+                    voucher.giatrigiam | number}} vnđ</span>
+                  <span ng-show="{{voucher.hinhthucgiam===1}}" style="font-size: smaller;">Giá giảm: {{
+                    voucher.giatrigiam | number}}%</span>
                   <br>
                   <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'dd/MM/yyyy' }}</span>
                 </td>
                 <td style="width: 28%;">
-                  <button class="btn btn-success mt-3" ng-click="voucherId(voucher.id,voucher.giatrigiam,voucher.hinhthucgiam,voucher.mavoucher,voucher.giatritoithieudonhang)" data-dismiss="modal" aria-label="Close">Áp dụng</button>
+                  <button class="btn btn-success mt-3"
+                    ng-click="voucherId(voucher.id,voucher.giatrigiam,voucher.hinhthucgiam,voucher.mavoucher,voucher.giatritoithieudonhang)"
+                    data-dismiss="modal" aria-label="Close">Áp dụng</button>
                 </td>
               </tr>
             </table>
