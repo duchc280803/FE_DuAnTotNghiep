@@ -141,13 +141,32 @@ myApp.controller(
         });
     };
 
-    $scope.newOrderClient = {};
+    $scope.orderDetailUpdate = {};
     $scope.confirmOrderClient = function () {
       $http
         .put(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
             id,
-          $scope.newOrderClient
+          $scope.orderDetailUpdate
+        )
+        .then(function (response) {
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
+          $scope.getlichSuThanhToan();
+          $scope.getlichSuThayDoi();
+          $scope.selectMoney(id);
+          $scope.getTongTienHang();
+          $scope.getOrderDetailUpdate();
+          $window.location.reload();
+        });
+    };
+
+    $scope.confirmOrderdeliver = function () {
+      $http
+        .put(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-deliver/" +
+            id,
+          $scope.orderDetailUpdate
         )
         .then(function (response) {
           $scope.getHoaDonChiTiet();
@@ -641,7 +660,6 @@ myApp.controller(
         });
     };
 
-    $scope.orderDetailUpdate = {};
     $scope.getOrderDetailUpdate = function () {
       $http
         .get(
