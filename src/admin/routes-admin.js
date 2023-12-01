@@ -4,6 +4,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when("/dashboard", {
       templateUrl: "./pages/thong-ke.html",
+      controller:"thongKeController"
     })
     .when("/admin/login", {
       templateUrl: "./pages/authentication-login.html",
