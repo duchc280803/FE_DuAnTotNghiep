@@ -154,8 +154,8 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
           showConfirmButton: false,
           timer: 1500,
           customClass: {
-            popup: 'small-popup' // Thêm class cho message
-          }
+            popup: "small-popup", // Thêm class cho message
+          },
         });
         return;
       }
@@ -183,7 +183,7 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
           $http
             .post("http://localhost:8080/api/v1/voucher/create", dataToSend)
             .then(function (response) {
-              $scope.listVoucher.push(response.data)
+              $scope.listVoucher.push(response.data);
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -191,10 +191,10 @@ myApp.controller("VoucherController", function ($http, $scope, $location) {
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {
-                  popup: 'small-popup' // Thêm class cho message
-                }
+                  popup: "small-popup", // Thêm class cho message
+                },
               });
-              $location.path("/voucher")
+              $location.path("/voucher");
             })
             .catch(function (error) {
               console.error("Error:", error);

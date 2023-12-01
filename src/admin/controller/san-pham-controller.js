@@ -1,4 +1,4 @@
-myApp.controller("sanPhamController", function ($http, $scope) {
+myApp.controller("sanPhamController", function ($http, $scope, $window) {
   $scope.listSanPham = [];
   $scope.filterSanPham = function () {
     $http
@@ -147,6 +147,13 @@ myApp.controller("sanPhamController", function ($http, $scope) {
   $scope.getListXuatXu();
 
   $scope.newProduct = {};
+  var token = $window.localStorage.getItem("token");
+
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
   setTimeout(() => {
     $scope.createProduct = function () {
       Swal.fire({
@@ -162,7 +169,8 @@ myApp.controller("sanPhamController", function ($http, $scope) {
         $http
           .post(
             "http://localhost:8080/api/v1/san-pham/create",
-            $scope.newProduct
+            $scope.newProduct,
+            config
           )
           .then(function (response) {
             $scope.listXuatXu.push(response.data);
