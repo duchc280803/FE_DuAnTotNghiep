@@ -177,22 +177,22 @@
                   <div class="col-md-8">
                     <form name="frmAccount">
                       <div class="form-group">
-                        <label>Họ và tên</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Họ và tên</span></span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Ngày sinh</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Ngày sinh</span></span>
                         <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Số điện thoại</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Số điện thoại</span></span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.soDienThoai" />
                       </div>
                       <br />
                       <div class="form-group">
-                        <label class="mr-2">Giới tính</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Giới tính</span></span>
                         <div class="form-check-inline">
                           <input class="form-check-input" type="radio" name="gender"
                             ng-model="selectedKhachHang.gioiTinh" value="true" />
@@ -206,15 +206,55 @@
                       </div>
                       <br />
                       <div class="form-group">
-                        <label>Email</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Email</span></span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
                       </div>
                       <br />
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                          <select class="form-control select2" ng-model="selectedProvince"
+                            ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                            <option value="">Chọn tỉnh</option>
+                            <option ng-repeat="province in provinces" value="{{province.name}}">
+                              {{province.name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Huyện</span></span>
+                          <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                            ng-options="district.name for district in districts" ng-change="getWards()">
+                            <option value="">Chọn huyện</option>
+                            <option ng-repeat="district in districts" value="{{district.name}}">
+                              {{district.name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Phường</span></span>
+                          <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                            ng-options="ward.name for ward in wards">
+                            <option value="">Chọn phường</option>
+                            <option ng-repeat="ward in wards" value="{{ward.name}}">
+                              {{ward.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <br>
                       <div class="form-group">
-                        <label class="mr-2">Trạng thái</label>
+                        <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.diaChi" />
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Trạng thái</span></span>
                         <div class="form-check-inline">
                           <input class="form-check-input" type="radio" name="status"
-                            ng-model="selectedKhachHang.trangThai" value="0" />
+                            ng-model="selectedKhachHang.trangThai" value="2" />
                           <label class="form-check-label"> Chưa kích hoạt </label>
                         </div>
                         <div class="form-check-inline">
@@ -256,8 +296,9 @@
             <th scope="col">Mã khách hàng</th>
             <th scope="col">Họ và tên</th>
             <th scope="col">Email</th>
-            <th scope="col">Giới tính</th>
+            <th scope="col">Phái</th>
             <th scope="col">SĐT</th>
+            <th scope="col">Địa chỉ</th>
             <th scope="col">Trạng thái</th>
             <th scope="col">Thao tác</th>
           </tr>
@@ -271,6 +312,7 @@
             <td>{{kh.email}}</td>
             <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
             <td>{{kh.soDienThoai}}</td>
+            <td>{{kh.diaChi}} - {{kh.phuong}} - {{kh.huyen}} - {{kh.tinh}}</td>
             <td>
               <span style="
                       background-color: #cceeff;
@@ -278,7 +320,7 @@
                       padding: 4px 8px;
                       border-radius: 4px;
                       display: inline-block;
-                    ">{{kh.trangThai == 1 ? "Đã kích hoạt": "Chưa kích hoạt"}}
+                    ">{{kh.trangThai == 1 ? "Hoạt động": "Không hoạt động"}}
               </span>
             </td>
             <td>

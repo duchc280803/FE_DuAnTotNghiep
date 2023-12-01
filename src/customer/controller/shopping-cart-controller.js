@@ -617,7 +617,6 @@ myAppCustom.controller(
     // Gọi hàm để lấy danh sách voucher
     $scope.voucherBest();
 
-
     //Xóa bỏ voucher
 
     // Hàm để xóa bỏ voucher khỏi danh sách

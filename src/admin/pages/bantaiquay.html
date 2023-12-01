@@ -687,7 +687,7 @@
                     <span style="margin-left: -30px;" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
                     <input ng-model="diaChi" type="text" class="form-control hidden-input"
-                      style="margin-left: -30px; margin-bottom: 30px" ng-value="orderDetailCounter.diaChi"
+                      style="margin-left: -30px; margin-bottom: 30px" ng-value="diaChi"
                       placeholder="Nhập địa chỉ" />
                     <div class="row">
                       <div class="col-lg-6">
@@ -876,7 +876,7 @@
                               </thead>
                               <tbody>
                                 <tr ng-repeat="v in listVoucher"
-                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao">
+                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0))">
                                   <td>{{$index + 1}}</td>
                                   <td>{{v.voucherCode}}</td>
                                   <td>{{v.nameVoucher}}</td>
@@ -987,7 +987,7 @@
               Xác Nhận Thanh Toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
-              style="margin-left: 900px; margin-top: -125px; font-weight: bold"
+              style="margin-left: 900px; margin-top: -250px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang)">
               Xác Nhận Đặt Hàng
             </button>
