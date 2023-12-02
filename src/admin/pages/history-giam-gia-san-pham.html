@@ -58,7 +58,8 @@
                     <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
                     <td>{{gg.action}}</td>
                     <td>{{gg.username}}</td>
-                    <td>{{gg.ma}}</td>
+                    <!-- <td>{{gg.ma}}</td> -->
+                    <td ng-bind-html="formatMa(gg.ma)"></td>
                 </tr>
             </tbody>
         </table>
