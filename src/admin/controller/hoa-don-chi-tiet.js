@@ -140,14 +140,24 @@ myApp.controller(
           $window.location.reload();
         });
     };
+    
+
 
     $scope.newOrderClient = {};
     $scope.confirmOrderClient = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
         .put(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
             id,
-          $scope.newOrderClient
+          $scope.newOrderClient,
+          config
         )
         .then(function (response) {
           $scope.getHoaDonChiTiet();

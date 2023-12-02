@@ -105,6 +105,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/vnpay-done.html",
       controller: "YourController",
     })
+    .when("/hoa-don-history", {
+      templateUrl: "./pages/hoa-don-history.html",
+      controller: "hoaDonController",
+    })
     .otherwise({
       redirectTo: "/dashboard",
     });
