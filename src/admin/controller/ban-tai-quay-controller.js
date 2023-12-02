@@ -593,37 +593,16 @@ myApp.controller(
       };
     }, 2000);
 
-    //TODO:thanh toán hóa đơn giao
+    /**
+     * thanh toán hóa đơn giao
+     * @param {tongTienHang, tienKhachTra, tienThua}
+     */
     setTimeout(() => {
       $scope.createHoaDonChiTietGiao = function (
         tongTienHang,
         tienKhachTra,
         tienThua
       ) {
-        var idDetail = CartService.getIdCartDetail();
-        var requestData = {
-          tongTien: tongTienHang,
-          tienKhachTra: tienKhachTra,
-          tienThua: tienThua,
-          tienGiao: $scope.tienGiao,
-          hoTen: $scope.hoTen,
-          tenNguoiShip: $scope.tenNguoiShip,
-          soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
-          soDienThoai: $scope.soDienThoai,
-          email: $scope.email,
-          diaChi:
-            $scope.diaChi +
-            ", " +
-            $scope.selectedWard.name +
-            ", " +
-            $scope.selectedDistrict.name +
-            ", " +
-            $scope.selectedProvince.name,
-          gioHangChiTietList: idDetail,
-        };
-        var api =
-          "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
-          id;
         Swal.fire({
           title: "Bạn muốn đặt hàng?",
           text: "",
@@ -635,20 +614,43 @@ myApp.controller(
           reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
         }).then((result) => {
           if (result.isConfirmed) {
+            var idDetail = CartService.getIdCartDetail();
+            $scope.orderDetailCounter = {
+              tongTien: tongTienHang,
+              tienKhachTra: tienKhachTra,
+              tienThua: tienThua,
+              tienGiao: $scope.tienGiao,
+              hoTen: $scope.hoTen,
+              tenNguoiShip: $scope.tenNguoiShip,
+              soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
+              soDienThoai: $scope.soDienThoai,
+              email: $scope.email,
+              diaChi:
+                $scope.diaChi +
+                ", " +
+                $scope.selectedWard.name +
+                ", " +
+                $scope.selectedDistrict.name +
+                ", " +
+                $scope.selectedProvince.name,
+              gioHangChiTietList: idDetail,
+            };
+            var requestData = {
+              orderDetailCounter: $scope.orderDetailCounter,
+            };
+            var api =
+              "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
+              id;
+
             $http.post(api, requestData).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
-              $scope.getListHoaDonTaiQuay();
-              $scope.detailOrderCounterDetail();
-              $scope.listSanPhamInCart();
-              CartService.setIdCart(id).then(function () {});
-              CartService.setIdCart(id).then(function () {
-                var idCart = CartService.getIdCart();
-                CartService.setIdCartDetail(idCart).then(function () {});
-              });
-              $scope.showKhachHang();
-              $scope.showTransaction();
-              $scope.showTransaction();
-              $scope.getVoucherName();
+              // $scope.getListHoaDonTaiQuay();
+              // $scope.detailOrderCounterDetail();
+              // $scope.listSanPhamInCart();
+              // $scope.showKhachHang();
+              // $scope.showTransaction();
+              // $scope.showTransaction();
+              // $scope.getVoucherName();
               $scope.removeItem();
               Swal.fire({
                 position: "top-end",
