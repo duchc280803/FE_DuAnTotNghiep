@@ -4,6 +4,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when("/dashboard", {
       templateUrl: "./pages/thong-ke.html",
+      controller:"thongKeController"
     })
     .when("/admin/login", {
       templateUrl: "./pages/authentication-login.html",
@@ -112,6 +113,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/transaction-done", {
       templateUrl: "./pages/vnpay-done.html",
       controller: "BanTaiQuayController",
+    })
+    .when("/hoa-don-history", {
+      templateUrl: "./pages/hoa-don-history.html",
+      controller: "hoaDonController",
     })
     .otherwise({
       redirectTo: "/dashboard",

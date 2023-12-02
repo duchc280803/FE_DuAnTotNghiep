@@ -291,7 +291,8 @@
           <th scope="col">Ảnh</th>
           <th scope="col">Mã nhân viên</th>
           <th scope="col">Họ và tên</th>
-          <th scope="col">Giới tính</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phái</th>
           <th scope="col">SĐT</th>
           <th scope="col">Địa chỉ</th>
           <th scope="col">Trạng thái</th>
@@ -304,6 +305,7 @@
           <td><img src="/assets/ảnh giày/{{nv.image}}" width="70px" alt=""></td>
           <td>{{nv.maNhanVien}}</td>
           <td>{{nv.fullName}}</td>
+          <td>{{nv.email}}</td>
           <td>{{nv.gioiTinh == false ? "Nữ" : "Nam"}}</td>
           <td>{{nv.soDienThoai}}</td>
           <td>{{nv.diaChi}} - {{nv.phuong}} - {{nv.huyen}} - {{nv.tinh}}</td>

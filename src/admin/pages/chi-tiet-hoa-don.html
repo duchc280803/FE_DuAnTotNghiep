@@ -117,10 +117,8 @@
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Hủy</span>
       </button>
-      <button
-        ng-show="hoaDonChiTiet.trangThai != 5 && (hoaDonChiTiet.tenNguoiShip != null || hoaDonChiTiet.tenLoaiDon != 'ONLINE')"
-        type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
-        style="text-decoration: none; height: 39px">
+      <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit" class="btn btn-danger m-1"
+        data-bs-toggle="modal" data-bs-target="#exampleModal" style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Xác nhận</span>
       </button>
       <button ng-show="hoaDonChiTiet.trangThai !== 1 && hoaDonChiTiet.trangThai !== 6" type="submit"
@@ -183,32 +181,19 @@
       <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
       <div class="modal-body">
         <span class="header-title"><span style="color: red">*</span><span>Tên khách</span></span>
-        <input type="text" class="form-control" placeholder="Tên người nhận" ng-model="newOrderClient.hoVatenClient"
-          ng-value="orderDetailUpdate.nameCustomer" />
+        <input type="text" class="form-control" placeholder="Tên người nhận" ng-model="orderDetailUpdate.hoVatenClient" />
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Số khách</span></span>
-        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="newOrderClient.sdtClient"
-          ng-value="orderDetailUpdate.numberPhoneCustom" />
+        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="orderDetailUpdate.sdtClient"/>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Email</span></span>
-        <input type="text" class="form-control" placeholder="Email" ng-model="newOrderClient.email"
-          ng-value="orderDetailUpdate.email" />
-        <br>
-        <span class="header-title"><span style="color: red">*</span><span>Tên người ship</span></span>
-        <input type="text" class="form-control" placeholder="Tên người ship" ng-model="newOrderClient.hoVaTenNguoiShip"
-          ng-value="orderDetailUpdate.tenNguoiGiao" />
-        <br>
-        <span class="header-title"><span style="color: red">*</span><span>Số người ship</span></span>
-        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="newOrderClient.soDienThoaiShip"
-          ng-value="orderDetailUpdate.sdtNguoiGiao" />
+        <input type="text" class="form-control" placeholder="Email" ng-model="orderDetailUpdate.email"/>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Tiền ship</span></span>
-        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="newOrderClient.tienShip"
-          ng-value="orderDetailUpdate.tienShip" />
+        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="orderDetailUpdate.tienShip"/>
         <br>
         <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
-        <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="newOrderClient.diaChi"
-          ng-value="orderDetailUpdate.diaChi" />
+        <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="orderDetailUpdate.diaChi"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -222,6 +207,31 @@
   </div>
 </div>
 <!-- modal update giao HD -->
+<!-- modal update thông tin giao -->
+<div class="modal fade" id="updateNguoiGiao" tabindex="-1" aria-labelledby="updateNguoiGiao" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content custom-modal-content" style="width: 110%; margin-left: -15px">
+      <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
+      <div class="modal-body">
+        <span class="header-title"><span style="color: red">*</span><span>Tên người giao</span></span>
+        <input type="text" class="form-control" placeholder="Tên người giao" ng-model="orderDetailUpdate.tenNguoiGiao" />
+        <br>
+        <span class="header-title"><span style="color: red">*</span><span>Số người giao</span></span>
+        <input type="text" class="form-control" placeholder="Số người giao"
+          ng-model="orderDetailUpdate.soDienThoaiGiao" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ng-click="confirmOrderdeliver()">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal update thông tin giao -->
 <!-- modal cập nhật trạng thái HD -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -404,6 +414,10 @@
           class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
           <span style=" vertical-align: middle">Cập nhập</span>
         </button>
+        <button ng-show="hoaDonChiTiet.trangThai == 3 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="submit"
+          class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateNguoiGiao">
+          <span style=" vertical-align: middle">Cập nhập</span>
+        </button>
       </div>
     </div>
     <hr />
@@ -428,7 +442,7 @@
       <div class="col-lg-4">
         <h5>Tên người giao: {{hoaDonChiTiet.tenNguoiShip}}</h5>
         <h5>Số người giao: {{hoaDonChiTiet.sdtNguoiShip}}</h5>
-        <h5>Email: {{hoaDonChiTiet.sdtNguoiShip}}</h5>
+        <h5>Email: {{hoaDonChiTiet.email}}</h5>
       </div>
     </div>
   </div>
@@ -794,17 +808,17 @@
   <div class="row">
     <div class="col-lg-12" style="margin-left: 900px">
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền hàng: {{tongTienHang | number}}₫
+        Tiền hàng: {{tongTienHang.toLocaleString('vi-VN')}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền ship: {{fillMoney.tienShip != null ? (fillMoney.tienShip | number)
+        Tiền ship: {{fillMoney.tienShip.toLocaleString('vi-VN') != null ? (fillMoney.tienShip.toLocaleString('vi-VN'))
         + '₫' : '0₫'}}
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền giảm giá:{{fillMoney.tienGiamGia |number}}₫
+        Tiền giảm giá:{{fillMoney.tienGiamGia.toLocaleString('vi-VN')}}₫
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tổng tiền: {{fillMoney.tongTien | number}}₫
+        Tổng tiền: {{fillMoney.tongTien.toLocaleString('vi-VN')}}₫
       </h6>
     </div>
   </div>

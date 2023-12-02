@@ -52,13 +52,14 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
       } else {
         $scope.selectedKhachHang.trangThai = "2";
       }
-
+  
       if ($scope.selectedKhachHang.gioiTinh === false) {
         $scope.selectedKhachHang.gioiTinh = "false";
       } else {
         $scope.selectedKhachHang.gioiTinh = "true";
       }
       $scope.selectedKhachHang.khachHangId = id;
+  
     });
   }
 

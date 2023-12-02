@@ -653,7 +653,7 @@
                         <select class="form-control select2" ng-model="selectedProvince"
                           ng-options="province.name for province in provinces" ng-change="getDistricts()">
                           <option value="">Chọn tỉnh</option>
-                          <option ng-repeat="province in provinces" ng-model="diaChi"
+                          <option ng-repeat="province in provinces" ng-model="orderDetailCounter.diaChi"
                             value="{{province.name}}">
                             {{province.name}}
                           </option>
@@ -665,7 +665,7 @@
                         <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
                           ng-options="district.name for district in districts" ng-change="getWards()">
                           <option value="">Chọn huyện</option>
-                          <option ng-repeat="district in districts" ng-model="diaChi"
+                          <option ng-repeat="district in districts" ng-model="orderDetailCounter.diaChi"
                             value="{{district.name}}">
                             {{district.name}}
                           </option>
@@ -677,7 +677,7 @@
                         <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
                           ng-options="ward.name for ward in wards">
                           <option value="">Chọn phường</option>
-                          <option ng-repeat="ward in wards" ng-model="diaChi" value="{{ward.name}}">
+                          <option ng-repeat="ward in wards" ng-model="orderDetailCounter.diaChi" value="{{ward.name}}">
                             {{ward.name}}
                           </option>
                         </select>
@@ -693,13 +693,13 @@
                       <div class="col-lg-6">
                         <span style="margin-left: -30px;" class="header-title"><span style="color: red">*</span>
                           <span>Tên người ship</span></span>
-                        <input ng-model="tenNguoiShip" type="text" class="form-control hidden-input"
+                        <input ng-model="orderDetailCounter.tenNguoiShip" type="text" class="form-control hidden-input"
                           style="margin-left: -30px; margin-bottom: 30px" placeholder="Nhập họ và tên người ship" />
                       </div>
                       <div class="col-lg-6">
                         <span style="margin-left: -30px;" class="header-title"><span style="color: red">*</span>
                           <span>Số người ship</span></span>
-                        <input ng-model="soDienThoaiNguoiShip" type="text" class="form-control hidden-input"
+                        <input ng-model="orderDetailCounter.soDienThoaiNguoiShip" type="text" class="form-control hidden-input"
                           style="margin-left: -30px; margin-bottom: 30px" placeholder="Số điện thoại người ship" />
                       </div>
                     </div>
@@ -876,7 +876,7 @@
                               </thead>
                               <tbody>
                                 <tr ng-repeat="v in listVoucher"
-                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao">
+                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0))">
                                   <td>{{$index + 1}}</td>
                                   <td>{{v.voucherCode}}</td>
                                   <td>{{v.nameVoucher}}</td>
@@ -987,7 +987,7 @@
               Xác Nhận Thanh Toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
-              style="margin-left: 900px; margin-top: -125px; font-weight: bold"
+              style="margin-left: 900px; margin-top: -250px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang)">
               Xác Nhận Đặt Hàng
             </button>
