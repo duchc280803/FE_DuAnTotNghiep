@@ -114,81 +114,118 @@ myApp.controller(
       newTrangThai: "",
     };
 
-    $scope.comfirmStatusOrder = function () {
-      var token = $window.localStorage.getItem("token");
+    setTimeout(() => {
+      $scope.comfirmStatusOrder = function () {
+        Swal.fire({
+          title: "Bạn có muốn thay đổi trạng thái hóa đơn?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .post(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" + id,
-          JSON.stringify($scope.newStatusOrder),
-          config
-        )
-        .then(function (response) {
-          $scope.lichSuThayDoi.push(response.data);
-          $scope.getHoaDonChiTiet();
-          $scope.getSanPham();
-          $scope.getlichSuThanhToan();
-          $scope.getlichSuThayDoi();
-          $scope.selectMoney(id);
-          $scope.getTongTienHang();
-          $scope.getOrderDetailUpdate();
-          $window.location.reload();
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
+            $http
+              .post(
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" +
+                  id,
+                JSON.stringify($scope.newStatusOrder),
+                config
+              )
+              .then(function (response) {
+                $scope.lichSuThayDoi.push(response.data);
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
+                $scope.getlichSuThanhToan();
+                $scope.getlichSuThayDoi();
+                $scope.selectMoney(id);
+                $scope.getTongTienHang();
+                $scope.getOrderDetailUpdate();
+                $window.location.reload();
+              });
+          }
         });
-    };
-    
-
+      };
+    }, 2000);
 
     $scope.orderDetailUpdate = {};
-    $scope.confirmOrderClient = function () {
-      var token = $window.localStorage.getItem("token");
+    setTimeout(() => {
+      $scope.confirmOrderClient = function () {
+        Swal.fire({
+          title: "Bạn có thay đổi thông tin đơn hàng?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
+            $http
+              .put(
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
+                  id,
+                $scope.orderDetailUpdate,
+                config
+              )
+              .then(function (response) {
+                $window.location.reload();
+              });
+          }
+        });
       };
-      $http
-        .put(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
-            id,
-          $scope.orderDetailUpdate,
-          config
-        )
-        .then(function (response) {
-          $scope.getHoaDonChiTiet();
-          $scope.getSanPham();
-          $scope.getlichSuThanhToan();
-          $scope.getlichSuThayDoi();
-          $scope.selectMoney(id);
-          $scope.getTongTienHang();
-          $scope.getOrderDetailUpdate();
-          $window.location.reload();
-        });
-    };
+    }, 2000);
 
-    $scope.confirmOrderdeliver = function () {
-      $http
-        .put(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-deliver/" +
-            id,
-          $scope.orderDetailUpdate
-        )
-        .then(function (response) {
-          $scope.getHoaDonChiTiet();
-          $scope.getSanPham();
-          $scope.getlichSuThanhToan();
-          $scope.getlichSuThayDoi();
-          $scope.selectMoney(id);
-          $scope.getTongTienHang();
-          $scope.getOrderDetailUpdate();
-          $window.location.reload();
+    setTimeout(() => {
+      $scope.confirmOrderdeliver = function () {
+        Swal.fire({
+          title: "Bạn có thay đổi thông tin đơn hàng?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .put(
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-deliver/" +
+                  id,
+                $scope.orderDetailUpdate
+              )
+              .then(function (response) {
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
+                $scope.getlichSuThanhToan();
+                $scope.getlichSuThayDoi();
+                $scope.selectMoney(id);
+                $scope.getTongTienHang();
+                $scope.getOrderDetailUpdate();
+                $window.location.reload();
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
     $scope.soLuongSanPham = 1; // số lượng thêm vào giỏ hàng
 
@@ -209,6 +246,7 @@ myApp.controller(
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
         }).then((result) => {
           if (result.isConfirmed) {
             $http
@@ -237,6 +275,9 @@ myApp.controller(
                   title: "Thêm sản phẩm thành công",
                   showConfirmButton: false,
                   timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
                 });
               })
               .catch(function (error) {});
@@ -547,69 +588,100 @@ myApp.controller(
         });
     };
 
-    $scope.id = function (id) {
-      console.log(id);
-    };
+    // $scope.id = function (id) {
+    //   console.log(id);
+    // };
 
     $scope.newOrderDetail = {};
-    $scope.traHang = function (id) {
-      var token = $window.localStorage.getItem("token");
+    setTimeout(() => {
+      $scope.traHang = function (id) {
+        Swal.fire({
+          title: "Bạn có muốn trả hàng?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .post(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang?idhdct=" + id,
-          JSON.stringify($scope.newOrderDetail),
-          config
-        )
-        .then(function (response) {
-          $scope.listSanPhamInOrder.push(response.data);
-          $scope.getlichSuThanhToan();
-          $scope.getHoaDonChiTiet();
-          $scope.getSanPham();
-          $scope.getlichSuThayDoi();
-          $scope.selectMoney(id);
-          $scope.getTongTienHang();
-          $scope.getOrderDetailUpdate();
-          $window.location.reload();
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
+            $http
+              .post(
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang?idhdct=" +
+                  id,
+                JSON.stringify($scope.newOrderDetail),
+                config
+              )
+              .then(function (response) {
+                $scope.listSanPhamInOrder.push(response.data);
+                $scope.getlichSuThanhToan();
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
+                $scope.getlichSuThayDoi();
+                $scope.selectMoney(id);
+                $scope.getTongTienHang();
+                $scope.getOrderDetailUpdate();
+                $window.location.reload();
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
     // delete sản phẩm trong giỏ hàng
-    $scope.deleteProduct = function (event, index) {
-      event.preventDefault();
-      let p = $scope.listSanPhamInOrder[index];
-      var token = $window.localStorage.getItem("token");
+    setTimeout(() => {
+      $scope.deleteProduct = function (event, index) {
+        Swal.fire({
+          title: "Bạn có muốn xóa sản phẩm này khỏi hóa đơn?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            event.preventDefault();
+            let p = $scope.listSanPhamInOrder[index];
+            var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .delete(
-          "http://localhost:8080/api/v1/hoa-don-chi-tiet/delete?idHoaDon=" +
-            id +
-            "&id=" +
-            p.idHoaDonChiTiet,
-          config
-        )
-        .then(function () {
-          $scope.listSanPhamInOrder.splice(index, 1);
-          $scope.getHoaDonChiTiet();
-          $scope.getSanPham();
-          $scope.getlichSuThanhToan();
-          $scope.getlichSuThayDoi();
-          $scope.selectMoney(id);
-          $scope.getTongTienHang();
-          $scope.getOrderDetailUpdate();
-          $location.path("/order-detail/" + id);
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
+            $http
+              .delete(
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/delete?idHoaDon=" +
+                  id +
+                  "&id=" +
+                  p.idHoaDonChiTiet,
+                config
+              )
+              .then(function () {
+                $scope.listSanPhamInOrder.splice(index, 1);
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
+                $scope.getlichSuThanhToan();
+                $scope.getlichSuThayDoi();
+                $scope.selectMoney(id);
+                $scope.getTongTienHang();
+                $scope.getOrderDetailUpdate();
+                $location.path("/order-detail/" + id);
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
     $scope.fillMoney = {};
     $scope.selectMoney = function (id) {
@@ -682,25 +754,51 @@ myApp.controller(
     };
 
     $scope.getOrderDetailUpdate();
-
-    $scope.generatePDF = function () {
-      $http
-        .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
-          responseType: "arraybuffer",
-        })
-        .then(function (response) {
-          var file = new Blob([response.data], { type: "application/pdf" });
-          var fileURL = URL.createObjectURL(file);
-          var a = document.createElement("a");
-          a.href = fileURL;
-          a.download =
-            "pdf_" +
-            new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
-            ".pdf";
-          document.body.appendChild(a);
-          a.click();
+    setTimeout(() => {
+      $scope.generatePDF = function () {
+        Swal.fire({
+          title: "Bạn có muốn in hóa đơn này không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+                responseType: "arraybuffer",
+              })
+              .then(function (response) {
+                var file = new Blob([response.data], {
+                  type: "application/pdf",
+                });
+                var fileURL = URL.createObjectURL(file);
+                var a = document.createElement("a");
+                a.href = fileURL;
+                a.download =
+                  "pdf_" +
+                  new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
+                  ".pdf";
+                document.body.appendChild(a);
+                a.click();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "In thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
+                })
+              });
+          }
         });
-    };
+      };
+    }, 2000);
 
     $scope.tongTienHang = 0;
     $scope.getTongTienHang = function () {
