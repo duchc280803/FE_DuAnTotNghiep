@@ -3,6 +3,11 @@ var idgh = localStorage.getItem("idgiohang");
 myAppCustom.controller(
   "sanPhamShopDetailController",
   function ($http, $scope, $routeParams, $window) {
+
+
+    // Khởi tạo biến số lượng trong $scope
+    $scope.soluong = 1;
+
     $scope.detailProduct = {};
     $scope.detailSizeProduct = [];
     $scope.detailChatLieuProduct = [];
@@ -15,7 +20,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-name-price-image/" +
-            name
+          name
         )
         .then(function (response) {
           $scope.detailProduct = response.data;
@@ -41,7 +46,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-all-mau-sac/" +
-            name
+          name
         )
         .then(function (response) {
           $scope.detailColorProduct = response.data;
@@ -52,7 +57,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-all-chat-lieu/" +
-            name
+          name
         )
         .then(function (response) {
           $scope.detailMaterialProduct = response.data;
@@ -64,9 +69,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-by-size/" +
-            name +
-            "?idsize=" +
-            idsize
+          name +
+          "?idsize=" +
+          idsize
         )
         .then(function (response) {
           $scope.loadmausac_chatlieu_not_login = response.data;
@@ -78,9 +83,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-by-mau-sac/" +
-            name +
-            "?idmausac=" +
-            id
+          name +
+          "?idmausac=" +
+          id
         )
         .then(function (response) {
           $scope.listSizeChatLieuByMauSac = response.data;
@@ -92,9 +97,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-by-chat-lieu/" +
-            name +
-            "?idchatlieu=" +
-            id
+          name +
+          "?idchatlieu=" +
+          id
         )
         .then(function (response) {
           $scope.listMauSizeByChatLieu = response.data;
@@ -116,17 +121,19 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/find-idspct-soluong/" +
-            name +
-            "?idmausac=" +
-            idMauSac +
-            "&idsize=" +
-            idSize +
-            "&idchatlieu=" +
-            idChatLieu
+          name +
+          "?idmausac=" +
+          idMauSac +
+          "&idsize=" +
+          idSize +
+          "&idchatlieu=" +
+          idChatLieu
         )
         .then(function (response) {
           $scope.showQuantity = response.data;
           $scope.quantity.soluong = response.data.soluong;
+          $window.localStorage.setItem("soluongton", $scope.quantity.soluong);
+          console.log($window.localStorage.getItem("soluongton"))
           $scope.quantity.sanPhamChiTietId = response.data.id;
         });
     };
@@ -245,8 +252,52 @@ myAppCustom.controller(
 
     // Thêm sản phẩm vào giỏ hàng
     $scope.addToCart = async function (idSanPhamChiTiet) {
+
+      // Kiểm tra xem đã chọn đủ 3 thuộc tính chưa
+      if (!$scope.quantity.sizeId || !$scope.quantity.colorId || !$scope.quantity.chatLieuId) {
+        Swal.fire({
+          title: "Sorry",
+          text: "Vui lòng chọn đủ thuộc tính",
+          icon: "error",
+          position: "bottom-start", // Đặt vị trí ở góc trái
+          toast: true, // Hiển thị thông báo nhỏ
+          showConfirmButton: false, // Ẩn nút xác nhận
+          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        return;
+      }
+
       var idGioHang = localStorage.getItem("idgiohang");
       var soLuong = $scope.soluong;
+
+      console.log(soLuong);
+      console.log($window.localStorage.getItem("soluongton"));
+
+      if ($window.localStorage.getItem("soluongton") < soLuong) {
+        Swal.fire({
+          title: "Sorry",
+          text: "Quá số lượng tồn trong kho",
+          icon: "error",
+          position: "bottom-start", // Đặt vị trí ở góc trái
+          toast: true, // Hiển thị thông báo nhỏ
+          showConfirmButton: false, // Ẩn nút xác nhận
+          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        return;
+      }
+
+      if (soLuong <= 0) {
+        Swal.fire({
+          title: "Sorry",
+          text: "Số lượng phải lớn hơn 0",
+          icon: "error",
+          position: "bottom-start", // Đặt vị trí ở góc trái
+          toast: true, // Hiển thị thông báo nhỏ
+          showConfirmButton: false, // Ẩn nút xác nhận
+          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        return;
+      }
 
       if (!idGioHang) {
         await $scope.CreateNewCart();
@@ -259,12 +310,12 @@ myAppCustom.controller(
           loadCart();
           loadToTals();
           loadQuanTiTy();
-        $window.location.reload();
+          $window.location.reload();
         } catch (error) {
           // Xử lý lỗi nếu cần
         }
       }
- 
+
       // localStorage.removeItem("idgiohang");
     };
 
@@ -278,7 +329,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show-sp-lien-quan?idthuonghieu=" +
-            idThuongHieu
+          idThuongHieu
         )
         .then(function (response) {
           $scope.relatedProducts = response.data;
@@ -339,7 +390,7 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-            idgh
+          idgh
         )
         .then(function (response) {
           // Lấy giá trị tổng tiền từ phản hồi API
@@ -364,5 +415,5 @@ myAppCustom.controller(
     }
 
     loadQuanTiTy();
-  }
-);
+
+  });

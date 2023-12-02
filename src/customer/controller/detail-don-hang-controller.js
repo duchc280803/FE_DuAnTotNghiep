@@ -44,17 +44,25 @@ myAppCustom.controller("detailDonHangController", function ($http, $scope, $wind
                 Authorization: "Bearer " + token,
             },
         };
-
+    
         var url = "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-san-pham/" + idHoaDon;
-
+    
         $http.get(url, config)
             .then(function (response) {
                 $scope.listSanPham = response.data;
+    
+                // Tính tổng tiền hàng
+                $scope.tongTienHang = 0;
+                angular.forEach($scope.listSanPham, function (item) {
+                    var donGia = item.donGiaSauGiam !== null ? item.donGiaSauGiam : item.donGia;
+                    $scope.tongTienHang += donGia * item.soLuong;
+                });
             })
             .catch(function (error) {
                 console.error("Error fetching don hang data:", error);
             });
     }
+    
 
     function getThanhTien() {
 
