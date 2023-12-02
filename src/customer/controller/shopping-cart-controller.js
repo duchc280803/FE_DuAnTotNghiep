@@ -52,15 +52,20 @@ myAppCustom.controller(
     $scope.changeQuantity = function (product, change) {
       if (change === "increase") {
         product.soluong++;
-        location.reload();
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
       } else if (change === "decrease" && product.soluong > 1) {
         product.soluong--;
-        location.reload();
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
       }
       // Gọi API để cập nhật số lượng
       console.log(product.id);
       console.log(product.soluong);
       updateQuantity(product.id, product.soluong);
+
     };
 
     // Hàm gọi API cập nhật số lượng
@@ -77,7 +82,6 @@ myAppCustom.controller(
           method: "PUT",
           transformResponse: [
             function () {
-              $scope.checkAndRemoveVoucherIfNeeded();
               $scope.getCartTotal();
               $scope.voucherBest();
               $scope.checkAndApplyBestVoucher();
@@ -85,6 +89,7 @@ myAppCustom.controller(
               loadToTals();
               loadNameAndPrice();
               loadQuanTiTy();
+              $scope.checkAndRemoveVoucherIfNeeded();
             },
           ],
         });
@@ -104,7 +109,6 @@ myAppCustom.controller(
         method: "DELETE",
         transformResponse: [
           function () {
-            $scope.checkAndRemoveVoucherIfNeeded();
             $scope.getCartTotal();
             $scope.voucherBest();
             $scope.checkAndApplyBestVoucher();
@@ -112,6 +116,7 @@ myAppCustom.controller(
             loadToTals();
             loadNameAndPrice();
             loadQuanTiTy();
+            $scope.checkAndRemoveVoucherIfNeeded();
             location.reload();
           },
         ],
@@ -386,39 +391,120 @@ myAppCustom.controller(
       $scope.tongCong = totalAmount - $scope.giamGiaVoucher;
     }
 
+    // validation here
+    $scope.isHoTenValid = true;
+    $scope.isDiaChiValid = true;
+    $scope.isSoDienThoaiValid = true;
+    $scope.isEmailValid = true;
+    $scope.isProvinceValid = true;
+    $scope.isDistrictValid = true;
+    $scope.isWardValid = true;
+
+
+    $scope.isSoDienThoaiFormat = true;
+    $scope.isEmailFormat = true;
+
+    function validateSoDienThoaiFormat(soDienThoai) {
+      // Sử dụng biểu thức chính quy để kiểm tra định dạng số điện thoại Việt Nam
+      var phoneRegex = /^(0[2-9]{1}\d{8,9})$/;
+      return phoneRegex.test(soDienThoai);
+    }
+
+    function validateEmailFormat(email) {
+      // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    //check out
     $scope.thanhToan = function () {
-      // Display a confirmation dialog
-      var isConfirmed = window.confirm("Bạn có chắc chắn muốn đặt đơn hàng?");
-      var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
-      console.log("thanh toan idVoucher" + idGiamGiaVoucher)
-      if (isConfirmed) {
-        if (idgh) {
-          // If the user confirms, proceed with form submission
-          var data = {
-            hoTen: $scope.hoTen,
-            soDienThoai: $scope.soDienThoai,
-            email: $scope.email,
-            diaChi: $scope.diaChi,
-            thanhPho: $scope.selectedProvince.name,
-            quanHuyen: $scope.selectedDistrict.name,
-            phuongXa: $scope.selectedWard.name,
-            // tongTien: totalAmount,
-            tienKhachTra: $scope.tienKhachTra,
-            gioHangChiTietList: gioHangChiTietList,
-            idGiamGia: idGiamGiaVoucher
-          };
+      // Kiểm tra xem các trường thông tin cần thiết đã được nhập đầy đủ không
+      $scope.isHoTenValid = !!$scope.hoTen;
+      $scope.isSoDienThoaiValid = !!$scope.soDienThoai;
+      $scope.isEmailValid = !!$scope.email;
+      $scope.isDiaChiValid = !!$scope.diaChi;
+      $scope.isProvinceValid = !!$scope.selectedProvince;
+      $scope.isDistrictValid = !!$scope.selectedDistrict;
+      $scope.isWardValid = !!$scope.selectedWard;
 
-          data.tongTien = $scope.tongCong;
-          data.tienGiamGia = $scope.giamGiaVoucher;
+      if ($scope.soDienThoai) {
+        $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat($scope.soDienThoai);
+      }
+      if ($scope.email) {
+        $scope.isEmailFormat = validateEmailFormat($scope.email);
+      }
 
-          if (token) {
-            $http
-              .post(
-                "http://localhost:8080/api/checkout-not-login/thanh-toan-login",
-                data,
-                config
-              )
-              .then(
+      if (!$scope.isHoTenValid || !$scope.isSoDienThoaiValid || !$scope.isEmailValid || !$scope.isDiaChiValid || !$scope.isProvinceValid || !$scope.isDistrictValid || !$scope.isWardValid) {
+        Swal.fire({
+          title: "Warning",
+          text: "Vui lòng điền đủ thông tin",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+
+      // Hiển thị hộp thoại xác nhận của SweetAlert2
+      Swal.fire({
+        title: "Xác nhận",
+        text: "Bạn có chắc chắn muốn đặt đơn hàng?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (idgh) {
+            // Nếu người dùng đồng ý, tiếp tục với quá trình xử lý
+            var data = {
+              hoTen: $scope.hoTen,
+              soDienThoai: $scope.soDienThoai,
+              email: $scope.email,
+              diaChi: $scope.diaChi,
+              thanhPho: $scope.selectedProvince.name,
+              quanHuyen: $scope.selectedDistrict.name,
+              phuongXa: $scope.selectedWard.name,
+              tienKhachTra: $scope.tienKhachTra,
+              gioHangChiTietList: gioHangChiTietList,
+              idGiamGia: idGiamGiaVoucher
+            };
+
+            data.tongTien = $scope.tongCong;
+            data.tienGiamGia = $scope.giamGiaVoucher;
+
+            if (token) {
+              $http
+                .post(
+                  "http://localhost:8080/api/checkout-not-login/thanh-toan-login",
+                  data,
+                  config
+                )
+                .then(
+                  function (response) {
+                    // Xử lý response nếu cần thiết
+                    localStorage.removeItem("idgiohang");
+                    localStorage.removeItem("idVoucher");
+                    localStorage.removeItem("giatrigiam");
+                    localStorage.removeItem("hinhthucgiam");
+                    localStorage.removeItem("maVoucher");
+                    localStorage.removeItem("totalAmount");
+                    localStorage.removeItem("listCart");
+                    localStorage.removeItem("giatritoithieudonhang");
+                    // Chuyển hướng đến trang "thank-you"
+                    $location.path("/thank-you");
+                  },
+                  function (error) {
+                    console.log(error);
+                  }
+                );
+            } else {
+              // Gửi dữ liệu đến máy chủ
+              $http({
+                method: "POST",
+                url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
+                data: data,
+              }).then(
                 function (response) {
                   // Xử lý response nếu cần thiết
                   localStorage.removeItem("idgiohang");
@@ -428,7 +514,6 @@ myAppCustom.controller(
                   localStorage.removeItem("maVoucher");
                   localStorage.removeItem("totalAmount");
                   localStorage.removeItem("listCart");
-                  localStorage.removeItem("giatritoithieudonhang");
                   // Chuyển hướng đến trang "thank-you"
                   $location.path("/thank-you");
                 },
@@ -436,35 +521,17 @@ myAppCustom.controller(
                   console.log(error);
                 }
               );
-          } else {
-            // Send data to the server
-            $http({
-              method: "POST",
-              url: "http://localhost:8080/api/checkout-not-login/thanh-toan",
-              data: data,
-            }).then(
-              function (response) {
-                // Handle the response if needed
-                localStorage.removeItem("idgiohang");
-                localStorage.removeItem("idVoucher");
-                localStorage.removeItem("giatrigiam");
-                localStorage.removeItem("hinhthucgiam");
-                localStorage.removeItem("maVoucher");
-                localStorage.removeItem("totalAmount");
-                localStorage.removeItem("listCart");
-                // Redirect to the "thank-you" route
-                $location.path("/thank-you");
-              },
-              function (error) {
-                console.log(error);
-              }
-            );
+            }
           }
+          else if (!idgh) {
+            Swal.fire("Giỏ hàng chưa có sản phẩm !", "", "error");
+          }
+        } else {
+          Swal.fire("Đã hủy đặt đơn hàng", "", "error");
         }
-      } else {
-        alert("Đã hủy");
-      }
+      });
     }; //close check out
+
 
     // voucher here
     $scope.vouchers = [];
@@ -616,6 +683,7 @@ myAppCustom.controller(
 
     // Gọi hàm để lấy danh sách voucher
     $scope.voucherBest();
+
 
     //Xóa bỏ voucher
 
