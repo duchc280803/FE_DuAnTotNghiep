@@ -9,13 +9,12 @@
         <input class="form-control" placeholder="Tìm khuyến mãi" ng-model="key" ng-change="searchKey()"
           style="width: 220px; margin-left: -42px; font-weight: bold" />
       </div>
-
-      <div class="col-md-3 d-flex justify-content-start" style="margin-top: 20px">
+      <div class="col-md-2 d-flex justify-content-start" style="margin-top: 20px">
         <button class="btn btn-warning" style="height: 39px; margin-left: 10px">
           <span style="vertical-align: middle">Làm Mới</span>
         </button>
       </div>
-      <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px">
+      <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px; margin-left: -60px;">
         <br />
         <h6 class="text" style="padding-top: 10px">Trạng thái:</h6>
         <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai"
@@ -25,14 +24,14 @@
           <option value="2">Hết Hiệu Lực</option>
         </select>
       </div>
-      <div class="col-md-3" style="margin-top: 20px; margin-left: 90px">
-        <a href="#/voucher/create" class="btn btn-primary" style="text-decoration: none; height: 39px">
-          <span style="vertical-align: middle" class="hide-menu">Thêm voucher</span>
-        </a>
-      </div>
-      <div class="col-md-3" style="margin-top: 40px; margin-bottom: 10px">
+      <div class="col-md-3" style="margin-top: 20px; margin-bottom: 10px; width: 150px;">
         <a href="#/voucher/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
           <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+        </a>
+      </div>
+      <div class="col-md-2" style="margin-top: 20px; margin-left: 90px">
+        <a href="#/voucher/create" class="btn btn-primary" style="text-decoration: none; height: 39px">
+          <span style="vertical-align: middle" class="hide-menu">Thêm voucher</span>
         </a>
       </div>
     </div>
@@ -49,7 +48,7 @@
           <th scope="col">Đơn tối thiểu</th>
           <th scope="col">Giá giảm</th>
           <th scope="col">Số lượng</th>
-          <th scope="col" style="width: 385px; padding-left: 165px">
+          <th scope="col" style="width: 345px; padding-left: 165px">
             Thời gian
           </th>
           <th scope="col">Trạng Thai</th>
@@ -61,14 +60,14 @@
           <td>{{$index + 1}}</td>
           <td>{{gg.maVoucher}}</td>
           <td>{{gg.tenVoucher}}</td>
-          <td>{{gg.giaTriToiThieuDonhang |number}}đ</td>
+          <td>{{gg.giaTriToiThieuDonhang.toLocaleString('vi-VN')}}đ</td>
           <td>
-            {{gg.giaTriGiam | number}}{{gg.hinhThucGiam == 1 ? '%' : 'đ'}}
+            {{gg.giaTriGiam.toLocaleString('vi-VN')}}{{gg.hinhThucGiam == 1 ? '%' : 'đ'}}
           </td>
           <td>
             {{gg.soLuongDung == null ? 0 : gg.soLuongDung }} / {{gg.soLuongMa}}
           </td>
-          <td>
+          <td style="padding-left: 25px;">
             {{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss a'}} - {{gg.ngayKetThuc
             | date:'dd/MM/yyyy HH:mm:ss a'}}
           </td>
@@ -80,4 +79,17 @@
       </tbody>
     </table>
   </div>
+  <nav aria-label="Page navigation example" style="margin-left: 480px">
+    <ul class="pagination">
+      <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+        <a class="page-link" ng-click="previousPage()">Previous</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">{{pageNumber + 1}}</a>
+      </li>
+      <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+        <a class="page-link" ng-click="nextPage()">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>

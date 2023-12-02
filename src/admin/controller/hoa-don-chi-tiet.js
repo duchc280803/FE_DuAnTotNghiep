@@ -143,7 +143,7 @@ myApp.controller(
     
 
 
-    $scope.newOrderClient = {};
+    $scope.orderDetailUpdate = {};
     $scope.confirmOrderClient = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -156,8 +156,27 @@ myApp.controller(
         .put(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
             id,
-          $scope.newOrderClient,
+          $scope.orderDetailUpdate,
           config
+        )
+        .then(function (response) {
+          $scope.getHoaDonChiTiet();
+          $scope.getSanPham();
+          $scope.getlichSuThanhToan();
+          $scope.getlichSuThayDoi();
+          $scope.selectMoney(id);
+          $scope.getTongTienHang();
+          $scope.getOrderDetailUpdate();
+          $window.location.reload();
+        });
+    };
+
+    $scope.confirmOrderdeliver = function () {
+      $http
+        .put(
+          "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-deliver/" +
+            id,
+          $scope.orderDetailUpdate
         )
         .then(function (response) {
           $scope.getHoaDonChiTiet();
@@ -262,88 +281,6 @@ myApp.controller(
       };
     }, 2000);
 
-    // xác nhận khách thanh toán
-    var token = $window.localStorage.getItem("token");
-
-    $scope.newTransaction = {
-      soTien: "",
-      ghiChu: "",
-      trangThai: "",
-      tenLoai: "Khách thanh toán",
-    };
-    var config = {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
-
-    setTimeout(() => {
-      $scope.createTransaction = function (idKhach) {
-        $http
-          .post(
-            "http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-toan-hoa-don-online?idHoaDon=" +
-              id +
-              "&id=" +
-              idKhach,
-            $scope.newTransaction,
-            config
-          )
-          .then(function (response) {
-            $scope.lichSu.push(response.data);
-            $scope.getlichSuThanhToan();
-          });
-      };
-    }, 2000);
-
-    $scope.button1Clicked = function (idKhach) {
-      $scope.newTransaction.trangThai = 1;
-      $scope.createTransaction(idKhach);
-    };
-
-    $scope.button2Clicked = function (idKhach) {
-      $scope.newTransaction.trangThai = 2;
-      $scope.createTransaction(idKhach);
-    };
-
-    $scope.newTransactionTra = {
-      soTien: "",
-      ghiChu: "",
-      trangThai: "",
-      tenLoai: "Nhân viên hoàn tiền",
-    };
-    setTimeout(() => {
-      $scope.createTransactionTraHang = function (idKhach) {
-        $http
-          .post(
-            "http://localhost:8080/api/v1/hoa-don-chi-tiet/thanh-toan-hoa-don-online?idHoaDon=" +
-              id +
-              "&id=" +
-              idKhach,
-            $scope.newTransactionTra
-          )
-          .then(function (response) {
-            $scope.lichSu.push(response.data);
-            $scope.getlichSuThanhToan();
-            $scope.getHoaDonChiTiet();
-            $scope.getSanPham();
-            $scope.getlichSuThayDoi();
-            $scope.selectMoney(id);
-            $scope.getTongTienHang();
-            $scope.getOrderDetailUpdate();
-          });
-      };
-    }, 2000);
-
-    $scope.button1ClickedTra = function (idKhach) {
-      $scope.newTransactionTra.trangThai = 1;
-      $scope.createTransactionTraHang(idKhach);
-    };
-
-    $scope.button2ClickedTra = function (idKhach) {
-      $scope.newTransactionTra.trangThai = 2;
-      $scope.createTransactionTraHang(idKhach);
-    };
-
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
     $scope.getListChatLieu = function () {
@@ -422,7 +359,7 @@ myApp.controller(
     $scope.getListXuatXu();
 
     $scope.pageNumberSp = 0; // Trang hiện tại
-    $scope.pageSizeSp = 5; // Số bản ghi trên mỗi trang
+    $scope.pageSizeSp = 20; // Số bản ghi trên mỗi trang
     // TODO: Get ALL sản phẩm tại quầy
     $scope.getListSanPhamTaiQuay = function () {
       $http
@@ -631,9 +568,9 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamInOrder.push(response.data);
+          $scope.getlichSuThanhToan();
           $scope.getHoaDonChiTiet();
           $scope.getSanPham();
-          $scope.getlichSuThanhToan();
           $scope.getlichSuThayDoi();
           $scope.selectMoney(id);
           $scope.getTongTienHang();
@@ -733,7 +670,6 @@ myApp.controller(
         });
     };
 
-    $scope.orderDetailUpdate = {};
     $scope.getOrderDetailUpdate = function () {
       $http
         .get(

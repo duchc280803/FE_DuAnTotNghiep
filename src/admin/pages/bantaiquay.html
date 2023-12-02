@@ -199,19 +199,16 @@
                     </td>
                     <td style="padding-top: 60px">
                       <div ng-show="lc.giaBan != lc.giaGiam">
-                        {{lc.giaGiam | number}}đ
-                        <span> <strike>{{lc.giaBan | number}}₫</strike></span>
+                        {{lc.giaGiam.toLocaleString('vi-VN')}}đ
+                        <span> <strike style="color: #dd2222;">{{lc.giaBan.toLocaleString('vi-VN')}}₫</strike></span>
                       </div>
                       <div ng-show="lc.giaBan == lc.giaGiam">
-                        {{lc.giaBan | number}}đ
+                        {{lc.giaBan.toLocaleString('vi-VN')}}đ
                       </div>
                     </td>
                     <td style="padding-top: 60px">
-                      <div ng-show="lc.giaBan != lc.giaGiam">
-                        {{(lc.giaGiam) * lc.soLuong | number}}đ
-                      </div>
-                      <div ng-show="lc.giaBan == lc.giaGiam">
-                        {{lc.giaBan * lc.soLuong | number}}đ
+                      <div >
+                        {{lc.tongTien.toLocaleString('vi-VN')}}đ
                       </div>
                     </td>
                     <td style="padding-top: 60px">
@@ -359,20 +356,20 @@
                             </td>
                             <td style="padding-top: 55px">
                               <small class="mb-0 text-muted h6"
-                                ng-show="sptq.giaGiamGia != null && sptq.giaGiamGia != 0">
+                                ng-show="sptq.giaGiamGia != sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{sptq.giaBan - sptq.giaGiamGia | number}}đ
+                                    {{sptq.giaGiamGia}}đ
                                   </span>
                                   <strike class="text-danger">
-                                    {{ sptq.giaBan | number}}đ
+                                    {{ sptq.giaBan}}đ
                                   </strike>
                                 </strong>
                               </small>
-                              <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == 0">
+                              <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{ sptq.giaBan | number}}đ
+                                    {{sptq.giaBan}}đ
                                   </span>
                                 </strong>
                               </small>
@@ -690,7 +687,7 @@
                     <span style="margin-left: -30px;" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
                     <input ng-model="diaChi" type="text" class="form-control hidden-input"
-                      style="margin-left: -30px; margin-bottom: 30px" ng-value="orderDetailCounter.diaChi"
+                      style="margin-left: -30px; margin-bottom: 30px" ng-value="diaChi"
                       placeholder="Nhập địa chỉ" />
                     <div class="row">
                       <div class="col-lg-6">
@@ -751,7 +748,7 @@
                                       </div>
                                       <div class="col-lg-4">
                                         <button class="btn btn-primary" style="margin-left: 50px"
-                                          ng-click="Vnpay(tongTienHang - totalAmountPaid)">
+                                          ng-click="Vnpay(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao : 0))">
                                           Chuyển khoản
                                         </button>
                                       </div>
@@ -879,7 +876,7 @@
                               </thead>
                               <tbody>
                                 <tr ng-repeat="v in listVoucher"
-                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia) + tienGiao">
+                                  ng-if="v.priceOrder <= (tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0))">
                                   <td>{{$index + 1}}</td>
                                   <td>{{v.voucherCode}}</td>
                                   <td>{{v.nameVoucher}}</td>
@@ -927,20 +924,10 @@
                   <div class="omni-layout-card--section-section">
                     <div class="omni-layout-card--item-stack-cover">
                       <div class="omni-layout-card--item-stack fill">
-                        <span class="header-title">Số lượng sản phẩm</span>
-                      </div>
-                      <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{tongSoLuongSanPham}}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="omni-layout-card--section-section">
-                    <div class="omni-layout-card--item-stack-cover">
-                      <div class="omni-layout-card--item-stack fill">
                         <span class="header-title">Tiền hàng</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title" ng-model="newTransaction.tongTien">{{tongTienHang | number}}₫</span>
+                        <span class="header-title" ng-model="newTransaction.tongTien">{{ tongTienHang.toLocaleString('vi-VN') }}₫</span>
                       </div>
                     </div>
                   </div>
@@ -986,8 +973,7 @@
                         <span class="header-title">Tổng tiền</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ?
-                          +tienGiao : 0)) | number}}₫</span>
+                        <span class="header-title">{{(tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao : 0)).toLocaleString('vi-VN')}}₫</span>
                         <input hidden ng-model="requestData.tongTien" type="text" ng-value="tongTienHang" />
                       </div>
                     </div>
@@ -1001,7 +987,7 @@
               Xác Nhận Thanh Toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
-              style="margin-left: 900px; margin-top: -125px; font-weight: bold"
+              style="margin-left: 900px; margin-top: -250px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang)">
               Xác Nhận Đặt Hàng
             </button>

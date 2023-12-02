@@ -54,48 +54,125 @@ myApp.controller("xuatXuController", function ($http, $scope, $location) {
     });
   }
 
-  $scope.updateXuatXu = function (updatedData) {
-    var updateUrl =
-      "http://localhost:8080/api/v1/xuat-xu/update?id=" +
-      $scope.selectedXuatXu.xuatXuId;
+  setTimeout(() => {
+    $scope.updateXuatXu = function (updatedData) {
+      Swal.fire({
+        title: "Bạn có muốn update không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var updateUrl =
+            "http://localhost:8080/api/v1/xuat-xu/update?id=" +
+            $scope.selectedXuatXu.xuatXuId;
 
-    $http
-      .put(updateUrl, updatedData)
-      .then(function (response) {
-        console.log("Cập nhật thông tin thành công: ", response.data);
-
-        xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi cập nhật thông tin: ", error);
+          $http
+            .put(updateUrl, updatedData)
+            .then(function (response) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Update thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            })
+            .catch(function (error) {
+              console.error("Lỗi khi cập nhật thông tin: ", error);
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
   $scope.newXuatXu = {};
-  $scope.createXuatXu = function () {
-    $http
-      .post("http://localhost:8080/api/v1/xuat-xu/create", $scope.newXuatXu)
-      .then(function (response) {
-        $scope.listXuatXu.push(response.data);
-        xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
+  setTimeout(() => {
+    $scope.createXuatXu = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $http
+            .post(
+              "http://localhost:8080/api/v1/xuat-xu/create",
+              $scope.newXuatXu
+            )
+            .then(function (response) {
+              $scope.listXuatXu.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
-  $scope.deleteXuatXu = function (id) {
-    var deleteUrl = "http://localhost:8080/api/v1/xuat-xu/delete?id=" + id;
+  setTimeout(() => {
+    $scope.deleteXuatXu = function (id) {
+      Swal.fire({
+        title: "Bạn có muốn vô hiệu hóa không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+        reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var deleteUrl =
+            "http://localhost:8080/api/v1/xuat-xu/delete?id=" + id;
 
-    $http
-      .put(deleteUrl)
-      .then(function (response) {
-        console.log("Xóa xuất xứ thành công: ", response.data);
-
-        // Sau khi xóa thành công, làm mới danh sách hoặc thực hiện các bước cần thiết khác
-        xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
-      })
-      .catch(function (error) {
-        console.error("Lỗi khi xóa xuất xứ: ", error);
+          $http
+            .put(deleteUrl)
+            .then(function (response) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Vô hiệu hóa thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
+              });
+            })
+            .catch(function (error) {
+              console.error("Lỗi khi xóa xuất xứ: ", error);
+            });
+        }
       });
-  };
+    };
+  }, 2000);
 
   $scope.fetchXuatXuDetail = function (id) {
     fetchXuatXuDetail(id);

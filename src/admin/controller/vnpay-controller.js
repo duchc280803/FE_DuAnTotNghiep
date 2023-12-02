@@ -1,13 +1,10 @@
-myApp.controller('YourController', ['$scope', '$location', 'TransactionService', function($scope, $location, TransactionService) {
-    // Lấy các tham số từ URL
-    $scope.queryParams = $location.search();
+myApp.controller("YourController", [
+  "$scope",
+  "$location",
+  "$http",
+  "$window", // Inject $window service here
+  function ($scope, $location, $http, $window) { 
+    
 
-    // Lấy giá trị của tham số 'vnp_Amount'
-    $scope.amountParamValue = $scope.queryParams.vnp_Amount;
-
-    console.log($scope.queryParams);
-
-    var params = $location.search();
-    TransactionService.setTransactionData(params);
-
-}]);
+  },
+]);

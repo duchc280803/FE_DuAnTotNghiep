@@ -2,7 +2,6 @@ var idgh = localStorage.getItem("idgiohang");
 myAppCustom.controller(
   "CartController",
   function ($scope, $http, $window, $location, $route, $routeParams) {
-
     function loadToTals() {
       if (idgh) {
         // Gọi API và cập nhật giá trị totalAmount
@@ -53,26 +52,10 @@ myAppCustom.controller(
     $scope.changeQuantity = function (product, change) {
       if (change === "increase") {
         product.soluong++;
-        Swal.fire({
-          title: "Success",
-          text: "Thêm số lượng thành công",
-          icon: "success",
-          position: "bottom-start", // Đặt vị trí ở góc trái
-          toast: true, // Hiển thị thông báo nhỏ
-          showConfirmButton: false, // Ẩn nút xác nhận
-          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-        });
+        location.reload();
       } else if (change === "decrease" && product.soluong > 1) {
         product.soluong--;
-        Swal.fire({
-          title: "Success",
-          text: "Giảm số lượng thành công",
-          icon: "success",
-          position: "bottom-start", // Đặt vị trí ở góc trái
-          toast: true, // Hiển thị thông báo nhỏ
-          showConfirmButton: false, // Ẩn nút xác nhận
-          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-        });
+        location.reload();
       }
       // Gọi API để cập nhật số lượng
       console.log(product.id);
@@ -94,6 +77,10 @@ myAppCustom.controller(
           method: "PUT",
           transformResponse: [
             function () {
+              $scope.checkAndRemoveVoucherIfNeeded();
+              $scope.getCartTotal();
+              $scope.voucherBest();
+              $scope.checkAndApplyBestVoucher();
               loadCart();
               loadToTals();
               loadNameAndPrice();
@@ -117,19 +104,15 @@ myAppCustom.controller(
         method: "DELETE",
         transformResponse: [
           function () {
-            Swal.fire({
-              title: "Success",
-              text: "Xóa thành công",
-              icon: "success",
-              position: "bottom-start", // Đặt vị trí ở góc trái
-              toast: true, // Hiển thị thông báo nhỏ
-              showConfirmButton: false, // Ẩn nút xác nhận
-              timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-            });
+            $scope.checkAndRemoveVoucherIfNeeded();
+            $scope.getCartTotal();
+            $scope.voucherBest();
+            $scope.checkAndApplyBestVoucher();
             loadCart();
             loadToTals();
             loadNameAndPrice();
             loadQuanTiTy();
+            location.reload();
           },
         ],
       });
@@ -173,6 +156,7 @@ myAppCustom.controller(
                     localStorage.removeItem("idVoucher");
                     localStorage.removeItem("giatrigiam");
                     localStorage.removeItem("hinhthucgiam");
+                    localStorage.removeItem("giatritoithieudonhang");
                     localStorage.removeItem("maVoucher");
                     localStorage.removeItem("totalAmount");
                     localStorage.removeItem("listCart");
@@ -274,9 +258,9 @@ myAppCustom.controller(
     $scope.tienKhachTra = 0; // Để tránh lỗi nếu không có giá trị tiền khách trả
     $scope.gioHangChiTietList = $scope.gioHangChiTietList;
 
-    if(idgh){
+    if (idgh) {
       var idGioHangChiTiet = $window.localStorage.getItem("listCart");
-    var gioHangChiTietList = idGioHangChiTiet.split(",");
+      var gioHangChiTietList = idGioHangChiTiet.split(",");
     }
     // Lấy giá trị tổng tiền từ localStorage
     var totalAmount = parseFloat($window.localStorage.getItem("totalAmount"));
@@ -369,6 +353,7 @@ myAppCustom.controller(
     };
 
     var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
+
     // Kiểm tra xem có voucher được chọn không
     if (idGiamGiaVoucher === null || idGiamGiaVoucher === undefined) {
       // Nếu không có voucher, có thể đặt idGiamGiaVoucher thành null hoặc giá trị mặc định
@@ -404,7 +389,8 @@ myAppCustom.controller(
     $scope.thanhToan = function () {
       // Display a confirmation dialog
       var isConfirmed = window.confirm("Bạn có chắc chắn muốn đặt đơn hàng?");
-
+      var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
+      console.log("thanh toan idVoucher" + idGiamGiaVoucher)
       if (isConfirmed) {
         if (idgh) {
           // If the user confirms, proceed with form submission
@@ -442,6 +428,7 @@ myAppCustom.controller(
                   localStorage.removeItem("maVoucher");
                   localStorage.removeItem("totalAmount");
                   localStorage.removeItem("listCart");
+                  localStorage.removeItem("giatritoithieudonhang");
                   // Chuyển hướng đến trang "thank-you"
                   $location.path("/thank-you");
                 },
@@ -491,59 +478,67 @@ myAppCustom.controller(
     };
     $scope.voucher();
     // Khi áp dụng mã giảm giá
-    $scope.voucherId = function (id, giatrigiam, hinhthucgiam, magiamgia,giatritoithieudonhang) {
-     
+    $scope.voucherId = function (id, giatrigiam, hinhthucgiam, magiamgia, giatritoithieudonhang) {
+
       //Get tổng giá trị 
-      var tongtienIF = $window.localStorage.getItem('totalAmount');
-     if(tongtienIF>=giatritoithieudonhang){
-      $window.localStorage.setItem('idVoucher', id);
-      console.log($window.localStorage.getItem('idVoucher'));
-      $window.localStorage.setItem('giatrigiam', giatrigiam);
-      console.log($window.localStorage.getItem('giatrigiam'));
-      $window.localStorage.setItem('hinhthucgiam', hinhthucgiam);
-      console.log($window.localStorage.getItem('hinhthucgiam'));
-      $window.localStorage.setItem('maVoucher', magiamgia);
-      console.log($window.localStorage.getItem('maVoucher'));
+      var tongtienIF = parseFloat($window.localStorage.getItem('totalAmount'));
+      console.log("totalAmount: " + tongtienIF);
 
-       // Lấy giá trị từ localStorage
-       $scope.magiamgia = $window.localStorage.getItem('maVoucher');
-       var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
-       var hinhThucGiam = $window.localStorage.getItem('hinhthucgiam');
-       var giatrigiam = parseFloat($window.localStorage.getItem('giatrigiam'));
-       // Kiểm tra hình thức giảm giá
-       if (hinhThucGiam === "1") {
-        // Giảm giá theo tỷ lệ %
-        console.log('Giảm giá theo tỷ lệ %');
-        $scope.giamGiaVoucher = (totalAmount * giatrigiam) / 100;
+      var giatritoithieudonhang = parseFloat(giatritoithieudonhang);
+      console.log("giatritoithieudonhang: " + giatritoithieudonhang);
+
+      console.log("truefalse: " + (tongtienIF >= giatritoithieudonhang));
+
+      if (tongtienIF >= giatritoithieudonhang) {
+        $window.localStorage.setItem('idVoucher', id);
+        console.log($window.localStorage.getItem('idVoucher'));
+        $window.localStorage.setItem('giatrigiam', giatrigiam);
+        console.log($window.localStorage.getItem('giatrigiam'));
+        $window.localStorage.setItem('hinhthucgiam', hinhthucgiam);
+        console.log($window.localStorage.getItem('hinhthucgiam'));
+        $window.localStorage.setItem('maVoucher', magiamgia);
+        console.log($window.localStorage.getItem('maVoucher'));
+        $window.localStorage.setItem('giatritoithieudonhang', giatritoithieudonhang);
+        console.log($window.localStorage.getItem('giatritoithieudonhang'));
+
+        // Lấy giá trị từ localStorage
+        $scope.magiamgia = $window.localStorage.getItem('maVoucher');
+        var idGiamGiaVoucher = $window.localStorage.getItem('idVoucher')
+        var hinhThucGiam = $window.localStorage.getItem('hinhthucgiam');
+        var giatrigiam = parseFloat($window.localStorage.getItem('giatrigiam'));
+        // Kiểm tra hình thức giảm giá
+        if (hinhThucGiam === "1") {
+          // Giảm giá theo tỷ lệ %
+          console.log('Giảm giá theo tỷ lệ %');
+          $scope.giamGiaVoucher = (totalAmount * giatrigiam) / 100;
+        } else if (hinhThucGiam === "2") {
+          // Giảm giá theo giá trị VNĐ
+          console.log('Giảm giá theo giá trị VNĐ');
+          $scope.giamGiaVoucher = giatrigiam;
+        }
+
+        // Tính tổng cộng dựa trên giá trị giảm giá
+        $scope.tongCong = totalAmount - $scope.giamGiaVoucher;
+        Swal.fire({
+          title: "Thành công",
+          text: "Đã áp dụng voucher",
+          icon: "success",
+          position: "bottom-start", // Đặt vị trí ở góc trái
+          toast: true, // Hiển thị thông báo nhỏ
+          showConfirmButton: false, // Ẩn nút xác nhận
+          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
       } else {
-        // Giảm giá theo giá trị VNĐ
-        console.log('Giảm giá theo giá trị VNĐ');
-        $scope.giamGiaVoucher = giatrigiam;
+        Swal.fire({
+          title: "Sorry",
+          text: "Giá trị đơn hàng chưa đủ ",
+          icon: "error",
+          position: "bottom-start", // Đặt vị trí ở góc trái
+          toast: true, // Hiển thị thông báo nhỏ
+          showConfirmButton: false, // Ẩn nút xác nhận
+          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
       }
-
-      // Tính tổng cộng dựa trên giá trị giảm giá
-      $scope.tongCong = totalAmount - $scope.giamGiaVoucher;
-      Swal.fire({
-        title: "Đã áp dụng voucher",
-        text: "Bạn được giảm : " + $scope.giamGiaVoucher + (hinhthucgiam === "1" ? "%" : " VNĐ"),
-        icon: "success",
-        position: "bottom-start", // Đặt vị trí ở góc trái
-        toast: true, // Hiển thị thông báo nhỏ
-        showConfirmButton: false, // Ẩn nút xác nhận
-        timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-      });
-     }else{
-      Swal.fire({
-        title: "Sorry",
-        text: "Giá trị đơn hàng chưa đủ ",
-        icon: "error",
-        position: "bottom-start", // Đặt vị trí ở góc trái
-        toast: true, // Hiển thị thông báo nhỏ
-        showConfirmButton: false, // Ẩn nút xác nhận
-        timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-      });
-     }
-
     };
 
     // Gọi hàm để hiển thị thông tin trong ô input
@@ -564,4 +559,100 @@ myAppCustom.controller(
       }
     }
     loadQuanTiTy();
+
+    //xử lý tự động add voucher
+    // Hàm để lấy giá trị đơn hàng hiện tại
+    $scope.getCartTotal = function () {
+      // Thực hiện logic để lấy giá trị đơn hàng từ giỏ hàng của bạn
+      // Ở đây, mình sẽ giả sử giá trị đơn hàng đã lưu trong $window.localStorage
+      return parseFloat($window.localStorage.getItem('totalAmount')) || 0;
+    };
+    // Hàm để kiểm tra và áp dụng voucher một cách tự động
+    $scope.checkAndApplyBestVoucher = function () {
+      var currentCartTotal = $scope.getCartTotal();
+
+      // Lặp qua danh sách voucher để tìm voucher phù hợp
+      var bestVoucher = null;
+      $scope.vouchers.forEach(function (voucher) {
+        if (voucher.giatritoithieudonhang <= currentCartTotal) {
+          var discountValue = voucher.hinhthucgiam === 1
+            ? (currentCartTotal * voucher.giatrigiam) / 100  // Giảm theo phần trăm
+            : voucher.giatrigiam;  // Giảm theo giá trị
+
+          // Kiểm tra xem voucher này có giảm nhiều hơn voucher hiện tại hay không
+          if (!bestVoucher || discountValue > bestVoucher.discountValue) {
+            bestVoucher = {
+              voucher: voucher,
+              discountValue: discountValue
+            };
+          }
+        }
+      });
+
+      // Nếu có voucher phù hợp, áp dụng tự động
+      if (bestVoucher) {
+        $scope.voucherId(
+          bestVoucher.voucher.id,
+          bestVoucher.voucher.giatrigiam,
+          bestVoucher.voucher.hinhthucgiam,
+          bestVoucher.voucher.mavoucher,
+          bestVoucher.voucher.giatritoithieudonhang
+        );
+      }
+    };
+
+    // Gọi hàm để lấy danh sách voucher từ API và kiểm tra áp dụng tự động
+    $scope.vouchers = [];
+    $scope.voucherBest = function () {
+      $http
+        .get("http://localhost:8080/api/v1/voucher-login/show")
+        .then(function (response) {
+          $scope.vouchers = response.data;
+          $scope.magiamgia = $window.localStorage.getItem('maVoucher');
+          // Sau khi lấy danh sách voucher, kiểm tra và áp dụng tự động
+          $scope.checkAndApplyBestVoucher();
+        });
+    };
+
+    // Gọi hàm để lấy danh sách voucher
+    $scope.voucherBest();
+
+    //Xóa bỏ voucher
+
+    // Hàm để xóa bỏ voucher khỏi danh sách
+    $scope.checkAndRemoveVoucherIfNeeded = function () {
+      var currentCartTotal = $scope.getCartTotal();
+      // Kiểm tra xem có voucher đang áp dụng không
+      var appliedVoucherId = $window.localStorage.getItem('idVoucher');
+      console.log("idVoucher" + appliedVoucherId)
+      $scope.magiamgia = $window.localStorage.getItem('maVoucher');
+      if (appliedVoucherId) {
+        // Lấy thông tin của voucher đang áp dụng từ localStorage
+        var appliedVoucher = {
+          id: appliedVoucherId,
+          giatrigiam: $window.localStorage.getItem('giatrigiam'),
+          hinhthucgiam: $window.localStorage.getItem('hinhthucgiam'),
+          mavoucher: $window.localStorage.getItem('maVoucher'),
+          giatritoithieudonhang: parseFloat($window.localStorage.getItem('giatritoithieudonhang'))
+        };
+        console.log("appliedVoucher" + appliedVoucher)
+        console.log("currentCartTotal < appliedVoucher.giatritoithieudonhang" + (currentCartTotal < appliedVoucher.giatritoithieudonhang))
+        console.log("currentCartTotal" + currentCartTotal)
+        console.log("giatritoithieudonhang" + appliedVoucher.giatritoithieudonhang)
+        // Nếu giá trị đơn hàng không đủ với voucher đang áp dụng
+        if (currentCartTotal < appliedVoucher.giatritoithieudonhang) {
+          // Xóa bỏ voucher
+          $window.localStorage.removeItem('idVoucher');
+          $window.localStorage.removeItem('giatrigiam');
+          $window.localStorage.removeItem('hinhthucgiam');
+          $window.localStorage.removeItem('maVoucher');
+          // Cập nhật giá trị đơn hàng
+          $scope.tongCong = currentCartTotal;
+          $scope.magiamgia = $window.localStorage.getItem('maVoucher');
+          // Hiển thị thông báo hoặc thực hiện các công việc khác nếu cần thiết
+          console.log('Giá trị đơn hàng không đủ với voucher, voucher đã được xóa.');
+        }
+      }
+    };
+    $scope.checkAndRemoveVoucherIfNeeded();
   });

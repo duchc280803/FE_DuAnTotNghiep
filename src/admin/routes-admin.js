@@ -4,6 +4,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when("/dashboard", {
       templateUrl: "./pages/thong-ke.html",
+      controller:"thongKeController"
     })
     .when("/admin/login", {
       templateUrl: "./pages/authentication-login.html",
@@ -27,6 +28,13 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/promotion/create", {
       templateUrl: "./pages/create-giam-gia-san-pham.html",
+      controller: "GiamGiaController",
+    })
+    .when("/promotion/history", {
+      templateUrl: "./pages/history-giam-gia-san-pham.html",
+    })
+    .when("/promotion/product", {
+      templateUrl: "./pages/san-pham-khuyen-mai.html",
       controller: "GiamGiaController",
     })
     .when("/promotion/update/:id", {
@@ -103,7 +111,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/transaction-done", {
       templateUrl: "./pages/vnpay-done.html",
-      controller: "YourController",
+      controller: "BanTaiQuayController",
     })
     .when("/hoa-don-history", {
       templateUrl: "./pages/hoa-don-history.html",

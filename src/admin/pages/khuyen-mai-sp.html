@@ -24,27 +24,34 @@
     </div>
     <!-- Thêm vào mục "Bộ lọc" -->
     <div class="row" style="padding: 10px">
-      <div class="col-md-6">
+      <div class="col-md-3">
         <input type="date" class="form-control" ng-model="startDate" style="margin-top: 4px" />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <input type="date" class="form-control" ng-model="endDate" style="margin-top: 4px" />
       </div>
-      <div class="col-md-6">
-        <button class="btn btn-primary" ng-click="searchGiamGia()" style="margin-top: 10px">
+      <div class="col-md-2">
+        <button class="btn btn-primary" ng-click="searchGiamGia()" style="margin-top: 5px">
           Tìm kiếm
         </button>
       </div>
-    </div>
-
-    <div class="row" style="padding: 10px">
-      <div class="col-md-6"></div>
-      <div class="col-md-6" style="padding-left: 320px">
-        <button class="btn btn-outline-primary m-1" ng-click="refresh()">
+      <div class="col-md-2">
+        <button class="btn btn-primary" ng-click="refresh()" style="margin-left: -85px;
+        margin-top: 5px;">
           Làm mới
         </button>
-        <a href="#/promotion/create" class="btn btn-outline-primary m-1">
+      </div>
+      <div class="col-md-2 d-flex justify-content-end" style="margin-top: 5px; margin-left: -119px;">
+        <a class="btn btn-primary" href="#/promotion/product" style="margin-left: -60px;">
+          Sản phẩm
+        </a>
+        <a href="#/promotion/create" class="btn btn-primary" style="margin-left: 10px">
           <span style="vertical-align: middle">Tạo Khuyến Mại</span>
+        </a>
+      </div>
+      <div class="col-md-3" style="margin-top: 40px; margin-bottom: 10px">
+        <a href="#/promotion/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
+          <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
         </a>
       </div>
     </div>
@@ -90,8 +97,8 @@
               data-target="#detailsModal{{$index}}">
               <img src="/assets/images/loupe.png" width="25px" alt="">
             </a>
-            <a href="#/promotion/update/{{gg.id}}" class="btn btn-primary" ng-click="goToUpdatePage({{gg.id}})"><img
-                src="/assets/images/update.png" width="25px" alt=""></a>
+            <a href="#/promotion/update/{{gg.id}}" class="btn btn-primary"><img src="/assets/images/update.png"
+                width="25px" alt=""></a>
             <a class="btn btn-primary" ng-click="updateGiamGiaStatus(gg.id, $event)">
               <img src="/assets/images/disabled.png" width="25px" alt="">
             </a>
@@ -121,8 +128,8 @@
                         <tr ng-repeat="detail in gg.detailList">
                           <td>{{$index + 1}}</td>
                           <td>{{detail.productName}}</td>
-                          <td>{{detail.giaBan}}</td>
-                          <td>{{detail.donGiaKhiGiam}}</td>
+                          <td>{{detail.giaBan.toLocaleString('vi-VN')}}</td>
+                          <td>{{detail.donGiaKhiGiam.toLocaleString('vi-VN')}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -149,5 +156,56 @@
         </ul>
       </nav>
     </div>
+    <table class="table">
+      <thead>
+        <tr style="background-color: antiquewhite">
+          <th scope="col">
+            <input type="checkbox" style="margin-right: 15px" ng-model="selectAllProducts"
+              ng-change="toggleAllProducts()" />
+            {{$index + 1}}
+          </th>
+          <th scope="col">Ảnh sản phẩm</th>
+          <th scope="col">Tên sản phẩm</th>
+          <th scope="col">Đơn giá</th>
+          <th scope="col">Số lượng Giảm giá</th>
+          <th scope="col">Giá sau giảm</th>
+        </tr>
+      </thead>
+      <tbody class="table">
+        <tr ng-repeat="gg in listProduct">
+          <td style="padding-top: 75px">
+            <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
+              ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />
+            {{$index + 1}}
+          </td>
+          <td>
+            <img src="{{gg.image}}" alt="" width="150px" />
+          </td>
+          <td>{{gg.productName}}</td>
+          <td>
+            {{gg.giaBan | number}}₫
+          </td>
+          <td>
+            {{gg.soLanGiam}}
+          </td>
+          <td>
+            {{gg.giaBan - gg.giaGiam | number}}₫
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  <nav aria-label="Page navigation example" style="margin-left: 480px">
+    <ul class="pagination">
+      <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+        <a class="page-link" ng-click="previousPage()">Previous</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">{{pageNumber + 1}}</a>
+      </li>
+      <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+        <a class="page-link" ng-click="nextPage()">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>

@@ -36,14 +36,14 @@
 
 /* Thêm các thuộc tính CSS khác nếu cần */
 
-.form.signup{
+/* .form.signup{
     opacity: 0;
     pointer-events: none;
-}
-.forms.show-signup .form.signup{
+} */
+/* .forms.show-signup .form.signup{
     opacity: 1;
     pointer-events: auto;
-}
+} */
 .forms.show-signup .form.login{
     opacity: 0;
     pointer-events: none;

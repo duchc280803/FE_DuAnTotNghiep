@@ -1,4 +1,4 @@
-myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
+myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $timeout) {
 
     // Tạo một hàm để gọi API lấy thông tin tài khoản
     $scope.loadProfile = function () {
@@ -70,8 +70,19 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
                 console.error(error);
             }
         );
-        $window.location.reload();
-        alert('Thêm địa chỉ thành công');
+        Swal.fire({
+            title: "Success",
+            text: "Thêm địa chỉ thành công",
+            icon: "success",
+            position: "bottom-start", // Đặt vị trí ở góc trái
+            toast: true, // Hiển thị thông báo nhỏ
+            showConfirmButton: false, // Ẩn nút xác nhận
+            timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        // Chờ 1.5 giây rồi reload trang
+        $timeout(function () {
+            $window.location.reload();
+        }, 1500);
     };
 
     $scope.prepareUpdateAddress = function (diaChi) {
@@ -100,8 +111,19 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
             })
             .catch(function (error) {
             });
-        $window.location.reload();
-        alert('Update địa chỉ thành công');
+        Swal.fire({
+            title: "Success",
+            text: "cập nhật thành công",
+            icon: "success",
+            position: "bottom-start", // Đặt vị trí ở góc trái
+            toast: true, // Hiển thị thông báo nhỏ
+            showConfirmButton: false, // Ẩn nút xác nhận
+            timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        // Chờ 1.5 giây rồi reload trang
+        $timeout(function () {
+            $window.location.reload();
+        }, 1500);
     };
 
     //set default
@@ -129,11 +151,23 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
                 // Xử lý khi cập nhật thất bại
                 console.error(error.data);
             });
-        $window.location.reload();
-        alert('Update địa chỉ thành công');
+
+        Swal.fire({
+            title: "Success",
+            text: "thành công",
+            icon: "success",
+            position: "bottom-start", // Đặt vị trí ở góc trái
+            toast: true, // Hiển thị thông báo nhỏ
+            showConfirmButton: false, // Ẩn nút xác nhận
+            timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        // Chờ 1.5 giây rồi reload trang
+        $timeout(function () {
+            $window.location.reload();
+        }, 1500);
     };
 
-     // Hàm để cập nhật thông tin tài khoản
+    // Hàm để cập nhật thông tin tài khoản
     $scope.updateProfile = function () {
         // Gọi hộp thoại xác nhận trước khi thực hiện cập nhật
         var isConfirmed = confirm("Bạn có chắc chắn muốn cập nhật thông tin tài khoản không?");
@@ -174,8 +208,19 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http) {
                 // Xử lý khi cập nhật thất bại
                 console.error(error.data);
             });
+        Swal.fire({
+            title: "Success",
+            text: "cập nhật thành công",
+            icon: "success",
+            position: "bottom-start", // Đặt vị trí ở góc trái
+            toast: true, // Hiển thị thông báo nhỏ
+            showConfirmButton: false, // Ẩn nút xác nhận
+            timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+        });
+        // Chờ 1.5 giây rồi reload trang
+        $timeout(function () {
             $window.location.reload();
-            alert('Update thành công');
+        }, 1500);
     };
 
     // Hàm để hủy bỏ cập nhật và tắt chế độ chỉnh sửa

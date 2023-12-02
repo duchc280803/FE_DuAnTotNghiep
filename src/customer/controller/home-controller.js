@@ -4,24 +4,20 @@ myAppCustom.controller("homeController", function ($http, $scope, $window) {
 
   function listTop8NewProduct() {
     var url = `http://localhost:8080/api/public/home`;
-
     $http.get(url).then(function (response) {
       $scope.listNewProduct = response.data;
-      console.log("Dữ liệu trả về: ", response.data);
-      // Update currentPageNumber based on the response
     });
   }
+
   listTop8NewProduct();
   function listTopProduct() {
     var url = `http://localhost:8080/api/public/list`;
-
     $http.get(url).then(function (response) {
       $scope.listProduct = response.data;
-      console.log("Dữ liệu trả về: ", response.data);
-      // Update currentPageNumber based on the response
     });
   }
   listTopProduct();
+
   $scope.showAllProducts = function () {
     // Call the function to get the entire list
     listTop8NewProduct();
