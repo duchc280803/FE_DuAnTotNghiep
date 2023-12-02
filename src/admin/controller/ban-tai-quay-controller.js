@@ -720,6 +720,11 @@ myApp.controller(
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token, // Thêm token vào header Authorization
+              },
+            };
             var idDetail = CartService.getIdCartDetail();
             $scope.orderDetailCounter = {
               tongTien: tongTienHang,
@@ -727,8 +732,6 @@ myApp.controller(
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
               hoTen: $scope.hoTen,
-              tenNguoiShip: $scope.tenNguoiShip,
-              soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
               email: $scope.email,
               diaChi:
@@ -741,19 +744,10 @@ myApp.controller(
                 $scope.selectedProvince.name,
               gioHangChiTietList: idDetail,
             };
-            var requestData = {
-              orderDetailCounter: $scope.orderDetailCounter,
-            };
-            var config = {
-              headers: {
-                Authorization: "Bearer " + token, // Thêm token vào header Authorization
-              },
-            };
             var api =
               "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
               id;
-
-            $http.post(api, requestData, config).then(function (response) {
+            $http.post(api, $scope.orderDetailCounter, config).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
               $scope.removeItem();
               Swal.fire({

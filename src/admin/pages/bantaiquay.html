@@ -689,20 +689,6 @@
                     <input ng-model="diaChi" type="text" class="form-control hidden-input"
                       style="margin-left: -30px; margin-bottom: 30px" ng-value="orderDetailCounter.diaChi"
                       placeholder="Nhập địa chỉ" />
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <span style="margin-left: -30px;" class="header-title"><span style="color: red">*</span>
-                          <span>Tên người ship</span></span>
-                        <input ng-model="orderDetailCounter.tenNguoiShip" type="text" class="form-control hidden-input"
-                          style="margin-left: -30px; margin-bottom: 30px" placeholder="Nhập họ và tên người ship" />
-                      </div>
-                      <div class="col-lg-6">
-                        <span style="margin-left: -30px;" class="header-title"><span style="color: red">*</span>
-                          <span>Số người ship</span></span>
-                        <input ng-model="orderDetailCounter.soDienThoaiNguoiShip" type="text" class="form-control hidden-input"
-                          style="margin-left: -30px; margin-bottom: 30px" placeholder="Số điện thoại người ship" />
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="col-sm-6 col-12">
@@ -927,7 +913,7 @@
                         <span class="header-title">Tiền hàng</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
-                        <span class="header-title" ng-model="newTransaction.tongTien">{{ tongTienHang.toLocaleString('vi-VN') }}₫</span>
+                        <span class="header-title" ng-model="newTransaction.tongTien">{{tongTienHang.toLocaleString('vi-VN')}}₫</span>
                       </div>
                     </div>
                   </div>
@@ -987,7 +973,7 @@
               Xác Nhận Thanh Toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
-              style="margin-left: 900px; margin-top: -250px; font-weight: bold"
+              style="margin-left: 900px; margin-top: -100px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang)">
               Xác Nhận Đặt Hàng
             </button>
