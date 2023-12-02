@@ -220,7 +220,7 @@ myApp.controller(
                 Authorization: "Bearer " + token, // Thêm token vào header Authorization
               },
             };
-      
+
             var idGioHang = CartService.getIdCart(); // Lấy ID giỏ hàng từ service
             $http
               .post(
@@ -255,37 +255,37 @@ myApp.controller(
 
     $scope.updateCart = function (idGioHangChiTiet, soLuong) {
       var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
-    
+
       var config = {
         headers: {
           Authorization: "Bearer " + token, // Thêm token vào header Authorization
         },
       };
-    
+
       var apiURL =
         "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
         idGioHangChiTiet +
         "&quantity=" +
         soLuong;
-    
+
       $http({
         url: apiURL,
         method: "PUT",
         headers: config.headers, // Truyền thông tin token qua headers
         transformResponse: [
           function () {
-              $scope.getListHoaDonTaiQuay();
-              $scope.detailOrderCounterDetail();
-              $scope.listSanPhamInCart();
-              CartService.setIdCart(id).then(function () {});
-              CartService.setIdCart(id).then(function () {
-                var idCart = CartService.getIdCart();
-                CartService.setIdCartDetail(idCart).then(function () {});
-              });
-              $scope.showKhachHang();
-              $scope.showTransaction();
-              $scope.showTransaction();
-              $scope.getVoucherName();
+            $scope.getListHoaDonTaiQuay();
+            $scope.detailOrderCounterDetail();
+            $scope.listSanPhamInCart();
+            CartService.setIdCart(id).then(function () {});
+            CartService.setIdCart(id).then(function () {
+              var idCart = CartService.getIdCart();
+              CartService.setIdCartDetail(idCart).then(function () {});
+            });
+            $scope.showKhachHang();
+            $scope.showTransaction();
+            $scope.showTransaction();
+            $scope.getVoucherName();
             $window.location.reload();
           },
         ],
@@ -388,7 +388,6 @@ myApp.controller(
       };
     }, 2000);
 
-
     // TODO: Hiển thị khách hàng
     $scope.showKhachHang = function () {
       $http
@@ -412,10 +411,6 @@ myApp.controller(
         });
     };
 
-
-    
-    
-    
     setTimeout(() => {
       $scope.updateKhachHang = function (idcustom) {
         Swal.fire({
@@ -430,25 +425,25 @@ myApp.controller(
           reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
         }).then((result) => {
           if (result.isConfirmed) {
-      var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
-      var idGioHang = CartService.getIdCart(); // Lấy ID giỏ hàng từ service
-    
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token, // Thêm token vào header Authorization
-        },
-      };
-      $http
-        .put(
-          "http://localhost:8080/api/khach-hang/update-hoa-don?id=" +
-            idcustom +
-            "&idHoaDon=" +
-            id +
-            "&idGioHang=" +
-            idGioHang,
-          null,
-          config // Truyền thông tin token qua config
-        )
+            var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+            var idGioHang = CartService.getIdCart(); // Lấy ID giỏ hàng từ service
+
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token, // Thêm token vào header Authorization
+              },
+            };
+            $http
+              .put(
+                "http://localhost:8080/api/khach-hang/update-hoa-don?id=" +
+                  idcustom +
+                  "&idHoaDon=" +
+                  id +
+                  "&idGioHang=" +
+                  idGioHang,
+                null,
+                config // Truyền thông tin token qua config
+              )
               .then(function (response) {
                 $scope.detailOrderCounterDetail(id);
                 $scope.getListHoaDonTaiQuay();
@@ -469,15 +464,7 @@ myApp.controller(
         });
       };
     }, 2000);
-    
-    
-    
-    
-    
-    
-    
-    
-  
+
     // TODO: thêm khách hàng
     $scope.newKhachHang = {};
     $scope.createKhachHang = function () {
@@ -556,7 +543,6 @@ myApp.controller(
         });
       };
     }, 2000);
-   
 
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
@@ -577,10 +563,6 @@ myApp.controller(
       $scope.showTransaction();
     }
 
-    
-    
-    
-    
     $scope.newTransaction = {};
     setTimeout(() => {
       $scope.createTransaction = function () {
@@ -596,13 +578,13 @@ myApp.controller(
           reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
         }).then((result) => {
           if (result.isConfirmed) {
-                  var token = $window.localStorage.getItem("token");
+            var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
             $http
               .post(
                 "http://localhost:8080/api/v1/transaction/create?idHoaDon=" +
@@ -610,7 +592,7 @@ myApp.controller(
                   "&id=" +
                   idKhach,
                 $scope.newTransaction,
-          config
+                config
               )
               .then(function (response) {
                 $scope.listTransaction.push(response.data);
@@ -633,10 +615,6 @@ myApp.controller(
         });
       };
     }, 2000);
-    
-    
-    
-    
 
     $scope.listTransaction = []; // Lấy các tham số từ URL
     $scope.queryParams = $location.search();
@@ -646,8 +624,6 @@ myApp.controller(
     $scope.tienCuoiCungVnPay = $scope.amountParamValue / 100;
 
     // TODO: thanh toán chuyển khoản
-
-
 
     $scope.createTransactionVnpay = function () {
       $http
@@ -757,12 +733,8 @@ myApp.controller(
         });
       };
     }, 2000);
-
-<<<<<<< HEAD
+    
     /**
-=======
-/**
->>>>>>> ddab93f3c77ad2a574488569ca0a0c0ad4ed1bc4
      * thanh toán hóa đơn giao
      * @param {tongTienHang, tienKhachTra, tienThua}
      */
@@ -783,10 +755,7 @@ myApp.controller(
           reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
         }).then((result) => {
           if (result.isConfirmed) {
-<<<<<<< HEAD
-=======
-             var token = $window.localStorage.getItem("token");
->>>>>>> ddab93f3c77ad2a574488569ca0a0c0ad4ed1bc4
+            var token = $window.localStorage.getItem("token");
             var idDetail = CartService.getIdCartDetail();
             $scope.orderDetailCounter = {
               tongTien: tongTienHang,
@@ -811,29 +780,17 @@ myApp.controller(
             var requestData = {
               orderDetailCounter: $scope.orderDetailCounter,
             };
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token, // Thêm token vào header Authorization
+              },
+            };
             var api =
               "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
               id;
-<<<<<<< HEAD
-
-            $http.post(api, requestData).then(function (response) {
-=======
-                    var config = {
-          headers: {
-            Authorization: "Bearer " + token, // Thêm token vào header Authorization
-          },
-        };
 
             $http.post(api, requestData, config).then(function (response) {
->>>>>>> ddab93f3c77ad2a574488569ca0a0c0ad4ed1bc4
               $scope.listHoaDonChiTiet.push(response.data);
-              // $scope.getListHoaDonTaiQuay();
-              // $scope.detailOrderCounterDetail();
-              // $scope.listSanPhamInCart();
-              // $scope.showKhachHang();
-              // $scope.showTransaction();
-              // $scope.showTransaction();
-              // $scope.getVoucherName();
               $scope.removeItem();
               Swal.fire({
                 position: "top-end",
@@ -847,7 +804,6 @@ myApp.controller(
         });
       };
     }, 2000);
-    
 
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
@@ -1129,7 +1085,6 @@ myApp.controller(
         },
       };
 
-      
       $http
         .post(
           "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham-qrcode?idGioHang=" +
@@ -1164,7 +1119,6 @@ myApp.controller(
         console.error(e);
       });
 
-
     $scope.listVoucher = [];
     $scope.getALlVoucher = function () {
       $http
@@ -1177,13 +1131,13 @@ myApp.controller(
 
     $scope.updateOrder = function (idVoucher, thanhTien) {
       var token = $window.localStorage.getItem("token");
-    
+
       var config = {
         headers: {
           Authorization: "Bearer " + token,
         },
       };
-    
+
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
@@ -1199,7 +1153,6 @@ myApp.controller(
           $window.location.reload();
         });
     };
-    
 
     $scope.newKhachHang = {};
 
