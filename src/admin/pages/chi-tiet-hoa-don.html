@@ -482,10 +482,10 @@
             </div>
           </td>
           <td style="padding-top: 80px" ng-show="item.donGiaSauGiam != 0">
-            {{(item.donGiaSauGiam * item.soLuong).toLocaleString('vi-VN')}}đ
+            {{(item.donGiaSauGiam * item.soLuong).toLocaleString('vi-VN')}}₫
           </td>
           <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
-            {{(item.giaBan * item.soLuong).toLocaleString('vi-VN')}}đ
+            {{(item.giaBan * item.soLuong).toLocaleString('vi-VN')}}₫
           </td>
           <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai == 1">
             <button class="btn btn-primary" ng-click="deleteProduct($event, $index)">

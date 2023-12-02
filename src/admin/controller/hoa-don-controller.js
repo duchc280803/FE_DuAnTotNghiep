@@ -70,8 +70,6 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
           ),
         ];
       } else {
-        console.error("Invalid data format from API");
-        // Nếu không có dữ liệu, đặt $scope.listHoaDon về mảng rỗng
         $scope.listHoaDon = [];
       }
     });
@@ -153,7 +151,6 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
   };
 
   $scope.openCity = function (trangThai) {
-    console.log("Selected Trang Thai:", trangThai);
     $scope.selectedTrangThai = trangThai;
     $scope.pageNumber = 0;
     $scope.fetchHoaDon(
@@ -192,18 +189,10 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
       .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/list-nhan-vien")
       .then(function (response) {
         $scope.listNhanVien = response.data;
-        console.log(response.data);
       });
   };
 
   $scope.getListNhanVien();
-
-  $scope.idNhanVien = "";
-  $scope.idHoaDon = "";
-  $scope.getIdHoaDonIdNhanVien = function (idHoaDon, idNhanVien) {
-    $scope.idHoaDon = idHoaDon;
-    $scope.idNhanVien = idNhanVien;
-  };
 
   $scope.updateNhanVien = function (idHoaDon, idNhanVien) {
     $http
@@ -217,4 +206,5 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
         $window.location.reload();
       });
   };
+
 });
