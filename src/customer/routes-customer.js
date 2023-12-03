@@ -68,6 +68,9 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
     .when("/login-register", {
       templateUrl: "./pages/login-register.html",
     })
+    .when("/dat-lai-password", {
+      templateUrl: "./pages/dat-lai-mat-khau.html",
+    })
     .otherwise({
       redirectTo: "/home",
     });
