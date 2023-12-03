@@ -242,9 +242,6 @@ myApp.controller(
                   title: "Thêm sản phẩm vào giỏ thành công",
                   showConfirmButton: false,
                   timer: 1500,
-                  customClass: {
-                    popup: "small-popup", // Add a class to the message
-                  },
                 }).then(() => {
                   $window.location.reload();
                 });
@@ -254,19 +251,49 @@ myApp.controller(
       };
     }, 2000);
 
-    /**
-     * cập nhập sản phẩm trong giỏ hàng
-     * @param {idGioHangChiTiet, soLuong}
-     */
+    // cập nhập sản phẩm trong giỏ hàng
+
+    $scope.updateCart = function (idGioHangChiTiet, soLuong) {
+      var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token, // Thêm token vào header Authorization
+        },
+      };
+
+      var apiURL =
+        "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
+        idGioHangChiTiet +
+        "&quantity=" +
+        soLuong;
+
+      $http({
+        url: apiURL,
+        method: "PUT",
+        headers: config.headers, // Truyền thông tin token qua headers
+        transformResponse: [
+          function () {
+            $scope.getListHoaDonTaiQuay();
+            $scope.detailOrderCounterDetail();
+            $scope.listSanPhamInCart();
+            CartService.setIdCart(id).then(function () {});
+            CartService.setIdCart(id).then(function () {
+              var idCart = CartService.getIdCart();
+              CartService.setIdCartDetail(idCart).then(function () {});
+            });
+            $scope.showKhachHang();
+            $scope.showTransaction();
+            $scope.showTransaction();
+            $scope.getVoucherName();
+            $window.location.reload();
+          },
+        ],
+      });
+    };
+
     setTimeout(() => {
       $scope.updateCart = function (idGioHangChiTiet, soLuong) {
-        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
-
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
         var apiURL =
           "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
           idGioHangChiTiet +
@@ -275,26 +302,27 @@ myApp.controller(
         $http({
           url: apiURL,
           method: "PUT",
-          headers: config.headers, // Include the authorization headers
           transformResponse: [
             function () {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Update thành công",
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                  popup: "small-popup", // Add a class to the message
-                },
-              }).then(() => {
-                $window.location.reload();
+              $scope.getListHoaDonTaiQuay();
+              $scope.detailOrderCounterDetail();
+              $scope.listSanPhamInCart();
+              CartService.setIdCart(id).then(function () {});
+              CartService.setIdCart(id).then(function () {
+                var idCart = CartService.getIdCart();
+                CartService.setIdCartDetail(idCart).then(function () {});
               });
+              $scope.showKhachHang();
+              $scope.showTransaction();
+              $scope.showTransaction();
+              $scope.getVoucherName();
+              // $window.location.reload();
             },
           ],
         });
       };
     }, 2000);
+
 
     // TODO: Hiển thị khách hàng
     $scope.showKhachHang = function () {
@@ -387,7 +415,9 @@ myApp.controller(
         });
     };
 
-// delete sản phẩm trong giỏ hàng
+    // delete sản phẩm trong giỏ hàng
+
+   // delete sản phẩm trong giỏ hàng
 setTimeout(() => {
   $scope.deleteProduct = function (event, index) {
     Swal.fire({
@@ -446,6 +476,80 @@ setTimeout(() => {
     });
   };
 }, 2000);
+
+
+
+
+    // setTimeout(() => {
+    //   $scope.deleteProduct = function (event, index) {
+    //     Swal.fire({
+    //       title: "Xác nhận xóa?",
+    //       text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
+    //       icon: "warning",
+    //       showCancelButton: true,
+    //       confirmButtonColor: "#d33",
+    //       cancelButtonColor: "#3085d6",
+    //       confirmButtonText: "Xóa",
+    //       cancelButtonText: "Hủy",
+    //       reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         var token = $window.localStorage.getItem("token");
+    //         event.preventDefault();
+    //         let p = $scope.listCart[index];
+    //         var config = {
+    //           headers: {
+    //             Authorization: "Bearer " + token, // Thêm token vào header Authorization
+    //           },
+    //         };
+    //         $http
+    //           .delete(
+    //             "http://localhost:8080/api/gio-hang-chi-tiet/delete_product?id=" +
+    //               p.idGioHang,
+    //               config 
+    //           )
+    //           .then(function () {
+    //             $scope.listCart.splice(index, 1);
+    //             $scope.getListHoaDonTaiQuay();
+    //             $scope.detailOrderCounterDetail();
+    //             $scope.listSanPhamInCart();
+    //             CartService.setIdCart(id).then(function () {});
+    //             CartService.setIdCart(id).then(function () {
+    //               var idCart = CartService.getIdCart();
+    //               CartService.setIdCartDetail(idCart).then(function () {});
+    //             });
+    //             $scope.showKhachHang();
+    //             $scope.showTransaction();
+    //             $scope.showTransaction();
+    //             $scope.getVoucherName();
+    //             Swal.fire({
+    //               position: "top-end",
+    //               icon: "success",
+    //               title: "Xóa thành công",
+    //               showConfirmButton: false,
+    //               timer: 1500,
+    //               customClass: {
+    //                 popup: "small-popup", // Add a class to the message
+    //               },
+    //             }).then(() => {
+    //               $scope.getListHoaDonTaiQuay();
+    //               $scope.detailOrderCounterDetail();
+    //               $scope.listSanPhamInCart();
+    //               CartService.setIdCart(id).then(function () {});
+    //               CartService.setIdCart(id).then(function () {
+    //                 var idCart = CartService.getIdCart();
+    //                 CartService.setIdCartDetail(idCart).then(function () {});
+    //               });
+    //               $scope.showKhachHang();
+    //               $scope.showTransaction();
+    //               $scope.showTransaction();
+    //               $scope.getVoucherName();
+    //             });
+    //           });
+    //       }
+    //     });
+    //   };
+    // }, 2000);
 
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
@@ -529,31 +633,48 @@ setTimeout(() => {
     // TODO: thanh toán chuyển khoản
 
     $scope.createTransactionVnpay = function () {
-      $http
-        .post(
-          "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
-            id +
-            "&id=" +
-            idKhach +
-            "&vnp_Amount=" +
-            $scope.tienCuoiCungVnPay
-        )
-        .then(function (response) {
-          $scope.listTransaction.push(response.data);
-          $scope.getListHoaDonTaiQuay();
-          $scope.detailOrderCounterDetail();
-          $scope.listSanPhamInCart();
-          CartService.setIdCart(id).then(function () {});
-          CartService.setIdCart(id).then(function () {
-            var idCart = CartService.getIdCart();
-            CartService.setIdCartDetail(idCart).then(function () {});
-          });
-          $scope.showKhachHang();
-          $scope.showTransaction();
-          $scope.showTransaction();
-          $scope.getVoucherName();
+      var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+    
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token, // Thêm token vào header Authorization
+        },
+      };
+    
+      $http.post(
+        "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
+          id +
+          "&id=" +
+          idKhach +
+          "&vnp_Amount=" +
+          $scope.tienCuoiCungVnPay,
+        null,
+        config // Truyền thông tin token qua headers
+      )
+      .then(function (response) {
+        $scope.listTransaction.push(response.data);
+        // Các hàm cập nhật dữ liệu khác sau khi tạo giao dịch thành công
+        $scope.getListHoaDonTaiQuay();
+        $scope.detailOrderCounterDetail();
+        $scope.listSanPhamInCart();
+        CartService.setIdCart(id).then(function () {});
+        CartService.setIdCart(id).then(function () {
+          var idCart = CartService.getIdCart();
+          CartService.setIdCartDetail(idCart).then(function () {});
         });
+        $scope.showKhachHang();
+        $scope.showTransaction();
+        $scope.showTransaction();
+        $scope.getVoucherName();
+      })
+      .catch(function (error) {
+        // Xử lý lỗi nếu có lỗi khi tạo giao dịch
+        console.error('Error while creating transaction:', error);
+        // Hiển thị thông báo lỗi cho người dùng nếu cần thiết
+        // $scope.errorMessage = "Có lỗi xảy ra khi tạo giao dịch. Vui lòng thử lại sau.";
+      });
     };
+    
 
     // TODO: ApiVNPay
     $scope.addVnPay = {};
@@ -630,16 +751,13 @@ setTimeout(() => {
                   title: "Thanh toán thành công",
                   showConfirmButton: false,
                   timer: 1500,
-                  customClass: {
-                    popup: "small-popup", // Add a class to the message
-                  },
                 });
               });
           }
         });
       };
     }, 2000);
-
+    
     /**
      * thanh toán hóa đơn giao
      * @param {tongTienHang, tienKhachTra, tienThua}
@@ -662,11 +780,6 @@ setTimeout(() => {
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
-            var config = {
-              headers: {
-                Authorization: "Bearer " + token, // Thêm token vào header Authorization
-              },
-            };
             var idDetail = CartService.getIdCartDetail();
             $scope.orderDetailCounter = {
               tongTien: tongTienHang,
@@ -674,6 +787,8 @@ setTimeout(() => {
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
               hoTen: $scope.hoTen,
+              tenNguoiShip: $scope.tenNguoiShip,
+              soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
               email: $scope.email,
               diaChi:
@@ -686,10 +801,19 @@ setTimeout(() => {
                 $scope.selectedProvince.name,
               gioHangChiTietList: idDetail,
             };
+            var requestData = {
+              orderDetailCounter: $scope.orderDetailCounter,
+            };
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token, // Thêm token vào header Authorization
+              },
+            };
             var api =
               "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet-giao?idHoaDon=" +
               id;
-            $http.post(api, $scope.orderDetailCounter, config).then(function (response) {
+
+            $http.post(api, requestData, config).then(function (response) {
               $scope.listHoaDonChiTiet.push(response.data);
               $scope.removeItem();
               Swal.fire({
@@ -698,9 +822,6 @@ setTimeout(() => {
                 title: "Đặt hàng thành công thành công",
                 showConfirmButton: false,
                 timer: 1500,
-                customClass: {
-                  popup: "small-popup", // Add a class to the message
-                },
               });
             });
           }
@@ -1006,9 +1127,6 @@ setTimeout(() => {
             title: "Thêm sản phẩm vào giỏ thành công",
             showConfirmButton: false,
             timer: 1500,
-            customClass: {
-              popup: "small-popup", // Add a class to the message
-            },
           });
         })
         .catch(function (error) {});
