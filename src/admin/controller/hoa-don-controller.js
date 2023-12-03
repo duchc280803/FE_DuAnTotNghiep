@@ -56,6 +56,9 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7708d6f220120ff2fbe215517c56ae59fe875466
   function fetchHoaDonHistortyList() {
     $http
       .get("http://localhost:8080/api/v1/audilog/hoadon")
@@ -80,8 +83,11 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     var trangThai = 1;
   }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 224a4de70c11a88ffd9e6474958c6d6e67ee67fe
+=======
+>>>>>>> 7708d6f220120ff2fbe215517c56ae59fe875466
   $scope.clearSearch = function () {
     $scope.searchQuery = "";
     $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
