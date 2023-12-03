@@ -109,6 +109,36 @@ myApp.controller(
 
     $scope.getlichSuThayDoi();
 
+    $scope.huyHoaDon = {
+      ghiChu: "",
+      newTrangThai: 6,
+    };
+    setTimeout(() => {
+      $scope.comfirmStatusHuyDon = function () {
+        Swal.fire({
+          title: "Bạn có muốn hủy đơn này không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .put(
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/huy-don/" + id,
+                $scope.huyHoaDon
+              )
+              .then(function (response) {
+                $window.location.reload();
+              });
+          }
+        });
+      };
+    }, 2000);
+
     $scope.newStatusOrder = {
       ghiChu: "",
       newTrangThai: "",
@@ -793,7 +823,7 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
-                })
+                });
               });
           }
         });

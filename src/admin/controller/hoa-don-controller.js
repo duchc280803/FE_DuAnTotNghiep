@@ -55,6 +55,30 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     });
   };
 
+  function fetchHoaDonHistortyList() {
+    $http
+      .get("http://localhost:8080/api/v1/audilog/hoadon")
+      .then(function (response) {
+        $scope.listVoucherHistory = response.data;
+        // Lọc và chỉ giữ lại các bản ghi có ngày khác với ngày trước đó
+        $scope.listVoucherHistory = $scope.listVoucherHistory.filter(function (
+          gg
+        ) {
+          var isDifferentDate =
+            !$scope.previousDate || gg.timestamp !== $scope.previousDate;
+          $scope.previousDate = gg.timestamp;
+          return isDifferentDate;
+        });
+      });
+  }
+
+  fetchHoaDonHistortyList();
+  // Hàm lọc dựa trên trạng thái và loại đơn
+  function filterHoaDonByLoaiDon(loaiDon) {
+    // Sử dụng trạng thái mặc định (ví dụ: 1) hoặc trạng thái của bạn.
+    var trangThai = 1;
+  }
+
   $scope.clearSearch = function () {
     $scope.searchQuery = "";
     $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
@@ -121,17 +145,26 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
 
   $scope.getListNhanVien();
 
-  $scope.updateNhanVien = function (idHoaDon, idNhanVien) {
+  $scope.employeeAndInvoiceInfo = {}
+  $scope.getEmployeeAndInvoiceInfo = function (idHoaDon) {
+    $http
+      .get("http://localhost:8080/api/v1/hoa-don/employee-and-invoice?idHoaDon=" + idHoaDon)
+      .then(function (response) {
+        $scope.employeeAndInvoiceInfo = response.data;
+      });
+  };
+
+  $scope.selectedId = '';
+  $scope.updateNhanVien = function (idHoaDon) {
     $http
       .put(
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/update-nhan-vien?idHoaDon=" +
           idHoaDon +
           "&idNhanVien=" +
-          idNhanVien
+          $scope.selectedId
       )
       .then(function (response) {
-        $window.location.reload();
+        fetchHoaDonHistortyList();
       });
   };
-
 });
