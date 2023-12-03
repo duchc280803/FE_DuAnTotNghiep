@@ -39,14 +39,18 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     }
 
     if ($scope.searchQuery !== "") {
-      url += isNaN($scope.searchQuery) ? "&ma=" + $scope.searchQuery : "&soDienThoai=" + $scope.searchQuery;
+      url += isNaN($scope.searchQuery)
+        ? "&ma=" + $scope.searchQuery
+        : "&soDienThoai=" + $scope.searchQuery;
     }
 
     $http.get(url, config).then(function (response) {
-      if (Array.isArray(response.data) && response.data.length > 0 && response.data[0].hasOwnProperty("tenNhanVien")) {
+      if (
+        Array.isArray(response.data) &&
+        response.data.length > 0 &&
+        response.data[0].hasOwnProperty("tenNhanVien")
+      ) {
         $scope.listHoaDon = response.data;
-
-
       } else {
         console.error("Invalid data format from API");
         // Nếu không có dữ liệu, đặt $scope.listHoaDon về mảng rỗng
@@ -55,10 +59,6 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     });
   };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7708d6f220120ff2fbe215517c56ae59fe875466
   function fetchHoaDonHistortyList() {
     $http
       .get("http://localhost:8080/api/v1/audilog/hoadon")
@@ -83,53 +83,88 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     var trangThai = 1;
   }
 
-<<<<<<< HEAD
-=======
->>>>>>> 224a4de70c11a88ffd9e6474958c6d6e67ee67fe
-=======
->>>>>>> 7708d6f220120ff2fbe215517c56ae59fe875466
   $scope.clearSearch = function () {
     $scope.searchQuery = "";
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.searchHoaDon = function () {
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.filterHoaDon = function () {
     // Gọi hàm fetchHoaDon với các tham số hiện tại
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.filterHoaDonByNguoiXacNhan = function () {
     // Gọi hàm fetchHoaDon với các tham số hiện tại
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.setDefaultTrangThai = function () {
     // Đặt giá trị mặc định cho selectedTrangThai
     $scope.selectedTrangThai = 1;
     // Gọi hàm fetchHoaDon để hiển thị danh sách theo giá trị mặc định
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.openCity = function (trangThai) {
     console.log("Selected Trang Thai:", trangThai);
     $scope.selectedTrangThai = trangThai;
     $scope.pageNumber = 0;
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.nextPage = function () {
     $scope.pageNumber++;
-    $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+    $scope.fetchHoaDon(
+      $scope.selectedTrangThai,
+      $scope.selectedLoaiDon,
+      $scope.selectedTenNhanVien,
+      $scope.pageNumber
+    );
   };
 
   $scope.previousPage = function () {
     if ($scope.pageNumber > 0) {
       $scope.pageNumber--;
-      $scope.fetchHoaDon($scope.selectedTrangThai, $scope.selectedLoaiDon, $scope.selectedTenNhanVien, $scope.pageNumber);
+      $scope.fetchHoaDon(
+        $scope.selectedTrangThai,
+        $scope.selectedLoaiDon,
+        $scope.selectedTenNhanVien,
+        $scope.pageNumber
+      );
     }
   };
 
@@ -144,7 +179,9 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
         // Gán fullName vào allTenNhanVienOptions
         $scope.allTenNhanVienOptions = response.data
           .filter(function (nhanVien) {
-            return nhanVien.fullName !== null && nhanVien.fullName !== undefined;
+            return (
+              nhanVien.fullName !== null && nhanVien.fullName !== undefined
+            );
           })
           .map(function (nhanVien) {
             return nhanVien.fullName;
@@ -154,16 +191,19 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
 
   $scope.getListNhanVien();
 
-  $scope.employeeAndInvoiceInfo = {}
+  $scope.employeeAndInvoiceInfo = {};
   $scope.getEmployeeAndInvoiceInfo = function (idHoaDon) {
     $http
-      .get("http://localhost:8080/api/v1/hoa-don/employee-and-invoice?idHoaDon=" + idHoaDon)
+      .get(
+        "http://localhost:8080/api/v1/hoa-don/employee-and-invoice?idHoaDon=" +
+          idHoaDon
+      )
       .then(function (response) {
         $scope.employeeAndInvoiceInfo = response.data;
       });
   };
 
-  $scope.selectedId = '';
+  $scope.selectedId = "";
   $scope.updateNhanVien = function (idHoaDon) {
     $http
       .put(
