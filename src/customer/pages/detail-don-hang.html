@@ -76,11 +76,12 @@
 <link rel="stylesheet" href="/css/custom/trang-thai-hdct.css" />
 
 <body>
-  <div class="row"style="width: 40%;" >
+  <div class="row" style="width: 40%;">
     <div class="col-md-5">
       <div class="profile" style="padding-top: 30px; margin-top: 20px">
         <div class="profile-image">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKvS4Z3oRCkqh5KgquhTEP7OQtjk_KbVX-FQ&usqp=CAU" alt="" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKvS4Z3oRCkqh5KgquhTEP7OQtjk_KbVX-FQ&usqp=CAU"
+            alt="" />
         </div>
         <ul>
           <li>
@@ -148,7 +149,7 @@
           </div>
           <br />
           <table class="table">
-            <tbody class="table">
+            <tbody>
               <tr ng-repeat="item in listSanPham">
                 <td style="width: 150px">
                   <img src="{{item.tenImage}}" alt="" width="200px" />
@@ -169,29 +170,94 @@
                 </td>
                 <td style="padding-top: 80px">
                   <div ng-show="item.donGiaSauGiam != null">
-                    {{item.donGiaSauGiam | number}}₫
-                    <span style="text-decoration: line-through;color: crimson">{{item.donGia |
-                      number}}₫</span>
+                    {{item.donGiaSauGiam.toLocaleString('vi-VN')}}₫
+                    <span
+                      style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}₫</span>
                   </div>
                   <div ng-show="item.donGiaSauGiam == null">
-                    {{item.donGia | number}}₫
+                    {{item.donGia.toLocaleString('vi-VN')}}₫
                   </div>
                 </td>
+                <td style="padding-top: 80px" ng-show="item.trangThai == 5">
+                  <button ng-click="getIdHoaDonChiTiet(item.id)" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#yeuCauTraHang">Yêu cầu trả hàng</button>
+                </td>
+                <td style="padding-top: 80px;font-size: 16px; font-weight: 600;" ng-show="item.trangThai == 9">
+                  <h6 style="font-size: 16px;
+                  font-weight: 600;">Vui lòng chờ nhân viên xác nhận</h6>
+                </td>
               </tr>
-              
             </tbody>
           </table>
+          <!-- modal yêu cầu trả hàng -->
+          <div class="modal fade" id="yeuCauTraHang" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                  <div class="modal-body-item">
+                    <span class="header-title"><span style="color: red">*</span>
+                      <span>Nhập lý do trả hàng</span></span>
+                    <input type="text" class="form-control" placeholder="Lý do" ng-model="lyDo" />
+                    <br />
+                  </div>
+                  <br />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Hủy
+                  </button>
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
+                    ng-click="yeuCauTraHang(idHoaDonChiTiet)">
+                    Xác nhận
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal yêu cầu trả hàng -->
           <div class="omni-layout-card--section-section">
             <div>
-              <button type="button" class="btn btn-outline-danger m-1">Hủy đơn</button>
-              <a type="button" href="/src/customer/index-customer.html?#/shop" class="btn btn-outline-primary m-1">Trang chủ</a>
+              <button ng-show="hoaDonChiTiet == 1 || hoaDonChiTiet == 2" type="button"
+                class="btn btn-outline-danger m-1" data-bs-toggle="modal" data-bs-target="#huydonkhach">Hủy đơn</button>
+              <a type="button" href="/src/customer/index-customer.html?#/shop" class="btn btn-outline-primary m-1">Trang
+                chủ</a>
             </div>
+            <!-- modal hủy hóa đơn khách -->
+            <div class="modal fade" id="huydonkhach" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header"></div>
+                  <div class="modal-body">
+                    <div class="modal-body-item">
+                      <span class="header-title"><span style="color: red">*</span>
+                        <span>Nhập lý do hủy đơn</span></span>
+                      <input type="text" class="form-control" placeholder="Lý do hủy" ng-model="huyHoaDon.ghiChu" />
+                      <br />
+                    </div>
+                    <br />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      Hủy
+                    </button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
+                      ng-click="comfirmStatusHuyDon()">
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- modal hủy hóa đơn -->
             <div class="omni-layout-card--item-stack-cover">
               <div class="omni-layout-card--item-stack fill">
                 <span class="header-title" style="padding-left: 860px">Tổng tiền hàng</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{tongTienHang}}đ</span>
+                <span class="header-title">{{tongTienHang.toLocaleString('vi-VN')}}đ</span>
               </div>
             </div>
           </div>
@@ -201,7 +267,8 @@
                 <span class="header-title" style="padding-left: 860px">Tiền ship</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tienShip}}đ</span>
+                <span class="header-title">{{ thanhTien.tienShip != null ? thanhTien.tienShip.toLocaleString('vi-VN') +
+                  'đ' : '0' }}₫</span>
               </div>
             </div>
           </div>
@@ -211,7 +278,7 @@
                 <span class="header-title" style="padding-left: 860px">Tiền giảm giá</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tienGiamGia}}đ</span>
+                <span class="header-title">{{thanhTien.tienGiamGia.toLocaleString('vi-VN')}}₫</span>
               </div>
             </div>
           </div>
@@ -221,7 +288,7 @@
                 <span class="header-title" style="padding-left: 860px">Thành tiền</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tongTien}}đ</span>
+                <span class="header-title">{{thanhTien.tongTien.toLocaleString('vi-VN')}}₫</span>
               </div>
             </div>
           </div>
@@ -231,4 +298,5 @@
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </html>

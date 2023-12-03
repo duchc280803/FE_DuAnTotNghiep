@@ -117,8 +117,9 @@
         style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Hủy</span>
       </button>
-      <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit" class="btn btn-danger m-1"
-        data-bs-toggle="modal" data-bs-target="#exampleModal" style="text-decoration: none; height: 39px">
+      <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit"
+        class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        style="text-decoration: none; height: 39px">
         <span style="vertical-align: middle">Xác nhận</span>
       </button>
       <button ng-show="hoaDonChiTiet.trangThai !== 1 && hoaDonChiTiet.trangThai !== 6" type="submit"
@@ -181,19 +182,20 @@
       <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
       <div class="modal-body">
         <span class="header-title"><span style="color: red">*</span><span>Tên khách</span></span>
-        <input type="text" class="form-control" placeholder="Tên người nhận" ng-model="orderDetailUpdate.hoVatenClient" />
+        <input type="text" class="form-control" placeholder="Tên người nhận"
+          ng-model="orderDetailUpdate.hoVatenClient" />
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Số khách</span></span>
-        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="orderDetailUpdate.sdtClient"/>
+        <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="orderDetailUpdate.sdtClient" />
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Email</span></span>
-        <input type="text" class="form-control" placeholder="Email" ng-model="orderDetailUpdate.email"/>
+        <input type="text" class="form-control" placeholder="Email" ng-model="orderDetailUpdate.email" />
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Tiền ship</span></span>
-        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="orderDetailUpdate.tienShip"/>
+        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="orderDetailUpdate.tienShip" />
         <br>
         <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
-        <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="orderDetailUpdate.diaChi"/>
+        <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="orderDetailUpdate.diaChi" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -214,7 +216,8 @@
       <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
       <div class="modal-body">
         <span class="header-title"><span style="color: red">*</span><span>Tên người giao</span></span>
-        <input type="text" class="form-control" placeholder="Tên người giao" ng-model="orderDetailUpdate.tenNguoiGiao" />
+        <input type="text" class="form-control" placeholder="Tên người giao"
+          ng-model="orderDetailUpdate.tenNguoiGiao" />
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Số người giao</span></span>
         <input type="text" class="form-control" placeholder="Số người giao"
@@ -379,7 +382,8 @@
           padding-left: 100px;
         ">{{fillMoney.tongTien.toLocaleString('vi-VN')}}₫</span>
     </div>
-    <div class="col-lg-9" ng-show="traHangis === true &&  tongTienHoanTra <= soTienHoan">
+    <div class="col-lg-9"
+      ng-show="(traHangis === true &&  tongTienHoanTra <= soTienHoan) || (hoaDonChiTiet.trangThai === 6 &&  tongTienHoanTra <= soTienHoan)">
       <span style="
           color: #fc5e03;
           padding: 4px 8px;
@@ -390,7 +394,8 @@
           padding-left: 740px;
         ">Đã hoàn trả:</span>
     </div>
-    <div class="col-lg-3" ng-show="traHangis === true &&  tongTienHoanTra <= soTienHoan">
+    <div class="col-lg-3"
+      ng-show="(traHangis === true &&  tongTienHoanTra <= soTienHoan) || (hoaDonChiTiet.trangThai === 6 &&  tongTienHoanTra <= soTienHoan)">
       <span style="
           color: #fc5e03;
           padding: 4px 8px;
@@ -414,8 +419,8 @@
           class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
           <span style=" vertical-align: middle">Cập nhập</span>
         </button>
-        <button ng-show="hoaDonChiTiet.trangThai == 3" type="submit"
-          class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateNguoiGiao">
+        <button ng-show="hoaDonChiTiet.trangThai == 3" type="submit" class="btn btn-danger m-1" data-bs-toggle="modal"
+          data-bs-target="#updateNguoiGiao">
           <span style=" vertical-align: middle">Cập nhập</span>
         </button>
       </div>
