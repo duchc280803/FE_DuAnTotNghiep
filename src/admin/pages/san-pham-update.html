@@ -367,6 +367,11 @@
                   </th>
                   <th>
                     <p class="mb-0 text-muted">
+                      <strong>Qrcode</strong>
+                    </p>
+                  </th>
+                  <th>
+                    <p class="mb-0 text-muted">
                       <strong>Trạng thái</strong>
                     </p>
                   </th>
@@ -393,10 +398,13 @@
                     <td class="col-1">
                       <div class="input-group" style="width: 90px;">
                         <input type="number" name="quant[1]" class="form-control text-center" value="{{pd.quantity}}"
-                          min="1" max="10000" ng-model="soLuong" ng-change="updateQuantity(pd.id,soLuong)"/>
+                          min="1" max="10000" ng-model="soLuong" ng-change="updateQuantity(pd.id,soLuong)" />
                       </div>
                     </td>
                   </small>
+                  <td>
+                    <img src="{{qrCodeImage }}" width="40px" alt="">
+                  </td>
                   <td>
                     <span style="
                         background-color: #cceeff;
@@ -502,7 +510,8 @@
                   <div class="row">
                     <div class="col-lg-2" ng-repeat="i in image">
                       <div class="star-image">
-                        <img width="160px" src="/assets/ảnh giày/{{i.tenImage}}" alt="" srcset="" ng-dblclick="deleteImage(i.id)">
+                        <img width="160px" src="/assets/ảnh giày/{{i.tenImage}}" alt="" srcset=""
+                          ng-dblclick="deleteImage(i.id)">
                       </div>
                     </div>
                   </div>

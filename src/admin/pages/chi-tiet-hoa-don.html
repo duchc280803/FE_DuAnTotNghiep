@@ -157,7 +157,7 @@
                 "Xác nhận" : item.trangThai == 3 ? "Chờ giao hàng" :
                 item.trangThai == 4 ? "Giao hàng" : item.trangThai == 5 ? "Hoàn
                 thành" : item.trangThai == 6 ? "Đã hủy" : item.trangThai == 7 ?
-                'Trả hàng' : 'Chỉnh sửa đơn'}}
+                'Trả hàng' : item.trangThai == 8 ? 'Chỉnh sửa đơn' : "Yêu cầu trả hàng"}}
               </td>
               <td>{{item.thoiGian | date:'MM/dd/yyyy h:mm:ss a'}}</td>
               <td>{{item.tenNhanVien}}</td>

@@ -252,7 +252,6 @@ myApp.controller(
     }, 2000);
 
     // cập nhập sản phẩm trong giỏ hàng
-
     $scope.updateCart = function (idGioHangChiTiet, soLuong) {
       var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
 
@@ -291,37 +290,6 @@ myApp.controller(
         ],
       });
     };
-
-    setTimeout(() => {
-      $scope.updateCart = function (idGioHangChiTiet, soLuong) {
-        var apiURL =
-          "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
-          idGioHangChiTiet +
-          "&quantity=" +
-          soLuong;
-        $http({
-          url: apiURL,
-          method: "PUT",
-          transformResponse: [
-            function () {
-              $scope.getListHoaDonTaiQuay();
-              $scope.detailOrderCounterDetail();
-              $scope.listSanPhamInCart();
-              CartService.setIdCart(id).then(function () {});
-              CartService.setIdCart(id).then(function () {
-                var idCart = CartService.getIdCart();
-                CartService.setIdCartDetail(idCart).then(function () {});
-              });
-              $scope.showKhachHang();
-              $scope.showTransaction();
-              $scope.showTransaction();
-              $scope.getVoucherName();
-              // $window.location.reload();
-            },
-          ],
-        });
-      };
-    }, 2000);
 
     // TODO: Hiển thị khách hàng
     $scope.showKhachHang = function () {
