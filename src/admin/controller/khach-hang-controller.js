@@ -1,4 +1,4 @@
-myApp.controller("khachHangController", function ($http, $scope, $location) {
+myApp.controller("khachHangController", function ($http, $scope, $location, $window) {
   $scope.listKhachHang = [];
   $scope.selectedTrangThai = "";
   $scope.searchQuery = "";
@@ -63,6 +63,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   }
 
   $scope.updateKhachHang = function (selectedKhachHang) {
+   
     var yourFile = document.getElementById("fileInput").files[0];
     $http({
       method: "PUT",
@@ -110,12 +111,14 @@ myApp.controller("khachHangController", function ($http, $scope, $location) {
   };
 
   $scope.createKhachHang = function () {
+    var token = $window.localStorage.getItem("token");
     var yourFile = document.getElementById("fileInput").files[0];
     $http({
       method: "POST",
       url: "http://localhost:8080/api/ql-khach-hang/create",
       headers: {
         "Content-Type": undefined,
+        "Authorization": "Bearer" + token // Thêm token vào đây để gửi cùng với request
       },
       transformRequest: function (data) {
         var formData = new FormData();
