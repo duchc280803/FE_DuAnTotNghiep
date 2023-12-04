@@ -8,8 +8,7 @@
             <div class="form-group">
                 <label>Tìm theo ngày cụ thể :</label>
                 <input type="datetime-local" class="form-control" ng-model="searchDate"
-                    ng-change="searchVouchersByDay()">
-
+                    ng-change="searchVouchersByDay()" />
             </div>
         </div>
         <div class="row" style="padding: 10px">
@@ -25,9 +24,6 @@
                     Tìm kiếm
                 </button>
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -35,7 +31,8 @@
     <div class="col-lg-6">
         <h5>
             <img src="/assets/images/list.png" width="20px" style="padding-right: 3px; vertical-align: middle" />Lịch sử
-            Thao Tác
+            Thao
+            Tác
         </h5>
     </div>
     <div class="col-lg-6"></div>
@@ -53,12 +50,11 @@
                 </tr>
             </thead>
             <tbody class="table">
-                <tr ng-repeat="gg in listVoucherHistory">
+                <tr ng-repeat="gg in listHistory">
                     <td>{{$index + 1}}</td>
                     <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
                     <td>{{gg.action}}</td>
                     <td>{{gg.username}}</td>
-                    <!-- <td>{{gg.ma}}</td> -->
                     <td ng-bind-html="formatMa(gg.ma)"></td>
                 </tr>
             </tbody>

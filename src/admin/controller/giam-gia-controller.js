@@ -1,6 +1,6 @@
 myApp.controller(
   "GiamGiaController",
-  function ($http, $scope, $location, $route, $window) {
+  function ($http, $scope, $location, $route, $window, $sce) {
     $scope.listGiamGia = [];
     $scope.listProductGiamGia = [];
 
@@ -17,6 +17,13 @@ myApp.controller(
         .then(function (response) {
           $scope.listGiamGia = response.data;
         });
+    };
+    $scope.formatMa = function (username) {
+      // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
+      if (username && username.includes(",")) {
+        return $sce.trustAsHtml(username.replace(/,/g, "<br>"));
+      }
+      return username;
     };
     function fetchVoucherHistortyList() {
       $http

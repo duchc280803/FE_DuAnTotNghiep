@@ -26,6 +26,11 @@
               <button class="btn btn-primary" ng-click="searchMauSac()">Tìm kiếm</button>
               <button class="btn btn-danger" ng-click="clearSearch()">Làm mới bộ lọc</button>
             </div>
+            <div class="col-md-3" style="margin-top: 20px; margin-bottom: 10px; width: 150px;">
+              <a href="#/color/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
+                <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+              </a>
+            </div>
           </div> <!-- form-group -->
         </div>
       </div>
@@ -95,7 +100,8 @@
                 <small class="mb-0 text-muted ">{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</small>
               </td>
               <td>
-                <button class="btn btn-warning" ng-click="deleteMauSac(th.id)"><img width="25px" src="/assets/images/disabled.png" alt=""></button>
+                <button class="btn btn-warning" ng-click="deleteMauSac(th.id)"><img width="25px"
+                    src="/assets/images/disabled.png" alt=""></button>
                 <button class="btn btn-success" data-toggle="modal" ng-click="fetchMauSacdetail(th.id)"
                   data-target="#sua"><img width="25px" src="/assets/images/update.png" alt=""></button>
               </td>
