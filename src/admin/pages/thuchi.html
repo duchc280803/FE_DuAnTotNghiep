@@ -103,7 +103,7 @@
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
@@ -152,15 +152,16 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <button data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" type="button" class="btn btn-primary m-1">
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
               Thay đổi
-            </button>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
@@ -210,15 +211,16 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <button data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" type="button" class="btn btn-primary m-1">
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
               Thay đổi
-            </button>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
@@ -268,15 +270,16 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <button data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" type="button" class="btn btn-primary m-1">
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
               Thay đổi
-            </button>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
@@ -326,7 +329,8 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" type="button" class="btn btn-primary m-1">
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
           </td>
@@ -334,7 +338,7 @@
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
@@ -398,7 +402,7 @@
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
@@ -422,11 +426,11 @@
       <br>
       <div class="modal-body">
         <td>
-          <select class="form-control select2">
+          <select class="form-control select2" ng-model="selectedId">
             <option value="">
               Chọn nhân viên
             </option>
-            <option ng-repeat="nv in listNhanVien">
+            <option ng-repeat="nv in listNhanVien" value="{{nv.id}}">
               {{nv.fullName}}
             </option>
           </select>
@@ -436,11 +440,11 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ng-click="updateNhanVien()">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          ng-click="updateNhanVien(employeeAndInvoiceInfo.idHoaDon)">
           Cập nhập
         </button>
       </div>
     </div>
   </div>
 </div>
-<!-- modal voucher -->

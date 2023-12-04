@@ -422,7 +422,7 @@
 </head>
 
 <body>
-  <header class="header" style="background: #F3F6FA">
+  <header class="header">
     <div class="header__top">
       <div class="container">
         <div class="row">
@@ -492,12 +492,11 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam | number:0}}₫
-                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                              number:0}}₫ <br></strike> </span>
+                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}₫
+                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban.toLocaleString('vi-VN')}}₫ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban | number:0}}₫
+                          {{product.giaban.toLocaleString('vi-VN')}}₫
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -533,21 +532,24 @@
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đơn hàng</p>
                     </a>
-                    <a href="#/login-register" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
+                    <a href="#/login" class="d-flex align-items-center gap-2 dropdown-item" ng-if="!isLoggedIn">
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">Đăng nhập</p>
-                  </a>
-                    <button ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
+                    </a>
+                    <a ng-click="logout()" href="#" class="d-flex align-items-center gap-2 dropdown-item"
                       ng-if="isLoggedIn">
                       <i class="fa fa-sign-out fs-6"></i>
                       <p class="mb-0 fs-3">Đăng xuất</p>
-                      </a>
+                    </a>
                   </div>
                 </div>
               </li>
             </ul>
           </div>
         </div>
+      </div>
+      <div class="humberger__open">
+        <i class="fa fa-bars"></i>
       </div>
     </div>
   </header>
@@ -568,13 +570,13 @@
             <div class="product__details__price">
               <div ng-show="detailProduct.giaGiamGia != detailProduct.giaBan">
                 <h5>
-                  {{detailProduct.giaGiamGia}}₫
-                  <strike style="color: red;">{{detailProduct.giaBan}}₫</strike>
+                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN')}}₫
+                  <strike style="color: red;">{{detailProduct.giaBan.toLocaleString('vi-VN')}}₫</strike>
                 </h5>
               </div>
               <div ng-show="detailProduct.giaGiamGia == detailProduct.giaBan">
                 <h5>
-                  {{ detailProduct.giaBan}}₫
+                  {{ detailProduct.giaBan.toLocaleString('vi-VN')}}₫
                 </h5>
               </div>
             </div>
@@ -604,26 +606,22 @@
                 </div>
               </div>
             </div>
-
-
             <!-- <div class="quantity"> -->
             <div class="row">
               <div class="col-3">
                 <input placeholder="Nhập số lượng" style="margin-left: 0px; width: 130px;" type="number"
                   class="next-input text-left max-width-10px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
-                  ng-model="soluong" min="1" max="{{quantity.soluong}}" />
+                  ng-model="soluong"/>
               </div>
               <div class="col-6">
                 <p class="mt-2">Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}</p>
               </div>
             </div>
             <!-- </div> -->
-
             <a class="abc" ng-click="addToCart(quantity.sanPhamChiTietId)"
               style="margin-top: -23px; background-color: #7fad39;color: white;"><span>Thêm
                 vào giỏ hàng</span></a>
           </div>
-
         </div>
         <div class="col-lg-12">
           <div class="product__details__tab">
@@ -681,30 +679,39 @@
           </div>
         </div>
       </div>
+
+
       <div class="row featured__filter">
         <div class="col-lg-4 col-md-6 col-sm-6 custom-margin" ng-repeat="product in relatedProducts">
           <div class="card">
-            <img ng-if="product.imgage" src="{{product.imgage}}" class="card-img-top" alt="...">
+            <img ng-if="product.tenImage" src="{{product.tenImage}}" class="card-img-top" alt="...">
+            <div class="product__discount__percent" ng-show="product.mucGiam != null">
+              -{{product.mucGiam}}%
+            </div>
             <div class="card-body d-flex flex-column justify-content-between text-center">
               <p ng-if="product.tenSanPham" class="card-text">{{product.tenSanPham}}</p>
               <div class="text-center">
-                <h5 ng-show="product.giaGiamGia != product.giaBan">
-                  {{ product.giaGiamGia}}₫
-                  <strike style="color: red;">{{product.giaBan}}₫</strike>
+                <h5 ng-show="product.donGiaKhiGiam != null">
+                  {{product.donGiaKhiGiam | number}}₫
+                  <strike style="color: red;">{{product.giaban | number}}₫</strike>
                 </h5>
-                <h5 ng-show="product.giaGiamGia == product.giaBan">
-                  {{product.giaBan}}₫
+                <h5 ng-show="product.donGiaKhiGiam == null">
+                  {{product.giaban | number}}₫
                 </h5>
-                <a class="abc" style="margin-left: 20px;" ng-if="product.tenSanPham"
+                <a class="abc mt-2" style="margin-left: 20px;" ng-if="product.tenSanPham"
                   href="#/shop/detail/{{product.tenSanPham}}"><span>Xem sản phẩm</span></a>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+
     </div>
   </section>
-  <footer>
+
+  <!-- Footer Section Begin -->
+  <footer class="footer spad">
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -748,18 +755,18 @@
         </div>
       </div>
     </div>
-    </footer>
+  </footer>
 
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.nice-select.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/jquery.slicknav.js"></script>
-    <script src="/js/mixitup.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nice-select.min.js"></script>
+  <script src="/js/jquery-ui.min.js"></script>
+  <script src="/js/jquery.slicknav.js"></script>
+  <script src="/js/mixitup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </body>
 
 </html>

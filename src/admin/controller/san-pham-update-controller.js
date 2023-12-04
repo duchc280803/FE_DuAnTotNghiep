@@ -19,6 +19,7 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/san-pham/product-detail/" + id)
         .then(function (response) {
           $scope.productDetail = response.data;
+          $scope.generateQRCode($scope.productDetail.qrcode)
         });
     };
     $scope.getProductDetail();
@@ -262,5 +263,22 @@ myApp.controller(
         });
       };
     }, 2000);
+
+    $scope.generateQRCode = function (data) {
+      $http({
+        method: "GET",
+        url: "http://localhost:8080/api/qrcode/generate-product/" + data,
+        responseType: "arraybuffer", 
+      }).then(
+        function (response) {
+          var blob = new Blob([response.data], { type: "image/png" });
+          $scope.qrCodeImage = URL.createObjectURL(blob);
+        },
+        function (error) {
+          console.error("Lỗi khi lấy hình ảnh QR code:", error);
+        }
+      );
+    };
+
   }
 );
