@@ -43,6 +43,42 @@ myApp.controller(
           $scope.listHistory = response.data;
         });
     }
+    $scope.searchVouchers = function () {
+      // Make sure both startDate and endDate are provided
+      if (!$scope.startDate || !$scope.endDate) {
+        // Handle error or provide user feedback
+        return;
+      }
+
+      var formattedStartDate = new Date($scope.startDate)
+        .toISOString()
+        .split("T")[0];
+      var formattedEndDate = new Date($scope.endDate)
+        .toISOString()
+        .split("T")[0];
+
+      var searchUrl =
+        "http://localhost:8080/api/v1/audilog/mausacsearch?startDate=" +
+        encodeURIComponent(formattedStartDate) +
+        "&endDate=" +
+        encodeURIComponent(formattedEndDate);
+
+      $http.get(searchUrl).then(function (response) {
+        $scope.listHistory = response.data;
+      });
+    };
+    $scope.searchVouchersByDay = function () {
+      var formattedStartDate = new Date($scope.searchDate)
+        .toISOString()
+        .split("T")[0];
+
+      var searchUrl =
+        "http://localhost:8080/api/v1/audilog/auditlogmausacbydate?searchDate=" +
+        encodeURIComponent(formattedStartDate);
+      $http.get(searchUrl).then(function (response) {
+        $scope.listHistory = response.data;
+      });
+    };
 
     fetchHistortyList();
     $scope.previousPage = function () {
