@@ -1,4 +1,4 @@
-myApp.controller("sanPhamController", function ($http, $scope, $window) {
+myApp.controller("sanPhamController", function ($http, $scope, $window, $sce) {
   $scope.listSanPham = [];
   $scope.filterSanPham = function () {
     $http
@@ -8,7 +8,22 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
       });
   };
   $scope.filterSanPham();
+  $scope.formatMa = function (username) {
+    // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
+    if (username && username.includes(",")) {
+      return $sce.trustAsHtml(username.replace(/,/g, "<br>"));
+    }
+    return username;
+  };
+  function fetchHistortyList() {
+    $http
+      .get("http://localhost:8080/api/v1/audilog/sanpham")
+      .then(function (response) {
+        $scope.listHistory = response.data;
+      });
+  }
 
+  fetchHistortyList();
   $scope.thuongHieu;
   $scope.findByThuongHieu = function () {
     if ($scope.thuongHieu === "") {
