@@ -96,7 +96,7 @@ myApp.controller(
         .split("T")[0];
 
       var searchUrl =
-        "http://localhost:8080/api/v1/audilog/auditlogbydate?searchDate=" +
+        "http://localhost:8080/api/v1/audilog/auditlogvoucherbydate?searchDate=" +
         encodeURIComponent(formattedStartDate);
       $http.get(searchUrl).then(function (response) {
         $scope.listVoucherHistory = response.data;
