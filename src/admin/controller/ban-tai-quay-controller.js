@@ -641,13 +641,14 @@ myApp.controller(
     };
 
     // TODO: ApiVNPay
-    $scope.addVnPay = {};
-    $scope.Vnpay = function (amount) {
+    $scope.Vnpay = function (amountParam) {
       $http
-        .post("http://localhost:8080/api/v1/payment/pay?amount=" + amount)
+        .post(
+          "http://localhost:8080/api/v1/payment/vn_pay?amountParam=" +
+            amountParam
+        )
         .then(function (response) {
-          $scope.addVnPay = response.data;
-          $window.location.href = $scope.addVnPay.value;
+          $window.location.href = response.data.url;
         });
     };
 
