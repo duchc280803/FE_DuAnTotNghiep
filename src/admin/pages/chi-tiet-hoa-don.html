@@ -458,7 +458,7 @@
       <tbody class="table" style="border: 1px solid #ccc">
         <thead>
         </thead>
-        <tr ng-repeat="item in listSanPhamInOrder">
+        <tr ng-repeat="item in listSanPhamInOrder | orderBy:'trangThai == 7':'reverse'">
           <td style="padding-top: 80px">{{$index + 1}}</td>
           <td>
             <div style="position: relative">
