@@ -260,6 +260,7 @@ myApp.controller("thongKeController", function ($scope, $http) {
           $scope.listSanPhamBanChay.sort(function(a, b) {
             return b.doanhSo - a.doanhSo;
           });
+          $scope.listSanPhamBanChay = $scope.listSanPhamBanChay.slice(0, 10);
         });
     };
     $scope.getListSanPhamBanChay();
