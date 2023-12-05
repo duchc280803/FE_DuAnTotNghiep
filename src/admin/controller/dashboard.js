@@ -262,44 +262,46 @@ myApp.controller("thongKeController", function ($scope, $http) {
     },
   });
 
-  $scope.doanhThu = []
+  $scope.doanhThu = [];
 
-// Hàm xử lý dữ liệu và cập nhật biểu đồ cột
-function processDataAndDisplayChart(data) {
-  var labels = [];
-  var salesData = [];
+  // Hàm xử lý dữ liệu và cập nhật biểu đồ cột
+  function processDataAndDisplayChart(data) {
+    var labels = [];
+    var salesData = [];
 
-  // Xử lý dữ liệu trả về từ API
-  data.forEach(function (item) {
-    labels.push(item.date); // Thêm ngày vào mảng labels
-    salesData.push(item.sales); // Thêm doanh số vào mảng salesData
-  });
-
-  // Cập nhật biểu đồ cột
-  myBarChart.data.labels = labels;
-  myBarChart.data.datasets[0].data = salesData;
-  myBarChart.update();
-}
-
-// Gọi API và xử lý dữ liệu
-$scope.updateChart = function () {
-  var startDate = new Date($scope.startDate);
-  var endDate = new Date($scope.endDate);
-
-  $http
-  .get(
-    "http://localhost:8080/api/thong-ke/doanhthu?ngayBd=" +
-      startDate.toISOString().slice(0, 10) + // Chuyển ngày về định dạng ISO (YYYY-MM-DD)
-      "&ngayKt=" +
-      endDate.toISOString().slice(0, 10) // Chuyển ngày về định dạng ISO (YYYY-MM-DD)
-  )
-    .then(function (response) {
-      // Gọi hàm xử lý dữ liệu và cập nhật biểu đồ
-      processDataAndDisplayChart(response.data);
+    // Xử lý dữ liệu trả về từ API
+    data.forEach(function (item) {
+      labels.push(item.ngay); // Thêm ngày vào mảng labels
+      salesData.push(item.doanhThu); // Thêm doanh số vào mảng salesData
     });
-};
 
-// Gọi hàm updateChart để cập nhật biểu đồ khi trang được tải
-$scope.updateChart();
+    // Cập nhật biểu đồ cột
+    myBarChart.data.labels = labels;
+    myBarChart.data.datasets[0].data = salesData;
+    myBarChart.update();
+  }
 
+  function formatDateToYYYYMMDD(date) {
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, "0");
+    var day = date.getDate().toString().padStart(2, "0");
+    return year + "/" + month + "/" + day;
+  }
+
+  $scope.updateChart = function () {
+    var startDate = new Date($scope.startDate);
+    var endDate = new Date($scope.endDate);
+    $http
+      .get(
+        "http://localhost:8080/api/thong-ke/doanhthu?ngayBd=" +
+          formatDateToYYYYMMDD(startDate) +
+          "&ngayKt=" +
+          formatDateToYYYYMMDD(endDate) 
+      )
+      .then(function (response) {
+        processDataAndDisplayChart(response.data);
+      });
+  };
+
+  $scope.updateChart();
 });
