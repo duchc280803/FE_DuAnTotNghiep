@@ -178,52 +178,13 @@
                     {{item.donGia.toLocaleString('vi-VN')}}₫
                   </div>
                 </td>
-                <td style="padding-top: 80px" ng-show="item.trangThai == 5">
-                  <button ng-click="getIdHoaDonChiTiet(item.id)" class="btn btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#yeuCauTraHang">Yêu cầu trả hàng</button>
-                </td>
-                <td style="padding-top: 80px;font-size: 16px; font-weight: 600;" ng-show="item.trangThai == 9">
-                  <h6 style="font-size: 16px;
-                  font-weight: 600;">Vui lòng chờ nhân viên xác nhận</h6>
-                </td>
               </tr>
             </tbody>
           </table>
-          <!-- modal yêu cầu trả hàng -->
-          <div class="modal fade" id="yeuCauTraHang" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header"></div>
-                <div class="modal-body">
-                  <div class="modal-body-item">
-                    <span class="header-title"><span style="color: red">*</span>
-                      <span>Nhập lý do trả hàng</span></span>
-                    <input type="text" class="form-control" placeholder="Lý do" ng-model="lyDo" />
-                    <br />
-                  </div>
-                  <br />
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Hủy
-                  </button>
-                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
-                    ng-click="yeuCauTraHang(idHoaDonChiTiet)">
-                    Xác nhận
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- modal yêu cầu trả hàng -->
+
           <div class="omni-layout-card--section-section">
             <div>
-<<<<<<< HEAD
-              <button ng-show="hoaDonChiTiet = 1  hoaDonChiTiet = 2" type="button"
-=======
               <button ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 2" type="button"
->>>>>>> 7708d6f220120ff2fbe215517c56ae59fe875466
                 class="btn btn-outline-danger m-1" data-bs-toggle="modal" data-bs-target="#huydonkhach">Hủy đơn</button>
               <a type="button" href="/src/customer/index-customer.html?#/shop" class="btn btn-outline-primary m-1">Trang
                 chủ</a>
