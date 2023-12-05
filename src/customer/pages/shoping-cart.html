@@ -547,7 +547,8 @@
       <div class="row" style=" transform: scale(0.95);">
         <div class="col-lg-6 col-md-5">
           <div class="checkout__input">
-            <p>Họ Và Tên<span>*</span></p>
+            <p>Họ Và Tên<span>*</span><span ng-show="!isHoTenValid" style="color: red;">(Vui lòng nhập họ tên)</span>
+            </p>
             <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
           </div>
 
@@ -555,7 +556,8 @@
             <p>Địa Chỉ<span>*</span></p>
             <div class="row">
               <div class="col-lg-4" style="margin-left: 0px;">
-                <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span><span
+                  ng-show="!isProvinceValid" style="color: red;"> (Chọn Tỉnh)</span>
                 <select class="form-control select2" ng-model="selectedProvince"
                   ng-options="province.name for province in provinces" ng-change="getDistricts()">
                   <option value="">Chọn tỉnh</option>
@@ -566,7 +568,7 @@
               </div>
               <div class="col-lg-4">
                 <span class="header-title"><span style="color: red">*</span>
-                  <span>Huyện</span></span>
+                  <span>Huyện</span></span><span ng-show="!isDistrictValid" style="color: red;"> (Chọn Huyện)</span>
                 <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
                   ng-options="district.name for district in districts" ng-change="getWards()">
                   <option value="">Chọn huyện</option>
@@ -577,7 +579,7 @@
               </div>
               <div class="col-lg-4">
                 <span class="header-title"><span style="color: red">*</span>
-                  <span>Phường</span></span>
+                  <span>Phường</span></span><span ng-show="!isWardValid" style="color: red;"> (Chọn xã)</span>
                 <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
                   ng-options="ward.name for ward in wards">
                   <option value="">Chọn phường</option>
@@ -589,15 +591,24 @@
             </div>
           </div>
           <div class="checkout__input">
-            <p>Địa Chỉ Giao Hàng<span>*</span></p>
+            <p>Địa chỉ cụ thể<span>*</span> <span ng-show="!isDiaChiValid" style="color: red;">(Vui lòng nhập địa chỉ cụ
+                thể)</span></p>
             <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
           </div>
           <div class="checkout__input">
-            <p>Số Điện Thoại<span>*</span></p>
+            <p>Số Điện Thoại<span>*</span>
+              <span ng-show="!isSoDienThoaiValid" style="color: red;">(Vui lòng nhập số điện
+                thoại)</span>
+              <span ng-show="!isSoDienThoaiFormat" style="color: red;">Số điện thoại sai định dạng, vui lòng xem
+                lại</span>
+            </p>
             <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" ng-model="soDienThoai" />
           </div>
           <div class="checkout__input">
-            <p>Email<span>*</span></p>
+            <p>Email<span>*</span>
+              <span ng-show="!isEmailValid" style="color: red;">(Vui lòng nhập email)</span>
+              <span ng-show="!isEmailFormat" style="color: red;">Email định dạng, vui lòng xem lại</span>
+            </p>
             <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" />
           </div>
           <div class="checkout__input">
