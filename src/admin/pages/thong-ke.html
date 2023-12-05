@@ -23,13 +23,13 @@
                 <div class="row align-items-center">
                   <div class="col pr-0">
                     <h6>Hôm nay</h6>
-                    <span class="txt-text">Tổng tiền hàng: 1,869</span>
+                    <span class="txt-text">Tổng tiền hàng: {{tongtienhomnay.toLocaleString('vi-VN')}}₫</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn: 1,869</span>
+                    <span class="txt-text">Tổng số đơn: {{tongSoDonHnay}}</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn hủy: 1,869</span>
+                    <span class="txt-text">Tổng số đơn hủy: {{soDonHuyHnay}}</span>
                     <br>
-                    <span class="txt-text">Số sản phẩm bán ra: 1,869</span>
+                    <span class="txt-text">Số sản phẩm bán ra: {{soSanPhamBanRaHomNay}}</span>
                   </div>
                 </div>
               </div>
@@ -41,13 +41,13 @@
                 <div class="row align-items-center">
                   <div class="col pr-0">
                     <h6 style="text-align: center;">Tuần này</h6>
-                    <span class="txt-text">Tổng tiền hàng: 1,869</span>
+                    <span class="txt-text">Tổng tiền hàng: {{tongtientuannay.toLocaleString('vi-VN')}}₫</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn: 1,869</span>
+                    <span class="txt-text">Tổng số đơn: {{tongSoDonTuanNay}}</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn hủy: 1,869</span>
+                    <span class="txt-text">Tổng số đơn hủy: {{soDonHuyTuanNay}}</span>
                     <br>
-                    <span class="txt-text">Số sản phẩm bán ra: 1,869</span>
+                    <span class="txt-text">Số sản phẩm bán ra: {{soSanPhamBanRaTuanNay}}</span>
                   </div>
                 </div>
               </div>
@@ -59,13 +59,13 @@
                 <div class="row align-items-center">
                   <div class="col pr-0">
                     <h6>Tháng này</h6>
-                    <span class="txt-text">Tổng tiền hàng: 1,869</span>
+                    <span class="txt-text">Tổng tiền hàng: {{tongtiendonthangnay.toLocaleString('vi-VN')}}₫</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn: 1,869</span>
+                    <span class="txt-text">Tổng số đơn: {{tongSoDonThangNay}}</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn hủy: 1,869</span>
+                    <span class="txt-text">Tổng số đơn hủy: {{soDonHuyThangNay}}</span>
                     <br>
-                    <span class="txt-text">Số sản phẩm bán ra: 1,869</span>
+                    <span class="txt-text">Số sản phẩm bán ra: {{soSanPhamBanRaThangNay}}</span>
                   </div>
                 </div>
               </div>
@@ -77,13 +77,13 @@
                 <div class="row align-items-center">
                   <div class="col pr-0">
                     <h6>Năm nay</h6>
-                    <span class="txt-text">Tổng tiền hàng: 1,869</span>
+                    <span class="txt-text">Tổng tiền hàng: {{tongtiennamnay.toLocaleString('vi-VN')}}₫</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn: 1,869</span>
+                    <span class="txt-text">Tổng số đơn: {{tongSoDonNamNay}}</span>
                     <br>
-                    <span class="txt-text">Tổng số đơn hủy: 1,869</span>
+                    <span class="txt-text">Tổng số đơn hủy: {{soDonHuyNamNay}}</span>
                     <br>
-                    <span class="txt-text">Số sản phẩm bán ra: 1,869</span>
+                    <span class="txt-text">Số sản phẩm bán ra: {{soSanPhamBanRaNamNay}}</span>
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@
           <div class="col-md-8">
             <div class="card shadow border-0">
               <div class="card-body">
-                <h6>Sản phẩm bán chạy nhất</h6>
+                <h6>TOP 10 Sản phẩm bán chạy nhất</h6>
                 <table class="table">
                   <thead>
                     <tr role="row" style="background-color: lightskyblue">
@@ -138,13 +138,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="col">1</th>
-                      <td>Loading...</td>
-                      <td>Giày thể thao banrd</td>
-                      <td>20$</td>
-                      <td>2</td>
-                      <td>40$</td>
+                    <tr ng-repeat="sp in listSanPhamBanChay">
+                      <th scope="col">{{$index + 1}}</th>
+                      <td><img src="{{sp.image}}" width="80px" alt=""></td>
+                      <td>{{sp.productName}}</td>
+                      <td ng-show="sp.price === sp.giaGiam">{{sp.giaGiam.toLocaleString('vi-VN')}}₫</strike></td>
+                      <td ng-show="sp.price != sp.giaGiam">{{sp.price.toLocaleString('vi-VN')}}₫ <strike style="color: red;">{{sp.giaGiam.toLocaleString('vi-VN')}}₫</strike></td>
+                      <td>{{sp.soLuongDaBan}}</td>
+                      <td>{{sp.doanhSo.toLocaleString('vi-VN')}}₫</td>
                     </tr>
                   </tbody>
                 </table>
