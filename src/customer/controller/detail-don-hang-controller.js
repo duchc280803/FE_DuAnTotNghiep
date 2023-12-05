@@ -122,35 +122,6 @@ myAppCustom.controller(
       });
     };
 
-    $scope.lyDo = "";
-    $scope.yeuCauTraHang = function (idHoaDonChiTiet) {
-      Swal.fire({
-        title: "Bạn có muốn yêu trả hàng sản phẩm này không?",
-        text: "",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $http
-            .post(
-              "http://localhost:8080/api/checkout-not-login/yeu-cau-tra-hang?idHoaDon=" +
-                idHoaDon +
-                "&idHoaDonChiTiet=" +
-                idHoaDonChiTiet +
-                "&lyDo=" +
-                $scope.lyDo
-            )
-            .then(function (response) {
-              $window.location.reload();
-            });
-        }
-      });
-    };
-
     $scope.hoaDonChiTiet = {};
     $scope.getHoaDonChiTiet = function () {
       const apiUrl =
