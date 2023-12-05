@@ -261,38 +261,45 @@ myApp.controller("thongKeController", function ($scope, $http) {
       },
     },
   });
-  $scope.updateChart = function () {
-    var startDate = new Date($scope.startDate);
-    var endDate = new Date($scope.endDate);
 
-    // Dữ liệu doanh số giả định (ví dụ)
-    var salesData = [];
-    var currentDate = new Date(startDate);
+  $scope.doanhThu = []
 
-    // Tạo dữ liệu doanh số giả định cho mỗi ngày từ ngày bắt đầu đến ngày kết thúc
-    while (currentDate <= endDate) {
-      // Tính toán dữ liệu doanh số cho mỗi ngày ở đây (ví dụ: dùng Math.random() để tạo số ngẫu nhiên)
-      var randomSales = Math.floor(Math.random() * 1000) + 1; // Doanh số ngẫu nhiên từ 1 đến 1000
-      salesData.push(randomSales);
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
+// Hàm xử lý dữ liệu và cập nhật biểu đồ cột
+function processDataAndDisplayChart(data) {
+  var labels = [];
+  var salesData = [];
 
-    // Tạo mảng labels từ ngày bắt đầu đến ngày kết thúc
-    var labels = [];
-    currentDate = new Date(startDate);
-    while (currentDate <= endDate) {
-      labels.push(
-        `${currentDate.getDate()}/${
-          currentDate.getMonth() + 1
-        }/${currentDate.getFullYear()}`
-      );
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
+  // Xử lý dữ liệu trả về từ API
+  data.forEach(function (item) {
+    labels.push(item.date); // Thêm ngày vào mảng labels
+    salesData.push(item.sales); // Thêm doanh số vào mảng salesData
+  });
 
-    // Update labels và data cho biểu đồ
-    myBarChart.data.labels = labels;
-    myBarChart.data.datasets[0].data = salesData; // Dữ liệu doanh số
-    myBarChart.update();
-  };
-  $scope.updateChart();
+  // Cập nhật biểu đồ cột
+  myBarChart.data.labels = labels;
+  myBarChart.data.datasets[0].data = salesData;
+  myBarChart.update();
+}
+
+// Gọi API và xử lý dữ liệu
+$scope.updateChart = function () {
+  var startDate = new Date($scope.startDate);
+  var endDate = new Date($scope.endDate);
+
+  $http
+  .get(
+    "http://localhost:8080/api/thong-ke/doanhthu?ngayBd=" +
+      startDate.toISOString().slice(0, 10) + // Chuyển ngày về định dạng ISO (YYYY-MM-DD)
+      "&ngayKt=" +
+      endDate.toISOString().slice(0, 10) // Chuyển ngày về định dạng ISO (YYYY-MM-DD)
+  )
+    .then(function (response) {
+      // Gọi hàm xử lý dữ liệu và cập nhật biểu đồ
+      processDataAndDisplayChart(response.data);
+    });
+};
+
+// Gọi hàm updateChart để cập nhật biểu đồ khi trang được tải
+$scope.updateChart();
+
 });
