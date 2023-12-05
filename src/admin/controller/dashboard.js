@@ -90,56 +90,6 @@ myApp.controller("thongKeController", function ($scope, $http) {
       },
     });
   }
-
-  var ctxBar = document.getElementById("myBarChart").getContext("2d");
-  var myBarChart = new Chart(ctxBar, {
-    type: "bar",
-    data: {
-      labels: [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6",
-        "Tháng 7",
-        "Tháng 8",
-        "Tháng 9",
-        "Tháng 10",
-        "Tháng 11",
-        "Tháng 12",
-      ],
-      datasets: [
-        {
-          label: "Doanh số",
-          data: [100, 200, 500, 200, 500, 600, 200, 800, 564, 1000, 600, 400],
-          backgroundColor: "#36a2eb",
-        },
-      ],
-    },
-    options: {
-      legend: {
-        display: false,
-      },
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
-      },
-      tooltips: {
-        callbacks: {
-          label: function (tooltipItem, data) {
-            return "Số đơn: " + tooltipItem.yLabel;
-          },
-        },
-      },
-    },
-  });
-
   $scope.tongtienhomnay = 0;
   $http
     .get("http://localhost:8080/api/thong-ke/tongtienhomnay")
@@ -252,16 +202,97 @@ myApp.controller("thongKeController", function ($scope, $http) {
       $scope.soSanPhamBanRaNamNay = response.data;
     });
 
-    $scope.getListSanPhamBanChay = function () {
-      $http
-        .get("http://localhost:8080/api/thong-ke/san-pham-ban-chay")
-        .then(function (response) {
-          $scope.listSanPhamBanChay = response.data;
-          $scope.listSanPhamBanChay.sort(function(a, b) {
-            return b.doanhSo - a.doanhSo;
-          });
-          $scope.listSanPhamBanChay = $scope.listSanPhamBanChay.slice(0, 10);
+  $scope.getListSanPhamBanChay = function () {
+    $http
+      .get("http://localhost:8080/api/thong-ke/san-pham-ban-chay")
+      .then(function (response) {
+        $scope.listSanPhamBanChay = response.data;
+        $scope.listSanPhamBanChay.sort(function (a, b) {
+          return b.doanhSo - a.doanhSo;
         });
-    };
-    $scope.getListSanPhamBanChay();
+        $scope.listSanPhamBanChay = $scope.listSanPhamBanChay.slice(0, 10);
+      });
+  };
+  $scope.getListSanPhamBanChay();
+
+  var currentDate = new Date();
+  var firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+
+  // Gán giá trị mặc định cho ngày bắt đầu và ngày kết thúc
+  $scope.startDate = new Date(
+    firstDayOfMonth.getFullYear(),
+    firstDayOfMonth.getMonth(),
+    1
+  );
+  $scope.endDate = new Date(Date.parse(currentDate.toISOString().slice(0, 10)));
+
+  var ctxBar = document.getElementById("myBarChart").getContext("2d");
+
+  // Khởi tạo biểu đồ
+  var ctxBar = document.getElementById("myBarChart").getContext("2d");
+  var myBarChart = new Chart(ctxBar, {
+    type: "bar",
+    data: {
+      labels: [], // Sẽ cập nhật labels sau
+      datasets: [
+        {
+          label: "Doanh số",
+          data: [], // Sẽ cập nhật data sau
+          backgroundColor: "#36a2eb",
+        },
+      ],
+    },
+    options: {
+      legend: {
+        display: false,
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+    },
+  });
+  $scope.updateChart = function () {
+    var startDate = new Date($scope.startDate);
+    var endDate = new Date($scope.endDate);
+
+    // Dữ liệu doanh số giả định (ví dụ)
+    var salesData = [];
+    var currentDate = new Date(startDate);
+
+    // Tạo dữ liệu doanh số giả định cho mỗi ngày từ ngày bắt đầu đến ngày kết thúc
+    while (currentDate <= endDate) {
+      // Tính toán dữ liệu doanh số cho mỗi ngày ở đây (ví dụ: dùng Math.random() để tạo số ngẫu nhiên)
+      var randomSales = Math.floor(Math.random() * 1000) + 1; // Doanh số ngẫu nhiên từ 1 đến 1000
+      salesData.push(randomSales);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    // Tạo mảng labels từ ngày bắt đầu đến ngày kết thúc
+    var labels = [];
+    currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      labels.push(
+        `${currentDate.getDate()}/${
+          currentDate.getMonth() + 1
+        }/${currentDate.getFullYear()}`
+      );
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    // Update labels và data cho biểu đồ
+    myBarChart.data.labels = labels;
+    myBarChart.data.datasets[0].data = salesData; // Dữ liệu doanh số
+    myBarChart.update();
+  };
+  $scope.updateChart();
 });

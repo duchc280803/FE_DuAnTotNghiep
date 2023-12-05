@@ -98,16 +98,17 @@
               </div>
               <br>
               <div class="row">
+                <!-- Input cho ngày bắt đầu và ngày kết thúc -->
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="start-date" class="txt-text">Ngày bắt đầu</label>
-                    <input type="date" class="form-control" id="start-date">
+                    <input type="date" class="form-control" id="start-date" ng-model="startDate" ng-change="updateChart()">
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="end-date" class="txt-text">Ngày kết thúc</label>
-                    <input type="date" class="form-control" id="end-date">
+                    <input type="date" class="form-control" id="end-date" ng-model="endDate" ng-change="updateChart()">
                   </div>
                 </div>
               </div>
@@ -143,7 +144,8 @@
                       <td><img src="{{sp.image}}" width="80px" alt=""></td>
                       <td>{{sp.productName}}</td>
                       <td ng-show="sp.price === sp.giaGiam">{{sp.giaGiam.toLocaleString('vi-VN')}}₫</strike></td>
-                      <td ng-show="sp.price != sp.giaGiam">{{sp.price.toLocaleString('vi-VN')}}₫ <strike style="color: red;">{{sp.giaGiam.toLocaleString('vi-VN')}}₫</strike></td>
+                      <td ng-show="sp.price != sp.giaGiam">{{sp.price.toLocaleString('vi-VN')}}₫ <strike
+                          style="color: red;">{{sp.giaGiam.toLocaleString('vi-VN')}}₫</strike></td>
                       <td>{{sp.soLuongDaBan}}</td>
                       <td>{{sp.doanhSo.toLocaleString('vi-VN')}}₫</td>
                     </tr>
