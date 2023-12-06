@@ -601,6 +601,7 @@ myApp.controller(
           $scope.showTransaction();
           $scope.showTransaction();
           $scope.getVoucherName();
+          $location.path("/order-counter")
         })
         .catch(function (error) {
           // Xử lý lỗi nếu có lỗi khi tạo giao dịch
