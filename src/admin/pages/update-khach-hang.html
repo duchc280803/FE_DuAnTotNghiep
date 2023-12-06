@@ -1,0 +1,112 @@
+<div class="container-fluid">
+    <div class="card overflow-hidden" style="min-height: 120px">
+        <div class="row" style="margin: 20px;">
+            <div class="col-md-4 text-center">
+                <label>
+                    <div class="image-container">
+                        <img id="selectedImage" src="/assets/ảnh giày/{{selectedKhachHang.image}}" class="logo"
+                            alt="Selected Image" />
+                    </div>
+                </label>
+            </div>
+            <div class="col-md-8">
+                <form name="frmAccount">
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Họ và tên</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Ngày sinh</span></span>
+                        <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Số điện thoại</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.soDienThoai" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Giới tính</span></span>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender"
+                                ng-model="selectedKhachHang.gioiTinh" value="true" />
+                            <label class="form-check-label"> Nam </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender"
+                                ng-model="selectedKhachHang.gioiTinh" value="false" />
+                            <label class="form-check-label"> Nữ </label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Email</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                            <select class="form-control select2" ng-model="selectedProvince"
+                                ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                                <option value="">Chọn tỉnh</option>
+                                <option ng-repeat="province in provinces" value="{{province.name}}">
+                                    {{province.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <span class="header-title"><span style="color: red">*</span>
+                                <span>Huyện</span></span>
+                            <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                                ng-options="district.name for district in districts" ng-change="getWards()">
+                                <option value="">Chọn huyện</option>
+                                <option ng-repeat="district in districts" value="{{district.name}}">
+                                    {{district.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <span class="header-title"><span style="color: red">*</span>
+                                <span>Phường</span></span>
+                            <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                                ng-options="ward.name for ward in wards">
+                                <option value="">Chọn phường</option>
+                                <option ng-repeat="ward in wards" value="{{ward.name}}">
+                                    {{ward.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.diaChi" />
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Trạng thái</span></span>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="status"
+                                ng-model="selectedKhachHang.trangThai" value="1" />
+                            <label class="form-check-label"> Hoạt động </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="status"
+                                ng-model="selectedKhachHang.trangThai" value="2" />
+                            <label class="form-check-label"> Nghỉ làm </label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Photo</span></span>
+                        <input type="file" name="file" id="fileInput" onchange="displayImage(event)" />
+                    </div>
+                </form>
+            </div>
+            <button style="width: 100px;margin-left: 990px;" type="button" class="btn btn-danger"
+                ng-click="updateKhachHang()">ChỉnhSửa</button>
+        </div>
+    </div>
+</div>

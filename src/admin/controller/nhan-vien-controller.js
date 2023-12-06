@@ -17,6 +17,7 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
       .get("http://localhost:8080/api/v1/nhan-vien/hien-thi-roles")
       .then(function (response) {
         $scope.listNhanVienRole = response.data;
+        console.log($scope.listNhanVienRol);
         // Kiểm tra và chọn giá trị nếu có
         if ($scope.selectedNhanVien && $scope.listNhanVienRole.length > 0) {
           selectRole($scope.selectedNhanVien.idLoaiTaiKhoan);
@@ -236,14 +237,14 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
   };
 });
 function displayImage(event) {
-    var image = document.getElementById('selectedImage');
-    image.style.display = 'block';
-    var selectedFile = event.target.files[0];
-    var reader = new FileReader();
+  var image = document.getElementById("selectedImage");
+  image.style.display = "block";
+  var selectedFile = event.target.files[0];
+  var reader = new FileReader();
 
-    reader.onload = function (event) {
-      image.src = event.target.result;
-    };
+  reader.onload = function (event) {
+    image.src = event.target.result;
+  };
 
-    reader.readAsDataURL(selectedFile);
-  }
+  reader.readAsDataURL(selectedFile);
+}

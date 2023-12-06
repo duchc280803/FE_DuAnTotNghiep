@@ -2,7 +2,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location, $win
   $scope.listKhachHang = [];
   $scope.selectedTrangThai = "";
   $scope.searchQuery = "";
-  $scope.selectedKhachHang = null;
+  $scope.selectedKhachHang = {};
   $scope.pageNumber = 0;
   var id = $location.search().id;
   $scope.folderName = "D:image"; // Đổi your-folder-name thành tên thư mục thật của bạn
@@ -47,6 +47,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location, $win
     $http.get(detailUrl).then(function (response) {
       response.data.ngaySinh = new Date(response.data.ngaySinh);
       $scope.selectedKhachHang = response.data;
+      console.log($scope.selectedKhachHang);
       if ($scope.selectedKhachHang.trangThai === 1) {
         $scope.selectedKhachHang.trangThai = "1";
       } else {
@@ -62,9 +63,9 @@ myApp.controller("khachHangController", function ($http, $scope, $location, $win
     });
   }
 
-  $scope.updateKhachHang = function (selectedKhachHang) {
-   
+  $scope.updateKhachHang = function () {
     var yourFile = document.getElementById("fileInput").files[0];
+    console.log(yourFile);
     $http({
       method: "PUT",
       url:
@@ -103,9 +104,6 @@ myApp.controller("khachHangController", function ($http, $scope, $location, $win
       },
     }).then(
       function (response) {
-      },
-      function (error) {
-        // Xử lý error ở đây
       }
     );
   };
@@ -219,6 +217,7 @@ myApp.controller("khachHangController", function ($http, $scope, $location, $win
         $scope.wards = response.data.wards;
       });
   };
+
 });
 
 function displayImage(event) {
