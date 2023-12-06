@@ -157,7 +157,7 @@
             </div>
           </div>
         </div>
-        <!--Sửa tài khoản-->
+        <!-- Sửa tài khoản
         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg custom-modal-sua-khach-hang" style="max-width: 80%">
             <div class="modal-content">
@@ -276,13 +276,13 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   Close
                 </button>
-                <button type="button" class="btn btn-outline-danger m-1" ng-click="updateKhachHang(selectedKhachHang)">
+                <button type="button" class="btn btn-outline-danger m-1" ng-click="updateKhachHang()">
                   Chỉnh Sửa
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -324,11 +324,9 @@
               </span>
             </td>
             <td>
-              <button type="button" ng-click="fetchKhachHangDetail(kh.id)" data-bs-toggle="modal"
-                data-bs-target="#exampleModal1" class="btn btn-primary">
+              <a href="#/customer/update/{{kh.id}}" class="btn btn-primary">
                 Sửa
-              </button>
-
+              </a>
             </td>
           </tr>
         </tbody>

@@ -155,7 +155,7 @@
           </div>
         </div>
         <!--Sửa tài khoản-->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg" style="max-width: 80%">
             <div class="modal-content">
               <div class="modal-header">
@@ -277,7 +277,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -320,10 +320,9 @@
             </span>
           </td>
           <td>
-            <button type="button" data-bs-toggle="modal" ng-click="fetchNhanVienDetail(nv.id)"
-              data-bs-target="#exampleModal1" class="btn btn-primary">
+            <a type="button" href="#/staff/update/{{nv.id}}" class="btn btn-primary">
               Sửa
-            </button>
+            </a>
           </td>
         </tr>
       </tbody>
