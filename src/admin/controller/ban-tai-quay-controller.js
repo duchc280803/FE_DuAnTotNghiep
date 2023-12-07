@@ -259,7 +259,7 @@ myApp.controller(
               Authorization: "Bearer " + token, // Thêm token vào header Authorization
             },
           };
-    
+
           var idGioHang = CartService.getIdCart(); // Lấy ID giỏ hàng từ service
           $http
             .post(
@@ -538,20 +538,8 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listTransaction.push(response.data);
-                $scope.newTransaction.soTien = "";
-                $scope.getListHoaDonTaiQuay();
-                $scope.detailOrderCounterDetail();
-                $scope.listSanPhamInCart();
-                CartService.setIdCart(id).then(function () {});
-                CartService.setIdCart(id).then(function () {
-                  var idCart = CartService.getIdCart();
-                  CartService.setIdCartDetail(idCart).then(function () {});
-                });
-                $scope.showKhachHang();
-                $scope.showTransaction();
-                $scope.showTransaction();
-                $scope.getVoucherName();
-                // $location.path("/order-counter");
+                // $scope.newTransaction.soTien = "";
+                $location.path("/order-counter");
               });
           }
         });
@@ -563,6 +551,7 @@ myApp.controller(
 
     // Lấy giá trị của tham số 'vnp_Amount'
     $scope.amountParamValue = $scope.queryParams.vnp_Amount;
+    $scope.maGiaoDinh = $scope.queryParams.vnp_TxnRef;
     $scope.tienCuoiCungVnPay = $scope.amountParamValue / 100;
 
     // TODO: thanh toán chuyển khoản
@@ -581,6 +570,8 @@ myApp.controller(
             id +
             "&id=" +
             idKhach +
+            "&maGiaoDinh=" +
+            $scope.maGiaoDinh +
             "&vnp_Amount=" +
             $scope.tienCuoiCungVnPay,
           null,
@@ -601,7 +592,7 @@ myApp.controller(
           $scope.showTransaction();
           $scope.showTransaction();
           $scope.getVoucherName();
-          $location.path("/order-counter")
+          $location.path("/order-counter");
         })
         .catch(function (error) {
           // Xử lý lỗi nếu có lỗi khi tạo giao dịch
@@ -1199,19 +1190,19 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/voucher-counter/show")
         .then(function (response) {
           $scope.listVoucher = response.data;
-          $scope.listVoucher.forEach(function (voucher) {
-            if (voucher.priceOrder <= totalOrderValue) {
-              if (
-                !maxDiscountVoucher ||
-                voucher.price > maxDiscountVoucher.price
-              ) {
-                maxDiscountVoucher = voucher; // Lưu trữ voucher có giá trị giảm giá cao nhất
-              }
-            }
-          });
-          if (maxDiscountVoucher) {
-            $scope.updateOrder(maxDiscountVoucher.id, totalOrderValue);
-          }
+          // $scope.listVoucher.forEach(function (voucher) {
+          //   if (voucher.priceOrder <= totalOrderValue) {
+          //     if (
+          //       !maxDiscountVoucher ||
+          //       voucher.price >= maxDiscountVoucher.price
+          //     ) {
+          //       maxDiscountVoucher = voucher; // Lưu trữ voucher có giá trị giảm giá cao nhất
+          //     }
+          //   }
+          // });
+          // if (maxDiscountVouc  her) {
+          //   $scope.updateOrder(maxDiscountVoucher.id, totalOrderValue);
+          // }
         });
     };
 
@@ -1249,19 +1240,7 @@ myApp.controller(
           config // Truyền thông tin token qua config
         )
         .then(function (response) {
-          $scope.getListHoaDonTaiQuay();
-          $scope.detailOrderCounterDetail();
-          $scope.listSanPhamInCart();
-          CartService.setIdCart(id).then(function () {});
-          CartService.setIdCart(id).then(function () {
-            var idCart = CartService.getIdCart();
-            CartService.setIdCartDetail(idCart).then(function () {});
-          });
-          $scope.showKhachHang();
-          $scope.showTransaction();
-          $scope.showTransaction();
-          $scope.getVoucherName();
-          // $window.location.reload();
+          $window.location.reload();
         });
     };
   }

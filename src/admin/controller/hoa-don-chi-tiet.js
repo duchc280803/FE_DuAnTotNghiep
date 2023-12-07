@@ -618,13 +618,9 @@ myApp.controller(
         });
     };
 
-    // $scope.id = function (id) {
-    //   console.log(id);
-    // };
-
     $scope.newOrderDetail = {};
     setTimeout(() => {
-      $scope.traHang = function (id) {
+      $scope.traHang = function (idHoaDonChiTiet) {
         Swal.fire({
           title: "Bạn có muốn trả hàng?",
           text: "",
@@ -645,8 +641,10 @@ myApp.controller(
             };
             $http
               .post(
-                "http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang?idhdct=" +
-                  id,
+                "http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang?id=" +
+                  id +
+                  "&idhdct=" +
+                  idHoaDonChiTiet,
                 JSON.stringify($scope.newOrderDetail),
                 config
               )
