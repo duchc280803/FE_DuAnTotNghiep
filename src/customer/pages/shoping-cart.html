@@ -668,7 +668,7 @@
             <div class="row mt-3 mb-3" style="margin-left: 50px">
               <div class="custom-radio">
                 <input class="mb-2" type="radio" id="payment_cash" name="radio_checkout" ng-model="paymentMethod"
-                  value="cash" checked />
+                  value="cash" ng-init="paymentMethod = 'cash'" /> 
                 <label for="payment_cash">Thanh toán khi nhận hàng</label>
               </div>
               <div class="custom-radio">
@@ -677,8 +677,11 @@
                 <label for="payment_vnpay">Thanh toán qua ví VN Pay</label>
               </div>
             </div>
-            <button ng-click="thanhToan()" type="submit" class="site-btn">
+            <button ng-click="thanhToan()" type="submit" class="site-btn" ng-if="paymentMethod === 'cash'">
               Đặt Hàng
+            </button>
+            <button ng-click="Vnpay(tongCong)" type="submit" class="site-btn" ng-if="paymentMethod === 'vnpay'">
+              Đặt Hàng banking
             </button>
           </div>
         </div>
