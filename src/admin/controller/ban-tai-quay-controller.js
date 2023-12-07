@@ -579,27 +579,21 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
-          // Các hàm cập nhật dữ liệu khác sau khi tạo giao dịch thành công
-          $scope.getListHoaDonTaiQuay();
-          $scope.detailOrderCounterDetail();
-          $scope.listSanPhamInCart();
-          CartService.setIdCart(id).then(function () {});
-          CartService.setIdCart(id).then(function () {
-            var idCart = CartService.getIdCart();
-            CartService.setIdCartDetail(idCart).then(function () {});
-          });
-          $scope.showKhachHang();
-          $scope.showTransaction();
-          $scope.showTransaction();
-          $scope.getVoucherName();
-          $location.path("/order-counter");
-        })
-        .catch(function (error) {
-          // Xử lý lỗi nếu có lỗi khi tạo giao dịch
-          console.error("Error while creating transaction:", error);
-          // Hiển thị thông báo lỗi cho người dùng nếu cần thiết
-          // $scope.errorMessage = "Có lỗi xảy ra khi tạo giao dịch. Vui lòng thử lại sau.";
         });
+    };
+
+    var vnpayCalled = false
+    if (
+      $scope.maGiaoDinh !== null &&
+      $scope.tienCuoiCungVnPay !== null &&
+      !vnpayCalled
+    ) {
+      $scope.createTransactionVnpay();
+      vnpayCalled = true;
+    }
+
+    $scope.quayVe = function () {
+      $window.location.href = '#/order-counter';
     };
 
     // TODO: ApiVNPay

@@ -512,7 +512,8 @@
         <br>
         <span class="header-title"><span style="color: red">*</span>
             <span style="font-size: 15px;">Đặt lại mật khẩu</span></span>
-        <input style="width: 500px;" type="text" id="email" class="form-control" placeholder="Mật khẩu mới ..." />
+        <input style="width: 500px;" type="text" ng-model="password" class="form-control"
+            placeholder="Mật khẩu mới ..." />
     </div>
     <br>
     <h6 style="padding-left: 300px;">
@@ -525,7 +526,7 @@
         Chỉ các chữ cái, số và ký tự phổ biến mới có thể được sử dụng
     </h6>
     <br>
-    <button style="margin-left: 290px;" class="btn btn-warning" style="color: white;">ĐẶT LẠI MẬT KHẨU</button>
+    <button style="margin-left: 290px;" ng-click="datLai()" class="btn btn-warning" style="color: white;">ĐẶT LẠI MẬT KHẨU</button>
     <br>
     <br>
     <footer class="footer spad">
