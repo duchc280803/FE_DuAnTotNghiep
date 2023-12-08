@@ -40,21 +40,6 @@ myApp.controller("sanPhamController", function ($http, $scope, $window, $sce) {
     }
   };
 
-  $scope.xuatXu;
-  $scope.findByXuatXu = function () {
-    if ($scope.xuatXu === "") {
-      $scope.filterSanPham();
-    } else {
-      $http
-        .get(
-          "http://localhost:8080/api/v1/san-pham/xuat-xu?value=" + $scope.xuatXu
-        )
-        .then(function (response) {
-          $scope.listSanPham = response.data;
-        });
-    }
-  };
-
   $scope.danhMuc;
   $scope.findByDanhMuc = function () {
     if ($scope.danhMuc === "") {
@@ -64,6 +49,21 @@ myApp.controller("sanPhamController", function ($http, $scope, $window, $sce) {
         .get(
           "http://localhost:8080/api/v1/san-pham/danh-muc?value=" +
             $scope.danhMuc
+        )
+        .then(function (response) {
+          $scope.listSanPham = response.data;
+        });
+    }
+  };
+
+  $scope.xuatXu;
+  $scope.findByXuatXu = function () {
+    if ($scope.xuatXu === "") {
+      $scope.filterSanPham();
+    } else {
+      $http
+        .get(
+          "http://localhost:8080/api/v1/san-pham/xuat-xu?value=" + $scope.xuatXu
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -236,6 +236,16 @@ myApp.controller("sanPhamController", function ($http, $scope, $window, $sce) {
             window.location.href =
               "http://127.0.0.1:5505/src/admin/index-admin.html#/product-update/" +
               response.data.id;
+          }).catch(function (error) {
+            $scope.errorMaSanPham = error.data.maSanPham;
+            $scope.errorProductName = error.data.productName;
+            $scope.errorDescribe = error.data.describe;
+            $scope.errorPrice = error.data.price;
+            $scope.errorBaoHanh = error.data.baoHang;
+            $scope.errorKieuDe = error.data.idKieuDe;
+            $scope.errorXuatXu = error.data.idXuatXu;
+            $scope.errorThuognHieu = error.data.idBrand;
+            $scope.errorDanhMuc = error.data.idCategory;
           });
       });
     };

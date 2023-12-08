@@ -19,7 +19,7 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/san-pham/product-detail/" + id)
         .then(function (response) {
           $scope.productDetail = response.data;
-          $scope.generateQRCode($scope.productDetail.qrcode)
+          $scope.generateQRCode($scope.productDetail.qrcode);
         });
     };
     $scope.getProductDetail();
@@ -87,7 +87,9 @@ myApp.controller(
                 $scope.newProductDetail
               )
               .then(function (response) {
+                $scope.newProductDetail = {};
                 $scope.productDetail.push(response.data);
+                $("#productDetailModal").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -100,6 +102,12 @@ myApp.controller(
                 }).then(() => {
                   $scope.getProductDetail();
                 });
+              })
+              .catch(function (error) {
+                $scope.errorSoLuong = error.data.soLuong;
+                $scope.errorChatLieu = error.data.idChatLieu;
+                $scope.errorSize = error.data.idSize;
+                $scope.errorMauSac = error.data.idMauSac;
               });
           }
         });
@@ -142,6 +150,50 @@ myApp.controller(
         });
       };
     }, 2000);
+
+    setTimeout(() => {
+      $scope.updateProduct = function () {
+        Swal.fire({
+          title: "Bạn có muốn thêm mới không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true,
+        }).then((result) => {
+          $http
+            .put(
+              "http://localhost:8080/api/v1/san-pham/update?id=" + id,
+              $scope.newProductDetail
+            )
+            .then(function (response) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Update thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              });
+            })
+            .catch(function (error) {
+              $scope.errorMaSanPham = error.data.maSanPham;
+              $scope.errorProductName = error.data.productName;
+              $scope.errorDescribe = error.data.describe;
+              $scope.errorPrice = error.data.price;
+              $scope.errorBaoHanh = error.data.baoHang;
+              $scope.errorKieuDe = error.data.idKieuDe;
+              $scope.errorXuatXu = error.data.idXuatXu;
+              $scope.errorThuognHieu = error.data.idBrand;
+              $scope.errorDanhMuc = error.data.idCategory;
+            });
+        });
+      };
+    });
 
     setTimeout(() => {
       $scope.updateStatusKichHoat = function (id) {
@@ -268,7 +320,7 @@ myApp.controller(
       $http({
         method: "GET",
         url: "http://localhost:8080/api/qrcode/generate-product/" + data,
-        responseType: "arraybuffer", 
+        responseType: "arraybuffer",
       }).then(
         function (response) {
           var blob = new Blob([response.data], { type: "image/png" });
@@ -279,6 +331,47 @@ myApp.controller(
         }
       );
     };
+    // TODO: Lấy ra tất cả bản ghi của danh mục
+    $scope.listDanhMuc = [];
+    $scope.getListDanhMuc = function () {
+      $http
+        .get("http://localhost:8080/api/v1/danh-muc/show")
+        .then(function (response) {
+          $scope.listDanhMuc = response.data;
+        });
+    };
+    $scope.getListDanhMuc();
 
+    // TODO: Lấy ra tất cả bản ghi của thương hiệu
+    $scope.listThuongHieu = [];
+    $scope.getListThuongHieu = function () {
+      $http
+        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi")
+        .then(function (response) {
+          $scope.listThuongHieu = response.data;
+        });
+    };
+    $scope.getListThuongHieu();
+
+    $scope.listKieuDe = [];
+    $scope.getListKieuDe = function () {
+      $http
+        .get("http://localhost:8080/api/v1/kieu-de/show")
+        .then(function (response) {
+          $scope.listKieuDe = response.data;
+        });
+    };
+    $scope.getListKieuDe();
+
+    // TODO: Lấy ra tất cả bản ghi của sản phẩm
+    $scope.listXuatXu = [];
+    $scope.getListXuatXu = function () {
+      $http
+        .get("http://localhost:8080/api/v1/xuat-xu/show")
+        .then(function (response) {
+          $scope.listXuatXu = response.data;
+        });
+    };
+    $scope.getListXuatXu();
   }
 );

@@ -32,16 +32,16 @@
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mã sản phẩm</span></span>
-                    <input type="text" id="form1" class="form-control" placeholder="Mã sản phẩm" ng-model="product.ma"
-                      disabled />
+                    <input type="text" id="form1" class="form-control" placeholder="Mã sản phẩm"
+                      ng-model="product.ma" />
                   </div>
                 </div>
                 <div class="form-group col-md-6">
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Tên sản phẩm</span></span>
-                    <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm" ng-model="product.ten"
-                      disabled />
+                    <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm"
+                      ng-model="product.ten" />
                   </div>
                 </div>
                 <br>
@@ -49,7 +49,7 @@
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Giá bán</span></span>
-                    <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm" disabled
+                    <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm"
                       ng-model="product.giaBan" />
                   </div>
                 </div>
@@ -58,23 +58,24 @@
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Bảo hành</span></span>
                     <input type="number" id="form1" class="form-control" placeholder="Bảo hành"
-                      ng-model="product.baoHang" disabled />
+                      ng-model="product.baoHang" />
                   </div>
                 </div>
                 <div class="form-group col-md-12 mt-3">
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mô tả</span></span>
-                    <textarea id="form1" class="form-control" placeholder="Mô tả" ng-model="product.mota"
-                      disabled /></textarea>
+                    <textarea id="form1" class="form-control" placeholder="Mô tả" ng-model="product.mota" /></textarea>
                   </div>
                 </div>
                 <div class="form-group col-md-6 mt-3">
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Xuất xứ</span></span>
                   <div class="input-group">
-                    <select class="form-control" disabled>
-                      <option>{{product.tenXuatXu}}
+                    <select class="form-control" ng-model="product.tenXuatXu">
+                      </option>
+                      <option ng-repeat="xx in listXuatXu" value="{{xx.id}}">
+                        {{xx.tenXuatXu}}
                       </option>
                     </select>
                   </div>
@@ -83,9 +84,8 @@
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Danh mục</span></span>
                   <div class="input-group">
-                    <select class="form-control" disabled>
-                      <option>{{product.tenDanhMuc}}
-                      </option>
+                    <select class="form-control" ng-model="product.tenDanhMuc">
+                      <option ng-repeat="dm in listDanhMuc" value="{{dm.id}}">{{dm.tenDanhMuc}}</option>
                     </select>
                   </div>
                 </div>
@@ -93,247 +93,26 @@
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Kiểu đế</span></span>
                   <div class="input-group">
-                    <select class="form-control" disabled>
-                      <option>{{product.tenKieuDe}}
+                    <select class="form-control" ng-model="product.tenKieuDe">
+                      <option ng-repeat="kd in listKieuDe" value="{{kd.id}}">
+                        {{kd.tenDe}}
                       </option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group col-md-6 mt-3">
                   <span class="header-title"><span style="color: red">*</span>
-                    <span>Thương hiệu</span></span>
+                    <span>Thương hiệu</span>
+                  </span>
                   <div class="input-group">
-                    <select class="form-control" disabled>
-                      <option>{{product.tenThuongHieu}}
-                      </option>
+                    <select class="form-control" ng-model="product.tenThuongHieu">
+                      <option ng-repeat="th in listThuongHieu" value="{{th.id}}">{{th.tenThuongHieu}}</option>
                     </select>
                   </div>
                 </div>
-                <!-- Brand Modal -->
-                <div class="modal fade" id="xuatXu" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">
-                          Thêm xuất xứ
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="brandName">Tên xuất xứ:</label>
-                          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên xuất xứ" />
-                        </div>
-
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Trạng thái:</label>
-                          <select class="form-control" id="status">
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">
-                              Ngưng hoạt động
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          Đóng
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                          Thêm
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">
-                          Thêm thương hiệu
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="brandName">Tên thương hiệu:</label>
-                          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên thương hiệu" />
-                        </div>
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Trạng thái:</label>
-                          <select class="form-control" id="status">
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">
-                              Ngưng hoạt động
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          Đóng
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                          Thêm
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog"
-                  aria-labelledby="categoryModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">
-                          Thêm danh mục
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="brandName">Tên danh mục:</label>
-                          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục" />
-                        </div>
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Trạng thái:</label>
-                          <select class="form-control" id="status">
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">
-                              Ngưng hoạt động
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          Đóng
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                          Thêm
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">
-                          Thêm kiểu đế
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="brandName">Tên kiểu đế:</label>
-                          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế" />
-                        </div>
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Trạng thái:</label>
-                          <select class="form-control" id="status">
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">
-                              Ngưng hoạt động
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          Đóng
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                          Thêm
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">
-                          Thêm kiểu đế
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="brandName">Tên kiểu đế:</label>
-                          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế" />
-                        </div>
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Trạng thái:</label>
-                          <select class="form-control" id="status">
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">
-                              Ngưng hoạt động
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          Đóng
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                          Thêm
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="soleModal" tabindex="-1" role="dialog" aria-labelledby="soleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered size-modal" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">
-                          Thêm kiểu đế
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="brandName">Tên kiểu đế:</label>
-                          <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế" />
-                        </div>
-                        <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Trạng thái:</label>
-                          <select class="form-control" id="status">
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">
-                              Ngưng hoạt động
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          Đóng
-                        </button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">
-                          Thêm
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
+              <br>
+              <button class="btn btn-primary" style="margin-left: 920px;" ng-click="updateProduct()">Cập nhập</button>
             </div>
           </div>
         </div>
@@ -439,20 +218,26 @@
                           <span class="text-danger">*</span>
                           <label for="status">Màu sắc:</label>
                           <select class="form-control" id="status" ng-model="newProductDetail.idMauSac">
+                            <option value="">Vui lòng chọn
+                            </option>
                             <option ng-repeat="ms in listMauSac" value="{{ms.id}}">
                               {{ms.tenMauSac}}
                             </option>
                           </select>
+                          <span style="color: red">{{errorMauSac}}</span>
                         </div>
                         <div class="col-12">
                           <div class="form-group">
                             <span class="text-danger">*</span>
                             <label for="status">Chất liệu:</label>
                             <select class="form-control" id="status" ng-model="newProductDetail.idChatLieu">
+                              <option value="">Vui lòng chọn
+                              </option>
                               <option ng-repeat="cl in listChatLieu" value="{{cl.id}}">
                                 {{cl.tenChatLieu}}
                               </option>
                             </select>
+                            <span style="color: red">{{errorChatLieu}}</span>
                           </div>
                         </div>
                         <div class="col-12">
@@ -460,10 +245,13 @@
                             <span class="text-danger">*</span>
                             <label for="status">Size:</label>
                             <select class="form-control" id="status" ng-model="newProductDetail.idSize">
+                              <option value="">Vui lòng chọn
+                              </option>
                               <option ng-repeat="s in listSize" value="{{s.id}}">
                                 {{s.size}}
                               </option>
                             </select>
+                            <span style="color: red">{{errorSize}}</span>
                           </div>
                         </div>
                         <div class="col-12">
@@ -479,6 +267,7 @@
                                 </div>
                               </div>
                             </small>
+                            <span style="color: red">{{errorSoLuong}}</span>
                           </div>
                         </div>
                       </div>
@@ -487,8 +276,7 @@
                       <button type="button" class="btn btn-primary" data-dismiss="modal">
                         cancel
                       </button>
-                      <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        ng-click="createProductDetail()">
+                      <button type="button" class="btn btn-primary" ng-click="createProductDetail()">
                         Xác nhận
                       </button>
                     </div>

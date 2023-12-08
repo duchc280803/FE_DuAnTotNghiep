@@ -8,28 +8,27 @@
               <input type="search" id="form1" placeholder="Tìm kiếm" class="form-control" ng-model="value" />
             </div>
           </div> <!-- form-group -->
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-6">
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="findByNameOrCode()">Tìm kiếm</button>
               <button class="btn btn-warning">Làm mới</button>
+              <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
+                <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+              </a>
             </div>
           </div> <!-- form-group -->
-          <div class="form-group col-md-7 text-right">
+          <div class="form-group col-md-4 text-right">
             <div class="form-outline">
               <a href="#/product/create">
                 <button class="btn btn-primary">Tạo sản phẩm</button>
-              </a>
-            </div>
-            <div class="col-md-3" style="margin-top: 20px; margin-bottom: 10px; width: 150px;">
-              <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
-                <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
               </a>
             </div>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-3">
             <label for="simple-select2">Danh mục</label>
             <select class="form-control select2" id="simple-select2" ng-model="danhMuc" ng-change="findByDanhMuc()">
-              <option value="">Tất cả</option>
+              <option value="">Tất cả
+              </option>
               <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
                 {{dm.tenDanhMuc}}
               </option>
