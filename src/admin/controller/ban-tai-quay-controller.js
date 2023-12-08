@@ -1174,33 +1174,73 @@ myApp.controller(
     var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
 
     $scope.listVoucher = [];
-    $scope.getALlVoucher = function () {
-      var totalOrderValue =
-        tongTienTaiQuay -
-        tienGiamGiaTaiQuay +
-        ($scope.tienGiao ? +$scope.tienGiao : 0);
-      var maxDiscountVoucher = null; // Biến để lưu trữ voucher có giá trị giảm giá cao nhất
+    $scope.bestVoucher = null;
+    
+    // Function to load vouchers
+    $scope.loadVouchers = function () {
       $http
         .get("http://localhost:8080/api/v1/voucher-counter/show")
         .then(function (response) {
           $scope.listVoucher = response.data;
-          // $scope.listVoucher.forEach(function (voucher) {
-          //   if (voucher.priceOrder <= totalOrderValue) {
-          //     if (
-          //       !maxDiscountVoucher ||
-          //       voucher.price >= maxDiscountVoucher.price
-          //     ) {
-          //       maxDiscountVoucher = voucher; // Lưu trữ voucher có giá trị giảm giá cao nhất
-          //     }
-          //   }
-          // });
-          // if (maxDiscountVouc  her) {
-          //   $scope.updateOrder(maxDiscountVoucher.id, totalOrderValue);
-          // }
+          $scope.findBestVoucher();
         });
     };
-
-    $scope.getALlVoucher();
+    
+    // Function to find the best voucher
+    $scope.findBestVoucher = function () {
+      var totalOrderValue =
+        tongTienTaiQuay -
+        tienGiamGiaTaiQuay +
+        ($scope.tienGiao ? +$scope.tienGiao : 0);
+    
+      $scope.bestVoucher = $scope.listVoucher.reduce(function (maxVoucher, voucher) {
+        if (voucher.priceOrder <= totalOrderValue) {
+          // Compare discounts based on their types
+          if (!maxVoucher || calculateDiscount(voucher) >= calculateDiscount(maxVoucher)) {
+            return voucher;
+          }
+        }
+        return maxVoucher;
+      }, null);
+    
+      // If a valid voucher is found, you can apply it here
+      if ($scope.bestVoucher) {
+        $scope.updateOrder($scope.bestVoucher.id, totalOrderValue);
+      }
+    };
+    
+    // Function to handle product removal
+    $scope.removeProduct = function () {
+      // Logic to remove a product from the order
+    
+      // Check if removing the product affects the minimum order value for the current best voucher
+      var totalOrderValue =
+        tongTienTaiQuay -
+        tienGiamGiaTaiQuay +
+        ($scope.tienGiao ? +$scope.tienGiao : 0);
+    
+      if ($scope.bestVoucher && $scope.bestVoucher.priceOrder > totalOrderValue) {
+        // If the minimum order value condition is no longer met, remove the best voucher
+        $scope.bestVoucher = null;
+        // Optionally, you can update the UI to reflect the removal of the voucher
+      }
+    };
+    
+    function calculateDiscount(voucher) {
+      // Calculate the actual discount based on voucher type (% or đ)
+      if (voucher.style == 1) {
+        // Percentage discount
+        return (voucher.price / 100) * tongTienTaiQuay;
+      } else {
+        // Đ discount
+        return voucher.price;
+      }
+    }
+    
+    // Call the function to load vouchers
+    $scope.loadVouchers();
+    
+    
 
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
@@ -1234,7 +1274,7 @@ myApp.controller(
           config // Truyền thông tin token qua config
         )
         .then(function (response) {
-          $window.location.reload();
+          // $window.location.reload();
         });
     };
   }
