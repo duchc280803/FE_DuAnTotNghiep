@@ -582,18 +582,18 @@ myApp.controller(
         });
     };
 
-    var vnpayCalled = false
+    var transactionVnpayCalled = false;
     if (
-      $scope.maGiaoDinh !== null &&
-      $scope.tienCuoiCungVnPay !== null &&
-      !vnpayCalled
+      $scope.maGiaoDinh != null &&
+      $scope.tienCuoiCungVnPay != null &&
+      !transactionVnpayCalled
     ) {
       $scope.createTransactionVnpay();
-      vnpayCalled = true;
+      transactionVnpayCalled = true;
     }
 
     $scope.quayVe = function () {
-      $window.location.href = '#/order-counter';
+      $window.location.href = "#/order-counter";
     };
 
     // TODO: ApiVNPay

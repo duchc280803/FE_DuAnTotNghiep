@@ -13,6 +13,7 @@
                   <span>Mã sản phẩm</span></span>
                 <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm"
                   ng-model="newProduct.maSanPham" />
+                <span style="color: red">{{errorMaSanPham}}</span>
               </div>
             </div>
             <div class="form-group col-md-6">
@@ -21,6 +22,7 @@
                   <span>Tên sản phẩm</span></span>
                 <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm"
                   ng-model="newProduct.productName" />
+                <span style="color: red">{{errorProductName}}</span>
               </div>
             </div>
             <br>
@@ -30,6 +32,7 @@
                   <span>Giá bán</span></span>
                 <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm"
                   ng-model="newProduct.price" />
+                <span style="color: red">{{errorPrice}}</span>
               </div>
             </div>
             <div class="form-group col-md-6" style="padding-top: 10px;">
@@ -38,6 +41,7 @@
                   <span>Bảo hành</span></span>
                 <input type="number" id="form1" class="form-control" placeholder="Bảo hành"
                   ng-model="newProduct.baoHang" />
+                <span style="color: red">{{errorBaoHanh}}</span>
               </div>
             </div>
             <div class="form-group col-md-12 mt-3">
@@ -46,6 +50,7 @@
                   <span>Mô tả</span></span>
                 <textarea id="form1" class="form-control" placeholder="Mô tả"
                   ng-model="newProduct.describe" /></textarea>
+                <span style="color: red">{{errorDescribe}}</span>
               </div>
             </div>
             <div class="form-group col-md-6 mt-3">
@@ -54,9 +59,12 @@
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Thương hiệu</span></span>
                   <select class="form-control" style="width: 435px;" ng-model="newProduct.idBrand">
+                    <option value="">Vui lòng chọn
+                    </option>
                     <option ng-repeat="th in listThuongHieu" value="{{th.id}}">{{th.tenThuongHieu}}
                     </option>
                   </select>
+                  <span style="color: red">{{errorThuognHieu}}</span>
                 </div>
                 <div class="col-lg-2" style="padding-left: 20px;padding-top: 20px;">
                   <div class="input-group-append">
@@ -73,10 +81,13 @@
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Danh mục</span></span>
                   <select class="form-control" style="width: 435px;" ng-model="newProduct.idCategory">
+                    <option value="">Vui lòng chọn
+                    </option>
                     <option ng-repeat="dm in listDanhMuc" value="{{dm.id}}">
                       {{dm.tenDanhMuc}}
                     </option>
                   </select>
+                  <span style="color: red">{{errorDanhMuc}}</span>
                 </div>
                 <div class="col-lg-2" style="padding-left: 20px;padding-top: 20px;">
                   <div class="input-group-append">
@@ -94,10 +105,13 @@
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Kiểu đế</span></span>
                   <select class="form-control" style="width: 435px;" ng-model="newProduct.idKieuDe">
+                    <option value="">Vui lòng chọn
+                    </option>
                     <option ng-repeat="kd in listKieuDe" value="{{kd.id}}">
                       {{kd.tenDe}}
                     </option>
                   </select>
+                  <span style="color: red">{{errorKieuDe}}</span>
                 </div>
                 <div class="col-lg-2" style="padding-left: 20px;padding-top: 20px;">
                   <div class="input-group-append">
@@ -114,10 +128,13 @@
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Xuất xứ</span></span>
                   <select class="form-control" style="width: 435px;" ng-model="newProduct.idXuatXu">
+                    <option value="">Vui lòng chọn
+                    </option>
                     <option ng-repeat="xx in listXuatXu" value="{{xx.id}}">
                       {{xx.tenXuatXu}}
                     </option>
                   </select>
+                  <span style="color: red">{{errorXuatXu}}</span>
                 </div>
                 <div class="col-lg-2" style="padding-left: 20px;padding-top: 20px;">
                   <div class="input-group-append">
