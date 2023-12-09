@@ -83,8 +83,8 @@ myApp.controller(
     setTimeout(() => {
       $scope.deleteOrder = function (event, index) {
         Swal.fire({
-          title: "Xác nhận xóa?",
-          text: "Bạn có chắc chắn muốn xóa hóa đơn này?",
+          title: "Xác nhận hủy?",
+          text: "Bạn có chắc chắn muốn hủy hóa đơn này?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#d33",
@@ -104,7 +104,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Xóa thành công",
+                  title: "hủy thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {

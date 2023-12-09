@@ -14,14 +14,13 @@
       </button>
     </div>
     <div class="col-md-2">
-      <a href="#/hoa-don-history" class="btn btn-danger" style="text-decoration: none; height: 39px">
-        <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+      <a href="#/hoa-don-history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử thao tác
       </a>
     </div>
   </div>
   <div class="row" style="padding: 20px">
     <div class="col-md-3">
-      Loại Đơn :
+      <span>Loại Đơn :</span>
       <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
         <option value="">Tất cả</option>
         <option value="2">Tại quầy</option>
@@ -29,7 +28,7 @@
       </select>
     </div>
     <div ng-hide="!isAdmin" class="col-md-4" style="margin-left: -85px;">
-      Nhân Viên:
+      <span> Nhân Viên:</span>
       <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien"
         ng-change="filterHoaDonByNguoiXacNhan()">
         <option value="">Tất cả</option>
@@ -38,7 +37,6 @@
         </option>
       </select>
     </div>
-
   </div>
 </div>
 <div class="card overflow-hidden">

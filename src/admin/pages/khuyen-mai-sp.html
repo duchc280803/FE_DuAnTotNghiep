@@ -5,15 +5,25 @@
   <hr />
   <div class="box">
     <div class="row" style="padding: 10px">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <input class="form-control" ng-model="key2" ng-change="searchbyMa()" placeholder="Mã khuyến mại"
           style="margin-top: 4px" />
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <input class="form-control" ng-model="key" placeholder="Tên khuyến mại" style="margin-top: 4px"
           ng-change="searchKey()" />
       </div>
-      <div class="col-md-4 d-flex justify-content-start" style="text-align: end">
+      
+    </div>
+    <!-- Thêm vào mục "Bộ lọc" -->
+    <div class="row" style="padding: 10px">
+      <div class="col-lg-4">
+        <input type="date" class="form-control" ng-model="startDate" style="margin-top: 4px" />
+      </div>
+      <div class="col-lg-4">
+        <input type="date" class="form-control" ng-model="endDate" style="margin-top: 4px" />
+      </div>
+      <div class="col-lg-4">
         <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
         <select style="color: green" class="custom-select" ng-model="key3" ng-change="searchStatus()">
           <option value="">Tất cả</option>
@@ -22,36 +32,30 @@
         </select>
       </div>
     </div>
-    <!-- Thêm vào mục "Bộ lọc" -->
-    <div class="row" style="padding: 10px">
-      <div class="col-md-3">
-        <input type="date" class="form-control" ng-model="startDate" style="margin-top: 4px" />
-      </div>
-      <div class="col-md-3">
-        <input type="date" class="form-control" ng-model="endDate" style="margin-top: 4px" />
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-primary" ng-click="searchGiamGia()" style="margin-top: 5px">
+    <div class="row" style="padding: 10px;">
+      <div class="col-lg-2">
+        <button class="btn btn-primary" ng-click="searchGiamGia()">
           Tìm kiếm
         </button>
       </div>
-      <div class="col-md-2">
-        <button class="btn btn-primary" ng-click="refresh()" style="margin-left: -85px;
-        margin-top: 5px;">
+      <div class="col-lg-2">
+        <button class="btn btn-primary" ng-click="refresh()">
           Làm mới
         </button>
       </div>
-      <div class="col-md-2 d-flex justify-content-end" style="margin-top: 5px; margin-left: -119px;">
-        <a class="btn btn-primary" href="#/promotion/product" style="margin-left: -60px;">
+      <div class="col-lg-2">
+        <a class="btn btn-primary" href="#/promotion/product">
           Sản phẩm
         </a>
-        <a href="#/promotion/create" class="btn btn-primary" style="margin-left: 10px">
-          <span style="vertical-align: middle">Tạo Khuyến Mại</span>
+      </div>
+      <div class="col-lg-2">
+        <a href="#/promotion/history" class="btn btn-primary">
+          Lịch sử
         </a>
       </div>
-      <div class="col-md-3" style="margin-top: 40px; margin-bottom: 10px">
-        <a href="#/promotion/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
-          <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+      <div class="col-lg-4">
+        <a href="#/promotion/create" class="btn btn-primary">
+          Tạo Khuyến Mại
         </a>
       </div>
     </div>
@@ -156,56 +160,4 @@
         </ul>
       </nav>
     </div>
-    <table class="table">
-      <thead>
-        <tr style="background-color: antiquewhite">
-          <th scope="col">
-            <input type="checkbox" style="margin-right: 15px" ng-model="selectAllProducts"
-              ng-change="toggleAllProducts()" />
-            {{$index + 1}}
-          </th>
-          <th scope="col">Ảnh sản phẩm</th>
-          <th scope="col">Tên sản phẩm</th>
-          <th scope="col">Đơn giá</th>
-          <th scope="col">Số lượng Giảm giá</th>
-          <th scope="col">Giá sau giảm</th>
-        </tr>
-      </thead>
-      <tbody class="table">
-        <tr ng-repeat="gg in listProduct">
-          <td style="padding-top: 75px">
-            <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
-              ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />
-            {{$index + 1}}
-          </td>
-          <td>
-            <img src="{{gg.image}}" alt="" width="150px" />
-          </td>
-          <td>{{gg.productName}}</td>
-          <td>
-            {{gg.giaBan | number}}₫
-          </td>
-          <td>
-            {{gg.soLanGiam}}
-          </td>
-          <td>
-            {{gg.giaBan - gg.giaGiam | number}}₫
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <nav aria-label="Page navigation example" style="margin-left: 480px">
-    <ul class="pagination">
-      <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
-        <a class="page-link" ng-click="previousPage()">Previous</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link">{{pageNumber + 1}}</a>
-      </li>
-      <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
-        <a class="page-link" ng-click="nextPage()">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>

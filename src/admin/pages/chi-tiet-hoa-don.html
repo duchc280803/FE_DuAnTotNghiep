@@ -21,7 +21,18 @@
     /* Ngăn chặn việc xuống dòng */
     margin-bottom: 20px;
   }
+  .hoa-don:hover {
+      color: red;
+    }
 </style>
+
+<br>
+<div class="row" style="margin-top: -30px;">
+  <div class="col-md-4 mt-2" style="font-size: 16px;">
+    <a class="a_color" href="#order"><span class="hoa-don">Hóa đơn</span></a> / <a class="a_color"><span>Hóa đơn chi
+        tiết</span></a>
+  </div>
+</div>
 <div class="card overflow-hidden" style="width: 1152px">
   <div class="box">
     <div class="scroll-container">
@@ -114,23 +125,19 @@
     <div class="col-lg-6">
       <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit"
         class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#huydon"
-        style="text-decoration: none; height: 39px">
-        <span style="vertical-align: middle">Hủy</span>
+        style="text-decoration: none; height: 39px">Hủy
       </button>
-      <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit"
-        class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
-        style="text-decoration: none; height: 39px">
-        <span style="vertical-align: middle">Xác nhận</span>
+      <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6 && fillMoney.tienShip != null"
+        type="submit" class="btn btn-danger m-1" style="text-decoration: none; height: 39px"
+        ng-click="confirmAction()">Xác nhận
       </button>
       <button ng-show="hoaDonChiTiet.trangThai !== 1 && hoaDonChiTiet.trangThai !== 6" type="submit"
-        class="btn btn-danger m-1" style="text-decoration: none; height: 39px" ng-click="generatePDF()">
-        <span style="vertical-align: middle">In hóa đơn</span>
+        class="btn btn-danger m-1" style="text-decoration: none; height: 39px" ng-click="generatePDF()">In hóa đơn
       </button>
     </div>
     <div class="col-lg-6" style="padding-left: 445px">
       <button type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#lichsutrangthai"
-        style="text-decoration: none; height: 39px">
-        <span style="vertical-align: middle">lịch sử</span>
+        style="text-decoration: none; height: 39px">Lịch sử
       </button>
     </div>
   </div>
@@ -184,24 +191,29 @@
         <span class="header-title"><span style="color: red">*</span><span>Tên khách</span></span>
         <input type="text" class="form-control" placeholder="Tên người nhận"
           ng-model="orderDetailUpdate.hoVatenClient" />
+        <span style="color: red">{{errorHoVatenClient}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Số khách</span></span>
         <input type="text" class="form-control" placeholder="Số điện thoại" ng-model="orderDetailUpdate.sdtClient" />
+        <span style="color: red">{{errorSdtClient}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Email</span></span>
         <input type="text" class="form-control" placeholder="Email" ng-model="orderDetailUpdate.email" />
+        <span style="color: red">{{errorEmail}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Tiền ship</span></span>
         <input type="text" class="form-control" placeholder="Tiền ship" ng-model="orderDetailUpdate.tienShip" />
+        <span style="color: red">{{errorTienShip}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
         <input type="text" class="next-input" placeholder="Địa chỉ" ng-model="orderDetailUpdate.diaChi" />
+        <span style="color: red">{{errorDiaChi}}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ng-click="confirmOrderClient()">
+        <button type="button" class="btn btn-secondary" ng-click="confirmOrderClient()">
           Xác nhận
         </button>
       </div>
@@ -218,16 +230,18 @@
         <span class="header-title"><span style="color: red">*</span><span>Tên người giao</span></span>
         <input type="text" class="form-control" placeholder="Tên người giao"
           ng-model="orderDetailUpdate.tenNguoiGiao" />
+        <span style="color: red">{{errorTenNguoiGiao}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Số người giao</span></span>
         <input type="text" class="form-control" placeholder="Số người giao"
           ng-model="orderDetailUpdate.soDienThoaiGiao" />
+        <span style="color: red">{{errorSoDienThoaiGiao}}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ng-click="confirmOrderdeliver()">
+        <button type="button" class="btn btn-secondary" ng-click="confirmOrderdeliver()">
           Xác nhận
         </button>
       </div>
@@ -244,6 +258,7 @@
         <div class="modal-body-item">
           <span class="header-title"><span style="color: red">*</span> <span>Nhập ghi chú</span></span>
           <input type="text" class="form-control" placeholder="Ghi chú" ng-model="newStatusOrder.ghiChu" />
+          <span style="color: red">{{errorGhiChu}}</span>
           <br />
           <div>
             <h6 class="text">Trạng thái:</h6>
@@ -269,7 +284,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
+        <button type="button" class="btn btn-outline-danger m-1" data-bs-dismiss="modal"
           ng-click="comfirmStatusOrder()">
           Xác nhận
         </button>
@@ -338,8 +353,8 @@
       <tr style="border: 1px solid #ccc; background-color: lightskyblue">
         <th scope="col">STT</th>
         <th scope="col">Mã giao dịnh</th>
-        <th scope="col">Loại thanh toán</th>
-        <th scope="col">Số tiền khách trả</th>
+        <th scope="col">Thanh toán</th>
+        <th scope="col">Số tiền</th>
         <th scope="col">Thời gian</th>
         <th scope="col">Hình thức thanh toán</th>
         <th scope="col">Ghi chú</th>
@@ -417,11 +432,11 @@
       <div class="why">
         <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="submit"
           class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
-          <span style=" vertical-align: middle">Cập nhập</span>
+          Cập nhập
         </button>
         <button ng-show="hoaDonChiTiet.trangThai == 3" type="submit" class="btn btn-danger m-1" data-bs-toggle="modal"
           data-bs-target="#updateNguoiGiao">
-          <span style=" vertical-align: middle">Cập nhập</span>
+          Cập nhập
         </button>
       </div>
     </div>
@@ -578,16 +593,18 @@
               class="next-input text-left min-width-100px position-relative" min="1"
               ng-model="newOrderDetail.soLuong" />
           </div>
+          <span style="color: red">{{errorSoLuong}}</span>
+          <br>
           <span class="header-title"><span style="color: red">*</span> <span>Ghi chú</span></span>
           <textarea style="height: 80px" type="text" class="next-input" placeholder="Nhập ghi chú"
             ng-model="newOrderDetail.ghiChu"></textarea>
+          <span style="color: red">{{errorGhiChu}}</span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-            ng-click="traHang(fillProductTraHang.id)">
+          <button type="button" class="btn btn-danger" ng-click="traHang(fillProductTraHang.id)">
             Trả hàng
           </button>
         </div>

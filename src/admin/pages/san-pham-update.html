@@ -33,7 +33,8 @@
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mã sản phẩm</span></span>
                     <input type="text" id="form1" class="form-control" placeholder="Mã sản phẩm"
-                      ng-model="product.ma" />
+                      ng-model="product.maSanPham" />
+                    <span style="color: red">{{errorMaSanPham}}</span>
                   </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -41,7 +42,8 @@
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Tên sản phẩm</span></span>
                     <input type="text" id="form1" class="form-control" placeholder="Tên sản phẩm"
-                      ng-model="product.ten" />
+                      ng-model="product.productName" />
+                    <span style="color: red">{{errorProductName}}</span>
                   </div>
                 </div>
                 <br>
@@ -50,7 +52,8 @@
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Giá bán</span></span>
                     <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm"
-                      ng-model="product.giaBan" />
+                      ng-model="product.price" />
+                    <span style="color: red">{{errorPrice}}</span>
                   </div>
                 </div>
                 <div class="form-group col-md-6" style="padding-top: 10px;">
@@ -59,56 +62,76 @@
                       <span>Bảo hành</span></span>
                     <input type="number" id="form1" class="form-control" placeholder="Bảo hành"
                       ng-model="product.baoHang" />
+                    <span style="color: red">{{errorBaoHanh}}</span>
                   </div>
                 </div>
                 <div class="form-group col-md-12 mt-3">
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mô tả</span></span>
-                    <textarea id="form1" class="form-control" placeholder="Mô tả" ng-model="product.mota" /></textarea>
+                    <textarea id="form1" class="form-control" placeholder="Mô tả"
+                      ng-model="product.describe" /></textarea>
+                    <span style="color: red">{{errorDescribe}}</span>
                   </div>
                 </div>
                 <div class="form-group col-md-6 mt-3">
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Xuất xứ</span></span>
                   <div class="input-group">
-                    <select class="form-control" ng-model="product.tenXuatXu">
-                      </option>
-                      <option ng-repeat="xx in listXuatXu" value="{{xx.id}}">
+                    <select class="form-control" ng-model="product.idXuatXu">
+                      <option ng-repeat="xx in listXuatXu" ng-selected="xx.tenXuatXu === product.tenXuatXu"
+                        ng-init="product.idXuatXu = (xx.tenXuatXu === product.tenXuatXu) ? xx.id : product.idXuatXu"
+                        value="{{xx.id}}">
                         {{xx.tenXuatXu}}
                       </option>
                     </select>
                   </div>
+                  <span style="color: red">{{errorXuatXu}}</span>
                 </div>
                 <div class="form-group col-md-6 mt-3">
-                  <span class="header-title"><span style="color: red">*</span>
-                    <span>Danh mục</span></span>
+                  <span class="header-title">
+                    <span style="color: red">*</span>
+                    <span>Danh mục</span>
+                  </span>
                   <div class="input-group">
-                    <select class="form-control" ng-model="product.tenDanhMuc">
-                      <option ng-repeat="dm in listDanhMuc" value="{{dm.id}}">{{dm.tenDanhMuc}}</option>
+                    <select class="form-control" ng-model="product.idCategory">
+                      <option ng-repeat="dm in listDanhMuc" ng-selected="dm.tenDanhMuc === product.tenDanhMuc"
+                        ng-init="product.idCategory = (dm.tenDanhMuc === product.tenDanhMuc) ? dm.id : product.idCategory"
+                        value="{{dm.id}}">
+                        {{dm.tenDanhMuc}}
+                      </option>
                     </select>
                   </div>
+                  <span style="color: red">{{errorDanhMuc}}</span>
                 </div>
                 <div class="form-group col-md-6 mt-3">
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Kiểu đế</span></span>
                   <div class="input-group">
-                    <select class="form-control" ng-model="product.tenKieuDe">
-                      <option ng-repeat="kd in listKieuDe" value="{{kd.id}}">
+                    <select class="form-control" ng-model="product.idKieuDe">
+                      <option ng-repeat="kd in listKieuDe"
+                        ng-init="product.idKieuDe = (kd.tenDe === product.tenKieuDe) ? kd.id : product.idKieuDe"
+                        ng-selected="kd.tenDe === product.tenDe" value="{{kd.id}}">
                         {{kd.tenDe}}
                       </option>
                     </select>
                   </div>
+                  <span style="color: red">{{errorKieuDe}}</span>
                 </div>
                 <div class="form-group col-md-6 mt-3">
                   <span class="header-title"><span style="color: red">*</span>
                     <span>Thương hiệu</span>
                   </span>
                   <div class="input-group">
-                    <select class="form-control" ng-model="product.tenThuongHieu">
-                      <option ng-repeat="th in listThuongHieu" value="{{th.id}}">{{th.tenThuongHieu}}</option>
+                    <select class="form-control" ng-model="product.idBrand">
+                      <option ng-repeat="th in listThuongHieu" ng-selected="th.tenThuongHieu === product.tenThuongHieu"
+                        ng-init="product.idBrand = (th.tenThuongHieu === product.tenThuongHieu) ? th.id : product.idBrand"
+                        value="{{th.id}}">
+                        {{th.tenThuongHieu}}
+                      </option>
                     </select>
                   </div>
+                  <span style="color: red">{{errorThuognHieu}}</span>
                 </div>
               </div>
               <br>

@@ -3,16 +3,6 @@ myApp.controller(
   function ($scope, $http, $routeParams, $window) {
     var id = $routeParams.id;
 
-    $scope.product = {};
-    $scope.getProduct = function () {
-      $http
-        .get("http://localhost:8080/api/v1/san-pham/product/" + id)
-        .then(function (response) {
-          $scope.product = response.data;
-        });
-    };
-    $scope.getProduct();
-
     $scope.productDetail = [];
     $scope.getProductDetail = function () {
       $http
@@ -151,10 +141,11 @@ myApp.controller(
       };
     }, 2000);
 
+    $scope.product = {};
     setTimeout(() => {
       $scope.updateProduct = function () {
         Swal.fire({
-          title: "Bạn có muốn thêm mới không?",
+          title: "Bạn có muốn update không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -166,9 +157,10 @@ myApp.controller(
           $http
             .put(
               "http://localhost:8080/api/v1/san-pham/update?id=" + id,
-              $scope.newProductDetail
+              $scope.product
             )
             .then(function (response) {
+              $scope.getProduct();
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -194,6 +186,15 @@ myApp.controller(
         });
       };
     });
+
+    $scope.getProduct = function () {
+      $http
+        .get("http://localhost:8080/api/v1/san-pham/product/" + id)
+        .then(function (response) {
+          $scope.product = response.data;
+        });
+    };
+    $scope.getProduct();
 
     setTimeout(() => {
       $scope.updateStatusKichHoat = function (id) {

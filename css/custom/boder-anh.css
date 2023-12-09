@@ -14,3 +14,14 @@
 .small-popup {
   font-size: 10px; 
 }
+span {
+  color: black;
+  font-weight: bold;
+}
+a.sidebar-link {
+  color: black;
+  font-weight: bold;
+}
+table.table {
+  color: black;
+}
