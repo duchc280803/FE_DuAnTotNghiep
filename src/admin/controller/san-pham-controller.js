@@ -1,13 +1,46 @@
-myApp.controller("sanPhamController", function ($http, $scope, $window, $sce) {
+myApp.controller("sanPhamController", function ($http, $scope, $window) {
   $scope.listSanPham = [];
+  $scope.pageNumber = 0;
+  $scope.pageSize = 20;
   $scope.filterSanPham = function () {
     $http
-      .get("http://localhost:8080/api/v1/san-pham/hien-thi")
+      .get(
+        "http://localhost:8080/api/v1/san-pham/hien-thi?pageNumber=" +
+          $scope.pageNumber +
+          "&pageSize=" +
+          $scope.pageSize
+      )
       .then(function (response) {
         $scope.listSanPham = response.data;
+        if ($scope.listSanPham.length < $scope.pageSize) {
+          $scope.showNextButton = false; // Ẩn nút "Next"
+        } else {
+          $scope.showNextButton = true; // Hiển thị nút "Next"
+        }
       });
   };
+
   $scope.filterSanPham();
+
+  $scope.updatePage = function (pageNumber) {
+    $scope.pageNumber = pageNumber;
+    $scope.filterSanPham();
+  };
+
+  // TODO: Quay lại trang
+  $scope.previousPage = function () {
+    if ($scope.pageNumber > 0) {
+      $scope.pageNumber--;
+      $scope.filterSanPham();
+    }
+  };
+
+  // TODO: tiến đến trang khác
+  $scope.nextPage = function () {
+    $scope.pageNumber++;
+    $scope.filterSanPham();
+  };
+  
   $scope.formatMa = function (username) {
     // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
     if (username && username.includes(",")) {
@@ -234,9 +267,10 @@ myApp.controller("sanPhamController", function ($http, $scope, $window, $sce) {
               },
             });
             window.location.href =
-              "http://127.0.0.1:5505/src/admin/index-admin.html#/product-update/" +
+              "http://127.0.0.1:5505/src/admin/index-admin.html#/product-detail/create/" +
               response.data.id;
-          }).catch(function (error) {
+          })
+          .catch(function (error) {
             $scope.errorMaSanPham = error.data.maSanPham;
             $scope.errorProductName = error.data.productName;
             $scope.errorDescribe = error.data.describe;

@@ -23,12 +23,23 @@ myApp.controller(
 
     // Gọi hàm để lấy dữ liệu chi tiết hoá đơn dựa trên `id`
     $scope.hoaDonChiTiet = {};
+    $scope.thongBaoLoi = false;
     $scope.getHoaDonChiTiet = function () {
       const apiUrl =
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" + id;
       $http.get(apiUrl).then(function (response) {
         $scope.hoaDonChiTiet = response.data;
+        if (
+          $scope.hoaDonChiTiet.trangThai == 3 &&
+          $scope.hoaDonChiTiet.tenNguoiShip == null &&
+          $scope.hoaDonChiTiet.sdtNguoiShip == null
+        ) {
+          $scope.thongBaoLoi = true;
+        }else {
+          $scope.thongBaoLoi = false;
+        }
       });
+      $scope.thongBaoLoi = true; 
     };
     $scope.getHoaDonChiTiet();
 
@@ -139,11 +150,30 @@ myApp.controller(
       };
     }, 2000);
 
+    $scope.confirmAction = function () {
+      if ($scope.thongBaoLoi) {
+        $scope.thongBaoLoiGiao();
+      } else {
+        $("#exampleModal").modal("show"); // Mở modal
+      }
+    };
+
+    $scope.thongBaoLoiGiao = function () {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Vui lòng cập nhập người giao",
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+          popup: "small-popup",
+        },
+      });
+    };
     $scope.newStatusOrder = {
       ghiChu: "",
       newTrangThai: "",
     };
-
     setTimeout(() => {
       $scope.comfirmStatusOrder = function () {
         Swal.fire({
@@ -180,7 +210,10 @@ myApp.controller(
                 $scope.selectMoney(id);
                 $scope.getTongTienHang();
                 $scope.getOrderDetailUpdate();
-                $window.location.reload();
+                // $window.location.reload();
+              })
+              .catch(function (error) {
+                $scope.errorGhiChu = error.data.ghiChu;
               });
           }
         });
@@ -216,7 +249,32 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                $window.location.reload();
+                $("#updateGiao").modal("hide");
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Cập nhập thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                });
+                $scope.getHoaDonChiTiet();
+                $scope.getSanPham();
+                $scope.getlichSuThanhToan();
+                $scope.getlichSuThayDoi();
+                $scope.selectMoney(id);
+                $scope.getTongTienHang();
+                $scope.getOrderDetailUpdate();
+              })
+              .catch(function (error) {
+                console.log(error);
+                $scope.errorTienShip = error.data.tienShip;
+                $scope.errorDiaChi = error.data.diaChi;
+                $scope.errorHoVatenClient = error.data.hoVatenClient;
+                $scope.errorEmail = error.data.email;
+                $scope.errorSdtClient = error.data.sdtClient;
               });
           }
         });
@@ -243,6 +301,17 @@ myApp.controller(
                 $scope.orderDetailUpdate
               )
               .then(function (response) {
+                $("#updateNguoiGiao").modal("hide");
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Cập nhập thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                });
                 $scope.getHoaDonChiTiet();
                 $scope.getSanPham();
                 $scope.getlichSuThanhToan();
@@ -250,7 +319,10 @@ myApp.controller(
                 $scope.selectMoney(id);
                 $scope.getTongTienHang();
                 $scope.getOrderDetailUpdate();
-                $window.location.reload();
+              })
+              .catch(function (error) {
+                $scope.errorTenNguoiGiao = error.data.tenNguoiGiao;
+                $scope.errorSoDienThoaiGiao = error.data.soDienThoaiGiao;
               });
           }
         });
@@ -650,6 +722,17 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
+                $("#oki").modal("hide");
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Trả hàng thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                });
                 $scope.getlichSuThanhToan();
                 $scope.getHoaDonChiTiet();
                 $scope.getSanPham();
@@ -657,7 +740,10 @@ myApp.controller(
                 $scope.selectMoney(id);
                 $scope.getTongTienHang();
                 $scope.getOrderDetailUpdate();
-                $window.location.reload();
+                
+              }).catch(function(error) {
+                $scope.errorSoLuong = error.data.soLuong;
+                $scope.errorGhiChu = error.data.ghiChu;
               });
           }
         });

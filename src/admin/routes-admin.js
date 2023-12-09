@@ -86,6 +86,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/sanphamchitiet.html",
       controller: "sanPhamChiTietController",
     })
+    .when("/product-detail/create/:id", {
+      templateUrl: "./pages/them-san-pham-chi-tiet.html",
+      controller: "sanPhamChiTietCreateController",
+    })
     .when("/product", {
       templateUrl: "./pages/san-pham.html",
       controller: "sanPhamController",

@@ -213,7 +213,22 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
           $scope.selectedId
       )
       .then(function (response) {
-        fetchHoaDonHistortyList();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Cập nhập thành công",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            popup: "small-popup",
+          },
+        });
+        $scope.fetchHoaDon(
+          $scope.selectedTrangThai,
+          $scope.selectedLoaiDon,
+          $scope.selectedTenNhanVien,
+          $scope.pageNumber
+        );
       });
   };
 });
