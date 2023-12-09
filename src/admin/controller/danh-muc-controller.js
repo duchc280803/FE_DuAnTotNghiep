@@ -113,10 +113,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -162,10 +163,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -208,10 +210,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var deleteUrl =

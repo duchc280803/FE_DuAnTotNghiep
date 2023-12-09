@@ -1,6 +1,6 @@
 myApp.controller(
   "chatLieuController",
-  function ($http, $scope, $location, $window, $sce) {
+  function ($http, $scope, $location, $window) {
     $scope.listChatLieu = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -113,10 +113,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -155,51 +156,53 @@ myApp.controller(
     }, 2000);
 
     $scope.newChatLieu = {};
-    setTimeout(() => {
-      $scope.createChatLieu = function () {
-        Swal.fire({
-          title: "Bạn có muốn thêm mới không?",
-          text: "",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
-        }).then((result) => {
-          if (result.isConfirmed) {
-            var token = $window.localStorage.getItem("token");
-
-            var config = {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            };
-            $http
-              .post(
-                "http://localhost:8080/api/v1/chat-lieu/create",
-                $scope.newChatLieu,
-                config
-              )
-              .then(function (response) {
-                $scope.listChatLieu.push(response.data);
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Thêm thành công",
-                  showConfirmButton: false,
-                  timer: 1500,
-                  customClass: {
-                    popup: "small-popup", // Add a class to the message
-                  },
-                }).then(() => {
-                  chatLieuList($scope.selectedTrangThai, $scope.pageNumber);
-                });
+    $scope.createChatLieu = function () {
+      Swal.fire({
+        title: "Bạn có muốn thêm mới không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy bỏ",
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Có",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var token = $window.localStorage.getItem("token");
+          var config = {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
+          $http
+            .post(
+              "http://localhost:8080/api/v1/chat-lieu/create",
+              $scope.newChatLieu,
+              config
+            )
+            .then(function (response) {
+              $("#themChatLieu").modal("hide"); // Đóng modal khi thêm thành công
+              $scope.newChatLieu = {};
+              $scope.listChatLieu.push(response.data);
+              chatLieuList($scope.selectedTrangThai, $scope.pageNumber);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup",
+                },
               });
-          }
-        });
-      };
-    }, 2000);
+            }).catch(function(error) {
+              $scope.errorTenChatLieu = error.data.tenChatLieu;
+              $scope.errorTrangThai = error.data.trangThai;
+            });
+        }
+      });
+    };
 
     setTimeout(() => {
       $scope.deleteChatLieu = function (id) {
@@ -208,10 +211,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var deleteUrl =

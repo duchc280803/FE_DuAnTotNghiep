@@ -40,7 +40,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     $scope.pageNumber++;
     $scope.filterSanPham();
   };
-  
+
   $scope.formatMa = function (username) {
     // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
     if (username && username.includes(",")) {
@@ -243,9 +243,10 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         text: "",
         icon: "question",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         $http
@@ -293,9 +294,10 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         text: "",
         icon: "question",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         $http
@@ -330,9 +332,10 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         text: "",
         icon: "question",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         $http
@@ -364,9 +367,10 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         text: "",
         icon: "question",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         $http
@@ -401,9 +405,10 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         text: "",
         icon: "question",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {

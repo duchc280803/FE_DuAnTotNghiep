@@ -4,14 +4,14 @@
       <div class="card-body">
         <div class="row">
           <div class="form-group col-md-4">
-            <label for="simple-select2">Tìm kiếm</label>
+            <span>Tìm kiếm</span>
             <div class="form-outline">
               <input type="search" id="form1" class="form-control" ng-model="searchQuery" />
             </div>
           </div> <!-- form-group -->
 
           <div class="form-group col-md-4">
-            <label for="simple-select2">Trạng thái</label>
+            <span>Trạng thái</span>
             <select class="form-control select2" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
               id="simple-select2">
               <option value="">Tất cả</option>
@@ -25,10 +25,8 @@
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="searchXuatXu()">Tìm kiếm</button>
               <button class="btn btn-danger" ng-click="clearSearch()">Làm mới bộ lọc</button>
-            </div>
-            <div class="col-md-3" style="margin-top: 20px; margin-bottom: 10px; width: 150px;">
               <a href="#/origin/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
-                <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+                Lịch sử thao tác
               </a>
             </div>
           </div> <!-- form-group -->
@@ -37,18 +35,13 @@
     </div> <!-- / .card -->
   </div> <!-- .col-12 -->
 </div> <!-- row justify-content-center -->
-
-
 <div class="row justify-content-center">
   <div class="col-12">
-
-    <!-- table -->
     <div class="card shadow">
-
       <div class="card-body">
         <div class="row align-items-center my-4">
           <div class="col">
-            <h2 class="h3 mb-0 page-title">Danh sách xuất xứ</h2>
+            <span style="font-size: 20px;">Danh sách xuất xứ</span>
           </div>
           <div class="col-auto">
             <div class="input-group-append ml-3">
@@ -56,48 +49,47 @@
                 Tạo xuất xứ
               </button>
             </div>
-
           </div>
         </div>
         <table class="table table-borderless table-hover">
           <thead>
             <tr>
               <th>
-                <p class="mb-0 text-muted"><strong>STT</strong></p>
+              STT
               </th>
               <th>
-                <p class="mb-0 text-muted"><strong>Tên xuất xứ</strong></p>
+              Tên xuất xứ
               </th>
               <th>
-                <p class="mb-0 text-muted"><strong>Trạng thái</strong></p>
+              Trạng thái
               </th>
               <th>
-                <p class="mb-0 text-muted"><strong>Ngày tạo</strong></p>
+              Ngày tạo
               </th>
               <th>
-                <p class="mb-0 text-muted"><strong>Ngày cập nhật</strong></p>
+              Ngày cập nhật
               </th>
               <th>
-                <p class="mb-0 text-muted"><strong>Hành động</strong></p>
+              Hành động
               </th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="th in listXuatXu">
               <td>
-                <small class="mb-0 text-muted ">{{$index + 1}}</small>
+                {{$index + 1}}
               </td>
               <td>
-                <small class="mb-0 text-muted ">{{th.tenXuatXu}}</small>
+                {{th.tenXuatXu}}
               </td>
               <td>
-                <small>{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}</small>
+                <small>{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}
               </td>
               <td>
-                <small class="mb-0 text-muted ">{{th.ngayTao | date:'MM/dd/yyyy'}}</small>
+                {{th.ngayTao | date:'MM/dd/yyyy'}}
               </td>
               <td>
-                <small class="mb-0 text-muted ">{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</small>
+                {{th.ngayCapNhat | date:'MM/dd/yyyy'}}
               </td>
               <td>
                 <button class="btn btn-warning" ng-click="deleteXuatXu(th.id)"><img width="25px"

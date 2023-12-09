@@ -12,7 +12,8 @@
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="findByNameOrCode()">Tìm kiếm</button>
               <button class="btn btn-warning">Làm mới</button>
-              <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử thao tác
+              <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử
+                thao tác
               </a>
             </div>
           </div> <!-- form-group -->
@@ -24,7 +25,7 @@
             </div>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-3">
-            <label for="simple-select2">Danh mục</label>
+            <span>Danh mục</span>
             <select class="form-control select2" id="simple-select2" ng-model="danhMuc" ng-change="findByDanhMuc()">
               <option value="">Tất cả
               </option>
@@ -34,7 +35,7 @@
             </select>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-3">
-            <label for="simple-select2">Thương hiệu</label>
+            <span>Thương hiệu</span>
             <select class="form-control select2" id="simple-select2" ng-model="thuongHieu"
               ng-change="findByThuongHieu()">
               <option value="">Tất cả
@@ -44,7 +45,7 @@
             </select>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-3">
-            <label for="simple-select2">Xuất xứ</label>
+            <span>Xuất xứ</span>
             <select class="form-control select2" id="simple-select2" ng-model="xuatXu" ng-change="findByXuatXu()">
               <option value="">Tất cả</option>
               <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
@@ -53,7 +54,7 @@
             </select>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-3">
-            <label for="simple-select2">Kiểu đế</label>
+            <span>Kiểu đế</span>
             <select class="form-control select2" id="simple-select2" ng-model="kieuDe" ng-change="findByKieuDe()">
               <option value="">Tất cả</option>
               <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
@@ -62,7 +63,7 @@
             </select>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-3">
-            <label for="simple-select2">Trạng thái</label>
+            <span>Trạng thái</span>
             <select class="form-control select2" id="simple-select2" ng-model="status" ng-change="findByStatus()">
               <option value="">Tất cả</option>
               <option value="1">Đang bán</option>
@@ -75,55 +76,54 @@
         <thead>
           <tr>
             <th>
-              <p class="mb-0 text-muted"><strong>STT</strong></p>
+              STT
             </th>
             <th>
-              <p class="mb-0 text-muted"><strong>Ảnh</strong></p>
+              Ảnh
             </th>
             <th>
-              <p class="mb-0 text-muted"><strong>Mã sản phẩm</strong></p>
+              Mã sản phẩm
+            </th>
+            <th style="width: 325px;">
+              Tên sản phẩm
             </th>
             <th>
-              <p class="mb-0 text-muted"><strong>Tên sản phẩm</strong></p>
+              Giá
             </th>
             <th>
-              <p class="mb-0 text-muted"><strong>Giá</strong></p>
+              Ngày tạo
             </th>
             <th>
-              <p class="mb-0 text-muted"><strong>Ngày tạo</strong></p>
+              Trạng thái
             </th>
             <th>
-              <p class="mb-0 text-muted"><strong>Trạng thái</strong></p>
-            </th>
-            <th>
-              <p class="mb-0 text-muted"><strong>Hành động</strong></p>
+              Hành động
             </th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="sp in listSanPham">
             <td>
-              <small class="mb-0 text-muted ">{{$index + 1}}</small>
+              {{$index + 1}}
             </td>
             <td>
-              <small class="mb-0 text-muted ">
-                <img width="50px" src="/assets/ảnh giày/{{sp.image}}" alt="">
+              <img width="50px" src="/assets/ảnh giày/{{sp.image}}" alt="">
               </small>
             </td>
             <td>
-              <small class="mb-0 text-muted ">{{sp.maSanPham}}</small>
+              {{sp.maSanPham}}</small>
             </td>
             <td>
-              <small class="mb-0 text-muted ">{{sp.tenSanPham}}</small>
+              {{sp.tenSanPham}}</small>
             </td>
             <td>
-              <small class="mb-0 text-muted ">{{sp.giaBan.toLocaleString('vi-VN')}}đ</small>
+              {{sp.giaBan.toLocaleString('vi-VN')}}đ</small>
             </td>
             <td>
-              <small class="mb-0 text-muted ">{{sp.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</small>
+              {{sp.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</small>
             </td>
             <td>
-              <small class="mb-0 text-muted ">{{sp.trangThai == 1 ? 'Đang bán' : 'Ngừng bán'}}</small>
+              {{sp.trangThai == 1 ? 'Đang bán' : 'Ngừng bán'}}</small>
             </td>
             <td>
               <a href="#/product-detail/{{sp.id}}" class="btn btn-outline-primary ">Chi tiết</a>
@@ -131,7 +131,7 @@
           </tr>
         </tbody>
       </table>
-      <nav aria-label="Page navigation example" style="margin-left: 530px">
+      <nav aria-span="Page navigation example" style="margin-left: 530px">
         <ul class="pagination">
           <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
             <a class="page-link" ng-click="previousPage()">Previous</a>
