@@ -1175,7 +1175,7 @@ myApp.controller(
 
     $scope.listVoucher = [];
     $scope.bestVoucher = null;
-    
+
     // Function to load vouchers
     $scope.loadVouchers = function () {
       $http
@@ -1185,47 +1185,57 @@ myApp.controller(
           $scope.findBestVoucher();
         });
     };
-    
+
     // Function to find the best voucher
     $scope.findBestVoucher = function () {
       var totalOrderValue =
         tongTienTaiQuay -
         tienGiamGiaTaiQuay +
         ($scope.tienGiao ? +$scope.tienGiao : 0);
-    
-      $scope.bestVoucher = $scope.listVoucher.reduce(function (maxVoucher, voucher) {
+
+      $scope.bestVoucher = $scope.listVoucher.reduce(function (
+        maxVoucher,
+        voucher
+      ) {
         if (voucher.priceOrder <= totalOrderValue) {
           // Compare discounts based on their types
-          if (!maxVoucher || calculateDiscount(voucher) >= calculateDiscount(maxVoucher)) {
+          if (
+            !maxVoucher ||
+            calculateDiscount(voucher) >= calculateDiscount(maxVoucher)
+          ) {
             return voucher;
           }
         }
         return maxVoucher;
-      }, null);
-    
+      },
+      null);
+
       // If a valid voucher is found, you can apply it here
       if ($scope.bestVoucher) {
         $scope.updateOrder($scope.bestVoucher.id, totalOrderValue);
       }
     };
-    
+
     // Function to handle product removal
     $scope.removeProduct = function () {
       // Logic to remove a product from the order
-    
+
       // Check if removing the product affects the minimum order value for the current best voucher
       var totalOrderValue =
         tongTienTaiQuay -
         tienGiamGiaTaiQuay +
         ($scope.tienGiao ? +$scope.tienGiao : 0);
-    
-      if ($scope.bestVoucher && $scope.bestVoucher.priceOrder > totalOrderValue) {
+
+      if (
+        $scope.bestVoucher &&
+        $scope.bestVoucher.priceOrder > totalOrderValue
+      ) {
         // If the minimum order value condition is no longer met, remove the best voucher
         $scope.bestVoucher = null;
         // Optionally, you can update the UI to reflect the removal of the voucher
       }
     };
-    
+
     function calculateDiscount(voucher) {
       // Calculate the actual discount based on voucher type (% or đ)
       if (voucher.style == 1) {
@@ -1236,11 +1246,9 @@ myApp.controller(
         return voucher.price;
       }
     }
-    
+
     // Call the function to load vouchers
     $scope.loadVouchers();
-    
-    
 
     $scope.voucherName = "";
     $scope.getVoucherName = function () {

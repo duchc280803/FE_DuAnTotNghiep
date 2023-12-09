@@ -80,6 +80,7 @@ myApp.controller(
                 $scope.newProductDetail = {};
                 $scope.productDetail.push(response.data);
                 $("#productDetailModal").modal("hide");
+                $scope.getProductDetail();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -89,9 +90,7 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
-                }).then(() => {
-                  $scope.getProductDetail();
-                });
+                })
               })
               .catch(function (error) {
                 $scope.errorSoLuong = error.data.soLuong;

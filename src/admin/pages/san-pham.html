@@ -12,8 +12,7 @@
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="findByNameOrCode()">Tìm kiếm</button>
               <button class="btn btn-warning">Làm mới</button>
-              <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
-                <span style="vertical-align: middle" class="hide-menu">Lịch sử thao tác</span>
+              <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử thao tác
               </a>
             </div>
           </div> <!-- form-group -->
@@ -132,13 +131,17 @@
           </tr>
         </tbody>
       </table>
-      <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
-        <ul class="pagination mb-0">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      <nav aria-label="Page navigation example" style="margin-left: 530px">
+        <ul class="pagination">
+          <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+            <a class="page-link" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{pageNumber + 1}}</a>
+          </li>
+          <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+            <a class="page-link" ng-click="nextPage()">Next</a>
+          </li>
         </ul>
       </nav>
     </div>
