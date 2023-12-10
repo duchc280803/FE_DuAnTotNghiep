@@ -269,7 +269,7 @@ myApp.controller(
                 $scope.getOrderDetailUpdate();
               })
               .catch(function (error) {
-                console.log(error);
+                console.log(error.data);
                 $scope.errorTienShip = error.data.tienShip;
                 $scope.errorDiaChi = error.data.diaChi;
                 $scope.errorHoVatenClient = error.data.hoVatenClient;

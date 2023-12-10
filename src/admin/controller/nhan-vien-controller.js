@@ -130,7 +130,7 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
       transformRequest: function (data) {
         var formData = new FormData();
         formData.append("file", data.file);
-        formData.append("ten", data.ten);
+        formData.append("fullName", data.fullName);
         formData.append("email", data.email);
         formData.append("soDienThoai", data.soDienThoai);
         formData.append("gioiTinh", data.gioiTinh);
@@ -144,7 +144,7 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
       },
       data: {
         file: yourFile,
-        ten: $scope.ten,
+        fullName: $scope.ten,
         email: $scope.email,
         soDienThoai: $scope.soDienThoai,
         gioiTinh: $scope.gioiTinh,
