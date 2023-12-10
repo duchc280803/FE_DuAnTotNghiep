@@ -27,6 +27,11 @@ myApp.controller(
     }
 
     $scope.updateKhachHang = function () {
+      var selectedImage = document.getElementById('selectedImage');
+      if (selectedImage.src === "") {
+        alert("Vui lòng chọn ảnh trước khi cập nhật.");
+        return;
+    }
       var yourFile = document.getElementById("fileInput").files[0];
       $http({
         method: "PUT",
