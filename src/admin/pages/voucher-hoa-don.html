@@ -1,0 +1,89 @@
+<div class="card overflow-hidden" style="min-height: 120px">
+  <div class="box">
+    <div class="row" style="padding-top: 25px; padding-left: 60px">
+      <!-- HTML Template -->
+      <div class="col-md-2">
+        <span style="height: 7px; margin-left: -40px; font-weight: bold">
+          Nhập mã, tên voucher
+        </span>
+        <input class="form-control" placeholder="Tìm khuyến mãi" ng-model="key" ng-change="searchKey()"
+          style="width: 220px; margin-left: -42px; font-weight: bold" />
+      </div>
+      <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px;">
+        <span class="text" style="padding-top: 10px">Trạng thái:</span>
+        <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai" ng-change="searchStatus()" id="simple-select2">
+          <option value="">Tất cả</option>
+          <option value="1">Còn Hiệu Lực </option>
+          <option value="2">Hết Hiệu Lực</option>
+        </select>
+      </div>
+      <div class="col-md-7" style="margin-top: 20px;">
+        <button class="btn btn-warning" style="height: 39px; margin-left: 10px">
+          Làm Mới
+        </button>
+        <a href="#/voucher/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
+          Lịch sử thao tác
+        </a>
+        <a href="#/voucher/create" class="btn btn-primary" style="text-decoration: none; height: 39px">
+          Thêm voucher
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card overflow-hidden">
+  <div class="box">
+    <table class="table">
+      <thead>
+        <tr style="background-color: #42bcf5; font-weight: bold">
+          <th scope="col">STT</th>
+          <th scope="col">Mã voucher</th>
+          <th scope="col">Tên voucher</th>
+          <th scope="col">Đơn tối thiểu</th>
+          <th scope="col">Giá giảm</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col" style="width: 345px; padding-left: 165px">
+            Thời gian
+          </th>
+          <th scope="col">Trạng Thai</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="gg in listVoucher">
+          <td>{{$index + 1}}</td>
+          <td>{{gg.maVoucher}}</td>
+          <td>{{gg.tenVoucher}}</td>
+          <td>{{gg.giaTriToiThieuDonhang.toLocaleString('vi-VN')}}đ</td>
+          <td>
+            {{gg.giaTriGiam.toLocaleString('vi-VN')}}{{gg.hinhThucGiam == 1 ? '%' : 'đ'}}
+          </td>
+          <td>
+            {{gg.soLuongDung == null ? 0 : gg.soLuongDung }} / {{gg.soLuongMa}}
+          </td>
+          <td style="padding-left: 25px;">
+            {{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss a'}} - {{gg.ngayKetThuc
+            | date:'dd/MM/yyyy HH:mm:ss a'}}
+          </td>
+          <td>{{gg.trangThai == 1 ? 'Còn hạn':'Hết hạn'}}</td>
+          <td>
+            <a href="#/voucher/update/{{gg.id}}" class="btn btn-primary">Sửa</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav aria-label="Page navigation example" style="margin-left: 480px">
+    <ul class="pagination">
+      <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+        <a class="page-link" ng-click="previousPage()">Previous</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link">{{pageNumber + 1}}</a>
+      </li>
+      <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+        <a class="page-link" ng-click="nextPage()">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

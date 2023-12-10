@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<style>
+  /* Left box */
+  .view-account {
+    width: 99%;
+    background: #fff;
+    padding: 20px 30px;
+    margin: 0 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile {
+    width: 100%;
+    background: #fff;
+    padding: 20px 30px;
+    margin: 0 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Style for the circular image */
+  .profile-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    /* Đảm bảo ảnh không bị cắt */
+    margin: 0 auto;
+    /* Canh giữa ảnh */
+  }
+
+  .profile-image img {
+    width: 100%;
+    /* Tự động thích ứng với kích thước của hình tròn */
+    height: 100%;
+    /* Tự động thích ứng với kích thước của hình tròn */
+  }
+
+  /* Style for the list */
+  .profile ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  .profile li {
+    margin: 10px 0;
+    list-style: none;
+  }
+
+  /* Style for the links */
+  .profile a {
+    font-size: 18px;
+    color: #333;
+    font-size: 400;
+    text-decoration: none;
+  }
+
+  .profile a:hover {
+    font-weight: 600;
+  }
+
+  .form-control:focus {
+    box-shadow: none;
+  }
+
+  .btn:focus {
+    box-shadow: none;
+  }
+
+  body {
+    background: #bdcbe5;
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+
+<body>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="profile" style="padding-top: 30px; margin-top: 20px">
+        <div class="profile-image">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKvS4Z3oRCkqh5KgquhTEP7OQtjk_KbVX-FQ&usqp=CAU" alt="" />
+        </div>
+        <ul>
+          <li>
+            <p>Hoangduc12341</p>
+          </li>
+          <li style="font-weight: 600"><a style="color: #000000" href="#/dia-chi">Thông tin cá nhân</a></li>
+          <li >
+            <a  href="#/don-hang">Đơn hàng</a>
+          </li>
+          <li><a style="color: #000000" href="#/home">Trang chủ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="view-account" style="padding-top: 30px; margin-top: 20px">
+        <h2 style="text-align: center">Thông tin tài khoản</h2>
+
+        <div class="view-account">
+          <div class="row">
+            <div class="col-3">
+              <div class="profile-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKvS4Z3oRCkqh5KgquhTEP7OQtjk_KbVX-FQ&usqp=CAU" alt="" />
+              </div>
+              <hr />
+              <input type="file" disabled style="width: 100%" />
+            </div>
+            <div class="col-9">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" ng-model="editMode" />
+                <label class="form-check-label" for="flexSwitchCheckDefault">Chỉnh sửa thông tin</label>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="">Username</label>
+                  <!-- Giữ trạng thái disable cho trường Username -->
+                  <input type="text" class="form-control" ng-model="taiKhoan.username" disabled />
+                </div>
+                <div class="col-md-6">
+                  <label for="">Họ và Tên</label>
+                  <input type="text" class="form-control" ng-model="taiKhoan.hoTen" ng-disabled="!editMode" />
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <label for="">Số điện thoại</label>
+                  <input type="text" class="form-control" ng-model="taiKhoan.soDienThoai" ng-disabled="!editMode" />
+                </div>
+                <div class="col-md-6">
+                  <label for="">Email</label>
+                  <input type="email" class="form-control" ng-model="taiKhoan.email" ng-disabled="!editMode" />
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <label for="">Ngày Sinh</label>
+                  <input type="date" class="form-control" ng-model="taiKhoan.ngaySinh" ng-disabled="!editMode" />
+                </div>
+                <div class="col-md-6">
+                  <label for="">Giới tính</label> <br />
+                  <input style="margin-right: 5px" class="mt-2" type="radio" name="gioitinh" id="namRadio"
+                    ng-model="taiKhoan.gioiTinh" ng-value="true" checked ng-disabled="!editMode" /><label
+                    style="margin-right: 10px" for="namRadio">Nam</label>
+                  <input style="margin-right: 5px" type="radio" name="gioitinh" id="nuRadio"
+                    ng-model="taiKhoan.gioiTinh" ng-value="false" ng-disabled="!editMode" /><label
+                    for="nuRadio">Nữ</label>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-4">
+                  <!-- Nút Lưu và Hủy chỉ hiển thị khi ở chế độ chỉnh sửa -->
+                  <button class="btn btn-primary" style="margin-right: 10px" ng-show="editMode"
+                    ng-click="updateProfile()">
+                    Lưu
+                  </button>
+                  <button class="btn btn-danger" ng-show="editMode" ng-click="cancelUpdate()">
+                    Hủy
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="view-account mt-5">
+          <h3>Địa chỉ</h3>
+          <div class="btn_address" style="text-align: end">
+            <a style="border-radius: 20px;" href="" type="button" class="btn btn-outline-primary mt-3" style="margin-right: 15px" data-toggle="modal"
+              data-target="#addAddressModal">Thêm địa chỉ</a>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-12" ng-repeat="diaChi in diaChiList">
+              <div class="card mb-3">
+                <div class="card-body d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="card-title">{{ diaChi.fullName }}</h5>
+                    <p class="card-text">{{ diaChi.soDienThoai }}</p>
+                    <p class="card-text">{{ diaChi.diaChi }}</p>
+                    <!-- Thêm các thông tin khác nếu cần -->
+                    <button style="border-radius: 20px;" class="btn btn-outline-danger" ng-if="diaChi.trangThai == 1" disabled>
+                      Mặc định
+                    </button>
+                  </div>
+                  <div>
+                    <button style="border-radius: 20px;" class="btn btn-primary" data-toggle="modal" data-target="#updateAddressModal"
+                      ng-click="prepareUpdateAddress(diaChi)">
+                      Cập nhật
+                    </button>
+                    <button style="border-radius: 20px;" class="btn btn-outline-secondary" ng-click="setAsDefault(diaChi)">
+                      Thiết lập mặc định
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addAddressModalLabel">
+            Thêm địa chỉ mới
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="phoneNumber">Họ và tên</label>
+            <input type="text" class="form-control" ng-model="taiKhoan.hoTen" disabled />
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Số điện thoại</label>
+            <input type="text" class="form-control" ng-model="taiKhoan.soDienThoai" disabled />
+          </div>
+          <div class="row">
+            <div class="col-lg-12" style="margin-left: 0px;">
+              <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span><span
+                ng-show="!isProvinceValid" style="color: red;"> (Chọn Tỉnh)</span>
+              <select class="form-control select2" ng-model="selectedProvince"
+                ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                <option value="">Chọn tỉnh</option>
+                <option ng-repeat="province in provinces" ng-model="thanhPho" value="{{province.name}}">
+                  {{province.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-12">
+              <span class="header-title"><span style="color: red">*</span>
+                <span>Huyện</span></span><span ng-show="!isDistrictValid" style="color: red;"> (Chọn Huyện)</span>
+              <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                ng-options="district.name for district in districts" ng-change="getWards()">
+                <option value="">Chọn huyện</option>
+                <option ng-repeat="district in districts" ng-model="quanHuyen" value="{{district.name}}">
+                  {{district.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-12">
+              <span class="header-title"><span style="color: red">*</span>
+                <span>Phường</span></span><span ng-show="!isWardValid" style="color: red;"> (Chọn xã)</span>
+              <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                ng-options="ward.name for ward in wards">
+                <option value="">Chọn phường</option>
+                <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
+                  {{ward.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+            <div class="form-group">
+              <label for="addressName">Địa chỉ cụ thể</label> <span ng-show="!isDiaChiValid" style="color: red;"> (Nhập địa chỉ cụ thể)</span>
+              <input type="text" class="form-control" id="addressName" ng-model="newAddress.addressName" required />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Đóng
+              </button>
+              <button type="submit" ng-click="submitAddress()" class="btn btn-primary" >
+                Lưu
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  class="modal fade" id="updateAddressModal" tabindex="-1" role="dialog" aria-labelledby="updateAddressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateAddressModalLabel">
+            Cập nhật địa chỉ
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-lg-12" style="margin-left: 0px;">
+                  <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span><span
+                    ng-show="!isProvinceValid" style="color: red;"> (Chọn Tỉnh)</span>
+                  <select class="form-control select2" ng-model="selectedProvince"
+                    ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                    <option value="">Chọn tỉnh</option>
+                    <option ng-repeat="province in provinces" ng-model="thanhPho" value="{{province.name}}">
+                      {{province.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-lg-12">
+                  <span class="header-title"><span style="color: red">*</span>
+                    <span>Huyện</span></span><span ng-show="!isDistrictValid" style="color: red;"> (Chọn Huyện)</span>
+                  <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                    ng-options="district.name for district in districts" ng-change="getWards()">
+                    <option value="">Chọn huyện</option>
+                    <option ng-repeat="district in districts" ng-model="quanHuyen" value="{{district.name}}">
+                      {{district.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-lg-12">
+                  <span class="header-title"><span style="color: red">*</span>
+                    <span>Phường</span></span><span ng-show="!isWardValid" style="color: red;"> (Chọn xã)</span>
+                  <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                    ng-options="ward.name for ward in wards">
+                    <option value="">Chọn phường</option>
+                    <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
+                      {{ward.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <label for="updateAddressName">Địa chỉ cụ thể</label> <span ng-show="!isDiaChiValid" style="color: red;"> (Nhập địa chỉ cụ thể)</span>
+              <input type="text" class="form-control" id="updateAddressName" ng-model="updateAddressName"  />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Đóng
+              </button>
+              <button type="submit" class="btn btn-primary" ng-disabled="updateAddressForm.$invalid"
+                ng-click="updateAddress()">
+                Lưu cập nhật
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

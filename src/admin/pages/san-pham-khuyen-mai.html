@@ -1,0 +1,42 @@
+<div class="card overflow-hidden" style="min-height: 120px">
+    <div class="box">
+        <table class="table">
+            <thead>
+                <tr style="background-color: lightskyblue">
+                    <th scope="col">
+                        <input type="checkbox" style="margin-right: 15px" ng-model="selectAllProducts"
+                            ng-change="toggleAllProducts()" />
+                        {{$index + 1}}
+                    </th>
+                    <th scope="col">Ảnh sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Số lượng Giảm giá</th>
+                    <th scope="col">Giá sau giảm</th>
+                </tr>
+            </thead>
+            <tbody class="table">
+                <tr ng-repeat="gg in listProduct">
+                    <td style="padding-top: 75px">
+                        <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
+                            ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        <img src="{{gg.image}}" alt="" width="150px" />
+                    </td>
+                    <td>{{gg.productName}}</td>
+                    <td>
+                        {{gg.giaBan.toLocaleString('vi-VN')}}₫
+                    </td>
+                    <td>
+                        {{gg.soLanGiam}}
+                    </td>
+                    <td>
+                        {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

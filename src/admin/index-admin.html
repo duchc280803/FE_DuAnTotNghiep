@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NICE SHOE</title>
+  <link rel="shortcut icon" type="image/png"
+    href="/assets/images/z4754478488073_3d987c07976994288f3feae0cc9f3835_preview_rev_1.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link rel="stylesheet" href="/assets/css/feather.css" />
+  <link rel="stylesheet" href="/assets/css/dropzone.css" />
+  <link rel="stylesheet" href="/assets/css/select2.css" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/css/custom/hinh-thuc-thah-toan.css" />
+  <link rel="stylesheet" href="/css/custom/create-ctkm.css" />
+  <link rel="stylesheet" href="/css/custom/combobox.css" />
+  <link rel="stylesheet" href="/css/custom/trang-thai-hdct.css" />
+  <link rel="stylesheet" href="/css/custom/boder-anh.css" />
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <aside class="left-sidebar">
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="./index.html" class="text-nowrap logo-img">
+            <img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png" width="130"
+              alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <br>
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#/dashboard" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#/order" aria-expanded="false">
+                <span>
+                  <img src="/assets/images/receipt.png" width="180" alt="" style="width: 21px; height: 21px" />
+                </span>
+                <span class="hide-menu">Hóa đơn</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#/order-counter" aria-expanded="false">
+                <span>
+                  <img src="/assets/images/shopping-cart-plus.png" width="180" alt=""
+                    style="width: 21px; height: 21px" />
+                </span>
+                <span class="hide-menu">Bán tại quầy</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a href="#pageSubmenu" class="dropdown-toggle collapsed sidebar-link" data-bs-toggle="collapse"
+                data-bs-target="#pageSubmenu1">
+                <span>
+                  <img src="/assets/images/product.png" width="180" style="width: 21px; height: 21px" />
+                </span>
+                <span class="hide-menu">Quản Lý sản phẩm</span>
+              </a>
+              <ul class="list-unstyled collapse" id="pageSubmenu1">
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/product" style="font-weight: bold;">Sản phẩm</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/size" style="font-weight: bold;">Size</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/material" style="font-weight: bold;">Chất liệu</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/color" style="font-weight: bold;">Màu sắc</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/category" style="font-weight: bold;">Danh mục</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/brand" style="font-weight: bold;">Thương hiệu</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/origin" style="font-weight: bold;">Xuất xứ</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/sole" style="font-weight: bold;">Kiểu đế</a>
+                </li>
+              </ul>
+            </li>
+            <li class="sidebar-item">
+              <a href="#pageSubmenu" class="dropdown-toggle collapsed sidebar-link" data-bs-toggle="collapse"
+                data-bs-target="#pageSubmenu">
+                <span>
+                  <img src="/assets/images/group.png" width="180" style="width: 21px; height: 21px" />
+                </span>
+                <span class="hide-menu">Quản Lý tài khoản</span>
+              </a>
+              <ul class="list-unstyled collapse" id="pageSubmenu">
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/staff" style="font-weight: bold;">Nhân viên</a>
+                </li>
+                <li class="sidebar-item" style="margin-left: 37px">
+                  <a class="sidebar-link" href="#/customer" style="font-weight: bold;">Khách hàng</a>
+                </li>
+              </ul>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#/promotion" aria-expanded="false">
+                <span>
+                  <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
+                </span>
+                <span class="hide-menu">Quản lý khuyến mại</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#/voucher" aria-expanded="false">
+                <span>
+                  <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
+                </span>
+                <span class="hide-menu">Quản lý voucher</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+    <div class="body-wrapper">
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a>
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="/assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle" />
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <!-- <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">My Profile</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">My Task</p>
+                    </a> -->
+                    <div ng-controller="loginController">
+                      <div ng-if="!isLoggedIn">
+                        <button data-bs-toggle="modal" data-bs-target="#login-admin"
+                          class="btn btn-outline-primary mx-3 mt-2 d-block">
+                          Login
+                        </button>
+                      </div>
+                      <div ng-if="isLoggedIn">
+                        <a ng-click="logout()" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <div class="modal fade" id="login-admin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content custom-modal-content"
+            style="width: 875px; margin-left: -15px;height: 407px;top: 80px;">
+            <div class="modal-body">
+              <h1 style="text-align: center">Đăng nhập</h1>
+              <br />
+              <div class="form-box">
+                <div class="form-tab">
+                  <div class="tab-content" id="tab-content-5">
+                    <div class="tab-pane fade active show" id="signin" role="tabpanel" aria-labelledby="signin-tab"
+                      ng-controller="loginController">
+                      <div class="form-outline mb-4">
+                        <label for="email" class="form-label">Username</label>
+                        <input ng-model="username" type="text" id="email"
+                          class="form-control form-control-lg ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched"
+                          placeholder="Username ..." required="" />
+                        <span style="color: red">{{errorUsername}}</span>
+                      </div>
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input ng-model="password" type="password" id="password"
+                          class="form-control form-control-lg ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"
+                          placeholder="Password ..." required="" />
+                        <span style="color: red">{{errorPassword}}</span>
+                      </div>
+                      <div class="pt-1 mb-2">
+                        <button style="width: 450px; margin-left: 180px" class="btn btn-dark btn-lg btn-block"
+                          type="button" data-bs-dismiss="modal" ng-click="login()">
+                          Login
+                        </button>
+                      </div>
+                      <a href="" style="margin-left: 365px;">Quên mật khẩu</a>
+                    </div>
+                  </div>
+                  <!-- End .form-footer -->
+                </div>
+                <!-- .End .tab-pane -->
+              </div>  
+              <!-- End .tab-content -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div ng-view class=""></div>
+      </div>
+    </div>
+  </div>
+  <!-- Cấu hình -->
+  <script src="/lib/angular.js"></script>
+  <script src="/lib/angular-route.js"></script>
+  <script src="./app-admin.js"></script>
+  <script src="./routes-admin.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Cấu hình -->
+
+  <!-- Controlller -->
+  <script src="controller/san-pham-chi-tiet-controller.js"></script>
+  <script src="controller/login-controller.js"></script>
+  <script src="controller/ban-tai-quay-controller.js"></script>
+  <script src="controller/hoa-don-controller.js"></script>
+  <script src="controller/hoa-don-chi-tiet.js"></script>
+  <script src="controller/giam-gia-controller.js"></script>
+  <script src="controller/VoucherController.js"></script>
+  <script src="controller/voucher-chi-tiet.js"></script>
+  <script src="controller/khach-hang-controller.js"></script>
+  <script src="controller/nhan-vien-controller.js"></script>
+  <script src="controller/giamgiachitiet.js"></script>
+  <script src="controller/chat-lieu-controller.js"></script>
+  <script src="controller/danh-muc-controller.js"></script>
+  <script src="controller/kieu-de-controller.js"></script>
+  <script src="controller/mau-sac-controller.js"></script>
+  <script src="controller/size-controller.js"></script>
+  <script src="controller/thuong-hieu-controller.js"></script>
+  <script src="controller/xuat-xu-controller.js"></script>
+  <script src="controller/san-pham-controller.js"></script>
+  <script src="controller/san-pham-update-controller.js"></script>
+  <script src="controller/update-khach-hang.js"></script>
+  <script src="controller/update-nhanvien.js"></script>
+  <script src="controller/dashboard.js"></script>
+  <script src="controller/create-sanphamchitiet-controller.js"></script>
+  <!-- Controlller -->
+
+  <!-- Service -->
+  <script src="service/transaction-service.js"></script>
+  <script src="service/ban-tai-quay-service.js"></script>
+  <script src="service/hoa-don-service.js"></script>
+  <!-- Service -->
+  <script src="/js/custom/create-km.js"></script>
+  <script src="/js/custom/modal.js"></script>
+  <!-- js -->
+
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,448 @@
+<div class="card overflow-hidden" style="width: 1152px; height: 130px">
+  <div class="row" style="padding-top: 30px; padding-left: 80px">
+    <div class="col-md-5">
+      <input class="form-control" placeholder="Tìm hóa đơn" style="width: 100%" ng-model="searchQuery" />
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary" style="width: 100%" ng-click="searchHoaDon()">
+        Tìm Kiếm
+      </button>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-secondary" style="width: 100%" ng-click="clearSearch()">
+        Chỉnh sửa
+      </button>
+    </div>
+    <div class="col-md-2">
+      <a href="#/hoa-don-history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử thao tác
+      </a>
+    </div>
+  </div>
+  <div class="row" style="padding: 20px">
+    <div class="col-md-3">
+      <span>Loại Đơn :</span>
+      <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
+        <option value="">Tất cả</option>
+        <option value="2">Tại quầy</option>
+        <option value="1">Online</option>
+      </select>
+    </div>
+    <div ng-hide="!isAdmin" class="col-md-4" style="margin-left: -85px;">
+      <span> Nhân Viên:</span>
+      <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien"
+        ng-change="filterHoaDonByNguoiXacNhan()">
+        <option value="">Tất cả</option>
+        <option ng-repeat="tenNhanVien in allTenNhanVienOptions" value="{{tenNhanVien}}">
+          {{tenNhanVien}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="card overflow-hidden">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="margin-bottom: 10px" ng-init="setDefaultTrangThai()">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav" style="font-weight: 800">
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 1 }">
+          <a class="nav-link" href="" ng-click="openCity(1)" style="color: darkgoldenrod">Chờ xác nhận</a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 2 }">
+          <a class="nav-link" href="" ng-click="openCity(2)" style="color: darkgoldenrod">Xác nhận</a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 3 }">
+          <a class="nav-link" href="" ng-click="openCity(3)" style="color: darkgoldenrod">Chờ giao hàng</a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 4 }">
+          <a class="nav-link" href="" ng-click="openCity(4)" style="color: darkgoldenrod">Giao hàng</a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 5 }">
+          <a class="nav-link" href="" ng-click="openCity(5)" style="color: darkgoldenrod">Hoàn thành</a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': selectedTrangThai === 6 }">
+          <a class="nav-link" href="" ng-click="openCity(6)" style="color: darkgoldenrod">Đã hủy</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="status" id="1" ng-show="selectedTrangThai === 1">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Số khách</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody style="border: 1px solid #ccc">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon | filter: {trangThai: 1, loaiDon: 'ONLINE'}">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary">
+              Chi tiết
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
+              Next
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="status" id="2" ng-show="selectedTrangThai === 2">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Số khách</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody style="border: 1px solid #ccc">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{hd.tenNhanVien}}</td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+              Chi tiết
+            </a>
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
+              Thay đổi
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="status" id="3" ng-show="selectedTrangThai === 3">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Số khách</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody style="border: 1px solid #ccc">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>
+            {{hd.tenNhanVien}}
+          </td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+              Chi tiết
+            </a>
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
+              Thay đổi
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="status" id="4" ng-show="selectedTrangThai === 4">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Số khách</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody style="border: 1px solid #ccc">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>
+            {{hd.tenNhanVien}}
+          </td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+              Chi tiết
+            </a>
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
+              Thay đổi
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="status" id="5" ng-show="selectedTrangThai === 5">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Số khách</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody style="border: 1px solid #ccc">
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <tr ng-repeat="hd in listHoaDon">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>
+            {{hd.tenNhanVien}}
+          </td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+              Chi tiết
+            </a>
+            <a data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
+              type="button" class="btn btn-primary m-1">
+              Thay đổi
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="status" id="6" ng-show="selectedTrangThai === 6">
+    <table class="table">
+      <thead>
+        <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+          <th scope="col">STT</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Ngày tạo</th>
+          <th scope="col">Số khách</th>
+          <th scope="col">Thành tiền</th>
+          <th scope="col">Người xác nhận</th>
+          <th scope="col">Loại đơn</th>
+          <th scope="col">Thao Tác</th>
+        </tr>
+      </thead>
+      <tbody style="border: 1px solid #ccc">
+        <!-- Kiểm tra nếu không có hóa đơn thì hiển thị thông báo -->
+        <tr ng-if="listHoaDon.length === 0">
+          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
+        </tr>
+        <!-- Nếu có dữ liệu, hiển thị từng dòng như bình thường -->
+        <tr ng-repeat="hd in listHoaDon">
+          <th>{{$index + 1}}</th>
+          <td>{{hd.ma}}</td>
+          <td>{{hd.tenKhachHang}}</td>
+          <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
+          <td>{{hd.soDienThoai}}</td>
+          <td>{{hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td ng-show="!isAdmin">
+            {{hd.tenNhanVien}}
+          </td>
+          <td ng-show="isAdmin">
+            <select class="form-control select2">
+              <option>
+                {{hd.tenNhanVien}}
+              </option>
+            </select>
+          </td>
+          <td>{{hd.loaiDon}}</td>
+          <td>
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+              Chi tiết
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 480px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- modal thay đổi nhân viên -->
+<div class="modal fade" id="thayDoiNhanVien" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content custom-modal-content" style="width: 46%;margin-left: 255px;margin-top: 200px;">
+      <br>
+      <div class="modal-body">
+        <td>
+          <select class="form-control select2" ng-model="selectedId">
+            <option value="">
+              Chọn nhân viên
+            </option>
+            <option ng-repeat="nv in listNhanVien" value="{{nv.id}}">
+              {{nv.fullName}}
+            </option>
+          </select>
+        </td>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          ng-click="updateNhanVien(employeeAndInvoiceInfo.idHoaDon)">
+          Cập nhập
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

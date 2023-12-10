@@ -1,0 +1,352 @@
+<div class="container-fluid">
+  <div class="card overflow-hidden" style="min-height: 120px">
+    <div class="box">
+      <div class="row" style="padding-top: 25px; padding-left: 60px">
+        <div class="col-md-2">
+          <input class="form-control" placeholder="Tìm khách hàng" ng-model="searchQuery" style="margin-top: 4px" />
+        </div>
+        <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px">
+          <button class="btn btn-primary" style="height: 39px" ng-click="searchKhach()">
+            <span style="vertical-align: middle">Tìm Kiếm</span>
+          </button>
+          <button class="btn btn-warning" style="height: 39px; margin-left: 10px" ng-click="clearSearch()">
+            <span style="vertical-align: middle">Làm mới</span>
+          </button>
+        </div>
+        <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
+          <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
+          <select style="color: green" class="custom-select" ng-model="selectedTrangThai"
+            ng-change="onTrangThaiChange()">
+            <option value="">Tất cả</option>
+            <option value="0">Chưa kích hoạt</option>
+            <option value="1">Đã kích hoạt</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taoTaiKhoan"
+            style="text-decoration: none; height: 39px">
+            <ion-icon name="add-outline" style="vertical-align: middle; margin-right: 5px"></ion-icon>
+            <span style="vertical-align: middle">Tạo Khách hàng</span>
+          </button>
+        </div>
+        <!--tạo tài khoản-->
+        <div class="modal fade" id="taoTaiKhoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg custom-modal-tao-tai-khoan" style="max-width: 80%">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Tạo khách hàng</h5>
+                <br />
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4 text-center">
+                    <label>
+                      <div class="image-container">
+                        <img id="selectedImage" src="#" alt="Selected Image" style="display: none;">
+                      </div>
+                    </label>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Họ và tên</span></span>
+                      <input required type="text" class="form-control" ng-model="ten" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Ngày sinh</span></span>
+                      <input required type="date" class="form-control" ng-model="ngaySinh" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Giới tính</span></span>
+                      <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" ng-model="gioiTinh" value="true"
+                          checked />
+                        <label class="form-check-label"> Nam </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" ng-model="gioiTinh" value="false" />
+                        <label class="form-check-label"> Nữ </label>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Số điện thoại</span></span>
+                      <input required type="text" class="form-control" ng-model="soDienThoai" />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Email</span></span>
+                      <input required type="text" class="form-control" ng-model="email" />
+                    </div>
+                    <br />
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                        <select class="form-control select2" ng-model="selectedProvince"
+                          ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                          <option value="">Chọn tỉnh</option>
+                          <option ng-repeat="province in provinces" ng-model="newKhachHang.tinh"
+                            value="{{province.name}}">
+                            {{province.name}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4">
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Huyện</span></span>
+                        <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                          ng-options="district.name for district in districts" ng-change="getWards()">
+                          <option value="">Chọn huyện</option>
+                          <option ng-repeat="district in districts" ng-model="newKhachHang.huyen"
+                            value="{{district.name}}">
+                            {{district.name}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4">
+                        <span class="header-title"><span style="color: red">*</span>
+                          <span>Phường</span></span>
+                        <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                          ng-options="ward.name for ward in wards">
+                          <option value="">Chọn phường</option>
+                          <option ng-repeat="ward in wards" ng-model="newKhachHang.phuong" value="{{ward.name}}">
+                            {{ward.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+                      <input required type="text" class="form-control" ng-model="diaChi" />
+                    </div>
+                    <br>
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Trạng thái</span></span>
+                      <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" ng-model="trangThai" value="0" />
+                        <label class="form-check-label">
+                          Chưa kích hoạt
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" checked
+                          ng-model="createQLKhachHangRequest.trangThai" value="1" />
+                        <label class="form-check-label">
+                          Đã kích hoạt
+                        </label>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                      <span class="header-title"><span style="color: red">*</span> <span>Photo</span></span>
+                      <input type="file" name="file" id="fileInput" onchange="displayImage(event)" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" class="btn btn-outline-danger m-1" ng-click="createKhachHang()">
+                  Thêm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sửa tài khoản
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg custom-modal-sua-khach-hang" style="max-width: 80%">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Sửa khách hàng</h5>
+                <br />
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-4 text-center">
+                    <label>
+                      <div class="image-container">
+                        <img ng-src="/assets/ảnh giày/{{selectedKhachHang.image}}" class="logo" alt="" />
+                      </div>
+                    </label>
+                  </div>
+                  <div class="col-md-8">
+                    <form name="frmAccount">
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Họ và tên</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Ngày sinh</span></span>
+                        <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Số điện thoại</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.soDienThoai" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Giới tính</span></span>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender"
+                            ng-model="selectedKhachHang.gioiTinh" value="true" />
+                          <label class="form-check-label"> Nam </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender"
+                            ng-model="selectedKhachHang.gioiTinh" value="false" />
+                          <label class="form-check-label"> Nữ </label>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Email</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
+                      </div>
+                      <br />
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                          <select class="form-control select2" ng-model="selectedProvince"
+                            ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                            <option value="">Chọn tỉnh</option>
+                            <option ng-repeat="province in provinces" value="{{province.name}}">
+                              {{province.name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Huyện</span></span>
+                          <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
+                            ng-options="district.name for district in districts" ng-change="getWards()">
+                            <option value="">Chọn huyện</option>
+                            <option ng-repeat="district in districts" value="{{district.name}}">
+                              {{district.name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4">
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Phường</span></span>
+                          <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
+                            ng-options="ward.name for ward in wards">
+                            <option value="">Chọn phường</option>
+                            <option ng-repeat="ward in wards" value="{{ward.name}}">
+                              {{ward.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+                        <input required type="text" class="form-control" ng-model="selectedKhachHang.diaChi" />
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Trạng thái</span></span>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="status"
+                            ng-model="selectedKhachHang.trangThai" value="2" />
+                          <label class="form-check-label"> Chưa kích hoạt </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="status"
+                            ng-model="selectedKhachHang.trangThai" value="1" />
+                          <label class="form-check-label"> Đã kích hoạt </label>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <span class="header-title"><span style="color: red">*</span> <span>Photo</span></span>
+                        <input type="file" name="file" id="fileInput" onchange="displayImage(event)" />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Close
+                </button>
+                <button type="button" class="btn btn-outline-danger m-1" ng-click="updateKhachHang()">
+                  Chỉnh Sửa
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="card overflow-hidden">
+    <div class="box">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Ảnh</th>
+            <th scope="col">Mã khách hàng</th>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phái</th>
+            <th scope="col">SĐT</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="kh in listKhachHang">
+            <th>{{$index +1}}</th>
+            <td><img src="/assets/ảnh giày/{{kh.image}}" width="70px" alt=""></td>
+            <td>{{kh.maTaiKhoan}}</td>
+            <td>{{kh.ten}}</td>
+            <td>{{kh.email}}</td>
+            <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
+            <td>{{kh.soDienThoai}}</td>
+            <td>{{kh.diaChi}} - {{kh.phuong}} - {{kh.huyen}} - {{kh.tinh}}</td>
+            <td>
+              <span style="
+                      background-color: #cceeff;
+                      color: #0077cc;
+                      padding: 4px 8px;
+                      border-radius: 4px;
+                      display: inline-block;
+                    ">{{kh.trangThai == 1 ? "Hoạt động": "Không hoạt động"}}
+              </span>
+            </td>
+            <td>
+              <a href="#/customer/update/{{kh.id}}" class="btn btn-primary">
+                Sửa
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-12">
+      <nav aria-label="Page navigation example" style="margin-left: 400px">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

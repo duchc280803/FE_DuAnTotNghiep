@@ -98,7 +98,7 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #ffffff;
+	font-weight: 650;	
 }
 
 ul,
@@ -2128,7 +2128,7 @@ ol {
 	border: 1px solid #ebebeb;
 	padding-left: 20px;
 	font-size: 16px;
-	color: #b2b2b2;
+	color: rgb(46, 43, 43);
 	border-radius: 4px;
 }
 
