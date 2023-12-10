@@ -41,7 +41,7 @@ myApp.controller(
         transformRequest: function (data) {
           var formData = new FormData();
           formData.append("file", data.file);
-          formData.append("fullName", data.fullName);
+          formData.append("fullName", data.ten);
           formData.append("email", data.email);
           formData.append("soDienThoai", data.soDienThoai);
           formData.append("gioiTinh", data.gioiTinh);
@@ -55,7 +55,7 @@ myApp.controller(
         },
         data: {
           file: yourFile,
-          fullName: $scope.selectedNhanVien.fullName,
+          ten: $scope.selectedNhanVien.fullName,
           email: $scope.selectedNhanVien.email,
           soDienThoai: $scope.selectedNhanVien.soDienThoai,
           gioiTinh: $scope.selectedNhanVien.gioiTinh,
