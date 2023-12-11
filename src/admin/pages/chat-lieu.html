@@ -83,7 +83,6 @@
                 <button class="btn btn-warning" ng-click="deleteChatLieu(th.id)">
                   <img width="25px" src="/assets/images/disabled.png" alt="" />
                 </button>
-
                 <button class="btn btn-success" ng-click="fetchChatLieuDetail(th.id)" data-toggle="modal"
                   data-target="#sizeModal">
                   <img width="25px" src="/assets/images/update.png" alt="" />
@@ -122,6 +121,7 @@
           <div class="form-group">
             <span class="text-danger">*</span>
             <label for="brandName">Tên chất liệu:</label>
+            <span ng-show="!isthuoctinh_update" style="color: red;">Vui lòng nhập chất liệu</span>
             <input type="text" class="form-control" id="brandName" ng-model="selectedChatLieu.tenChatLieu"
               placeholder="Nhập tên chất liệu" />
             <span style="color: red">{{errorTenChatLieu}}</span>
@@ -140,7 +140,7 @@
             Đóng
           </button>
           <button type="button" class="btn btn-primary" ng-click="updateChatLieu(selectedChatLieu)"
-            data-dismiss="modal">
+            >
             Sửa
           </button>
         </div>
@@ -158,6 +158,8 @@
           <div class="form-group">
             <span class="header-title"><span style="color: red">*</span>
               <span>Tên chất liệu:</span></span>
+              <span ng-show="!isthuoctinh" style="color: red;">Vui lòng nhập chất liệu</span>
+          <span ng-show="!isthuoctinhIsPresent" style="color: red;">Chất liệu đã tồn tại</span>
             <input type="text" class="form-control" id="brandName" ng-model="newChatLieu.tenChatLieu"
               placeholder="Nhập tên chất liệu" />
             <span style="color: red">{{errorTenChatLieu}}</span>
@@ -165,6 +167,7 @@
           <div class="form-group">
             <span class="header-title"><span style="color: red">*</span>
               <span>Trạng thái:</span></span>
+          <span ng-show="!istrangthai" style="color: red;">Vui lòng chọn trạng thái</span>
             <select class="form-control" id="status" ng-model="newChatLieu.trangThai">
               <option value="">Vui lòng chọn</option>
               <option value="1">Hoạt động</option>

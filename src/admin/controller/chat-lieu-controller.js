@@ -106,8 +106,18 @@ myApp.controller(
       });
     }
 
+    $scope.isthuoctinh_update = true;
     setTimeout(() => {
       $scope.updateChatLieu = function (updatedData) {
+        $scope.isthuoctinh_update = !!$scope.selectedChatLieu.tenChatLieu;
+        if (
+          !$scope.isthuoctinh_update
+        ) {
+          return;
+        } else {
+          $scope.isthuoctinh_update = true;
+        }
+
         Swal.fire({
           title: "Bạn có muốn chỉnh sửa không?",
           text: "",
@@ -155,53 +165,84 @@ myApp.controller(
       };
     }, 2000);
 
+
+    // validation here
+    $scope.isthuoctinh = true;
+    $scope.istrangthai = true;
+    $scope.isthuoctinhIsPresent = true;
+
     $scope.newChatLieu = {};
     $scope.createChatLieu = function () {
-      Swal.fire({
-        title: "Bạn có muốn thêm mới không?",
-        text: "",
-        icon: "question",
-        showCancelButton: true,
-        cancelButtonText: "Hủy bỏ",
-        cancelButtonColor: "#d33",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Xác nhận",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var token = $window.localStorage.getItem("token");
-          var config = {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          };
-          $http
-            .post(
-              "http://localhost:8080/api/v1/chat-lieu/create",
-              $scope.newChatLieu,
-              config
-            )
-            .then(function (response) {
-              $("#themChatLieu").modal("hide"); // Đóng modal khi thêm thành công
-              $scope.newChatLieu = {};
-              $scope.listChatLieu.push(response.data);
-              chatLieuList($scope.selectedTrangThai, $scope.pageNumber);
-              Swal.fire({
-                position: "bottom-start",
-                icon: "success",
-                title: "Thêm thành công",
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                  popup: "small-popup",
-                },
-              });
-            }).catch(function(error) {
-              $scope.errorTenChatLieu = error.data.tenChatLieu;
-              $scope.errorTrangThai = error.data.trangThai;
+
+      $scope.isthuoctinh = !!$scope.newChatLieu.tenChatLieu;
+      $scope.istrangthai = !!$scope.newChatLieu.trangThai;
+
+      if (
+        !$scope.isthuoctinh ||
+        !$scope.istrangthai
+      ) {
+        return;
+      } else {
+        $scope.isthuoctinh = true;
+        $scope.istrangthai = true;
+      }
+
+      $http.get("http://localhost:8080/api/v1/chat-lieu/find-by-chat-lieu?chatlieu=" + $scope.newChatLieu.tenChatLieu)
+        .then(function (response) {
+          console.log("size" + response.data)
+          if (response.data > 0) {
+            $scope.isthuoctinhIsPresent = false; // chatlieu đã tồn tại
+            return;
+          }
+          if (response.data === 0) {
+            $scope.isthuoctinhIsPresent = true; // chatlieu OK
+            Swal.fire({
+              title: "Bạn có muốn thêm mới không?",
+              text: "",
+              icon: "question",
+              showCancelButton: true,
+              cancelButtonText: "Hủy bỏ",
+              cancelButtonColor: "#d33",
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "Xác nhận",
+              reverseButtons: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                var token = $window.localStorage.getItem("token");
+                var config = {
+                  headers: {
+                    Authorization: "Bearer " + token,
+                  },
+                };
+                $http
+                  .post(
+                    "http://localhost:8080/api/v1/chat-lieu/create",
+                    $scope.newChatLieu,
+                    config
+                  )
+                  .then(function (response) {
+                    $("#themChatLieu").modal("hide"); // Đóng modal khi thêm thành công
+                    $scope.newChatLieu = {};
+                    $scope.listChatLieu.push(response.data);
+                    chatLieuList($scope.selectedTrangThai, $scope.pageNumber);
+                    Swal.fire({
+                      position: "bottom-start",
+                      icon: "success",
+                      title: "Thêm thành công",
+                      showConfirmButton: false,
+                      timer: 1500,
+                      customClass: {
+                        popup: "small-popup",
+                      },
+                    });
+                  }).catch(function (error) {
+                    $scope.errorTenChatLieu = error.data.tenChatLieu;
+                    $scope.errorTrangThai = error.data.trangThai;
+                  });
+              }
             });
-        }
-      });
+          }
+        })
     };
 
     setTimeout(() => {
