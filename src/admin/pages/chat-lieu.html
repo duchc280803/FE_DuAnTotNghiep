@@ -70,6 +70,9 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-if="!listChatLieu.length">
+              <td colspan="10" style="font-size: larger;text-align: center;">Không có dữ liệu</td>
+            </tr>
             <tr ng-repeat="th in listChatLieu">
               <td>{{$index + 1}}</td>
               <td>{{th.tenChatLieu}}</td>

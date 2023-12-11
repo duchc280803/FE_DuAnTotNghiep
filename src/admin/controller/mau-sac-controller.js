@@ -109,7 +109,7 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateMauSac = function (updatedData) {
         Swal.fire({
-          title: "Bạn có muốn update không?",
+          title: "Bạn có muốn chỉnh sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -135,9 +135,9 @@ myApp.controller(
               .put(updateUrl, updatedData, config)
               .then(function (response) {
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Chỉnh sửa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -186,7 +186,7 @@ myApp.controller(
               .then(function (response) {
                 $scope.listMauSac.push(response.data);
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
                   title: "Thêm thành công",
                   showConfirmButton: false,
@@ -224,7 +224,7 @@ myApp.controller(
               .put(deleteUrl)
               .then(function (response) {
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
                   title: "Vô hiệu hóa thành công",
                   showConfirmButton: false,
