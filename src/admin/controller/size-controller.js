@@ -111,7 +111,6 @@ myApp.controller(
     // validation here
     $scope.isthuoctinh_update = true;
     $scope.istrangthai_update = true;
-    $scope.isthuoctinhIsPresent_update = true;
 
     setTimeout(() => {
       $scope.updateSize = function (updatedData) {
@@ -128,24 +127,6 @@ myApp.controller(
           $scope.isthuoctinh_update = true;
           $scope.istrangthai_update = true;
         }
-
-        $http.get("http://localhost:8080/api/v1/size/find-by-size?size=" + $scope.selectedSize.size)
-          .then(function (response) {
-            if (response.data > 0) {
-              var detailUrl = "http://localhost:8080/api/v1/size/detail?id=" + id;
-              $http.get(detailUrl).then(function (response) {
-                let thuoctinh = response.data.size;
-                if (thuoctinh != $scope.selectedSize.size) {
-                  $scope.isthuoctinhIsPresent_update = false; // Số điện thoại đã tồn tại
-                  return;
-                } else if (thuoctinh === $scope.selectedSize.size) {
-                  $scope.isthuoctinhIsPresent_update = true; // Số điện thoại OK
-                }
-              });
-            } if (response.data === 0) {
-              $scope.isthuoctinhIsPresent_update = true; // Số điện thoại OK
-            }
-          })
 
         Swal.fire({
           title: "Bạn có muốn chỉnh sửa không?",

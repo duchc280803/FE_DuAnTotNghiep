@@ -132,6 +132,8 @@
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="brandName">Tên màu sắc:</label>
+          <span ng-show="!isthuoctinh" style="color: red;">Vui lòng nhập màu sắc</span>
+          <span ng-show="!isthuoctinhIsPresent" style="color: red;">Màu sắc đã tồn tại</span>
           <input type="text" class="form-control" id="brandName" ng-model="newMauSac.tenMauSac"
             placeholder="Nhập tên màu sắc" />
         </div>
@@ -139,6 +141,7 @@
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="status">Trạng thái:</label>
+          <span ng-show="!istrangthai" style="color: red;">Vui lòng chọn trạng thái</span>
           <select class="form-control" id="status" ng-model="newMauSac.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
@@ -149,7 +152,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="createMauSac()" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="createMauSac()">
           Thêm
         </button>
       </div>
@@ -167,6 +170,7 @@
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="brandName">Tên màu sắc:</label>
+          <span ng-show="!isthuoctinh_update" style="color: red;">Vui lòng nhập màu sắc</span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập tên màu sắc"
             ng-model="selectedMauSac.tenMauSac" />
         </div>
@@ -184,7 +188,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="updateMauSac(selectedMauSac)" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="updateMauSac(selectedMauSac)">
           Sửa
         </button>
       </div>
