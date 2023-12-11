@@ -110,14 +110,14 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateKieuDe = function (updatedData) {
         Swal.fire({
-          title: "Bạn có muốn thêm kiểu đế mới không?",
+          title: "Bạn có muốn sửa kiểu đế mới không?",
           text: "",
           icon: "question",
           showCancelButton: true,
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -134,10 +134,11 @@ myApp.controller(
             $http
               .put(updateUrl, updatedData, config)
               .then(function (response) {
+                $("#sua").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Sửa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -148,7 +149,8 @@ myApp.controller(
                 });
               })
               .catch(function (error) {
-                console.error("Lỗi khi cập nhật thông tin: ", error);
+                $scope.errortenDe = error.data.tenDe;
+                $scope.errortrangThai = error.data.trangThai;
               });
           }
         });
@@ -166,7 +168,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -185,6 +187,7 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listKieuDe.push(response.data);
+                $("#soleModal1").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -199,7 +202,8 @@ myApp.controller(
                 });
               })
               .catch(function (error) {
-                console.error("Error:", error);
+                $scope.errortenDe = error.data.tenDe;
+                $scope.errortrangThai = error.data.trangThai;
               });
           }
         });
@@ -215,7 +219,7 @@ myApp.controller(
         cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -259,6 +263,7 @@ myApp.controller(
 
     $scope.clearSearch = function () {
       $scope.searchQuery = "";
+      $scope.selectedTrangThai = "";
       kieuDeList($scope.selectedTrangThai, $scope.pageNumber);
     };
 
