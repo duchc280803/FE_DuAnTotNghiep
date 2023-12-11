@@ -8,6 +8,7 @@ myApp.controller(
     $scope.pageNumber = 0;
     var id = $location.search().id;
 
+    $scope.pageSize = 20;
     function xuatXuList(trangThai, pageNumber) {
       var url = `http://localhost:8080/api/v1/xuat-xu/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
@@ -24,6 +25,14 @@ myApp.controller(
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
+
+          if ($scope.listXuatXu.length < $scope.pageSize) {
+            $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
+            console.log("ok");
+          } else {
+            $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
+            console.log("ok123");
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);

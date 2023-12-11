@@ -7,7 +7,8 @@ myApp.controller(
     $scope.selectedThuongHieu = null;
     $scope.pageNumber = 0;
     var id = $location.search().id;
-
+    
+    $scope.pageSize = 20;
     function thuongHieuList(trangThai, pageNumber) {
       var url = `http://localhost:8080/api/v1/thuong-hieu/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
@@ -24,6 +25,11 @@ myApp.controller(
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
+          if ($scope.listThuongHieu.length < $scope.pageSize) {
+            $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);
@@ -137,6 +143,7 @@ myApp.controller(
             $http
               .put(updateUrl, updatedData, config)
               .then(function (response) {
+                $("#suaThuongHieuModal").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -151,7 +158,8 @@ myApp.controller(
                 });
               })
               .catch(function (error) {
-                console.error("Lỗi khi cập nhật thông tin: ", error);
+                $scope.errortenThuongHieu = error.data.tenThuongHieu;
+                $scope.errortrangThai = error.data.trangThai;
               });
           }
         });
@@ -188,6 +196,7 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listThuongHieu.push(response.data);
+                $("#thuongHieuModal").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -200,6 +209,10 @@ myApp.controller(
                 }).then(() => {
                   thuongHieuList($scope.selectedTrangThai, $scope.pageNumber);
                 });
+              })
+              .catch(function (error) {
+                $scope.errortenThuongHieu = error.data.tenThuongHieu;
+                $scope.errortrangThai = error.data.trangThai;
               });
           }
         });

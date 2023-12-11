@@ -136,8 +136,8 @@
                   data-bs-target="#exampleModal" />
               </div>
               <div class="col-lg-2" style="padding-left: 125px">
-                <a href=""  data-bs-toggle="modal"
-                data-bs-target="#exampleModal-qrcode"><img src="/assets/images/qr-code.png" width="40px" alt="" /></a>
+                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal-qrcode"><img
+                    src="/assets/images/qr-code.png" width="40px" alt="" /></a>
                 <div class="modal fade" id="exampleModal-qrcode" tabindex="-1" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog modal-lg" style="width: 448px; margin-left: 600px">
@@ -485,7 +485,8 @@
                           </div>
                           <br />
                           <div class="box">
-                            <span ng-if="listKhachHang.length === 0" style="margin-left: 465px;">Không có khách hàng nào</span>
+                            <span ng-if="listKhachHang.length === 0" style="margin-left: 465px;">Không có khách hàng
+                              nào</span>
                             <table class="table" ng-if="listKhachHang.length !== 0">
                               <thead>
                                 <tr style="background-color: lightskyblue">
@@ -663,9 +664,8 @@
                   <div>
                     <div class="row">
                       <div class="col-lg-9">
-                        <input type="text" disabled class="form-control hidden-input"
-                          style="margin-left: -30px" ng-value="orderDetailCounter.tenKhach"
-                          placeholder="Vui lòng chọn/tạo hóa đơn" />
+                        <input type="text" disabled class="form-control hidden-input" style="margin-left: -30px"
+                          ng-value="orderDetailCounter.tenKhach" placeholder="Vui lòng chọn/tạo hóa đơn" />
                       </div>
                       <div class="col-lg-3">
                         <a data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-primary">
@@ -680,9 +680,8 @@
                       <div class="col-lg-6">
                         <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                           <span>Họ và tên</span></span>
-                        <input ng-model="hoTen" type="text" class="form-control hidden-input"
-                          style="margin-left: -30px" ng-value="orderDetailCounter.tenKhach"
-                          placeholder="Nhập họ và tên khách" />
+                        <input ng-model="hoTen" type="text" class="form-control hidden-input" style="margin-left: -30px"
+                          ng-value="orderDetailCounter.tenKhach" placeholder="Nhập họ và tên khách" />
                         <span style="color: red;margin-left: -25px;">{{errorhoTen}}</span>
                       </div>
                       <div class="col-lg-6">
@@ -742,9 +741,8 @@
                     </div>
                     <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
-                    <input ng-model="diaChi" type="text" class="form-control hidden-input"
-                      style="margin-left: -30px" ng-value="orderDetailCounter.diaChi"
-                      placeholder="Nhập địa chỉ" />
+                    <input ng-model="diaChi" type="text" class="form-control hidden-input" style="margin-left: -30px"
+                      ng-value="orderDetailCounter.diaChi" placeholder="Nhập địa chỉ" />
                     <span style="color: red;margin-left: -25px;">{{errordiaChi}}</span>
                   </div>
                 </div>
@@ -793,7 +791,8 @@
                                     </div>
                                     <br />
                                     <div class="box">
-                                      <span ng-if="listTransaction.length === 0" style="margin-left: 465px;">Không có thanh toán nào</span>
+                                      <span ng-if="listTransaction.length === 0" style="margin-left: 465px;">Không có
+                                        thanh toán nào</span>
                                       <table class="table table-hover" ng-if="listTransaction.length !== 0">
                                         <thead>
                                           <tr style="
@@ -902,8 +901,10 @@
                           </div>
                           <hr />
                           <div class="modal-body">
-                            <span ng-if="listVoucher.length === 0" style="margin-left: 465px;">Không có voucher nào</span>
-                            <table class="table" style="white-space: nowrap; width: 1104px" ng-show="listVoucher.length !== 0">
+                            <span ng-if="listVoucher.length === 0" style="margin-left: 465px;">Không có voucher
+                              nào</span>
+                            <table class="table" style="white-space: nowrap; width: 1104px"
+                              ng-show="listVoucher.length !== 0">
                               <thead>
                                 <tr style="background-color: lightskyblue">
                                   <th scope="col">STT</th>
@@ -982,7 +983,7 @@
                       <div class="omni-layout-card--item-stack fill text-right">
                         <input type="text" ng-model="tienGiao" class="form-control hidden-input"
                           placeholder="Nhập tiền vận chuyển" />
-                          <span style="color: red">{{errortienGiao}}</span>
+                        <span style="color: red">{{errortienGiao}}</span>
                       </div>
                     </div>
                   </div>

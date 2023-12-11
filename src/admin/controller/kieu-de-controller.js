@@ -1,6 +1,6 @@
 myApp.controller(
   "kieuDeController",
-  function ($http, $scope, $location, $window, $sce) {
+  function ($http, $scope, $location, $window) {
     $scope.listKieuDe = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -8,6 +8,7 @@ myApp.controller(
     $scope.pageNumber = 0;
     var id = $location.search().id;
 
+    $scope.pageSize = 20;
     function kieuDeList(trangThai, pageNumber) {
       var url = `http://localhost:8080/api/v1/kieu-de/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
@@ -23,6 +24,14 @@ myApp.controller(
 
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
+          console.log($scope.listKieuDe.length);
+          if ($scope.listKieuDe.length < $scope.pageSize) {
+            $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
+            console.log("ok");
+          } else {
+            $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
+            console.log("ok123");
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);

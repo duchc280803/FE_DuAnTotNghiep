@@ -96,23 +96,18 @@
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
         <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          <a class="page-link" href="" ng-click="previousPage()" ng-show="pageNumber > 0">Previous</a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
-        <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="nextPage()"
-            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+        <li class="page-item" ng-show="showNextButtonSpInCart">
+          <a class="page-link" href="" ng-click="nextPage()">Next</a>
         </li>
       </ul>
     </nav>
   </div>
-  <!-- .col-12 -->
 </div>
-<!-- .row -->
-
-<!-- Thêm -->
 <div class="modal fade" id="xxmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
