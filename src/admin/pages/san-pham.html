@@ -1,23 +1,23 @@
 <div class="row justify-content-center">
   <div class="col-12">
-    <div class="card shadow mb-4">
+    <div class="card">
       <div class="card-body">
-        <div class="row mt-5">
-          <div class="form-group col-md-2">
+        <div class="row">
+          <div class="form-group col-md-5">
             <div class="form-outline">
               <input type="search" id="form1" placeholder="Tìm kiếm" class="form-control" ng-model="value" />
             </div>
           </div> <!-- form-group -->
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="findByNameOrCode()">Tìm kiếm</button>
-              <button class="btn btn-warning">Làm mới</button>
+              <button class="btn btn-warning" ng-click="lamMoiSanPham()">Làm mới</button>
               <a href="#/product/history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử
                 thao tác
               </a>
             </div>
           </div> <!-- form-group -->
-          <div class="form-group col-md-4 text-right">
+          <div class="form-group col-md-3 text-right">
             <div class="form-outline">
               <a href="#/product/create">
                 <button class="btn btn-primary">Tạo sản phẩm</button>
@@ -74,7 +74,7 @@
       </div>
       <table class="table table-borderless table-hover mt-3">
         <thead>
-          <tr>
+          <tr style="border: 1px solid #ccc; background-color: lightskyblue">
             <th>
               STT
             </th>
@@ -108,22 +108,22 @@
             </td>
             <td>
               <img width="50px" src="/assets/ảnh giày/{{sp.image}}" alt="">
-              </small>
+              
             </td>
             <td>
-              {{sp.maSanPham}}</small>
+              {{sp.maSanPham}}
             </td>
             <td>
-              {{sp.tenSanPham}}</small>
+              {{sp.tenSanPham}}
             </td>
             <td>
-              {{sp.giaBan.toLocaleString('vi-VN')}}đ</small>
+              {{sp.giaBan.toLocaleString('vi-VN')}}đ
             </td>
             <td>
-              {{sp.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</small>
+              {{sp.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}
             </td>
             <td>
-              {{sp.trangThai == 1 ? 'Đang bán' : 'Ngừng bán'}}</small>
+              {{sp.trangThai == 1 ? 'Đang bán' : 'Ngừng bán'}}
             </td>
             <td>
               <a href="#/product-detail/{{sp.id}}" class="btn btn-outline-primary ">Chi tiết</a>
