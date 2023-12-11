@@ -706,7 +706,8 @@ myApp.controller(
           Swal.fire({
             position: "top-end",
             icon: "warning",
-            title: "Vui lòng thanh toán tiền hàng trước khi xác nhận thanh toán !",
+            title:
+              "Vui lòng thanh toán tiền hàng trước khi xác nhận thanh toán !",
             showConfirmButton: false,
             timer: 1500,
             customClass: {
@@ -1290,7 +1291,7 @@ myApp.controller(
         .then(function (response) {
           $scope.provinces = response.data;
         });
-    };
+    };  
 
     $scope.getTinh();
 
