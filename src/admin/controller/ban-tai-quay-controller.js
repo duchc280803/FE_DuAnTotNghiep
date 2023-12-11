@@ -68,10 +68,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http.post(api, {}, config).then(function (response) {
@@ -106,6 +107,8 @@ myApp.controller(
               .delete("http://localhost:8080/api/v1/don-hang/remove?id=" + p.id)
               .then(function () {
                 $scope.listHoaDonTaiQuay.splice(index, 1);
+                $window.localStorage.removeItem("idKhach");
+                $window.localStorage.removeItem("idHoaDon");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -123,6 +126,23 @@ myApp.controller(
         });
       };
     }, 2000);
+
+    $scope.thongBaoQRCODE = function () {
+      if (id == null) {
+        Swal.fire({
+          position: "top-end",
+          icon: "warning",
+          title: "Vui lòng chọn/tạo hóa đơn",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            popup: "small-popup",
+          },
+        });
+      } else {
+        $("#exampleModal-qrcode").modal("show");
+      }
+    };
 
     /**
      * Get all hoa đơn tại quầy
@@ -699,10 +719,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
@@ -739,10 +760,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -788,6 +810,8 @@ myApp.controller(
                   timer: 1500,
                 });
                 $scope.removeItem();
+              }).catch(function (error) {
+
               });
           }
         });
