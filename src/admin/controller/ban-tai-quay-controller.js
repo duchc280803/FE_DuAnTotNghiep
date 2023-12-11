@@ -79,7 +79,18 @@ myApp.controller(
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
               $scope.selectOrder(response.data.id, response.data.idKhachHang);
-              $location.path("/order-counter");
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Tạo thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup",
+                },
+              }).then(() => {
+                $window.location.reload();
+              });
             });
           }
         });
@@ -88,7 +99,7 @@ myApp.controller(
 
     // delete hoadon
     setTimeout(() => {
-      $scope.deleteOrder = function (event, index) {
+      $scope.deleteOrder = function (id) {
         Swal.fire({
           title: "Xác nhận hủy !",
           text: "Bạn có chắc chắn muốn hủy hóa đơn này ?",
@@ -101,12 +112,9 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
-            event.preventDefault();
-            let p = $scope.listHoaDonTaiQuay[index];
             $http
-              .delete("http://localhost:8080/api/v1/don-hang/remove?id=" + p.id)
+              .put("http://localhost:8080/api/v1/don-hang/remove?id=" + id)
               .then(function () {
-                $scope.listHoaDonTaiQuay.splice(index, 1);
                 $window.localStorage.removeItem("idKhach");
                 $window.localStorage.removeItem("idHoaDon");
                 Swal.fire({
@@ -126,23 +134,6 @@ myApp.controller(
         });
       };
     }, 2000);
-
-    $scope.thongBaoQRCODE = function () {
-      if (id == null) {
-        Swal.fire({
-          position: "top-end",
-          icon: "warning",
-          title: "Vui lòng chọn/tạo hóa đơn",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            popup: "small-popup",
-          },
-        });
-      } else {
-        $("#exampleModal-qrcode").modal("show");
-      }
-    };
 
     /**
      * Get all hoa đơn tại quầy
@@ -236,12 +227,12 @@ myApp.controller(
             "tongTienHangTaiQuay",
             $scope.tongTienHang
           );
-          if ($scope.listCart.length < $scope.pageSizeSpTrongGio) {
+          if ($scope.listCart.length <= $scope.pageSizeSpTrongGio) {
             $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
           } else {
             $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
           }
-          $scope.listCart.map((item) => item.idGioHang);
+          // $scope.listCart.map((item) => item.idGioHang);
         });
     };
 
@@ -318,19 +309,20 @@ myApp.controller(
               .then(function (response) {
                 $scope.listCart.push(response.data);
                 $scope.listCart.map((item) => item.idGioHang);
-                $window.location.reload(); // Reload trang trước khi hiển thị thông báo
-                setTimeout(() => {
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Thêm sản phẩm vào giỏ thành công",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                      popup: "small-popup", // Add a class to the message
-                    },
-                  });
-                }, 1000); // Hiển thị thông báo sau khi trang đã được reload
+                // $window.location.reload(); // Reload trang trước khi hiển thị thông báo
+                $scope.listSanPhamInCart();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Thêm sản phẩm vào giỏ thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                }).then(() => {
+                  $window.location.reload();
+                });
               });
           }
         });
@@ -576,6 +568,10 @@ myApp.controller(
           for (var i = 0; i < $scope.listTransaction.length; i++) {
             $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
           }
+          $window.localStorage.setItem(
+            "soTienkhachTra",
+            $scope.totalAmountPaid
+          );
         });
     };
 
@@ -701,47 +697,65 @@ myApp.controller(
         soDienThoai,
         diaChi
       ) {
-        var idDetail = CartService.getIdCartDetail();
-        var requestData = {
-          tongTien: tongTienHang,
-          tienKhachTra: tienKhachTra,
-          tienThua: tienThua,
-          hoTen: hoTen,
-          soDienThoai: soDienThoai,
-          diaChi: diaChi,
-          gioHangChiTietList: idDetail,
-        };
-        var api =
-          "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
-          id;
-        Swal.fire({
-          title: "Bạn muốn thanh toán hóa đơn này?",
-          text: "",
-          icon: "question",
-          showCancelButton: true,
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
-          cancelButtonColor: "#d33",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
-          reverseButtons: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $http
-              .post(api, requestData)
-              .then(function (response) {
+        var soTienKhachTra = $window.localStorage.getItem("soTienkhachTra");
+        var totalOrderValue =
+          tongTienTaiQuay -
+          tienGiamGiaTaiQuay +
+          ($scope.tienGiao ? +$scope.tienGiao : 0);
+        if (soTienKhachTra < totalOrderValue) {
+          Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title: "Vui lòng thanh toán tiền hàng trước khi xác nhận thanh toán !",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+        } else {
+          var idDetail = CartService.getIdCartDetail();
+          var requestData = {
+            tongTien: tongTienHang,
+            tienKhachTra: tienKhachTra,
+            tienThua: tienThua,
+            hoTen: hoTen,
+            soDienThoai: soDienThoai,
+            diaChi: diaChi,
+            gioHangChiTietList: idDetail,
+          };
+          var api =
+            "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
+            id;
+          Swal.fire({
+            title: "Bạn muốn thanh toán hóa đơn này?",
+            text: "",
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonText: "Hủy bỏ",
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Xác nhận",
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $http.post(api, requestData).then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
-              })
-              .then(function (error) {
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
                   title: "Thanh toán thành công",
                   showConfirmButton: false,
                   timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
                 });
+                $scope.removeItem();
               });
-          }
-        });
+            }
+          });
+        }
       };
     }, 2000);
 
@@ -779,16 +793,20 @@ myApp.controller(
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
               email: $scope.email,
-              diaChi:
-                $scope.diaChi +
-                ", " +
-                $scope.selectedWard.name +
-                ", " +
-                $scope.selectedDistrict.name +
-                ", " +
-                $scope.selectedProvince.name,
+              diaChi: $scope.diaChi,
               gioHangChiTietList: idDetail,
             };
+            if ($scope.selectedProvince && $scope.selectedProvince.name) {
+              orderDetailCounter.tinh = $scope.selectedProvince.name;
+            }
+
+            if ($scope.selectedDistrict && $scope.selectedDistrict.name) {
+              orderDetailCounter.huyen = $scope.selectedDistrict.name;
+            }
+
+            if ($scope.selectedWard && $scope.selectedWard.name) {
+              orderDetailCounter.phuong = $scope.selectedWard.name;
+            }
             var config = {
               headers: {
                 Authorization: "Bearer " + token, // Thêm token vào header Authorization
@@ -808,10 +826,21 @@ myApp.controller(
                   title: "Đặt hàng thành công thành công",
                   showConfirmButton: false,
                   timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
                 });
                 $scope.removeItem();
-              }).catch(function (error) {
-
+              })
+              .catch(function (error) {
+                $scope.errorhoTen = error.data.hoTen;
+                $scope.errorsoDienThoai = error.data.soDienThoai;
+                $scope.errortinh = error.data.tinh;
+                $scope.errorhuyen = error.data.huyen;
+                $scope.errorphuong = error.data.phuong;
+                $scope.errordiaChi = error.data.diaChi;
+                $scope.erroremail = error.data.email;
+                $scope.errortienGiao = error.data.tienGiao;
               });
           }
         });
@@ -1406,33 +1435,3 @@ myApp.controller(
     };
   }
 );
-myApp.directive("formatThousands", function () {
-  return {
-    require: "ngModel",
-    link: function (scope, element, attrs, ngModelController) {
-      ngModelController.$parsers.push(function (data) {
-        // Chuyển đổi dữ liệu từ view thành model format
-        return data
-          ? data
-              .toString()
-              .replace(/[^\d.]/g, "")
-              .replace(/\./g, "")
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-          : "";
-      });
-
-      ngModelController.$formatters.push(function (data) {
-        // Chuyển đổi dữ liệu từ model thành view format
-        return data ? data.toString().replace(/\./g, "") : "";
-      });
-
-      element.on("input", function () {
-        scope.$apply(function () {
-          var value = element.val().replace(/[^\d.]/g, "");
-          ngModelController.$setViewValue(value);
-          ngModelController.$render();
-        });
-      });
-    },
-  };
-});

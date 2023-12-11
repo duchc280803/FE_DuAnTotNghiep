@@ -116,7 +116,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -165,7 +165,7 @@ myApp.controller(
         cancelButtonText: "Hủy bỏ",
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có",
+        confirmButtonText: "Xác nhận",
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -214,7 +214,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
