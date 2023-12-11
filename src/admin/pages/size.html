@@ -76,6 +76,9 @@
             </tr>
           </thead>
           <tbody>
+            <tr ng-if="!listSize.length">
+              <td colspan="10" style="font-size: larger;text-align: center;">Không có dữ liệu</td>
+            </tr>
             <tr ng-repeat="th in listSize">
               <td>
                 {{$index + 1}}
@@ -132,12 +135,15 @@
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="brandName">Size:</label>
+          <span ng-show="!isthuoctinh" style="color: red;">Vui lòng nhập size</span>
+          <span ng-show="!isthuoctinhIsPresent" style="color: red;">Size đã tồn tại</span>
           <input type="text" class="form-control" id="brandName" ng-model="newSize.size" placeholder="Nhập size" />
         </div>
 
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="status">Trạng thái:</label>
+          <span ng-show="!istrangthai" style="color: red;">Vui lòng chọn trạng thái</span>
           <select class="form-control" id="status" ng-model="newSize.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
@@ -148,7 +154,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="createSize()" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="createSize()">
           Thêm
         </button>
       </div>
@@ -166,12 +172,15 @@
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="brandName">Size:</label>
+          <span ng-show="!isthuoctinh_update" style="color: red;">Vui lòng nhập size</span>
+          <span ng-show="!isthuoctinhIsPresent_update" style="color: red;">Size đã tồn tại</span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập size" ng-model="selectedSize.size" />
         </div>
 
         <div class="form-group">
           <span class="text-danger">*</span>
           <label for="status">Trạng thái:</label>
+          <span ng-show="!istrangthai_update" style="color: red;">Vui lòng chọn trạng thái</span>
           <select class="form-control" id="status" ng-model="selectedSize.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
@@ -182,7 +191,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="updateSize(selectedSize)" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="updateSize(selectedSize)" >
           Sửa
         </button>
       </div>

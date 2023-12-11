@@ -336,37 +336,40 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="kh in listKhachHang">
-            <th>{{$index +1}}</th>
-            <td style="width: 10%;"><img src="/assets/ảnh giày/{{kh.image}}" width="70px" alt=""></td>
-            <td>{{kh.maTaiKhoan}}</td>
-            <td>{{kh.ten}}</td>
-            <td>{{kh.email}}</td>
-            <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
-            <td>{{kh.soDienThoai}}</td>
-            <td>{{kh.diaChi}} - {{kh.phuong}} - {{kh.huyen}} - {{kh.tinh}}</td>
-            <td>
-              <span style="
-                      background-color: #cceeff;
-                      color: #0077cc;
-                      padding: 4px 8px;
-                      border-radius: 4px;
-                      display: inline-block;
-                      text-align: center;
-                    ">{{kh.trangThai == 1 ? "Hoạt động": "Không hoạt động"}}
-              </span>
-            </td>
-            <td>
-              <a href="#/customer/update/{{kh.id}}" class="btn btn-primary">
-                Sửa
-              </a>
-            </td>
+          <tr ng-if="!listKhachHang.length">
+            <td colspan="10" style="font-size: larger;text-align: center;">Không có dữ liệu</td>
           </tr>
+            <tr ng-repeat="kh in listKhachHang">
+              <th>{{$index +1}}</th>
+              <td style="width: 10%;"><img src="/assets/ảnh giày/{{kh.image}}" width="70px" alt=""></td>
+              <td>{{kh.maTaiKhoan}}</td>
+              <td>{{kh.ten}}</td>
+              <td>{{kh.email}}</td>
+              <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
+              <td>{{kh.soDienThoai}}</td>
+              <td>{{kh.diaChi}} - {{kh.phuong}} - {{kh.huyen}} - {{kh.tinh}}</td>
+              <td>
+                <span style="
+                        background-color: #cceeff;
+                        color: #0077cc;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        display: inline-block;
+                        text-align: center;
+                      ">{{kh.trangThai == 1 ? "Hoạt động": "Không hoạt động"}}
+                </span>
+              </td>
+              <td>
+                <a href="#/customer/update/{{kh.id}}" class="btn btn-primary">
+                  Sửa
+                </a>
+              </td>
+            </tr>         
         </tbody>
       </table>
     </div>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Page navigation example" style="margin-left: 480px;">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
