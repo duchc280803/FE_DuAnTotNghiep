@@ -4,7 +4,16 @@ myAppCustom.controller(
   "sanPhamShopDetailController",
   function ($http, $scope, $routeParams, $window) {
 
+    $scope.checkQuantity = function () {
+      // Lấy giá trị nhập vào từ trường số lượng
+      var enteredValue = parseInt($scope.soluong);
 
+      // Kiểm tra nếu giá trị là số âm hoặc không phải là số
+      if (enteredValue < 1 || isNaN(enteredValue)) {
+        // Đặt giá trị về 1 hoặc giá trị hợp lệ khác
+        $scope.soluong = 1;
+      }
+    };
     // Khởi tạo biến số lượng trong $scope
     $scope.soluong = 1;
 
