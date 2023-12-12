@@ -1049,7 +1049,6 @@ myApp.controller(
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
-            console.log($scope.listSanPhamTaiQuay);
           });
       }
     };
@@ -1203,7 +1202,6 @@ myApp.controller(
         console.error(e);
       });
 
-
     $scope.updateOrder = function (idVoucher, thanhTien) {
       var token = $window.localStorage.getItem("token");
 
@@ -1288,7 +1286,6 @@ myApp.controller(
                 $scope.getVoucherName();
               })
               .catch(function (error) {
-                console.log(error.data);
                 $scope.errorMessage = error.data.message;
                 $scope.errorHoTen = error.data.hoTen;
                 $scope.errorSoDienThoai = error.data.soDienThoai;
@@ -1353,7 +1350,6 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/voucher-counter/show")
         .then(function (response) {
           $scope.listVoucher = response.data;
-          console.log($scope.listVoucher);
           var maxDiscount = 0;
           var selectedVoucher = null;
 
@@ -1374,7 +1370,6 @@ myApp.controller(
               selectedVoucher = voucher;
             }
           });
-          console.log(maxDiscount);
           if (selectedVoucher) {
             $scope.updateOrder(selectedVoucher.id, totalOrderValue);
           } else {
@@ -1450,7 +1445,6 @@ myApp.controller(
           Authorization: "Bearer " + token, // Thêm token vào header Authorization
         },
       };
-      console.log(token);
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
