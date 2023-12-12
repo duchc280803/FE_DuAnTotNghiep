@@ -6,18 +6,71 @@ myApp.controller(
 
     $scope.pageNumber = 0;
     $scope.pageSize = 20;
-    $scope.fetchGiamGiaList = function () {
+    // $scope.fetchGiamGiaList = function () {
+    //   $http
+    //     .get(
+    //       "http://localhost:8080/api/v1/giam-gia/show?pageNumber=" +
+    //         $scope.pageNumber +
+    //         "&pageSize=" +
+    //         $scope.pageSize
+    //     )
+    //     .then(function (response) {
+    //       $scope.listGiamGia = response.data;
+    //     });
+    // };
+
+    // $scope.listSize = [];
+    $scope.selectedTrangThai = "";
+    $scope.searchQuery = "";
+    // $scope.selectedSize = null;
+    // $scope.pageNumber = 0;
+    // var id = $location.search().id;
+
+    function fetchGiamGiaList(trangThai, pageNumber) {
+      var url = `http://localhost:8080/api/v1/giam-gia/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
+
+      if ($scope.searchQuery) {
+        url += `&giamgia=${$scope.searchQuery}`;
+      }
+
       $http
-        .get(
-          "http://localhost:8080/api/v1/giam-gia/show?pageNumber=" +
-            $scope.pageNumber +
-            "&pageSize=" +
-            $scope.pageSize
-        )
+        .get(url)
         .then(function (response) {
           $scope.listGiamGia = response.data;
+          console.log("Dữ liệu trả về: ", response.data);
+
+          // Update currentPageNumber based on the response
+          $scope.currentPageNumber = response.data.number;
+          $scope.totalNumberOfPages = response.data.totalPages;
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi tìm kiếm: ", error);
         });
+    }
+
+    $scope.previousPage = function () {
+      if ($scope.pageNumber > 0) {
+        $scope.pageNumber--;
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+      }
     };
+    $scope.nextPage = function () {
+      $scope.pageNumber++;
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
+
+    $scope.refreshData = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+
+      // Clear text input fields
+      $scope.key2 = "";
+      $scope.key = "";
+      $scope.key3 = "";
+      $scope.startDate = "";
+
+      // Add any additional logic if needed
+    };
+
     $scope.formatMa = function (username) {
       // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
       if (username && username.includes(",")) {
@@ -79,27 +132,7 @@ myApp.controller(
         $scope.listHistory = response.data;
       });
     };
-
-    $scope.fetchGiamGiaList();
-
-    $scope.updatePage = function (pageNumber) {
-      $scope.pageNumber = pageNumber;
-      $scope.fetchGiamGiaList();
-    };
-
-    // TODO: Quay lại trang
-    $scope.previousPage = function () {
-      if ($scope.pageNumber > 0) {
-        $scope.pageNumber--;
-        $scope.fetchGiamGiaList();
-      }
-    };
-
-    // TODO: tiến đến trang khác
-    $scope.nextPage = function () {
-      $scope.pageNumber++;
-      $scope.fetchGiamGiaList();
-    };
+    fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
 
     setTimeout(() => {
       $scope.updateGiamGia = function (id) {
@@ -109,8 +142,9 @@ myApp.controller(
           icon: "question",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
+          confirmButtonText: "Đồng ý",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
+          cancelButtonText: "Hủy bỏ",
         }).then((result) => {
           if (result.isConfirmed) {
             var updateData = {
@@ -208,15 +242,13 @@ myApp.controller(
     // Thêm hàm tìm kiếm
     $scope.searchGiamGia = function () {
       var key1 = $scope.startDate;
-      var key2 = $scope.endDate;
-
-      if (!key1 && !key2) {
+      if (!key1) {
         // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchDatebykey", {
-            params: { key1: key1, key2: key2 },
+            params: { key1: key1 },
           })
           .then(function (response) {
             $scope.listGiamGia = response.data;
@@ -228,7 +260,7 @@ myApp.controller(
       var key = $scope.key;
       if (!key) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
@@ -244,7 +276,7 @@ myApp.controller(
       var key2 = $scope.key2;
       if (!key2) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
@@ -261,7 +293,7 @@ myApp.controller(
 
       if (!key) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchProduct_bykey", {
@@ -279,7 +311,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -296,7 +328,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -313,7 +345,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -330,7 +362,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -347,7 +379,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -364,7 +396,7 @@ myApp.controller(
 
       if (key3 === "") {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchGiamGiaList();
+        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchStatus_bykey", {
@@ -377,22 +409,12 @@ myApp.controller(
     };
 
     // Thêm hàm làm mới
-    $scope.refresh = function () {
-      // Gọi lại danh sách đầy đủ khi làm mới
-      $scope.fetchGiamGiaList();
-      // Xóa giá trị trong các ô input
-
-      $scope.tenGiamGia = "";
-      $scope.startDate = null;
-      $scope.endDate = null;
-      $scope.status = "";
-    };
     $scope.tuDongTaoMa = false;
     $scope.maGiamGia = "";
     $scope.tenGiamGia = "";
     $scope.mucGiam = "";
     $scope.hinhThucGiam = "";
-    $scope.trangThai = 1;
+    $scope.trangThai = "";
     $scope.ngayBatDau = "";
     $scope.ngayKetThuc = "";
     $scope.sanPhamDaChon = [];
@@ -484,8 +506,9 @@ myApp.controller(
           icon: "question",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
+          confirmButtonText: "Đồng ý",
         }).then((result) => {
           if (result.isConfirmed) {
             var ngayBatDau = new Date($scope.ngayBatDau);
@@ -503,7 +526,26 @@ myApp.controller(
               });
               return;
             }
-
+            if (
+              !$scope.maGiamGia ||
+              !$scope.tenGiamGia ||
+              !$scope.mucGiam ||
+              !$scope.hinhThucGiam ||
+              !$scope.ngayBatDau ||
+              !$scope.ngayKetThuc
+            ) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Vui lòng nhập đầy đủ thông tin",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
             if (
               $scope.hinhThucGiam == 2 &&
               ($scope.mucGiam <= 0 || $scope.mucGiam > 100)
@@ -597,8 +639,9 @@ myApp.controller(
           icon: "question",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
+          confirmButtonText: "Đồng ý",
+          cancelButtonText: "Hủy bỏ",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
         }).then((result) => {
           if (result.isConfirmed) {
             event.preventDefault();

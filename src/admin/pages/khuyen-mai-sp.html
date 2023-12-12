@@ -3,63 +3,49 @@
     <img src="/assets/images/filter-filled-tool-symbol.png" width="20px" style="padding-right: 3px" />Bộ lọc
   </h5>
   <hr />
-  <div class="box">
-    <div class="row" style="padding: 10px">
-      <div class="col-md-6">
-        <input class="form-control" ng-model="key2" ng-change="searchbyMa()" placeholder="Mã khuyến mại"
-          style="margin-top: 4px" />
-      </div>
-      <div class="col-md-6">
-        <input class="form-control" ng-model="key" placeholder="Tên khuyến mại" style="margin-top: 4px"
-          ng-change="searchKey()" />
-      </div>
-      
+  <div class="box" style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
+      <input class="form-control" ng-model="key2" ng-change="searchbyMa()" placeholder="Mã khuyến mại"
+        style="margin-top: 4px;" />
     </div>
-    <!-- Thêm vào mục "Bộ lọc" -->
-    <div class="row" style="padding: 10px">
-      <div class="col-lg-4">
-        <input type="date" class="form-control" ng-model="startDate" style="margin-top: 4px" />
-      </div>
-      <div class="col-lg-4">
-        <input type="date" class="form-control" ng-model="endDate" style="margin-top: 4px" />
-      </div>
-      <div class="col-lg-4">
-        <label class="form-label" style="margin-top: 11px">Trạng thái :</label>
-        <select style="color: green" class="custom-select" ng-model="key3" ng-change="searchStatus()">
-          <option value="">Tất cả</option>
-          <option value="1">Còn Hiệu Lực </option>
-          <option value="2">Hết Hiệu Lực</option>
-        </select>
-      </div>
+    <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
+      <input class="form-control" ng-model="key" placeholder="Tên khuyến mại" style="margin-top: 4px;"
+        ng-change="searchKey()" />
     </div>
-    <div class="row" style="padding: 10px;">
-      <div class="col-lg-2">
-        <button class="btn btn-primary" ng-click="searchGiamGia()">
-          Tìm kiếm
-        </button>
-      </div>
-      <div class="col-lg-2">
-        <button class="btn btn-primary" ng-click="refresh()">
-          Làm mới
-        </button>
-      </div>
-      <div class="col-lg-2">
-        <a class="btn btn-primary" href="#/promotion/product">
-          Sản phẩm
-        </a>
-      </div>
-      <div class="col-lg-2">
-        <a href="#/promotion/history" class="btn btn-primary">
-          Lịch sử
-        </a>
-      </div>
-      <div class="col-lg-4">
-        <a href="#/promotion/create" class="btn btn-primary">
-          Tạo Khuyến Mại
-        </a>
-      </div>
+    <div class="col-lg-4">
+      <label class="form-label" style="margin-top: 11px;padding-left: 50px;">Trạng thái :</label>
+      <select style="color: green;" class="custom-select" ng-model="key3" ng-change="searchStatus()">
+        <option value="">Chọn Trạng Thái</option>
+        <option value="1">Còn Hiệu Lực </option>
+        <option value="2">Hết Hiệu Lực</option>
+      </select>
+    </div>
+    <div class="col-lg-4" style="width: 700px; padding-right: 50px;">
+      <label>Tìm theo ngày bắt đầu</label>
+      <input type="date" class="form-control" ng-model="startDate" ng-change="searchGiamGia()"
+        style="margin-top: 4px;" />
     </div>
   </div>
+
+
+  <div class="row" style="padding: 10px;">
+    <div class="col-lg-2">
+      <button class="btn btn-primary" ng-click="refreshData()">
+        Làm mới
+      </button>
+    </div>
+    <div class="col-lg-2">
+      <a href="#/promotion/history" class="btn btn-primary">
+        Lịch sử
+      </a>
+    </div>
+    <div class="col-lg-4">
+      <a href="#/promotion/create" class="btn btn-primary">
+        Tạo Khuyến Mại
+      </a>
+    </div>
+  </div>
+</div>
 </div>
 <div class="row">
   <div class="col-lg-6">
@@ -112,7 +98,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel{{$index}}">Chi Tiết Sản Phẩm</h5>
+                    <h5 class="modal-title" id="detailsModalLabel{{$index}}">Sản phẩm được khuyến mãi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -146,18 +132,51 @@
       </tbody>
     </table>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 400px">
+      <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="#/khuyen-mai?page={{page - 1}}" ng-click="previousPage()">Previous</a>
-          </li>
-          <li class="page-item" ng-repeat="page in getPageNumbers()">
-            <a class="page-link" ng-href="#/khuyen-mai?page={{page}}" ng-click="updatePage(page)">{{ page }}</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
           </li>
           <li class="page-item">
-            <a class="page-link" ng-href="#/khuyen-mai?page={{page + 1}}" ng-click="nextPage()">Next</a>
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
           </li>
         </ul>
       </nav>
     </div>
-</div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr style="background-color: lightskyblue">
+        <th scope="col">STT</th>
+        <th scope="col">Ảnh sản phẩm</th>
+        <th scope="col">Tên sản phẩm</th>
+        <th scope="col">Đơn giá</th>
+        <th scope="col">Số lượng Giảm giá</th>
+        <th scope="col">Giá sau giảm</th>
+      </tr>
+    </thead>
+    <tbody class="table">
+      <tr ng-repeat="gg in listProduct">
+        <td style="padding-top: 75px">
+          {{$index + 1}}
+        </td>
+        <td>
+          <img src="{{gg.image}}" alt="" width="150px" />
+        </td>
+        <td>{{gg.productName}}</td>
+        <td>
+          {{gg.giaBan.toLocaleString('vi-VN')}}₫
+        </td>
+        <td>
+          {{gg.soLanGiam}}
+        </td>
+        <td>
+          {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
+        </td>
+      </tr>
+    </tbody>
+  </table>
