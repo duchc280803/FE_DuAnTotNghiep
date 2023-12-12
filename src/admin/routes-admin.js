@@ -34,10 +34,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/history-giam-gia-san-pham.html",
       controller: "GiamGiaController",
     })
-    .when("/promotion/product", {
-      templateUrl: "./pages/san-pham-khuyen-mai.html",
-      controller: "GiamGiaController",
-    })
     .when("/promotion/update/:id", {
       templateUrl: "./pages/update-giam-gia-sanpham.html",
       controller: "giamgiaChiTietController",
