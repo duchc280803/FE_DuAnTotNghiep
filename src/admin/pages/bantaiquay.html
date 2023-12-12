@@ -102,7 +102,7 @@
                   <button class="btn btn-primary" ng-click="selectOrder(hd.id, hd.idKhachHang)">
                     Chọn
                   </button>
-                  <button class="btn btn-danger" ng-click="deleteOrder(hd.id)">
+                  <button class="btn btn-danger" ng-click="closeVoucherOrder()">
                     Hủy
                   </button>
                 </td>
@@ -219,7 +219,7 @@
                 </tbody>
               </table>
             </div>
-            <nav aria-label="Page navigation example" style="margin-left: 490px" ng-if="listCart.length != 0">
+            <nav aria-label="Page navigation example" style="margin-left: 520px" ng-if="listCart.length != 0">
               <ul class="pagination">
                 <li class="page-item" ng-show="pageNumberSpTrongGio > 0">
                   <a class="page-link" href="" ng-click="previousPageSpTrongGio()">Previous</a>
@@ -982,7 +982,7 @@
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
                         <input type="text" ng-model="tienGiao" class="form-control hidden-input"
-                          placeholder="Nhập tiền vận chuyển" />
+                          placeholder="Nhập tiền vận chuyển" ng-change="autoAddVoucher((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao :0)))" />
                         <span style="color: red">{{errortienGiao}}</span>
                       </div>
                     </div>
