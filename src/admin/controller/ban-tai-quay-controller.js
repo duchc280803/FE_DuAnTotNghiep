@@ -541,6 +541,7 @@ myApp.controller(
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
     $scope.remainingAmount = 0;
+    $scope.tienCuoiCungCuaDon = 0;
     $scope.showTransaction = function () {
       $http
         .get("http://localhost:8080/api/v1/transaction/show?id=" + id)
@@ -550,6 +551,7 @@ myApp.controller(
           for (var i = 0; i < $scope.listTransaction.length; i++) {
             $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
           }
+          $scope.tienCuoiCungCuaDon = totalOrderValue - $scope.totalAmountPaid;
           $window.localStorage.setItem(
             "soTienkhachTra",
             $scope.totalAmountPaid
