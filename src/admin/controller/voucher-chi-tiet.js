@@ -71,7 +71,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Sửa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {

@@ -7,6 +7,7 @@
     border: 0;
     box-sizing: border-box;
   }
+
   .fl-left {
     float: left;
   }
@@ -201,16 +202,16 @@
           <input type="number" class="next-input" ng-model="voucherchitiet.soLuongMa" placeholder="Nhập số lượng" />
         </div>
         <div class="col-lg-6">
-          <span class="header-title"><span style="color: red">*</span><span>Giá giảm</span></span>
-          <input type="text" class="next-input" ng-model="voucherchitiet.giaTriGiam" placeholder="Nhập tên giá giảm" />
+          <span class="header-title"><span style="color: red">*</span><span>Giá trị tối thiểu đơn hàng</span></span>
+          <input type="number" class="next-input" ng-model="voucherchitiet.giaTriToiThieuDonhang"
+            placeholder="Nhập giá trị tối thiểu đơn hàng" />
         </div>
       </div>
       <br />
       <div class="row">
         <div class="col-lg-6">
-          <span class="header-title"><span style="color: red">*</span><span>Giá trị tối thiểu đơn hàng</span></span>
-          <input type="number" class="next-input" ng-model="voucherchitiet.giaTriToiThieuDonhang"
-            placeholder="Nhập giá trị tối thiểu đơn hàng" />
+          <span class="header-title"><span style="color: red">*</span><span>Giá giảm</span></span>
+          <input type="text" class="next-input" ng-model="voucherchitiet.giaTriGiam" placeholder="Nhập tên giá giảm" />
         </div>
         <div class="col-lg-6">
           <select class="form-select" id="selectOption" ng-value="voucherchitiet.hinhThucGiam"
