@@ -24,7 +24,7 @@
         <div class="card shadow">
           <div class="card-body">
             <div class="col text-center">
-              <h2 class="h3 mb-0 page-title">Cập nhật sản phẩm</h2>
+              <span style="font-size: 20px;">Cập nhật sản phẩm</span>
             </div>
             <div class="card-body">
               <div class="row">
@@ -148,62 +148,52 @@
         <div class="card shadow">
           <div class="card-body">
             <div class="col text-center">
-              <h2 class="h3 mb-0 page-title">Chi tiết sản phẩm</h2>
+              <span style="font-size: 20px;">Chi tiết sản phẩm</span>
             </div>
             <table class="table table-borderless table-hover">
               <thead>
                 <tr class="text-center">
                   <th>
-                    <p class="mb-0 text-muted"><strong>Màu sắc</strong></p>
+                    Màu sắc
                   </th>
                   <th>
-                    <p class="mb-0 text-muted">
-                      <strong>Chất liệu</strong>
-                    </p>
+                    Chất liệu
                   </th>
                   <th>
-                    <p class="mb-0 text-muted"><strong>Kích cỡ</strong></p>
+                    Kích cỡ
                   </th>
                   <th>
-                    <p class="mb-0 text-muted"><strong>Số lượng</strong></p>
+                    Số lượng
                   </th>
                   <th>
-                    <p class="mb-0 text-muted">
-                      <strong>Qrcode</strong>
-                    </p>
+                    Qrcode
                   </th>
                   <th>
-                    <p class="mb-0 text-muted">
-                      <strong>Trạng thái</strong>
-                    </p>
+                    Trạng thái
                   </th>
                   <th>
-                    <p class="mb-0 text-muted">
-                      <strong>Hành động</strong>
-                    </p>
+                    Hành động
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="text-center" ng-repeat="pd in productDetail">
                   <td>
-                    <small class="mb-0 text-muted">{{pd.color}}</small>
+                    {{pd.color}}
                   </td>
 
                   <td>
-                    <small class="mb-0 text-muted">{{pd.chatLieu}}</small>
+                    {{pd.chatLieu}}
                   </td>
                   <td>
-                    <small class="mb-0 text-muted">{{pd.size}}</small>
+                    {{pd.size}}
                   </td>
-                  <small class="mb-0 text-muted">
-                    <td class="col-1">
-                      <div class="input-group" style="width: 90px;">
-                        <input type="number" name="quant[1]" class="form-control text-center" value="{{pd.quantity}}"
-                          min="1" max="10000" ng-model="soLuong" ng-change="updateQuantity(pd.id,soLuong)" />
-                      </div>
-                    </td>
-                  </small>
+                  <td class="col-1">
+                    <div class="input-group" style="width: 90px;">
+                      <input type="number" name="quant[1]" class="form-control text-center" value="{{pd.quantity}}"
+                        min="1" max="10000" ng-model="soLuong" ng-change="updateQuantity(pd.id,soLuong)" />
+                    </div>
+                  </td>
                   <td>
                     <img src="{{qrCodeImage }}" width="40px" alt="">
                   </td>
@@ -227,19 +217,20 @@
               </tbody>
             </table>
             <div class="col-12 text-center">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#productDetailModal">
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productDetailModal">
                 Thêm chi tiết sản phẩm
               </button>
             </div>
-            <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-12">
                         <div class="form-group">
-                          <span class="text-danger">*</span>
-                          <label for="status">Màu sắc:</label>
+                          <span class="header-title"><span style="color: red">*</span>
+                            <span>Màu sắc:</span></span>
                           <select class="form-control" id="status" ng-model="newProductDetail.idMauSac">
                             <option value="">Vui lòng chọn
                             </option>
@@ -251,8 +242,8 @@
                         </div>
                         <div class="col-12">
                           <div class="form-group">
-                            <span class="text-danger">*</span>
-                            <label for="status">Chất liệu:</label>
+                            <span class="header-title"><span style="color: red">*</span>
+                              <span>Chất liệu:</span></span>
                             <select class="form-control" id="status" ng-model="newProductDetail.idChatLieu">
                               <option value="">Vui lòng chọn
                               </option>
@@ -265,8 +256,8 @@
                         </div>
                         <div class="col-12">
                           <div class="form-group">
-                            <span class="text-danger">*</span>
-                            <label for="status">Size:</label>
+                            <span class="header-title"><span style="color: red">*</span>
+                              <span>Size:</span></span>
                             <select class="form-control" id="status" ng-model="newProductDetail.idSize">
                               <option value="">Vui lòng chọn
                               </option>
@@ -279,16 +270,17 @@
                         </div>
                         <div class="col-12">
                           <div class="form-group">
-                            <label for="status">Số lượng:</label>
-                            <small class="mb-0 text-muted">
-                              <div class="row">
-                                <div class="input-group col-4">
-                                  <div class="input-group">
-                                    <input type="number" ng-model="newProductDetail.soLuong"
-                                      class="form-control text-center" value="1" min="1" max="10000" />
-                                  </div>
+                            <span class="header-title"><span style="color: red">*</span>
+                              <span>Số lượng:</span></span>
+
+                            <div class="row">
+                              <div class="input-group col-4">
+                                <div class="input-group">
+                                  <input type="number" ng-model="newProductDetail.soLuong"
+                                    class="form-control text-center" value="1" min="1" max="10000" />
                                 </div>
                               </div>
+                            </div>
                             </small>
                             <span style="color: red">{{errorSoLuong}}</span>
                           </div>
@@ -296,8 +288,8 @@
                       </div>
                     </div>
                     <div class="modal-footer text-center">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">
-                        cancel
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Hủy bỏ
                       </button>
                       <button type="button" class="btn btn-primary" ng-click="createProductDetail()">
                         Xác nhận
@@ -329,7 +321,7 @@
                   <input style="margin-top: 15px;" class="form-control" type="file" id="formFile" ng-model="files"
                     ng-show="image.length < 6" multiple>
                   <button style="margin-top: 20px; margin-left: 510px;" class="btn btn-primary"
-                    ng-click="uploadImages()" ng-show="image.length < 6">Submit</button>
+                    ng-click="uploadImages()" ng-show="image.length < 6">Hoàn thành</button>
                 </div>
               </div>
             </div>

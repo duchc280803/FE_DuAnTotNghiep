@@ -1,4 +1,8 @@
 myAppCustom.controller("donHangController", function ($http, $scope, $window) {
+
+    $scope.username = $window.localStorage.getItem('username');
+    console.log("username"+$window.localStorage.getItem('username'))
+
     // Hàm tự động click vào tab "Thành công" khi trang mới load
     $scope.selectTabThangCong = function () {
         // Sử dụng setTimeout để đảm bảo DOM đã được render trước khi tìm kiếm phần tử

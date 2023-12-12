@@ -37,9 +37,9 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="#/dashboard" aria-expanded="false">
                 <span>
-                  <i class="ti ti-layout-dashboard"></i>
+                  <img src="/assets/images/trend.png" width="180" alt="" style="width: 21px; height: 21px" />
                 </span>
-                <span class="hide-menu">Dashboard</span>
+                <span class="hide-menu">Thống kê</span>
               </a>
             </li>
             <li class="sidebar-item">
@@ -65,7 +65,7 @@
                 <span>
                   <img src="/assets/images/product.png" width="180" style="width: 21px; height: 21px" />
                 </span>
-                <span class="hide-menu">Quản Lý sản phẩm</span>
+                <span class="hide-menu">Quản lý sản phẩm</span>
               </a>
               <ul class="list-unstyled collapse" id="pageSubmenu1">
                 <li class="sidebar-item" style="margin-left: 37px">
@@ -100,7 +100,7 @@
                 <span>
                   <img src="/assets/images/group.png" width="180" style="width: 21px; height: 21px" />
                 </span>
-                <span class="hide-menu">Quản Lý tài khoản</span>
+                <span class="hide-menu">Quản lý tài khoản</span>
               </a>
               <ul class="list-unstyled collapse" id="pageSubmenu">
                 <li class="sidebar-item" style="margin-left: 37px">
@@ -114,7 +114,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="#/promotion" aria-expanded="false">
                 <span>
-                  <img src="/assets/images/ticket.png" width="180" alt="" style="width: 21px; height: 21px" />
+                  <img src="/assets/images/shopping-bag.png" width="180" alt="" style="width: 21px; height: 21px" />
                 </span>
                 <span class="hide-menu">Quản lý khuyến mại</span>
               </a>
@@ -134,7 +134,7 @@
     <div class="body-wrapper">
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
+          <!-- <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
               <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                 <i class="ti ti-menu-2"></i>
@@ -146,7 +146,7 @@
                 <div class="notification bg-primary rounded-circle"></div>
               </a>
             </li>
-          </ul>
+          </ul> -->
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               <li class="nav-item dropdown">
@@ -168,11 +168,11 @@
                       <div ng-if="!isLoggedIn">
                         <button data-bs-toggle="modal" data-bs-target="#login-admin"
                           class="btn btn-outline-primary mx-3 mt-2 d-block">
-                          Login
+                          Đăng nhập
                         </button>
                       </div>
                       <div ng-if="isLoggedIn">
-                        <a ng-click="logout()" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                        <a ng-click="logout()" class="btn btn-outline-primary mx-3 mt-2 d-block">Đăng xuất</a>
                       </div>
                     </div>
                   </div>

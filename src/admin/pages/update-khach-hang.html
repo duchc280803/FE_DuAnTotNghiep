@@ -13,21 +13,29 @@
                 <form name="frmAccount">
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Họ và tên</span></span>
+                        <span ng-show="!isHoTenValid" style="color: red;">Vui lòng nhập vào họ tên</span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.ten" />
                     </div>
                     <br />
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Ngày sinh</span></span>
+                        <span ng-show="!isNgaySinhValid" style="color: red;">Vui lòng chọn ngày sinh</span>
                         <input required type="date" class="form-control" ng-model="selectedKhachHang.ngaySinh" />
                     </div>
                     <br />
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Số điện thoại</span></span>
+                        <span ng-show="!isSoDienThoaiValid" style="color: red;">Vui lòng nhập vào số điện thoại</span>
+                        <span ng-show="!isSoDienThoaiFormat" style="color: red;">Số điện thoại sai định dạng, vui lòng
+                            xem
+                            lại</span>
+                        <span ng-show="!isSoDienThoaiIsPresent" style="color: red;">Số điện thoại đã tồn tại</span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.soDienThoai" />
                     </div>
                     <br />
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Giới tính</span></span>
+                        <span ng-show="!isGioiTinhValid" style="color: red;">Vui lòng chọn giới tính</span>
                         <div class="form-check-inline">
                             <input class="form-check-input" type="radio" name="gender"
                                 ng-model="selectedKhachHang.gioiTinh" value="true" />
@@ -42,12 +50,16 @@
                     <br />
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Email</span></span>
+                        <span ng-show="!isEmailValid" style="color: red;">Vui lòng nhập vào email</span>
+                        <span ng-show="!isEmailFormat" style="color: red;">Email định dạng, vui lòng xem lại</span>
+                        <span ng-show="!isEmailIsPresent" style="color: red;">Email đã tồn tại</span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.email" />
                     </div>
                     <br />
                     <div class="row">
                         <div class="col-lg-4">
                             <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
+                            <span ng-show="!isProvinceValid" style="color: red;">Chọn tỉnh</span>
                             <select class="form-control select2" ng-model="selectedProvince"
                                 ng-options="province.name for province in provinces" ng-change="getDistricts()">
                                 <option value="">Chọn tỉnh</option>
@@ -59,6 +71,7 @@
                         <div class="col-lg-4">
                             <span class="header-title"><span style="color: red">*</span>
                                 <span>Huyện</span></span>
+                            <span ng-show="!isDistrictValid" style="color: red;">Chọn huyện</span>
                             <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
                                 ng-options="district.name for district in districts" ng-change="getWards()">
                                 <option value="">Chọn huyện</option>
@@ -70,6 +83,7 @@
                         <div class="col-lg-4">
                             <span class="header-title"><span style="color: red">*</span>
                                 <span>Phường</span></span>
+                            <span ng-show="!isWardValid" style="color: red;">Chọn phường</span>
                             <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
                                 ng-options="ward.name for ward in wards">
                                 <option value="">Chọn phường</option>
@@ -82,11 +96,13 @@
                     <br>
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
+                        <span ng-show="!isDiaChiValid" style="color: red;">Vui lòng nhập vào địa chỉ</span>
                         <input required type="text" class="form-control" ng-model="selectedKhachHang.diaChi" />
                     </div>
                     <br>
                     <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Trạng thái</span></span>
+                        <span ng-show="!isTrangThaiValid" style="color: red;">Vui lòng chọn trạng thái</span>
                         <div class="form-check-inline">
                             <input class="form-check-input" type="radio" name="status"
                                 ng-model="selectedKhachHang.trangThai" value="1" />
@@ -105,6 +121,7 @@
                     </div>
                 </form>
             </div>
+            <a href="/src/admin/index-admin.html#/customer" style="width: 100px;margin-left: 990px;" type="button" class="mb-2 btn btn-primary">Quay về</a>
             <button style="width: 100px;margin-left: 990px;" type="button" class="btn btn-danger"
                 ng-click="updateKhachHang()">ChỉnhSửa</button>
         </div>

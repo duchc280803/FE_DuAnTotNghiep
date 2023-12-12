@@ -106,10 +106,22 @@ myApp.controller(
         $scope.selectedMauSac.mauSacId = id;
       });
     }
+    $scope.isthuoctinh_update = true;
+
     setTimeout(() => {
       $scope.updateMauSac = function (updatedData) {
+
+        $scope.isthuoctinh_update = !!$scope.selectedMauSac.tenMauSac;
+        if (
+          !$scope.isthuoctinh_update
+        ) {
+          return;
+        } else {
+          $scope.isthuoctinh_update = true;
+        }
+
         Swal.fire({
-          title: "Bạn có muốn update không?",
+          title: "Bạn có muốn chỉnh sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -135,9 +147,9 @@ myApp.controller(
               .put(updateUrl, updatedData, config)
               .then(function (response) {
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Chỉnh sửa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -156,50 +168,77 @@ myApp.controller(
     }, 2000);
 
     $scope.newMauSac = {};
+    // validation here
+    $scope.isthuoctinh = true;
+    $scope.istrangthai = true;
+    $scope.isthuoctinhIsPresent = true;
     setTimeout(() => {
       $scope.createMauSac = function () {
-        Swal.fire({
-          title: "Bạn có muốn thêm mới không?",
-          text: "",
-          icon: "question",
-          showCancelButton: true,
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
-          cancelButtonColor: "#d33",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
-          reverseButtons: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            var token = $window.localStorage.getItem("token");
 
-            var config = {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            };
-            $http
-              .post(
-                "http://localhost:8080/api/v1/mau-sac/create",
-                $scope.newMauSac,
-                config
-              )
-              .then(function (response) {
-                $scope.listMauSac.push(response.data);
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Thêm thành công",
-                  showConfirmButton: false,
-                  timer: 1500,
-                  customClass: {
-                    popup: "small-popup", // Add a class to the message
-                  },
-                }).then(() => {
-                  mauSacList($scope.selectedTrangThai, $scope.pageNumber);
+        $scope.isthuoctinh = !!$scope.newMauSac.tenMauSac;
+      $scope.istrangthai = !!$scope.newMauSac.trangThai;
+
+      if (
+        !$scope.isthuoctinh ||
+        !$scope.istrangthai
+      ) {
+        return;
+      } else {
+        $scope.isthuoctinh = true;
+        $scope.istrangthai = true;
+      }
+      $http.get("http://localhost:8080/api/v1/mau-sac/find-by-mau-sac?mausac=" + $scope.newMauSac.tenMauSac)
+      .then(function (response) {
+        if (response.data > 0) {
+          $scope.isthuoctinhIsPresent = false; // mausac đã tồn tại
+          return;
+        }
+        if (response.data === 0) {
+          $scope.isthuoctinhIsPresent = true; // mausac OK
+          Swal.fire({
+            title: "Bạn có muốn thêm mới không?",
+            text: "",
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              var token = $window.localStorage.getItem("token");
+  
+              var config = {
+                headers: {
+                  Authorization: "Bearer " + token,
+                },
+              };
+              $http
+                .post(
+                  "http://localhost:8080/api/v1/mau-sac/create",
+                  $scope.newMauSac,
+                  config
+                )
+                .then(function (response) {
+                  $scope.listMauSac.push(response.data);
+                  Swal.fire({
+                    position: "bottom-start",
+                    icon: "success",
+                    title: "Thêm thành công",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                      popup: "small-popup", // Add a class to the message
+                    },
+                  }).then(() => {
+                    mauSacList($scope.selectedTrangThai, $scope.pageNumber);
+                  });
                 });
-              });
-          }
-        });
+            }
+          });
+        }
+      });
       };
     }, 2000);
 
@@ -224,7 +263,7 @@ myApp.controller(
               .put(deleteUrl)
               .then(function (response) {
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
                   title: "Vô hiệu hóa thành công",
                   showConfirmButton: false,

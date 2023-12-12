@@ -41,6 +41,16 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     $scope.filterSanPham();
   };
 
+  $scope.lamMoiSanPham = function () {
+    $scope.thuongHieu = "";
+    $scope.danhMuc = "";
+    $scope.xuatXu = "";
+    $scope.kieuDe = "";
+    $scope.status = "";
+    $scope.value = "";
+    $scope.filterSanPham();
+  };
+
   $scope.formatMa = function (username) {
     // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
     if (username && username.includes(",")) {
@@ -246,7 +256,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         $http
@@ -284,7 +294,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newThuongHieu = {};
   setTimeout(() => {
@@ -297,16 +307,24 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         $http
           .post(
             "http://localhost:8080/api/v1/thuong-hieu/create",
-            $scope.newThuongHieu
+            $scope.newThuongHieu, config
           )
           .then(function (response) {
             $scope.listThuongHieu.push(response.data);
+            $("#brandModal").modal("hide");
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -319,10 +337,14 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
             }).then(() => {
               $scope.getListThuongHieu();
             });
+          })
+          .catch(function (error) {
+            $scope.errortenThuongHieu = error.data.tenThuongHieu;
+            $scope.errortrangThai = error.data.trangThai;
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newKieuDe = {};
   setTimeout(() => {
@@ -335,13 +357,21 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         $http
-          .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe)
+          .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe, config)
           .then(function (response) {
             $scope.listKieuDe.push(response.data);
+            $("#soleModal").modal("hide");
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -354,10 +384,14 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
             }).then(() => {
               $scope.getListKieuDe();
             });
+          })
+          .catch(function (error) {
+            $scope.errortenDe = error.data.tenDe;
+            $scope.errortrangThai = error.data.trangThai;
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newDanhMuc = {};
   setTimeout(() => {
@@ -370,16 +404,24 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         $http
           .post(
             "http://localhost:8080/api/v1/danh-muc/create",
-            $scope.newDanhMuc
+            $scope.newDanhMuc, config
           )
           .then(function (response) {
             $scope.listDanhMuc.push(response.data);
+            $("#categoryModal").modal("hide");
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -392,10 +434,14 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
             }).then(() => {
               $scope.getListDanhMuc();
             });
+          })
+          .catch(function (error) {
+            $scope.errortenDanhMuc = error.data.tenDanhMuc;
+            $scope.errortrangThai = error.data.trangThai;
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newXuatXu = {};
   setTimeout(() => {
@@ -408,17 +454,25 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
         cancelButtonColor: "#d33",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
+          var token = $window.localStorage.getItem("token");
+
+          var config = {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
           $http
             .post(
               "http://localhost:8080/api/v1/xuat-xu/create",
-              $scope.newXuatXu
+              $scope.newXuatXu, config
             )
             .then(function (response) {
               $scope.listXuatXu.push(response.data);
+              $("#xuatXuMoi").modal("hide");
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -428,12 +482,15 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
                 customClass: {
                   popup: "small-popup", // Add a class to the message
                 },
-              }).then(() => {
-                $scope.getListXuatXu();
               });
+              $scope.getListXuatXu();
+            })
+            .catch(function (error) {
+              $scope.errortenXuatXu = error.data.tenXuatXu;
+              $scope.errortrangThai = error.data.trangThai;
             });
         }
       });
     };
-  });
+  }, 2000);
 });

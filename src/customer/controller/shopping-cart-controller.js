@@ -8,7 +8,7 @@ myAppCustom.controller(
         $http
           .get(
             "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-              idgh
+            idgh
           )
           .then(function (response) {
             // Lấy giá trị tổng tiền từ phản hồi API
@@ -227,7 +227,7 @@ myAppCustom.controller(
         $http
           .get(
             "http://localhost:8080/api/gio-hang-chi-tiet-not-login/name-quantity?idgh=" +
-              idgh
+            idgh
           )
           .then(function (response) {
             $scope.items = response.data;
@@ -332,8 +332,8 @@ myAppCustom.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/p/" +
-            $scope.selectedProvince.code +
-            "?depth=2"
+          $scope.selectedProvince.code +
+          "?depth=2"
         )
         .then(function (response) {
           $scope.districts = response.data.districts;
@@ -344,8 +344,8 @@ myAppCustom.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/d/" +
-            $scope.selectedDistrict.code +
-            "?depth=2"
+          $scope.selectedDistrict.code +
+          "?depth=2"
         )
         .then(function (response) {
           $scope.wards = response.data.wards;
@@ -500,8 +500,18 @@ myAppCustom.controller(
                     localStorage.removeItem("totalAmount");
                     localStorage.removeItem("listCart");
                     localStorage.removeItem("giatritoithieudonhang");
-                    // Chuyển hướng đến trang "thank-you"
-                    // $location.path("/thank-you");
+                    Swal.fire({
+                      title: "Success",
+                      text: "Thanh toán thành công",
+                      icon: "success",
+                      showConfirmButton: false,
+                      timer: 1500,
+                    });
+                    setTimeout(function () {
+                      $location.reload();
+                    }, 1500);
+                      // Chuyển hướng đến trang "thank-you"
+                      $location.path("/thank-you");
                   },
                   function (error) {
                     console.log(error);
@@ -523,8 +533,18 @@ myAppCustom.controller(
                   localStorage.removeItem("maVoucher");
                   localStorage.removeItem("totalAmount");
                   localStorage.removeItem("listCart");
-                  // Chuyển hướng đến trang "thank-you"
-                  $location.path("/thank-you");
+                  Swal.fire({
+                    title: "Success",
+                    text: "Thanh toán thành công",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  setTimeout(function () {
+                    $location.reload();
+                  }, 1500);
+                    // Chuyển hướng đến trang "thank-you"
+                    $location.path("/thank-you");
                 },
                 function (error) {
                   console.log(error);
@@ -859,7 +879,7 @@ myAppCustom.controller(
       $http
         .post(
           "http://localhost:8080/api/v1/payment/online/vn_pay?amountParam=" +
-            amountParam
+          amountParam
         )
         .then(function (response) {
           $window.location.href = response.data.url;
@@ -880,18 +900,18 @@ myAppCustom.controller(
       $http
         .post(
           "http://localhost:8080/api/checkout-not-login/vn-pay?id=" +
-            idHoaDonLogin +
-            "&maGiaoDinh=" +
-            $scope.maGiaoDinh +
-            "&vnp_Amount=" +
-            $scope.tienCuoiCungVnPay
+          idHoaDonLogin +
+          "&maGiaoDinh=" +
+          $scope.maGiaoDinh +
+          "&vnp_Amount=" +
+          $scope.tienCuoiCungVnPay
         )
         .then(function (response) {
           $scope.listTransaction.push(response.data);
         });
     };
 
-    console.log("Đây là id hóa đơn " +idHoaDonLogin);
+    console.log("Đây là id hóa đơn " + idHoaDonLogin);
 
     var transactionVnpayCalled = false;
     if (
@@ -902,6 +922,7 @@ myAppCustom.controller(
       console.log("Có vào đây không");
       $scope.createTransactionVnpayLogin();
       transactionVnpayCalled = true;
-      $window.localStorage.removeItem("idHoaDonLogin");    }
+      $window.localStorage.removeItem("idHoaDonLogin");
+    }
   }
 );

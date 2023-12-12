@@ -6,15 +6,49 @@ myApp.controller(
     $scope.idUpdate = id;
 
     $scope.listSanPhamChiTiet = [];
+    $scope.pageNumber = 0;
+    $scope.pageSize = 20;
     $scope.getlistSanPhamChiTiet = function () {
       $http
-        .get("http://localhost:8080/api/v1/san-pham-chi-tiet/show?id=" + id)
+        .get(
+          "http://localhost:8080/api/v1/san-pham-chi-tiet/show?id=" +
+            id +
+            "&pageNumber=" +
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize
+        )
         .then(function (response) {
           $scope.listSanPhamChiTiet = response.data;
+          if ($scope.listSanPhamChiTiet.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         });
     };
 
     $scope.getlistSanPhamChiTiet();
+
+    $scope.previousPage = function () {
+      if ($scope.pageNumber > -1) {
+        $scope.pageNumber--;
+        $scope.getlistSanPhamChiTiet();
+      }
+    };
+
+    $scope.nextPage = function () {
+      $scope.pageNumber++;
+      $scope.getlistSanPhamChiTiet();
+    };
+
+    $scope.lamMoiChiTietSanPham = function () {
+      $scope.trangThai = "";
+      $scope.locSize = "";
+      $scope.locMaterial = "";
+      $scope.locMauSac = "";
+      $scope.getlistSanPhamChiTiet();
+    };
 
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
@@ -50,6 +84,25 @@ myApp.controller(
     $scope.getListMauSac();
 
     // TODO:  Lọc sản phẩm theo size
+    $scope.trangThai;
+    $scope.filterStatus = function () {
+      if ($scope.trangThai === "") {
+        $scope.getlistSanPhamChiTiet();
+      } else {
+        $http
+          .get(
+            "http://localhost:8080/api/v1/san-pham-chi-tiet/show-by-status?id=" +
+              id +
+              "&trangThai=" +
+              $scope.trangThai
+          )
+          .then(function (response) {
+            $scope.listSanPhamChiTiet = response.data;
+          });
+      }
+    };
+
+    // TODO:  Lọc sản phẩm theo size
     $scope.locSize;
     $scope.filterSize = function () {
       if ($scope.locSize === "") {
@@ -63,7 +116,7 @@ myApp.controller(
               $scope.locSize
           )
           .then(function (response) {
-            $scope.listSanPhamTaiQuay = response.data;
+            $scope.listSanPhamChiTiet = response.data;
           });
       }
     };
@@ -82,7 +135,7 @@ myApp.controller(
               $scope.locMaterial
           )
           .then(function (response) {
-            $scope.listSanPhamTaiQuay = response.data;
+            $scope.listSanPhamChiTiet = response.data;
           });
       }
     };
@@ -101,7 +154,7 @@ myApp.controller(
               $scope.locMauSac
           )
           .then(function (response) {
-            $scope.listSanPhamTaiQuay = response.data;
+            $scope.listSanPhamChiTiet = response.data;
           });
       }
     };

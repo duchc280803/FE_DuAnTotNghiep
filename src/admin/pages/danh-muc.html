@@ -46,7 +46,7 @@
           </div>
           <div class="col-auto">
             <div class="input-group-append ml-3">
-              <button class="btn btn-primary rounded" data-toggle="modal" data-target="#sizeModal">
+              <button class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#sizeModal">
                 Tạo danh mục
               </button>
             </div>
@@ -57,22 +57,22 @@
           <thead>
             <tr>
               <th>
-               STT
+                STT
               </th>
               <th>
-               Tên danh mục
+                Tên danh mục
               </th>
               <th>
-               Trạng thái
+                Trạng thái
               </th>
               <th>
-               Ngày tạo
+                Ngày tạo
               </th>
               <th>
-               Ngày cập nhật
+                Ngày cập nhật
               </th>
               <th>
-               Hành động
+                Hành động
               </th>
             </tr>
           </thead>
@@ -97,8 +97,8 @@
 
                 <button class="btn btn-warning" ng-click="deleteDanhMuc(th.id)"><img width="25px"
                     src="/assets/images/disabled.png" alt=""></button>
-                <button class="btn btn-success" data-toggle="modal" ng-click="fetchDanhMucDetail(th.id)"
-                  data-target="#sua"><img width="25px" src="/assets/images/update.png" alt=""></button>
+                <button class="btn btn-success" data-bs-toggle="modal" ng-click="fetchDanhMucDetail(th.id)"
+                  data-bs-target="#sua"><img width="25px" src="/assets/images/update.png" alt=""></button>
               </td>
             </tr>
 
@@ -108,49 +108,42 @@
     </div>
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
-        <li class="page-item">
+        <li class="page-item" ng-show="pageNumber > 0">
           <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
-        <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="nextPage()"
-            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+        <li class="page-item" ng-show="showNextButtonSpInCart">
+          <a class="page-link" ng-href="" ng-click="nextPage()">Next</a>
         </li>
       </ul>
     </nav>
-
   </div> <!-- .col-12 -->
 </div> <!-- .row -->
-
-
-<!-- thêm -->
-<div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="danhMucModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Thêm mới danh mục</h5>
-      </div>
       <div class="modal-body">
+        <span>Thêm mới danh mục</span>
+        <br>
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="brandName">Tên danh mục:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Tên danh mục:</span></span>
           <input type="text" class="form-control" id="brandName" ng-model="newDanhMuc.tenDanhMuc"
             placeholder="Nhập tên danh mục" />
+          <span style="color: red">{{errortenDanhMuc}}</span>
         </div>
-
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="status">Trạng thái:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
           <select class="form-control" id="status" ng-model="newDanhMuc.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
+          <span style="color: red">{{errortrangThai}}</span>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
         <button type="button" class="btn btn-primary" ng-click="createDanhMuc()" data-dismiss="modal">
@@ -161,34 +154,32 @@
   </div>
 </div>
 <!-- sửa -->
-<div class="modal fade" id="sua" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="suaDanhMucModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Sửa danh mục</h5>
-      </div>
       <div class="modal-body">
+        <span>Thêm mới danh mục</span>
+        <br>
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="brandName">Tên danh mục:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Tên danh mục:</span></span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục"
             ng-model="selectedDanhMuc.tenDanhMuc" />
+          <span style="color: red">{{errortenDanhMuc}}</span>
         </div>
-
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="status">Trạng thái:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
           <select class="form-control" id="status" ng-model="selectedDanhMuc.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
+          <span style="color: red">{{errortrangThai}}</span>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="updateDanhMuc(selectedDanhMuc)" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="updateDanhMuc(selectedDanhMuc)" >
           Sửa
         </button>
       </div>

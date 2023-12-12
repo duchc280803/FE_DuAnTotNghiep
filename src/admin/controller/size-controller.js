@@ -102,16 +102,34 @@ myApp.controller(
         if ($scope.selectedSize.trangThai === 1) {
           $scope.selectedSize.trangThai = "1";
         } else {
-          $scope.selectedSize.trangThai = "0";
+          $scope.selectedSize.trangThai = "2";
         }
         $scope.selectedSize.sizeId = id;
       });
     }
 
+    // validation here
+    $scope.isthuoctinh_update = true;
+    $scope.istrangthai_update = true;
+
     setTimeout(() => {
       $scope.updateSize = function (updatedData) {
+
+        $scope.isthuoctinh_update = !!$scope.selectedSize.size;
+        $scope.istrangthai_update = !!$scope.selectedSize.trangThai;
+
+        if (
+          !$scope.isthuoctinh_update ||
+          !$scope.istrangthai_update
+        ) {
+          return;
+        } else {
+          $scope.isthuoctinh_update = true;
+          $scope.istrangthai_update = true;
+        }
+
         Swal.fire({
-          title: "Bạn có muốn update không?",
+          title: "Bạn có muốn chỉnh sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -137,9 +155,9 @@ myApp.controller(
               .put(updateUrl, updatedData, config)
               .then(function (response) {
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
-                  title: "Thêm thành công",
+                  title: "Chỉnh sửa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -158,50 +176,82 @@ myApp.controller(
     }, 2000);
 
     $scope.newSize = {};
+
+    // validation here
+    $scope.isthuoctinh = true;
+    $scope.istrangthai = true;
+    $scope.isthuoctinhIsPresent = true;
+
+
     setTimeout(() => {
       $scope.createSize = function () {
-        Swal.fire({
-          title: "Bạn có muốn thêm mới không?",
-          text: "",
-          icon: "question",
-          showCancelButton: true,
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
-          cancelButtonColor: "#d33",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
-          reverseButtons: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            var token = $window.localStorage.getItem("token");
+        $scope.isthuoctinh = !!$scope.newSize.size;
+        $scope.istrangthai = !!$scope.newSize.trangThai;
 
-            var config = {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            };
-            $http
-              .post(
-                "http://localhost:8080/api/v1/size/create",
-                $scope.newSize,
-                config
-              )
-              .then(function (response) {
-                $scope.listSize.push(response.data);
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Thêm thành công",
-                  showConfirmButton: false,
-                  timer: 1500,
-                  customClass: {
-                    popup: "small-popup", // Add a class to the message
-                  },
-                }).then(() => {
-                  sizeList($scope.selectedTrangThai, $scope.pageNumber);
-                });
+        if (
+          !$scope.isthuoctinh ||
+          !$scope.istrangthai
+        ) {
+          return;
+        } else {
+          $scope.isthuoctinh = true;
+          $scope.istrangthai = true;
+        }
+
+        $http.get("http://localhost:8080/api/v1/size/find-by-size?size=" + $scope.newSize.size)
+          .then(function (response) {
+            console.log("size" + response.data)
+            if (response.data > 0) {
+              $scope.isthuoctinhIsPresent = false; // size đã tồn tại
+              return;
+            }
+            if (response.data === 0) {
+              $scope.isthuoctinhIsPresent = true; // size OK
+
+              Swal.fire({
+                title: "Bạn có muốn thêm mới không?",
+                text: "",
+                icon: "question",
+                showCancelButton: true,
+                cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+                cancelButtonColor: "#d33",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+                reverseButtons: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  var token = $window.localStorage.getItem("token");
+
+                  var config = {
+                    headers: {
+                      Authorization: "Bearer " + token,
+                    },
+                  };
+                  $http
+                    .post(
+                      "http://localhost:8080/api/v1/size/create",
+                      $scope.newSize,
+                      config
+                    )
+                    .then(function (response) {
+                      $scope.listSize.push(response.data);
+                      Swal.fire({
+                        position: "bottom-start",
+                        icon: "success",
+                        title: "Thêm thành công",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                          popup: "small-popup", // Add a class to the message
+                        },
+                      }).then(() => {
+                        sizeList($scope.selectedTrangThai, $scope.pageNumber);
+                      });
+                    });
+                }
               });
-          }
-        });
+            }
+          })
       };
     }, 2000);
 
@@ -225,7 +275,7 @@ myApp.controller(
               .put(deleteUrl)
               .then(function (response) {
                 Swal.fire({
-                  position: "top-end",
+                  position: "bottom-start",
                   icon: "success",
                   title: "Vô hiệu hóa thành công",
                   showConfirmButton: false,

@@ -119,7 +119,102 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
 
   $scope.newNhanVien = {};
 
+  // validation here
+  $scope.isHoTenValid = true;
+  $scope.isNgaySinhValid = true;
+  $scope.isSoDienThoaiValid = true;
+  $scope.isGioiTinhValid = true;
+  $scope.isEmailValid = true;
+  $scope.isProvinceValid = true;
+  $scope.isDistrictValid = true;
+  $scope.isWardValid = true;
+  $scope.isDiaChiValid = true;
+  $scope.isTrangThaiValid = true;
+  $scope.isFileValid = true;
+
+  $scope.isSoDienThoaiIsPresent = true;
+  $scope.isEmailIsPresent = true;
+
+  $scope.isSoDienThoaiFormat = true;
+  $scope.isEmailFormat = true;
+
+  function validateSoDienThoaiFormat(soDienThoai) {
+    // Sử dụng biểu thức chính quy để kiểm tra định dạng số điện thoại Việt Nam
+    var phoneRegex = /^(0[2-9]{1}\d{8,9})$/;
+    return phoneRegex.test(soDienThoai);
+  }
+
+  function validateEmailFormat(email) {
+    // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
   $scope.createNhanVien = function () {
+
+    $scope.isHoTenValid = !!$scope.ten;
+    $scope.isNgaySinhValid = !!$scope.ngaySinh;
+    $scope.isSoDienThoaiValid = !!$scope.soDienThoai;
+    $scope.isGioiTinhValid = !!$scope.gioiTinh;
+    $scope.isEmailValid = !!$scope.email;
+    $scope.isProvinceValid = !!$scope.selectedProvince;
+    $scope.isDistrictValid = !!$scope.selectedDistrict;
+    $scope.isWardValid = !!$scope.selectedWard;
+    $scope.isDiaChiValid = !!$scope.diaChi;
+    $scope.isTrangThaiValid = !!$scope.trangThai;
+
+
+    if ($scope.soDienThoai) {
+      $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat(
+        $scope.soDienThoai
+      );
+    }
+    if ($scope.email) {
+      $scope.isEmailFormat = validateEmailFormat($scope.email);
+    }
+
+    if (
+      !$scope.isHoTenValid ||
+      !$scope.isNgaySinhValid ||
+      !$scope.isSoDienThoaiValid ||
+      !$scope.isGioiTinhValid ||
+      !$scope.isEmailValid ||
+      !$scope.isProvinceValid ||
+      !$scope.isDistrictValid ||
+      !$scope.isWardValid ||
+      !$scope.isDiaChiValid ||
+      !$scope.isTrangThaiValid
+    ) {
+      Swal.fire({
+        title: "Warning",
+        text: "Vui lòng điền đủ thông tin",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
+    $http.get("http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" + $scope.soDienThoai)
+      .then(function (response) {
+        if (response.data > 0) {
+          $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
+          return;
+        } if (response.data === 0) {
+          $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
+        }
+      })
+
+    $http.get("http://localhost:8080/api/ql-khach-hang/find-by-email?email=" + $scope.email)
+      .then(function (response) {
+        if (response.data > 0) {
+          $scope.isEmailIsPresent = false; // Email đã tồn tại
+          return;
+        } if (response.data === 0) {
+          $scope.isEmailIsPresent = true; // Email OK
+        }
+      })
+
     var yourFile = document.getElementById("fileInput").files[0];
     $http({
       method: "POST",
@@ -216,8 +311,8 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
     $http
       .get(
         "https://provinces.open-api.vn/api/p/" +
-          $scope.selectedProvince.code +
-          "?depth=2"
+        $scope.selectedProvince.code +
+        "?depth=2"
       )
       .then(function (response) {
         $scope.districts = response.data.districts;
@@ -228,8 +323,8 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
     $http
       .get(
         "https://provinces.open-api.vn/api/d/" +
-          $scope.selectedDistrict.code +
-          "?depth=2"
+        $scope.selectedDistrict.code +
+        "?depth=2"
       )
       .then(function (response) {
         $scope.wards = response.data.wards;

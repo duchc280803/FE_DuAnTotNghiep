@@ -6,7 +6,7 @@
           <div class="form-group col-md-4">
             <span>Tìm kiếm</span>
             <div class="form-outline">
-              <input type="search" id="form1" class="form-control" ng-model="searchQuery" />
+              <input type="search" id="form1" class="form-control" ng-model="searchQuery" placeholder="Tìm kiếm" />
             </div>
           </div> <!-- form-group -->
 
@@ -24,10 +24,10 @@
             <label for="simple-select2">ㅤ</label>
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="searchKieuDe()">Tìm kiếm</button>
-              <button class="btn btn-danger" ng-click="clearSearch()">Làm mới bộ lọc</button>
+              <button class="btn btn-danger" ng-click="clearSearch()">Làm mới</button>
               <a href="#/sole/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
                 Lịch sử thao tác
-                </a>
+              </a>
             </div>
           </div> <!-- form-group -->
         </div>
@@ -45,7 +45,7 @@
           </div>
           <div class="col-auto">
             <div class="input-group-append ml-3">
-              <button class="btn btn-primary rounded" data-toggle="modal" data-target="#sizeModal">
+              <button class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#soleModal1">
                 Tạo kiểu đế
               </button>
             </div>
@@ -95,8 +95,8 @@
               <td>
                 <button class="btn btn-warning" ng-click="deleteKieuDe(th.id)"><img width="25px"
                     src="/assets/images/disabled.png" alt=""></button>
-                <button class="btn btn-success" data-toggle="modal" ng-click="fetchKieuDeDetail(th.id)"
-                  data-target="#sua"><img width="25px" src="/assets/images/update.png" alt=""></button>
+                <button class="btn btn-success" data-bs-toggle="modal" ng-click="fetchKieuDeDetail(th.id)"
+                  data-bs-target="#sua"><img width="25px" src="/assets/images/update.png" alt=""></button>
               </td>
             </tr>
 
@@ -107,50 +107,46 @@
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
         <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          <a class="page-link" href="" ng-click="previousPage()" ng-show="pageNumber > 0">Previous</a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
-        <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="nextPage()"
-            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+        <li class="page-item" ng-show="showNextButtonSpInCart">
+          <a class="page-link" href="" ng-click="nextPage()">Next</a>
         </li>
       </ul>
     </nav>
-
   </div> <!-- .col-12 -->
 </div> <!-- .row -->
 
 <!-- Thêm -->
-<div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="soleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Thêm mới kiểu đế</h5>
-      </div>
       <div class="modal-body">
-        <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="brandName">Tên kiểu đế:</label>
-          <input type="text" class="form-control" id="brandName" ng-model="newKieuDe.tenDe"
-            placeholder="Nhập tên kiểu đế" />
-        </div>
 
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="status">Trạng thái:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Tên kiểu đế:</span></span>
+          <input type="text" class="form-control" id="brandName" ng-model="newKieuDe.tenDe"
+            placeholder="Nhập tên kiểu đế" />
+          <span style="color: red">{{errortenDe}}</span>
+        </div>
+        <div class="form-group">
+          <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
           <select class="form-control" id="status" ng-model="newKieuDe.trangThai">
+            <option value="">Vui lòng chọn</option>
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
+          <span style="color: red">{{errortrangThai}}</span>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="createKieuDe()" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="createKieuDe()">
           Thêm
         </button>
       </div>
@@ -158,34 +154,32 @@
   </div>
 </div>
 <!-- Sửa -->
-<div class="modal fade" id="sua" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="sua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Sửa kiểu đế</h5>
-      </div>
       <div class="modal-body">
+        <span style="text-align: center;">Sửa kiểu đế</span>
+        <br>
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="brandName">Tên kiểu đế:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Tên kiểu đế:</span></span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập tên kiểu đế"
             ng-model="selectedKieuDe.tenDe" />
+          <span style="color: red">{{errortenDe}}</span>
         </div>
-
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="status">Trạng thái:</label>
+          <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
           <select class="form-control" id="status" ng-model="selectedKieuDe.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
+          <span style="color: red">{{errortrangThai}}</span>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="updateKieuDe(selectedKieuDe)" data-dismiss="modal">
+        <button type="button" class="btn btn-primary" ng-click="updateKieuDe(selectedKieuDe)">
           Sửa
         </button>
       </div>
