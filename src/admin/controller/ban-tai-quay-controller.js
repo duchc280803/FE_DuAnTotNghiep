@@ -552,6 +552,7 @@ myApp.controller(
             $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
           }
           $scope.tienCuoiCungCuaDon = totalOrderValue - $scope.totalAmountPaid;
+          console.log($scope.tienCuoiCungCuaDon);
           $window.localStorage.setItem(
             "soTienkhachTra",
             $scope.totalAmountPaid
