@@ -68,17 +68,29 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http.post(api, {}, config).then(function (response) {
               $scope.listHoaDonTaiQuay.push(response.data);
               $scope.getListHoaDonTaiQuay();
-              $scope.selectOrder(response.data.id, response.data.idKhachHang);
-              $location.path("/order-counter");
+              $scope.selectOrder(response.data.id, response.data.idKhach);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Tạo thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup",
+                },
+              }).then(() => {
+                // $window.location.reload();
+              });
             });
           }
         });
@@ -87,7 +99,7 @@ myApp.controller(
 
     // delete hoadon
     setTimeout(() => {
-      $scope.deleteOrder = function (event, index) {
+      $scope.deleteOrder = function (id) {
         Swal.fire({
           title: "Xác nhận hủy !",
           text: "Bạn có chắc chắn muốn hủy hóa đơn này ?",
@@ -100,12 +112,11 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
-            event.preventDefault();
-            let p = $scope.listHoaDonTaiQuay[index];
             $http
-              .delete("http://localhost:8080/api/v1/don-hang/remove?id=" + p.id)
+              .put("http://localhost:8080/api/v1/don-hang/remove?id=" + id)
               .then(function () {
-                $scope.listHoaDonTaiQuay.splice(index, 1);
+                $window.localStorage.removeItem("idKhach");
+                $window.localStorage.removeItem("idHoaDon");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -207,21 +218,29 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listCart = response.data;
-          // Calculate the total quantity and total price for all products in the cart
-          for (var i = 0; i < $scope.listCart.length; i++) {
-            $scope.tongTienHang +=
-              $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
-          }
-          $window.localStorage.setItem(
-            "tongTienHangTaiQuay",
-            $scope.tongTienHang
-          );
-          if ($scope.listCart.length < $scope.pageSizeSpTrongGio) {
+
+          if ($scope.listCart.length <= $scope.pageSizeSpTrongGio) {
             $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
           } else {
             $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
           }
-          $scope.listCart.map((item) => item.idGioHang);
+          $http
+            .get(
+              "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
+                idKhach
+            )
+            .then(function (responseTinhTien) {
+              $scope.tongTienHang = 0;
+              for (var i = 0; i < responseTinhTien.data.length; i++) {
+                $scope.tongTienHang +=
+                  responseTinhTien.data[i].giaGiam *
+                  responseTinhTien.data[i].soLuong;
+              }
+              $window.localStorage.setItem(
+                "tongTienHangTaiQuay",
+                $scope.tongTienHang
+              );
+            });
         });
     };
 
@@ -291,26 +310,30 @@ myApp.controller(
                   "&idSanPhamChiTiet=" +
                   idCtSp +
                   "&soLuong=" +
-                  soLuongSanPham,
+                  soLuongSanPham +
+                  "&id=" +
+                  id,
                 {},
                 config // Truyền thông tin token qua config
               )
               .then(function (response) {
                 $scope.listCart.push(response.data);
-                $scope.listCart.map((item) => item.idGioHang);
-                $window.location.reload(); // Reload trang trước khi hiển thị thông báo
-                setTimeout(() => {
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Thêm sản phẩm vào giỏ thành công",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                      popup: "small-popup", // Add a class to the message
-                    },
-                  });
-                }, 1000); // Hiển thị thông báo sau khi trang đã được reload
+                // $scope.listCart.map((item) => item.idGioHang);
+                // $window.location.reload(); // Reload trang trước khi hiển thị thông báo
+                $scope.listSanPhamInCart();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Thêm sản phẩm vào giỏ thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                }).then(() => {
+                  $window.location.reload();
+                  $scope.loadVouchers(totalOrderValue);
+                });
               });
           }
         });
@@ -357,18 +380,8 @@ myApp.controller(
                     popup: "small-popup", // Add a class to the message
                   },
                 }).then(() => {
-                  $scope.getListHoaDonTaiQuay();
-                  $scope.detailOrderCounterDetail();
-                  $scope.listSanPhamInCart();
-                  CartService.setIdCart(id).then(function () {});
-                  CartService.setIdCart(id).then(function () {
-                    var idCart = CartService.getIdCart();
-                    CartService.setIdCartDetail(idCart).then(function () {});
-                  });
-                  $scope.showKhachHang();
-                  $scope.showTransaction();
-                  $scope.showTransaction();
-                  $scope.getVoucherName();
+                  $window.location.reload();
+                  $scope.loadVouchers(totalOrderValue);
                 });
               });
           }
@@ -401,19 +414,8 @@ myApp.controller(
           headers: config.headers, // Truyền thông tin token qua headers
           transformResponse: [
             function () {
-              $scope.getListHoaDonTaiQuay();
-              $scope.detailOrderCounterDetail();
-              $scope.listSanPhamInCart();
-              CartService.setIdCart(id).then(function () {});
-              CartService.setIdCart(id).then(function () {
-                var idCart = CartService.getIdCart();
-                CartService.setIdCartDetail(idCart).then(function () {});
-              });
-              $scope.showKhachHang();
-              $scope.showTransaction();
-              $scope.showTransaction();
-              $scope.getVoucherName();
               $window.location.reload();
+              $scope.loadVouchers(totalOrderValue);
             },
           ],
         });
@@ -547,6 +549,7 @@ myApp.controller(
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
     $scope.remainingAmount = 0;
+    $scope.tienCuoiCungCuaDon = 0;
     $scope.showTransaction = function () {
       $http
         .get("http://localhost:8080/api/v1/transaction/show?id=" + id)
@@ -556,6 +559,11 @@ myApp.controller(
           for (var i = 0; i < $scope.listTransaction.length; i++) {
             $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
           }
+          $scope.tienCuoiCungCuaDon = totalOrderValue - $scope.totalAmountPaid;
+          $window.localStorage.setItem(
+            "soTienkhachTra",
+            $scope.totalAmountPaid
+          );
         });
     };
 
@@ -571,11 +579,11 @@ myApp.controller(
           text: "Bạn có muốn thanh toán không?",
           icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Thanh toán",
-          cancelButtonText: "Hủy",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonColor: "#d33",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -596,6 +604,7 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listTransaction.push(response.data);
+                $scope.showTransaction();
                 // $scope.newTransaction.soTien = "";
                 $location.path("/order-counter");
               });
@@ -671,31 +680,10 @@ myApp.controller(
       $window.localStorage.removeItem("idKhach");
     };
 
-    //TODO:thanh toán hóa đơn
     setTimeout(() => {
-      $scope.createHoaDonChiTiet = function (
-        tongTienHang,
-        tienKhachTra,
-        tienThua,
-        hoTen,
-        soDienThoai,
-        diaChi
-      ) {
-        var idDetail = CartService.getIdCartDetail();
-        var requestData = {
-          tongTien: tongTienHang,
-          tienKhachTra: tienKhachTra,
-          tienThua: tienThua,
-          hoTen: hoTen,
-          soDienThoai: soDienThoai,
-          diaChi: diaChi,
-          gioHangChiTietList: idDetail,
-        };
-        var api =
-          "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
-          id;
+      $scope.generatePDF = function () {
         Swal.fire({
-          title: "Bạn muốn thanh toán hóa đơn này?",
+          title: "Bạn có muốn in hóa đơn này không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -706,21 +694,110 @@ myApp.controller(
         }).then((result) => {
           if (result.isConfirmed) {
             $http
-              .post(api, requestData)
-              .then(function (response) {
-                $scope.listHoaDonChiTiet.push(response.data);
+              .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+                responseType: "arraybuffer",
               })
-              .then(function (error) {
+              .then(function (response) {
+                var file = new Blob([response.data], {
+                  type: "application/pdf",
+                });
+                var fileURL = URL.createObjectURL(file);
+                var a = document.createElement("a");
+                a.href = fileURL;
+                a.download =
+                  "pdf_" +
+                  new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
+                  ".pdf";
+                document.body.appendChild(a);
+                a.click();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "In thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
+                });
+              });
+          }
+        });
+      };
+    }, 2000);
+
+    //TODO:thanh toán hóa đơn
+    setTimeout(() => {
+      $scope.createHoaDonChiTiet = function (
+        tongTienHang,
+        tienKhachTra,
+        tienThua,
+        hoTen,
+        soDienThoai,
+        diaChi
+      ) {
+        var soTienKhachTra = $window.localStorage.getItem("soTienkhachTra");
+        var totalOrderValue =
+          tongTienTaiQuay -
+          tienGiamGiaTaiQuay +
+          ($scope.tienGiao ? +$scope.tienGiao : 0);
+        if (soTienKhachTra < totalOrderValue) {
+          Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title:
+              "Vui lòng thanh toán tiền hàng trước khi xác nhận thanh toán !",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+        } else {
+          var idDetail = CartService.getIdCartDetail();
+          var requestData = {
+            tongTien: tongTienHang,
+            tienKhachTra: tienKhachTra,
+            tienThua: tienThua,
+            hoTen: hoTen,
+            soDienThoai: soDienThoai,
+            diaChi: diaChi,
+            gioHangChiTietList: idDetail,
+          };
+          var api =
+            "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
+            id;
+          Swal.fire({
+            title: "Bạn muốn thanh toán hóa đơn này?",
+            text: "",
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonText: "Hủy bỏ",
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Xác nhận",
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $http.post(api, requestData).then(function (response) {
+                $scope.listHoaDonChiTiet.push(response.data);
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
                   title: "Thanh toán thành công",
                   showConfirmButton: false,
                   timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                }).then(() => {
+                  $scope.generatePDF();
+                  // $scope.removeItem();
                 });
               });
-          }
-        });
+            }
+          });
+        }
       };
     }, 2000);
 
@@ -739,10 +816,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -757,16 +835,20 @@ myApp.controller(
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
               email: $scope.email,
-              diaChi:
-                $scope.diaChi +
-                ", " +
-                $scope.selectedWard.name +
-                ", " +
-                $scope.selectedDistrict.name +
-                ", " +
-                $scope.selectedProvince.name,
+              diaChi: $scope.diaChi,
               gioHangChiTietList: idDetail,
             };
+            if ($scope.selectedProvince && $scope.selectedProvince.name) {
+              orderDetailCounter.tinh = $scope.selectedProvince.name;
+            }
+
+            if ($scope.selectedDistrict && $scope.selectedDistrict.name) {
+              orderDetailCounter.huyen = $scope.selectedDistrict.name;
+            }
+
+            if ($scope.selectedWard && $scope.selectedWard.name) {
+              orderDetailCounter.phuong = $scope.selectedWard.name;
+            }
             var config = {
               headers: {
                 Authorization: "Bearer " + token, // Thêm token vào header Authorization
@@ -786,8 +868,21 @@ myApp.controller(
                   title: "Đặt hàng thành công thành công",
                   showConfirmButton: false,
                   timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
                 });
                 $scope.removeItem();
+              })
+              .catch(function (error) {
+                $scope.errorhoTen = error.data.hoTen;
+                $scope.errorsoDienThoai = error.data.soDienThoai;
+                $scope.errortinh = error.data.tinh;
+                $scope.errorhuyen = error.data.huyen;
+                $scope.errorphuong = error.data.phuong;
+                $scope.errordiaChi = error.data.diaChi;
+                $scope.erroremail = error.data.email;
+                $scope.errortienGiao = error.data.tienGiao;
               });
           }
         });
@@ -1070,6 +1165,7 @@ myApp.controller(
       }
     };
 
+    // Đảm bảo rằng thư viện Instascan đã được import vào trang HTML của bạn
     let scanner = new Instascan.Scanner({
       video: document.getElementById("preview"),
     });
@@ -1116,16 +1212,6 @@ myApp.controller(
         console.error(e);
       });
 
-    $scope.listVoucher = [];
-    $scope.getALlVoucher = function () {
-      $http
-        .get("http://localhost:8080/api/v1/voucher-counter/show")
-        .then(function (response) {
-          $scope.listVoucher = response.data;
-        });
-    };
-    $scope.getALlVoucher();
-
     $scope.updateOrder = function (idVoucher, thanhTien) {
       var token = $window.localStorage.getItem("token");
 
@@ -1160,11 +1246,11 @@ myApp.controller(
           text: "Bạn có muốn thêm không?",
           icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Thêm",
-          cancelButtonText: "Hủy",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonColor: "#d33",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             if ($scope.selectedProvince && $scope.selectedProvince.name) {
@@ -1210,7 +1296,6 @@ myApp.controller(
                 $scope.getVoucherName();
               })
               .catch(function (error) {
-                console.log(error.data);
                 $scope.errorMessage = error.data.message;
                 $scope.errorHoTen = error.data.hoTen;
                 $scope.errorSoDienThoai = error.data.soDienThoai;
@@ -1269,81 +1354,48 @@ myApp.controller(
     var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
 
     $scope.listVoucher = [];
-    $scope.bestVoucher = null;
-
+    // Variable to track if a voucher has been applied
+    var voucherApplied = false;
+    
     // Function to load vouchers
-    $scope.loadVouchers = function () {
+    $scope.loadVouchers = function (totalOrderValue) {
       $http
         .get("http://localhost:8080/api/v1/voucher-counter/show")
         .then(function (response) {
           $scope.listVoucher = response.data;
-          $scope.findBestVoucher();
+          var maxDiscount = 0;
+          var selectedVoucher = null;
+    
+          if (!voucherApplied) {
+            $scope.listVoucher.forEach(function (voucher) {
+              if (
+                totalOrderValue >= voucher.priceOrder &&
+                voucher.price > maxDiscount
+              ) {
+                if (voucher.style === 1) {
+                  maxDiscount = voucher.price;
+                } else if (voucher.style === 2) {
+                  maxDiscount = voucher.price / 100;
+                }
+                selectedVoucher = voucher;
+              }
+            });
+    
+            if (selectedVoucher) {
+              $scope.updateOrder(selectedVoucher.id, totalOrderValue);
+              voucherApplied = true; // Mark that a voucher has been applied
+            } else {
+              $scope.huyVoucherHoaDon(0);
+            }
+          }
         });
     };
 
-    // Function to find the best voucher
-    $scope.findBestVoucher = function () {
-      var totalOrderValue =
-        tongTienTaiQuay -
-        tienGiamGiaTaiQuay +
-        ($scope.tienGiao ? +$scope.tienGiao : 0);
-
-      $scope.bestVoucher = $scope.listVoucher.reduce(function (
-        maxVoucher,
-        voucher
-      ) {
-        if (voucher.priceOrder <= totalOrderValue) {
-          // Compare discounts based on their types
-          if (
-            !maxVoucher ||
-            calculateDiscount(voucher) >= calculateDiscount(maxVoucher)
-          ) {
-            return voucher;
-          }
-        }
-        return maxVoucher;
-      },
-      null);
-
-      // If a valid voucher is found, you can apply it here
-      if ($scope.bestVoucher) {
-        $scope.updateOrder($scope.bestVoucher.id, totalOrderValue);
-      }
-    };
-
-    // Function to handle product removal
-    $scope.removeProduct = function () {
-      // Logic to remove a product from the order
-
-      // Check if removing the product affects the minimum order value for the current best voucher
-      var totalOrderValue =
-        tongTienTaiQuay -
-        tienGiamGiaTaiQuay +
-        ($scope.tienGiao ? +$scope.tienGiao : 0);
-
-      if (
-        $scope.bestVoucher &&
-        $scope.bestVoucher.priceOrder > totalOrderValue
-      ) {
-        // If the minimum order value condition is no longer met, remove the best voucher
-        $scope.bestVoucher = null;
-        // Optionally, you can update the UI to reflect the removal of the voucher
-      }
-    };
-
-    function calculateDiscount(voucher) {
-      // Calculate the actual discount based on voucher type (% or đ)
-      if (voucher.style == 1) {
-        // Percentage discount
-        return (voucher.price / 100) * tongTienTaiQuay;
-      } else {
-        // Đ discount
-        return voucher.price;
-      }
-    }
-
-    // Call the function to load vouchers
-    $scope.loadVouchers();
+    var totalOrderValue =
+      tongTienTaiQuay -
+      tienGiamGiaTaiQuay +
+      ($scope.tienGiao ? +$scope.tienGiao : 0);
+    $scope.loadVouchers(totalOrderValue);
 
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
@@ -1353,18 +1405,30 @@ myApp.controller(
           $scope.voucherName = response.data.voucherName;
         });
     };
+
     if (id != null) {
       $scope.getVoucherName();
     }
+
+    $scope.huyVoucherHoaDon = function (tien) {
+      $http
+        .put(
+          "http://localhost:8080/api/v1/voucher-counter/close?idHoaDon=" +
+            id +
+            "&thanhTien=" +
+            tien
+        )
+        .then(function (response) {});
+    };
+
     // Thêm token vào function updateOrder
-    $scope.updateOrder = function (idVoucher, thanhTien) {
+    $scope.updateOrder = function (idVoucher) {
       var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
       var config = {
         headers: {
           Authorization: "Bearer " + token, // Thêm token vào header Authorization
         },
       };
-
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
@@ -1372,43 +1436,24 @@ myApp.controller(
             "&idVoucher=" +
             idVoucher +
             "&thanhTien=" +
-            thanhTien,
+            totalOrderValue,
           null,
           config // Truyền thông tin token qua config
         )
         .then(function (response) {
-          // $window.location.reload();
+          // Swal.fire({
+          //   position: "top-end",
+          //   icon: "success",
+          //   title: "Thanh toán thành công",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          //   customClass: {
+          //     popup: "small-popup",
+          //   },
+          // }).then(() => {
+          //   $window.location.reload();
+          // });
         });
     };
   }
 );
-myApp.directive("formatThousands", function () {
-  return {
-    require: "ngModel",
-    link: function (scope, element, attrs, ngModelController) {
-      ngModelController.$parsers.push(function (data) {
-        // Chuyển đổi dữ liệu từ view thành model format
-        return data
-          ? data
-              .toString()
-              .replace(/[^\d.]/g, "")
-              .replace(/\./g, "")
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-          : "";
-      });
-
-      ngModelController.$formatters.push(function (data) {
-        // Chuyển đổi dữ liệu từ model thành view format
-        return data ? data.toString().replace(/\./g, "") : "";
-      });
-
-      element.on("input", function () {
-        scope.$apply(function () {
-          var value = element.val().replace(/[^\d.]/g, "");
-          ngModelController.$setViewValue(value);
-          ngModelController.$render();
-        });
-      });
-    },
-  };
-});

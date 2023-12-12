@@ -132,6 +132,64 @@ myApp.controller(
           });
           return;
         }
+        if (
+          !$scope.maVoucher ||
+          !$scope.tenVoucher ||
+          !$scope.soLuongMa ||
+          !$scope.giaTriToiThieuDonhang ||
+          !$scope.giaTriGiam ||
+          !$scope.hinhThucGiam ||
+          !$scope.ngayBatDau ||
+          !$scope.ngayKetThuc
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Vui lòng điền đầy đủ thông tin",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+          return;
+        }
+        if (
+          $scope.hinhThucGiam == 1 &&
+          ($scope.giaTriGiam <= 0 || $scope.giaTriGiam > 100)
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title:
+              "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup", // Thêm class cho message
+            },
+          });
+          return;
+        }
+
+        if (
+          $scope.giaTriToiThieuDonhang < 0 ||
+          $scope.soLuongMa < 0 ||
+          $scope.giaTriGiam < 0
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Giá trị không hợp lệ",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+          return;
+        }
+
         Swal.fire({
           title: "Bạn có muốn thêm voucher không?",
           text: "",

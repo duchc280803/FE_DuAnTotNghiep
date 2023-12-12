@@ -8,6 +8,7 @@ myApp.controller(
     $scope.pageNumber = 0;
     var id = $location.search().id;
 
+    $scope.pageSize = 20;
     function xuatXuList(trangThai, pageNumber) {
       var url = `http://localhost:8080/api/v1/xuat-xu/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
@@ -24,6 +25,14 @@ myApp.controller(
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
+
+          if ($scope.listXuatXu.length < $scope.pageSize) {
+            $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
+            console.log("ok");
+          } else {
+            $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
+            console.log("ok123");
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);
@@ -112,14 +121,14 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateXuatXu = function (updatedData) {
         Swal.fire({
-          title: "Bạn có muốn update không?",
+          title: "Bạn có muốn sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -137,6 +146,7 @@ myApp.controller(
             $http
               .put(updateUrl, updatedData, config)
               .then(function (response) {
+                $("#suaxx").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -151,7 +161,8 @@ myApp.controller(
                 });
               })
               .catch(function (error) {
-                console.error("Lỗi khi cập nhật thông tin: ", error);
+                $scope.errortenXuatXu = error.data.tenXuatXu;
+                $scope.errortrangThai = error.data.trangThai;
               });
           }
         });
@@ -169,7 +180,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -183,11 +194,13 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/v1/xuat-xu/create",
-                $scope.newXuatX,
+                $scope.newXuatXu,
                 config
               )
               .then(function (response) {
                 $scope.listXuatXu.push(response.data);
+                $("#xuatXuMoi").modal("hide");
+                $scope.getListXuatXu();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -197,9 +210,11 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
-                }).then(() => {
-                  xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
                 });
+              })
+              .catch(function (error) {
+                $scope.errorTenXuatXu = error.data.tenXuatXu;
+                $scope.errortrangThai = error.data.trangThai;
               });
           }
         });
@@ -216,7 +231,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {

@@ -294,7 +294,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newThuongHieu = {};
   setTimeout(() => {
@@ -344,7 +344,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newKieuDe = {};
   setTimeout(() => {
@@ -391,7 +391,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newDanhMuc = {};
   setTimeout(() => {
@@ -441,7 +441,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           });
       });
     };
-  });
+  }, 2000);
 
   $scope.newXuatXu = {};
   setTimeout(() => {
@@ -492,5 +492,5 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         }
       });
     };
-  });
+  }, 2000);
 });

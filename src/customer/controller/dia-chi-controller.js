@@ -16,6 +16,13 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             $scope.taiKhoan = response.data;
             // Load dữ liệu lên giao diện
             loadDiaChi();
+            $window.localStorage.setItem('username', $scope.taiKhoan.username);
+            $window.localStorage.setItem('sodienthoai', $scope.taiKhoan.soDienThoai);
+            $window.localStorage.setItem('email', $scope.taiKhoan.email);
+            console.log("username" + $window.localStorage.getItem('username'))
+            console.log("sodienthoai" + $window.localStorage.getItem('sodienthoai'))
+            console.log("email" + $window.localStorage.getItem('email'))
+
         });
 
     };
@@ -45,7 +52,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
         $scope.isProvinceValid = !!$scope.selectedProvince;
         $scope.isDistrictValid = !!$scope.selectedDistrict;
         $scope.isWardValid = !!$scope.selectedWard;
-        $scope.isDiaChiValid = !!$scope.newAddress.addressName;
+        $scope.isDiaChiValid = !!$scope.addressName;
 
         if (!$scope.isDiaChiValid || !$scope.isProvinceValid || !$scope.isDistrictValid || !$scope.isWardValid) {
             Swal.fire({
@@ -76,7 +83,10 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
 
                 var diaChiApi = "http://localhost:8080/api/v1/account/create-dia-chi";
                 var requestData = {
-                    diaChi: $scope.newAddress.addressName
+                    diaChi: $scope.addressName,
+                    tinh: $scope.selectedProvince.name,
+                    huyen: $scope.selectedDistrict.name,
+                    xa: $scope.selectedWard.name,
                 };
 
                 $http.post(diaChiApi, requestData, config).then(
@@ -110,7 +120,6 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
         });
     };
 
-
     $scope.prepareUpdateAddress = function (diaChi) {
         console.log('Preparing to update address:', diaChi);
         $scope.updateAddressName = diaChi.diaChi;
@@ -139,13 +148,6 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             return;
         }
 
-        //update sẽ dùng cái này
-        // var data = {
-        //     thanhPho: $scope.selectedProvince.name,
-        //     quanHuyen: $scope.selectedDistrict.name,
-        //     phuongXa: $scope.selectedWard.name,
-        //   };
-
         var token = $window.localStorage.getItem("token-customer");
         var config = {
             headers: {
@@ -153,7 +155,10 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             },
         };
         var updatedData = {
-            diaChi: $scope.updateAddressName
+            diaChi: $scope.updateAddressName,
+            tinh: $scope.selectedProvince.name,
+            huyen: $scope.selectedDistrict.name,
+            xa: $scope.selectedWard.name,
         };
 
         console.log(updatedData);
@@ -224,17 +229,20 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
     $scope.isEmailValid = true;
     $scope.isNgaySinhValid = true;
 
+    $scope.isSoDienThoaiIsPresent = true;
+    $scope.isEmailIsPresent = true;
+
     function validateSoDienThoaiFormat(soDienThoai) {
         // Sử dụng biểu thức chính quy để kiểm tra định dạng số điện thoại Việt Nam
         var phoneRegex = /^(0[2-9]{1}\d{8,9})$/;
         return phoneRegex.test(soDienThoai);
-      }
-  
-      function validateEmailFormat(email) {
+    }
+
+    function validateEmailFormat(email) {
         // Sử dụng biểu thức chính quy để kiểm tra định dạng email
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
-      }
+    }
     $scope.updateProfile = function () {
 
         $scope.isHoTenValid = !!$scope.taiKhoan.hoTen;
@@ -242,46 +250,43 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
         $scope.isEmailValid = !!$scope.taiKhoan.email;
         $scope.isNgaySinhValid = !!$scope.taiKhoan.ngaySinh;
 
-
-
         if (!$scope.isHoTenValid || !$scope.isSoDienThoaiValid || !$scope.isEmailValid || !$scope.isNgaySinhValid) {
             Swal.fire({
-              title: "Warning",
-              text: "Vui lòng điền đủ thông tin ",
-              icon: "error",
-              showConfirmButton: false,
-              timer: 1500,
+                title: "Warning",
+                text: "Vui lòng điền đủ thông tin ",
+                icon: "error",
+                showConfirmButton: false,
+                timer: 1500,
             });
             return;
-          }
+        }
 
-          if ($scope.taiKhoan.soDienThoai) {
+        if ($scope.taiKhoan.soDienThoai) {
             $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat($scope.taiKhoan.soDienThoai);
-            if( !$scope.isSoDienThoaiFormat ){
+            if (!$scope.isSoDienThoaiFormat) {
                 Swal.fire({
                     title: "Warning",
                     text: "Vui lòng kiểm tra định dạng số điện thoại ",
                     icon: "error",
                     showConfirmButton: false,
                     timer: 1500,
-                  });
-                  return;
+                });
+                return;
             }
-          }
-          if ($scope.taiKhoan.email) {
+        }
+        if ($scope.taiKhoan.email) {
             $scope.isEmailFormat = validateEmailFormat($scope.taiKhoan.email);
-            if( !$scope.isEmailFormat ){
+            if (!$scope.isEmailFormat) {
                 Swal.fire({
                     title: "Warning",
                     text: "Vui lòng kiểm tra định dạng email ",
                     icon: "error",
                     showConfirmButton: false,
                     timer: 1500,
-                  });
-                  return;
+                });
+                return;
             }
-          }
-    
+        }
         // Sử dụng SweetAlert2 cho hộp thoại xác nhận
         Swal.fire({
             title: "Xác nhận",
