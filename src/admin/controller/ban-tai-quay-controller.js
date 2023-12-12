@@ -218,21 +218,29 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listCart = response.data;
-          // Calculate the total quantity and total price for all products in the cart
-          for (var i = 0; i < $scope.listCart.length; i++) {
-            $scope.tongTienHang +=
-              $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
-          }
-          $window.localStorage.setItem(
-            "tongTienHangTaiQuay",
-            $scope.tongTienHang
-          );
+
           if ($scope.listCart.length <= $scope.pageSizeSpTrongGio) {
             $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
           } else {
             $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
           }
-          // $scope.listCart.map((item) => item.idGioHang);
+          $http
+            .get(
+              "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
+                idKhach
+            )
+            .then(function (responseTinhTien) {
+              $scope.tongTienHang = 0;
+              for (var i = 0; i < responseTinhTien.data.length; i++) {
+                $scope.tongTienHang +=
+                  responseTinhTien.data[i].giaGiam *
+                  responseTinhTien.data[i].soLuong;
+              }
+              $window.localStorage.setItem(
+                "tongTienHangTaiQuay",
+                $scope.tongTienHang
+              );
+            });
         });
     };
 
@@ -552,7 +560,6 @@ myApp.controller(
             $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
           }
           $scope.tienCuoiCungCuaDon = totalOrderValue - $scope.totalAmountPaid;
-          console.log($scope.tienCuoiCungCuaDon);
           $window.localStorage.setItem(
             "soTienkhachTra",
             $scope.totalAmountPaid
@@ -1347,6 +1354,9 @@ myApp.controller(
     var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
 
     $scope.listVoucher = [];
+    // Variable to track if a voucher has been applied
+    var voucherApplied = false;
+    
     // Function to load vouchers
     $scope.loadVouchers = function (totalOrderValue) {
       $http
@@ -1355,28 +1365,28 @@ myApp.controller(
           $scope.listVoucher = response.data;
           var maxDiscount = 0;
           var selectedVoucher = null;
-
-          $scope.listVoucher.forEach(function (voucher) {
-            if (
-              totalOrderValue >= voucher.priceOrder &&
-              voucher.price > maxDiscount
-            ) {
-              if (voucher.style === 1) {
-                maxDiscount = voucher.price / 100;
-              } else if (voucher.style === 2) {
-                if (maxDiscount > voucher.price) {
-                  maxDiscount = maxDiscount;
-                } else {
+    
+          if (!voucherApplied) {
+            $scope.listVoucher.forEach(function (voucher) {
+              if (
+                totalOrderValue >= voucher.priceOrder &&
+                voucher.price > maxDiscount
+              ) {
+                if (voucher.style === 1) {
                   maxDiscount = voucher.price;
+                } else if (voucher.style === 2) {
+                  maxDiscount = voucher.price / 100;
                 }
+                selectedVoucher = voucher;
               }
-              selectedVoucher = voucher;
+            });
+    
+            if (selectedVoucher) {
+              $scope.updateOrder(selectedVoucher.id, totalOrderValue);
+              voucherApplied = true; // Mark that a voucher has been applied
+            } else {
+              $scope.huyVoucherHoaDon(0);
             }
-          });
-          if (selectedVoucher) {
-            $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-          } else {
-            $scope.huyVoucherHoaDon(0);
           }
         });
     };
@@ -1386,35 +1396,6 @@ myApp.controller(
       tienGiamGiaTaiQuay +
       ($scope.tienGiao ? +$scope.tienGiao : 0);
     $scope.loadVouchers(totalOrderValue);
-
-    $scope.autoAddVoucher = function (totalOrderValue) {
-      var maxDiscount = 0;
-      var selectedVoucher = null;
-
-      $scope.listVoucher.forEach(function (voucher) {
-        if (
-          totalOrderValue >= voucher.priceOrder &&
-          voucher.price > maxDiscount
-        ) {
-          if (voucher.style === 1) {
-            maxDiscount = voucher.price / 100;
-          } else if (voucher.style === 2) {
-            if (maxDiscount > voucher.price) {
-              maxDiscount = maxDiscount;
-            } else {
-              maxDiscount = voucher.price;
-            }
-          }
-          selectedVoucher = voucher;
-        }
-      });
-
-      if (selectedVoucher) {
-        $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-      } else {
-        $scope.huyVoucherHoaDon(0);
-      }
-    };
 
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
@@ -1441,7 +1422,7 @@ myApp.controller(
     };
 
     // Thêm token vào function updateOrder
-    $scope.updateOrder = function (idVoucher, thanhTien) {
+    $scope.updateOrder = function (idVoucher) {
       var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
       var config = {
         headers: {
@@ -1455,12 +1436,23 @@ myApp.controller(
             "&idVoucher=" +
             idVoucher +
             "&thanhTien=" +
-            thanhTien,
+            totalOrderValue,
           null,
           config // Truyền thông tin token qua config
         )
         .then(function (response) {
-          // $window.location.reload();
+          // Swal.fire({
+          //   position: "top-end",
+          //   icon: "success",
+          //   title: "Thanh toán thành công",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          //   customClass: {
+          //     popup: "small-popup",
+          //   },
+          // }).then(() => {
+          //   $window.location.reload();
+          // });
         });
     };
   }
