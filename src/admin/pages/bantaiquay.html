@@ -102,7 +102,7 @@
                   <button class="btn btn-primary" ng-click="selectOrder(hd.id, hd.idKhachHang)">
                     Chọn
                   </button>
-                  <button class="btn btn-danger" ng-click="closeVoucherOrder()">
+                  <button class="btn btn-danger" ng-click="deleteOrder(hd.id)">
                     Hủy
                   </button>
                 </td>
@@ -821,30 +821,31 @@
                                     <div class="omni-layout-card--section-section">
                                       <div class="omni-layout-card--item-stack-cover">
                                         <div class="omni-layout-card--item-stack fill">
-                                          <span class="header-title">Khách thanh toán</span>
-                                        </div>
-                                        <div class="omni-layout-card--item-stack fill text-right">
-                                          <span class="header-title" style="color: #dd2222"
-                                            ng-model="newTransaction.tienKhachTra">{{totalAmountPaid.toLocaleString('vi-VN')}}đ</span>
+                                          <div class="row">
+                                            <div class="col-lg-2" style="width: 150px;;">
+                                              <span class="header-title">Khách thanh toán</span>
+                                            </div>
+                                            <div class="col-lg-3">
+                                              <span class="header-title" style="color: #dd2222"
+                                                ng-model="newTransaction.tienKhachTra">{{totalAmountPaid.toLocaleString('vi-VN')}}đ</span>
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                     <div class="omni-layout-card--section-section">
                                       <div class="omni-layout-card--item-stack-cover">
                                         <div class="omni-layout-card--item-stack fill">
-                                          <span class="header-title">Tiền thiếu</span>
-                                        </div>
-                                        <div class="omni-layout-card--item-stack fill text-right">
-                                          <span class="header-title">
-                                            {{ (tongTienHang -
-                                            orderDetailCounter.tienGiamGia +
-                                            (tienGiao ? +tienGiao : 0) -
-                                            totalAmountPaid).toLocaleString('vi-VN') >= 0 ?
-                                            (tongTienHang -
-                                            orderDetailCounter.tienGiamGia +
-                                            (tienGiao ? +tienGiao : 0) -
-                                            totalAmountPaid).toLocaleString('vi-VN') : '0' }}đ
-                                          </span>
+                                          <div class="row">
+                                            <div class="col-lg-2" style="width: 150px;;">
+                                              <span class="header-title">Tiền thiếu</span>
+                                            </div>
+                                            <div class="col-lg-3">
+                                              <span class="header-title">
+                                                {{ tienCuoiCungCuaDon.toLocaleString('vi-VN')}}đ
+                                              </span>
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -982,7 +983,8 @@
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right">
                         <input type="text" ng-model="tienGiao" class="form-control hidden-input"
-                          placeholder="Nhập tiền vận chuyển" ng-change="autoAddVoucher((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao :0)))" />
+                          placeholder="Nhập tiền vận chuyển"
+                          ng-change="autoAddVoucher((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao :0)))" />
                         <span style="color: red">{{errortienGiao}}</span>
                       </div>
                     </div>
@@ -1017,7 +1019,7 @@
             <button class="btn btn-primary" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
               ng-show="showInput"
               ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, totalAmountPaid - tongTienHang, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
-              Xác Nhận Thanh Toán
+              Xác nhận thanh toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
               style="margin-left: 900px; margin-top: -10px; font-weight: bold"

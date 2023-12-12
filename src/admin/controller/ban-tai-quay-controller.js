@@ -310,7 +310,6 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listCart.push(response.data);
-                $scope.loadVouchers(totalOrderValue);
                 // $scope.listCart.map((item) => item.idGioHang);
                 // $window.location.reload(); // Reload trang trước khi hiển thị thông báo
                 $scope.listSanPhamInCart();
@@ -325,6 +324,7 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
+                  $scope.loadVouchers(totalOrderValue);
                 });
               });
           }
@@ -362,7 +362,6 @@ myApp.controller(
               )
               .then(function () {
                 $scope.listCart.splice(index, 1);
-                $scope.loadVouchers(totalOrderValue);
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -374,6 +373,7 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
+                  $scope.loadVouchers(totalOrderValue);
                 });
               });
           }
@@ -406,8 +406,8 @@ myApp.controller(
           headers: config.headers, // Truyền thông tin token qua headers
           transformResponse: [
             function () {
-              $scope.loadVouchers(totalOrderValue);
               $window.location.reload();
+              $scope.loadVouchers(totalOrderValue);
             },
           ],
         });
@@ -541,6 +541,7 @@ myApp.controller(
     // TODO:Show phương thức thanh toán của khách
     $scope.totalAmountPaid = 0;
     $scope.remainingAmount = 0;
+    $scope.tienCuoiCungCuaDon = 0;
     $scope.showTransaction = function () {
       $http
         .get("http://localhost:8080/api/v1/transaction/show?id=" + id)
@@ -550,6 +551,8 @@ myApp.controller(
           for (var i = 0; i < $scope.listTransaction.length; i++) {
             $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
           }
+          $scope.tienCuoiCungCuaDon = totalOrderValue - $scope.totalAmountPaid;
+          console.log($scope.tienCuoiCungCuaDon);
           $window.localStorage.setItem(
             "soTienkhachTra",
             $scope.totalAmountPaid
@@ -594,6 +597,7 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listTransaction.push(response.data);
+                $scope.showTransaction();
                 // $scope.newTransaction.soTien = "";
                 $location.path("/order-counter");
               });
@@ -669,6 +673,52 @@ myApp.controller(
       $window.localStorage.removeItem("idKhach");
     };
 
+    setTimeout(() => {
+      $scope.generatePDF = function () {
+        Swal.fire({
+          title: "Bạn có muốn in hóa đơn này không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes!",
+          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $http
+              .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+                responseType: "arraybuffer",
+              })
+              .then(function (response) {
+                var file = new Blob([response.data], {
+                  type: "application/pdf",
+                });
+                var fileURL = URL.createObjectURL(file);
+                var a = document.createElement("a");
+                a.href = fileURL;
+                a.download =
+                  "pdf_" +
+                  new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
+                  ".pdf";
+                document.body.appendChild(a);
+                a.click();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "In thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Add a class to the message
+                  },
+                });
+              });
+          }
+        });
+      };
+    }, 2000);
+
     //TODO:thanh toán hóa đơn
     setTimeout(() => {
       $scope.createHoaDonChiTiet = function (
@@ -733,8 +783,10 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup",
                   },
+                }).then(() => {
+                  $scope.generatePDF();
+                  // $scope.removeItem();
                 });
-                $scope.removeItem();
               });
             }
           });
@@ -1106,6 +1158,7 @@ myApp.controller(
       }
     };
 
+    // Đảm bảo rằng thư viện Instascan đã được import vào trang HTML của bạn
     let scanner = new Instascan.Scanner({
       video: document.getElementById("preview"),
     });
@@ -1151,16 +1204,6 @@ myApp.controller(
       .catch(function (e) {
         console.error(e);
       });
-
-    $scope.listVoucher = [];
-    $scope.getALlVoucher = function () {
-      $http
-        .get("http://localhost:8080/api/v1/voucher-counter/show")
-        .then(function (response) {
-          $scope.listVoucher = response.data;
-        });
-    };
-    $scope.getALlVoucher();
 
     $scope.updateOrder = function (idVoucher, thanhTien) {
       var token = $window.localStorage.getItem("token");
@@ -1246,7 +1289,6 @@ myApp.controller(
                 $scope.getVoucherName();
               })
               .catch(function (error) {
-                console.log(error.data);
                 $scope.errorMessage = error.data.message;
                 $scope.errorHoTen = error.data.hoTen;
                 $scope.errorSoDienThoai = error.data.soDienThoai;
@@ -1311,20 +1353,58 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/voucher-counter/show")
         .then(function (response) {
           $scope.listVoucher = response.data;
+          var maxDiscount = 0;
+          var selectedVoucher = null;
+
+          $scope.listVoucher.forEach(function (voucher) {
+            if (
+              totalOrderValue >= voucher.priceOrder &&
+              voucher.price > maxDiscount
+            ) {
+              if (voucher.style === 1) {
+                maxDiscount = voucher.price / 100;
+              } else if (voucher.style === 2) {
+                if (maxDiscount > voucher.price) {
+                  maxDiscount = maxDiscount;
+                } else {
+                  maxDiscount = voucher.price;
+                }
+              }
+              selectedVoucher = voucher;
+            }
+          });
+          if (selectedVoucher) {
+            $scope.updateOrder(selectedVoucher.id, totalOrderValue);
+          } else {
+            $scope.huyVoucherHoaDon(0);
+          }
         });
     };
 
-    function autoAddVoucher(totalOrderValue) {
+    var totalOrderValue =
+      tongTienTaiQuay -
+      tienGiamGiaTaiQuay +
+      ($scope.tienGiao ? +$scope.tienGiao : 0);
+    $scope.loadVouchers(totalOrderValue);
+
+    $scope.autoAddVoucher = function (totalOrderValue) {
       var maxDiscount = 0;
       var selectedVoucher = null;
 
-      // Tìm voucher có giảm giá cao nhất thỏa mãn điều kiện
       $scope.listVoucher.forEach(function (voucher) {
         if (
           totalOrderValue >= voucher.priceOrder &&
           voucher.price > maxDiscount
         ) {
-          maxDiscount = voucher.price;
+          if (voucher.style === 1) {
+            maxDiscount = voucher.price / 100;
+          } else if (voucher.style === 2) {
+            if (maxDiscount > voucher.price) {
+              maxDiscount = maxDiscount;
+            } else {
+              maxDiscount = voucher.price;
+            }
+          }
           selectedVoucher = voucher;
         }
       });
@@ -1334,7 +1414,7 @@ myApp.controller(
       } else {
         $scope.huyVoucherHoaDon(0);
       }
-    }
+    };
 
     $scope.voucherName = "";
     $scope.getVoucherName = function () {
@@ -1368,7 +1448,6 @@ myApp.controller(
           Authorization: "Bearer " + token, // Thêm token vào header Authorization
         },
       };
-      console.log(token);
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
