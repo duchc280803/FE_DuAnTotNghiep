@@ -28,7 +28,7 @@
 
 <br>
 <div class="row" style="margin-top: -30px;">
-  <div class="col-md-4 mt-2" style="font-size: 16px;">
+  <div class="col-md-4 mt-2 card-title mb-9 fw-semibold">
     <a class="a_color" href="#order"><span class="hoa-don">Hóa đơn</span></a> / <a class="a_color"><span>Hóa đơn chi
         tiết</span></a>
   </div>
@@ -125,7 +125,7 @@
     <div class="col-lg-6">
       <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6" type="submit"
         class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#huydon"
-        style="text-decoration: none; height: 39px">Hủy
+        style="text-decoration: none; height: 39px">Hủy đơn
       </button>
       <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6 && fillMoney.tienShip != null"
         type="submit" class="btn btn-danger m-1" style="text-decoration: none; height: 39px"
@@ -175,7 +175,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Đóng
         </button>
       </div>
     </div>
@@ -211,7 +211,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Đóng
         </button>
         <button type="button" class="btn btn-secondary" ng-click="confirmOrderClient()">
           Xác nhận
@@ -239,7 +239,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Đóng
         </button>
         <button type="button" class="btn btn-secondary" ng-click="confirmOrderdeliver()">
           Xác nhận
@@ -284,7 +284,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" class="btn btn-outline-danger m-1" data-bs-dismiss="modal"
+        <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal"
           ng-click="comfirmStatusOrder()">
           Xác nhận
         </button>
@@ -311,7 +311,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger m-1"
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary m-1"
           ng-click="comfirmStatusHuyDon()">
           Xác nhận
         </button>
@@ -342,7 +342,7 @@
 <!-- modal thông báo trạng thái HD -->
 <div class="card overflow-hidden" style="width: 1152px">
   <div class="d-flex align-items-center">
-    <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto">
+    <h5 style="padding-left: 20px; padding-top: 20px" class="me-auto card-title mb-9 fw-semibold">
       Lịch sử thanh toán
     </h5>
   </div>
@@ -395,7 +395,7 @@
           font-size: 15px;
           font-weight: 900;
           padding-left: 100px;
-        ">{{soTienKhachTra.toLocaleString('vi-VN')}}₫</span>
+        ">{{soTienKhachTra.toLocaleString('vi-VN')}}đ</span>
     </div>
     <div class="col-lg-9"
       ng-show="(traHangis === true &&  tongTienHoanTra <= soTienHoan) || (hoaDonChiTiet.trangThai === 6 &&  tongTienHoanTra <= soTienHoan)">
@@ -419,14 +419,14 @@
           font-size: 15px;
           font-weight: 900;
           padding-left: 100px;
-        ">{{soTienHoan.toLocaleString('vi-VN')}}₫</span>
+        ">{{soTienHoan.toLocaleString('vi-VN')}}đ</span>
     </div>
   </div>
 </div>
 <div class="card overflow-hidden" style="width: 1152px">
   <div class="box">
     <div class="d-flex align-items-center">
-      <h5 style="padding-top: 20px; padding-left: 20px;" class="me-auto">
+      <h5 style="padding-top: 20px; padding-left: 20px;" class="me-auto card-title mb-9 fw-semibold">
         Thông tin đơn hàng
       </h5>
       <div class="why">
@@ -493,19 +493,19 @@
           </td>
           <td style="padding-top: 80px">
             <div ng-show="item.donGiaSauGiam != item.giaBan">
-              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}₫
+              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
               <span style="color: crimson">
-                <strike>{{item.giaBan.toLocaleString('vi-VN')}}₫</strike></span>
+                <strike>{{item.giaBan.toLocaleString('vi-VN')}}đ</strike></span>
             </div>
             <div ng-show="item.donGiaSauGiam == item.giaBan">
-              {{item.giaBan.toLocaleString('vi-VN')}}₫
+              {{item.giaBan.toLocaleString('vi-VN')}}đ
             </div>
           </td>
           <td style="padding-top: 80px" ng-show="item.donGiaSauGiam != 0">
-            {{(item.donGiaSauGiam * item.soLuong).toLocaleString('vi-VN')}}₫
+            {{(item.donGiaSauGiam * item.soLuong).toLocaleString('vi-VN')}}đ
           </td>
           <td style="padding-top: 80px" ng-show="item.donGiaSauGiam == 0">
-            {{(item.giaBan * item.soLuong).toLocaleString('vi-VN')}}₫
+            {{(item.giaBan * item.soLuong).toLocaleString('vi-VN')}}đ
           </td>
           <td style="padding-top: 70px" ng-show="hoaDonChiTiet.trangThai == 1">
             <button class="btn btn-primary" ng-click="deleteProduct($event, $index)">
@@ -554,13 +554,13 @@
                   </h6>
                   <h6 style="height: 10px; padding-top: 30px"
                     ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
-                    Đơn giá: {{fillProductTraHang.donGia.toLocaleString('vi-VN')}}₫
+                    Đơn giá: {{fillProductTraHang.donGia.toLocaleString('vi-VN')}}đ
                   </h6>
                   <h6 style="height: 10px; padding-top: 30px"
                     ng-show="fillProductTraHang.donGia !=  fillProductTraHang.donGiaSauGiam">
-                    Đơn giá: {{fillProductTraHang.donGiaSauGiam.toLocaleString('vi-VN')}}₫
+                    Đơn giá: {{fillProductTraHang.donGiaSauGiam.toLocaleString('vi-VN')}}đ
                     <span style="color: crimson">
-                      <strike>{{fillProductTraHang.donGia.toLocaleString('vi-VN')}}₫</strike></span>
+                      <strike>{{fillProductTraHang.donGia.toLocaleString('vi-VN')}}đ</strike></span>
                   </h6>
                   <h6 style="height: 10px">
                     Size: {{fillProductTraHang.size}}
@@ -576,12 +576,12 @@
                 <td>
                   <h6 style="color: crimson; padding-top: 110px"
                     ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
-                    {{(fillProductTraHang.donGia * fillProductTraHang.soLuong).toLocaleString('vi-VN')}}₫
+                    {{(fillProductTraHang.donGia * fillProductTraHang.soLuong).toLocaleString('vi-VN')}}đ
                   </h6>
                   <h6 style="color: crimson; padding-top: 110px"
                     ng-show="fillProductTraHang.donGia != fillProductTraHang.donGiaSauGiam">
                     {{(fillProductTraHang.donGiaSauGiam *
-                    fillProductTraHang.soLuong).toLocaleString('vi-VN')}}₫
+                    fillProductTraHang.soLuong).toLocaleString('vi-VN')}}đ
                   </h6>
                 </td>
               </tr>
@@ -602,7 +602,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
+            Đóng
           </button>
           <button type="button" class="btn btn-danger" ng-click="traHang(fillProductTraHang.id)">
             Trả hàng
@@ -790,19 +790,19 @@
             <nav aria-label="Page navigation example" style="margin-left: 480px">
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" ng-click="previousPageSp()">Previous</a>
+                  <a class="page-link" ng-click="previousPageSp()">Trước</a>
                 </li>
                 <li class="page-item">
                   <a class="page-link">{{pageNumberSp + 1}}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" ng-click="nextPageSp()">Next</a>
+                  <a class="page-link" ng-click="nextPageSp()">Sau</a>
                 </li>
               </ul>
             </nav>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Close
+                Đóng
               </button>
             </div>
           </div>
@@ -813,14 +813,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 600px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
           </li>
         </ul>
       </nav>
@@ -830,17 +830,17 @@
   <div class="row">
     <div class="col-lg-12" style="margin-left: 900px">
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền hàng: {{tongTienHang.toLocaleString('vi-VN')}}₫
+        Tiền hàng: {{tongTienHang.toLocaleString('vi-VN')}}đ
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
         Tiền ship: {{fillMoney.tienShip.toLocaleString('vi-VN') != null ? (fillMoney.tienShip.toLocaleString('vi-VN'))
-        + '₫' : '0₫'}}
+        + 'đ' : '0đ'}}
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tiền giảm giá:{{fillMoney.tienGiamGia.toLocaleString('vi-VN')}}₫
+        Tiền giảm giá:{{fillMoney.tienGiamGia.toLocaleString('vi-VN')}}đ
       </h6>
       <h6 style="font-size: 14px; font-weight: 600">
-        Tổng tiền: {{fillMoney.tongTien.toLocaleString('vi-VN')}}₫
+        Tổng tiền: {{fillMoney.tongTien.toLocaleString('vi-VN')}}đ
       </h6>
     </div>
   </div>
