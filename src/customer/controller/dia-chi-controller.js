@@ -17,7 +17,12 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             // Load dữ liệu lên giao diện
             loadDiaChi();
             $window.localStorage.setItem('username', $scope.taiKhoan.username);
+            $window.localStorage.setItem('sodienthoai', $scope.taiKhoan.soDienThoai);
+            $window.localStorage.setItem('email', $scope.taiKhoan.email);
             console.log("username" + $window.localStorage.getItem('username'))
+            console.log("sodienthoai" + $window.localStorage.getItem('sodienthoai'))
+            console.log("email" + $window.localStorage.getItem('email'))
+
         });
 
     };
@@ -115,7 +120,6 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
         });
     };
 
-
     $scope.prepareUpdateAddress = function (diaChi) {
         console.log('Preparing to update address:', diaChi);
         $scope.updateAddressName = diaChi.diaChi;
@@ -143,13 +147,6 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             });
             return;
         }
-
-        //update sẽ dùng cái này
-        // var data = {
-        //     thanhPho: $scope.selectedProvince.name,
-        //     quanHuyen: $scope.selectedDistrict.name,
-        //     phuongXa: $scope.selectedWard.name,
-        //   };
 
         var token = $window.localStorage.getItem("token-customer");
         var config = {
@@ -232,6 +229,9 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
     $scope.isEmailValid = true;
     $scope.isNgaySinhValid = true;
 
+    $scope.isSoDienThoaiIsPresent = true;
+    $scope.isEmailIsPresent = true;
+
     function validateSoDienThoaiFormat(soDienThoai) {
         // Sử dụng biểu thức chính quy để kiểm tra định dạng số điện thoại Việt Nam
         var phoneRegex = /^(0[2-9]{1}\d{8,9})$/;
@@ -249,8 +249,6 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
         $scope.isSoDienThoaiValid = !!$scope.taiKhoan.soDienThoai;
         $scope.isEmailValid = !!$scope.taiKhoan.email;
         $scope.isNgaySinhValid = !!$scope.taiKhoan.ngaySinh;
-
-
 
         if (!$scope.isHoTenValid || !$scope.isSoDienThoaiValid || !$scope.isEmailValid || !$scope.isNgaySinhValid) {
             Swal.fire({
@@ -289,7 +287,6 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
                 return;
             }
         }
-
         // Sử dụng SweetAlert2 cho hộp thoại xác nhận
         Swal.fire({
             title: "Xác nhận",
