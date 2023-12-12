@@ -1157,11 +1157,9 @@ myApp.controller(
     };
 
     // Đảm bảo rằng thư viện Instascan đã được import vào trang HTML của bạn
-
     let scanner = new Instascan.Scanner({
       video: document.getElementById("preview"),
     });
-
     scanner.addListener("scan", function (content) {
       var idGioHang = CartService.getIdCart();
       var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
@@ -1193,7 +1191,6 @@ myApp.controller(
         })
         .catch(function (error) {});
     });
-
     Instascan.Camera.getCameras()
       .then(function (cameras) {
         if (cameras.length > 0) {
@@ -1205,6 +1202,7 @@ myApp.controller(
       .catch(function (e) {
         console.error(e);
       });
+
 
     $scope.updateOrder = function (idVoucher, thanhTien) {
       var token = $window.localStorage.getItem("token");
