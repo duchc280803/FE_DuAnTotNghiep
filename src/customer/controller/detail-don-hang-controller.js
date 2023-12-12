@@ -1,6 +1,10 @@
 myAppCustom.controller(
   "detailDonHangController",
   function ($http, $scope, $window, $routeParams) {
+
+    $scope.username = $window.localStorage.getItem('username');
+    console.log("username"+$window.localStorage.getItem('username'))
+    
     $scope.listThongTin = [];
     $scope.listTrangThai = [];
     $scope.listSanPham = [];
