@@ -1355,7 +1355,7 @@ myApp.controller(
 
     $scope.listVoucher = [];
     // Variable to track if a voucher has been applied
-    var voucherApplied = false;
+  
     
     // Function to load vouchers
     $scope.loadVouchers = function (totalOrderValue) {
@@ -1366,7 +1366,7 @@ myApp.controller(
           var maxDiscount = 0;
           var selectedVoucher = null;
     
-          if (!voucherApplied) {
+
             $scope.listVoucher.forEach(function (voucher) {
               if (
                 totalOrderValue >= voucher.priceOrder &&
@@ -1383,11 +1383,9 @@ myApp.controller(
     
             if (selectedVoucher) {
               $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-              voucherApplied = true; // Mark that a voucher has been applied
             } else {
               $scope.huyVoucherHoaDon(0);
             }
-          }
         });
     };
 

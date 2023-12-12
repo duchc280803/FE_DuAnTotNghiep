@@ -1,16 +1,16 @@
 <div class="card overflow-hidden" style="width: 1152px; height: 130px">
   <div class="row" style="padding-top: 30px; padding-left: 80px">
     <div class="col-md-5">
-      <input class="form-control" placeholder="Tìm hóa đơn" style="width: 100%" ng-model="searchQuery" />
+      <input class="form-control" placeholder="Tìm kiếm hóa đơn" style="width: 100%" ng-model="searchQuery" />
     </div>
     <div class="col-md-2">
       <button type="button" class="btn btn-primary" style="width: 100%" ng-click="searchHoaDon()">
-        Tìm Kiếm
+        Tìm kiếm
       </button>
     </div>
     <div class="col-md-2">
-      <button type="button" class="btn btn-secondary" style="width: 100%" ng-click="clearSearch()">
-        Chỉnh sửa
+      <button type="button" class="btn btn-warning" style="width: 100%" ng-click="clearSearch()">
+        Làm mới
       </button>
     </div>
     <div class="col-md-2">
@@ -20,7 +20,7 @@
   </div>
   <div class="row" style="padding: 20px">
     <div class="col-md-3">
-      <span>Loại Đơn :</span>
+      <span>Loại đơn :</span>
       <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
         <option value="">Tất cả</option>
         <option value="2">Tại quầy</option>
@@ -74,7 +74,6 @@
           <th scope="col">Ngày tạo</th>
           <th scope="col">Số khách</th>
           <th scope="col">Thành tiền</th>
-          <th scope="col">Người xác nhận</th>
           <th scope="col">Loại đơn</th>
           <th scope="col">Thao Tác</th>
         </tr>
@@ -89,8 +88,7 @@
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
-          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
-          <td>{{hd.tenNhanVien}}</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td>{{hd.loaiDon}}</td>
           <td>
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary">
@@ -104,14 +102,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
-              Next
+              Sau
             </a>
           </li>
         </ul>
@@ -143,7 +141,7 @@
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
-          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td>{{hd.tenNhanVien}}</td>
           <td>{{hd.loaiDon}}</td>
           <td>
@@ -162,14 +160,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
           </li>
         </ul>
       </nav>
@@ -200,7 +198,7 @@
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
-          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td>
             {{hd.tenNhanVien}}
           </td>
@@ -221,14 +219,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
           </li>
         </ul>
       </nav>
@@ -259,7 +257,7 @@
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
-          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td>
             {{hd.tenNhanVien}}
           </td>
@@ -280,14 +278,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
           </li>
         </ul>
       </nav>
@@ -318,7 +316,7 @@
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
-          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td>
             {{hd.tenNhanVien}}
           </td>
@@ -339,14 +337,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
           </li>
         </ul>
       </nav>
@@ -379,7 +377,7 @@
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
           <td>{{hd.soDienThoai}}</td>
-          <td>{{hd.thanhTien.toLocaleString('vi-VN')}}₫</td>
+          <td>{{hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td ng-show="!isAdmin">
             {{hd.tenNhanVien}}
           </td>
@@ -403,14 +401,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
           </li>
         </ul>
       </nav>
