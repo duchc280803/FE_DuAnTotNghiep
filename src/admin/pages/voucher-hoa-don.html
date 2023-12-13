@@ -11,7 +11,8 @@
       </div>
       <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px;">
         <span class="text" style="padding-top: 10px">Trạng thái:</span>
-        <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai" ng-change="searchStatus()" id="simple-select2">
+        <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai"
+          ng-change="searchStatus()" id="simple-select2">
           <option value="">Tất cả</option>
           <option value="1">Còn Hiệu Lực </option>
           <option value="2">Hết Hiệu Lực</option>
@@ -68,7 +69,11 @@
           <td>{{gg.trangThai == 1 ? 'Còn hạn':'Hết hạn'}}</td>
           <td>
             <a href="#/voucher/update/{{gg.id}}" class="btn btn-primary">Sửa</a>
+            <a class="btn btn-primary" ng-click="updateVoucherStatus(gg.id, $event)">
+              <img src="/assets/images/disabled.png" width="25px" alt="">
+            </a>
           </td>
+
         </tr>
       </tbody>
     </table>

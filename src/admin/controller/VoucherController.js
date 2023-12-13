@@ -1,6 +1,6 @@
 myApp.controller(
   "VoucherController",
-  function ($http, $scope, $location, $window) {
+  function ($http, $scope, $location, $route, $window, $sce) {
     var role = $window.localStorage.getItem("role");
     if (role === "USER") {
       Swal.fire({
@@ -25,7 +25,13 @@ myApp.controller(
 
     $scope.pageNumber = 0;
     $scope.pageSize = 20;
-
+    $scope.formatMa = function (username) {
+      // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
+      if (username && username.includes(",")) {
+        return $sce.trustAsHtml(username.replace(/,/g, "<br>"));
+      }
+      return username;
+    };
     // Trong hàm fetchVoucherList()
     $scope.fetchVoucherList = function () {
       var token = $window.localStorage.getItem("token");
@@ -100,6 +106,54 @@ myApp.controller(
     }
 
     fetchVoucherHistortyList();
+
+    setTimeout(() => {
+      $scope.updateVoucherStatus = function (id, event) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
+        Swal.fire({
+          title: "Bạn có muốn vô hiệu hóa voucher này không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Đồng ý",
+          cancelButtonText: "Hủy bỏ",
+          cancelButtonColor: "#d33",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            event.preventDefault();
+
+            $http
+              .get(
+                "http://localhost:8080/api/v1/voucher/updateStatus/" + id,
+                config
+              )
+              .then(function (response) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Cập nhật voucher thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Thêm class cho message
+                  },
+                });
+                $route.reload();
+              })
+              .catch(function (error) {
+                console.error("Error updating Voucher:", error);
+              });
+          }
+        });
+      };
+    }, 2000);
     $scope.searchVouchers = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -328,11 +382,11 @@ myApp.controller(
     $scope.searchStatus = function () {
       var token = $window.localStorage.getItem("token");
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var trangThai = $scope.trangThai;
       if (!trangThai) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
@@ -340,7 +394,8 @@ myApp.controller(
       } else {
         $http
           .get("http://localhost:8080/api/v1/voucher/searchByTrangThai", {
-            params: { trangThai: trangThai },config,
+            params: { trangThai: trangThai },
+            config,
           })
           .then(function (response) {
             $scope.listVoucher = response.data;
@@ -352,11 +407,11 @@ myApp.controller(
     $scope.searchDateHistory = function () {
       var token = $window.localStorage.getItem("token");
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var startDate = $scope.startDate;
       var endDate = $scope.endDate;
 
