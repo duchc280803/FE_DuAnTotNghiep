@@ -117,41 +117,37 @@ myApp.controller(
       };
     }, 2000);
 
-    // delete hoadon
-    setTimeout(() => {
+   setTimeout(() => {
       $scope.deleteOrder = function (id) {
-        var token = $window.localStorage.getItem("token");
-
+        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+    
         var config = {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer " + token, // Thêm token vào header Authorization
           },
         };
-
+    
         Swal.fire({
           title: "Xác nhận hủy !",
           text: "Bạn có chắc chắn muốn hủy hóa đơn này ?",
           icon: "warning",
           showCancelButton: true,
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonText: "Hủy bỏ",
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận",
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
-              .put(
-                "http://localhost:8080/api/v1/don-hang/remove?id=" + id,
-                null,
-                config
-              )
+              .put("http://localhost:8080/api/v1/don-hang/remove?id=" + id, null, config) // Truyền config vào đây
               .then(function () {
-                $scope.removeItem();
+                $window.localStorage.removeItem("idKhach");
+                $window.localStorage.removeItem("idHoaDon");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "hủy thành công",
+                  title: "Hủy thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -165,6 +161,10 @@ myApp.controller(
         });
       };
     }, 2000);
+    
+    
+    
+    
 
     /**
      * Get all hoa đơn tại quầy
@@ -819,6 +819,7 @@ myApp.controller(
         soDienThoai,
         diaChi
       ) {
+        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
         var soTienKhachTra = $window.localStorage.getItem("soTienkhachTra");
         var totalOrderValue =
           tongTienTaiQuay -
@@ -850,6 +851,13 @@ myApp.controller(
           var api =
             "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
             id;
+    
+          var config = {
+            headers: {
+              Authorization: "Bearer " + token, // Thêm token vào header Authorization
+            },
+          };
+    
           Swal.fire({
             title: "Bạn muốn thanh toán hóa đơn này?",
             text: "",
@@ -862,7 +870,7 @@ myApp.controller(
             reverseButtons: true,
           }).then((result) => {
             if (result.isConfirmed) {
-              $http.post(api, requestData).then(function (response) {
+              $http.post(api, requestData, config).then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
                 Swal.fire({
                   position: "top-end",
@@ -883,6 +891,7 @@ myApp.controller(
         }
       };
     }, 2000);
+    
 
     /**
      * thanh toán hóa đơn giao
