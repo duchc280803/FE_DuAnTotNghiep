@@ -1,6 +1,25 @@
 myApp.controller(
   "sanPhamChiTietController",
   function ($http, $scope, $routeParams) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     var id = $routeParams.id;
 
     $scope.idUpdate = id;
@@ -9,6 +28,13 @@ myApp.controller(
     $scope.pageNumber = 0;
     $scope.pageSize = 20;
     $scope.getlistSanPhamChiTiet = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-chi-tiet/show?id=" +
@@ -16,7 +42,8 @@ myApp.controller(
             "&pageNumber=" +
             $scope.pageNumber +
             "&pageSize=" +
-            $scope.pageSize
+            $scope.pageSize,
+          config
         )
         .then(function (response) {
           $scope.listSanPhamChiTiet = response.data;
@@ -53,8 +80,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
     $scope.getListChatLieu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/chat-lieu/show")
+        .get("http://localhost:8080/api/v1/chat-lieu/show", config)
         .then(function (response) {
           $scope.listChatLieu = response.data;
         });
@@ -64,8 +98,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của size
     $scope.listSize = [];
     $scope.getListSize = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/size/show")
+        .get("http://localhost:8080/api/v1/size/show", config)
         .then(function (response) {
           $scope.listSize = response.data;
         });
@@ -75,8 +116,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của màu sắc
     $scope.listMauSac = [];
     $scope.getListMauSac = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/mau-sac/show")
+        .get("http://localhost:8080/api/v1/mau-sac/show", config)
         .then(function (response) {
           $scope.listMauSac = response.data;
         });
@@ -86,6 +134,13 @@ myApp.controller(
     // TODO:  Lọc sản phẩm theo size
     $scope.trangThai;
     $scope.filterStatus = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       if ($scope.trangThai === "") {
         $scope.getlistSanPhamChiTiet();
       } else {
@@ -94,7 +149,8 @@ myApp.controller(
             "http://localhost:8080/api/v1/san-pham-chi-tiet/show-by-status?id=" +
               id +
               "&trangThai=" +
-              $scope.trangThai
+              $scope.trangThai,
+            config
           )
           .then(function (response) {
             $scope.listSanPhamChiTiet = response.data;
@@ -105,6 +161,13 @@ myApp.controller(
     // TODO:  Lọc sản phẩm theo size
     $scope.locSize;
     $scope.filterSize = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       if ($scope.locSize === "") {
         $scope.getlistSanPhamChiTiet();
       } else {
@@ -113,7 +176,8 @@ myApp.controller(
             "http://localhost:8080/api/v1/san-pham-chi-tiet/show-by-size?id=" +
               id +
               "&size=" +
-              $scope.locSize
+              $scope.locSize,
+            config
           )
           .then(function (response) {
             $scope.listSanPhamChiTiet = response.data;
@@ -124,6 +188,13 @@ myApp.controller(
     // TODO:  Lọc sản phẩm theo chất liệu
     $scope.locMaterial = "";
     $scope.filterMaterial = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       if ($scope.locMaterial === "") {
         $scope.getlistSanPhamChiTiet();
       } else {
@@ -132,7 +203,8 @@ myApp.controller(
             "http://localhost:8080/api/v1/san-pham-chi-tiet/show-by-key?id=" +
               id +
               "&key=" +
-              $scope.locMaterial
+              $scope.locMaterial,
+            config
           )
           .then(function (response) {
             $scope.listSanPhamChiTiet = response.data;
@@ -143,6 +215,13 @@ myApp.controller(
     // TODO:  Lọc sản phẩm theo màu sắc
     $scope.locMauSac = "";
     $scope.filterColor = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       if ($scope.locMauSac === "") {
         $scope.getlistSanPhamChiTiet();
       } else {
@@ -151,7 +230,8 @@ myApp.controller(
             "http://localhost:8080/api/v1/san-pham-chi-tiet/show-by-key?id=" +
               id +
               "&key=" +
-              $scope.locMauSac
+              $scope.locMauSac,
+            config
           )
           .then(function (response) {
             $scope.listSanPhamChiTiet = response.data;

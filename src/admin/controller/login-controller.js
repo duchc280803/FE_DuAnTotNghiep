@@ -20,7 +20,7 @@ myApp.controller("loginController", function ($scope, $http, $window, $location)
         $window.localStorage.setItem("role", response.data.role);
 
         // ... (phần còn lại của hàm login)
-        $location.path("/dashboard")
+        window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/dashboard";
         // Cập nhật biến loggedInUsername khi đăng nhập thành công
         $window.location.reload();
       })
@@ -32,6 +32,7 @@ myApp.controller("loginController", function ($scope, $http, $window, $location)
 
   $scope.logout = function () {
     // Xóa token khỏi localStorage
+    window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     $window.localStorage.removeItem("token");
     $window.localStorage.removeItem("role");
     $scope.isLoggedIn = false;

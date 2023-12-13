@@ -1,6 +1,25 @@
 myApp.controller(
   "sizeController",
   function ($http, $scope, $location, $window, $sce) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     $scope.listSize = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -9,6 +28,13 @@ myApp.controller(
     var id = $location.search().id;
 
     function sizeList(trangThai, pageNumber) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var url = `http://localhost:8080/api/v1/size/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
       if ($scope.searchQuery) {
@@ -16,7 +42,7 @@ myApp.controller(
       }
 
       $http
-        .get(url)
+        .get(url, config)
         .then(function (response) {
           $scope.listSize = response.data;
           console.log("Dữ liệu trả về: ", response.data);
@@ -44,8 +70,15 @@ myApp.controller(
       return username;
     };
     function fetchHistortyList() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/audilog/size")
+        .get("http://localhost:8080/api/v1/audilog/size", config)
         .then(function (response) {
           $scope.listHistory = response.data;
         });
@@ -53,6 +86,13 @@ myApp.controller(
 
     fetchHistortyList();
     $scope.searchVouchers = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       // Make sure both startDate and endDate are provided
       if (!$scope.startDate || !$scope.endDate) {
         // Handle error or provide user feedback
@@ -72,11 +112,18 @@ myApp.controller(
         "&endDate=" +
         encodeURIComponent(formattedEndDate);
 
-      $http.get(searchUrl).then(function (response) {
+      $http.get(searchUrl, config).then(function (response) {
         $scope.listHistory = response.data;
       });
     };
     $scope.searchVouchersByDay = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var formattedStartDate = new Date($scope.searchDate)
         .toISOString()
         .split("T")[0];
@@ -84,7 +131,7 @@ myApp.controller(
       var searchUrl =
         "http://localhost:8080/api/v1/audilog/auditlogsizebydate?searchDate=" +
         encodeURIComponent(formattedStartDate);
-      $http.get(searchUrl).then(function (response) {
+      $http.get(searchUrl, config).then(function (response) {
         $scope.listHistory = response.data;
       });
     };
@@ -95,8 +142,15 @@ myApp.controller(
     };
 
     function fetchSizedetail(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var detailUrl = "http://localhost:8080/api/v1/size/detail?id=" + id;
-      $http.get(detailUrl).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         $scope.selectedSize = response.data;
         console.log("Thông tin chi tiết: ", $scope.selectedSize);
         if ($scope.selectedSize.trangThai === 1) {
@@ -114,14 +168,10 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.updateSize = function (updatedData) {
-
         $scope.isthuoctinh_update = !!$scope.selectedSize.size;
         $scope.istrangthai_update = !!$scope.selectedSize.trangThai;
 
-        if (
-          !$scope.isthuoctinh_update ||
-          !$scope.istrangthai_update
-        ) {
+        if (!$scope.isthuoctinh_update || !$scope.istrangthai_update) {
           return;
         } else {
           $scope.isthuoctinh_update = true;
@@ -182,25 +232,25 @@ myApp.controller(
     $scope.istrangthai = true;
     $scope.isthuoctinhIsPresent = true;
 
-
     setTimeout(() => {
       $scope.createSize = function () {
         $scope.isthuoctinh = !!$scope.newSize.size;
         $scope.istrangthai = !!$scope.newSize.trangThai;
 
-        if (
-          !$scope.isthuoctinh ||
-          !$scope.istrangthai
-        ) {
+        if (!$scope.isthuoctinh || !$scope.istrangthai) {
           return;
         } else {
           $scope.isthuoctinh = true;
           $scope.istrangthai = true;
         }
 
-        $http.get("http://localhost:8080/api/v1/size/find-by-size?size=" + $scope.newSize.size)
+        $http
+          .get(
+            "http://localhost:8080/api/v1/size/find-by-size?size=" +
+              $scope.newSize.size
+          )
           .then(function (response) {
-            console.log("size" + response.data)
+            console.log("size" + response.data);
             if (response.data > 0) {
               $scope.isthuoctinhIsPresent = false; // size đã tồn tại
               return;
@@ -251,7 +301,7 @@ myApp.controller(
                 }
               });
             }
-          })
+          });
       };
     }, 2000);
 

@@ -1,6 +1,25 @@
 myApp.controller(
   "khachHangController",
   function ($http, $scope, $location, $window) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     $scope.listKhachHang = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -10,6 +29,13 @@ myApp.controller(
     $scope.folderName = "D:image"; // Đổi your-folder-name thành tên thư mục thật của bạn
 
     function fetchKhachHangList(trangThai, pageNumber) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var url = `http://localhost:8080/api/ql-khach-hang/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
       if ($scope.searchQuery) {
@@ -21,7 +47,7 @@ myApp.controller(
       }
 
       $http
-        .get(url)
+        .get(url, config)
         .then(function (response) {
           response.data.ngaySinh = new Date(response.data.ngaySinh);
           $scope.listKhachHang = response.data;
@@ -45,11 +71,17 @@ myApp.controller(
     };
 
     function fetchKhachHangDetail(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var detailUrl = "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
-      $http.get(detailUrl).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         response.data.ngaySinh = new Date(response.data.ngaySinh);
         $scope.selectedKhachHang = response.data;
-        console.log($scope.selectedKhachHang);
         if ($scope.selectedKhachHang.trangThai === 1) {
           $scope.selectedKhachHang.trangThai = "1";
         } else {
@@ -66,8 +98,14 @@ myApp.controller(
     }
 
     $scope.updateKhachHang = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var yourFile = document.getElementById("fileInput").files[0];
-      console.log(yourFile);
       $http({
         method: "PUT",
         url:
@@ -75,6 +113,7 @@ myApp.controller(
           $scope.selectedKhachHang.khachHangId,
         headers: {
           "Content-Type": undefined,
+          Authorization: "Bearer" + token, // Thêm token vào đây để gửi cùng với request
         },
         transformRequest: function (data) {
           var formData = new FormData();
@@ -180,11 +219,18 @@ myApp.controller(
         });
         return;
       }
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
 
       $http
         .get(
           "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
-            $scope.soDienThoai
+            $scope.soDienThoai, config
         )
         .then(function (response) {
           if (response.data > 0) {
@@ -199,7 +245,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
-            $scope.email
+            $scope.email, config
         )
         .then(function (response) {
           if (response.data > 0) {
