@@ -1225,8 +1225,29 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo thương hiệu
-    $scope.brand = null;
-    $scope.filterBrand = function () {
+    $scope.brand = "";
+    $scope.filterBrand = function() {
+      if($scope.brand == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locCategory == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locSole == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locOrigin == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locMauSac == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locMaterial == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locSize == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
       var token = $window.localStorage.getItem("token");
 
       var config = {
@@ -1234,47 +1255,43 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      if ($scope.brand === "") {
-        $scope.getListSanPhamTaiQuay();
-      } else {
-        var url =
-          "http://localhost:8080/api/chi-tiet-sp/filter-brand?pageNumber=" +
-          $scope.pageNumberSp +
-          "&pageSize=" +
-          $scope.pageSizeSp +
-          "&tenThuongHieu=" +
-          $scope.brand;
-        if ($scope.locOrigin != null) {
-          url += "&tenXuatXu=" + $scope.locOrigin;
-        }
-        if ($scope.locCategory != null) {
-          url += "&tenDanhMuc=" + $scope.locCategory;
-        }
-        if ($scope.locSole != null) {
-          url += "&tenDe=" + $scope.locSole;
-        }
-        if ($scope.locMaterial != null) {
-          url += "&tenChatLieu=" + $scope.locMaterial;
-        }
-        if ($scope.locMauSac != null) {
-          url += "&tenMauSac=" + $scope.locMauSac;
-        }
-        if ($scope.size != null) {
-          url += "&size=" + $scope.size;
-        }
-        $http.get(url, config).then(function (response) {
+      var params = {
+        pageNumber: $scope.pageNumber || 0,
+        pageSize: $scope.pageSize || 20,
+        tenThuongHieu: $scope.brand || null,
+        tenXuatXu: $scope.locOrigin || null,
+        tenDanhMuc: $scope.locCategory || null,
+        tenDe: $scope.locSole || null,
+        tenChatLieu: $scope.locMaterial || null,
+        tenMauSac: $scope.locMauSac || null,
+        size: $scope.locSize || null
+      };
+
+      var config = {
+        headers: {
+          'Authorization': 'Bearer ' + $window.localStorage.getItem('token'),
+          'Accept': 'application/json'
+          // Add other headers if needed
+        },
+        params: params
+      };
+    
+      $http.get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
+        .then(function(response) {
           $scope.listSanPhamTaiQuay = response.data;
           if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
-            $scope.showNextButton = false; // Ẩn nút "Next"
+            $scope.showNextButton = false;
           } else {
-            $scope.showNextButton = true; // Hiển thị nút "Next"
+            $scope.showNextButton = true;
           }
+        })
+        .catch(function(error) {
+          // Xử lý lỗi nếu có
         });
-      }
     };
 
     // TODO: Lọc sản phẩm theo category
-    $scope.locCategory = null;
+    $scope.locCategory = "";
     $scope.filterCategory = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1308,7 +1325,7 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo kiểu đế
-    $scope.locSole = null;
+    $scope.locSole = "";
     $scope.filterSole = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1342,7 +1359,7 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo xuất xứ
-    $scope.locOrigin = null;
+    $scope.locOrigin = "";
     $scope.filterOrigin = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1376,7 +1393,7 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo size
-    $scope.locSize = null;
+    $scope.locSize = "";
     $scope.filterSize = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1410,7 +1427,7 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo chất liệu
-    $scope.locMaterial = null;
+    $scope.locMaterial = "";
     $scope.filterMaterial = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1444,7 +1461,7 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo màu sắc
-    $scope.locMauSac = null;
+    $scope.locMauSac = "";
     $scope.filterColor = function () {
       var token = $window.localStorage.getItem("token");
 
