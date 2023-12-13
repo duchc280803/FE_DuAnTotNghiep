@@ -1,4 +1,24 @@
 myApp.controller("hoaDonController", function ($http, $scope, $window) {
+  var role = $window.localStorage.getItem("role");
+  if (role === "USER") {
+    Swal.fire({
+      icon: "error",
+      title: "Bạn không có quyền truy cập",
+      text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
+  if (role === null) {
+    Swal.fire({
+      icon: "error",
+      title: "Vui lòng đăng nhập",
+      text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
+
   $scope.listHoaDon = [];
   $scope.selectedTrangThai = "";
   $scope.selectedLoaiDon = "";
@@ -60,8 +80,14 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
   };
 
   function fetchHoaDonHistortyList() {
+    var token = $window.localStorage.getItem("token");
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/audilog/hoadon")
+      .get("http://localhost:8080/api/v1/audilog/hoadon", config)
       .then(function (response) {
         $scope.listVoucherHistory = response.data;
         // Lọc và chỉ giữ lại các bản ghi có ngày khác với ngày trước đó
@@ -135,7 +161,6 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
   };
 
   $scope.openCity = function (trangThai) {
-    console.log("Selected Trang Thai:", trangThai);
     $scope.selectedTrangThai = trangThai;
     $scope.pageNumber = 0;
     $scope.fetchHoaDon(
@@ -170,11 +195,19 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
 
   $scope.listNhanVien = [];
   $scope.getListNhanVien = function () {
+    var token = $window.localStorage.getItem("token");
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/hoa-don-chi-tiet/list-nhan-vien")
+      .get(
+        "http://localhost:8080/api/v1/hoa-don-chi-tiet/list-nhan-vien",
+        config
+      )
       .then(function (response) {
         $scope.listNhanVien = response.data;
-        console.log(response.data);
 
         // Gán fullName vào allTenNhanVienOptions
         $scope.allTenNhanVienOptions = response.data
@@ -193,10 +226,17 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
 
   $scope.employeeAndInvoiceInfo = {};
   $scope.getEmployeeAndInvoiceInfo = function (idHoaDon) {
+    var token = $window.localStorage.getItem("token");
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
       .get(
         "http://localhost:8080/api/v1/hoa-don/employee-and-invoice?idHoaDon=" +
-          idHoaDon
+          idHoaDon,
+        config
       )
       .then(function (response) {
         $scope.employeeAndInvoiceInfo = response.data;
@@ -205,12 +245,20 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
 
   $scope.selectedId = "";
   $scope.updateNhanVien = function (idHoaDon) {
+    var token = $window.localStorage.getItem("token");
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
       .put(
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/update-nhan-vien?idHoaDon=" +
           idHoaDon +
           "&idNhanVien=" +
-          $scope.selectedId
+          $scope.selectedId,
+        null,
+        config
       )
       .then(function (response) {
         Swal.fire({

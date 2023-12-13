@@ -32,7 +32,7 @@
       <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien"
         ng-change="filterHoaDonByNguoiXacNhan()">
         <option value="">Tất cả</option>
-        <option ng-repeat="tenNhanVien in allTenNhanVienOptions" value="{{tenNhanVien}}">
+        <option ng-repeat="nhanVien in allTenNhanVienOptions track by $index" value="{{tenNhanVien}}">
           {{tenNhanVien}}
         </option>
       </select>

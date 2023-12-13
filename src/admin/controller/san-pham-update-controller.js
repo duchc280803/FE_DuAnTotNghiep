@@ -1,12 +1,41 @@
 myApp.controller(
   "sanPhamUpdateController",
   function ($scope, $http, $routeParams, $window) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     var id = $routeParams.id;
 
     $scope.productDetail = [];
     $scope.getProductDetail = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/san-pham/product-detail/" + id)
+        .get(
+          "http://localhost:8080/api/v1/san-pham/product-detail/" + id,
+          config
+        )
         .then(function (response) {
           $scope.productDetail = response.data;
           $scope.generateQRCode($scope.productDetail.qrcode);
@@ -16,8 +45,15 @@ myApp.controller(
 
     $scope.image = [];
     $scope.getImage = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/images/image/" + id)
+        .get("http://localhost:8080/api/v1/images/image/" + id, config)
         .then(function (response) {
           $scope.image = response.data;
         });
@@ -27,8 +63,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của chất liệu
     $scope.listChatLieu = [];
     $scope.getListChatLieu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/chat-lieu/show")
+        .get("http://localhost:8080/api/v1/chat-lieu/show", config)
         .then(function (response) {
           $scope.listChatLieu = response.data;
         });
@@ -38,8 +81,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của size
     $scope.listSize = [];
     $scope.getListSize = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/size/show")
+        .get("http://localhost:8080/api/v1/size/show", config)
         .then(function (response) {
           $scope.listSize = response.data;
         });
@@ -49,8 +99,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của màu sắc
     $scope.listMauSac = [];
     $scope.getListMauSac = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/mau-sac/show")
+        .get("http://localhost:8080/api/v1/mau-sac/show", config)
         .then(function (response) {
           $scope.listMauSac = response.data;
         });
@@ -60,6 +117,13 @@ myApp.controller(
     $scope.newProductDetail = {};
     setTimeout(() => {
       $scope.createProductDetail = function () {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn thêm mới không?",
           text: "",
@@ -75,7 +139,8 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/v1/san-pham-chi-tiet/create/" + id,
-                $scope.newProductDetail
+                $scope.newProductDetail,
+                config
               )
               .then(function (response) {
                 $scope.newProductDetail = {};
@@ -91,7 +156,7 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
-                })
+                });
               })
               .catch(function (error) {
                 $scope.errorSoLuong = error.data.soLuong;
@@ -106,6 +171,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.updateStatusHuy = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn hủy kích hoạt không?",
           text: "",
@@ -121,7 +193,9 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/v1/san-pham-chi-tiet/update-huy?id=" +
-                  id
+                  id,
+                null,
+                config
               )
               .then(function (response) {
                 Swal.fire({
@@ -145,6 +219,13 @@ myApp.controller(
     $scope.product = {};
     setTimeout(() => {
       $scope.updateProduct = function () {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn sửa không?",
           text: "",
@@ -159,7 +240,8 @@ myApp.controller(
           $http
             .put(
               "http://localhost:8080/api/v1/san-pham/update?id=" + id,
-              $scope.product
+              $scope.product,
+              config
             )
             .then(function (response) {
               $scope.getProduct();
@@ -191,8 +273,15 @@ myApp.controller(
     }, 2000);
 
     $scope.getProduct = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/san-pham/product/" + id)
+        .get("http://localhost:8080/api/v1/san-pham/product/" + id, config)
         .then(function (response) {
           $scope.product = response.data;
         });
@@ -201,6 +290,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.updateStatusKichHoat = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn kích hoạt không?",
           text: "",
@@ -216,7 +312,9 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/v1/san-pham-chi-tiet/update-kich?id=" +
-                  id
+                  id,
+                null,
+                config
               )
               .then(function (response) {
                 Swal.fire({
@@ -238,6 +336,13 @@ myApp.controller(
     }, 2000);
 
     $scope.uploadImages = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var formData = new FormData();
       var input = document.getElementById("formFile");
       for (var i = 0; i < input.files.length; i++) {
@@ -246,7 +351,7 @@ myApp.controller(
       formData.append("sanPhamId", id); // $scope.sanPhamId chứa ID sản phẩm
 
       $http
-        .post("http://localhost:8080/api/v1/images/create", formData, {
+        .post("http://localhost:8080/api/v1/images/create", formData, config, {
           transformRequest: angular.identity,
           headers: { "Content-Type": undefined },
         })
@@ -264,6 +369,13 @@ myApp.controller(
     // Cleaned up code
     setTimeout(() => {
       $scope.deleteImage = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Xác nhận xóa?",
           text: "Bạn có chắc chắn muốn xóa ảnh này ?",
@@ -277,7 +389,10 @@ myApp.controller(
         }).then((result) => {
           if (result.isConfirmed) {
             $http
-              .delete("http://localhost:8080/api/v1/images/remove?id=" + id)
+              .delete(
+                "http://localhost:8080/api/v1/images/remove?id=" + id,
+                config
+              )
               .then(function () {
                 var index = $scope.image.findIndex((img) => img.id === id);
                 if (index !== -1) {
@@ -298,6 +413,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.updateQuantity = function (id, soLuong) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         var apiURL =
           "http://localhost:8080/api/v1/san-pham-chi-tiet/update-quantity?id=" +
           id +
@@ -306,6 +428,7 @@ myApp.controller(
         $http({
           url: apiURL,
           method: "PUT",
+          headers: config.headers,
           transformResponse: [
             function () {
               Swal.fire({
@@ -323,8 +446,16 @@ myApp.controller(
     }, 2000);
 
     $scope.generateQRCode = function (data) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http({
         method: "GET",
+        headers: config.headers,
         url: "http://localhost:8080/api/qrcode/generate-product/" + data,
         responseType: "arraybuffer",
       }).then(
@@ -340,8 +471,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của danh mục
     $scope.listDanhMuc = [];
     $scope.getListDanhMuc = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/danh-muc/show")
+        .get("http://localhost:8080/api/v1/danh-muc/show", config)
         .then(function (response) {
           $scope.listDanhMuc = response.data;
         });
@@ -351,8 +489,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của thương hiệu
     $scope.listThuongHieu = [];
     $scope.getListThuongHieu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi")
+        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi", config)
         .then(function (response) {
           $scope.listThuongHieu = response.data;
         });
@@ -361,8 +506,15 @@ myApp.controller(
 
     $scope.listKieuDe = [];
     $scope.getListKieuDe = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/kieu-de/show")
+        .get("http://localhost:8080/api/v1/kieu-de/show", config)
         .then(function (response) {
           $scope.listKieuDe = response.data;
         });
@@ -372,8 +524,15 @@ myApp.controller(
     // TODO: Lấy ra tất cả bản ghi của sản phẩm
     $scope.listXuatXu = [];
     $scope.getListXuatXu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/xuat-xu/show")
+        .get("http://localhost:8080/api/v1/xuat-xu/show", config)
         .then(function (response) {
           $scope.listXuatXu = response.data;
         });

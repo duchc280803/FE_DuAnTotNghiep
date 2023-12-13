@@ -1,14 +1,40 @@
 myApp.controller("sanPhamController", function ($http, $scope, $window) {
+  var role = $window.localStorage.getItem("role");
+  if (role === "USER") {
+    Swal.fire({
+      icon: "error",
+      title: "Bạn không có quyền truy cập",
+      text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
+  if (role === null) {
+    Swal.fire({
+      icon: "error",
+      title: "Vui lòng đăng nhập",
+      text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
   $scope.listSanPham = [];
   $scope.pageNumber = 0;
   $scope.pageSize = 20;
   $scope.filterSanPham = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
       .get(
         "http://localhost:8080/api/v1/san-pham/hien-thi?pageNumber=" +
           $scope.pageNumber +
           "&pageSize=" +
-          $scope.pageSize
+          $scope.pageSize, config
       )
       .then(function (response) {
         $scope.listSanPham = response.data;
@@ -59,8 +85,15 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     return username;
   };
   function fetchHistortyList() {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/audilog/sanpham")
+      .get("http://localhost:8080/api/v1/audilog/sanpham", config)
       .then(function (response) {
         $scope.listHistory = response.data;
       });
@@ -69,13 +102,20 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   fetchHistortyList();
   $scope.thuongHieu;
   $scope.findByThuongHieu = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     if ($scope.thuongHieu === "") {
       $scope.filterSanPham();
     } else {
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham/thuong-hieu?value=" +
-            $scope.thuongHieu
+            $scope.thuongHieu, config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -85,13 +125,20 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
 
   $scope.danhMuc;
   $scope.findByDanhMuc = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     if ($scope.danhMuc === "") {
       $scope.filterSanPham();
     } else {
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham/danh-muc?value=" +
-            $scope.danhMuc
+            $scope.danhMuc, config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -101,12 +148,19 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
 
   $scope.xuatXu;
   $scope.findByXuatXu = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     if ($scope.xuatXu === "") {
       $scope.filterSanPham();
     } else {
       $http
         .get(
-          "http://localhost:8080/api/v1/san-pham/xuat-xu?value=" + $scope.xuatXu
+          "http://localhost:8080/api/v1/san-pham/xuat-xu?value=" + $scope.xuatXu, config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -116,12 +170,19 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
 
   $scope.kieuDe;
   $scope.findByKieuDe = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     if ($scope.kieuDe === "") {
       $scope.filterSanPham();
     } else {
       $http
         .get(
-          "http://localhost:8080/api/v1/san-pham/kieu-de?value=" + $scope.kieuDe
+          "http://localhost:8080/api/v1/san-pham/kieu-de?value=" + $scope.kieuDe, config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -131,13 +192,20 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
 
   $scope.value;
   $scope.findByNameOrCode = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     if ($scope.value === "") {
       $scope.filterSanPham();
     } else {
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham/name-code?value=" +
-            $scope.value
+            $scope.value, config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -147,12 +215,19 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
 
   $scope.status;
   $scope.findByStatus = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     if ($scope.status === "") {
       $scope.filterSanPham();
     } else {
       $http
         .get(
-          "http://localhost:8080/api/v1/san-pham/status?status=" + $scope.status
+          "http://localhost:8080/api/v1/san-pham/status?status=" + $scope.status, config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -163,8 +238,15 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   // TODO: Lấy ra tất cả bản ghi của thương hiệu
   $scope.listThuongHieu = [];
   $scope.getListThuongHieu = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi")
+      .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi", config)
       .then(function (response) {
         $scope.listThuongHieu = response.data;
       });
@@ -174,8 +256,15 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   // TODO: Lấy ra tất cả bản ghi của danh mục
   $scope.listDanhMuc = [];
   $scope.getListDanhMuc = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/danh-muc/show")
+      .get("http://localhost:8080/api/v1/danh-muc/show", config)
       .then(function (response) {
         $scope.listDanhMuc = response.data;
       });
@@ -185,14 +274,28 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   // TODO: Lấy ra tất cả bản ghi của kiểu đế
   $scope.listKieuDe = [];
   $scope.getListKieuDe = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/kieu-de/show")
+      .get("http://localhost:8080/api/v1/kieu-de/show", config)
       .then(function (response) {
         $scope.listKieuDe = response.data;
       });
   };
   $scope.getListKieuDe();
   $scope.searchVouchers = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     // Make sure both startDate and endDate are provided
     if (!$scope.startDate || !$scope.endDate) {
       // Handle error or provide user feedback
@@ -210,11 +313,18 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
       "&endDate=" +
       encodeURIComponent(formattedEndDate);
 
-    $http.get(searchUrl).then(function (response) {
+    $http.get(searchUrl, config).then(function (response) {
       $scope.listHistory = response.data;
     });
   };
   $scope.searchVouchersByDay = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     var formattedStartDate = new Date($scope.searchDate)
       .toISOString()
       .split("T")[0];
@@ -222,7 +332,7 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     var searchUrl =
       "http://localhost:8080/api/v1/audilog/auditlogsanphambydate?searchDate=" +
       encodeURIComponent(formattedStartDate);
-    $http.get(searchUrl).then(function (response) {
+    $http.get(searchUrl, config).then(function (response) {
       $scope.listHistory = response.data;
     });
   };
@@ -230,8 +340,15 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   // TODO: Lấy ra tất cả bản ghi của sản phẩm
   $scope.listXuatXu = [];
   $scope.getListXuatXu = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/xuat-xu/show")
+      .get("http://localhost:8080/api/v1/xuat-xu/show", config)
       .then(function (response) {
         $scope.listXuatXu = response.data;
       });
@@ -320,7 +437,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         $http
           .post(
             "http://localhost:8080/api/v1/thuong-hieu/create",
-            $scope.newThuongHieu, config
+            $scope.newThuongHieu,
+            config
           )
           .then(function (response) {
             $scope.listThuongHieu.push(response.data);
@@ -368,7 +486,11 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           },
         };
         $http
-          .post("http://localhost:8080/api/v1/kieu-de/create", $scope.newKieuDe, config)
+          .post(
+            "http://localhost:8080/api/v1/kieu-de/create",
+            $scope.newKieuDe,
+            config
+          )
           .then(function (response) {
             $scope.listKieuDe.push(response.data);
             $("#soleModal").modal("hide");
@@ -417,7 +539,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         $http
           .post(
             "http://localhost:8080/api/v1/danh-muc/create",
-            $scope.newDanhMuc, config
+            $scope.newDanhMuc,
+            config
           )
           .then(function (response) {
             $scope.listDanhMuc.push(response.data);
@@ -468,7 +591,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
           $http
             .post(
               "http://localhost:8080/api/v1/xuat-xu/create",
-              $scope.newXuatXu, config
+              $scope.newXuatXu,
+              config
             )
             .then(function (response) {
               $scope.listXuatXu.push(response.data);

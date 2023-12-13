@@ -1,26 +1,67 @@
-myApp.controller("thongKeController", function ($scope, $http) {
+myApp.controller("thongKeController", function ($scope, $http, $window) {
+  var role = $window.localStorage.getItem("role");
+  if (role === "USER" && role === "STAFF") {
+    Swal.fire({
+      icon: "error",
+      title: "Bạn không có quyền truy cập",
+      text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
+  if (role === null) {
+    Swal.fire({
+      icon: "error",
+      title: "Vui lòng đăng nhập",
+      text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
   $scope.loadData = function () {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/thong-ke/count-one")
+      .get("http://localhost:8080/api/thong-ke/count-one", config)
       .then(function (response) {
         $scope.choXacNhan = response.data;
-        return $http.get("http://localhost:8080/api/thong-ke/count-two");
+        return $http.get(
+          "http://localhost:8080/api/thong-ke/count-two",
+          config
+        );
       })
       .then(function (response) {
         $scope.xacNhan = response.data;
-        return $http.get("http://localhost:8080/api/thong-ke/count-three");
+        return $http.get(
+          "http://localhost:8080/api/thong-ke/count-three",
+          config
+        );
       })
       .then(function (response) {
         $scope.choGiaoHang = response.data;
-        return $http.get("http://localhost:8080/api/thong-ke/count-four");
+        return $http.get(
+          "http://localhost:8080/api/thong-ke/count-four",
+          config
+        );
       })
       .then(function (response) {
         $scope.dangGiao = response.data;
-        return $http.get("http://localhost:8080/api/thong-ke/count-five");
+        return $http.get(
+          "http://localhost:8080/api/thong-ke/count-five",
+          config
+        );
       })
       .then(function (response) {
         $scope.thanhCong = response.data;
-        return $http.get("http://localhost:8080/api/thong-ke/count-six");
+        return $http.get(
+          "http://localhost:8080/api/thong-ke/count-six",
+          config
+        );
       })
       .then(function (response) {
         $scope.daHuy = response.data;
@@ -90,121 +131,128 @@ myApp.controller("thongKeController", function ($scope, $http) {
       },
     });
   }
+  var token = $window.localStorage.getItem("token");
+
+  var config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
   $scope.tongtienhomnay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/tongtienhomnay")
+    .get("http://localhost:8080/api/thong-ke/tongtienhomnay", config)
     .then(function (response) {
       $scope.tongtienhomnay = response.data;
     });
 
   $scope.tongtientuannay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/tongtientuannay")
+    .get("http://localhost:8080/api/thong-ke/tongtientuannay", config)
     .then(function (response) {
       $scope.tongtientuannay = response.data;
     });
 
   $scope.tongtiendonthangnay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/tongtiendonthangnay")
+    .get("http://localhost:8080/api/thong-ke/tongtiendonthangnay", config)
     .then(function (response) {
       $scope.tongtiendonthangnay = response.data;
     });
 
   $scope.tongtiennamnay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/tongtiennamnay")
+    .get("http://localhost:8080/api/thong-ke/tongtiennamnay", config)
     .then(function (response) {
       $scope.tongtiennamnay = response.data;
     });
 
   $scope.tongSoDonHnay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-hom-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-hom-nay", config)
     .then(function (response) {
       $scope.tongSoDonHnay = response.data;
     });
 
   $scope.tongSoDonTuanNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-tuan-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-tuan-nay", config)
     .then(function (response) {
       $scope.tongSoDonTuanNay = response.data;
     });
 
   $scope.tongSoDonThangNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-thang-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-thang-nay", config)
     .then(function (response) {
       $scope.tongSoDonThangNay = response.data;
     });
 
   $scope.tongSoDonNamNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-nam-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-nam-nay", config)
     .then(function (response) {
       $scope.tongSoDonNamNay = response.data;
     });
 
   $scope.soDonHuyHnay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-huy-hom-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-huy-hom-nay", config)
     .then(function (response) {
       $scope.soDonHuyHnay = response.data;
     });
 
   $scope.soDonHuyTuanNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-huy-tuan-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-huy-tuan-nay", config)
     .then(function (response) {
       $scope.soDonHuyTuanNay = response.data;
     });
 
   $scope.soDonHuyThangNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-huy-thang-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-huy-thang-nay", config)
     .then(function (response) {
       $scope.soDonHuyThangNay = response.data;
     });
 
   $scope.soDonHuyNamNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/so-don-huy-nam-nay")
+    .get("http://localhost:8080/api/thong-ke/so-don-huy-nam-nay", config)
     .then(function (response) {
       $scope.soDonHuyNamNay = response.data;
     });
 
   $scope.soSanPhamBanRaHomNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/sum-day-number-product")
+    .get("http://localhost:8080/api/thong-ke/sum-day-number-product", config)
     .then(function (response) {
       $scope.soSanPhamBanRaHomNay = response.data;
     });
 
   $scope.soSanPhamBanRaTuanNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/sum-week-number-product")
+    .get("http://localhost:8080/api/thong-ke/sum-week-number-product", config)
     .then(function (response) {
       $scope.soSanPhamBanRaTuanNay = response.data;
     });
 
   $scope.soSanPhamBanRaThangNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/sum-month-number-product")
+    .get("http://localhost:8080/api/thong-ke/sum-month-number-product", config)
     .then(function (response) {
       $scope.soSanPhamBanRaThangNay = response.data;
     });
 
   $scope.soSanPhamBanRaNamNay = 0;
   $http
-    .get("http://localhost:8080/api/thong-ke/sum-year-number-product")
+    .get("http://localhost:8080/api/thong-ke/sum-year-number-product", config)
     .then(function (response) {
       $scope.soSanPhamBanRaNamNay = response.data;
     });
 
   $scope.getListSanPhamBanChay = function () {
     $http
-      .get("http://localhost:8080/api/thong-ke/san-pham-ban-chay")
+      .get("http://localhost:8080/api/thong-ke/san-pham-ban-chay", config)
       .then(function (response) {
         $scope.listSanPhamBanChay = response.data;
         $scope.listSanPhamBanChay.sort(function (a, b) {
@@ -296,7 +344,8 @@ myApp.controller("thongKeController", function ($scope, $http) {
         "http://localhost:8080/api/thong-ke/doanhthu?ngayBd=" +
           formatDateToYYYYMMDD(startDate) +
           "&ngayKt=" +
-          formatDateToYYYYMMDD(endDate) 
+          formatDateToYYYYMMDD(endDate),
+        config
       )
       .then(function (response) {
         processDataAndDisplayChart(response.data);

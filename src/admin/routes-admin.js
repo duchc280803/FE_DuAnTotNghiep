@@ -158,6 +158,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/hoa-don-history.html",
       controller: "hoaDonController",
     })
+    .when("/admin/login", {
+      templateUrl: "./pages/login-admin.html",
+      controller: "loginController",
+    })
     .otherwise({
       redirectTo: "/dashboard",
     });
