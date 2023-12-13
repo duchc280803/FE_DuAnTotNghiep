@@ -509,8 +509,7 @@
                                     +' - '+ kh.tinh}}
                                   </td>
                                   <td>
-                                    <button ng-click="updateKhachHang(kh.id)" type="button" class="btn btn-primary"
-                                      data-bs-dismiss="modal">
+                                    <button ng-click="updateKhachHang(kh.id)" type="button" class="btn btn-primary">
                                       Chọn
                                     </button>
                                   </td>
@@ -703,11 +702,10 @@
                       <div class="col-lg-4" style="margin-left: -30px">
                         <span class="header-title"><span style="color: red">*</span>
                           <span>Tỉnh</span></span>
-                        <select class="form-control select2" ng-model="selectedProvince"
-                          ng-options="province.name for province in provinces" ng-change="getDistricts()">
+                        <select class="form-control select2" ng-model="selectedProvince" ng-change="getDistricts()">
                           <option value="">Chọn tỉnh</option>
                           <option ng-repeat="province in provinces" ng-model="orderDetailCounter.tinh"
-                            value="{{province.name}}">
+                            ng-selected="orderDetailCounter.tinh == province.name" value="{{province.name}}">
                             {{province.name}}
                           </option>
                         </select>
