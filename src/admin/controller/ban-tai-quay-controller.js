@@ -8,7 +8,8 @@ myApp.controller(
         title: "Bạn không có quyền truy cập",
         text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
       });
-      window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
     if (role === null) {
       Swal.fire({
@@ -16,7 +17,8 @@ myApp.controller(
         title: "Vui lòng đăng nhập",
         text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
       });
-      window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
 
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
@@ -1574,7 +1576,6 @@ myApp.controller(
     var tienGiamGiaResponse = $window.localStorage.getItem("tienGiamGia");
 
     $scope.listVoucher = [];
-<<<<<<< HEAD
     $scope.loadVouchers = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1583,18 +1584,11 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-=======
-    // Variable to track if a voucher has been applied
-  
-    
-    // Function to load vouchers
-    $scope.loadVouchers = function (totalOrderValue) {
->>>>>>> baf7c5df7afc5785a2c5c00a01e2688811f2b0df
+
       $http
         .get("http://localhost:8080/api/v1/voucher-counter/show", config)
         .then(function (response) {
           $scope.listVoucher = response.data;
-<<<<<<< HEAD
           // let maxDiscount = 0; // Initialize maxDiscount outside the loop
           // let selectedVoucher = null; // Initialize selectedVoucher to null
 
@@ -1619,31 +1613,6 @@ myApp.controller(
           //     }
           //   }
           // }
-=======
-          var maxDiscount = 0;
-          var selectedVoucher = null;
-    
-
-            $scope.listVoucher.forEach(function (voucher) {
-              if (
-                totalOrderValue >= voucher.priceOrder &&
-                voucher.price > maxDiscount
-              ) {
-                if (voucher.style === 1) {
-                  maxDiscount = voucher.price;
-                } else if (voucher.style === 2) {
-                  maxDiscount = voucher.price / 100;
-                }
-                selectedVoucher = voucher;
-              }
-            });
-    
-            if (selectedVoucher) {
-              $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-            } else {
-              $scope.huyVoucherHoaDon(0);
-            }
->>>>>>> baf7c5df7afc5785a2c5c00a01e2688811f2b0df
         });
     };
 
