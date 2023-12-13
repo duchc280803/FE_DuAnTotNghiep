@@ -269,7 +269,7 @@
                       <div class="form-group col-md-3">
                         <span>Danh mục:</span>
                         <select class="form-control select2" id="simple-select2" ng-model="locCategory"
-                          ng-change="filterCategory()">
+                          ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
                             {{dm.tenDanhMuc}}
@@ -279,7 +279,7 @@
                       <div class="form-group col-md-3">
                         <span>Xuất xứ:</span>
                         <select class="form-control select2" id="simple-select2" ng-model="locOrigin"
-                          ng-change="filterOrigin()">
+                          ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
                             {{xx.tenXuatXu}}
@@ -289,7 +289,7 @@
                       <div class="form-group col-md-3">
                         <span>Kiểu đế:</span>
                         <select class="form-control select2" id="simple-select2" ng-model="locSole"
-                          ng-change="filterSole()">
+                          ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
                             {{kd.tenDe}}
@@ -300,7 +300,7 @@
                         <br />
                         <span>Màu sắc:</span>
                         <select class="form-control select2" id="simple-select2" ng-model="locMauSac"
-                          ng-change="filterColor()">
+                          ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
                             {{ms.tenMauSac}}
@@ -311,7 +311,7 @@
                         <br />
                         <span>Size:</span>
                         <select class="form-control select2" id="simple-select2" ng-model="locSize"
-                          ng-change="filterSize()">
+                          ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="s in listSize" value="{{s.size}}">
                             {{s.size}}
