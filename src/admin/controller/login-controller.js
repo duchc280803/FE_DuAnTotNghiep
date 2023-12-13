@@ -19,8 +19,11 @@ myApp.controller("loginController", function ($scope, $http, $window, $location)
         $window.localStorage.setItem("token", response.data.accessToken);
         $window.localStorage.setItem("role", response.data.role);
 
-        // ... (phần còn lại của hàm login)
-        window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/dashboard";
+        if(response.data.role === "admin"){
+          window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/dashboard";
+        }else{
+          window.location.href = "http://127.0.0.1:5505/src/admin/index-admin.html#/order";
+        }
         // Cập nhật biến loggedInUsername khi đăng nhập thành công
         $window.location.reload();
       })

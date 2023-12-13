@@ -1,10 +1,36 @@
 myApp.controller(
   "giamgiaChiTietController",
   function ($http, $scope, $routeParams, $location, $window) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     function getgiamgiachitiet(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       const apiUrl =
         "http://localhost:8080/api/v1/giam-gia/detailList?id=" + id;
-      $http.get(apiUrl).then(function (response) {
+      $http.get(apiUrl, config).then(function (response) {
         $scope.giamgiachitiet = response.data[0];
 
         if ($scope.giamgiachitiet.productName) {
@@ -21,16 +47,30 @@ myApp.controller(
     getgiamgiachitiet(id);
 
     function fetchGiamGiaList() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/giam-gia/show")
+        .get("http://localhost:8080/api/v1/giam-gia/show", config)
         .then(function (response) {
           $scope.listGiamGia = response.data;
         });
     }
 
     function fetchProduct() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/giam-gia/product")
+        .get("http://localhost:8080/api/v1/giam-gia/product", config)
         .then(function (response) {
           $scope.listProductGiamGia = response.data;
         });
@@ -39,16 +79,30 @@ myApp.controller(
     fetchProduct();
 
     function fetchlistThuongHieu() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi")
+        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi", config)
         .then(function (response) {
           $scope.listThuongHieu = response.data;
         });
     }
     fetchlistThuongHieu();
     function fetchlistProduct() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/giam-gia/showproduct")
+        .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
         .then(function (response) {
           $scope.listProduct = response.data;
         });
@@ -59,48 +113,90 @@ myApp.controller(
       return id1 === id2;
     };
     function fetchlistChatLieu() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/chat-lieu/show")
+        .get("http://localhost:8080/api/v1/chat-lieu/show", config)
         .then(function (response) {
           $scope.listChatLieu = response.data;
         });
     }
     fetchlistChatLieu();
     function fetchlistDanhMuc() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/danh-muc/show")
+        .get("http://localhost:8080/api/v1/danh-muc/show", config)
         .then(function (response) {
           $scope.listDanhMuc = response.data;
         });
     }
     fetchlistDanhMuc();
     function fetchlistMauSac() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/mau-sac/show")
+        .get("http://localhost:8080/api/v1/mau-sac/show", config)
         .then(function (response) {
           $scope.listMauSac = response.data;
         });
     }
     fetchlistMauSac();
     function fetchlistKieuDe() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/kieu-de/show")
+        .get("http://localhost:8080/api/v1/kieu-de/show", config)
         .then(function (response) {
           $scope.listKieuDe = response.data;
         });
     }
     fetchlistKieuDe();
     function fetchlistSize() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/size/show")
+        .get("http://localhost:8080/api/v1/size/show", config)
         .then(function (response) {
           $scope.listSize = response.data;
         });
     }
     fetchlistSize();
     function fetchlistXuatXu() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/xuat-xu/show")
+        .get("http://localhost:8080/api/v1/xuat-xu/show", config)
         .then(function (response) {
           $scope.listXuatXu = response.data;
         });
@@ -109,6 +205,13 @@ myApp.controller(
 
     // Thêm hàm tìm kiếm
     $scope.searchGiamGia = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var key1 = $scope.startDate;
       var key2 = $scope.endDate;
 
@@ -119,6 +222,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchDatebykey", {
             params: { key1: key1, key2: key2 },
+            config,
           })
           .then(function (response) {
             $scope.listGiamGia = response.data;
@@ -129,6 +233,13 @@ myApp.controller(
     fetchGiamGiaList();
 
     $scope.searchKey = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var key = $scope.key;
       if (!key) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
@@ -137,6 +248,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
             params: { key: key },
+            config,
           })
           .then(function (response) {
             $scope.listGiamGia = response.data;
@@ -146,6 +258,13 @@ myApp.controller(
 
     fetchGiamGiaList();
     $scope.searchbyMa = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var key2 = $scope.key2;
       if (!key2) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
@@ -154,6 +273,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
             params: { key: key2 },
+            config,
           })
           .then(function (response) {
             $scope.listGiamGia = response.data;
@@ -165,6 +285,13 @@ myApp.controller(
 
     ///
     $scope.searchProductKey = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var key = $scope.tenSanPham;
 
       if (!key) {
@@ -174,6 +301,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchProduct_bykey", {
             params: { key: key },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -183,6 +311,13 @@ myApp.controller(
 
     ///
     $scope.searchProductList = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.Size;
 
       if (!id) {
@@ -192,6 +327,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -200,6 +336,13 @@ myApp.controller(
     };
     //
     $scope.searchProductDanhMuc = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.DanhMuc;
 
       if (!id) {
@@ -209,6 +352,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -217,6 +361,13 @@ myApp.controller(
     };
     //
     $scope.searchProductThuongHieu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.ThuongHieu;
 
       if (!id) {
@@ -226,6 +377,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -234,6 +386,13 @@ myApp.controller(
     };
     //
     $scope.searchProductChatLieu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.ChatLieu;
 
       if (!id) {
@@ -243,6 +402,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -251,6 +411,13 @@ myApp.controller(
     };
     //
     $scope.searchProductMauSac = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.MauSac;
 
       if (!id) {
@@ -260,6 +427,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -268,6 +436,13 @@ myApp.controller(
     };
     //
     $scope.searchProductKieuDe = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.KieuDe;
 
       if (!id) {
@@ -277,6 +452,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -285,6 +461,13 @@ myApp.controller(
     };
     //
     $scope.searchProductXuatXu = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var id = $scope.XuatXu;
 
       if (!id) {
@@ -294,6 +477,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
             params: { id: id },
+            config,
           })
           .then(function (response) {
             $scope.listProduct = response.data;
@@ -302,6 +486,13 @@ myApp.controller(
     };
 
     $scope.searchStatus = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var key = $scope.status; // Lấy giá trị từ dropdown
 
       if (key === "") {
@@ -311,6 +502,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchStatus_bykey", {
             params: { key: key },
+            config,
           })
           .then(function (response) {
             $scope.listGiamGia = response.data;

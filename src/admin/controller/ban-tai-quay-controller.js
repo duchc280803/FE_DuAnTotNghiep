@@ -143,6 +143,7 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/v1/don-hang/remove?id=" + id,
+                null,
                 config
               )
               .then(function () {
@@ -1589,30 +1590,30 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/voucher-counter/show", config)
         .then(function (response) {
           $scope.listVoucher = response.data;
-          // let maxDiscount = 0; // Initialize maxDiscount outside the loop
-          // let selectedVoucher = null; // Initialize selectedVoucher to null
+          let maxDiscount = 0; // Initialize maxDiscount outside the loop
+          let selectedVoucher = null; // Initialize selectedVoucher to null
 
-          // if (totalOrderValue != 0) {
-          //   $scope.listVoucher.forEach(function (voucher) {
-          //     if (
-          //       totalOrderValue >= voucher.priceOrder &&
-          //       voucher.price > maxDiscount
-          //     ) {
-          //       if (voucher.style === 1) {
-          //         maxDiscount = voucher.price / 100;
-          //       } else if (voucher.style === 2) {
-          //         maxDiscount = voucher.price;
-          //       }
-          //       selectedVoucher = voucher;
-          //     }
-          //   });
+          if (totalOrderValue != 0) {
+            $scope.listVoucher.forEach(function (voucher) {
+              if (
+                totalOrderValue >= voucher.priceOrder &&
+                voucher.price > maxDiscount
+              ) {
+                if (voucher.style === 1) {
+                  maxDiscount = voucher.price / 100;
+                } else if (voucher.style === 2) {
+                  maxDiscount = voucher.price;
+                }
+                selectedVoucher = voucher;
+              }
+            });
 
-          //   if (tienGiamGiaResponse != 0) {
-          //     if (selectedVoucher.price > tienGiamGiaResponse) {
-          //       $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-          //     }
-          //   }
-          // }
+            if (tienGiamGiaResponse != 0) {
+              if (selectedVoucher.price > tienGiamGiaResponse) {
+                $scope.updateOrder(selectedVoucher.id, totalOrderValue);
+              }
+            }
+          }
         });
     };
 
