@@ -185,10 +185,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
@@ -237,10 +238,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -280,14 +282,15 @@ myApp.controller(
     setTimeout(() => {
       $scope.confirmOrderClient = function () {
         Swal.fire({
-          title: "Bạn có thay đổi thông tin đơn hàng?",
+          title: "Bạn có muốn thay đổi thông tin đơn hàng?",
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -347,14 +350,15 @@ myApp.controller(
           },
         };
         Swal.fire({
-          title: "Bạn có thay đổi thông tin đơn hàng?",
+          title: "Bạn có muốn thay đổi thông tin đơn hàng?",
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
@@ -410,10 +414,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
@@ -893,10 +898,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
@@ -953,10 +959,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             event.preventDefault();
@@ -1105,10 +1112,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
