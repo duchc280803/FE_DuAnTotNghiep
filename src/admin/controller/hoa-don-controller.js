@@ -71,6 +71,11 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
         response.data[0].hasOwnProperty("tenNhanVien")
       ) {
         $scope.listHoaDon = response.data;
+        if ($scope.listHoaDon.length < 20) {
+          $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
+        } else {
+          $scope.showNextButtonSpInCart = true; // Hiển thị nút "Next"
+        }
       } else {
         console.error("Invalid data format from API");
         // Nếu không có dữ liệu, đặt $scope.listHoaDon về mảng rỗng
