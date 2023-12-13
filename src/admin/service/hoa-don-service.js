@@ -1,4 +1,4 @@
-myApp.service("StatusService", function ($http) {
+myApp.service("StatusService", function ($http, $window) {
   this.statusOrder = null;
 
   this.setStatusOrder = function (data) {
@@ -6,7 +6,14 @@ myApp.service("StatusService", function ($http) {
   };
 
   this.fetchStatusOrder = function (id) {
-    return $http.get("http://localhost:8080/api/v1/hoa-don-chi-tiet/status-order/" + id)
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    return $http.get("http://localhost:8080/api/v1/hoa-don-chi-tiet/status-order/" + id, config)
       .then(function (response) {
         this.setStatusOrder(response.data);
         return response.data;

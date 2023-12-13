@@ -1,6 +1,25 @@
 myApp.controller(
   "danhMucController",
   function ($http, $scope, $location, $window) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     $scope.listDanhMuc = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -15,8 +34,15 @@ myApp.controller(
       return username;
     };
     function fetchHistortyList() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/audilog/danhmuc")
+        .get("http://localhost:8080/api/v1/audilog/danhmuc", config)
         .then(function (response) {
           $scope.listHistory = response.data;
         });
@@ -25,6 +51,13 @@ myApp.controller(
     $scope.pageSize = 20;
     fetchHistortyList();
     function danhMucList(trangThai, pageNumber) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var url = `http://localhost:8080/api/v1/danh-muc/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
       if ($scope.searchQuery) {
@@ -32,7 +65,7 @@ myApp.controller(
       }
 
       $http
-        .get(url)
+        .get(url, config)
         .then(function (response) {
           $scope.listDanhMuc = response.data;
           console.log("Dữ liệu trả về: ", response.data);
@@ -52,6 +85,13 @@ myApp.controller(
     }
 
     $scope.searchVouchers = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       // Make sure both startDate and endDate are provided
       if (!$scope.startDate || !$scope.endDate) {
         // Handle error or provide user feedback
@@ -71,11 +111,18 @@ myApp.controller(
         "&endDate=" +
         encodeURIComponent(formattedEndDate);
 
-      $http.get(searchUrl).then(function (response) {
+      $http.get(searchUrl, config).then(function (response) {
         $scope.listHistory = response.data;
       });
     };
     $scope.searchVouchersByDay = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var formattedStartDate = new Date($scope.searchDate)
         .toISOString()
         .split("T")[0];
@@ -83,7 +130,7 @@ myApp.controller(
       var searchUrl =
         "http://localhost:8080/api/v1/audilog/auditlogdanhmucbydate?searchDate=" +
         encodeURIComponent(formattedStartDate);
-      $http.get(searchUrl).then(function (response) {
+      $http.get(searchUrl, config).then(function (response) {
         $scope.listHistory = response.data;
       });
     };
@@ -100,8 +147,15 @@ myApp.controller(
     };
 
     function fetchDanhMucDetail(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var detailUrl = "http://localhost:8080/api/v1/danh-muc/detail?id=" + id;
-      $http.get(detailUrl).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         $scope.selectedDanhMuc = response.data;
         console.log("Thông tin chi tiết: ", $scope.selectedDanhMuc);
         if ($scope.selectedDanhMuc.trangThai === 1) {

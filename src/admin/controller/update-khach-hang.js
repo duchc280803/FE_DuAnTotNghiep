@@ -1,14 +1,40 @@
 myApp.controller(
   "UpdateKhachHangController",
   function ($http, $scope, $routeParams, $location) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     $scope.selectedTrangThai = "";
     $scope.selectedKhachHang = {};
 
     var id = $routeParams.id;
 
     function fetchKhachHangDetail(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var detailUrl = "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
-      $http.get(detailUrl).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         response.data.ngaySinh = new Date(response.data.ngaySinh);
         $scope.selectedKhachHang = response.data;
         if ($scope.selectedKhachHang.trangThai === 1) {
@@ -57,6 +83,13 @@ myApp.controller(
     }
 
     $scope.updateKhachHang = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $scope.isHoTenValid = !!$scope.selectedKhachHang.ten;
       $scope.isNgaySinhValid = !!$scope.selectedKhachHang.ngaySinh;
       $scope.isSoDienThoaiValid = !!$scope.selectedKhachHang.soDienThoai;
@@ -67,7 +100,6 @@ myApp.controller(
       $scope.isWardValid = !!$scope.selectedWard;
       $scope.isDiaChiValid = !!$scope.selectedKhachHang.diaChi;
       $scope.isTrangThaiValid = !!$scope.selectedKhachHang.trangThai;
-
 
       if ($scope.soDienThoai) {
         $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat(
@@ -100,10 +132,16 @@ myApp.controller(
         return;
       }
 
-      $http.get("http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" + $scope.selectedKhachHang.soDienThoai)
+      $http
+        .get(
+          "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
+            $scope.selectedKhachHang.soDienThoai,
+          config
+        )
         .then(function (response) {
           if (response.data > 0) {
-            var detailUrl = "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
+            var detailUrl =
+              "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
             $http.get(detailUrl).then(function (response) {
               let sdt = response.data.soDienThoai;
               if (sdt != $scope.selectedKhachHang.soDienThoai) {
@@ -113,15 +151,22 @@ myApp.controller(
                 $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
               }
             });
-          } if (response.data === 0) {
+          }
+          if (response.data === 0) {
             $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
           }
-        })
+        });
 
-      $http.get("http://localhost:8080/api/ql-khach-hang/find-by-email?email=" + $scope.selectedKhachHang.email)
+      $http
+        .get(
+          "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
+            $scope.selectedKhachHang.email,
+          config
+        )
         .then(function (response) {
           if (response.data > 0) {
-            var detailUrl = "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
+            var detailUrl =
+              "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
             $http.get(detailUrl).then(function (response) {
               let email = response.data.email;
               if (email != $scope.selectedNhanVien.email) {
@@ -131,12 +176,13 @@ myApp.controller(
                 $scope.isEmailIsPresent = true; // Số điện thoại OK
               }
             });
-          } if (response.data === 0) {
+          }
+          if (response.data === 0) {
             $scope.isEmailIsPresent = true; // Email OK
           }
-        })
+        });
 
-      var selectedImage = document.getElementById('selectedImage');
+      var selectedImage = document.getElementById("selectedImage");
       if (selectedImage.src === "") {
         alert("Vui lòng chọn ảnh trước khi cập nhật.");
         return;
@@ -147,6 +193,7 @@ myApp.controller(
         url: "http://localhost:8080/api/ql-khach-hang/update?khachHangId=" + id,
         headers: {
           "Content-Type": undefined,
+          Authorization: "Bearer" + token, // Thêm token vào đây để gửi cùng với request
         },
         transformRequest: function (data) {
           var formData = new FormData();
@@ -202,8 +249,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/p/" +
-          $scope.selectedProvince.code +
-          "?depth=2"
+            $scope.selectedProvince.code +
+            "?depth=2"
         )
         .then(function (response) {
           $scope.districts = response.data.districts;
@@ -214,8 +261,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/d/" +
-          $scope.selectedDistrict.code +
-          "?depth=2"
+            $scope.selectedDistrict.code +
+            "?depth=2"
         )
         .then(function (response) {
           $scope.wards = response.data.wards;

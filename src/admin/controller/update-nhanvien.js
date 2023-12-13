@@ -1,13 +1,39 @@
 myApp.controller(
   "UpdateNhanVienController",
   function ($http, $scope, $routeParams, $location) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER" && role === "STAFF") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     $scope.selectedNhanVien = {};
 
     var id = $routeParams.id;
 
     function fetchNhanVienDetail(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var detailUrl = "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
-      $http.get(detailUrl).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         response.data.ngaySinh = new Date(response.data.ngaySinh);
         $scope.selectedNhanVien = response.data;
         if ($scope.selectedNhanVien.trangThai === 1) {
@@ -23,7 +49,6 @@ myApp.controller(
         }
 
         $scope.selectedNhanVien.nhanVienId = id;
-
       });
     }
 
@@ -71,14 +96,15 @@ myApp.controller(
       $scope.isDiaChiValid = !!$scope.selectedNhanVien.diaChi;
       $scope.isTrangThaiValid = !!$scope.selectedNhanVien.trangThai;
 
-
       if ($scope.selectedNhanVien.soDienThoai) {
         $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat(
           $scope.selectedNhanVien.soDienThoai
         );
       }
       if ($scope.selectedNhanVien.email) {
-        $scope.isEmailFormat = validateEmailFormat($scope.selectedNhanVien.email);
+        $scope.isEmailFormat = validateEmailFormat(
+          $scope.selectedNhanVien.email
+        );
       }
 
       if (
@@ -103,11 +129,23 @@ myApp.controller(
         return;
       }
 
-      $http.get("http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" + $scope.selectedNhanVien.soDienThoai)
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      $http
+        .get(
+          "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
+            $scope.selectedNhanVien.soDienThoai
+        )
         .then(function (response) {
           if (response.data > 0) {
-            var detailUrl = "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
-            $http.get(detailUrl).then(function (response) {
+            var detailUrl =
+              "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
+            $http.get(detailUrl, config).then(function (response) {
               let sdt = response.data.soDienThoai;
               if (sdt != $scope.selectedNhanVien.soDienThoai) {
                 $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
@@ -116,16 +154,22 @@ myApp.controller(
                 $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
               }
             });
-          } if (response.data === 0) {
+          }
+          if (response.data === 0) {
             $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
           }
-        })
+        });
 
-      $http.get("http://localhost:8080/api/ql-khach-hang/find-by-email?email=" + $scope.selectedNhanVien.email)
+      $http
+        .get(
+          "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
+            $scope.selectedNhanVien.email
+        )
         .then(function (response) {
           if (response.data > 0) {
-            var detailUrl = "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
-            $http.get(detailUrl).then(function (response) {
+            var detailUrl =
+              "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
+            $http.get(detailUrl, config).then(function (response) {
               let email = response.data.email;
               if (email != $scope.selectedNhanVien.email) {
                 $scope.isEmailIsPresent = false; // Email đã tồn tại
@@ -134,10 +178,11 @@ myApp.controller(
                 $scope.isEmailIsPresent = true; // Số điện thoại OK
               }
             });
-          } if (response.data === 0) {
+          }
+          if (response.data === 0) {
             $scope.isEmailIsPresent = true; // Email OK
           }
-        })
+        });
 
       var yourFile = document.getElementById("fileInput").files[0];
       console.log(yourFile);
@@ -146,6 +191,7 @@ myApp.controller(
         url: "http://localhost:8080/api/v1/nhan-vien/update?idNhanVien=" + id,
         headers: {
           "Content-Type": undefined,
+          Authorization: "Bearer" + token, // Thêm token vào đây để gửi cùng với request
         },
         transformRequest: function (data) {
           var formData = new FormData();
@@ -180,7 +226,6 @@ myApp.controller(
       });
     };
 
-
     // API ĐỊA CHỈ
     $scope.provinces = [];
     $scope.districts = [];
@@ -200,8 +245,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/p/" +
-          $scope.selectedProvince.code +
-          "?depth=2"
+            $scope.selectedProvince.code +
+            "?depth=2"
         )
         .then(function (response) {
           $scope.districts = response.data.districts;
@@ -212,8 +257,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/d/" +
-          $scope.selectedDistrict.code +
-          "?depth=2"
+            $scope.selectedDistrict.code +
+            "?depth=2"
         )
         .then(function (response) {
           $scope.wards = response.data.wards;

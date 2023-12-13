@@ -1,10 +1,17 @@
-myApp.service("CartService", function ($http) {
+myApp.service("CartService", function ($http, $window) {
   this.idCartChiTiet = {};
   this.cartDetail = [];
 
   this.setIdCart = function (id) {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     return $http
-      .get("http://localhost:8080/api/v1/don-hang/id_cart?id=" + id)
+      .get("http://localhost:8080/api/v1/don-hang/id_cart?id=" + id, config)
       .then(
         function (response) {
           this.idCartChiTiet = response.data;
@@ -18,8 +25,15 @@ myApp.service("CartService", function ($http) {
   };
 
   this.setIdCartDetail = function (id) {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     return $http
-      .get("http://localhost:8080/api/gio-hang-chi-tiet/fill-id?id=" + id)
+      .get("http://localhost:8080/api/gio-hang-chi-tiet/fill-id?id=" + id, config)
       .then((response) => {
         this.cartDetail = response.data;
         this.idList = this.cartDetail.map((item) => {

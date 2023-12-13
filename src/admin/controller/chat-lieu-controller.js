@@ -1,6 +1,25 @@
 myApp.controller(
   "chatLieuController",
   function ($http, $scope, $location, $window) {
+    var role = $window.localStorage.getItem("role");
+    if (role === "USER") {
+      Swal.fire({
+        icon: "error",
+        title: "Bạn không có quyền truy cập",
+        text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
+    if (role === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Vui lòng đăng nhập",
+        text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+      });
+      window.location.href =
+        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    }
     $scope.listChatLieu = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -15,8 +34,15 @@ myApp.controller(
       return username;
     };
     function fetchHistortyList() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       $http
-        .get("http://localhost:8080/api/v1/audilog/chatlieu")
+        .get("http://localhost:8080/api/v1/audilog/chatlieu", config)
         .then(function (response) {
           $scope.listHistory = response.data;
         });
@@ -24,6 +50,13 @@ myApp.controller(
 
     fetchHistortyList();
     function chatLieuList(trangThai, pageNumber) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var url = `http://localhost:8080/api/v1/chat-lieu/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
       if ($scope.searchQuery) {
@@ -31,7 +64,7 @@ myApp.controller(
       }
 
       $http
-        .get(url)
+        .get(url, config)
         .then(function (response) {
           $scope.listChatLieu = response.data;
           console.log("Dữ liệu trả về: ", response.data);
@@ -69,6 +102,13 @@ myApp.controller(
       });
     };
     $scope.searchVouchersByDay = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var formattedStartDate = new Date($scope.searchDate)
         .toISOString()
         .split("T")[0];
@@ -76,7 +116,7 @@ myApp.controller(
       var searchUrl =
         "http://localhost:8080/api/v1/audilog/auditlogchatlieubydate?searchDate=" +
         encodeURIComponent(formattedStartDate);
-      $http.get(searchUrl).then(function (response) {
+      $http.get(searchUrl, config).then(function (response) {
         $scope.listHistory = response.data;
       });
     };
@@ -93,8 +133,15 @@ myApp.controller(
     };
 
     function fetchChatLieuDetail(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       var detailUrl = "http://localhost:8080/api/v1/chat-lieu/detail?id=" + id;
-      $http.get(detailUrl).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         $scope.selectedChatLieu = response.data;
         console.log("Thông tin chi tiết: ", $scope.selectedChatLieu);
         if ($scope.selectedChatLieu.trangThai === 1) {
@@ -110,9 +157,7 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateChatLieu = function (updatedData) {
         $scope.isthuoctinh_update = !!$scope.selectedChatLieu.tenChatLieu;
-        if (
-          !$scope.isthuoctinh_update
-        ) {
+        if (!$scope.isthuoctinh_update) {
           return;
         } else {
           $scope.isthuoctinh_update = true;
@@ -165,7 +210,6 @@ myApp.controller(
       };
     }, 2000);
 
-
     // validation here
     $scope.isthuoctinh = true;
     $scope.istrangthai = true;
@@ -173,23 +217,23 @@ myApp.controller(
 
     $scope.newChatLieu = {};
     $scope.createChatLieu = function () {
-
       $scope.isthuoctinh = !!$scope.newChatLieu.tenChatLieu;
       $scope.istrangthai = !!$scope.newChatLieu.trangThai;
 
-      if (
-        !$scope.isthuoctinh ||
-        !$scope.istrangthai
-      ) {
+      if (!$scope.isthuoctinh || !$scope.istrangthai) {
         return;
       } else {
         $scope.isthuoctinh = true;
         $scope.istrangthai = true;
       }
 
-      $http.get("http://localhost:8080/api/v1/chat-lieu/find-by-chat-lieu?chatlieu=" + $scope.newChatLieu.tenChatLieu)
+      $http
+        .get(
+          "http://localhost:8080/api/v1/chat-lieu/find-by-chat-lieu?chatlieu=" +
+            $scope.newChatLieu.tenChatLieu
+        )
         .then(function (response) {
-          console.log("size" + response.data)
+          console.log("size" + response.data);
           if (response.data > 0) {
             $scope.isthuoctinhIsPresent = false; // chatlieu đã tồn tại
             return;
@@ -235,18 +279,26 @@ myApp.controller(
                         popup: "small-popup",
                       },
                     });
-                  }).catch(function (error) {
+                  })
+                  .catch(function (error) {
                     $scope.errorTenChatLieu = error.data.tenChatLieu;
                     $scope.errorTrangThai = error.data.trangThai;
                   });
               }
             });
           }
-        })
+        });
     };
 
     setTimeout(() => {
       $scope.deleteChatLieu = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn vô hiệu hóa không?",
           text: "",
@@ -263,7 +315,7 @@ myApp.controller(
               "http://localhost:8080/api/v1/chat-lieu/delete?id=" + id;
 
             $http
-              .put(deleteUrl)
+              .put(deleteUrl, null, config)
               .then(function (response) {
                 Swal.fire({
                   position: "bottom-start",

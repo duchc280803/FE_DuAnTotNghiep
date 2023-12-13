@@ -1,4 +1,23 @@
-myApp.controller("nhanVienController", function ($http, $scope, $location) {
+myApp.controller("nhanVienController", function ($http, $scope, $location, $window) {
+  var role = $window.localStorage.getItem("role");
+  if (role === "USER" && role === "STAFF") {
+    Swal.fire({
+      icon: "error",
+      title: "Bạn không có quyền truy cập",
+      text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
+  if (role === null) {
+    Swal.fire({
+      icon: "error",
+      title: "Vui lòng đăng nhập",
+      text: "Vui lòng đăng nhập để có thể sử dụng chức năng.",
+    });
+    window.location.href =
+      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+  }
   $scope.listNhanVien = [];
   $scope.selectedTrangThai = "";
   $scope.searchQuery = "";
@@ -13,8 +32,15 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
   var id = $location.search().id;
 
   function listRole() {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     $http
-      .get("http://localhost:8080/api/v1/nhan-vien/hien-thi-roles")
+      .get("http://localhost:8080/api/v1/nhan-vien/hien-thi-roles", config)
       .then(function (response) {
         $scope.listNhanVienRole = response.data;
         console.log($scope.listNhanVienRol);
@@ -38,6 +64,13 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
   listRole();
 
   function fetchNhanVienList(trangThai, pageNumber) {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     var url = `http://localhost:8080/api/v1/nhan-vien/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
     if ($scope.searchQuery) {
       if (!isNaN($scope.searchQuery)) {
@@ -47,7 +80,7 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
       }
     }
     $http
-      .get(url)
+      .get(url, config)
       .then(function (response) {
         response.data.ngaySinh = new Date(response.data.ngaySinh);
         $scope.listNhanVien = response.data;
@@ -74,8 +107,15 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
   };
 
   function fetchNhanVienDetail(id) {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     var detailUrl = "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
-    $http.get(detailUrl).then(function (response) {
+    $http.get(detailUrl, config).then(function (response) {
       response.data.ngaySinh = new Date(response.data.ngaySinh);
       $scope.selectedNhanVien = response.data;
       console.log("Thông tin chi tiết nhân viên: ", $scope.selectedNhanVien);
@@ -101,12 +141,19 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
   }
 
   $scope.updateNhanVien = function (updatedData) {
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
     var updateUrl =
       "http://localhost:8080/api/v1/nhan-vien/update?idNhanVien=" +
       $scope.selectedNhanVien.nhanVienId;
 
     $http
-      .put(updateUrl, updatedData)
+      .put(updateUrl, updatedData, config)
       .then(function (response) {
         console.log("Cập nhật thông tin nhân viên thành công: ", response.data);
 
@@ -151,7 +198,6 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
   }
 
   $scope.createNhanVien = function () {
-
     $scope.isHoTenValid = !!$scope.ten;
     $scope.isNgaySinhValid = !!$scope.ngaySinh;
     $scope.isSoDienThoaiValid = !!$scope.soDienThoai;
@@ -162,7 +208,6 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
     $scope.isWardValid = !!$scope.selectedWard;
     $scope.isDiaChiValid = !!$scope.diaChi;
     $scope.isTrangThaiValid = !!$scope.trangThai;
-
 
     if ($scope.soDienThoai) {
       $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat(
@@ -195,33 +240,56 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
       return;
     }
 
-    $http.get("http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" + $scope.soDienThoai)
+    var token = $window.localStorage.getItem("token");
+
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    $http
+      .get(
+        "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
+          $scope.soDienThoai,
+        config
+      )
       .then(function (response) {
         if (response.data > 0) {
           $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
           return;
-        } if (response.data === 0) {
+        }
+        if (response.data === 0) {
           $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
         }
-      })
+      });
 
-    $http.get("http://localhost:8080/api/ql-khach-hang/find-by-email?email=" + $scope.email)
+    $http
+      .get(
+        "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
+          $scope.email,
+        config
+      )
       .then(function (response) {
         if (response.data > 0) {
           $scope.isEmailIsPresent = false; // Email đã tồn tại
           return;
-        } if (response.data === 0) {
+        }
+        if (response.data === 0) {
           $scope.isEmailIsPresent = true; // Email OK
         }
-      })
+      });
 
     var yourFile = document.getElementById("fileInput").files[0];
     $http({
       method: "POST",
       url: "http://localhost:8080/api/v1/nhan-vien/create",
-      headers: {
-        "Content-Type": undefined,
-      },
+      headers: Object.assign(
+        {
+          "Content-Type": undefined,
+        },
+        config.headers
+      ),
       transformRequest: function (data) {
         var formData = new FormData();
         formData.append("file", data.file);
@@ -311,8 +379,8 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
     $http
       .get(
         "https://provinces.open-api.vn/api/p/" +
-        $scope.selectedProvince.code +
-        "?depth=2"
+          $scope.selectedProvince.code +
+          "?depth=2"
       )
       .then(function (response) {
         $scope.districts = response.data.districts;
@@ -323,8 +391,8 @@ myApp.controller("nhanVienController", function ($http, $scope, $location) {
     $http
       .get(
         "https://provinces.open-api.vn/api/d/" +
-        $scope.selectedDistrict.code +
-        "?depth=2"
+          $scope.selectedDistrict.code +
+          "?depth=2"
       )
       .then(function (response) {
         $scope.wards = response.data.wards;
