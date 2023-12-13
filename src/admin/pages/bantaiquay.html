@@ -216,6 +216,9 @@
                   </tr>
                 </tbody>
               </table>
+
+ 
+
               
             </div>
             <nav aria-label="Page navigation example" style="margin-left: 520px" ng-if="listCart.length != 0">
@@ -664,13 +667,13 @@
                 <div class="col-lg-6">
                   <div>
                     <div class="row">
-                      <div class="col-lg-9">
-                        <input type="text" disabled class="form-control hidden-input" style="margin-left: -30px"
+                      <div class="col-lg-7">
+                        <input type="text" disabled class="form-control hidden-input"
                           ng-value="orderDetailCounter.tenKhach" placeholder="Vui lòng chọn/tạo hóa đơn" />
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-lg-5">
                         <a data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-primary">
-                          Chọn
+                           Chọn khách hàng
                         </a>
                       </div>
                     </div>
@@ -941,8 +944,8 @@
                                   <td>{{v.priceOrder.toLocaleString('vi-VN')}}đ</td>
                                   <td>{{v.soLuongDung}}/{{v.soLuong}}</td>
                                   <td>
-                                    {{v.dateStart | date:'MM/dd/yyyy h:mm:ss
-                                    a'}} - {{v.dateEnd | date:'MM/dd/yyyy
+                                    {{v.dateStart | date:'dd/MM/yyyy h:mm:ss
+                                    a'}} - {{v.dateEnd | date:'dd/MM/yyyy
                                     h:mm:ss a'}}
                                   </td>
                                   <td>
@@ -966,10 +969,12 @@
                   </div>
                   <div class="omni-layout-card--section-section">
                     <div class="omni-layout-card--item-stack-cover">
-                      <div class="omni-layout-card--item-stack fill">
-                        <span class="header-title">Giao hàng</span>
+                      <div class="omni-layout-card--item-stack fill" >
+                        <span class="header-title" >Giao hàng</span>
                       </div>
+
                       <div class="omni-layout-card--item-stack fill text-right">
+
                         <input ng-click="toggleInput()" type="checkbox" id="switch" />
                         <label for="switch"></label>
                       </div>
