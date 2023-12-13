@@ -283,15 +283,6 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listCart = response.data;
-          $scope.tongTienHang = 0;
-          for (var i = 0; i < $scope.listCart.length; i++) {
-            $scope.tongTienHang +=
-              $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
-          }
-          $window.localStorage.setItem(
-            "tongTienHangTaiQuay",
-            $scope.tongTienHang
-          );
           if ($scope.listCart.length < $scope.pageSizeSpTrongGio) {
             $scope.showNextButtonSpInCart = false; // Ẩn nút "Next"
           } else {
@@ -300,8 +291,37 @@ myApp.controller(
         });
     };
 
+    $scope.listSanPhamTienInCart = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      $http
+        .get(
+          "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
+            idKhach,
+          config
+        )
+        .then(function (response) {
+          $scope.listCartTien = response.data;
+          $scope.tongTienHang = 0;
+          for (var i = 0; i < $scope.listCartTien.length; i++) {
+            $scope.tongTienHang +=
+              $scope.listCartTien[i].giaGiam * $scope.listCartTien[i].soLuong;
+          }
+          $window.localStorage.setItem(
+            "tongTienHangTaiQuay",
+            $scope.tongTienHang
+          );
+        });
+    };
+
     if (id != null) {
       $scope.listSanPhamInCart();
+      $scope.listSanPhamTienInCart();
     }
 
     // TODO: Quay lại trang
@@ -1205,8 +1225,29 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo thương hiệu
-    $scope.brand;
-    $scope.filterBrand = function () {
+    $scope.brand = "";
+    $scope.filterBrand = function() {
+      if($scope.brand == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locCategory == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locSole == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locOrigin == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locMauSac == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locMaterial == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
+      if($scope.locSize == "") {
+        $scope.getListSanPhamTaiQuay();
+      }
       var token = $window.localStorage.getItem("token");
 
       var config = {
@@ -1214,32 +1255,43 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      if ($scope.brand === "") {
-        $scope.getListSanPhamTaiQuay();
-      } else {
-        $http
-          .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-brand?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.brand,
-            config
-          )
-          .then(function (response) {
-            $scope.listSanPhamTaiQuay = response.data;
-            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
-              $scope.showNextButton = false; // Ẩn nút "Next"
-            } else {
-              $scope.showNextButton = true; // Hiển thị nút "Next"
-            }
-          });
-      }
+      var params = {
+        pageNumber: $scope.pageNumber || 0,
+        pageSize: $scope.pageSize || 20,
+        tenThuongHieu: $scope.brand || null,
+        tenXuatXu: $scope.locOrigin || null,
+        tenDanhMuc: $scope.locCategory || null,
+        tenDe: $scope.locSole || null,
+        tenChatLieu: $scope.locMaterial || null,
+        tenMauSac: $scope.locMauSac || null,
+        size: $scope.locSize || null
+      };
+
+      var config = {
+        headers: {
+          'Authorization': 'Bearer ' + $window.localStorage.getItem('token'),
+          'Accept': 'application/json'
+          // Add other headers if needed
+        },
+        params: params
+      };
+    
+      $http.get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
+        .then(function(response) {
+          $scope.listSanPhamTaiQuay = response.data;
+          if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+            $scope.showNextButton = false;
+          } else {
+            $scope.showNextButton = true;
+          }
+        })
+        .catch(function(error) {
+          // Xử lý lỗi nếu có
+        });
     };
 
     // TODO: Lọc sản phẩm theo category
-    $scope.locCategory;
+    $scope.locCategory = "";
     $scope.filterCategory = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1341,7 +1393,7 @@ myApp.controller(
     };
 
     // TODO:  Lọc sản phẩm theo size
-    $scope.locSize;
+    $scope.locSize = "";
     $scope.filterSize = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1674,6 +1726,8 @@ myApp.controller(
             if (tienGiamGiaResponse != 0) {
               if (selectedVoucher.price > tienGiamGiaResponse) {
                 $scope.updateOrder(selectedVoucher.id, totalOrderValue);
+              } else {
+                console.log(ok);
               }
             }
           }
