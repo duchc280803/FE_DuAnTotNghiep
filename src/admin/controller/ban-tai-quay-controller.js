@@ -222,7 +222,7 @@ myApp.controller(
 
     $scope.detailOrderCounterDetail = function () {
       var token = $window.localStorage.getItem("token");
-
+    
       var config = {
         headers: {
           Authorization: "Bearer " + token,
@@ -574,6 +574,7 @@ myApp.controller(
                 config // Truyền thông tin token qua config
               )
               .then(function (response) {
+                $("#exampleModal2").modal("hide");
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -584,18 +585,7 @@ myApp.controller(
                     popup: "small-popup", // Add a class to the message
                   },
                 }).then(() => {
-                  $scope.getListHoaDonTaiQuay();
-                  $scope.detailOrderCounterDetail();
-                  $scope.listSanPhamInCart();
-                  CartService.setIdCart(id).then(function () {});
-                  CartService.setIdCart(id).then(function () {
-                    var idCart = CartService.getIdCart();
-                    CartService.setIdCartDetail(idCart).then(function () {});
-                  });
-                  $scope.showKhachHang();
-                  $scope.showTransaction();
-                  $scope.showTransaction();
-                  $scope.getVoucherName();
+                  $scope.selectOrder(id, idKhach);
                 });
               });
           }

@@ -146,8 +146,9 @@
 <div class="modal fade" id="lichsutrangthai" tabindex="-1" aria-labelledby="lichsutrangthai" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content custom-modal-content" style="width: 110%; margin-left: -15px">
-      <div class="modal-header" style="height: 20px; margin-left: 350px"></div>
       <div class="modal-body">
+        <span style="font-size: 20px;">Lịch sử trạng thái hóa đơn</span>
+        <br>
         <table class="table">
           <thead>
             <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -157,7 +158,7 @@
               <th>Ghi chú</th>
             </tr>
           </thead>
-          <tbody class="table">
+          <tbody>
             <tr ng-repeat="item in lichSuThayDoi">
               <td>
                 {{item.trangThai == 1 ? "Chờ xác nhận" : item.trangThai == 2 ?
@@ -284,7 +285,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal"
+        <button type="button" class="btn btn-secondary m-1"
           ng-click="comfirmStatusOrder()">
           Xác nhận
         </button>
@@ -361,7 +362,7 @@
         <th scope="col">Người xác nhận</th>
       </tr>
     </thead>
-    <tbody class="table">
+    <tbody>
       <tr ng-repeat="item in lichSu">
         <td>{{$index + 1}}</td>
         <td>{{item.ma}}</td>
