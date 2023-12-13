@@ -54,6 +54,7 @@ myApp.controller(
 
     var id = $window.localStorage.getItem("idHoaDon");
     var idKhach = $window.localStorage.getItem("idKhach");
+    console.log(id);
 
     $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
     // tạo hóa đơn
@@ -117,37 +118,41 @@ myApp.controller(
       };
     }, 2000);
 
-   setTimeout(() => {
+    // delete hoadon
+    setTimeout(() => {
       $scope.deleteOrder = function (id) {
-        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
-    
+        var token = $window.localStorage.getItem("token");
+
         var config = {
           headers: {
-            Authorization: "Bearer " + token, // Thêm token vào header Authorization
+            Authorization: "Bearer " + token,
           },
         };
-    
+
         Swal.fire({
           title: "Xác nhận hủy !",
           text: "Bạn có chắc chắn muốn hủy hóa đơn này ?",
           icon: "warning",
           showCancelButton: true,
-          cancelButtonText: "Hủy bỏ",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Xác nhận",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
-              .put("http://localhost:8080/api/v1/don-hang/remove?id=" + id, null, config) // Truyền config vào đây
+              .put(
+                "http://localhost:8080/api/v1/don-hang/remove?id=" + id,
+                null,
+                config
+              )
               .then(function () {
-                $window.localStorage.removeItem("idKhach");
-                $window.localStorage.removeItem("idHoaDon");
+                $scope.removeItem();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Hủy thành công",
+                  title: "hủy thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -161,10 +166,6 @@ myApp.controller(
         });
       };
     }, 2000);
-    
-    
-    
-    
 
     /**
      * Get all hoa đơn tại quầy
@@ -222,7 +223,7 @@ myApp.controller(
 
     $scope.detailOrderCounterDetail = function () {
       var token = $window.localStorage.getItem("token");
-    
+      console.log(token);
       var config = {
         headers: {
           Authorization: "Bearer " + token,
@@ -585,7 +586,7 @@ myApp.controller(
                     popup: "small-popup", // Add a class to the message
                   },
                 }).then(() => {
-                  $scope.selectOrder(id, idKhach);
+                  $scope.selectOrder(id, idcustom);
                 });
               });
           }
@@ -765,6 +766,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.generatePDF = function () {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn in hóa đơn này không?",
           text: "",
@@ -779,6 +787,7 @@ myApp.controller(
             $http
               .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
                 responseType: "arraybuffer",
+                config,
               })
               .then(function (response) {
                 var file = new Blob([response.data], {
@@ -819,7 +828,6 @@ myApp.controller(
         soDienThoai,
         diaChi
       ) {
-        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
         var soTienKhachTra = $window.localStorage.getItem("soTienkhachTra");
         var totalOrderValue =
           tongTienTaiQuay -
@@ -838,6 +846,13 @@ myApp.controller(
             },
           });
         } else {
+          var token = $window.localStorage.getItem("token");
+
+          var config = {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          };
           var idDetail = CartService.getIdCartDetail();
           var requestData = {
             tongTien: tongTienHang,
@@ -851,13 +866,6 @@ myApp.controller(
           var api =
             "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
             id;
-    
-          var config = {
-            headers: {
-              Authorization: "Bearer " + token, // Thêm token vào header Authorization
-            },
-          };
-    
           Swal.fire({
             title: "Bạn muốn thanh toán hóa đơn này?",
             text: "",
@@ -891,7 +899,6 @@ myApp.controller(
         }
       };
     }, 2000);
-    
 
     /**
      * thanh toán hóa đơn giao
@@ -1151,21 +1158,6 @@ myApp.controller(
       $scope.getListSanPhamTaiQuay();
     };
 
-    $scope.getPaginationNumbers = function () {
-      var paginationNumbers = [];
-      var totalPages = Math.ceil(
-        $scope.listSanPhamTaiQuay.length / $scope.pageSizeSp
-      );
-      var startPage = Math.max(1, $scope.pageNumberSp - 3);
-      var endPage = Math.min(startPage + 6, totalPages);
-
-      for (var i = startPage; i <= endPage; i++) {
-        paginationNumbers.push(i);
-      }
-
-      return paginationNumbers;
-    };
-
     // TODO: Tìm kiếm sản phẩm
     $scope.key = "";
     $scope.searchSanPham = function () {
@@ -1182,11 +1174,20 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.key,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1218,12 +1219,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-brand?name=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-brand?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.brand,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1243,12 +1253,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-category?name=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-category?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.locCategory,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1268,12 +1287,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-sole?name=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-sole?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.locSole,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1293,12 +1321,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-origin?name=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-origin?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.locOrigin,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1318,12 +1355,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-size?size=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-size?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&size=" +
               $scope.locSize,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1343,12 +1389,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-material?name=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-material?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.locMaterial,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -1368,12 +1423,21 @@ myApp.controller(
       } else {
         $http
           .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-color?name=" +
+            "http://localhost:8080/api/chi-tiet-sp/filter-color?pageNumber=" +
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
               $scope.locMauSac,
             config
           )
           .then(function (response) {
             $scope.listSanPhamTaiQuay = response.data;
+            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
