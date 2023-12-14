@@ -493,7 +493,8 @@
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
                           {{product.dongiakhigiam.toLocaleString('vi-VN')}}₫
-                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban.toLocaleString('vi-VN')}}₫ <br></strike> </span>
+                          <span style="text-decoration: line-through;color: crimson"><strike>
+                              {{product.giaban.toLocaleString('vi-VN')}}₫ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
                           {{product.giaban.toLocaleString('vi-VN')}}₫
@@ -610,16 +611,28 @@
               <div class="col-3">
                 <input placeholder="Nhập số lượng" style="margin-left: 0px; width: 130px;" type="number"
                   class="next-input text-left max-width-10px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
-                  ng-model="soluong" min="1" ng-change="checkQuantity()"/>
+                  ng-model="soluong" min="1" ng-change="checkQuantity()" />
               </div>
               <div class="col-6">
                 <p class="mt-2">Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}</p>
               </div>
             </div>
             <!-- </div> -->
-            <a class="abc" ng-click="addToCart(quantity.sanPhamChiTietId)"
+            <a class="abc" ng-show="!isCart" ng-click="addToCart(quantity.sanPhamChiTietId)"
               style="margin-top: -23px; background-color: #7fad39;"><span style="color: white;">Thêm
-                vào giỏ hàng</span></a>
+<<<<<<< HEAD
+                vào giỏ hàng 2</span></a>
+                <a class="abc" ng-click="addToCart(quantity.sanPhamChiTietId)"
+              style="margin-top: -23px; background-color: #7fad39;"><span style="color: white;">Thêm
+                vào giỏ hàng 3</span></a>
+=======
+                vào giỏ 1</span></a>
+<br>
+            <a class="abc" ng-show="isCart" ng-click="addToCartLogin(quantity.sanPhamChiTietId)"
+              style="margin-top: -23px; background-color: #7fad39;"><span style="color: white;">Thêm
+                vào giỏ 2</span></a>
+
+>>>>>>> 8052e752444f3f97cae3a371e50da8233f9cc9f7
           </div>
         </div>
         <div class="col-lg-12">
@@ -704,86 +717,91 @@
       </div>
     </div>
   </section>
-  
-    <!-- Footer Section Begin -->
-    <footer class="footer spad" style="background-color:white;">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer__about">
-              <div class="footer__about__logo">
-                <a href="#"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                    alt="" width="119px" /></a>
-              </div>
-              <ul>
-                <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
-                <li>Phone: 0362.885.875</li>
-                <li>Email: niceshoepoly@gmail.com</li>
-              </ul>
+
+  <!-- Footer Section Begin -->
+  <footer class="footer spad" style="background-color:white;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer__about">
+            <div class="footer__about__logo">
+              <a href="#"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                  alt="" width="119px" /></a>
             </div>
+            <ul>
+              <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
+              <li>Phone: 0362.885.875</li>
+              <li>Email: niceshoepoly@gmail.com</li>
+            </ul>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-            <div class="footer__widget">
-              <h6>Dịch vụ khách hàng</h6>
-              <ul>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-van-chuyen">Chính sách vận chuyển
-                    và giao nhận</a></li>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và
-                    bảo hành</a></li>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-bao-mat">Chính sách bảo mật</a>
-                </li>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý
-                    khiếu nại</a></li>
-              </ul>
-  
-            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+          <div class="footer__widget">
+            <h6>Dịch vụ khách hàng</h6>
+            <ul>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-van-chuyen">Chính sách vận chuyển
+                  và giao nhận</a></li>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và
+                  bảo hành</a></li>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-bao-mat">Chính sách bảo mật</a>
+              </li>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý
+                  khiếu nại</a></li>
+            </ul>
+
           </div>
-          <div class="col-lg-4 col-md-12">
-            <div class="footer__widget">
-              <h6>Hỗ trợ</h6>
-              <ul>
-                <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
-                <li><a href="/src/customer/index-customer.html#/hinh-thuc-thanh-toan">Hình thức thanh toán</a></li>
-                <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="footer__widget">
+            <h6>Hỗ trợ</h6>
+            <ul>
+              <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
+              <li><a href="/src/customer/index-customer.html#/hinh-thuc-thanh-toan">Hình thức thanh toán</a></li>
+              <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
+            </ul>
           </div>
         </div>
       </div>
-    </footer>
-    <style>
-      .footer {
-    font-family: 'Roboto', sans-serif; /* Chọn font chữ */
-    color: #333; /* Màu chữ chính */
-    background-color: white; /* Màu nền */
-  
-    /* Khoảng cách và định dạng khoảng cách */
-    padding: 40px 0;
-    margin-top: 20px;
-  
-    /* Định dạng đường viền (nếu cần) */
-    border-top: 1px solid #ddd;
-  }
-  
-  .footer ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer ul li {
-    margin-bottom: 10px; /* Khoảng cách giữa các mục trong danh sách */
-  }
-  
-  .footer a {
-    text-decoration: none;
-    color: #007bff; /* Màu chữ cho các liên kết */
-  }
-  
-  .footer a:hover {
-    text-decoration: underline; /* Gạch chân khi di chuột qua liên kết */
-  }
-  
-    </style>
+    </div>
+  </footer>
+  <style>
+    .footer {
+      font-family: 'Roboto', sans-serif;
+      /* Chọn font chữ */
+      color: #333;
+      /* Màu chữ chính */
+      background-color: white;
+      /* Màu nền */
+
+      /* Khoảng cách và định dạng khoảng cách */
+      padding: 40px 0;
+      margin-top: 20px;
+
+      /* Định dạng đường viền (nếu cần) */
+      border-top: 1px solid #ddd;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 10px;
+      /* Khoảng cách giữa các mục trong danh sách */
+    }
+
+    .footer a {
+      text-decoration: none;
+      color: #007bff;
+      /* Màu chữ cho các liên kết */
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      /* Gạch chân khi di chuột qua liên kết */
+    }
+  </style>
 
   <script src="/js/jquery-3.3.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
