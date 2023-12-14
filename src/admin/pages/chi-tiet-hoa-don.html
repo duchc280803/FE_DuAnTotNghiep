@@ -108,7 +108,7 @@
             </h6>
           </div>
           <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi"
-            ng-show="item.trangThai === 6">
+            ng-show="hoaDonChiTiet.trangThai === 6">
             <img src="/assets/images/dahuy.png" width="220px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Đã hủy
@@ -628,7 +628,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-lg-8">
-                  <input ng-model="key" class="form-control" placeholder="Tìm sản phẩm" />
+                  <input ng-model="searchKeyName" class="form-control" placeholder="Tìm sản phẩm" />
                 </div>
                 <div class="col-lg-4 d-flex justify-content-start">
                   <button ng-click="searchSanPham()" type="button" class="btn btn-primary">
