@@ -20,6 +20,14 @@ myApp.controller(
       window.location.href =
         "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
+
+    function getRole() {
+      if (role === "ADMIN" || role === "MANAGER") {
+        $scope.isAdmin = true;
+      }
+    }
+
+    getRole();
     $scope.listKieuDe = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -43,7 +51,7 @@ myApp.controller(
       }
 
       $http
-        .get(url,config)
+        .get(url, config)
         .then(function (response) {
           $scope.listKieuDe = response.data;
           console.log("Dữ liệu trả về: ", response.data);

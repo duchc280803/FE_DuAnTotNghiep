@@ -505,8 +505,7 @@
                                   <td>{{kh.email}}</td>
                                   <td>{{kh.soDienThoai}}</td>
                                   <td>
-                                    {{kh.diaChi + ' - '+ kh.xa +' - '+ kh.huyen
-                                    +' - '+ kh.tinh}}
+                                    {{kh.diaChi}}
                                   </td>
                                   <td>
                                     <button ng-click="updateKhachHang(kh.id)" type="button" class="btn btn-primary">
@@ -547,18 +546,18 @@
                           width: 620px;
                           margin: auto;
                           margin-left: 80px;
-                          height: 625px;
+                          height: 500px;
                         ">
                         <div class="modal-body">
                           <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                               <span class="header-title"><span style="color: red">*</span>
                                 <span>Họ và tên</span></span>
                               <input class="form-control" placeholder="Nhập họ tên khách"
                                 ng-model="newKhachHang.hoTen" />
                               <span style="color: red">{{errorHoTen}}</span>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                               <span class="header-title"><span style="color: red">*</span>
                                 <span>Số điện thoại</span></span>
                               <input ng-model="newKhachHang.soDienThoai" class="form-control"
@@ -566,23 +565,22 @@
                               <span style="color: red">{{errorSoDienThoai}}</span>
                             </div>
                           </div>
-                          <br />
                           <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                               <span class="header-title"><span style="color: red">*</span>
                                 <span>Email</span></span>
                               <input class="form-control" ng-model="newKhachHang.email" placeholder="Nhập email" />
                               <span style="color: red">{{errorEmail}}</span>
                               <span style="color: red">{{errorMessage}}</span>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                               <span class="header-title"><span style="color: red">*</span>
                                 <span>Ngày sinh</span></span>
                               <input type="date" ng-model="newKhachHang.ngaySinh" class="form-control" />
                               <span style="color: red">{{errorNgaySinh}}</span>
                             </div>
                           </div>
-                          <br />
+                          <!-- <br />
                           <span class="header-title"><span style="color: red">*</span>
                             <span>Tỉnh</span></span>
                           <select class="form-control select2" ng-model="selectedProvince"
@@ -616,8 +614,7 @@
                               {{ward.name}}
                             </option>
                           </select>
-                          <span style="color: red">{{errorPhuong}}</span>
-                          <br />
+                          <span style="color: red">{{errorPhuong}}</span> -->
                           <div class="row">
                             <div class="col-lg-12">
                               <span class="header-title"><span style="color: red">*</span>
@@ -698,7 +695,7 @@
                       style="margin-left: -30px; margin-bottom: 10px;" ng-value="orderDetailCounter.email"
                       placeholder="Nhập email" />
                     <span style="color: red;margin-left: -25px;">{{erroremail}}</span>
-                    <div class="row" style="margin-bottom: 10px;">
+                    <!-- <div class="row" style="margin-bottom: 10px;">
                       <div class="col-lg-4" style="margin-left: -30px">
                         <span class="header-title"><span style="color: red">*</span>
                           <span>Tỉnh</span></span>
@@ -736,8 +733,8 @@
                         </select>
                         <span style="color: red">{{errorphuong}}</span>
                       </div>
-                    </div>
-                    <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
+                    </div> -->
+                    <span style="margin-left: -5px" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
                     <input ng-model="diaChi" type="text" class="form-control hidden-input" style="margin-left: -30px"
                       ng-value="orderDetailCounter.diaChi" placeholder="Nhập địa chỉ" />
@@ -1030,7 +1027,7 @@
               Xác nhận thanh toán
             </button>
             <button ng-show="!showInput" class="btn btn-primary"
-              style="margin-left: 900px; margin-top: -10px; font-weight: bold"
+              style="margin-left: 900px; margin-top: 20px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, tienThuaTraKhach)">
               Xác Nhận Đặt Hàng
             </button>
