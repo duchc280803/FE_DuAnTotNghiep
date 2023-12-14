@@ -43,8 +43,8 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.updateVoucher = function (id) {
-        var ngayBatDau = new Date($scope.ngayBatDau);
-        var ngayKetThuc = new Date($scope.ngayKetThuc);
+        var ngayBatDau = new Date($scope.voucherchitiet.ngayBatDau);
+        var ngayKetThuc = new Date($scope.voucherchitiet.ngayKetThuc);
         if (ngayBatDau >= ngayKetThuc) {
           Swal.fire({
             position: "top-end",
@@ -58,6 +58,65 @@ myApp.controller(
           });
           return;
         }
+        if (
+          !$scope.voucherchitiet.maVoucher ||
+          !$scope.voucherchitiet.tenVoucher ||
+          !$scope.voucherchitiet.soLuongMa ||
+          !$scope.voucherchitiet.giaTriToiThieuDonhang ||
+          !$scope.voucherchitiet.giaTriGiam ||
+          !$scope.voucherchitiet.hinhThucGiam ||
+          !$scope.voucherchitiet.ngayBatDau ||
+          !$scope.voucherchitiet.ngayKetThuc
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Vui lòng điền đầy đủ thông tin",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+          return;
+        }
+        if (
+          $scope.voucherchitiet.hinhThucGiam == 1 &&
+          ($scope.voucherchitiet.giaTriGiam <= 0 ||
+            $scope.voucherchitiet.giaTriGiam > 100)
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title:
+              "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup", // Thêm class cho message
+            },
+          });
+          return;
+        }
+
+        if (
+          $scope.voucherchitiet.giaTriToiThieuDonhang < 0 ||
+          $scope.soLuongMa < 0 ||
+          $scope.giaTriGiam < 0
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Giá trị không hợp lệ",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+          return;
+        }
+
         Swal.fire({
           title: "Bạn có update voucher này không ?",
           text: "",

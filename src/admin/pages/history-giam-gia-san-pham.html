@@ -5,12 +5,16 @@
     <hr />
     <div class="box">
         <div class="row" style="padding: 10px">
-            <div class="form-group">
-                <label>Tìm theo ngày cụ thể :</label>
+            <div class="col-md-6">
                 <input type="datetime-local" class="form-control" ng-model="searchDate"
                     ng-change="searchVouchersByDay()" />
             </div>
+            <div class="col-md-6">
+                <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Tên Đăng nhập"
+                    style="margin-top: 4px;" />
+            </div>
         </div>
+
         <div class="row" style="padding: 10px">
             <label for="">Tìm Kiếm thời gian theo khoảng</label>
             <div class="col-md-6">
@@ -50,7 +54,7 @@
                 </tr>
             </thead>
             <tbody class="table">
-                <tr ng-repeat="gg in listHistory">
+                <tr ng-repeat="gg in listVoucherHistory">
                     <td>{{$index + 1}}</td>
                     <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
                     <td>{{gg.action}}</td>
@@ -60,18 +64,17 @@
             </tbody>
         </table>
         <div class="col-lg-12">
-            <nav aria-label="Page navigation example" style="margin-left: 400px">
+            <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" ng-href="#/khuyen-mai?page={{page - 1}}"
-                            ng-click="previousPage()">Previous</a>
-                    </li>
-                    <li class="page-item" ng-repeat="page in getPageNumbers()">
-                        <a class="page-link" ng-href="#/khuyen-mai?page={{page}}" ng-click="updatePage(page)">{{ page
-                            }}</a>
+                        <a class="page-link" ng-click="previousPage()">Previous</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" ng-href="#/khuyen-mai?page={{page + 1}}" ng-click="nextPage()">Next</a>
+                        <a class="page-link">{{ pageNumber +1 }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" ng-click="nextPage()"
+                            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
                     </li>
                 </ul>
             </nav>

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-lg-8" style="padding-bottom: 10px;">
+        <a href="#/promotion" class="btn btn-primary">
+            Trở về trang
+        </a>
+    </div>
+    <div class="col-lg-8">
+        <input type="text" class="next-input" ng-model="tenSanPham" ng-change="searchProductKey()"
+            placeholder="Nhập sản phẩm cần tìm" />
+    </div>
+    <div class="col-lg-4">
+        <button class="btn btn-outline-primary" style="margin-left: 10px">
+            Làm mới
+        </button>
+    </div>
+</div>
+<br>
+<table class="table">
+    <thead>
+        <tr style="background-color: lightskyblue">
+            <th scope="col">STT</th>
+            <th scope="col">Ảnh sản phẩm</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Đơn giá</th>
+            <th scope="col">Số lượng Giảm giá</th>
+            <th scope="col">Giá sau giảm</th>
+        </tr>
+    </thead>
+    <tbody class="table">
+        <tr ng-repeat="gg in listProduct">
+            <td style="padding-top: 75px">
+                {{$index + 1}}
+            </td>
+            <td>
+                <img src="{{gg.image}}" alt="" width="150px" />
+            </td>
+            <td>{{gg.productName}}</td>
+            <td>
+                {{gg.giaBan.toLocaleString('vi-VN')}}₫
+            </td>
+            <td>
+                {{gg.soLanGiam}}
+            </td>
+            <td>
+                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
+            </td>
+        </tr>
+    </tbody>
+</table>
