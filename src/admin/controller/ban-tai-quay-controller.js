@@ -21,6 +21,14 @@ myApp.controller(
         "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
 
+    function getRole() {
+      if (role === "ADMIN" || role === "MANAGER") {
+        $scope.isAdmin = true;
+      }
+    }
+
+    getRole();
+
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
@@ -408,7 +416,8 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  // $scope.loadVouchers(totalOrderValue);
+                  $scope.listSanPhamInCart();
+                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -457,7 +466,8 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  // $scope.loadVouchers(totalOrderValue);
+                  $scope.listSanPhamInCart();
+                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -957,17 +967,6 @@ myApp.controller(
               diaChi: $scope.diaChi,
               gioHangChiTietList: idDetail,
             };
-            if ($scope.selectedProvince && $scope.selectedProvince.name) {
-              orderDetailCounter.tinh = $scope.selectedProvince.name;
-            }
-
-            if ($scope.selectedDistrict && $scope.selectedDistrict.name) {
-              orderDetailCounter.huyen = $scope.selectedDistrict.name;
-            }
-
-            if ($scope.selectedWard && $scope.selectedWard.name) {
-              orderDetailCounter.phuong = $scope.selectedWard.name;
-            }
             var config = {
               headers: {
                 Authorization: "Bearer " + token, // Thêm token vào header Authorization
@@ -1226,26 +1225,26 @@ myApp.controller(
 
     // TODO:  Lọc sản phẩm theo thương hiệu
     $scope.brand = "";
-    $scope.filterBrand = function() {
-      if($scope.brand == "") {
+    $scope.filterBrand = function () {
+      if ($scope.brand == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locCategory == "") {
+      if ($scope.locCategory == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locSole == "") {
+      if ($scope.locSole == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locOrigin == "") {
+      if ($scope.locOrigin == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locMauSac == "") {
+      if ($scope.locMauSac == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locMaterial == "") {
+      if ($scope.locMaterial == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locSize == "") {
+      if ($scope.locSize == "") {
         $scope.getListSanPhamTaiQuay();
       }
       var token = $window.localStorage.getItem("token");
@@ -1264,20 +1263,21 @@ myApp.controller(
         tenDe: $scope.locSole || null,
         tenChatLieu: $scope.locMaterial || null,
         tenMauSac: $scope.locMauSac || null,
-        size: $scope.locSize || null
+        size: $scope.locSize || null,
       };
 
       var config = {
         headers: {
-          'Authorization': 'Bearer ' + $window.localStorage.getItem('token'),
-          'Accept': 'application/json'
+          Authorization: "Bearer " + $window.localStorage.getItem("token"),
+          Accept: "application/json",
           // Add other headers if needed
         },
-        params: params
+        params: params,
       };
-    
-      $http.get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
-        .then(function(response) {
+
+      $http
+        .get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
+        .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
           if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
             $scope.showNextButton = false;
@@ -1285,7 +1285,7 @@ myApp.controller(
             $scope.showNextButton = true;
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           // Xử lý lỗi nếu có
         });
     };
@@ -1589,16 +1589,6 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
-            if ($scope.selectedProvince && $scope.selectedProvince.name) {
-              $scope.newKhachHang.tinh = $scope.selectedProvince.name;
-            }
-            if ($scope.selectedDistrict && $scope.selectedDistrict.name) {
-              $scope.newKhachHang.huyen = $scope.selectedDistrict.name;
-            }
-            if ($scope.selectedWard && $scope.selectedWard.name) {
-              $scope.newKhachHang.phuong = $scope.selectedWard.name;
-            }
-
             // Then make the API call to create the customer
             $http
               .post(
@@ -1638,9 +1628,6 @@ myApp.controller(
                 $scope.errorSoDienThoai = error.data.soDienThoai;
                 $scope.errorEmail = error.data.email;
                 $scope.errorDiaChi = error.data.diaChi;
-                $scope.errorTinh = error.data.tinh;
-                $scope.errorHuyen = error.data.huyen;
-                $scope.errorPhuong = error.data.phuong;
                 $scope.errorNgaySinh = error.data.ngaySinh;
               });
           }

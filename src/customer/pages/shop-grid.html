@@ -521,9 +521,9 @@
         <div class="col-lg-3 col-md-5">
           <input style="width: 100%;text-align: center;" type="text" class="next-input" ng-model="tenSanPham"
             ng-change="searchProductKey()" placeholder="Nhập tên sản phẩm cần tìm" /> <br>
-            <style>
-              
-            </style>
+          <style>
+
+          </style>
           <div class="filter__item">
             <div class="row">
               <div class="sidebar__item" style="margin-top: -20px;">
@@ -550,15 +550,12 @@
                   style="font-size: 0.7em;"></i>
                 <hr>
               </h4>
-              <ul ng-show="showTH" ng-repeat="dm in listThuongHieu" style="margin-left: 20px;">
-                <li style="font-family: Be Vietnam Pro, sans-serif; margin-bottom: 10px;">
-                  <span style="cursor: pointer; margin-left: -10px;" ng-click="searchProductThuongHieu(dm.id)"
-                    ng-style="{'color': dm.id === selectedBrandId ? '#7fad39' : '#000','font-weight': dm.id === selectedBrandId ? 'bold' : 'normal'}">{{dm.tenThuongHieu}}</span>
-                </li>
-              </ul>
+              <select ng-show="showTH" ng-model="locBrand" ng-change="searchProductThuongHieu()" class="form-select"
+                style="width: 200px;;">
+                <option value="">Tất cả</option>
+                <option ng-repeat="dm in listThuongHieu" ng-value="dm.id">{{dm.tenThuongHieu}}</option>
+              </select>
             </div>
-
-
             <div class="sidebar__item">
               <h4 ng-click="showCa = !showCa">
                 Danh Mục
@@ -566,17 +563,12 @@
                   style="font-size: 0.7em;"></i>
                 <hr>
               </h4>
-              <ul ng-show="showCa" ng-repeat="dm in listDanhMuc" style="margin-left: 20px;">
-                <li style="font-family: Be Vietnam Pro, sans-serif; margin-bottom: 10px;">
-                  <span style="cursor: pointer; margin-left: -10px;" ng-click="searchProductDanhMuc(dm.id)"
-                    ng-style="{'color': dm.id === selectedCategoryId ? '#7fad39' : '#000', 'font-weight': dm.id === selectedCategoryId ? 'bold' : 'normal'}">
-                    {{dm.tenDanhMuc}}
-                  </span>
-                </li>
-              </ul>
+              <select ng-show="showCa" ng-model="locDanhMuc" ng-change="searchProductDanhMuc()" class="form-select"
+                style="width: 200px;;">
+                <option value="">Tất cả</option>
+                <option ng-repeat="dm in listDanhMuc" ng-value="dm.id">{{dm.tenDanhMuc}}</option>
+              </select>
             </div>
-
-
             <div class="sidebar__item">
               <h4 ng-click="showKD = !showKD">
                 Kiểu đế
@@ -584,16 +576,12 @@
                   style="font-size: 0.7em;"></i>
                 <hr>
               </h4>
-              <ul ng-show="showKD" ng-repeat="kd in listKieuDe" style="margin-left: 20px;">
-                <li style="font-family: Be Vietnam Pro, sans-serif; margin-bottom: 10px;">
-                  <span style="cursor: pointer; margin-left: -10px;" ng-click="searchProductKieuDe(kd.id)"
-                    ng-style="{'color': kd.id === selectedKieuDeId ? '#7fad39' : '#000', 'font-weight': kd.id === selectedKieuDeId ? 'bold' : 'normal'}">
-                    {{kd.tenDe}}
-                  </span>
-                </li>
-              </ul>
+              <select ng-show="showKD" ng-model="locKieuDe" ng-change="searchProductKieuDe()" class="form-select"
+                style="width: 200px;;">
+                <option value="">Tất cả</option>
+                <option ng-repeat="kd in listKieuDe" ng-value="kd.id">{{kd.tenDe}}</option>
+              </select>
             </div>
-
             <div class="sidebar__item">
               <h4 ng-click="showXX = !showXX">
                 Xuất xứ
@@ -601,20 +589,14 @@
                   style="font-size: 0.7em;"></i>
                 <hr>
               </h4>
-              <ul ng-show="showXX" ng-repeat="s in listXuatXu" style="margin-left: 20px;">
-                <li style="font-family: Be Vietnam Pro, sans-serif; margin-bottom: 10px;">
-                  <span style="cursor: pointer; margin-left: -10px;" ng-click="searchProductXuatXu(s.id)"
-                    ng-style="{'color': s.id === selectedXuatXuId ? '#7fad39' : '#000', 'font-weight': s.id === selectedXuatXuId ? 'bold' : 'normal'}">
-                    {{s.tenXuatXu}}
-                  </span>
-                </li>
-              </ul>
+              <select ng-show="showXX" ng-model="locXuatXu" ng-change="searchProductXuatXu()" class="form-select"
+                style="width: 200px;;">
+                <option value="">Tất cả</option>
+                <option ng-repeat="s in listXuatXu" ng-value="s.id">{{s.tenXuatXu}}</option>
+              </select>
             </div>
-
-
           </div>
         </div>
-
         <div class="col-lg-9 col-md-7">
           <div class="row featured__filter">
             <div class="col-lg-4 col-md-6 col-sm-6 custom-margin" ng-repeat="sp in listSanPhamShop">
@@ -637,16 +619,19 @@
               </div>
             </div>
           </div>
-          <div class="row" style="text-align: center;">
-            <div class="product__pagination">
-              <a ng-click="changePage('prev')"><i class="fa fa-long-arrow-left"></i></a>
-              <a ng-repeat="page in getPages()"
-                ng-style="{ 'background-color': currentPage === page ? '#7fad39' : 'transparent', 'color': currentPage === page ?  '#fff' : '#000' }"
-                ng-click="changePage(page)">{{page}}</a>
-              <a ng-click="changePage('next')"><i class="fa fa-long-arrow-right"></i></a>
-            </div>
-          </div>
-
+          <nav aria-label="Page navigation example" style="margin-left: 220px" ng-if="listSanPhamShop.length != 0">
+            <ul class="pagination">
+              <li class="page-item" ng-show="pageNumber > 0">
+                <a class="page-link" href="" ng-click="previous()">Previous</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link">{{pageNumber + 1}}</a>
+              </li>
+              <li class="page-item" ng-show="showNextButton">
+                <a class="page-link" href="" ng-click="nextPage()">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -654,85 +639,90 @@
   </section>
   <!-- Product Section End -->
 
-    <!-- Footer Section Begin -->
-    <footer class="footer spad" style="background-color:white;">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer__about">
-              <div class="footer__about__logo">
-                <a href="#"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                    alt="" width="119px" /></a>
-              </div>
-              <ul>
-                <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
-                <li>Phone: 0362.885.875</li>
-                <li>Email: niceshoepoly@gmail.com</li>
-              </ul>
+  <!-- Footer Section Begin -->
+  <footer class="footer spad" style="background-color:white;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer__about">
+            <div class="footer__about__logo">
+              <a href="#"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                  alt="" width="119px" /></a>
             </div>
+            <ul>
+              <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
+              <li>Phone: 0362.885.875</li>
+              <li>Email: niceshoepoly@gmail.com</li>
+            </ul>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-            <div class="footer__widget">
-              <h6>Dịch vụ khách hàng</h6>
-              <ul>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-van-chuyen">Chính sách vận chuyển
-                    và giao nhận</a></li>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và
-                    bảo hành</a></li>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-bao-mat">Chính sách bảo mật</a>
-                </li>
-                <li><a href="/src/customer/index-customer.html#/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý
-                    khiếu nại</a></li>
-              </ul>
-  
-            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+          <div class="footer__widget">
+            <h6>Dịch vụ khách hàng</h6>
+            <ul>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-van-chuyen">Chính sách vận chuyển
+                  và giao nhận</a></li>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và
+                  bảo hành</a></li>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-bao-mat">Chính sách bảo mật</a>
+              </li>
+              <li><a href="/src/customer/index-customer.html#/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý
+                  khiếu nại</a></li>
+            </ul>
+
           </div>
-          <div class="col-lg-4 col-md-12">
-            <div class="footer__widget">
-              <h6>Hỗ trợ</h6>
-              <ul>
-                <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
-                <li><a href="/src/customer/index-customer.html#/hinh-thuc-thanh-toan">Hình thức thanh toán</a></li>
-                <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="footer__widget">
+            <h6>Hỗ trợ</h6>
+            <ul>
+              <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
+              <li><a href="/src/customer/index-customer.html#/hinh-thuc-thanh-toan">Hình thức thanh toán</a></li>
+              <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
+            </ul>
           </div>
         </div>
       </div>
-    </footer>
-    <style>
-      .footer {
-    font-family: 'Roboto', sans-serif; /* Chọn font chữ */
-    color: #333; /* Màu chữ chính */
-    background-color: white; /* Màu nền */
-  
-    /* Khoảng cách và định dạng khoảng cách */
-    padding: 40px 0;
-    margin-top: 20px;
-  
-    /* Định dạng đường viền (nếu cần) */
-    border-top: 1px solid #ddd;
-  }
-  
-  .footer ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer ul li {
-    margin-bottom: 10px; /* Khoảng cách giữa các mục trong danh sách */
-  }
-  
-  .footer a {
-    text-decoration: none;
-    color: #007bff; /* Màu chữ cho các liên kết */
-  }
-  
-  .footer a:hover {
-    text-decoration: underline; /* Gạch chân khi di chuột qua liên kết */
-  }
-  
-    </style>
+    </div>
+  </footer>
+  <style>
+    .footer {
+      font-family: 'Roboto', sans-serif;
+      /* Chọn font chữ */
+      color: #333;
+      /* Màu chữ chính */
+      background-color: white;
+      /* Màu nền */
+
+      /* Khoảng cách và định dạng khoảng cách */
+      padding: 40px 0;
+      margin-top: 20px;
+
+      /* Định dạng đường viền (nếu cần) */
+      border-top: 1px solid #ddd;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 10px;
+      /* Khoảng cách giữa các mục trong danh sách */
+    }
+
+    .footer a {
+      text-decoration: none;
+      color: #007bff;
+      /* Màu chữ cho các liên kết */
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+      /* Gạch chân khi di chuột qua liên kết */
+    }
+  </style>
   <script src="/js/jquery-3.3.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/jquery.nice-select.min.js"></script>
