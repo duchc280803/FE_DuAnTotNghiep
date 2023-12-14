@@ -20,6 +20,14 @@ myApp.controller(
       window.location.href =
         "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
+
+    function getRole() {
+      if (role === "ADMIN" || role === "MANAGER") {
+        $scope.isAdmin = true;
+      }
+    }
+
+    getRole();
     $scope.listKhachHang = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -52,8 +60,11 @@ myApp.controller(
           response.data.ngaySinh = new Date(response.data.ngaySinh);
           $scope.listKhachHang = response.data;
 
-          $scope.currentPageNumber = response.data.number;
-          $scope.totalNumberOfPages = response.data.totalPages;
+          if ($scope.listKhachHang.length < 20) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         })
         .catch(function (error) {});
     }
@@ -230,7 +241,8 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
-            $scope.soDienThoai, config
+            $scope.soDienThoai,
+          config
         )
         .then(function (response) {
           if (response.data > 0) {
@@ -245,7 +257,8 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
-            $scope.email, config
+            $scope.email,
+          config
         )
         .then(function (response) {
           if (response.data > 0) {

@@ -18,6 +18,14 @@ myApp.controller("thongKeController", function ($scope, $http, $window) {
     window.location.href =
       "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
   }
+
+  function getRole() {
+    if (role === "ADMIN" || role === "MANAGER") {
+      $scope.isAdmin = true;
+    }
+  }
+
+  getRole();
   $scope.loadData = function () {
     var token = $window.localStorage.getItem("token");
 

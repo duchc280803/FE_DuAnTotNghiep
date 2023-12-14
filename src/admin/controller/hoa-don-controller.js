@@ -28,7 +28,6 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
   $scope.isAdmin = false;
 
   function getRole() {
-    var role = $window.localStorage.getItem("role");
     if (role === "ADMIN" || role === "MANAGER") {
       $scope.isAdmin = true;
     }

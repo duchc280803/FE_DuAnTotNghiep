@@ -18,6 +18,14 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     window.location.href =
       "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
   }
+
+  function getRole() {
+    if (role === "ADMIN" || role === "MANAGER") {
+      $scope.isAdmin = true;
+    }
+  }
+
+  getRole();
   $scope.listSanPham = [];
   $scope.pageNumber = 0;
   $scope.pageSize = 20;
@@ -34,7 +42,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         "http://localhost:8080/api/v1/san-pham/hien-thi?pageNumber=" +
           $scope.pageNumber +
           "&pageSize=" +
-          $scope.pageSize, config
+          $scope.pageSize,
+        config
       )
       .then(function (response) {
         $scope.listSanPham = response.data;
@@ -115,7 +124,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham/thuong-hieu?value=" +
-            $scope.thuongHieu, config
+            $scope.thuongHieu,
+          config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -138,7 +148,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham/danh-muc?value=" +
-            $scope.danhMuc, config
+            $scope.danhMuc,
+          config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -160,7 +171,9 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     } else {
       $http
         .get(
-          "http://localhost:8080/api/v1/san-pham/xuat-xu?value=" + $scope.xuatXu, config
+          "http://localhost:8080/api/v1/san-pham/xuat-xu?value=" +
+            $scope.xuatXu,
+          config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -182,7 +195,9 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     } else {
       $http
         .get(
-          "http://localhost:8080/api/v1/san-pham/kieu-de?value=" + $scope.kieuDe, config
+          "http://localhost:8080/api/v1/san-pham/kieu-de?value=" +
+            $scope.kieuDe,
+          config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -205,7 +220,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham/name-code?value=" +
-            $scope.value, config
+            $scope.value,
+          config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;
@@ -227,7 +243,9 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
     } else {
       $http
         .get(
-          "http://localhost:8080/api/v1/san-pham/status?status=" + $scope.status, config
+          "http://localhost:8080/api/v1/san-pham/status?status=" +
+            $scope.status,
+          config
         )
         .then(function (response) {
           $scope.listSanPham = response.data;

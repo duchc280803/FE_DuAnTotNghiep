@@ -3,124 +3,187 @@ myAppCustom.controller(
   "sanPhamShopController",
   function ($http, $scope, $window) {
     var token = $window.localStorage.getItem("token-customer");
-    console.log(token);
     $scope.listSanPhamShop = [];
     $scope.listThuongHieu = [];
     $scope.listDanhMuc = [];
     $scope.listSize = [];
 
-    $scope.currentPage = 1;
-    $scope.pageSize = 12; // Số sản phẩm trên mỗi trang
-
-    $scope.changePage = function (page) {
-      if (page === 'prev') {
-        $scope.currentPage--;
-        if ($scope.currentPage === 0) {
-          $scope.currentPage = 1;
-        }
-      } else if (page === 'next') {
-        $scope.currentPage++;
-        if ($scope.currentPage > $scope.totalPages) {
-          $scope.currentPage = $scope.totalPages;
-        }
-      } else if (typeof page === 'number') {
-        $scope.currentPage = page;
-      }
-      listSanPhamGiamGia();
-    };
-
-    $scope.getPages = function () {
-      let pages = [];
-      for (let i = 1; i <= $scope.totalPages; i++) {
-        pages.push(i);
-      }
-      return pages;
-    };
+    $scope.pageNumber = 0;
+    $scope.pageSize = 12;
 
     function listSanPhamGiamGia() {
       $http
-        .get("http://localhost:8080/api/v1/san-pham-giam-gia/show", {
-          params: { pageNumber: $scope.currentPage - 1, pageSize: $scope.pageSize }
-        })
+        .get(
+          "http://localhost:8080/api/v1/san-pham-giam-gia/show?pageNumber=" +
+          $scope.pageNumber +
+          "&pageSize=" +
+          $scope.pageSize
+        )
         .then(function (response) {
           $scope.listSanPhamShop = response.data;
-          $scope.totalPages = Math.ceil($scope.listSanPhamShop.length / $scope.pageSize + 1);
-          console.log(response.headers('X-Total-Count'));
+          if ($scope.listSanPhamShop.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         });
     }
 
     // Initial load
     listSanPhamGiamGia();
 
+    // TODO: Quay lại trang
+    $scope.previous = function () {
+      if ($scope.pageNumber > 0) {
+        $scope.pageNumber--;
+        if ($scope.isLoc != false) {
+          $scope.searchProductDanhMuc();
+        } else if ($scope.isLocKieuDe != false) {
+          $scope.searchProductKieuDe();
+        } else if ($scope.isLocXuatXu != false) {
+          $scope.searchProductXuatXu();
+        } else if ($scope.isLocBrand != false) {
+          $scope.searchProductThuongHieu();
+        } else {
+          listSanPhamGiamGia();
+        }
+      }
+    };
 
-
+    // TODO: tiến đến trang khác
+    $scope.nextPage = function () {
+      $scope.pageNumber++;
+      if ($scope.isLoc) {
+        $scope.searchProductDanhMuc();
+      } else if ($scope.isLocKieuDe) {
+        $scope.searchProductKieuDe();
+      } else if ($scope.isLocXuatXu) {
+        $scope.searchProductXuatXu();
+      } else if ($scope.isLocBrand) {
+        $scope.searchProductThuongHieu();
+      } else {
+        listSanPhamGiamGia();
+      }
+    };
 
     $scope.selectedCategoryId = null;
 
-    $scope.searchProductDanhMuc = function (id) {
-      if (!id) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.listSanPhamGiamGia();
+    $scope.locDanhMuc = "";
+    $scope.isLoc = false;
+    $scope.searchProductDanhMuc = function () {
+      if ($scope.locDanhMuc == "") {
+        $scope.isLoc = false;
+        listSanPhamGiamGia();
       } else {
-        $scope.selectedCategoryId = id; // Đặt giá trị cho selectedCategoryId
+        $scope.isLoc = true;
+        $scope.selectedCategoryId = $scope.locDanhMuc;
         $http
-          .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
-            params: { id: id },
-          })
+          .get(
+            "http://localhost:8080/api/v1/san-pham-giam-gia/filter-category?pageNumber=" +
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locDanhMuc
+          )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
+            if ($scope.listSanPhamShop.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
 
     $scope.selectedBrandId = null;
 
+    $scope.locBrand = "";
+    $scope.isLocBrand = false;
     $scope.searchProductThuongHieu = function (id) {
-      if (!id) {
+      if ($scope.locBrand == "") {
+        $scope.isLocBrand = false;
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.listSanPhamGiamGia();
+        listSanPhamGiamGia();
       } else {
         $scope.selectedBrandId = id; // Đặt giá trị cho selectedBrandId
         $http
-          .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
-            params: { id: id },
-          })
+          .get(
+            "http://localhost:8080/api/v1/san-pham-giam-gia/filter-brand?pageNumber=" +
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locBrand
+          )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
+            if ($scope.listSanPhamShop.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
-
 
     $scope.selectedKieuDeId = null;
     $scope.selectedXuatXuId = null;
-
-    $scope.searchProductKieuDe = function (id) {
-      if (!id) {
-        $scope.listSanPhamGiamGia();
+    $scope.locKieuDe = "";
+    $scope.isLocKieuDe = false;
+    $scope.searchProductKieuDe = function () {
+      if ($scope.locKieuDe == "") {
+        $scope.isLocKieuDe = false;
+        listSanPhamGiamGia();
       } else {
-        $scope.selectedKieuDeId = id;
+        $scope.isLocKieuDe = true;
+        $scope.selectedKieuDeId = $scope.locKieuDe;
         $http
-          .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
-            params: { id: id },
-          })
+          .get(
+            "http://localhost:8080/api/v1/san-pham-giam-gia/filter-sole?pageNumber=" +
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locKieuDe
+          )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
+            if ($scope.listSanPhamShop.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
 
+    $scope.isLocXuatXu = false;
+    $scope.locXuatXu = "";
     $scope.searchProductXuatXu = function (id) {
-      if (!id) {
-        $scope.listSanPhamGiamGia();
+      if ($scope.locXuatXu == "") {
+        $scope.isLocXuatXu = false;
+        listSanPhamGiamGia();
       } else {
+        $scope.isLocXuatXu = true;
         $scope.selectedXuatXuId = id;
         $http
-          .get("http://localhost:8080/api/v1/san-pham-giam-gia/detailList", {
-            params: { id: id },
-          })
+          .get(
+            "http://localhost:8080/api/v1/san-pham-giam-gia/filter-origin?pageNumber=" +
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locXuatXu
+          )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
+            if ($scope.listSanPhamShop.length < $scope.pageSize) {
+              $scope.showNextButton = false; // Ẩn nút "Next"
+            } else {
+              $scope.showNextButton = true; // Hiển thị nút "Next"
+            }
           });
       }
     };
@@ -167,10 +230,9 @@ myAppCustom.controller(
         });
     };
 
-
     $scope.getlistCategory = function () {
       $http
-        .get("http://localhost:8080/api/v1/danh-muc/show")
+        .get("http://localhost:8080/api/v1/thuoc-tinh/show-danh-muc")
         .then(function (response) {
           $scope.listDanhMuc = response.data;
         });
@@ -180,7 +242,7 @@ myAppCustom.controller(
     $scope.listKieuDe = [];
     $scope.getListKieuDe = function () {
       $http
-        .get("http://localhost:8080/api/v1/kieu-de/show")
+        .get("http://localhost:8080/api/v1/thuoc-tinh/show-kieu-de")
         .then(function (response) {
           $scope.listKieuDe = response.data;
         });
@@ -191,7 +253,7 @@ myAppCustom.controller(
     $scope.listThuongHieu = [];
     $scope.getListThuongHieu = function () {
       $http
-        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi")
+        .get("http://localhost:8080/api/v1/thuoc-tinh/show-thuong-hieu")
         .then(function (response) {
           $scope.listThuongHieu = response.data;
         });
@@ -201,7 +263,7 @@ myAppCustom.controller(
     $scope.listXuatXu = [];
     $scope.getListXuatXu = function () {
       $http
-        .get("http://localhost:8080/api/v1/xuat-xu/show")
+        .get("http://localhost:8080/api/v1/thuoc-tinh/show-xuat-xu")
         .then(function (response) {
           $scope.listXuatXu = response.data;
         });
@@ -209,18 +271,22 @@ myAppCustom.controller(
     $scope.getListXuatXu();
 
     function loadCart() {
-      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+      if (idgh) {
+              // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
       var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
-        idgh;
+      "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
+      idgh;
 
-      $http.get(apiURL).then(function (response) {
-        $scope.products = response.data; // Dữ liệu sản phẩm từ API
-        $window.localStorage.setItem(
-          "listCart",
-          $scope.products.map((item) => item.id)
-        );
-      });
+    $http.get(apiURL).then(function (response) {
+      $scope.products = response.data; // Dữ liệu sản phẩm từ API
+      $window.localStorage.setItem(
+        "listCart",
+        $scope.products.map((item) => item.id)
+      );
+    });
+      }
+
+
     }
     loadCart();
     //delete product
@@ -251,33 +317,41 @@ myAppCustom.controller(
       });
     };
     function loadToTals() {
-      // Gọi API và cập nhật giá trị totalAmount
+      if (idgh) {
+              // Gọi API và cập nhật giá trị totalAmount
 
       $http
-        .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-          idgh
-        )
-        .then(function (response) {
-          // Lấy giá trị tổng tiền từ phản hồi API
-          $scope.totalAmount = response.data[0].tongSoTien;
-          $window.localStorage.setItem("totalAmount", $scope.totalAmount);
-        })
-        .catch(function (error) {
-          console.error("Lỗi khi gọi API: " + error);
-        });
+      .get(
+        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
+        idgh
+      )
+      .then(function (response) {
+        // Lấy giá trị tổng tiền từ phản hồi API
+        $scope.totalAmount = response.data[0].tongSoTien;
+        $window.localStorage.setItem("totalAmount", $scope.totalAmount);
+      })
+      .catch(function (error) {
+        console.error("Lỗi khi gọi API: " + error);
+      });
+      }
+
+
     }
     loadToTals();
 
     function loadQuanTiTy() {
-      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-      var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
-        idgh;
+      if (idgh) {
+        // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+        var apiURL =
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
+          idgh;
 
-      $http.get(apiURL).then(function (response) {
-        $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
-      });
+        $http.get(apiURL).then(function (response) {
+          $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
+        });
+      }
+
+
     }
 
     loadQuanTiTy();

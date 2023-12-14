@@ -21,6 +21,14 @@ myApp.controller(
         "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
 
+    function getRole() {
+      if (role === "ADMIN" || role === "MANAGER") {
+        $scope.isAdmin = true;
+      }
+    }
+
+    getRole();
+
     $scope.listCart = []; // show list sản phẩm trong giỏ hàng
     $scope.tongSoLuongSanPham = 0; // tính tổng số lượng sản phẩm có trong giỏ hàng
     $scope.tongTienHang = 0; // tính tổng tiền hàng
@@ -263,6 +271,8 @@ myApp.controller(
     // TODO: show sản phẩm trong giỏ hảng
     $scope.pageNumberSpTrongGio = 0;
     $scope.pageSizeSpTrongGio = 3;
+    $scope.listCart = [];
+
     $scope.listSanPhamInCart = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -271,6 +281,7 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
+
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
@@ -290,6 +301,50 @@ myApp.controller(
           }
         });
     };
+    // $scope.listSanPhamInCart = function () {
+    //   var token = $window.localStorage.getItem("token");
+
+    //   var config = {
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   };
+
+    //   $scope.tongTienHang = 0; // Đặt lại tổng tiền hàng về 0 trước khi tính lại
+
+    //   function getTotalPrice(pageNumber) {
+    //     $http
+    //       .get(
+    //         "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
+    //           idKhach +
+    //           "&pageNumber=" +
+    //           pageNumber +
+    //           "&pageSize=" +
+    //           $scope.pageSizeSpTrongGio,
+    //         config
+    //       )
+    //       .then(function (response) {
+    //         $scope.listCart = response.data;
+    //         console.log($scope.listCart);
+    //         for (var i = 0; i < $scope.listCart.length; i++) {
+    //           $scope.tongTienHang +=
+    //             $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
+    //         }
+
+    //         if ($scope.listCart.length === $scope.pageSizeSpTrongGio) {
+    //           getTotalPrice(pageNumber + 1); // Nếu còn trang tiếp theo, tiếp tục lấy dữ liệu
+    //         } else {
+    //           $window.localStorage.setItem(
+    //             "tongTienHangTaiQuay",
+    //             $scope.tongTienHang
+    //           );
+    //           console.log($scope.tongSoLuongSanPham);
+    //         }
+    //       });
+    //   }
+
+    //   getTotalPrice(0); // Bắt đầu tính từ trang đầu tiên
+    // };
 
     $scope.listSanPhamTienInCart = function () {
       var token = $window.localStorage.getItem("token");
@@ -408,7 +463,8 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  // $scope.loadVouchers(totalOrderValue);
+                  $scope.listSanPhamInCart();
+                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -457,7 +513,8 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  // $scope.loadVouchers(totalOrderValue);
+                  $scope.listSanPhamInCart();
+                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -798,10 +855,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
-          reverseButtons: true, // Đảo ngược vị trí của nút Yes và No
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             $http
@@ -957,17 +1015,6 @@ myApp.controller(
               diaChi: $scope.diaChi,
               gioHangChiTietList: idDetail,
             };
-            if ($scope.selectedProvince && $scope.selectedProvince.name) {
-              orderDetailCounter.tinh = $scope.selectedProvince.name;
-            }
-
-            if ($scope.selectedDistrict && $scope.selectedDistrict.name) {
-              orderDetailCounter.huyen = $scope.selectedDistrict.name;
-            }
-
-            if ($scope.selectedWard && $scope.selectedWard.name) {
-              orderDetailCounter.phuong = $scope.selectedWard.name;
-            }
             var config = {
               headers: {
                 Authorization: "Bearer " + token, // Thêm token vào header Authorization
@@ -1226,26 +1273,26 @@ myApp.controller(
 
     // TODO:  Lọc sản phẩm theo thương hiệu
     $scope.brand = "";
-    $scope.filterBrand = function() {
-      if($scope.brand == "") {
+    $scope.filterBrand = function () {
+      if ($scope.brand == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locCategory == "") {
+      if ($scope.locCategory == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locSole == "") {
+      if ($scope.locSole == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locOrigin == "") {
+      if ($scope.locOrigin == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locMauSac == "") {
+      if ($scope.locMauSac == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locMaterial == "") {
+      if ($scope.locMaterial == "") {
         $scope.getListSanPhamTaiQuay();
       }
-      if($scope.locSize == "") {
+      if ($scope.locSize == "") {
         $scope.getListSanPhamTaiQuay();
       }
       var token = $window.localStorage.getItem("token");
@@ -1264,20 +1311,21 @@ myApp.controller(
         tenDe: $scope.locSole || null,
         tenChatLieu: $scope.locMaterial || null,
         tenMauSac: $scope.locMauSac || null,
-        size: $scope.locSize || null
+        size: $scope.locSize || null,
       };
 
       var config = {
         headers: {
-          'Authorization': 'Bearer ' + $window.localStorage.getItem('token'),
-          'Accept': 'application/json'
+          Authorization: "Bearer " + $window.localStorage.getItem("token"),
+          Accept: "application/json",
           // Add other headers if needed
         },
-        params: params
+        params: params,
       };
-    
-      $http.get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
-        .then(function(response) {
+
+      $http
+        .get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
+        .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
           if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
             $scope.showNextButton = false;
@@ -1285,7 +1333,7 @@ myApp.controller(
             $scope.showNextButton = true;
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           // Xử lý lỗi nếu có
         });
     };
@@ -1589,16 +1637,6 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
-            if ($scope.selectedProvince && $scope.selectedProvince.name) {
-              $scope.newKhachHang.tinh = $scope.selectedProvince.name;
-            }
-            if ($scope.selectedDistrict && $scope.selectedDistrict.name) {
-              $scope.newKhachHang.huyen = $scope.selectedDistrict.name;
-            }
-            if ($scope.selectedWard && $scope.selectedWard.name) {
-              $scope.newKhachHang.phuong = $scope.selectedWard.name;
-            }
-
             // Then make the API call to create the customer
             $http
               .post(
@@ -1638,9 +1676,6 @@ myApp.controller(
                 $scope.errorSoDienThoai = error.data.soDienThoai;
                 $scope.errorEmail = error.data.email;
                 $scope.errorDiaChi = error.data.diaChi;
-                $scope.errorTinh = error.data.tinh;
-                $scope.errorHuyen = error.data.huyen;
-                $scope.errorPhuong = error.data.phuong;
                 $scope.errorNgaySinh = error.data.ngaySinh;
               });
           }

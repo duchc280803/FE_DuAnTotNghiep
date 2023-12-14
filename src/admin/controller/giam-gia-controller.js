@@ -20,6 +20,14 @@ myApp.controller(
       window.location.href =
         "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
+
+    function getRole() {
+      if (role === "ADMIN" || role === "MANAGER") {
+        $scope.isAdmin = true;
+      }
+    }
+
+    getRole();
     $scope.listGiamGia = [];
     $scope.listProductGiamGia = [];
 
@@ -67,11 +75,11 @@ myApp.controller(
         .get(url, config)
         .then(function (response) {
           $scope.listGiamGia = response.data;
-          console.log("Dữ liệu trả về: ", response.data);
-
-          // Update currentPageNumber based on the response
-          $scope.currentPageNumber = response.data.number;
-          $scope.totalNumberOfPages = response.data.totalPages;
+          if ($scope.listGiamGia.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);
@@ -84,10 +92,13 @@ myApp.controller(
         fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       }
     };
+
+    // TODO: tiến đến trang khác
     $scope.nextPage = function () {
       $scope.pageNumber++;
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+
     $scope.searchKhach = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };

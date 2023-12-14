@@ -18,6 +18,15 @@ myApp.controller("nhanVienController", function ($http, $scope, $location, $wind
     window.location.href =
       "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
   }
+
+  
+  function getRole() {
+    if (role === "ADMIN" || role === "MANAGER") {
+      $scope.isAdmin = true;
+    }
+  }
+
+  getRole();
   $scope.listNhanVien = [];
   $scope.selectedTrangThai = "";
   $scope.searchQuery = "";
@@ -84,10 +93,11 @@ myApp.controller("nhanVienController", function ($http, $scope, $location, $wind
       .then(function (response) {
         response.data.ngaySinh = new Date(response.data.ngaySinh);
         $scope.listNhanVien = response.data;
-        console.log("Dữ liệu trả về: ", response.data);
-
-        $scope.currentPageNumber = response.data.number;
-        $scope.totalNumberOfPages = response.data.totalPages;
+        if ($scope.listNhanVien.length < 20) {
+          $scope.showNextButton = false; // Ẩn nút "Next"
+        } else {
+          $scope.showNextButton = true; // Hiển thị nút "Next"
+        }
       })
       .catch(function (error) {
         console.error("Lỗi khi tìm kiếm: ", error);

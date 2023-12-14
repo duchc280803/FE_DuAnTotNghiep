@@ -42,19 +42,14 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             // Bạn có thể sử dụng $scope.diaChiList để hiển thị trên giao diện
         });
     }
-    $scope.isProvinceValid = true;
-    $scope.isDistrictValid = true;
-    $scope.isWardValid = true;
+
     $scope.isDiaChiValid = true;
     // Gọi hàm khi trang được tải
     $scope.loadProfile();
     $scope.submitAddress = function () {
-        $scope.isProvinceValid = !!$scope.selectedProvince;
-        $scope.isDistrictValid = !!$scope.selectedDistrict;
-        $scope.isWardValid = !!$scope.selectedWard;
         $scope.isDiaChiValid = !!$scope.addressName;
 
-        if (!$scope.isDiaChiValid || !$scope.isProvinceValid || !$scope.isDistrictValid || !$scope.isWardValid) {
+        if (!$scope.isDiaChiValid) {
             Swal.fire({
                 title: "Warning",
                 text: "Vui lòng điền đủ thông tin",
@@ -83,10 +78,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
 
                 var diaChiApi = "http://localhost:8080/api/v1/account/create-dia-chi";
                 var requestData = {
-                    diaChi: $scope.addressName,
-                    tinh: $scope.selectedProvince.name,
-                    huyen: $scope.selectedDistrict.name,
-                    xa: $scope.selectedWard.name,
+                    diaChi: $scope.addressName
                 };
 
                 $http.post(diaChiApi, requestData, config).then(
@@ -126,18 +118,12 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
         // Lưu ID của địa chỉ cần cập nhật để sử dụng trong submit
         $scope.updateAddressId = diaChi.id; // Đảm bảo rằng đây là ID của địa chỉ
     };
-    $scope.isProvinceValid = true;
-    $scope.isDistrictValid = true;
-    $scope.isWardValid = true;
     $scope.isDiaChiValid2 = true;
     // Trong controller Angular của bạn
     $scope.updateAddress = function () {
 
-        $scope.isProvinceValid = !!$scope.selectedProvince;
-        $scope.isDistrictValid = !!$scope.selectedDistrict;
-        $scope.isWardValid = !!$scope.selectedWard;
         $scope.isDiaChiValid2 = !!$scope.updateAddressName;
-        if (!$scope.isDiaChiValid2 || !$scope.isProvinceValid || !$scope.isDistrictValid || !$scope.isWardValid) {
+        if (!$scope.isDiaChiValid2) {
             Swal.fire({
                 title: "Warning",
                 text: "Vui lòng điền đủ thông tin",
@@ -155,10 +141,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             },
         };
         var updatedData = {
-            diaChi: $scope.updateAddressName,
-            tinh: $scope.selectedProvince.name,
-            huyen: $scope.selectedDistrict.name,
-            xa: $scope.selectedWard.name,
+            diaChi: $scope.updateAddressName
         };
 
         console.log(updatedData);

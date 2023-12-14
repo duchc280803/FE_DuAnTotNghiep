@@ -179,14 +179,18 @@
   <div class="box">
     <style>
       .table {
-        table-layout: fixed; /* Đảm bảo các cột có chiều rộng đều */
-        width: 100%; /* Chiều rộng của bảng là 100% */
+        table-layout: fixed;
+        /* Đảm bảo các cột có chiều rộng đều */
+        width: 100%;
+        /* Chiều rộng của bảng là 100% */
       }
-    
+
       .table th,
       .table td {
-        overflow: hidden; /* Tránh che lấn giá trị bên trong */
-        text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) khi giá trị quá dài */
+        overflow: hidden;
+        /* Tránh che lấn giá trị bên trong */
+        text-overflow: ellipsis;
+        /* Hiển thị dấu ba chấm (...) khi giá trị quá dài */
       }
     </style>
     <table class="table">
@@ -237,15 +241,15 @@
     </table>
   </div>
   <div class="row">
-    <nav aria-label="Page navigation example" style="margin-left: 480px;">
+    <nav aria-label="Page navigation example" style="margin-left: 480px;" ng-show="listNhanVien.length != 0">
       <ul class="pagination">
-        <li class="page-item">
+        <li class="page-item" ng-show="pageNumber > 0">
           <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
-        <li class="page-item">
+        <li class="page-item" ng-show="showNextButton">
           <a class="page-link" ng-href="" ng-click="nextPage()"
             ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
         </li>
