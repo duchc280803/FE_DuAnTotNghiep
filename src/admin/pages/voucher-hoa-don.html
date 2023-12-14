@@ -4,9 +4,9 @@
       <!-- HTML Template -->
       <div class="col-md-2">
         <span style="height: 7px; margin-left: -40px; font-weight: bold">
-          Nhập mã, tên voucher
+          Tìm kiếm
         </span>
-        <input class="form-control" placeholder="Tìm khuyến mãi" ng-model="key" ng-change="searchKey()"
+        <input class="form-control" placeholder="Tìm theo mã & tên voucher" ng-model="key" ng-change="searchKey()"
           style="width: 220px; margin-left: -42px; font-weight: bold" />
       </div>
       <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px;">
@@ -14,13 +14,13 @@
         <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai"
           ng-change="searchStatus()" id="simple-select2">
           <option value="">Tất cả</option>
-          <option value="1">Còn Hiệu Lực </option>
-          <option value="2">Hết Hiệu Lực</option>
+          <option value="1">Còn hạn </option>
+          <option value="2">Hết hạn</option>
         </select>
       </div>
       <div class="col-md-7" style="margin-top: 20px;">
         <button class="btn btn-warning" style="height: 39px; margin-left: 10px">
-          Làm Mới
+          Làm mới
         </button>
         <a href="#/voucher/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
           Lịch sử thao tác
@@ -78,16 +78,17 @@
       </tbody>
     </table>
   </div>
-  <nav aria-label="Page navigation example" style="margin-left: 480px">
+  <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
     <ul class="pagination">
-      <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
-        <a class="page-link" ng-click="previousPage()">Previous</a>
+      <li class="page-item">
+        <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
       </li>
       <li class="page-item">
-        <a class="page-link">{{pageNumber + 1}}</a>
+        <a class="page-link">{{ pageNumber + 1 }}</a>
       </li>
-      <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
-        <a class="page-link" ng-click="nextPage()">Next</a>
+      <li class="page-item">
+        <a class="page-link" ng-href="" ng-click="nextPage()"
+          ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
       </li>
     </ul>
   </nav>

@@ -33,26 +33,12 @@ myApp.controller(
 
     $scope.pageNumber = 0;
     $scope.pageSize = 20;
-    // $scope.fetchGiamGiaList = function () {
-    //   $http
-    //     .get(
-    //       "http://localhost:8080/api/v1/giam-gia/show?pageNumber=" +
-    //         $scope.pageNumber +
-    //         "&pageSize=" +
-    //         $scope.pageSize
-    //     )
-    //     .then(function (response) {
-    //       $scope.listGiamGia = response.data;
-    //     });
-    // };
 
-    // $scope.listSize = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
-    // $scope.selectedSize = null;
-    // $scope.pageNumber = 0;
-    // var id = $location.search().id;
-
+    $scope.searchQuery = "";
+    $scope.searchQuery2 = "";
+    $scope.searchQuery3 = "";
     function fetchGiamGiaList(trangThai, pageNumber) {
       var token = $window.localStorage.getItem("token");
 
@@ -64,7 +50,25 @@ myApp.controller(
       var url = `http://localhost:8080/api/v1/giam-gia/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
       if ($scope.searchQuery) {
-        url += `&giamgia=${$scope.searchQuery}`;
+        if (!isNaN($scope.searchQuery)) {
+          url += `&tenGiamGia=${$scope.searchQuery}`;
+        } else {
+          url += `&maGiamGia=${$scope.searchQuery}`;
+        }
+      }
+      if ($scope.searchQuery2) {
+        if (!isNaN($scope.searchQuery2)) {
+          url += `&maGiamGia=${$scope.searchQuery2}`;
+        } else {
+          url += `&tenGiamGia=${$scope.searchQuery2}`;
+        }
+      }
+      if ($scope.searchQuery3) {
+        if (!isNaN($scope.searchQuery3)) {
+          url += `&ngayBatDau=${$scope.searchQuery3}`;
+        } else {
+          url += `&ngayBatDau=${$scope.searchQuery3}`;
+        }
       }
 
       $http
@@ -92,7 +96,19 @@ myApp.controller(
       $scope.pageNumber++;
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+    $scope.searchKhach = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
+    $scope.onTrangThaiChange = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, "", "", "");
+    };
 
+    $scope.searchGiamGia = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
+    $scope.searchTenKhach = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
     $scope.refreshData = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
 
@@ -341,29 +357,6 @@ myApp.controller(
     $scope.fetchlistXuatXu();
 
     // Thêm hàm tìm kiếm
-    $scope.searchGiamGia = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key1 = $scope.startDate;
-      if (!key1) {
-        // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchDatebykey", {
-            params: { key1: key1 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
 
     $scope.searchKey = function () {
       var token = $window.localStorage.getItem("token");
@@ -678,7 +671,7 @@ myApp.controller(
     //       throw error;
     //     });
     // }
-
+    $scope.listOfPromotions = [];
     setTimeout(() => {
       $scope.themKhuyenMai = function () {
         Swal.fire({
@@ -791,7 +784,7 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                $scope.listGiamGia.push(response.data);
+                console.log(response.data);
                 Swal.fire({
                   position: "top-end",
                   icon: "success",

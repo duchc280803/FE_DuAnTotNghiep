@@ -59,7 +59,7 @@
       </div>
       <div class="col-lg-6" style="padding-left: 429px"></div>
       <div class="col-lg-6">
-        <input class="form-control" style="width: 800px" placeholder="Tìm hóa đơn" ng-model="kyHoaDonTaiQuay"
+        <input class="form-control" style="width: 800px" placeholder="Tìm kiếm hóa đơn" ng-model="kyHoaDonTaiQuay"
           ng-change="searchOrder(kyHoaDonTaiQuay)" />
       </div>
       <div class="col-lg-6" style="padding-left: 270px">
@@ -132,7 +132,7 @@
             </h5>
             <div class="row">
               <div class="col-lg-10">
-                <input style="width: 1030px" class="form-control" placeholder="Tìm sản phẩm" data-bs-toggle="modal"
+                <input style="width: 1030px" class="form-control" placeholder="Tìm kiếm sản phẩm" data-bs-toggle="modal"
                   data-bs-target="#exampleModal" />
               </div>
               <div class="col-lg-2" style="padding-left: 125px">
@@ -142,7 +142,9 @@
                   aria-hidden="true">
                   <div class="modal-dialog modal-lg" style="width: 448px; margin-left: 600px">
                     <div class="modal-content custom-modal-content">
-                      <div class="modal-header"></div>
+                      <div class="modal-header">
+                        <span class="card-title fw-semibold">Quét mã QR</span>
+                      </div>
                       <div class="modal-body">
                         <video id="preview"></video>
                       </div>
@@ -162,7 +164,7 @@
             </div>
             <div class="box" ng-if="listCart.length !== 0">
               <table class="table">
-                <thead>
+                <thead >
                   <tr style="background-color: lightskyblue">
                     <th scope="col">STT</th>
                     <th scope="col">Ảnh</th>
@@ -173,15 +175,15 @@
                     <th scope="col">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody ng-repeat="lc in listCart" style="border: 1px solid #ccc">
+                <tbody ng-repeat="lc in listCart" style="border: 1px solid #ccc" >
                   <tr>
-                    <th scope="row" style="padding-top: 80px">
-                      {{$index + 1 + (pageNumberSpTrongGio * pageSizeSpTrongGio)}}
-                    </th>
-                    <td>
-                      <img src="/assets/ảnh giày/{{lc.image}}" alt="" width="150px" />
+                    <th  class="align-middle"  scope="row">{{$index + 1 + (pageNumberSpTrongGio * pageSizeSpTrongGio)}}</th>
+                    <td class="align-middle">
+                      <div class="d-flex justify-content-center align-items-center" style="height: 150px;">
+                        <img src="/assets/ảnh giày/{{lc.image}}" alt="Ảnh sản phẩm" class="img-fluid" width="150px" />
+                      </div>
                     </td>
-                    <td style="padding-top: 50px">
+                    <td class="align-middle" style="vertical-align: middle;">
                       <span>{{lc.tenSanPham}}</span>
                       <br />
                       <span>Size: {{lc.size}}</span>
@@ -190,45 +192,45 @@
                       <br />
                       <span>Màu sắc: {{lc.mauSac}}</span>
                     </td>
-                    <td style="padding-top: 50px">
+                    <td class="align-middle" style="vertical-align: middle;">
                       <div class="quantity">
-                        <input style="margin-left: -40px; width: 70px" type="number"
-                          class="next-input text-left min-width-100px position-relative" ng-value="lc.soLuong"
-                          ng-model="soLuong" ng-change="updateCart(lc.idGioHang,soLuong, $index)" />
+                        <input style="width: 70px" type="number" class="next-input text-left min-width-100px position-relative"
+                          ng-value="lc.soLuong" ng-model="soLuong" ng-change="updateCart(lc.idGioHang, soLuong, $index)" />
                       </div>
                     </td>
-                    <td style="padding-top: 60px">
+                    <td class="align-middle" style="vertical-align: middle;">
                       <div ng-show="lc.giaBan != lc.giaGiam">
                         <span>{{lc.giaGiam.toLocaleString('vi-VN')}}đ</span>
-                        <span>
-                          <strike style="color: #dd2222">{{lc.giaBan.toLocaleString('vi-VN')}}đ</strike></span>
+                        <span><strike style="color: #dd2222">{{lc.giaBan.toLocaleString('vi-VN')}}đ</strike></span>
                       </div>
                       <div ng-show="lc.giaBan == lc.giaGiam">
-                        <span> {{lc.giaBan.toLocaleString('vi-VN')}}</span>
+                        <span> {{lc.giaBan.toLocaleString('vi-VN')}}đ</span>
                       </div>
                     </td>
-                    <td style="padding-top: 60px">
+                    <td class="align-middle" style="vertical-align: middle;">
                       <span>{{lc.tongTien.toLocaleString('vi-VN')}}đ</span>
                     </td>
-                    <td style="padding-top: 60px">
-                      <button class="btn btn-primary" ng-click="deleteProduct($index)">
-                        Xóa
-                      </button>
+                    <td class="align-middle" style="vertical-align: middle;">
+                      <button class="btn btn-primary" ng-click="deleteProduct($index)">Xóa</button>
                     </td>
                   </tr>
                 </tbody>
               </table>
+
+ 
+
+              
             </div>
             <nav aria-label="Page navigation example" style="margin-left: 520px" ng-if="listCart.length != 0">
               <ul class="pagination">
                 <li class="page-item" ng-show="pageNumberSpTrongGio > 0">
-                  <a class="page-link" href="" ng-click="previousPageSpTrongGio()">Previous</a>
+                  <a class="page-link" href="" ng-click="previousPageSpTrongGio()">Trước</a>
                 </li>
                 <li class="page-item">
                   <a class="page-link">{{pageNumberSpTrongGio + 1}}</a>
                 </li>
                 <li class="page-item" ng-show="showNextButtonSpInCart">
-                  <a class="page-link" href="" ng-click="nextPageSpTrongGio()">Next</a>
+                  <a class="page-link" href="" ng-click="nextPageSpTrongGio()">Sau</a>
                 </li>
               </ul>
             </nav>
@@ -237,16 +239,16 @@
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-header">
-                    <span>Tìm kiếm sản phẩm</span>
+                    <span class="card-title mb-9 fw-semibold">Tìm kiếm sản phẩm</span>
                   </div>
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-lg-8">
-                        <input ng-model="key" class="form-control" placeholder="Tìm sản phẩm" />
+                        <input ng-model="key" class="form-control" placeholder="Tìm kiếm sản phẩm" />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button ng-click="searchSanPham()" type="button" class="btn btn-primary">
-                          Tìm Kiếm
+                          Tìm kiếm
                         </button>
                         <button type="button" ng-click="lamMoiSanPhamTaiQuay()" class="btn btn-warning"
                           style="margin-left: 10px">
@@ -255,20 +257,20 @@
                       </div>
                     </div>
                     <br />
-                    <div class="row">
+                    <div class="row text-center">
                       <div class="form-group col-md-3">
                         <span>Thương hiệu:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="brand"
-                          ng-change="filterBrand()">
-                          <option value="">Tất cả</option>
-                          <option ng-repeat="th in listThuongHieu" value="{{th.tenThuongHieu}}">
-                            {{th.tenThuongHieu}}
-                          </option>
-                        </select>
+                        <select style="color: green" class="custom-select" ng-model="brand"
+                        ng-change="filterBrand()">
+                        <option value="">Tất cả</option>
+                        <option ng-repeat="th in listThuongHieu" value="{{th.tenThuongHieu}}">
+                          {{th.tenThuongHieu}}
+                        </option>
+                      </select>
                       </div>
                       <div class="form-group col-md-3">
                         <span>Danh mục:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="locCategory"
+                        <select style="color: green" class="custom-select" ng-model="locCategory"
                           ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
@@ -278,7 +280,7 @@
                       </div>
                       <div class="form-group col-md-3">
                         <span>Xuất xứ:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="locOrigin"
+                        <select style="color: green" class="custom-select" ng-model="locOrigin"
                           ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
@@ -288,7 +290,7 @@
                       </div>
                       <div class="form-group col-md-3">
                         <span>Kiểu đế:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="locSole"
+                        <select style="color: green" class="custom-select" ng-model="locSole"
                           ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
@@ -299,7 +301,7 @@
                       <div class="form-group col-md-4">
                         <br />
                         <span>Màu sắc:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="locMauSac"
+                        <select style="color: green" class="custom-select" ng-model="locMauSac"
                           ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
@@ -310,7 +312,7 @@
                       <div class="form-group col-md-4">
                         <br />
                         <span>Size:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="locSize"
+                        <select style="color: green" class="custom-select" ng-model="locSize"
                           ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="s in listSize" value="{{s.size}}">
@@ -321,7 +323,7 @@
                       <div class="form-group col-md-4">
                         <br />
                         <span>Chất liệu:</span>
-                        <select class="form-control select2" id="simple-select2" ng-model="locMaterial"
+                        <select style="color: green" class="custom-select" ng-model="locMaterial"
                           ng-change="filterBrand()">
                           <option value="">Tất cả</option>
                           <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
@@ -354,8 +356,8 @@
                               <span>{{$index + 1 + (pageNumberSp * pageSizeSp)}}</span>
                             </td>
                             <td>
-                              <div class="d-flex justify-content-center">
-                                <img src="/assets/ảnh giày/{{sptq.imgage}}" alt="..." class="img-fluid"
+                              <div class="d-flex justify-content-center ">
+                                <img src="/assets/ảnh giày/{{sptq.imgage}}" alt="Ảnh sản phẩm" class="img-fluid "
                                   style="max-width: 100px; max-height: 100px" />
                               </div>
                             </td>
@@ -420,13 +422,13 @@
                     ng-if="listSanPhamTaiQuay.length != 0">
                     <ul class="pagination">
                       <li class="page-item" ng-show="showPreviousButton">
-                        <a class="page-link" ng-click="previousPageSp()">Previous</a>
+                        <a class="page-link" ng-click="previousPageSp()">Trước</a>
                       </li>
                       <li class="page-item">
                         <a class="page-link">{{pageNumberSp + 1}}</a>
                       </li>
                       <li class="page-item" ng-show="showPreviousButton">
-                        <a class="page-link" ng-click="nextPageSp()">Next</a>
+                        <a class="page-link" ng-click="nextPageSp()">Sau</a>
                       </li>
                     </ul>
                   </nav>
@@ -461,23 +463,23 @@
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content custom-modal-content">
-                        <div class="modal-header">
-                          <span style="font-size: 20px;">Tìm kiếm Khách Hàng</span>
+                        <div class="modal-header card-title fw-semibold">
+                          <span >Tìm kiếm khách hàng</span>
                         </div>
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-lg-8">
-                              <input ng-model="searchKeyword" class="form-control" placeholder="Tìm khách hàng" />
+                              <input ng-model="searchKeyword" class="form-control" placeholder="Tìm kiếm khách hàng" />
                             </div>
                             <div class="col-lg-4 d-flex justify-content-start">
                               <button ng-click="searchKhach()" class="btn btn-primary">
-                                Tìm Kiếm
+                                Tìm kiếm
                               </button>
-                              <button type="button" ng-click="lamMoiKhachHang()" class="btn btn-primary"
+                              <button type="button" ng-click="lamMoiKhachHang()" class="btn btn-warning"
                                 style="margin-left: 10px">
                                 Làm mới
                               </button>
-                              <button style="margin-left: 10px" type="button" class="btn btn-primary"
+                              <button style="margin-left: 10px" type="button" class="btn btn-danger"
                                 data-bs-toggle="modal" data-bs-target="#exampleModal3">
                                 Thêm
                               </button>
@@ -491,11 +493,11 @@
                               <thead>
                                 <tr style="background-color: lightskyblue">
                                   <th scope="col">STT</th>
-                                  <th scope="col">Tên Khách Hàng</th>
+                                  <th scope="col">Tên khách hàng</th>
                                   <th scope="col">Email</th>
-                                  <th scope="col">Số Điện Thoại</th>
-                                  <th scope="col">Địa Chỉ</th>
-                                  <th scope="col">Thao Tác</th>
+                                  <th scope="col">Số điện thoại</th>
+                                  <th scope="col">Địa chỉ</th>
+                                  <th scope="col">Thao tác</th>
                                 </tr>
                               </thead>
                               <tbody ng-repeat="kh in listKhachHang">
@@ -520,13 +522,13 @@
                             ng-if="listKhachHang.length != 0">
                             <ul class="pagination">
                               <li class="page-item" ng-show="showNextButtonKhach">
-                                <a class="page-link" ng-click="previousPageKhach()">Previous</a>
+                                <a class="page-link" ng-click="previousPageKhach()">Trước</a>
                               </li>
                               <li class="page-item">
                                 <a class="page-link">{{pageNumberSp + 1}}</a>
                               </li>
                               <li class="page-item" ng-show="showNextButtonKhach">
-                                <a class="page-link" ng-click="nextPageKhach()">Next</a>
+                                <a class="page-link" ng-click="nextPageKhach()">Sau</a>
                               </li>
                             </ul>
                           </nav>
@@ -548,6 +550,9 @@
                           margin-left: 80px;
                           height: 500px;
                         ">
+                        <div class="modal-header card-title fw-semibold">
+                          <span style="font-size: 20px;">Thêm khách hàng</span>
+                        </div>                        
                         <div class="modal-body">
                           <div class="row">
                             <div class="col-lg-12">
@@ -659,13 +664,13 @@
                 <div class="col-lg-6">
                   <div>
                     <div class="row">
-                      <div class="col-lg-9">
-                        <input type="text" disabled class="form-control hidden-input" style="margin-left: -30px"
+                      <div class="col-lg-7">
+                        <input type="text" disabled class="form-control hidden-input"
                           ng-value="orderDetailCounter.tenKhach" placeholder="Vui lòng chọn/tạo hóa đơn" />
                       </div>
-                      <div class="col-lg-3">
+                      <div class="col-lg-5">
                         <a data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-primary">
-                          Chọn
+                           Chọn khách hàng
                         </a>
                       </div>
                     </div>
@@ -899,10 +904,10 @@
                       <div class="modal-dialog modal-lg">
                         <div class="modal-content custom-modal-content" style="width: 145%; margin-left: -140px">
                           <div class="modal-header">
-                            <span style="font-size: 20px;">Voucher</span>
+                            <span class="card-title fw-semibold">Voucher</span>
                           </div>
                           <div class="modal-header" style="height: 50px">
-                            <input class="form-control" style="margin-top: 20px" placeholder="Tìm voucher"
+                            <input class="form-control" style="margin-top: 20px" placeholder="Tìm kiếm voucher"
                               ng-model="searchKeyword" ng-change="searchOrder(searchKeyword)" />
                           </div>
                           <hr />
@@ -936,8 +941,8 @@
                                   <td>{{v.priceOrder.toLocaleString('vi-VN')}}đ</td>
                                   <td>{{v.soLuongDung}}/{{v.soLuong}}</td>
                                   <td>
-                                    {{v.dateStart | date:'MM/dd/yyyy h:mm:ss
-                                    a'}} - {{v.dateEnd | date:'MM/dd/yyyy
+                                    {{v.dateStart | date:'dd/MM/yyyy h:mm:ss
+                                    a'}} - {{v.dateEnd | date:'dd/MM/yyyy
                                     h:mm:ss a'}}
                                   </td>
                                   <td>
@@ -961,10 +966,12 @@
                   </div>
                   <div class="omni-layout-card--section-section">
                     <div class="omni-layout-card--item-stack-cover">
-                      <div class="omni-layout-card--item-stack fill">
-                        <span class="header-title">Giao hàng</span>
+                      <div class="omni-layout-card--item-stack fill" >
+                        <span class="header-title" >Giao hàng</span>
                       </div>
+
                       <div class="omni-layout-card--item-stack fill text-right">
+
                         <input ng-click="toggleInput()" type="checkbox" id="switch" />
                         <label for="switch"></label>
                       </div>
@@ -986,7 +993,7 @@
                       <div class="omni-layout-card--item-stack fill">
                         <span class="header-title">Phí vận chuyển</span>
                       </div>
-                      <div class="omni-layout-card--item-stack fill text-right">
+                      <div class="omni-layout-card--item-stack fill text-right" style="margin-top: 5px;">
                         <input type="text" ng-model="tienGiao" class="form-control hidden-input"
                           placeholder="Nhập tiền vận chuyển"
                           ng-change="autoAddVoucher((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao :0)))" />

@@ -32,6 +32,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/promotion/history", {
       templateUrl: "./pages/history-giam-gia-san-pham.html",
+      controller: "GiamGiaHistoryController",
+    })
+    .when("/promotion/product", {
+      templateUrl: "./pages/khuyen-mai-ap-dung.html",
       controller: "GiamGiaController",
     })
     .when("/promotion/update/:id", {
@@ -52,7 +56,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/voucher/history", {
       templateUrl: "./pages/voucher-history.html",
-      controller: "VoucherController",
+      controller: "VoucherHistoryController",
     })
     .when("/customer", {
       templateUrl: "./pages/khach-hang.html",
