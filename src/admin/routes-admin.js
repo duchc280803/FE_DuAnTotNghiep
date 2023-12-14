@@ -160,7 +160,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/hoa-don-history", {
       templateUrl: "./pages/hoa-don-history.html",
-      controller: "hoaDonController",
+      controller: "HoaDonHistoryController",
     })
     .when("/admin/login", {
       templateUrl: "./pages/login-admin.html",
