@@ -48,20 +48,13 @@ myApp.controller(
           url += `&searchUsername=${$scope.searchQuery}`;
         }
       }
-      //   if ($scope.searchQuery2) {
-      //     if (!isNaN($scope.searchQuery2)) {
-      //       url += `&maGiamGia=${$scope.searchQuery2}`;
-      //     } else {
-      //       url += `&tenGiamGia=${$scope.searchQuery2}`;
-      //     }
-      //   }
-      //   if ($scope.searchQuery3) {
-      //     if (!isNaN($scope.searchQuery3)) {
-      //       url += `&ngayBatDau=${$scope.searchQuery3}`;
-      //     } else {
-      //       url += `&ngayBatDau=${$scope.searchQuery3}`;
-      //     }
-      //   }
+      var searchQuery3 =
+        $scope.searchQuery3 instanceof Date
+          ? $scope.searchQuery3.toISOString().split("T")[0]
+          : null;
+      if (searchQuery3) {
+        url += `&specificDate=${searchQuery3}`;
+      }
 
       $http
         .get(url, config)
@@ -70,7 +63,7 @@ myApp.controller(
           console.log("Dữ liệu trả về: ", response.data);
 
           // Update currentPageNumber based on the response
-          $scope.currentPageNumber = response.data.number;
+          $scope.currenPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
         })
         .catch(function (error) {
@@ -98,13 +91,20 @@ myApp.controller(
     //   fetchGiamGiaList("");
     // };
 
-    // $scope.searchGiamGia = function () {
-    //   fetchGiamGiaList($scope.pageNumber);
-    // };
+    $scope.searchNgay = function () {
+      fetchGiamGiaList($scope.pageNumber);
+    };
 
     // $scope.searchTenKhach = function () {
     //   fetchGiamGiaList($scope.pageNumber);
     // };
     fetchGiamGiaList($scope.pageNumber);
+    $scope.formatMa = function (username) {
+      // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
+      if (username && username.includes(",")) {
+        return $sce.trustAsHtml(username.replace(/,/g, "<br>"));
+      }
+      return username;
+    };
   }
 );

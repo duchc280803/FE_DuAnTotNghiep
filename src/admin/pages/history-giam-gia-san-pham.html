@@ -5,9 +5,10 @@
     <hr />
     <div class="box">
         <div class="row" style="padding: 10px">
+            <label for="">Tìm Kiếm thời gian cụ thê</label>
             <div class="col-md-6">
-                <input type="datetime-local" class="form-control" ng-model="searchDate"
-                    ng-change="searchVouchersByDay()" />
+                <input type="datetime-local" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
+                    style="margin-top: 4px;" />
             </div>
             <div class="col-md-6">
                 <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Tên Đăng nhập"

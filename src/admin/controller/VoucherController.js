@@ -49,23 +49,39 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      $http
-        .get(
-          "http://localhost:8080/api/v1/voucher/show?pageNumber=" +
-            $scope.pageNumber +
-            "&pageSize=" +
-            $scope.pageSize,
-          config
-        )
-        .then(function (response) {
-          $scope.listVoucher = response.data;
-          // Kiểm tra số lượng trang và điều chỉnh hiển thị nút "Next"
-          if ($scope.listVoucher.length < $scope.pageSize) {
-            $scope.showNextButton = false; // Ẩn nút "Next"
-          } else {
-            $scope.showNextButton = true; // Hiển thị nút "Next"
-          }
-        });
+      var url =
+        "http://localhost:8080/api/v1/voucher/hien-thi" +
+        "?pageNumber=" +
+        $scope.pageNumber +
+        "&pageSize=" +
+        $scope.pageSize;
+
+      if ($scope.searchQuery) {
+        if (!isNaN($scope.searchQuery)) {
+          url += `&tenVoucher=${$scope.searchQuery}`;
+        } else {
+          url += `&maVoucher=${$scope.searchQuery}`;
+        }
+      }
+      if ($scope.searchQuery2) {
+        if (!isNaN($scope.searchQuery2)) {
+          url += `&maVoucher=${$scope.searchQuery2}`;
+        } else {
+          url += `&tenVoucher=${$scope.searchQuery2}`;
+        }
+      }
+      if ($scope.searchQuery3) {
+        url += `&trangThai=${$scope.searchQuery3}`;
+      }
+      $http.get(url, config).then(function (response) {
+        $scope.listVoucher = response.data;
+        // Kiểm tra số lượng trang và điều chỉnh hiển thị nút "Next"
+        if ($scope.listVoucher.length < $scope.pageSize) {
+          $scope.showNextButton = false; // Ẩn nút "Next"
+        } else {
+          $scope.showNextButton = true; // Hiển thị nút "Next"
+        }
+      });
     };
     $scope.formatMa = function (username) {
       // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
@@ -90,7 +106,30 @@ myApp.controller(
     };
 
     $scope.previousDate = null;
+    $scope.searchKhach = function () {
+      $scope.fetchVoucherList();
+    };
+    $scope.onTrangThaiChange = function () {
+      $scope.fetchVoucherList();
+    };
 
+    $scope.searchGiamGia = function () {
+      $scope.fetchVoucherList();
+    };
+    $scope.searchTenKhach = function () {
+      $scope.fetchVoucherList();
+    };
+    $scope.refresh = function () {
+      // Thực hiện các hành động cần thiết để làm mới dữ liệu
+      // Ví dụ: gọi các hàm search hoặc reset giá trị của các biến tìm kiếm
+      $scope.searchQuery = "";
+      $scope.searchQuery2 = "";
+      $scope.selectedTrangThai = "";
+      // Gọi các hàm search tương ứng nếu cần
+      $scope.searchKhach();
+      $scope.searchTenKhach();
+      $scope.onTrangThaiChange();
+    };
     function fetchVoucherHistortyList() {
       var token = $window.localStorage.getItem("token");
 
