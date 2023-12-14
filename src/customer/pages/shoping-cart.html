@@ -257,6 +257,14 @@
     margin-top: -15px;
     /* Điều chỉnh vị trí theo chiều dọc */
   }
+
+  .a_color {
+      color: black;
+    }
+
+    .a_color:hover {
+      color: black;
+    }
 </style>
 
 <body>
@@ -351,6 +359,20 @@
       </div>
     </div>
   </header>
+</section>
+<!-- <section class="hero hero-normal">
+  <div class="container">
+    <div class="row" style="background-color: #f8f9fa; height: 40px; margin-bottom: -150px;">
+
+      <div class="col-md-4 mt-2" style="font-style: italic;font-size: smaller;"> <a class="a_color"
+          href="/src/customer/index-customer.html#/home">TRANG CHỦ</a> 
+          / <a class="a_color" href="/src/customer/index-customer.html#/shop">SHOP</a>
+          / <a class="a_color" href="" style="font-weight: bolder;">THANH TOÁN</a>
+        </div>
+
+    </div>
+  </div>
+</section> -->
   <section class="shoping-cart spad">
     <div class="container">
       <div class="row">
@@ -512,45 +534,6 @@
             </p>
             <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
           </div>
-
-          <div class="checkout__input">
-            <p>Địa Chỉ<span>*</span></p>
-            <div class="row">
-              <div class="col-lg-4" style="margin-left: 0px;">
-                <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span><span
-                  ng-show="!isProvinceValid" style="color: red;"> (Chọn Tỉnh)</span>
-                <select class="form-control select2" ng-model="selectedProvince"
-                  ng-options="province.name for province in provinces" ng-change="getDistricts()">
-                  <option value="">Chọn tỉnh</option>
-                  <option ng-repeat="province in provinces" ng-model="thanhPho" value="{{province.name}}">
-                    {{province.name}}
-                  </option>
-                </select>
-              </div>
-              <div class="col-lg-4">
-                <span class="header-title"><span style="color: red">*</span>
-                  <span>Huyện</span></span><span ng-show="!isDistrictValid" style="color: red;"> (Chọn Huyện)</span>
-                <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
-                  ng-options="district.name for district in districts" ng-change="getWards()">
-                  <option value="">Chọn huyện</option>
-                  <option ng-repeat="district in districts" ng-model="quanHuyen" value="{{district.name}}">
-                    {{district.name}}
-                  </option>
-                </select>
-              </div>
-              <div class="col-lg-4">
-                <span class="header-title"><span style="color: red">*</span>
-                  <span>Phường</span></span><span ng-show="!isWardValid" style="color: red;"> (Chọn xã)</span>
-                <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
-                  ng-options="ward.name for ward in wards">
-                  <option value="">Chọn phường</option>
-                  <option ng-repeat="ward in wards" ng-model="phuongXa" value="{{ward.name}}">
-                    {{ward.name}}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
           <div class="checkout__input">
             <p>Địa chỉ cụ thể<span>*</span> <span ng-show="!isDiaChiValid" style="color: red;">(Vui lòng nhập địa chỉ cụ
                 thể)</span></p>
@@ -691,7 +674,6 @@
       </div>
     </div>
     <!-- close modal  -->
-  </section>
    <!-- Footer Section Begin -->
    <footer class="footer spad" style="background-color:white;">
     <div class="container">

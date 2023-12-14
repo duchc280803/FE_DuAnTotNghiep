@@ -15,9 +15,9 @@ myAppCustom.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/san-pham-giam-gia/show?pageNumber=" +
-            $scope.pageNumber +
-            "&pageSize=" +
-            $scope.pageSize
+          $scope.pageNumber +
+          "&pageSize=" +
+          $scope.pageSize
         )
         .then(function (response) {
           $scope.listSanPhamShop = response.data;
@@ -80,11 +80,11 @@ myAppCustom.controller(
         $http
           .get(
             "http://localhost:8080/api/v1/san-pham-giam-gia/filter-category?pageNumber=" +
-              $scope.pageNumber +
-              "&pageSize=" +
-              $scope.pageSize +
-              "&id=" +
-              $scope.locDanhMuc
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locDanhMuc
           )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
@@ -111,11 +111,11 @@ myAppCustom.controller(
         $http
           .get(
             "http://localhost:8080/api/v1/san-pham-giam-gia/filter-brand?pageNumber=" +
-              $scope.pageNumber +
-              "&pageSize=" +
-              $scope.pageSize +
-              "&id=" +
-              $scope.locBrand
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locBrand
           )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
@@ -142,11 +142,11 @@ myAppCustom.controller(
         $http
           .get(
             "http://localhost:8080/api/v1/san-pham-giam-gia/filter-sole?pageNumber=" +
-              $scope.pageNumber +
-              "&pageSize=" +
-              $scope.pageSize +
-              "&id=" +
-              $scope.locKieuDe
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locKieuDe
           )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
@@ -171,11 +171,11 @@ myAppCustom.controller(
         $http
           .get(
             "http://localhost:8080/api/v1/san-pham-giam-gia/filter-origin?pageNumber=" +
-              $scope.pageNumber +
-              "&pageSize=" +
-              $scope.pageSize +
-              "&id=" +
-              $scope.locXuatXu
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize +
+            "&id=" +
+            $scope.locXuatXu
           )
           .then(function (response) {
             $scope.listSanPhamShop = response.data;
@@ -271,18 +271,22 @@ myAppCustom.controller(
     $scope.getListXuatXu();
 
     function loadCart() {
-      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+      if (idgh) {
+              // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
       var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
-        idgh;
+      "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
+      idgh;
 
-      $http.get(apiURL).then(function (response) {
-        $scope.products = response.data; // Dữ liệu sản phẩm từ API
-        $window.localStorage.setItem(
-          "listCart",
-          $scope.products.map((item) => item.id)
-        );
-      });
+    $http.get(apiURL).then(function (response) {
+      $scope.products = response.data; // Dữ liệu sản phẩm từ API
+      $window.localStorage.setItem(
+        "listCart",
+        $scope.products.map((item) => item.id)
+      );
+    });
+      }
+
+
     }
     loadCart();
     //delete product
@@ -313,33 +317,41 @@ myAppCustom.controller(
       });
     };
     function loadToTals() {
-      // Gọi API và cập nhật giá trị totalAmount
+      if (idgh) {
+              // Gọi API và cập nhật giá trị totalAmount
 
       $http
-        .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-            idgh
-        )
-        .then(function (response) {
-          // Lấy giá trị tổng tiền từ phản hồi API
-          $scope.totalAmount = response.data[0].tongSoTien;
-          $window.localStorage.setItem("totalAmount", $scope.totalAmount);
-        })
-        .catch(function (error) {
-          console.error("Lỗi khi gọi API: " + error);
-        });
+      .get(
+        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
+        idgh
+      )
+      .then(function (response) {
+        // Lấy giá trị tổng tiền từ phản hồi API
+        $scope.totalAmount = response.data[0].tongSoTien;
+        $window.localStorage.setItem("totalAmount", $scope.totalAmount);
+      })
+      .catch(function (error) {
+        console.error("Lỗi khi gọi API: " + error);
+      });
+      }
+
+
     }
     loadToTals();
 
     function loadQuanTiTy() {
-      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-      var apiURL =
-        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
-        idgh;
+      if (idgh) {
+        // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+        var apiURL =
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
+          idgh;
 
-      $http.get(apiURL).then(function (response) {
-        $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
-      });
+        $http.get(apiURL).then(function (response) {
+          $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
+        });
+      }
+
+
     }
 
     loadQuanTiTy();
