@@ -369,15 +369,15 @@
       </table>
     </div>
     <div class="col-lg-12">
-      <nav aria-label="Page navigation example" style="margin-left: 480px;">
+      <nav aria-label="Page navigation example" style="margin-left: 480px;" ng-show="listKhachHang.length != 0">
         <ul class="pagination">
-          <li class="page-item">
+          <li class="page-item" ng-show="pageNumber > 0">
             <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
-          <li class="page-item">
+          <li class="page-item" ng-show="showNextButton">
             <a class="page-link" ng-href="" ng-click="nextPage()"
               ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
           </li>
