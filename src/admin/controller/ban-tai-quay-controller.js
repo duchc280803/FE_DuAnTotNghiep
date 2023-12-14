@@ -1774,7 +1774,7 @@ myApp.controller(
       tienGiamGiaTaiQuay +
       ($scope.tienGiao ? +$scope.tienGiao : 0);
     $scope.loadVouchers();
-
+    console.log(tongTienTaiQuay);
     $scope.voucherResponse = {};
     $scope.getVoucherResponse = function () {
       var token = $window.localStorage.getItem("token");
@@ -1901,7 +1901,7 @@ myApp.controller(
                 "&idVoucher=" +
                 idVoucher +
                 "&thanhTien=" +
-                totalOrderValue,
+                tongTienTaiQuay,
               null,
               config // Truyền thông tin token qua config
             )
