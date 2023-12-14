@@ -153,11 +153,12 @@ myAppCustom.controller(
                       title: "Success",
                       text: "Xóa thành công",
                       icon: "success",
-                      position: "bottom-start", // Đặt vị trí ở góc trái
-                      toast: true, // Hiển thị thông báo nhỏ
-                      showConfirmButton: false, // Ẩn nút xác nhận
-                      timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
+                      position: "top-end",
+                      toast: true,
+                      showConfirmButton: false,
+                      timer: 1500,
                     });
+                    
                     localStorage.removeItem("idgiohang");
                     localStorage.removeItem("idVoucher");
                     localStorage.removeItem("giatrigiam");
@@ -312,46 +313,6 @@ myAppCustom.controller(
         }
       );
     }
-
-    // API ĐỊA CHỈ
-    $scope.provinces = [];
-    $scope.districts = [];
-    $scope.wards = [];
-
-    $scope.getTinh = function () {
-      $http
-        .get("https://provinces.open-api.vn/api/?depth=1")
-        .then(function (response) {
-          $scope.provinces = response.data;
-        });
-    };
-
-    $scope.getTinh();
-
-    $scope.getDistricts = function () {
-      $http
-        .get(
-          "https://provinces.open-api.vn/api/p/" +
-          $scope.selectedProvince.code +
-          "?depth=2"
-        )
-        .then(function (response) {
-          $scope.districts = response.data.districts;
-        });
-    };
-
-    $scope.getWards = function () {
-      $http
-        .get(
-          "https://provinces.open-api.vn/api/d/" +
-          $scope.selectedDistrict.code +
-          "?depth=2"
-        )
-        .then(function (response) {
-          $scope.wards = response.data.wards;
-        });
-    };
-
     var idGiamGiaVoucher = $window.localStorage.getItem("idVoucher");
 
     // Kiểm tra xem có voucher được chọn không
@@ -391,9 +352,6 @@ myAppCustom.controller(
     $scope.isDiaChiValid = true;
     $scope.isSoDienThoaiValid = true;
     $scope.isEmailValid = true;
-    $scope.isProvinceValid = true;
-    $scope.isDistrictValid = true;
-    $scope.isWardValid = true;
 
     $scope.isSoDienThoaiFormat = true;
     $scope.isEmailFormat = true;
@@ -417,10 +375,6 @@ myAppCustom.controller(
       $scope.isSoDienThoaiValid = !!$scope.soDienThoai;
       $scope.isEmailValid = !!$scope.email;
       $scope.isDiaChiValid = !!$scope.diaChi;
-      $scope.isProvinceValid = !!$scope.selectedProvince;
-      $scope.isDistrictValid = !!$scope.selectedDistrict;
-      $scope.isWardValid = !!$scope.selectedWard;
-
       if ($scope.soDienThoai) {
         $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat(
           $scope.soDienThoai
@@ -434,10 +388,7 @@ myAppCustom.controller(
         !$scope.isHoTenValid ||
         !$scope.isSoDienThoaiValid ||
         !$scope.isEmailValid ||
-        !$scope.isDiaChiValid ||
-        !$scope.isProvinceValid ||
-        !$scope.isDistrictValid ||
-        !$scope.isWardValid
+        !$scope.isDiaChiValid
       ) {
         Swal.fire({
           title: "Warning",
@@ -466,9 +417,6 @@ myAppCustom.controller(
               soDienThoai: $scope.soDienThoai,
               email: $scope.email,
               diaChi: $scope.diaChi,
-              thanhPho: $scope.selectedProvince.name,
-              quanHuyen: $scope.selectedDistrict.name,
-              phuongXa: $scope.selectedWard.name,
               tienKhachTra: $scope.tienKhachTra,
               gioHangChiTietList: gioHangChiTietList,
               idGiamGia: idGiamGiaVoucher,
@@ -567,10 +515,6 @@ myAppCustom.controller(
       $scope.isSoDienThoaiValid = !!$scope.soDienThoai;
       $scope.isEmailValid = !!$scope.email;
       $scope.isDiaChiValid = !!$scope.diaChi;
-      $scope.isProvinceValid = !!$scope.selectedProvince;
-      $scope.isDistrictValid = !!$scope.selectedDistrict;
-      $scope.isWardValid = !!$scope.selectedWard;
-
       if ($scope.soDienThoai) {
         $scope.isSoDienThoaiFormat = validateSoDienThoaiFormat(
           $scope.soDienThoai
@@ -584,10 +528,7 @@ myAppCustom.controller(
         !$scope.isHoTenValid ||
         !$scope.isSoDienThoaiValid ||
         !$scope.isEmailValid ||
-        !$scope.isDiaChiValid ||
-        !$scope.isProvinceValid ||
-        !$scope.isDistrictValid ||
-        !$scope.isWardValid
+        !$scope.isDiaChiValid
       ) {
         Swal.fire({
           title: "Warning",
@@ -616,9 +557,6 @@ myAppCustom.controller(
               soDienThoai: $scope.soDienThoai,
               email: $scope.email,
               diaChi: $scope.diaChi,
-              thanhPho: $scope.selectedProvince.name,
-              quanHuyen: $scope.selectedDistrict.name,
-              phuongXa: $scope.selectedWard.name,
               tienKhachTra: $scope.tienKhachTra,
               gioHangChiTietList: gioHangChiTietList,
               idGiamGia: idGiamGiaVoucher,
@@ -745,7 +683,7 @@ myAppCustom.controller(
           title: "Thành công",
           text: "Đã áp dụng voucher",
           icon: "success",
-          position: "bottom-start", // Đặt vị trí ở góc trái
+          position: "top-end", // Đặt vị trí ở góc trái
           toast: true, // Hiển thị thông báo nhỏ
           showConfirmButton: false, // Ẩn nút xác nhận
           timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
@@ -755,7 +693,7 @@ myAppCustom.controller(
           title: "Sorry",
           text: "Giá trị đơn hàng chưa đủ ",
           icon: "error",
-          position: "bottom-start", // Đặt vị trí ở góc trái
+          position: "top-end", // Đặt vị trí ở góc trái
           toast: true, // Hiển thị thông báo nhỏ
           showConfirmButton: false, // Ẩn nút xác nhận
           timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
