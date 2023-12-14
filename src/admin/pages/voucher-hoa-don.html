@@ -1,36 +1,37 @@
 <div class="card overflow-hidden" style="min-height: 120px">
-  <div class="box">
-    <div class="row" style="padding-top: 25px; padding-left: 60px">
-      <!-- HTML Template -->
-      <div class="col-md-2">
-        <span style="height: 7px; margin-left: -40px; font-weight: bold">
-          Tìm kiếm
-        </span>
-        <input class="form-control" placeholder="Tìm theo mã & tên voucher" ng-model="key" ng-change="searchKey()"
-          style="width: 220px; margin-left: -42px; font-weight: bold" />
-      </div>
-      <div class="col-md-3 d-flex justify-content-start" style="padding-top: 20px;">
-        <span class="text" style="padding-top: 10px">Trạng thái:</span>
-        <select style="width: 150px; height: 40px; margin-left: 10px" class="form-control select2" ng-model="trangThai"
-          ng-change="searchStatus()" id="simple-select2">
-          <option value="">Tất cả</option>
-          <option value="1">Còn hạn </option>
-          <option value="2">Hết hạn</option>
-        </select>
-      </div>
-      <div class="col-md-7" style="margin-top: 20px;">
-        <button class="btn btn-warning" style="height: 39px; margin-left: 10px">
-          Làm mới
-        </button>
-        <a href="#/voucher/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
-          Lịch sử thao tác
-        </a>
-        <a href="#/voucher/create" class="btn btn-primary" style="text-decoration: none; height: 39px">
-          Thêm voucher
-        </a>
-      </div>
+  <div class="box" style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
+      <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Mã voucher"
+        style="margin-top: 4px;" />
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
+      <input class="form-control" ng-model="searchQuery2" ng-change="searchTenKhach()" placeholder="Tên voucher"
+        style="margin-top: 4px;" />
+    </div>
+
+    <div class="col-lg-4">
+      <label class="form-label" style="margin-top: 11px;padding-left: 50px;">Trạng thái :</label>
+      <select style="color: green" class="custom-select" ng-model="searchQuery3" ng-change="onTrangThaiChange()">
+        <option value="">Tất cả</option>
+        <option value="1">Còn Hạn</option>
+        <option value="2">Hết Hạn</option>
+        <option value="3">Hết Lần Sử Dụng</option>
+      </select>
+    </div>
+    <div class="col-md-7" style="margin-top: 20px;">
+      <button class="btn btn-warning" style="height: 39px; margin-right: 100px;" ng-click="refresh()">
+        Làm mới
+      </button>
+      <a href="#/voucher/history" class="btn btn-danger"
+        style="text-decoration: none; height: 39px; margin-right: 100px;">
+        Lịch sử thao tác
+      </a>
+      <a href="#/voucher/create" class="btn btn-primary" style="text-decoration: none; height: 39px;">
+        Thêm voucher
+      </a>
     </div>
   </div>
+
 </div>
 <div class="card overflow-hidden">
   <div class="box">
@@ -80,15 +81,14 @@
   </div>
   <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
     <ul class="pagination">
-      <li class="page-item">
+      <li class="page-item" ng-show="pageNumber > 0">
         <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
       </li>
       <li class="page-item">
         <a class="page-link">{{ pageNumber + 1 }}</a>
       </li>
-      <li class="page-item">
-        <a class="page-link" ng-href="" ng-click="nextPage()"
-          ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+      <li class="page-item" ng-show="showNextButton">
+        <a class="page-link" ng-href="" ng-click="nextPage()">Next</a>
       </li>
     </ul>
   </nav>
