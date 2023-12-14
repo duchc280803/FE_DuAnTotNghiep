@@ -160,7 +160,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "hủy thành công",
+                  title: "Hủy thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
