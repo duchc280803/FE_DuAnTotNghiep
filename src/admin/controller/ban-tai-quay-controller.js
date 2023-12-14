@@ -271,6 +271,8 @@ myApp.controller(
     // TODO: show sản phẩm trong giỏ hảng
     $scope.pageNumberSpTrongGio = 0;
     $scope.pageSizeSpTrongGio = 3;
+    $scope.listCart = [];
+
     $scope.listSanPhamInCart = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -279,6 +281,7 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
+
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
@@ -298,6 +301,50 @@ myApp.controller(
           }
         });
     };
+    // $scope.listSanPhamInCart = function () {
+    //   var token = $window.localStorage.getItem("token");
+
+    //   var config = {
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   };
+
+    //   $scope.tongTienHang = 0; // Đặt lại tổng tiền hàng về 0 trước khi tính lại
+
+    //   function getTotalPrice(pageNumber) {
+    //     $http
+    //       .get(
+    //         "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
+    //           idKhach +
+    //           "&pageNumber=" +
+    //           pageNumber +
+    //           "&pageSize=" +
+    //           $scope.pageSizeSpTrongGio,
+    //         config
+    //       )
+    //       .then(function (response) {
+    //         $scope.listCart = response.data;
+    //         console.log($scope.listCart);
+    //         for (var i = 0; i < $scope.listCart.length; i++) {
+    //           $scope.tongTienHang +=
+    //             $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
+    //         }
+
+    //         if ($scope.listCart.length === $scope.pageSizeSpTrongGio) {
+    //           getTotalPrice(pageNumber + 1); // Nếu còn trang tiếp theo, tiếp tục lấy dữ liệu
+    //         } else {
+    //           $window.localStorage.setItem(
+    //             "tongTienHangTaiQuay",
+    //             $scope.tongTienHang
+    //           );
+    //           console.log($scope.tongSoLuongSanPham);
+    //         }
+    //       });
+    //   }
+
+    //   getTotalPrice(0); // Bắt đầu tính từ trang đầu tiên
+    // };
 
     $scope.listSanPhamTienInCart = function () {
       var token = $window.localStorage.getItem("token");
