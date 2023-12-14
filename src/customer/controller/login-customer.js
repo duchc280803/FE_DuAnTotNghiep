@@ -42,6 +42,7 @@ myAppCustom.controller(
       // Xóa token khỏi localStorage
       $window.localStorage.removeItem("token-customer");
       $window.localStorage.removeItem("username"); // Xóa tên người dùng khi đăng xuất
+      $window.localStorage.removeItem("role"); // Xóa tên người dùng khi đăng xuất
       $scope.isLoggedIn = false;
       $scope.loggedInUsername = ""; // Đặt giá trị về rỗng khi đăng xuất
     };

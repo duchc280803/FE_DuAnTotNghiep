@@ -23,14 +23,14 @@
       </select>
     </div>
     <div class="col-lg-4" style="width: 700px; padding-right: 50px;">
-      <span>Tìm theo ngày bắt đầu</span>
-      <input type="datetime-local" class="form-control" ng-model="searchQuery3" ng-change="searchGiamGia()"
+      <label>Tìm theo ngày bắt đầu</label>
+      <input type="datetime-local" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
         style="margin-top: 4px;" />
     </div>
   </div>
   <div class="row" style="padding: 10px;">
     <div class="col-lg-2">
-      <button class="btn btn-primary" ng-click="refreshData()">
+      <button class="btn btn-primary" ng-click="refresh()">
         Làm mới
       </button>
 

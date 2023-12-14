@@ -63,12 +63,12 @@ myApp.controller(
           url += `&tenGiamGia=${$scope.searchQuery2}`;
         }
       }
-      if ($scope.searchQuery3) {
-        if (!isNaN($scope.searchQuery3)) {
-          url += `&ngayBatDau=${$scope.searchQuery3}`;
-        } else {
-          url += `&ngayBatDau=${$scope.searchQuery3}`;
-        }
+      var searchQuery3 =
+        $scope.searchQuery3 instanceof Date
+          ? $scope.searchQuery3.toISOString().split("T")[0]
+          : null;
+      if (searchQuery3) {
+        url += `&startDate=${searchQuery3}`;
       }
 
       $http
@@ -102,29 +102,28 @@ myApp.controller(
     $scope.searchKhach = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
-
+    $scope.searchNgay = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
     $scope.onTrangThaiChange = function () {
       fetchGiamGiaList($scope.selectedTrangThai, "", "", "");
-    };
-
-    $scope.searchGiamGia = function () {
-      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
 
     $scope.searchTenKhach = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
-
-    $scope.refreshData = function () {
-      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
-
-      // Clear text input fields
-      $scope.key2 = "";
-      $scope.key = "";
-      $scope.key3 = "";
-      $scope.startDate = "";
-
-      // Add any additional logic if needed
+    $scope.refresh = function () {
+      // Thực hiện các hành động cần thiết để làm mới dữ liệu
+      // Ví dụ: gọi các hàm search hoặc reset giá trị của các biến tìm kiếm
+      $scope.searchQuery = "";
+      $scope.searchQuery2 = "";
+      $scope.selectedTrangThai = "";
+      $scope.searchQuery3 = "";
+      // Gọi các hàm search tương ứng nếu cần
+      $scope.searchKhach();
+      $scope.searchNgay();
+      $scope.searchTenKhach();
+      $scope.onTrangThaiChange();
     };
 
     $scope.formatMa = function (username) {

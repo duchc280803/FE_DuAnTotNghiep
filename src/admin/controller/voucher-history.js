@@ -106,5 +106,12 @@ myApp.controller(
     //   fetchGiamGiaList($scope.pageNumber);
     // };
     fetchGiamGiaList($scope.pageNumber);
+    $scope.formatMa = function (username) {
+      // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
+      if (username && username.includes(",")) {
+        return $sce.trustAsHtml(username.replace(/,/g, "<br>"));
+      }
+      return username;
+    };
   }
 );
