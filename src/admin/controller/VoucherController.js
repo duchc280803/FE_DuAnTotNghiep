@@ -76,13 +76,6 @@ myApp.controller(
     };
     $scope.fetchVoucherList();
 
-    // TODO: updatePage
-    $scope.updatePage = function (pageNumber) {
-      $scope.pageNumber = pageNumber;
-      $scope.fetchVoucherList();
-    };
-
-    // TODO: Quay lại trang
     $scope.previousPage = function () {
       if ($scope.pageNumber > 0) {
         $scope.pageNumber--;
