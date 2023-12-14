@@ -29,7 +29,13 @@ myApp.controller(
     $scope.searchQuery = "";
     $scope.searchQuery2 = "";
     $scope.searchQuery3 = "";
+    function formatDateForBackend(date) {
+      var day = date.getDate();
+      var month = date.getMonth() + 1; // Tháng bắt đầu từ 0
+      var year = date.getFullYear();
 
+      return `${day}/${month}/${year}`;
+    }
     function fetchGiamGiaList(pageNumber) {
       var token = $window.localStorage.getItem("token");
 
@@ -40,7 +46,7 @@ myApp.controller(
       };
 
       var url = `http://localhost:8080/api/v1/audilog/khuyenmai?page=${pageNumber}`;
-
+      console.log(url);
       if ($scope.searchQuery) {
         if (!isNaN($scope.searchQuery)) {
           url += `&searchUsername=${$scope.searchQuery}`;
@@ -50,17 +56,20 @@ myApp.controller(
       }
       var searchQuery3 =
         $scope.searchQuery3 instanceof Date
-          ? $scope.searchQuery3.toISOString().split("T")[0]
+          ? new Date($scope.searchQuery3.getTime() + 86400000) // Thêm 1 ngày (1 ngày = 86400000 milliseconds)
           : null;
+
       if (searchQuery3) {
-        url += `&specificDate=${searchQuery3}`;
+        var formattedDate = searchQuery3.toISOString().split("T")[0];
+        url += `&startDate=${formattedDate}&endDate=${formattedDate}`;
       }
+
+      console.log(searchQuery3);
 
       $http
         .get(url, config)
         .then(function (response) {
           $scope.listVoucherHistory = response.data;
-          console.log("Dữ liệu trả về: ", response.data);
 
           // Update currentPageNumber based on the response
           $scope.currenPageNumber = response.data.number;
@@ -95,6 +104,12 @@ myApp.controller(
       fetchGiamGiaList($scope.pageNumber);
     };
 
+    $scope.searchNgayBatDau = function () {
+      fetchGiamGiaList($scope.pageNumber);
+    };
+    $scope.searchKetThuc = function () {
+      fetchGiamGiaList($scope.pageNumber);
+    };
     // $scope.searchTenKhach = function () {
     //   fetchGiamGiaList($scope.pageNumber);
     // };

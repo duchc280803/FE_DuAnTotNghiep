@@ -13,9 +13,9 @@
       <label class="form-label" style="margin-top: 11px;padding-left: 50px;">Trạng thái :</label>
       <select style="color: green" class="custom-select" ng-model="searchQuery3" ng-change="onTrangThaiChange()">
         <option value="">Tất cả</option>
-        <option value="1">Còn Hạn</option>
-        <option value="2">Hết Hạn</option>
-        <option value="3">Hết Lần Sử Dụng</option>
+        <option value="1">Đang hoạt động</option>
+        <option value="2">Ngừng hoạt động</option>
+        <option value="3">Sắp diễn ra</option>
       </select>
     </div>
     <div class="col-md-7" style="margin-top: 20px;">
@@ -52,6 +52,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr ng-if="listVoucher.length === 0">
+          <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
+        </tr>
         <tr ng-repeat="gg in listVoucher">
           <td>{{$index + 1}}</td>
           <td>{{gg.maVoucher}}</td>
@@ -67,7 +70,7 @@
             {{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss a'}} - {{gg.ngayKetThuc
             | date:'dd/MM/yyyy HH:mm:ss a'}}
           </td>
-          <td>{{gg.trangThai == 1 ? 'Còn hạn':'Hết hạn'}}</td>
+          <td>{{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}</td>
           <td>
             <a href="#/voucher/update/{{gg.id}}" class="btn btn-primary">Sửa</a>
             <a class="btn btn-primary" ng-click="updateVoucherStatus(gg.id, $event)">
