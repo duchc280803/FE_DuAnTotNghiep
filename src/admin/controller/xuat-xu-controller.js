@@ -1,6 +1,6 @@
 myApp.controller(
   "xuatXuController",
-  function ($http, $scope, $location, $window, $sce) {
+  function ($http, $scope, $location, $window) {
     var role = $window.localStorage.getItem("role");
     if (role === "USER") {
       Swal.fire({
@@ -232,6 +232,15 @@ myApp.controller(
     }, 2000);
 
     $scope.newXuatXu = {};
+    $scope.checkTen = function (name) {
+      var token = $window.localStorage.getItem("token");
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+    };
+
     setTimeout(() => {
       $scope.createXuatXu = function () {
         Swal.fire({
@@ -246,8 +255,19 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
+            $scope.checkXX = [];
+            $http
+              .get(
+                "http://localhost:8080/api/v1/xuat-xu/check?name=" +
+                  $scope.newXuatXu.tenXuatXu,
+                config
+              )
+              .then(function (response) {
+                $scope.checkXX = response.data;
+                console.log($scope.checkXX);
+              });
+            
             var token = $window.localStorage.getItem("token");
-
             var config = {
               headers: {
                 Authorization: "Bearer " + token,
@@ -275,8 +295,16 @@ myApp.controller(
                 });
               })
               .catch(function (error) {
-                $scope.errorTenXuatXu = error.data.tenXuatXu;
-                $scope.errortrangThai = error.data.trangThai;
+                console.log(error.data);
+                if (error.data && error.data.tenXuatXu) {
+                  $scope.errorTenXuatXu = error.data.tenXuatXu;
+                }
+                if (error.data && error.data.trangThai) {
+                  $scope.errortrangThai = error.data.trangThai;
+                }
+                if (error.data && error.data.message) {
+                  $scope.errorMessage = error.data.message;
+                }
               });
           }
         });
