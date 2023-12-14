@@ -1,4 +1,8 @@
-var idgh = localStorage.getItem("idgiohang");
+var role = localStorage.getItem("role");
+console.log(role);
+if(role == null){
+  var idgh = localStorage.getItem("idgiohang");
+}
 myAppCustom.controller(
   "CartController",
   function ($scope, $http, $window, $location, $route, $routeParams) {
@@ -252,9 +256,6 @@ myAppCustom.controller(
     $scope.soDienThoai = "";
     $scope.email = "";
     $scope.diaChi = "";
-    $scope.thanhPho = "";
-    $scope.quanHuyen = "";
-    $scope.phuongXa = "";
     $scope.tongTien = 0; // Để tránh lỗi nếu không có giá trị tổng tiền
     $scope.tienKhachTra = 0; // Để tránh lỗi nếu không có giá trị tiền khách trả
     $scope.gioHangChiTietList = $scope.gioHangChiTietList;
