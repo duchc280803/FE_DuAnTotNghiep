@@ -159,7 +159,10 @@
 
             <br />
             <div ng-if="listCart.length === 0">
-              <img src="/assets/images/empty-cart.png" alt="" width="200px" style="margin-left: 430px" />
+              <div class="text-center">
+                <img src="/assets/images/empty_cart.png" alt="Empty Cart" class="mx-auto">
+                <p class="mb-0 mt-3">Không có sản phẩm trong giỏ.</p>
+              </div>
             </div>
             <div class="box" ng-if="listCart.length !== 0">
               <table class="table">
