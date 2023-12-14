@@ -842,7 +842,8 @@
                                             </div>
                                             <div class="col-lg-3">
                                               <span class="header-title">
-                                                {{ tienCuoiCungCuaDon.toLocaleString('vi-VN')}}đ
+                                                {{ (tienCuoiCungCuaDon + (tienGiao ? + tienGiao
+                                                :0)).toLocaleString('vi-VN')}}đ
                                               </span>
                                             </div>
                                           </div>
