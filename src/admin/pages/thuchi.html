@@ -83,7 +83,7 @@
           <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
         </tr>
         <tr ng-repeat="hd in listHoaDon | filter: {trangThai: 1, loaiDon: 'ONLINE'}">
-          <th>{{$index + 1}}</th>
+          <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
@@ -102,14 +102,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButtonSpInCart">
             <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
-              Sau
+              <img src="/assets/images/chevron-right.svg" height="15px" alt="">
             </a>
           </li>
         </ul>
@@ -136,7 +136,7 @@
           <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
         </tr>
         <tr ng-repeat="hd in listHoaDon">
-          <th>{{$index + 1}}</th>
+          <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
@@ -148,8 +148,8 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
-              type="button" class="btn btn-primary m-1">
+            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+              ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
           </td>
@@ -160,14 +160,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButtonSpInCart">
             <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
-              Sau
+              <img src="/assets/images/chevron-right.svg" height="15px" alt="">
             </a>
           </li>
         </ul>
@@ -194,7 +194,7 @@
           <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
         </tr>
         <tr ng-repeat="hd in listHoaDon">
-          <th>{{$index + 1}}</th>
+          <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
@@ -208,8 +208,8 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
-              type="button" class="btn btn-primary m-1">
+            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+              ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
           </td>
@@ -220,14 +220,15 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg"
+                height="15px" alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButtonSpInCart">
             <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
-              Sau
+              <img src="/assets/images/chevron-right.svg" height="15px" alt="">
             </a>
           </li>
         </ul>
@@ -254,7 +255,7 @@
           <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
         </tr>
         <tr ng-repeat="hd in listHoaDon">
-          <th>{{$index + 1}}</th>
+          <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
@@ -268,8 +269,8 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
-              type="button" class="btn btn-primary m-1">
+            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+              ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
           </td>
@@ -280,14 +281,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
+            <img src="/assets/images/chevron-left.svg" height="15px" alt="">
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButtonSpInCart">
             <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
-              Sau
+              <img src="/assets/images/chevron-right.svg" height="15px" alt="">
             </a>
           </li>
         </ul>
@@ -314,7 +315,7 @@
           <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
         </tr>
         <tr ng-repeat="hd in listHoaDon">
-          <th>{{$index + 1}}</th>
+          <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
@@ -328,8 +329,8 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien" ng-click="getEmployeeAndInvoiceInfo(hd.id)"
-              type="button" class="btn btn-primary m-1">
+            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+              ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
           </td>
@@ -340,7 +341,9 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
+            <a class="page-link" ng-href="" ng-click="previousPage()">
+              <img src="/assets/images/chevron-left.svg" height="15px" alt="">
+            </a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
@@ -376,7 +379,7 @@
         </tr>
         <!-- Nếu có dữ liệu, hiển thị từng dòng như bình thường -->
         <tr ng-repeat="hd in listHoaDon">
-          <th>{{$index + 1}}</th>
+          <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
           <td>{{hd.tenKhachHang}}</td>
           <td>{{hd.ngayTao | date:'MM/dd/yyyy h:mm:ss a'}}</td>
@@ -398,14 +401,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
+            <img src="/assets/images/chevron-left.svg" height="15px" alt="">
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButtonSpInCart">
             <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">
-              Sau
+              <img src="/assets/images/chevron-right.svg" height="15px" alt="">
             </a>
           </li>
         </ul>

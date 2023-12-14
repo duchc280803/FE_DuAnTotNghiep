@@ -1008,7 +1008,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              hoTen: $scope.hoTen,
+              hoTen: $scope.tenKhach,
               tenNguoiShip: $scope.tenNguoiShip,
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
@@ -1042,7 +1042,7 @@ myApp.controller(
                 $scope.removeItem();
               })
               .catch(function (error) {
-                $scope.errorhoTen = error.data.hoTen;
+                $scope.errorhoTen = error.data.tenKhach;
                 $scope.errorsoDienThoai = error.data.soDienThoai;
                 $scope.errortinh = error.data.tinh;
                 $scope.errorhuyen = error.data.huyen;
