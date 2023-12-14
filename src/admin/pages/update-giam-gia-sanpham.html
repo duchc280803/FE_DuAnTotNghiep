@@ -72,7 +72,7 @@
                 placeholder="Nhập sản phẩm cần tìm" />
             </div>
             <div class="col-lg-4">
-              <button class="btn btn-outline-primary" style="margin-left: 10px">
+              <button class="btn btn-primary" ng-click="refresh()">
                 Làm mới
               </button>
             </div>
@@ -128,6 +128,10 @@
             </tr>
           </thead>
           <tbody class="table">
+            <tr ng-if="listProduct.length === 0">
+              <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
+            </tr>
+
             <tr ng-repeat="gg in listProduct">
               <td style="padding-top: 75px">
                 <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"

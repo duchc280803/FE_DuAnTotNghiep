@@ -36,7 +36,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/promotion/product", {
       templateUrl: "./pages/khuyen-mai-ap-dung.html",
-      controller: "GiamGiaController",
+      controller: "giamgiaChiTietController",
     })
     .when("/promotion/update/:id", {
       templateUrl: "./pages/update-giam-gia-sanpham.html",
@@ -80,7 +80,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/product/history", {
       templateUrl: "./pages/san-pham-history.html",
-      controller: "sanPhamController",
+      controller: "SanPhamHistoryController",
     })
     .when("/product-detail/:id", {
       templateUrl: "./pages/sanphamchitiet.html",
@@ -104,7 +104,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/origin/history", {
       templateUrl: "./pages/xuat-xu-history.html",
-      controller: "xuatXuController",
+      controller: "XuatXuHistoryController",
     })
     .when("/brand", {
       templateUrl: "./pages/thuong-hieu.html",
@@ -112,7 +112,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/brand/history", {
       templateUrl: "./pages/thuong-hieu-history.html",
-      controller: "thuongHieuController",
+      controller: "ThuongHieuHistoryController",
     })
     .when("/size", {
       templateUrl: "./pages/size.html",
@@ -120,7 +120,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/size/history", {
       templateUrl: "./pages/size-history.html",
-      controller: "sizeController",
+      controller: "SizeHistoryController",
     })
     .when("/color", {
       templateUrl: "./pages/mau-sac.html",
@@ -128,7 +128,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/color/history", {
       templateUrl: "./pages/mau-sac-history.html",
-      controller: "mauSacController",
+      controller: "MauSacHistoryController",
     })
     .when("/sole", {
       templateUrl: "./pages/kieu-de.html",
@@ -136,7 +136,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/sole/history", {
       templateUrl: "./pages/kieu-de-history.html",
-      controller: "kieuDeController",
+      controller: "KieuDeHistoryController",
     })
     .when("/material", {
       templateUrl: "./pages/chat-lieu.html",
@@ -144,7 +144,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/material/history", {
       templateUrl: "./pages/chat-lieu-history.html",
-      controller: "chatLieuController",
+      controller: "ChatLieuHistoryController",
     })
     .when("/category", {
       templateUrl: "./pages/danh-muc.html",
@@ -152,7 +152,7 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
     .when("/category/history", {
       templateUrl: "./pages/danh-muc-history.html",
-      controller: "danhMucController",
+      controller: "DanhMucHistoryController",
     })
     .when("/transaction-done", {
       templateUrl: "./pages/vnpay-done.html",
