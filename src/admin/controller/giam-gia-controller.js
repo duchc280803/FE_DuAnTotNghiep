@@ -75,11 +75,11 @@ myApp.controller(
         .get(url, config)
         .then(function (response) {
           $scope.listGiamGia = response.data;
-          console.log("Dữ liệu trả về: ", response.data);
-
-          // Update currentPageNumber based on the response
-          $scope.currentPageNumber = response.data.number;
-          $scope.totalNumberOfPages = response.data.totalPages;
+          if ($scope.listGiamGia.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);
@@ -92,13 +92,17 @@ myApp.controller(
         fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       }
     };
+
+    // TODO: tiến đến trang khác
     $scope.nextPage = function () {
       $scope.pageNumber++;
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+
     $scope.searchKhach = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+
     $scope.onTrangThaiChange = function () {
       fetchGiamGiaList($scope.selectedTrangThai, "", "", "");
     };
@@ -106,9 +110,11 @@ myApp.controller(
     $scope.searchGiamGia = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+
     $scope.searchTenKhach = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+
     $scope.refreshData = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
 

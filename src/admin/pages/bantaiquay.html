@@ -216,10 +216,6 @@
                   </tr>
                 </tbody>
               </table>
-
- 
-
-              
             </div>
             <nav aria-label="Page navigation example" style="margin-left: 520px" ng-if="listCart.length != 0">
               <ul class="pagination">
@@ -377,10 +373,10 @@
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{sptq.giaGiamGia}}đ
+                                    {{sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
                                   </span>
                                   <strike class="text-danger">
-                                    {{ sptq.giaBan}}đ
+                                    {{ sptq.giaBan.toLocaleString('vi-VN')}}đ
                                   </strike>
                                 </strong>
                               </small>
@@ -739,7 +735,8 @@
                         <span style="color: red">{{errorphuong}}</span>
                       </div>
                     </div> -->
-                    <span style="margin-left: -5px" class="header-title"><span style="color: red">*</span>
+                    <br>
+                    <span style="margin-left: -25px" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
                     <input ng-model="diaChi" type="text" class="form-control hidden-input" style="margin-left: -30px"
                       ng-value="orderDetailCounter.diaChi" placeholder="Nhập địa chỉ" />
