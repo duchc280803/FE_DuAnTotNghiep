@@ -5,24 +5,26 @@
   <hr />
   <div class="box" style="display: flex; flex-direction: row; flex-wrap: wrap;">
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
-      <input class="form-control" ng-model="key2" ng-change="searchbyMa()" placeholder="Mã khuyến mại"
+      <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Mã khuyến mại"
         style="margin-top: 4px;" />
     </div>
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
-      <input class="form-control" ng-model="key" placeholder="Tên khuyến mại" style="margin-top: 4px;"
-        ng-change="searchKey()" />
+      <input class="form-control" ng-model="searchQuery2" ng-change="searchTenKhach()" placeholder="Tên khuyến mại"
+        style="margin-top: 4px;" />
     </div>
+
     <div class="col-lg-4">
       <label class="form-label" style="margin-top: 11px;padding-left: 50px;">Trạng thái :</label>
-      <select style="color: green;" class="custom-select" ng-model="key3" ng-change="searchStatus()">
-        <option value="">Chọn Trạng Thái</option>
-        <option value="1">Còn Hiệu Lực </option>
-        <option value="2">Hết Hiệu Lực</option>
+      <select style="color: green" class="custom-select" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()">
+        <option value="">Tất cả</option>
+        <option value="1">Còn Hạn</option>
+        <option value="2">Hết Hạn</option>
+        <option value="3">Hết Lần Sử Dụng</option>
       </select>
     </div>
     <div class="col-lg-4" style="width: 700px; padding-right: 50px;">
       <label>Tìm theo ngày bắt đầu</label>
-      <input type="date" class="form-control" ng-model="startDate" ng-change="searchGiamGia()"
+      <input type="datetime-local" class="form-control" ng-model="searchQuery3" ng-change="searchGiamGia()"
         style="margin-top: 4px;" />
     </div>
   </div>
@@ -33,10 +35,16 @@
       <button class="btn btn-primary" ng-click="refreshData()">
         Làm mới
       </button>
+
     </div>
     <div class="col-lg-2">
       <a href="#/promotion/history" class="btn btn-primary">
         Lịch sử
+      </a>
+    </div>
+    <div class="col-lg-4">
+      <a href="#/promotion/product" class="btn btn-primary">
+        Sản Phẩm áp dụng
       </a>
     </div>
     <div class="col-lg-4">
@@ -148,35 +156,3 @@
       </nav>
     </div>
   </div>
-  <table class="table">
-    <thead>
-      <tr style="background-color: lightskyblue">
-        <th scope="col">STT</th>
-        <th scope="col">Ảnh sản phẩm</th>
-        <th scope="col">Tên sản phẩm</th>
-        <th scope="col">Đơn giá</th>
-        <th scope="col">Số lượng Giảm giá</th>
-        <th scope="col">Giá sau giảm</th>
-      </tr>
-    </thead>
-    <tbody class="table">
-      <tr ng-repeat="gg in listProduct">
-        <td style="padding-top: 75px">
-          {{$index + 1}}
-        </td>
-        <td>
-          <img src="{{gg.image}}" alt="" width="150px" />
-        </td>
-        <td>{{gg.productName}}</td>
-        <td>
-          {{gg.giaBan.toLocaleString('vi-VN')}}₫
-        </td>
-        <td>
-          {{gg.soLanGiam}}
-        </td>
-        <td>
-          {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
-        </td>
-      </tr>
-    </tbody>
-  </table>

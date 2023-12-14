@@ -93,7 +93,30 @@ myApp.controller(
         });
     }
     fetchlistThuongHieu();
-    function fetchlistProduct() {
+    // function fetchlistProduct() {
+    //   var token = $window.localStorage.getItem("token");
+
+    //   var config = {
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   };
+    //   $http
+    //     .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
+    //     .then(function (response) {
+    //       $scope.listProduct = response.data;
+    //     });
+    // }
+    // fetchlistProduct();
+
+    $scope.listProduct = [];
+
+    $scope.pageNumber = 0;
+    $scope.pageSize = 20;
+
+    $scope.selectedTrangThai = "";
+    $scope.searchQuery = "";
+    function fetchlistProduct(pageNumber) {
       var token = $window.localStorage.getItem("token");
 
       var config = {
@@ -101,14 +124,45 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
+      var url = `http://localhost:8080/api/v1/giam-gia/showproduct?pageNumber=${pageNumber}`;
+
+      if ($scope.searchQuery) {
+        if (!isNaN($scope.searchQuery)) {
+          url += `&tenSanPham=${$scope.searchQuery}`;
+        } else {
+          url += `&tenSanPham=${$scope.searchQuery}`;
+        }
+      }
+
       $http
-        .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
+        .get(url, config)
         .then(function (response) {
           $scope.listProduct = response.data;
+          console.log("Dữ liệu trả về: ", response.data);
+
+          // Update currentPageNumber based on the response
+          $scope.currentPageNumber = response.data.number;
+          $scope.totalNumberOfPages = response.data.totalPages;
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi tìm kiếm: ", error);
         });
     }
-    fetchlistProduct();
 
+    $scope.previousPage = function () {
+      if ($scope.pageNumber > 0) {
+        $scope.pageNumber--;
+        fetchlistProduct($scope.pageNumber);
+      }
+    };
+    $scope.nextPage = function () {
+      $scope.pageNumber++;
+      fetchlistProduct($scope.pageNumber);
+    };
+    $scope.searchKhach = function () {
+      fetchlistProduct($scope.pageNumber);
+    };
+    fetchlistProduct($scope.pageNumber);
     $scope.isIdEqual = function (id1, id2) {
       return id1 === id2;
     };
@@ -296,7 +350,7 @@ myApp.controller(
 
       if (!key) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchProduct_bykey", {
@@ -322,7 +376,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -347,7 +401,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -372,7 +426,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -397,7 +451,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -422,7 +476,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -447,7 +501,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -472,7 +526,7 @@ myApp.controller(
 
       if (!id) {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/detail", {
@@ -497,7 +551,7 @@ myApp.controller(
 
       if (key === "") {
         // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
+        fetchlistProduct($scope.pageNumber);
       } else {
         $http
           .get("http://localhost:8080/api/v1/giam-gia/searchStatus_bykey", {
@@ -570,62 +624,117 @@ myApp.controller(
       $scope.selectAllProducts =
         $scope.sanPhamDaChon.length === $scope.listProduct.length;
     };
-    $scope.updateGiamGia = function (id) {
-      var ngayBatDau = new Date($scope.giamgiachitiet.ngayBatDau);
-      var ngayKetThuc = new Date($scope.giamgiachitiet.ngayKetThuc);
-      if (ngayBatDau >= ngayKetThuc) {
-        alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
-        return;
-      }
+    setTimeout(() => {
+      $scope.updateGiamGia = function () {
+        Swal.fire({
+          title: "Bạn có muốn sửa khuyễn mãi không?",
+          text: "",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Đồng ý",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var ngayBatDau = new Date($scope.giamgiachitiet.ngayBatDau);
+            var ngayKetThuc = new Date($scope.giamgiachitiet.ngayKetThuc);
+            if (ngayBatDau >= ngayKetThuc) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
+            if (
+              !$scope.giamgiachitiet.maGiamGia ||
+              !$scope.giamgiachitiet.tenGiamGia ||
+              !$scope.giamgiachitiet.mucGiam ||
+              !$scope.giamgiachitiet.hinhThucGiam ||
+              !$scope.giamgiachitiet.ngayBatDau ||
+              !$scope.giamgiachitiet.ngayKetThuc
+            ) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Vui lòng nhập đầy đủ thông tin",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
+            if (
+              $scope.giamgiachitiet.hinhThucGiam == 2 &&
+              ($scope.giamgiachitiet.mucGiam <= 0 ||
+                $scope.giamgiachitiet.mucGiam > 100)
+            ) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title:
+                  "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
 
-      if (
-        $scope.giamgiachitiet.hinhThucGiam == 2 &&
-        ($scope.giamgiachitiet.mucGiam <= 0 ||
-          $scope.giamgiachitiet.mucGiam > 100)
-      ) {
-        alert(
-          "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm."
-        );
-        return;
-      }
+            // Proceed with adding the promotion without checking the existence of the discount name
+            var dataToSend = {
+              maGiamGia: $scope.giamgiachitiet.maGiamGia,
+              tenGiamGia: $scope.giamgiachitiet.tenGiamGia,
+              mucGiam: $scope.giamgiachitiet.mucGiam,
+              hinhThucGiam: $scope.giamgiachitiet.hinhThucGiam,
+              trangThai: $scope.giamgiachitiet.trangThai,
+              ngayBatDau: $scope.giamgiachitiet.ngayBatDau,
+              ngayKetThuc: $scope.giamgiachitiet.ngayKetThuc,
+              idsanpham: $scope.sanPhamDaChon, // Include selected product IDs
+            };
+            var token = $window.localStorage.getItem("token");
 
-      // Include idsanpham in the dataToSend object
-      var dataToSend = {
-        maGiamGia: $scope.giamgiachitiet.maGiamGia,
-        tenGiamGia: $scope.giamgiachitiet.tenGiamGia,
-        mucGiam: $scope.giamgiachitiet.mucGiam,
-        hinhThucGiam: $scope.giamgiachitiet.hinhThucGiam,
-        trangThai: $scope.giamgiachitiet.trangThai,
-        ngayBatDau: $scope.giamgiachitiet.ngayBatDau,
-        ngayKetThuc: $scope.giamgiachitiet.ngayKetThuc,
-        idsanpham: $scope.sanPhamDaChon, // Include selected product IDs
-      };
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .put(
-          "http://localhost:8080/api/v1/giam-gia/update/" + id,
-          dataToSend,
-          config
-        )
-        .then(function (response) {
-          console.log(response.data);
-          if (
-            confirm(
-              "Cập nhật khuyến mãi thành công. Bạn có muốn chuyển hướng trang"
-            )
-          ) {
-            $location.path("/promotion");
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
+            $http
+              .put(
+                "http://localhost:8080/api/v1/giam-gia/update/" + id,
+                dataToSend,
+                config
+              )
+              .then(function (response) {
+                console.log(response.data);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Sửa thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup", // Thêm class cho message
+                  },
+                });
+                $location.path("/promotion");
+              })
+              .catch(function (error) {
+                console.error("Error:", error);
+              });
           }
-        })
-        .catch(function (error) {
-          console.error("Error updating GiamGia:", error);
         });
-    };
+      };
+    }, 2000);
   }
 );
