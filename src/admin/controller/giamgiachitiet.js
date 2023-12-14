@@ -133,7 +133,7 @@ myApp.controller(
         },
       };
       var url = `http://localhost:8080/api/v1/giam-gia/showproduct?pageNumber=${pageNumber}`;
-
+      console.log(url);
       if ($scope.searchQuery) {
         if (!isNaN($scope.searchQuery)) {
           url += `&tenSanPham=${$scope.searchQuery}`;
@@ -146,7 +146,6 @@ myApp.controller(
         .get(url, config)
         .then(function (response) {
           $scope.listProduct = response.data;
-          console.log("Dữ liệu trả về: ", response.data);
 
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
@@ -171,6 +170,19 @@ myApp.controller(
       fetchlistProduct($scope.pageNumber);
     };
     fetchlistProduct($scope.pageNumber);
+    $scope.refresh = function () {
+      // Thực hiện các hành động cần thiết để làm mới dữ liệu
+      // Ví dụ: gọi các hàm search hoặc reset giá trị của các biến tìm kiếm
+      $scope.searchQuery = "";
+      $scope.searchQuery2 = "";
+      $scope.selectedTrangThai = "";
+      $scope.searchQuery3 = "";
+      // Gọi các hàm search tương ứng nếu cần
+      $scope.searchKhach();
+      $scope.searchNgay();
+      $scope.searchTenKhach();
+      $scope.onTrangThaiChange();
+    };
     $scope.isIdEqual = function (id1, id2) {
       return id1 === id2;
     };
@@ -249,6 +261,7 @@ myApp.controller(
         });
     }
     fetchlistSize();
+
     function fetchlistXuatXu() {
       var token = $window.localStorage.getItem("token");
 
@@ -574,16 +587,6 @@ myApp.controller(
 
     fetchGiamGiaList();
     // Thêm hàm làm mới
-    $scope.refresh = function () {
-      // Gọi lại danh sách đầy đủ khi làm mới
-      fetchGiamGiaList();
-      // Xóa giá trị trong các ô input
-
-      $scope.tenGiamGia = "";
-      $scope.startDate = null;
-      $scope.endDate = null;
-      $scope.status = "";
-    };
     $scope.tuDongTaoMa = false;
     $scope.maGiamGia = "";
     $scope.tenGiamGia = "";

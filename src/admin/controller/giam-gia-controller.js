@@ -63,14 +63,17 @@ myApp.controller(
           url += `&tenGiamGia=${$scope.searchQuery2}`;
         }
       }
+
       var searchQuery3 =
         $scope.searchQuery3 instanceof Date
-          ? $scope.searchQuery3.toISOString().split("T")[0]
+          ? new Date($scope.searchQuery3.getTime() + 86400000) // Thêm 1 ngày (1 ngày = 86400000 milliseconds)
           : null;
-      if (searchQuery3) {
-        url += `&startDate=${searchQuery3}`;
-      }
 
+      if (searchQuery3) {
+        var formattedDate = searchQuery3.toISOString().split("T")[0];
+        url += `&startDate=${formattedDate}`;
+      }
+      console.log(searchQuery3);
       $http
         .get(url, config)
         .then(function (response) {
@@ -112,6 +115,7 @@ myApp.controller(
     $scope.searchTenKhach = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
+
     $scope.refresh = function () {
       // Thực hiện các hành động cần thiết để làm mới dữ liệu
       // Ví dụ: gọi các hàm search hoặc reset giá trị của các biến tìm kiếm
@@ -119,8 +123,10 @@ myApp.controller(
       $scope.searchQuery2 = "";
       $scope.selectedTrangThai = "";
       $scope.searchQuery3 = "";
+      $scope.searchQuery6 = "";
       // Gọi các hàm search tương ứng nếu cần
       $scope.searchKhach();
+      $scope.searchKhach1();
       $scope.searchNgay();
       $scope.searchTenKhach();
       $scope.onTrangThaiChange();
@@ -297,7 +303,29 @@ myApp.controller(
     };
     $scope.fetchlistThuongHieu();
 
-    $scope.fetchlistProduct = function () {
+    // $scope.fetchlistProduct = function () {
+    //   var token = $window.localStorage.getItem("token");
+
+    //   var config = {
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   };
+    //   $http
+    //     .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
+    //     .then(function (response) {
+    //       $scope.listProduct = response.data;
+    //     });
+    // };
+    // $scope.fetchlistProduct();
+    $scope.listProduct = [];
+
+    $scope.pageNumber1 = 0;
+    $scope.pageSize1 = 20;
+
+    $scope.selectedTrangThai1 = "";
+    $scope.searchQuery6 = "";
+    function fetchlistProduct(pageNumber1) {
       var token = $window.localStorage.getItem("token");
 
       var config = {
@@ -305,14 +333,58 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
+      var url = `http://localhost:8080/api/v1/giam-gia/showproduct?pageNumber=${pageNumber1}`;
+
+      if ($scope.searchQuery6) {
+        if (!isNaN($scope.searchQuery6)) {
+          url += `&tenSanPham=${$scope.searchQuery6}`;
+        } else {
+          url += `&tenSanPham=${$scope.searchQuery6}`;
+        }
+      }
+
       $http
-        .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
+        .get(url, config)
         .then(function (response) {
           $scope.listProduct = response.data;
-        });
-    };
-    $scope.fetchlistProduct();
+          console.log("Dữ liệu trả về: ", response.data);
 
+          // Update currentPageNumber based on the response
+          $scope.currentPageNumber = response.data.number;
+          $scope.totalNumberOfPages = response.data.totalPages;
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi tìm kiếm: ", error);
+        });
+    }
+
+    $scope.previousPage1 = function () {
+      if ($scope.pageNumber1 > 0) {
+        $scope.pageNumber1--;
+        fetchlistProduct($scope.pageNumber1);
+      }
+    };
+    $scope.nextPage1 = function () {
+      $scope.pageNumber1++;
+      fetchlistProduct($scope.pageNumber1);
+    };
+    $scope.searchKhach1 = function () {
+      fetchlistProduct($scope.pageNumber1);
+    };
+    fetchlistProduct($scope.pageNumber1);
+    // $scope.refresh = function () {
+    //   // Thực hiện các hành động cần thiết để làm mới dữ liệu
+    //   // Ví dụ: gọi các hàm search hoặc reset giá trị của các biến tìm kiếm
+    //   $scope.searchQuery = "";
+    //   $scope.searchQuery2 = "";
+    //   $scope.selectedTrangThai = "";
+    //   $scope.searchQuery3 = "";
+    //   // Gọi các hàm search tương ứng nếu cần
+    //   $scope.searchKhach();
+    //   $scope.searchNgay();
+    //   $scope.searchTenKhach();
+    //   $scope.onTrangThaiChange();
+    // };
     $scope.fetchlistDanhMuc = function () {
       var token = $window.localStorage.getItem("token");
 

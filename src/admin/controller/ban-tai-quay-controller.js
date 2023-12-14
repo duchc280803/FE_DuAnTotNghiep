@@ -160,7 +160,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "hủy thành công",
+                  title: "Hủy thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -969,6 +969,7 @@ myApp.controller(
                   },
                 }).then(() => {
                   $scope.generatePDF();
+                  $window.location.reload();
                 });
                 $scope.removeItem();
               });
@@ -1007,7 +1008,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              hoTen: $scope.hoTen,
+              hoTen: $scope.tenKhach,
               tenNguoiShip: $scope.tenNguoiShip,
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
@@ -1041,7 +1042,7 @@ myApp.controller(
                 $scope.removeItem();
               })
               .catch(function (error) {
-                $scope.errorhoTen = error.data.hoTen;
+                $scope.errorhoTen = error.data.tenKhach;
                 $scope.errorsoDienThoai = error.data.soDienThoai;
                 $scope.errortinh = error.data.tinh;
                 $scope.errorhuyen = error.data.huyen;
@@ -1226,7 +1227,7 @@ myApp.controller(
     };
 
     // TODO: Tìm kiếm sản phẩm
-    $scope.key = "";
+    $scope.searchKeyName = "";
     $scope.searchSanPham = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1235,32 +1236,28 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      if ($scope.key === "") {
-        $scope.getListSanPhamTaiQuay();
-      } else {
-        $http
-          .get(
-            "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.key,
-            config
-          )
-          .then(function (response) {
-            $scope.listSanPhamTaiQuay = response.data;
-            if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
-              $scope.showNextButton = false; // Ẩn nút "Next"
-            } else {
-              $scope.showNextButton = true; // Hiển thị nút "Next"
-            }
-          });
-      }
+      $http
+        .get(
+          "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.searchKeyName,
+          config
+        )
+        .then(function (response) {
+          $scope.listSanPhamTaiQuay = response.data;
+          if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
+        });
     };
 
     $scope.lamMoiSanPhamTaiQuay = function () {
-      $scope.key = "";
+      $scope.searchKeyName = "";
       $scope.brand = "";
       $scope.locCategory = "";
       $scope.locSole = "";
@@ -1274,27 +1271,27 @@ myApp.controller(
     // TODO:  Lọc sản phẩm theo thương hiệu
     $scope.brand = "";
     $scope.filterBrand = function () {
-      if ($scope.brand == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
-      if ($scope.locCategory == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
-      if ($scope.locSole == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
-      if ($scope.locOrigin == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
-      if ($scope.locMauSac == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
-      if ($scope.locMaterial == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
-      if ($scope.locSize == "") {
-        $scope.getListSanPhamTaiQuay();
-      }
+      // if ($scope.brand == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locCategory == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locSole == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locOrigin == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locMauSac == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locMaterial == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locSize == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
       var token = $window.localStorage.getItem("token");
 
       var config = {

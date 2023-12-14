@@ -1,5 +1,5 @@
 myApp.controller(
-  "VoucherHistoryController",
+  "KhachHangHistoryController",
   function ($http, $scope, $location, $route, $window, $sce) {
     var role = $window.localStorage.getItem("role");
     if (role === "USER") {
@@ -45,7 +45,7 @@ myApp.controller(
         },
       };
 
-      var url = `http://localhost:8080/api/v1/audilog/voucher?page=${pageNumber}`;
+      var url = `http://localhost:8080/api/v1/audilog/khachhang?page=${pageNumber}`;
       console.log(url);
       if ($scope.searchQuery) {
         if (!isNaN($scope.searchQuery)) {
