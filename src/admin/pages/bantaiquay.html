@@ -120,23 +120,21 @@
       <div class="col-lg-12">
         <div class="card overflow-hidden" style="width: 1176px; margin-left: -13px">
           <div class="card-body p-4">
-            <h5 class="card-title mb-9 fw-semibold">
               <div class="row">
                 <div class="col-lg-6">
+            <h5 class="card-title mb-9 fw-semibold">
                   <span>Thông tin sản phẩm</span>
                   <p style="margin-left: 200px;margin-top:-20px;">
                     {{orderDetailCounter.maHoaDon}} - {{orderDetailCounter.ngayTao | date:'MM/dd/yyyy - h:mm:ss a'}}
                   </p>
+              </h5>
                 </div>
-              </div>
-            </h5>
-            <div class="row">
-              <div class="col-lg-10">
-                <input style="width: 1030px" class="form-control" placeholder="Tìm kiếm sản phẩm" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal" />
-              </div>
-              <div class="col-lg-2" style="padding-left: 125px">
-                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal-qrcode"><img
+                <div class="col-lg-6 text-end" style="margin-top: -3px;">
+                  <button class="btn btn-primary me-4" ng-click="openVoucherModal()" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">
+                    Chọn sản phẩm
+                  </button>
+                  <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal-qrcode"><img
                     src="/assets/images/qr-code.png" width="40px" alt="" /></a>
                 <div class="modal fade" id="exampleModal-qrcode" tabindex="-1" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
@@ -156,8 +154,9 @@
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
-            </div>
+
             <br />
             <div ng-if="listCart.length === 0">
               <img src="/assets/images/empty-cart.png" alt="" width="200px" style="margin-left: 430px" />
