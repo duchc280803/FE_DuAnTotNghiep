@@ -2,6 +2,8 @@ myApp.controller(
   "VoucherController",
   function ($http, $scope, $location, $route, $window, $sce) {
     var role = $window.localStorage.getItem("role");
+    var token = $window.localStorage.getItem("token");
+    console.log(token);
     if (role === "USER") {
       Swal.fire({
         icon: "error",

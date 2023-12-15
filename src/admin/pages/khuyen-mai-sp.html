@@ -17,14 +17,14 @@
       <label class="form-label" style="margin-top: 11px;padding-left: 50px;">Trạng thái :</label>
       <select style="color: green" class="custom-select" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()">
         <option value="">Tất cả</option>
-        <option value="1">Còn Hạn</option>
-        <option value="2">Hết Hạn</option>
-        <option value="3">Hết Lần Sử Dụng</option>
+        <option value="1">Đang hoạt động</option>
+        <option value="2">Ngừng hoạt động</option>
+        <option value="3">Sắp diễn ra</option>
       </select>
     </div>
     <div class="col-lg-4" style="width: 700px; padding-right: 50px;">
       <label>Tìm theo ngày bắt đầu</label>
-      <input type="datetime-local" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
+      <input type="date" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
         style="margin-top: 4px;" />
     </div>
   </div>
@@ -41,7 +41,7 @@
     </div>
     <div class="col-lg-4">
       <a href="#/promotion/product" class="btn btn-primary">
-        Sản Phẩm áp dụng
+        Sản phẩm áp dụng
       </a>
     </div>
     <div class="col-lg-4">
@@ -76,6 +76,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr ng-if="listGiamGia.length === 0">
+          <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
+        </tr>
         <tr ng-repeat="gg in listGiamGia">
           <td>{{$index + 1}}</td>
           <td>{{gg.maGiamGia}}</td>
@@ -85,7 +88,7 @@
             {{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss a'}} - {{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss a'}}
           </td>
           <td>
-            {{gg.trangThai == 1 ? 'Còn hạn':'Hết hạn'}}
+            {{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}
           </td>
           <td>
             <a class="btn btn-primary" ng-click="toggleDetail(gg)" data-toggle="modal"

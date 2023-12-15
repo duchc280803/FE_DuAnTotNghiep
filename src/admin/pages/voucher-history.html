@@ -5,27 +5,14 @@
   <hr />
   <div class="box">
     <div class="row" style="padding: 10px">
+      <label for="">Tìm Kiếm thời gian cụ thê</label>
       <div class="col-md-6">
-        <input type="datetime-local" class="form-control" ng-model="searchDate" ng-change="searchVouchersByDay()" />
-      </div>
-      <div class="col-md-6">
-        <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Tên Đăng nhập"
+        <input type="date" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
           style="margin-top: 4px;" />
       </div>
-    </div>
-
-    <div class="row" style="padding: 10px">
-      <label for="">Tìm Kiếm thời gian theo khoảng</label>
       <div class="col-md-6">
-        <input type="datetime-local" class="form-control" ng-model="startDate" style="margin-top: 4px" />
-      </div>
-      <div class="col-md-6">
-        <input type="datetime-local" class="form-control" ng-model="endDate" style="margin-top: 4px" />
-      </div>
-      <div class="col-md-6">
-        <button class="btn btn-primary" ng-click="searchVouchers()" style="margin-top: 10px">
-          Tìm kiếm
-        </button>
+        <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Nhập mã tài khoản"
+          style="margin-top: 4px;" />
       </div>
     </div>
   </div>
@@ -53,6 +40,9 @@
         </tr>
       </thead>
       <tbody class="table">
+        <tr ng-if="listVoucherHistory.length === 0">
+          <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
+        </tr>
         <tr ng-repeat="gg in listVoucherHistory">
           <td>{{$index + 1}}</td>
           <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
@@ -66,14 +56,13 @@
       <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-click="previousPage()">Previous</a>
           </li>
           <li class="page-item">
-            <a class="page-link">{{ pageNumber + 1 }}</a>
+            <a class="page-link">{{ pageNumber +1 }}</a>
           </li>
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+            <a class="page-link" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
           </li>
         </ul>
       </nav>

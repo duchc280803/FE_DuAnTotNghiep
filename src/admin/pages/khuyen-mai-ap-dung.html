@@ -9,7 +9,7 @@
             placeholder="Nhập sản phẩm cần tìm" />
     </div>
     <div class="col-lg-4">
-        <button class="btn btn-outline-primary" style="margin-left: 10px">
+        <button class="btn btn-outline-primary" style="margin-left: 10px" ng-click="refresh()">
             Làm mới
         </button>
     </div>
@@ -27,6 +27,9 @@
         </tr>
     </thead>
     <tbody class="table">
+        <tr ng-if="listProduct.length === 0">
+            <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
+        </tr>
         <tr ng-repeat="gg in listProduct">
             <td style="padding-top: 75px">
                 {{$index + 1}}
@@ -47,3 +50,17 @@
         </tr>
     </tbody>
 </table>
+<nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">{{ pageNumber + 1 }}</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" ng-href="" ng-click="nextPage()"
+                ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+        </li>
+    </ul>
+</nav>
