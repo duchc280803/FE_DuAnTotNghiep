@@ -104,11 +104,10 @@
         <tbody>
           <tr ng-repeat="sp in listSanPham">
             <td>
-              {{$index + 1}}
+              {{$index + 1 + (pageNumber * pageSize)}}
             </td>
             <td>
               <img width="50px" src="/assets/ảnh giày/{{sp.image}}" alt="">
-              
             </td>
             <td>
               {{sp.maSanPham}}
@@ -133,14 +132,16 @@
       </table>
       <nav aria-span="Page navigation example" style="margin-left: 530px">
         <ul class="pagination">
-          <li class="page-item" ng-show="showPreviousButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
-            <a class="page-link" ng-click="previousPage()">Previous</a>
+          <li class="page-item" ng-show="pageNumber > 0"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
+            <a class="page-link" href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"
+                alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{pageNumber + 1}}</a>
           </li>
           <li class="page-item" ng-show="showNextButton"> <!-- Sử dụng ng-show để điều chỉnh hiển thị -->
-            <a class="page-link" ng-click="nextPage()">Next</a>
+            <a class="page-link" href="" ng-click="nextPage()"><img src="/assets/images/chevron-right.svg" height="15px"
+                alt=""></a>
           </li>
         </ul>
       </nav>
