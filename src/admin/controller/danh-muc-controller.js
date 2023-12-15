@@ -257,6 +257,7 @@ myApp.controller(
               .then(function (response) {
                 $scope.listDanhMuc.push(response.data);
                 $("#danhMucModal").modal("hide");
+                $scope.newDanhMuc = {};
                 Swal.fire({
                   position: "top-end",
                   icon: "success",

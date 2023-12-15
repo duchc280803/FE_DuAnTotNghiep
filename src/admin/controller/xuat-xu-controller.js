@@ -280,9 +280,9 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                $scope.listXuatXu.push(response.data);
                 $("#xxmodel").modal("hide");
-                $scope.getListXuatXu();
+                $scope.listXuatXu.push(response.data);
+                $scope.newXuatXu = {};
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -292,6 +292,8 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
+                }).then(() => {
+                  xuatXuList($scope.selectedTrangThai, $scope.pageNumber);
                 });
               })
               .catch(function (error) {

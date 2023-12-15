@@ -128,7 +128,7 @@
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Tên xuất xứ:</span></span>
           <input type="text" class="form-control" id="brandName" ng-model="newXuatXu.tenXuatXu"
-            placeholder="Nhập tênxuất xứ" />
+            placeholder="Nhập tên xuất xứ" />
           <span style="color: red">{{errorTenXuatXu}}</span>
           <span style="color: red">{{errorMessage}}</span>
         </div>
@@ -184,7 +184,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
-        <button type="button" ng-click="createXuatXu()" class="btn btn-primary">
+        <button type="button" ng-click="updateXuatXu(newXuatXu)" class="btn btn-primary">
           Thêm
         </button>
       </div>
