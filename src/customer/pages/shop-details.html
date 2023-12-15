@@ -485,7 +485,7 @@
                   <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
                     <div class="row" ng-repeat="product in products">
                       <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
-                        <img width="300px" ng-src="{{product.tenimage}}" alt="{{product.tensanpham}}" />
+                        <img width="300px" src="/assets/ảnh giày/{{product.tenimage}}" alt="{{product.tensanpham}}" />
                         <p style="font-size: 0.7em; margin: 0"></p>
                         <hr />
                       </div>
@@ -619,11 +619,8 @@
             </div>
             <!-- </div> -->
             <a class="abc" ng-click="addToCart(quantity.sanPhamChiTietId)"
-              style="margin-top: -23px; background-color: #7fad39;"><span style="color: white;">Thêm
-                vào giỏ 1</span></a>
-            <a class="abc" ng-show="isCart" ng-click="addToCartLogin(quantity.sanPhamChiTietId)"
-              style="margin-top: -23px; background-color: #7fad39;"><span style="color: white;">Thêm
-                vào giỏ 2</span></a>
+            style="margin-top: -23px; background-color: #7fad39;"><span style="color: white;">Thêm
+              vào giỏ hàng</span></a>
           </div>
         </div>
         <div class="col-lg-12">

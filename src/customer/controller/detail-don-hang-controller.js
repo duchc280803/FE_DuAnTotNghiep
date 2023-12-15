@@ -126,16 +126,16 @@ myAppCustom.controller(
       });
     };
 
-    $scope.hoaDonChiTiet = {};
-    $scope.getHoaDonChiTiet = function () {
-      const apiUrl =
-        "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-don/" +
-        idHoaDon;
-      $http.get(apiUrl).then(function (response) {
-        $scope.hoaDonChiTiet = response.data;
-      });
-    };
-    $scope.getHoaDonChiTiet();
+    // $scope.hoaDonChiTiet = {};
+    // $scope.getHoaDonChiTiet = function () {
+    //   const apiUrl =
+    //     "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-don/" +
+    //     idHoaDon;
+    //   $http.get(apiUrl).then(function (response) {
+    //     $scope.hoaDonChiTiet = response.data;
+    //   });
+    // };
+    // $scope.getHoaDonChiTiet();
 
     $scope.getIdHoaDonChiTiet = function (id) {
       $scope.idHoaDonChiTiet = id;
@@ -145,7 +145,7 @@ myAppCustom.controller(
     $scope.soTienHoan = 0;
     $scope.getlichSuThanhToan = function () {
       var apiUrl =
-        "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-lich-su/" + id;
+        "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-lich-su/" + idHoaDon;
 
       $http.get(apiUrl).then(function (response) {
         $scope.lichSu = response.data;

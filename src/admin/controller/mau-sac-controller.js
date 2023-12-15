@@ -21,14 +21,13 @@ myApp.controller(
         "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
     }
 
-    
-  function getRole() {
-    if (role === "ADMIN" || role === "MANAGER") {
-      $scope.isAdmin = true;
+    function getRole() {
+      if (role === "ADMIN" || role === "MANAGER") {
+        $scope.isAdmin = true;
+      }
     }
-  }
 
-  getRole();
+    getRole();
     $scope.listMauSac = [];
     $scope.selectedTrangThai = "";
     $scope.searchQuery = "";
@@ -180,11 +179,8 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.updateMauSac = function (updatedData) {
-
         $scope.isthuoctinh_update = !!$scope.selectedMauSac.tenMauSac;
-        if (
-          !$scope.isthuoctinh_update
-        ) {
+        if (!$scope.isthuoctinh_update) {
           return;
         } else {
           $scope.isthuoctinh_update = true;
@@ -244,32 +240,41 @@ myApp.controller(
     $scope.isthuoctinhIsPresent = true;
     setTimeout(() => {
       $scope.createMauSac = function () {
+        var token = $window.localStorage.getItem("token");
 
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         $scope.isthuoctinh = !!$scope.newMauSac.tenMauSac;
-      $scope.istrangthai = !!$scope.newMauSac.trangThai;
+        $scope.istrangthai = !!$scope.newMauSac.trangThai;
 
-      if (
-        !$scope.isthuoctinh ||
-        !$scope.istrangthai
-      ) {
-        return;
-      } else {
-        $scope.isthuoctinh = true;
-        $scope.istrangthai = true;
-      }
-      $http.get("http://localhost:8080/api/v1/mau-sac/find-by-mau-sac?mausac=" + $scope.newMauSac.tenMauSac)
-      .then(function (response) {
-        if (response.data > 0) {
-          $scope.isthuoctinhIsPresent = false; // mausac đã tồn tại
+        if (!$scope.isthuoctinh || !$scope.istrangthai) {
           return;
+        } else {
+          $scope.isthuoctinh = true;
+          $scope.istrangthai = true;
         }
-        if (response.data === 0) {
-          $scope.isthuoctinhIsPresent = true; // mausac OK
-          Swal.fire({
-            title: "Bạn có muốn thêm mới không?",
-            text: "",
-            icon: "question",
-            showCancelButton: true,
+
+        $http
+          .get(
+            "http://localhost:8080/api/v1/mau-sac/find-by-mau-sac?mausac=" +
+              $scope.newMauSac.tenMauSac,
+            config
+          )
+          .then(function (response) {
+            if (response.data > 0) {
+              $scope.isthuoctinhIsPresent = false; // mausac đã tồn tại
+              return;
+            }
+            if (response.data === 0) {
+              $scope.isthuoctinhIsPresent = true; // mausac OK
+              Swal.fire({
+                title: "Bạn có muốn thêm mới không?",
+                text: "",
+                icon: "question",
+                showCancelButton: true,
             cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
             cancelButtonColor: "#d33",
             confirmButtonColor: "#3085d6",
@@ -305,15 +310,22 @@ myApp.controller(
                     mauSacList($scope.selectedTrangThai, $scope.pageNumber);
                   });
                 });
+                }
+              });
             }
           });
-        }
-      });
       };
     }, 2000);
 
     setTimeout(() => {
       $scope.deleteMauSac = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn vô hiệu hóa không?",
           text: "",
@@ -330,7 +342,7 @@ myApp.controller(
               "http://localhost:8080/api/v1/mau-sac/delete?id=" + id;
 
             $http
-              .put(deleteUrl)
+              .put(deleteUrl, null, config)
               .then(function (response) {
                 Swal.fire({
                   position: "top-end",
