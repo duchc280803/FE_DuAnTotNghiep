@@ -303,7 +303,7 @@ myAppCustom.controller(
       $http
         .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang-login", config)
         .then(function (response) {
-          // Lưu idGioHang vào localStorage
+          // Lưu idGioHang vào localStorage 
           var idGioHangLogin = response.data;
           localStorage.setItem("idgiohanglogin", idGioHangLogin);
         })

@@ -281,6 +281,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.deleteDanhMuc = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn vô hiệu hóa không?",
           text: "",
@@ -297,7 +304,7 @@ myApp.controller(
               "http://localhost:8080/api/v1/danh-muc/delete?id=" + id;
 
             $http
-              .put(deleteUrl)
+              .put(deleteUrl, null, config)
               .then(function (response) {
                 Swal.fire({
                   position: "top-end",
