@@ -44,6 +44,7 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
+      console.log(config);
       var url = `http://localhost:8080/api/ql-khach-hang/hien-thi?trangThai=${trangThai}&pageNumber=${pageNumber}`;
 
       if ($scope.searchQuery) {
@@ -275,10 +276,12 @@ myApp.controller(
       $http({
         method: "POST",
         url: "http://localhost:8080/api/ql-khach-hang/create",
-        headers: {
-          "Content-Type": undefined,
-          Authorization: "Bearer" + token, // Thêm token vào đây để gửi cùng với request
-        },
+        headers: Object.assign(
+          {
+            "Content-Type": undefined,
+          },
+          config.headers
+        ),
         transformRequest: function (data) {
           var formData = new FormData();
           formData.append("file", data.file);

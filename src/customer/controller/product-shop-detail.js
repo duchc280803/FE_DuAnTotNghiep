@@ -1,47 +1,8 @@
+var idgh = localStorage.getItem("idgiohang");
+
 myAppCustom.controller(
   "sanPhamShopDetailController",
   function ($http, $scope, $routeParams, $window) {
-    // Kiểm tra xem có token đăng nhập hay không
-    var token = $window.localStorage.getItem("token-customer");
-    //ĐÂY LÀ IDGIOHANG tự tạo hoặc có sẵn ////
-    $scope.isCart = false;
-    var role = localStorage.getItem("role");
-    console.log(role)
-    if (role === "USER" && token != null) {
-      $scope.isCart = true;
-    } else {
-      $scope.isCart = false;
-    }
-    console.log("$scope.isCart" + $scope.isCart)
-    var idgh = "";
-    if (!$scope.isCart) {
-      idgh = localStorage.getItem("idgiohang");
-      console.log(" idgiohang not login" + idgh);
-    } else {
-      idgh = localStorage.getItem("idgiohanglogin");
-      console.log("idgiohanglogin iff " + idgh);
-    }
-    /////////////////////////////
-
-
-
-    if (token) {
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http.get(
-        "http://localhost:8080/api/gio-hang-not-login/get-gio-hang-login", config)
-        .then(
-          function (response) {
-            //ĐÂY LÀ IDGIOHANG của khách login hoặc có sẵn ////
-            $window.localStorage.setItem("idgiohanglogin", response.data);
-            console.log("idgiohanglogin", localStorage.getItem("idgiohanglogin"))
-            /////////////////////////////
-          }
-        );
-    }
 
     $scope.checkQuantity = function () {
       // Lấy giá trị nhập vào từ trường số lượng
@@ -298,21 +259,6 @@ myAppCustom.controller(
         });
     };
 
-    // Tạo giỏ hàng cho khách login
-    $scope.CreateNewCartLogin = function () {
-      $http
-        .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang-login", config)
-        .then(function (response) {
-          // Lưu idGioHang vào localStorage
-          var idGioHangLogin = response.data;
-          localStorage.setItem("idgiohanglogin", idGioHangLogin);
-        })
-        .catch(function (error) {
-          // Xử lý lỗi nếu cần
-          console.error("Lỗi khi tạo giỏ hàng", error);
-        });
-    };
-
     // Thêm sản phẩm vào giỏ hàng
     $scope.addToCart = async function (idSanPhamChiTiet) {
 
@@ -378,76 +324,9 @@ myAppCustom.controller(
           // Xử lý lỗi nếu cần
         }
       }
-    }; // close add cart
 
-    // Thêm sản phẩm vào giỏ hàng login
-    $scope.addToCartLogin = async function (idSanPhamChiTiet) {
-
-      // Kiểm tra xem đã chọn đủ 3 thuộc tính chưa
-      if (!$scope.quantity.sizeId || !$scope.quantity.colorId || !$scope.quantity.chatLieuId) {
-        Swal.fire({
-          title: "Sorry",
-          text: "Vui lòng chọn đủ thuộc tính",
-          icon: "error",
-          position: "bottom-start", // Đặt vị trí ở góc trái
-          toast: true, // Hiển thị thông báo nhỏ
-          showConfirmButton: false, // Ẩn nút xác nhận
-          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-        });
-        return;
-      }
-
-      var idGioHangLogin = localStorage.getItem("idgiohanglogin");
-      var soLuong = $scope.soluong;
-
-      console.log(soLuong);
-      console.log($window.localStorage.getItem("soluongton"));
-
-      if ($window.localStorage.getItem("soluongton") < soLuong) {
-        Swal.fire({
-          title: "Sorry",
-          text: "Quá số lượng tồn trong kho",
-          icon: "error",
-          position: "bottom-start", // Đặt vị trí ở góc trái
-          toast: true, // Hiển thị thông báo nhỏ
-          showConfirmButton: false, // Ẩn nút xác nhận
-          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-        });
-        return;
-      }
-
-      if (soLuong <= 0) {
-        Swal.fire({
-          title: "Sorry",
-          text: "Số lượng phải lớn hơn 0",
-          icon: "error",
-          position: "bottom-start", // Đặt vị trí ở góc trái
-          toast: true, // Hiển thị thông báo nhỏ
-          showConfirmButton: false, // Ẩn nút xác nhận
-          timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
-        });
-        return;
-      }
-
-      if (!idGioHangLogin) {
-        await $scope.CreateNewCartLogin();
-      } else {
-        try {
-          var idGioHangLogin = localStorage.getItem("idgiohanglogin");
-          await $http.post(
-            `http://localhost:8080/api/gio-hang-chi-tiet-not-login/them-san-pham?idGioHang=${idGioHangLogin}&idSanPhamChiTiet=${idSanPhamChiTiet}&soLuong=${soLuong}`
-          );
-          loadCart();
-          loadToTals();
-          loadQuanTiTy();
-          $window.location.reload();
-        } catch (error) {
-          // Xử lý lỗi nếu cần
-        }
-      }
-
-
-    }; // close add cart login
+      // localStorage.removeItem("idgiohang");
+    };
 
     $scope.getDetailProduct();
     $scope.getDetailSizeProduct();
@@ -471,21 +350,18 @@ myAppCustom.controller(
 
     loadRelatedProducts();
     function loadCart() {
-      if (idgh) {
-        // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-        var apiURL =
-          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
-          idgh;
-        $http.get(apiURL).then(function (response) {
-          $scope.products = response.data; // Dữ liệu sản phẩm từ API
-          $window.localStorage.setItem(
-            "listCart",
-            $scope.products.map((item) => item.id)
-          );
-        });
-      }
+      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+      var apiURL =
+        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/hien-thi?idgh=" +
+        idgh;
 
-
+      $http.get(apiURL).then(function (response) {
+        $scope.products = response.data; // Dữ liệu sản phẩm từ API
+        $window.localStorage.setItem(
+          "listCart",
+          $scope.products.map((item) => item.id)
+        );
+      });
     }
     loadCart();
     //delete product
@@ -518,41 +394,33 @@ myAppCustom.controller(
     };
     loadQuanTiTy();
     function loadToTals() {
-      if (idgh) {
-        // Gọi API và cập nhật giá trị totalAmount
+      // Gọi API và cập nhật giá trị totalAmount
 
-        $http
-          .get(
-            "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
-            idgh
-          )
-          .then(function (response) {
-            // Lấy giá trị tổng tiền từ phản hồi API
-            $scope.totalAmount = response.data[0].tongSoTien;
-            $window.localStorage.setItem("totalAmount", $scope.totalAmount);
-          })
-          .catch(function (error) {
-            console.error("Lỗi khi gọi API: " + error);
-          });
-      }
-
-
+      $http
+        .get(
+          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/total-amount?idgh=" +
+          idgh
+        )
+        .then(function (response) {
+          // Lấy giá trị tổng tiền từ phản hồi API
+          $scope.totalAmount = response.data[0].tongSoTien;
+          $window.localStorage.setItem("totalAmount", $scope.totalAmount);
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi gọi API: " + error);
+        });
     }
     loadToTals();
 
     function loadQuanTiTy() {
-      if (idgh) {
+      // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
+      var apiURL =
+        "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
+        idgh;
 
-        // Thay đổi idgh bằng id của giỏ hàng bạn muốn hiển thị sản phẩm
-        var apiURL =
-          "http://localhost:8080/api/gio-hang-chi-tiet-not-login/quantity?idgh=" +
-          idgh;
-
-        $http.get(apiURL).then(function (response) {
-          $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
-        });
-      }
-
+      $http.get(apiURL).then(function (response) {
+        $scope.quantity_all = response.data; // Dữ liệu sản phẩm từ API
+      });
     }
 
     loadQuanTiTy();
