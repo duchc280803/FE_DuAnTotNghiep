@@ -3,9 +3,14 @@
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="row">
+                    <h5 class="card-title mb-9 fw-semibold">
+                        <div class="col-lg-12">
+                          <span>Chi tiết sản phẩm</span>
+                        </div>
+                      </h5>
                     <div class="form-group col-md-3 mt-3">
-                        <span>Trạng thái</span>
-                        <select class="form-control select2" id="trangThaiSelect" ng-model="trangThai"
+                        <span>Trạng thái: </span>
+                        <select style="color: green" class="custom-select" id="trangThaiSelect" ng-model="trangThai"
                             ng-change="filterStatus()">
                             <option value="">Tất cả</option>
                             <option value="1">Đang bán</option>
@@ -14,8 +19,8 @@
                     </div>
 
                     <div class="form-group col-md-3 mt-3">
-                        <span>Size</span>
-                        <select class="form-control select2" id="sizeSelect" ng-model="locSize"
+                        <span>Size: </span>
+                        <select style="color: green" class="custom-select" id="sizeSelect" ng-model="locSize"
                             ng-change="filterSize()">
                             <option value="">Tất cả</option>
                             <option ng-repeat="s in listSize" value="{{s.size}}">
@@ -25,8 +30,8 @@
                     </div>
 
                     <div class="form-group col-md-3 mt-3">
-                        <span>Chất liệu</span>
-                        <select class="form-control select2" id="chatLieuSelect" ng-model="locMaterial"
+                        <span>Chất liệu: </span>
+                        <select style="color: green" class="custom-select" id="chatLieuSelect" ng-model="locMaterial"
                             ng-change="filterMaterial()">
                             <option value="">Tất cả</option>
                             <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
@@ -36,8 +41,8 @@
                     </div>
 
                     <div class="form-group col-md-3 mt-3">
-                        <span>Màu sắc</span>
-                        <select class="form-control select2" id="mauSacSelect" ng-model="locMauSac"
+                        <span>Màu sắc: </span>
+                        <select style="color: green" class="custom-select" id="mauSacSelect" ng-model="locMauSac"
                             ng-change="filterColor()">
                             <option value="">Tất cả</option>
                             <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
@@ -54,7 +59,7 @@
                     <div class="form-group col-md-3 mt-3"></div>
                     <!-- form-group -->
                     <div class="form-group col-md-3 mt-3" style="padding-left: 100px">
-                        <button class="btn btn-primary" ng-click="lamMoiChiTietSanPham()">Làm mới</button>
+                        <button class="btn btn-warning" ng-click="lamMoiChiTietSanPham()">Làm mới</button>
                         <a href="#/product-update/{{idUpdate}}" class="btn btn-secondary">Sửa</a>
                     </div>
                     <!-- form-group -->

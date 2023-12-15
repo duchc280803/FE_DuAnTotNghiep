@@ -2,13 +2,13 @@
   <div class="box">
     <div class="row" style="padding-top: 25px; padding-left: 60px">
       <div class="col-md-2">
-        <input class="form-control" placeholder="Tìm theo mã & SĐT" ng-model="searchQuery" style="margin-top: 4px" />
+        <input class="form-control" placeholder="Tìm theo mã, SĐT" ng-model="searchQuery" style="margin-top: 4px" />
       </div>
-      <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px">
-        <button class="btn btn-primary" style="height: 39px" ng-click="searchNhanVien()">
+      <div class="col-md-4 mt-1" >
+        <button class="btn btn-primary" ng-click="searchNhanVien()">
           Tìm kiếm
         </button>
-        <button class="btn btn-warning" style="height: 39px; margin-left: 10px" ng-click="clearSearch()">
+        <button class="btn btn-warning"  ng-click="clearSearch()">
           Làm mới
         </button>
       </div>
@@ -20,10 +20,9 @@
           <option value="2">Nghỉ làm</option>
         </select>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 mt-1">
         <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          style="text-decoration: none; height: 39px">
-          <ion-icon name="add-outline" style="vertical-align: middle; margin-right: 5px"></ion-icon>
+       >
           Tạo nhân viên
         </button>
       </div>
@@ -32,8 +31,7 @@
           <div class="modal-dialog modal-lg" style="max-width: 80%">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Tạo nhân viên</h5>
-                <br />
+                <h5 class="modal-title ard-title fw-semibold">Tạo nhân viên</h5>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -166,7 +164,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-outline-danger" ng-click="createNhanVien()">Thêm</button>
+                <button type="button" class="btn btn-danger" ng-click="createNhanVien()">Thêm</button>
               </div>
             </div>
           </div>
@@ -232,7 +230,7 @@
             </span>
           </td>
           <td>
-            <a type="button" href="#/staff/update/{{nv.id}}" class="btn btn-primary">
+            <a type="button" href="#/staff/update/{{nv.id}}" class="btn btn-success">
               Sửa
             </a>
           </td>

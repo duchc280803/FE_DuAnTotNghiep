@@ -215,7 +215,7 @@
                       <span>{{lc.tongTien.toLocaleString('vi-VN')}}đ</span>
                     </td>
                     <td class="align-middle" style="vertical-align: middle;">
-                      <button class="btn btn-primary" ng-click="deleteProduct($index)">Xóa</button>
+                      <button class="btn btn-danger" ng-click="deleteProduct($index)">Xóa</button>
                     </td>
                   </tr>
                 </tbody>
@@ -1032,7 +1032,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
+            <button class="btn btn-success" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
               ng-show="showInput"
               ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, tienThuaTraKhach, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
               Xác nhận thanh toán

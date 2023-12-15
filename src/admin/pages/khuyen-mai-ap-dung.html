@@ -1,15 +1,15 @@
 <div class="row">
     <div class="col-lg-8" style="padding-bottom: 10px;">
-        <a href="#/promotion" class="btn btn-primary">
-            Trở về trang
+        <a href="#/promotion" class="btn btn-danger">
+            Quay lại
         </a>
     </div>
     <div class="col-lg-8">
         <input type="text" class="next-input" ng-model="searchQuery" ng-change="searchKhach()"
-            placeholder="Nhập sản phẩm cần tìm" />
+            placeholder="Tìm kiếm sản phẩm" />
     </div>
     <div class="col-lg-4">
-        <button class="btn btn-outline-primary" style="margin-left: 10px" ng-click="refresh()">
+        <button class="btn btn-warning" style="margin-left: 10px" ng-click="refresh()">
             Làm mới
         </button>
     </div>
@@ -22,7 +22,7 @@
             <th scope="col">Ảnh sản phẩm</th>
             <th scope="col">Tên sản phẩm</th>
             <th scope="col">Đơn giá</th>
-            <th scope="col">Số lượng Giảm giá</th>
+            <th scope="col">Số lượng giảm giá</th>
             <th scope="col">Giá sau giảm</th>
         </tr>
     </thead>
@@ -39,13 +39,12 @@
             </td>
             <td>{{gg.productName}}</td>
             <td>
-                {{gg.giaBan.toLocaleString('vi-VN')}}₫
-            </td>
+                {{gg.giaBan.toLocaleString('vi-VN')}}đ
             <td>
                 {{gg.soLanGiam}}
             </td>
             <td>
-                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
+                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
             </td>
         </tr>
     </tbody>
@@ -53,14 +52,14 @@
 <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
     <ul class="pagination">
         <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
         </li>
         <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
         <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-                ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+                ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
         </li>
     </ul>
 </nav>

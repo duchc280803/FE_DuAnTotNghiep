@@ -16,7 +16,9 @@
               <span class="header-title">Mã khuyến mại</span>
               <span class="header-title" style="padding-left: 320px">
                 <input type="checkbox" ng-model="tuDongTaoMa" ng-change="onTuDongTaoMaChange()" />
+
                 <label style="opacity: 0.5">Tự động tạo</label>
+
                 <input type="text" disabled class="next-input" placeholder="Nhập mã khuyến mại" ng-model="maGiamGia" />
               </span>
             </div>
@@ -25,7 +27,7 @@
               <input type="text" class="next-input" placeholder="Nhập tên khuyến mại" ng-model="tenGiamGia" />
             </div>
             <div class="col-lg-5" style="padding-top: 15px">
-              <span class="header-title">Mức Giảm</span>
+              <span class="header-title">Mức giảm</span>
               <input type="text" class="next-input" placeholder="0" ng-model="mucGiam" />
             </div>
             <div class="col-lg-2" style="padding-top: 10px">
@@ -35,18 +37,18 @@
               </select>
             </div>
             <div class="col-lg-6" style="padding-top: 15px">
-              <span class="header-title">Ngày Bắt Đầu</span>
+              <span class="header-title">Ngày bắt đầu</span>
               <input type="date" class="next-input" placeholder="Nhập ngày bắt đầu" ng-model="ngayBatDau" />
             </div>
             <div class="col-lg-6" style="padding-top: 15px">
-              <span class="header-title">Ngày Kết Thúc</span>
+              <span class="header-title">Ngày kết thúc</span>
               <input type="date" class="next-input" placeholder="Nhập ngày kết thúc" ng-model="ngayKetThuc" />
             </div>
             <br />
+<div class="clo-lg-12"> <button type="button" class="btn btn-primary m-1" ng-click="themKhuyenMai()">
+  Thêm
+</button></div>
 
-            <button type="button" class="btn btn-outline-primary m-1" ng-click="themKhuyenMai()">
-              Thêm
-            </button>
           </div>
         </div>
       </div>
@@ -58,17 +60,18 @@
           <div class="row">
             <div class="col-lg-8">
               <input type="text" class="next-input" ng-model="searchQuery6" ng-change="searchKhach1()"
-                placeholder="Nhập sản phẩm cần tìm" />
+                placeholder="Tìm kiếm sản phẩm" />
             </div>
             <div class="col-lg-4">
-              <button class="btn btn-outline-primary" ng-click="refresh()" style="margin-left: 10px">
+              <button class="btn btn-warning" ng-click="refresh()" style="margin-left: 10px">
                 Làm mới
               </button>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3" style="padding: 20px">
-              Danh Mục:
+              <span>Danh mục:</span>
+           
               <select style="color: green" class="custom-select" ng-model="DanhMuc" ng-change="searchProductDanhMuc()"
                 ng-options="tt.id as tt.tenDanhMuc for tt in listDanhMuc">
                 <option value="">Tất cả</option>
@@ -76,7 +79,8 @@
             </div>
 
             <div class="col-md-3" style="padding: 20px">
-              Thương hiệu:
+              <span>Thương hiệu:</span>
+              
 
               <select style="color: green" class="custom-select" ng-model="ThuongHieu"
                 ng-change="searchProductThuongHieu()" ng-options="tt.id as tt.tenThuongHieu for tt in listThuongHieu">
@@ -84,7 +88,7 @@
               </select>
             </div>
             <div class="col-md-3" style="padding: 20px">
-              Kiểu Đế:
+              <span>Kiểu đế</span>
               <select style="color: green" class="custom-select" ng-model="KieuDe" ng-change="searchProductKieuDe()"
                 ng-options="tt.id as tt.tenDe for tt in listKieuDe">
                 <option value="">Tất cả</option>
@@ -92,7 +96,7 @@
             </div>
 
             <div class="col-md-3" style="padding: 20px">
-              Xuất xứ:
+              <span>Xuất xứ</span>
               <select style="color: green" class="custom-select" ng-model="XuatXu" ng-change="searchProductXuatXu()"
                 ng-options="tt.id as tt.tenXuatXu for tt in listXuatXu">
                 <option value="">Tất cả</option>
@@ -131,13 +135,13 @@
               </td>
               <td>{{gg.productName}}</td>
               <td>
-                {{gg.giaBan.toLocaleString('vi-VN')}}₫
+                {{gg.giaBan.toLocaleString('vi-VN')}}đ
               </td>
               <td>
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}₫
+                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
               </td>
             </tr>
           </tbody>

@@ -1,26 +1,22 @@
 <div class="card overflow-hidden" style="width: 1152px; height: 130px">
   <div class="row" style="padding-top: 30px; padding-left: 80px">
-    <div class="col-md-5">
+    <div class="col-md-6">
       <input class="form-control" placeholder="Tìm kiếm hóa đơn" style="width: 100%" ng-model="searchQuery" />
     </div>
-    <div class="col-md-2">
-      <button type="button" class="btn btn-primary" style="width: 100%" ng-click="searchHoaDon()">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-primary"  ng-click="searchHoaDon()">
         Tìm kiếm
       </button>
-    </div>
-    <div class="col-md-2">
-      <button type="button" class="btn btn-warning" style="width: 100%" ng-click="clearSearch()">
+      <button type="button" class="btn btn-warning" ng-click="clearSearch()">
         Làm mới
       </button>
-    </div>
-    <div class="col-md-2">
-      <a href="#/hoa-don-history" class="btn btn-danger" style="text-decoration: none; height: 39px">Lịch sử thao tác
+      <a href="#/hoa-don-history" class="btn btn-danger">Lịch sử thao tác
       </a>
     </div>
   </div>
   <div class="row" style="padding: 20px">
     <div class="col-md-3">
-      <span>Loại đơn :</span>
+      <span>Loại đơn:</span>
       <select style="color: green" class="custom-select" ng-model="selectedLoaiDon" ng-change="filterHoaDon()">
         <option value="">Tất cả</option>
         <option value="2">Tại quầy</option>

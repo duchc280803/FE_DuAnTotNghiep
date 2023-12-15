@@ -199,7 +199,7 @@ myApp.controller(
               .put(updateUrl, updatedData, config)
               .then(function (response) {
                 Swal.fire({
-                  position: "bottom-start",
+                  position: "top-end",
                   icon: "success",
                   title: "Chỉnh sửa thành công",
                   showConfirmButton: false,
@@ -280,7 +280,7 @@ myApp.controller(
                     $scope.listChatLieu.push(response.data);
                     chatLieuList($scope.selectedTrangThai, $scope.pageNumber);
                     Swal.fire({
-                      position: "bottom-start",
+                      position: "top-end",
                       icon: "success",
                       title: "Thêm thành công",
                       showConfirmButton: false,
@@ -328,7 +328,7 @@ myApp.controller(
               .put(deleteUrl, null, config)
               .then(function (response) {
                 Swal.fire({
-                  position: "bottom-start",
+                  position: "top-end",
                   icon: "success",
                   title: "Vô hiệu hóa thành công",
                   showConfirmButton: false,

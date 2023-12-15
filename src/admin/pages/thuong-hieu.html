@@ -3,16 +3,15 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="row">
-          <div class="form-group col-md-4">
-            <span>Tìm kiếm</span>
+          <div class="form-group col-md-4 mt-4">
             <div class="form-outline">
-              <input type="search" id="form1" class="form-control" ng-model="searchQuery" placeholder="Tìm kiếm" />
+              <input type="search" id="form1" class="form-control" ng-model="searchQuery" placeholder="Tìm kiếm thương hiệu" />
             </div>
           </div> <!-- form-group -->
 
-          <div class="form-group col-md-4">
-            <span>Trạng thái</span>
-            <select class="form-control select2" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
+          <div class="form-group col-md-4 mt-4">
+            <span>Trạng thái: </span>
+            <select style="color: green" class="custom-select"  ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
               id="simple-select2">
               <option value="">Tất cả</option>
               <option value="1">Hoạt động</option>
@@ -24,8 +23,8 @@
             <label for="simple-select2">ㅤ</label>
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="searchThuongHieu()">Tìm kiếm</button>
-              <button class="btn btn-danger" ng-click="clearSearch()">Làm mới</button>
-              <a href="#/brand/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
+              <button class="btn btn-warning" ng-click="clearSearch()">Làm mới</button>
+              <a href="#/brand/history" class="btn btn-danger">
                 Lịch sử thao tác
               </a>
             </div>
@@ -83,7 +82,15 @@
                 {{th.tenThuongHieu}}
               </td>
               <td>
-                <small>{{th.trangThai == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}}
+                <span style="
+                background-color: #cceeff;
+                color: #0077cc;
+                padding: 4px 8px;
+                border-radius: 4px;
+                display: inline-block;
+                text-align: center;
+              ">                {{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}
+        </span>
               </td>
               <td>
                 {{th.ngayTao | date:'MM/dd/yyyy'}}
@@ -92,10 +99,9 @@
                 {{th.ngayCapNhat | date:'MM/dd/yyyy'}}
               </td>
               <td>
-                <button class="btn btn-warning" ng-click="deleteThuongHieu(th.id)"><img width="25px"
-                    src="/assets/images/disabled.png" alt=""></button>
+                <button class="btn btn-warning" ng-click="deleteThuongHieu(th.id)">Xóa</button>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#suaThuongHieuModal"
-                  ng-click="fetchThuongHieuDetail(th.id)"><img width="25px" src="/assets/images/update.png"></button>
+                  ng-click="fetchThuongHieuDetail(th.id)">Sửa</button>
               </td>
             </tr>
           </tbody>
@@ -104,14 +110,17 @@
     </div>
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
-        <li class="page-item" ng-show="pageNumber > 0">
-          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+        <li class="page-item">
+          <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"
+            alt=""></a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
-        <li class="page-item" ng-show="showNextButtonSpInCart">
-          <a class="page-link" ng-href="" ng-click="nextPage()">Next</a>
+        <li class="page-item">
+          <a class="page-link" ng-href="" ng-click="nextPage()"
+            ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg" height="15px"
+            alt=""></a>
         </li>
       </ul>
     </nav>
@@ -120,18 +129,20 @@
 <div class="modal fade" id="thuongHieuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title ard-title fw-semibold">Thêm mới thương hiệu</h5>
+      </div>
       <div class="modal-body">
-        <span>Thêm mới thương hiệu</span>
-        <br>
+
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Tên thương hiệu:</span></span>
           <input type="text" class="form-control" id="brandName" ng-model="newThuongHieu.tenThuongHieu"
-            placeholder="Nhập Tên Thương Hiệu" />
+            placeholder="Nhập tên thương hiệu" />
           <span style="color: red">{{errortenThuongHieu}}</span>
         </div>
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
-          <select class="form-control" id="status" ng-model="newThuongHieu.trangThai">
+          <select style="color: green" class="custom-select" id="status" ng-model="newThuongHieu.trangThai">
             <option value="">Vui lòng chọn</option>
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
@@ -154,9 +165,11 @@
 <div class="modal fade" id="suaThuongHieuModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title ard-title fw-semibold">Chỉnh sửa thương hiệu</h5>
+      </div>
       <div class="modal-body">
-        <span>Sửa mới thương hiệu</span>
-        <br>
+
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Tên thương hiệu:</span></span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập Tên Thương Hiệu"
@@ -164,7 +177,7 @@
         </div>
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
-          <select class="form-control" id="status" ng-model="selectedThuongHieu.trangThai">
+          <select style="color: green" class="custom-select" id="status" ng-model="selectedThuongHieu.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
