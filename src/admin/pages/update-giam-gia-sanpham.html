@@ -26,7 +26,7 @@
             </div>
             <div class="col-lg-5" style="padding-top: 15px">
               <span class="header-title">Mức giảm</span>
-              <input type="text" class="next-input" placeholder="0" ng-model="giamgiachitiet.mucGiam" />
+              <input type="number" class="next-input" placeholder="0" ng-model="giamgiachitiet.mucGiam" />
             </div>
             <div class="col-lg-2" style="padding-top: 10px">
               <select class="form-select" id="selectOption" ng-value="giamgiachitiet.hinhThucGiam"
@@ -98,7 +98,7 @@
               </select>
             </div>
             <div class="col-md-3" style="padding: 20px">
-               <span>Kiểu đế:</span>
+              <span>Kiểu đế:</span>
               <select style="color: green" class="custom-select" ng-model="KieuDe" ng-change="searchProductKieuDe()"
                 ng-options="tt.id as tt.tenDe for tt in listKieuDe">
                 <option value="">Tất cả</option>
@@ -163,14 +163,16 @@
       <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg"
+                height="15px" alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg"
+                height="15px" alt=""></a>
           </li>
         </ul>
       </nav>

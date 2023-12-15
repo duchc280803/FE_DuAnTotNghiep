@@ -259,7 +259,8 @@ myApp.controller(
         // You might want to update other related properties as well
       }
     };
-
+    $scope.ngayBatDau = new Date();
+    $scope.hinhThucGiam = "2";
     setTimeout(() => {
       $scope.themVoucher = function () {
         var ngayBatDau = new Date($scope.ngayBatDau);
@@ -268,7 +269,7 @@ myApp.controller(
           Swal.fire({
             position: "top-end",
             icon: "error",
-            title: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+            title: "Ngày kết thúc phải lớn hơn ngày bắt đầu",
             showConfirmButton: false,
             timer: 1500,
             customClass: {
@@ -295,6 +296,20 @@ myApp.controller(
             timer: 1500,
             customClass: {
               popup: "small-popup",
+            },
+          });
+          return;
+        }
+        var ngayHienTai = new Date();
+        if (ngayKetThuc <= ngayHienTai) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Ngày kết thúc phải lớn hơn ngày hiện tại",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup", // Thêm class cho message
             },
           });
           return;

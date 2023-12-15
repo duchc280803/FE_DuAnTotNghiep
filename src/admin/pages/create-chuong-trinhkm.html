@@ -194,7 +194,8 @@
               <span>Mã voucher</span>
             </span>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" ng-model="tuDongTaoMa" ng-change="onTuDongTaoMaChange()" />
+              <input class="form-check-input" type="checkbox" ng-model="tuDongTaoMa"
+                ng-change="onTuDongTaoMaChange()" />
               <label class="form-check-label">
                 Tự động tạo
               </label>
@@ -222,7 +223,7 @@
         <div class="col-lg-6">
           <span class="header-title"><span style="color: red">*</span><span>Giá trị tối thiểu đơn
               hàng</span></span>
-          <input type="text" class="next-input" ng-model="giaTriToiThieuDonhang"
+          <input type="number" class="next-input" ng-model="giaTriToiThieuDonhang"
             placeholder="Nhập giá trị tối thiểu đơn hàng" />
         </div>
       </div>
@@ -230,7 +231,7 @@
       <div class="row">
         <div class="col-lg-6">
           <span class="header-title"><span style="color: red">*</span><span>Giá giảm</span></span>
-          <input type="text" class="next-input" ng-model="giaTriGiam" placeholder="Nhập giá trị giảm" />
+          <input type="number" class="next-input" ng-model="giaTriGiam" placeholder="Nhập giá trị giảm" />
         </div>
         <div class="col-lg-6">
           <select class="form-select" id="selectOption" ng-model="hinhThucGiam" aria-label="Default select example"
@@ -271,7 +272,7 @@
           </time>
         </section>
         <section class="card-cont-voucher">
-          <h6>Giá trị giảm : {{giaTriGiam.toLocaleString('vi-VN')}}  {{ hinhThucGiam == 1 ?  "%": "VND" }}   </h6>
+          <h6>Giá trị giảm : {{giaTriGiam.toLocaleString('vi-VN')}} {{ hinhThucGiam == 1 ? "%": "VND" }} </h6>
           <span>Đơn tối thiểu : {{giaTriToiThieuDonhang.toLocaleString('vi-VN')}} VNĐ</span>
           <div class="even-date">
             <i class="fa fa-calendar"></i>
