@@ -9,8 +9,8 @@
         style="margin-top: 4px;" />
     </div>
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
-      <input class="form-control" ng-model="searchQuery2" ng-change="searchTenKhach()" placeholder="Tìm kiếm tên khuyến mại"
-        style="margin-top: 4px;" />
+      <input class="form-control" ng-model="searchQuery2" ng-change="searchTenKhach()"
+        placeholder="Tìm kiếm tên khuyến mại" style="margin-top: 4px;" />
     </div>
 
     <div class="col-lg-4">
@@ -19,7 +19,6 @@
         <option value="">Tất cả</option>
         <option value="1">Đang hoạt động</option>
         <option value="2">Ngừng hoạt động</option>
-        <option value="3">Sắp diễn ra</option>
       </select>
     </div>
     <div class="col-lg-4" style="width: 700px; padding-right: 50px;">
@@ -29,20 +28,23 @@
     </div>
   </div>
   <div class="row">
-    <div style="padding: 20px;">
-      <button class="btn btn-warning" ng-click="refresh()">
+    <div>
+      <button class="btn btn-warning" style="margin-top: 20px;margin-bottom: 10px;" ng-click="refresh()">
         Làm mới
       </button>
-      <a href="#/promotion/history" class="btn btn-danger">
+      <a href="#/promotion/history" style="margin-left: 30px;margin-top: 20px;margin-bottom: 10px;"
+        class="btn btn-danger">
         Lịch sử
       </a>
-      <a href="#/promotion/product" class="btn btn-success">
+      <a href="#/promotion/product" style="margin-left: 30px;margin-top: 20px;margin-bottom: 10px;"
+        class="btn btn-success">
         Sản phẩm áp dụng
       </a>
-      <a href="#/promotion/create" class="btn btn-primary">
+      <a href="#/promotion/create" style="margin-left: 30px;margin-top: 20px;margin-bottom: 10px;"
+        class="btn btn-primary">
         Tạo khuyến mại
       </a>
-      </div>
+    </div>
 
   </div>
 </div>
@@ -89,28 +91,29 @@
             padding: 4px 8px;
             border-radius: 4px;
             display: inline-block;
-            text-align: center;
-          ">            {{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}
-    </span>
+            text-align: center;"> {{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}
+            </span>
 
           </td>
           <td>
             <a class="btn btn-secondary" ng-click="toggleDetail(gg)" data-toggle="modal"
               data-target="#detailsModal{{$index}}">
-            Xem
+              Xem
             </a>
             <a href="#/promotion/update/{{gg.id}}" class="btn btn-success">Sửa</a>
-            <a class="btn btn-warning" ng-click="updateGiamGiaStatus(gg.id, $event)">
-            Xóa
+            <a class="btn btn-warning" ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
+              ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
+              Xóa
             </a>
             <!-- Details Modal -->
-            <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$index}}" aria-hidden="true">
+            <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog"
+              aria-labelledby="detailsModalLabel{{$index}}" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title card-title fw-semibold">Sản phẩm được khuyến mãi</h5>
                   </div>
-            
+
                   <div class="modal-body" ng-show="gg.showDetail">
                     <!-- Display details here -->
                     <table class="table table-hover">
@@ -135,7 +138,7 @@
                 </div>
               </div>
             </div>
-            
+
           </td>
         </tr>
       </tbody>
@@ -144,13 +147,15 @@
       <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"></a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg"
+                height="15px"></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButton">
-            <a class="page-link" ng-href="" ng-click="nextPage()"><img src="/assets/images/chevron-right.svg" height="15px"></a>
+            <a class="page-link" ng-href="" ng-click="nextPage()"><img src="/assets/images/chevron-right.svg"
+                height="15px"></a>
           </li>
         </ul>
       </nav>

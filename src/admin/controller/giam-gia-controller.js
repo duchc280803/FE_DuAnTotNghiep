@@ -667,8 +667,9 @@ myApp.controller(
     $scope.mucGiam = "";
     $scope.hinhThucGiam = "";
     $scope.trangThai = "";
-    $scope.ngayBatDau = "";
+    $scope.ngayBatDau = new Date();
     $scope.ngayKetThuc = "";
+    $scope.hinhThucGiam = "1";
     $scope.sanPhamDaChon = [];
     $scope.onTuDongTaoMaChange = function () {
       if ($scope.tuDongTaoMa) {
@@ -771,6 +772,20 @@ myApp.controller(
                 position: "top-end",
                 icon: "error",
                 title: "Ngày bắt đầu phải nhỏ hơn ngày kết thúc",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
+            var ngayHienTai = new Date();
+            if (ngayKetThuc <= ngayHienTai) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Ngày kết thúc phải lớn hơn ngày hiện tại",
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {
