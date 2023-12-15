@@ -88,46 +88,6 @@
                         <span ng-show="!isEmailIsPresent" style="color: red;">Email đã tồn tại</span>
                         <input type="text" class="form-control" ng-model="email" />
                       </div>
-                      <br />
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <span class="header-title"><span style="color: red">*</span> <span>Tỉnh</span></span>
-                          <span ng-show="!isProvinceValid" style="color: red;">Chọn tỉnh</span>
-                          <select class="form-control select2" ng-model="selectedProvince"
-                            ng-options="province.name for province in provinces" ng-change="getDistricts()">
-                            <option value="">Chọn tỉnh</option>
-                            <option ng-repeat="province in provinces" ng-model="newKhachHang.tinh"
-                              value="{{province.name}}">
-                              {{province.name}}
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-lg-4">
-                          <span class="header-title"><span style="color: red">*</span>
-                            <span>Huyện</span></span>
-                          <span ng-show="!isDistrictValid" style="color: red;">Chọn huyện</span>
-                          <select class="form-control select2" name="" id="district" ng-model="selectedDistrict"
-                            ng-options="district.name for district in districts" ng-change="getWards()">
-                            <option value="">Chọn huyện</option>
-                            <option ng-repeat="district in districts" ng-model="newKhachHang.huyen"
-                              value="{{district.name}}">
-                              {{district.name}}
-                            </option>
-                          </select>
-                        </div>
-                        <div class="col-lg-4">
-                          <span class="header-title"><span style="color: red">*</span>
-                            <span>Phường</span></span>
-                          <span ng-show="!isWardValid" style="color: red;">Chọn phường</span>
-                          <select class="form-control select2" name="" id="ward" ng-model="selectedWard"
-                            ng-options="ward.name for ward in wards">
-                            <option value="">Chọn phường</option>
-                            <option ng-repeat="ward in wards" ng-model="newKhachHang.phuong" value="{{ward.name}}">
-                              {{ward.name}}
-                            </option>
-                          </select>
-                        </div>
-                      </div>
                       <br>
                       <div class="form-group">
                         <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>

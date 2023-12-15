@@ -259,6 +259,7 @@ myApp.controller(
               .then(function (response) {
                 $scope.listThuongHieu.push(response.data);
                 $("#thuongHieuModal").modal("hide");
+                $scope.newThuongHieu = {};
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -291,7 +292,7 @@ myApp.controller(
           },
         };
         Swal.fire({
-          title: "Bạn có muốn thêm mới không?",
+          title: "Bạn có muốn vô hiệu hóa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -306,7 +307,7 @@ myApp.controller(
               "http://localhost:8080/api/v1/thuong-hieu/delete?id=" + id;
 
             $http
-              .put(deleteUrl, config)
+              .put(deleteUrl, null,config)
               .then(function (response) {
                 Swal.fire({
                   position: "top-end",

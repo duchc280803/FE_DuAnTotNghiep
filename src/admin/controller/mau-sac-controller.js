@@ -212,6 +212,7 @@ myApp.controller(
             $http
               .put(updateUrl, updatedData, config)
               .then(function (response) {
+                $("#sua").modal("hide"); // Đóng modal khi thêm thành công
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -296,7 +297,9 @@ myApp.controller(
                   config
                 )
                 .then(function (response) {
+                  $("#sizeModal").modal("hide"); // Đóng modal khi thêm thành công
                   $scope.listMauSac.push(response.data);
+                  $scope.newMauSac = {};
                   Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -344,6 +347,7 @@ myApp.controller(
             $http
               .put(deleteUrl, null, config)
               .then(function (response) {
+               
                 Swal.fire({
                   position: "top-end",
                   icon: "success",

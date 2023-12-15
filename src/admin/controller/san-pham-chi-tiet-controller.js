@@ -1,6 +1,6 @@
 myApp.controller(
   "sanPhamChiTietController",
-  function ($http, $scope, $routeParams) {
+  function ($http, $scope, $routeParams, $window) {
     var role = $window.localStorage.getItem("role");
     if (role === "USER") {
       Swal.fire({
