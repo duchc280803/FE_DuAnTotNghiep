@@ -141,7 +141,7 @@
                   <tbody>
                     <tr ng-repeat="sp in listSanPhamBanChay">
                       <th scope="col">{{$index + 1}}</th>
-                      <td><img src="{{sp.image}}" width="80px" alt=""></td>
+                      <td><img src="/assets/ảnh giày/{{sp.image}}" width="80px" alt=""></td>
                       <td>{{sp.productName}}</td>
                       <td ng-show="sp.price === sp.giaGiam">{{sp.giaGiam.toLocaleString('vi-VN')}}₫</strike></td>
                       <td ng-show="sp.price != sp.giaGiam">{{sp.price.toLocaleString('vi-VN')}}₫ <strike

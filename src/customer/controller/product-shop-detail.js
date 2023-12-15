@@ -259,24 +259,24 @@ myAppCustom.controller(
         });
     };
 
-<<<<<<< HEAD
-    // Tạo giỏ hàng cho khách login
-    $scope.CreateNewCartLogin = function () {
-      $http
-        .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang-login", config)
-        .then(function (response) {
-          // Lưu idGioHang vào localStorage 
-          var idGioHangLogin = response.data;
-          localStorage.setItem("idgiohanglogin", idGioHangLogin);
-        })
-        .catch(function (error) {
-          // Xử lý lỗi nếu cần
-          console.error("Lỗi khi tạo giỏ hàng", error);
-        });
-    };
+// <<<<<<< HEAD
+//     // Tạo giỏ hàng cho khách login
+//     $scope.CreateNewCartLogin = function () {
+//       $http
+//         .post("http://localhost:8080/api/gio-hang-not-login/tao-gio-hang-login", config)
+//         .then(function (response) {
+//           // Lưu idGioHang vào localStorage 
+//           var idGioHangLogin = response.data;
+//           localStorage.setItem("idgiohanglogin", idGioHangLogin);
+//         })
+//         .catch(function (error) {
+//           // Xử lý lỗi nếu cần
+//           console.error("Lỗi khi tạo giỏ hàng", error);
+//         });
+//     };
 
-=======
->>>>>>> 63ba5fafa1c71c6049f7b384dc008e7f7558adf8
+// =======
+// >>>>>>> 63ba5fafa1c71c6049f7b384dc008e7f7558adf8
     // Thêm sản phẩm vào giỏ hàng
     $scope.addToCart = async function (idSanPhamChiTiet) {
 
