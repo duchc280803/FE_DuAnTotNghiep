@@ -406,7 +406,7 @@ myApp.controller(
         Swal.fire({
           position: "top-end",
           icon: "warning",
-          title: "Bạn đã thêm quá số lượng tồn",
+          title: "Bạn đã thêm quá số lượng có sẵn",
           showConfirmButton: false,
           timer: 1500,
           customClass: {
