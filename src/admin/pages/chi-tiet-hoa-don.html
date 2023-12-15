@@ -375,7 +375,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-lg-9" ng-show="fillMoney.tongTien <= soTienKhachTra">
       <span style="
           color: #fc5e03;
@@ -422,7 +422,7 @@
           padding-left: 100px;
         ">{{soTienHoan.toLocaleString('vi-VN')}}đ</span>
     </div>
-  </div>
+  </div> -->
 </div>
 <div class="card overflow-hidden" style="width: 1152px">
   <div class="box">
@@ -431,7 +431,7 @@
         Thông tin đơn hàng
       </h5>
       <div class="why">
-        <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'ONLINE'" type="submit"
+        <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'Online'" type="submit"
           class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
           Cập nhập
         </button>
@@ -478,7 +478,7 @@
           <td style="padding-top: 80px">{{$index + 1}}</td>
           <td>
             <div style="position: relative">
-              <img src="{{item.tenImage}}" alt="" width="150px" />
+              <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="150px" />
             </div>
           </td>
           <td style="padding-top: 80px">{{item.tenSanPham}}</td>
@@ -547,7 +547,7 @@
             <tbody class="table">
               <tr>
                 <td style="width: 150px">
-                  <img src="{{fillProductTraHang.tenImage}}" alt="" width="250px" />
+                  <img src="/assets/ảnh giày/{{fillProductTraHang.tenImage}}" alt="" width="250px" />
                 </td>
                 <td>
                   <h6 style="font-size: 15px; font-weight: bold; height: 10px">
@@ -733,7 +733,7 @@
                       </td>
                       <td>
                         <div class="d-flex justify-content-center">
-                          <img src="{{sptq.imgage}}" alt="..." class="img-fluid"
+                          <img src="/assets/ảnh giày/{{sptq.imgage}}" alt="..." class="img-fluid"
                             style="max-width: 100px; max-height: 100px" />
                         </div>
                       </td>
