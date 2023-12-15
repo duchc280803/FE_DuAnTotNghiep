@@ -241,7 +241,7 @@
               <div class="modal-dialog modal-lg">
                 <div class="modal-content custom-modal-content">
                   <div class="modal-header">
-                    <span class="card-title mb-9 fw-semibold">Tìm kiếm sản phẩm</span>
+                    <span class="card-title mb-9 fw-semibold">Thêm sản phẩm</span>
                   </div>
                   <div class="modal-body">
                     <div class="row">
@@ -339,9 +339,9 @@
                             <th scope="col">STT</th>
                             <th scope="col">Ảnh</th>
                             <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Số lượng</th>
                             <th scope="col" style="width: 120px">Giá</th>
-                            <th scope="col">Số Lượng</th>
-                            <th scope="col">Thao Tác</th>
+                            <th scope="col">Thao tác</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -373,6 +373,15 @@
                                   <span>{{sptq.chatLieu}}</span>
                             </td>
                             <td style="padding-top: 55px">
+                              <div class="quantity">
+                                <input ng-model="soLuongSanPham" min="1" max="{{sptq.soLuong}}" type="number"
+                                  class="next-input text-left min-width-100px position-relative quantity-decimal" />
+                              </div>
+                              <h6 style="margin-left: 0px; padding-top: 5px" ng-if="sptq.soLuong > 0">
+                                <span>{{sptq.soLuong}} sản phẩm có sẵn</span>
+                              </h6>
+                            </td>
+                            <td style="padding-top: 55px">
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
@@ -390,15 +399,6 @@
                                   </span>
                                 </strong>
                               </small>
-                            </td>
-                            <td style="padding-top: 55px">
-                              <div class="quantity">
-                                <input ng-model="soLuongSanPham" min="1" max="{{sptq.soLuong}}" type="number"
-                                  class="next-input text-left min-width-100px position-relative quantity-decimal" />
-                              </div>
-                              <h6 style="margin-left: 0px; padding-top: 5px" ng-if="sptq.soLuong > 0">
-                                <span>{{sptq.soLuong}} sản phẩm có sẵn</span>
-                              </h6>
                             </td>
                             <td style="padding-top: 55px" ng-if="sptq.soLuong > 0">
                               <button type="button" class="btn btn-primary"
