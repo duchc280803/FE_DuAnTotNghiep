@@ -1,8 +1,4 @@
-var role = localStorage.getItem("role");
-console.log(role);
-if(role == null){
-  var idgh = localStorage.getItem("idgiohang");
-}
+var idgh = localStorage.getItem("idgiohang");
 myAppCustom.controller(
   "CartController",
   function ($scope, $http, $window, $location, $route, $routeParams) {

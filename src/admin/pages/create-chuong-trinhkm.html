@@ -188,16 +188,25 @@
             ">
       <div class="row">
         <div class="col-lg-6">
-          <span class="header-title"><span style="color: red">*</span>
-            <span>Mã voucher</span></span>
-          <span class="header-title" style="padding-left: 240px">
-            <input type="checkbox" ng-model="tuDongTaoMa" ng-change="onTuDongTaoMaChange()" />
-          </span>
-          <input type="text" class="next-input" ng-model="maVoucher" placeholder="Nhập mã voucher" />
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="header-title">
+              <span style="color: red">*</span>
+              <span>Mã voucher</span>
+            </span>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" ng-model="tuDongTaoMa" ng-change="onTuDongTaoMaChange()" />
+              <label class="form-check-label">
+                Tự động tạo
+              </label>
+            </div>
+          </div>
+          <input type="text" class="next-input" ng-model="maVoucher" disabled placeholder="Nhập mã voucher" />
         </div>
         <div class="col-lg-6">
-          <span class="header-title"><span style="color: red">*</span>
-            <span>Tên voucher</span></span>
+          <span class="header-title">
+            <span style="color: red">*</span>
+            <span>Tên voucher</span>
+          </span>
           <input type="text" class="next-input" ng-model="tenVoucher" placeholder="Nhập tên voucher" />
         </div>
       </div>
