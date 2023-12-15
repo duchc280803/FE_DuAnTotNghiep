@@ -242,6 +242,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.createSize = function () {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         $scope.isthuoctinh = !!$scope.newSize.size;
         $scope.istrangthai = !!$scope.newSize.trangThai;
 
@@ -255,7 +262,8 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/v1/size/find-by-size?size=" +
-              $scope.newSize.size
+              $scope.newSize.size,
+            config
           )
           .then(function (response) {
             console.log("size" + response.data);
@@ -278,13 +286,6 @@ myApp.controller(
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
-                  var token = $window.localStorage.getItem("token");
-
-                  var config = {
-                    headers: {
-                      Authorization: "Bearer " + token,
-                    },
-                  };
                   $http
                     .post(
                       "http://localhost:8080/api/v1/size/create",
@@ -315,6 +316,13 @@ myApp.controller(
 
     setTimeout(() => {
       $scope.deleteSize = function (id) {
+        var token = $window.localStorage.getItem("token");
+
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         Swal.fire({
           title: "Bạn có muốn vô hiệu hóa không?",
           text: "",
@@ -330,7 +338,7 @@ myApp.controller(
             var deleteUrl = "http://localhost:8080/api/v1/size/delete?id=" + id;
 
             $http
-              .put(deleteUrl)
+              .put(deleteUrl, null, config)
               .then(function (response) {
                 Swal.fire({
                   position: "bottom-start",

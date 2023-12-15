@@ -282,6 +282,13 @@ myApp.controller(
     }, 2000);
 
     $scope.deleteKieuDe = function (id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
       Swal.fire({
         title: "Bạn có muốn vô hiệu hóa kiểu đế này không?",
         text: "",
@@ -298,7 +305,7 @@ myApp.controller(
             "http://localhost:8080/api/v1/kieu-de/delete?id=" + id;
 
           $http
-            .put(deleteUrl)
+            .put(deleteUrl, null, config)
             .then(function (response) {
               Swal.fire({
                 position: "top-end",
