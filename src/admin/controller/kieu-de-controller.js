@@ -181,7 +181,7 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateKieuDe = function (updatedData) {
         Swal.fire({
-          title: "Bạn có muốn sửa kiểu đế mới không?",
+          title: "Bạn có muốn chỉnh sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -209,7 +209,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Sửa thành công",
+                  title: "Cập nhật thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -232,7 +232,7 @@ myApp.controller(
     setTimeout(() => {
       $scope.createKieuDe = function () {
         Swal.fire({
-          title: "Bạn có muốn thêm kiểu đế mới không?",
+          title: "Bạn có muốn thêm mới không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -262,7 +262,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Thêm mới thành công",
+                  title: "Thêm thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -283,7 +283,7 @@ myApp.controller(
 
     $scope.deleteKieuDe = function (id) {
       Swal.fire({
-        title: "Bạn có muốn vô hiệu hóa kiểu đế này không?",
+        title: "Bạn có muốn vô hiệu hóa không?",
         text: "",
         icon: "question",
         showCancelButton: true,

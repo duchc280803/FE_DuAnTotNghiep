@@ -3,15 +3,14 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="row">
-          <div class="form-group col-md-4">
-            <span>Tìm kiếm</span>
+          <div class="form-group col-md-4 mt-4">
             <div class="form-outline">
-              <input type="search" id="form1" class="form-control" ng-model="searchQuery" />
+              <input type="search" id="form1" class="form-control" ng-model="searchQuery" placeholder="Tìm kiếm chất liệu"/>
             </div>
           </div>
-          <div class="form-group col-md-4">
-            <span>Trạng thái</span>
-            <select class="form-control select2" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
+          <div class="form-group col-md-4 mt-4">
+            <span>Trạng thái: </span>
+            <select style="color: green" class="custom-select"  ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
               id="simple-select2">
               <option value="">Tất cả</option>
               <option value="1">Hoạt động</option>
@@ -25,8 +24,8 @@
               <button class="btn btn-primary" ng-click="searchChatLieu()">
                 Tìm kiếm
               </button>
-              <button class="btn btn-danger" ng-click="clearSearch()">
-                Làm mới bộ lọc
+              <button class="btn btn-warning" ng-click="clearSearch()">
+                Làm mới
               </button>
               <a href="#/material/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
                 Lịch sử thao tác
@@ -76,16 +75,26 @@
             <tr ng-repeat="th in listChatLieu">
               <td>{{$index + 1}}</td>
               <td>{{th.tenChatLieu}}</td>
-              <td>{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}</td>
+              <td>
+                <span style="
+                background-color: #cceeff;
+                color: #0077cc;
+                padding: 4px 8px;
+                border-radius: 4px;
+                display: inline-block;
+                text-align: center;
+              ">{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}
+        </span>
+              </td>
               <td>{{th.ngayTao | date:'MM/dd/yyyy'}}</td>
               <td>{{th.ngayCapNhat | date:'MM/dd/yyyy'}}</td>
               <td>
                 <button class="btn btn-warning" ng-click="deleteChatLieu(th.id)">
-                  <img width="25px" src="/assets/images/disabled.png" alt="" />
+                    Xóa
                 </button>
                 <button class="btn btn-success" ng-click="fetchChatLieuDetail(th.id)" data-toggle="modal"
                   data-target="#sizeModal">
-                  <img width="25px" src="/assets/images/update.png" alt="" />
+                  Sửa
                 </button>
               </td>
             </tr>
@@ -96,14 +105,16 @@
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
         <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+          <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"
+            alt=""></a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
         <li class="page-item">
           <a class="page-link" ng-href="" ng-click="nextPage()"
-            ng-disabled="pageNumber === totalNumberOfPages - 1">Next</a>
+            ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg" height="15px"
+            alt=""></a>
         </li>
       </ul>
     </nav>
@@ -115,7 +126,7 @@
     <div class="modal-dialog modal-dialog-centered size-modal" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Chỉnh sửa chất liệu</h5>
+          <h5 class="modal-title ard-title fw-semibold">Chỉnh sửa chất liệu</h5>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -128,8 +139,8 @@
           </div>
           <div class="form-group">
             <span class="text-danger">*</span>
-            <label for="status">Trạng thái:</label>
-            <select class="form-control" id="status" ng-model="selectedChatLieu.trangThai">
+            <label for="status">Trạng thái: </label>
+            <select style="color: green" class="custom-select"  ng-model="selectedChatLieu.trangThai">
               <option value="1">Hoạt động</option>
               <option value="2">Ngừng hoạt động</option>
             </select>
@@ -152,7 +163,7 @@
     <div class="modal-dialog modal-dialog-centered size-modal" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <span>Thêm mới chất liệu</span>
+          <h5 class="modal-title ard-title fw-semibold">Thêm mới chất liệu</h5>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -166,9 +177,9 @@
           </div>
           <div class="form-group">
             <span class="header-title"><span style="color: red">*</span>
-              <span>Trạng thái:</span></span>
+              <span>Trạng thái: </span></span>
           <span ng-show="!istrangthai" style="color: red;">Vui lòng chọn trạng thái</span>
-            <select class="form-control" id="status" ng-model="newChatLieu.trangThai">
+            <select style="color: green" class="custom-select" ng-model="newChatLieu.trangThai">
               <option value="">Vui lòng chọn</option>
               <option value="1">Hoạt động</option>
               <option value="2">Ngừng hoạt động</option>

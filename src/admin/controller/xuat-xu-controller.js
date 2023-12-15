@@ -183,7 +183,7 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateXuatXu = function (updatedData) {
         Swal.fire({
-          title: "Bạn có muốn sửa không?",
+          title: "Bạn có muốn chỉnh sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -212,7 +212,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Chỉnh sửa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {

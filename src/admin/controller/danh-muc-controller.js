@@ -178,14 +178,14 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateDanhMuc = function (updatedData) {
         Swal.fire({
-          title: "Bạn có muốn update không?",
+          title: "Bạn có muốn chỉnh sửa không?",
           text: "",
           icon: "question",
           showCancelButton: true,
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -207,7 +207,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Cập nhật thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -237,7 +237,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -260,7 +260,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Thêm thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -289,7 +289,7 @@ myApp.controller(
           cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
           cancelButtonColor: "#d33",
           confirmButtonColor: "#3085d6",
-          confirmButtonText: "Có", // Thay đổi từ "Yes" thành "Có"
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
@@ -302,7 +302,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Update thành công",
+                  title: "Vô hiệu hóa thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {

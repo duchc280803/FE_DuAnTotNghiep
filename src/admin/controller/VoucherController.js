@@ -306,7 +306,7 @@ myApp.controller(
             position: "top-end",
             icon: "error",
             title:
-              "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 50 khi hình thức giảm là phần trăm",
+              "Giá trị mức giảm phải nằm trong khoảng từ 0 đến 100 khi hình thức giảm là phần trăm",
             showConfirmButton: false,
             timer: 1500,
             customClass: {
