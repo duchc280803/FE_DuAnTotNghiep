@@ -226,6 +226,12 @@ myApp.controller(
 
     $scope.newChatLieu = {};
     $scope.createChatLieu = function () {
+      var token = $window.localStorage.getItem("token");
+                var config = {
+                  headers: {
+                    Authorization: "Bearer " + token,
+                  },
+                };
       $scope.isthuoctinh = !!$scope.newChatLieu.tenChatLieu;
       $scope.istrangthai = !!$scope.newChatLieu.trangThai;
 
@@ -239,7 +245,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/chat-lieu/find-by-chat-lieu?chatlieu=" +
-            $scope.newChatLieu.tenChatLieu
+            $scope.newChatLieu.tenChatLieu, config
         )
         .then(function (response) {
           console.log("size" + response.data);
@@ -261,12 +267,7 @@ myApp.controller(
               reverseButtons: true,
             }).then((result) => {
               if (result.isConfirmed) {
-                var token = $window.localStorage.getItem("token");
-                var config = {
-                  headers: {
-                    Authorization: "Bearer " + token,
-                  },
-                };
+                
                 $http
                   .post(
                     "http://localhost:8080/api/v1/chat-lieu/create",
