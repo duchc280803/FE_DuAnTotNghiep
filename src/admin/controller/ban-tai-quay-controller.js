@@ -1008,7 +1008,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              tenKhach: $scope.tenKhach,
+              hoTen: $scope.hoTen,
               tenNguoiShip: $scope.tenNguoiShip,
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
@@ -1204,7 +1204,7 @@ myApp.controller(
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
           $scope.keyName = "";
-          if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+          if ($scope.listSanPhamTaiQuay.length < $scope.pageSizeSp) {
             $scope.showNextButton = false; // Ẩn nút "Next"
           } else {
             $scope.showNextButton = true; // Hiển thị nút "Next"
@@ -1612,7 +1612,6 @@ myApp.controller(
     };
 
     $scope.newKhachHang = {};
-
     setTimeout(() => {
       $scope.createKhachHang = function () {
         var token = $window.localStorage.getItem("token");
@@ -1642,8 +1641,8 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                $scope.listKhachHang.push(response.data);
                 $("#exampleModal3").modal("hide");
+                $scope.listKhachHang.push(response.data);
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -1653,19 +1652,21 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup",
                   },
+                }).then(() => {
+                  $window.location.reload();
                 });
-                $scope.getListHoaDonTaiQuay();
-                $scope.detailOrderCounterDetail();
-                $scope.listSanPhamInCart();
-                CartService.setIdCart(id).then(function () {});
-                CartService.setIdCart(id).then(function () {
-                  var idCart = CartService.getIdCart();
-                  CartService.setIdCartDetail(idCart).then(function () {});
-                });
-                $scope.showKhachHang();
-                $scope.showTransaction();
-                $scope.showTransaction();
-                $scope.getVoucherName();
+                // $scope.getListHoaDonTaiQuay();
+                // $scope.detailOrderCounterDetail();
+                // $scope.listSanPhamInCart();
+                // CartService.setIdCart(id).then(function () {});
+                // CartService.setIdCart(id).then(function () {
+                //   var idCart = CartService.getIdCart();
+                //   CartService.setIdCartDetail(idCart).then(function () {});
+                // });
+                // $scope.showKhachHang();
+                // $scope.showTransaction();
+                // $scope.showTransaction();
+                // $scope.getVoucherName();
               })
               .catch(function (error) {
                 $scope.errorMessage = error.data.message;

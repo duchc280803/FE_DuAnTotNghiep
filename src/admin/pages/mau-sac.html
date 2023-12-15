@@ -5,13 +5,14 @@
         <div class="row">
           <div class="form-group col-md-4 mt-4">
             <div class="form-outline">
-              <input type="search" id="form1" class="form-control" ng-model="searchQuery" placeholder="Tìm kiếm màu sắc"/>
+              <input type="search" id="form1" class="form-control" ng-model="searchQuery"
+                placeholder="Tìm kiếm màu sắc" />
             </div>
           </div> <!-- form-group -->
           <div class="form-group col-md-4 mt-4">
             <span>Trạng thái: </span>
-            <select style="color: green" class="custom-select" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
-              id="simple-select2">
+            <select style="color: green" class="custom-select" ng-model="selectedTrangThai"
+              ng-change="onTrangThaiChange()" id="simple-select2">
               <option value="">Tất cả</option>
               <option value="1">Hoạt động</option>
               <option value="2">Ngừng hoạt động</option>
@@ -42,7 +43,7 @@
           </div>
           <div class="col-auto">
             <div class="input-group-append ml-3">
-              <button class="btn btn-primary rounded" data-toggle="modal" data-target="#sizeModal">
+              <button class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#sizeModal">
                 Tạo màu sắc
               </button>
             </div>
@@ -91,7 +92,7 @@
                 display: inline-block;
                 text-align: center;
               ">{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}
-        </span>
+                </span>
 
               </td>
               <td>
@@ -102,11 +103,10 @@
               </td>
               <td>
                 <button class="btn btn-warning" ng-click="deleteMauSac(th.id)">Xóa</button>
-                <button class="btn btn-success" data-toggle="modal" ng-click="fetchMauSacdetail(th.id)"
-                  data-target="#sua">Sửa</button>
+                <button class="btn btn-success" data-bs-toggle="modal" ng-click="fetchMauSacdetail(th.id)"
+                  data-bs-target="#sua">Sửa</button>
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
@@ -114,16 +114,15 @@
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
         <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"
-            alt=""></a>
+          <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg"
+              height="15px" alt=""></a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
         <li class="page-item">
-          <a class="page-link" ng-href="" ng-click="nextPage()"
-            ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg" height="15px"
-            alt=""></a>
+          <a class="page-link" ng-href="" ng-click="nextPage()" ng-disabled="pageNumber === totalNumberOfPages - 1"><img
+              src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
         </li>
       </ul>
     </nav>
@@ -131,7 +130,7 @@
   </div> <!-- .col-12 -->
 </div> <!-- .row -->
 <!-- Thêm -->
-<div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="sizeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -139,8 +138,8 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="brandName">Tên màu sắc:</label>
+          <span class="header-title"><span style="color: red">*</span>
+            <span>Tên màu sắc:</span></span>
           <span ng-show="!isthuoctinh" style="color: red;">Vui lòng nhập màu sắc</span>
           <span ng-show="!isthuoctinhIsPresent" style="color: red;">Màu sắc đã tồn tại</span>
           <input type="text" class="form-control" id="brandName" ng-model="newMauSac.tenMauSac"
@@ -148,8 +147,8 @@
         </div>
 
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="status">Trạng thái: </label>
+          <span class="header-title"><span style="color: red">*</span>
+            <span>Trạng thái: </span></span>
           <span ng-show="!istrangthai" style="color: red;">Vui lòng chọn trạng thái</span>
           <select style="color: green" class="custom-select" id="status" ng-model="newMauSac.trangThai">
             <option value="">Vui lòng chọn</option>
@@ -159,7 +158,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
         <button type="button" class="btn btn-primary" ng-click="createMauSac()">
@@ -170,7 +169,7 @@
   </div>
 </div>
 <!-- sửa -->
-<div class="modal fade" id="sua" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="sua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -179,16 +178,16 @@
 
       <div class="modal-body">
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="brandName">Tên màu sắc:</label>
+          <span class="header-title"><span style="color: red">*</span>
+            <span>Tên màu sắc:</span></span>
           <span ng-show="!isthuoctinh_update" style="color: red;">Vui lòng nhập màu sắc</span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập tên màu sắc"
             ng-model="selectedMauSac.tenMauSac" />
         </div>
 
         <div class="form-group">
-          <span class="text-danger">*</span>
-          <label for="status">Trạng thái: </label>
+          <span class="header-title"><span style="color: red">*</span>
+            <span>Trạng thái: </span></span>
           <select style="color: green" class="custom-select" id="status" ng-model="selectedMauSac.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
@@ -196,7 +195,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
         <button type="button" class="btn btn-primary" ng-click="updateMauSac(selectedMauSac)">

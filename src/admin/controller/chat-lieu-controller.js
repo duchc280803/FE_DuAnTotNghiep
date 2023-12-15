@@ -198,6 +198,7 @@ myApp.controller(
             $http
               .put(updateUrl, updatedData, config)
               .then(function (response) {
+                $("#sizeModal").modal("hide"); // Đóng modal khi thêm thành công
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -276,8 +277,8 @@ myApp.controller(
                   )
                   .then(function (response) {
                     $("#themChatLieu").modal("hide"); // Đóng modal khi thêm thành công
-                    $scope.newChatLieu = {};
                     $scope.listChatLieu.push(response.data);
+                    $scope.newChatLieu = {};
                     chatLieuList($scope.selectedTrangThai, $scope.pageNumber);
                     Swal.fire({
                       position: "top-end",

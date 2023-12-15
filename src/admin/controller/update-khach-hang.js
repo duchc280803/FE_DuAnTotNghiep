@@ -103,9 +103,6 @@ myApp.controller(
       $scope.isSoDienThoaiValid = !!$scope.selectedKhachHang.soDienThoai;
       $scope.isGioiTinhValid = !!$scope.selectedKhachHang.gioiTinh;
       $scope.isEmailValid = !!$scope.selectedKhachHang.email;
-      $scope.isProvinceValid = !!$scope.selectedProvince;
-      $scope.isDistrictValid = !!$scope.selectedDistrict;
-      $scope.isWardValid = !!$scope.selectedWard;
       $scope.isDiaChiValid = !!$scope.selectedKhachHang.diaChi;
       $scope.isTrangThaiValid = !!$scope.selectedKhachHang.trangThai;
 
@@ -124,9 +121,6 @@ myApp.controller(
         !$scope.isSoDienThoaiValid ||
         !$scope.isGioiTinhValid ||
         !$scope.isEmailValid ||
-        !$scope.isProvinceValid ||
-        !$scope.isDistrictValid ||
-        !$scope.isWardValid ||
         !$scope.isDiaChiValid ||
         !$scope.isTrangThaiValid
       ) {
@@ -213,9 +207,6 @@ myApp.controller(
           formData.append("ngaySinh", data.ngaySinh);
           formData.append("trangThai", data.trangThai);
           formData.append("diaChi", data.diaChi);
-          formData.append("tinh", data.tinh);
-          formData.append("huyen", data.huyen);
-          formData.append("phuong", data.phuong);
           return formData;
         },
         data: {
@@ -227,9 +218,6 @@ myApp.controller(
           ngaySinh: $scope.selectedKhachHang.ngaySinh,
           trangThai: $scope.selectedKhachHang.trangThai,
           diaChi: $scope.selectedKhachHang.diaChi,
-          tinh: $scope.selectedProvince.name,
-          huyen: $scope.selectedDistrict.name,
-          phuong: $scope.selectedWard.name,
         },
       }).then(function (response) {
         $location.path("/customer");
@@ -238,44 +226,6 @@ myApp.controller(
 
     fetchKhachHangDetail(id);
 
-    // API ĐỊA CHỈ
-    $scope.provinces = [];
-    $scope.districts = [];
-    $scope.wards = [];
-
-    $scope.getTinh = function () {
-      $http
-        .get("https://provinces.open-api.vn/api/?depth=1")
-        .then(function (response) {
-          $scope.provinces = response.data;
-        });
-    };
-
-    $scope.getTinh();
-
-    $scope.getDistricts = function () {
-      $http
-        .get(
-          "https://provinces.open-api.vn/api/p/" +
-            $scope.selectedProvince.code +
-            "?depth=2"
-        )
-        .then(function (response) {
-          $scope.districts = response.data.districts;
-        });
-    };
-
-    $scope.getWards = function () {
-      $http
-        .get(
-          "https://provinces.open-api.vn/api/d/" +
-            $scope.selectedDistrict.code +
-            "?depth=2"
-        )
-        .then(function (response) {
-          $scope.wards = response.data.wards;
-        });
-    };
   }
 );
 function displayImage(event) {
