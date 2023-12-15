@@ -622,13 +622,13 @@
           <nav aria-label="Page navigation example" style="margin-left: 220px" ng-if="listSanPhamShop.length != 0">
             <ul class="pagination">
               <li class="page-item" ng-show="pageNumber > 0">
-                <a class="page-link" href="" ng-click="previous()">Previous</a>
+                <a class="page-link" href="" ng-click="previous()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
               </li>
               <li class="page-item">
                 <a class="page-link">{{pageNumber + 1}}</a>
               </li>
               <li class="page-item" ng-show="showNextButton">
-                <a class="page-link" href="" ng-click="nextPage()">Next</a>
+                <a class="page-link" href="" ng-click="nextPage()"><img src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
               </li>
             </ul>
           </nav>
