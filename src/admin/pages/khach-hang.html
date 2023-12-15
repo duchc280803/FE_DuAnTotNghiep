@@ -5,12 +5,12 @@
         <div class="col-md-2">
           <input class="form-control" placeholder="Tìm khách hàng" ng-model="searchQuery" style="margin-top: 4px" />
         </div>
-        <div class="col-md-4 d-flex justify-content-start" style="padding-top: 5px">
-          <button class="btn btn-primary" style="height: 39px" ng-click="searchKhach()">
-            <span style="vertical-align: middle;color: white;font-weight: lighter;">Tìm kiếm</span>
+        <div class="col-md-4 mt-1"  >
+          <button class="btn btn-primary" ng-click="searchKhach()">
+            Tìm kiếm
           </button>
-          <button class="btn btn-warning" style="height: 39px; margin-left: 10px" ng-click="clearSearch()">
-            <span style="vertical-align: middle;color: white;font-weight: lighter;">Làm mới</span>
+          <button class="btn btn-warning"  ng-click="clearSearch()">
+            Làm mới
           </button>
         </div>
         <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
@@ -22,11 +22,10 @@
             <option value="1">Đã kích hoạt</option>
           </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 mt-1">
           <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taoTaiKhoan"
-            style="text-decoration: none; height: 39px">
-            <ion-icon name="add-outline" style="vertical-align: middle; margin-right: 5px"></ion-icon>
-            <span style="vertical-align: middle;color: white;font-weight: lighter;">Tạo khách hàng</span>
+            >
+         Tạo khách hàng
           </button>
         </div>
         <!--tạo tài khoản-->
@@ -34,8 +33,7 @@
           <div class="modal-dialog modal-lg custom-modal-tao-tai-khoan" style="max-width: 80%">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Tạo khách hàng</h5>
-                <br />
+                <h5 class="modal-title ard-title fw-semibold">Tạo khách hàng</h5>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -360,7 +358,7 @@
                 </span>
               </td>
               <td>
-                <a href="#/customer/update/{{kh.id}}" class="btn btn-primary">
+                <a href="#/customer/update/{{kh.id}}" class="btn btn-success">
                   Sửa
                 </a>
               </td>
