@@ -126,13 +126,15 @@ myApp.controller(
         }
 
         Swal.fire({
-          title: "Bạn có update voucher này không ?",
+          title: "Bạn có cập nhật voucher này không ?",
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
+          cancelButtonText: "Hủy bỏ",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes!",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận",
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var dataToSend = {

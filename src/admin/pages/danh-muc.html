@@ -3,16 +3,15 @@
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="row">
-          <div class="form-group col-md-4">
-            <span>Tìm kiếm</span>
+          <div class="form-group col-md-4 mt-4">
             <div class="form-outline">
-              <input type="search" id="form1" class="form-control" ng-model="searchQuery" />
+              <input type="search" id="form1" class="form-control" ng-model="searchQuery" placeholder="Tìm kiếm danh mục"/>
             </div>
           </div> <!-- form-group -->
 
-          <div class="form-group col-md-4">
-            <span>Trạng thái</span>
-            <select class="form-control select2" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
+          <div class="form-group col-md-4 mt-4">
+            <span>Trạng thái: </span>
+            <select  style="color: green" class="custom-select" ng-model="selectedTrangThai" ng-change="onTrangThaiChange()"
               id="simple-select2">
               <option value="">Tất cả</option>
               <option value="1">Hoạt động</option>
@@ -23,7 +22,7 @@
             <label for="simple-select2">ㅤ</label>
             <div class="form-outline">
               <button class="btn btn-primary" ng-click="searchDanhMuc()">Tìm kiếm</button>
-              <button class="btn btn-danger" ng-click="clearSearch()">Làm mới bộ lọc</button>
+              <button class="btn btn-warning" ng-click="clearSearch()">Làm mới</button>
               <a href="#/category/history" class="btn btn-danger" style="text-decoration: none; height: 39px">
                 Lịch sử thao tác
               </a>
@@ -85,7 +84,15 @@
                 {{th.tenDanhMuc}}
               </td>
               <td>
-                <small>{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}
+                <span style="
+                background-color: #cceeff;
+                color: #0077cc;
+                padding: 4px 8px;
+                border-radius: 4px;
+                display: inline-block;
+                text-align: center;
+              ">{{th.trangThai == 1 ? "Hoạt động" : "Ngừng hoạt động"}}
+        </span>
               </td>
               <td>
                 {{th.ngayTao | date:'MM/dd/yyyy'}}
@@ -95,10 +102,11 @@
               </td>
               <td>
 
-                <button class="btn btn-warning" ng-click="deleteDanhMuc(th.id)"><img width="25px"
-                    src="/assets/images/disabled.png" alt=""></button>
-                <button class="btn btn-success" data-bs-toggle="modal" ng-click="fetchDanhMucDetail(th.id)"
-                  data-bs-target="#sua"><img width="25px" src="/assets/images/update.png" alt=""></button>
+                <button class="btn btn-warning" ng-click="deleteDanhMuc(th.id)">Xóa</button>
+                  <button class="btn btn-success" ng-click="fetchDanhMucDetail(th.id)" data-toggle="modal"
+                  data-target="#suaDanhMucModal">
+                  Sửa
+                </button>
               </td>
             </tr>
 
@@ -108,14 +116,17 @@
     </div>
     <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
       <ul class="pagination">
-        <li class="page-item" ng-show="pageNumber > 0">
-          <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+        <li class="page-item">
+          <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"
+            alt=""></a>
         </li>
         <li class="page-item">
           <a class="page-link">{{ pageNumber + 1 }}</a>
         </li>
-        <li class="page-item" ng-show="showNextButtonSpInCart">
-          <a class="page-link" ng-href="" ng-click="nextPage()">Next</a>
+        <li class="page-item">
+          <a class="page-link" ng-href="" ng-click="nextPage()"
+            ng-disabled="pageNumber === totalNumberOfPages - 1"><img src="/assets/images/chevron-right.svg" height="15px"
+            alt=""></a>
         </li>
       </ul>
     </nav>
@@ -124,9 +135,11 @@
 <div class="modal fade" id="danhMucModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title ard-title fw-semibold">Thêm mới danh mục</h5>
+      </div>
       <div class="modal-body">
-        <span>Thêm mới danh mục</span>
-        <br>
+
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Tên danh mục:</span></span>
           <input type="text" class="form-control" id="brandName" ng-model="newDanhMuc.tenDanhMuc"
@@ -134,8 +147,9 @@
           <span style="color: red">{{errortenDanhMuc}}</span>
         </div>
         <div class="form-group">
-          <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
-          <select class="form-control" id="status" ng-model="newDanhMuc.trangThai">
+          <span class="header-title"><span style="color: red">*</span><span>Trạng thái: </span></span>
+          <select style="color: green" class="custom-select" ng-model="newDanhMuc.trangThai">
+            <option value="">Vui lòng chọn</option>
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
@@ -153,13 +167,16 @@
     </div>
   </div>
 </div>
-<!-- sửa -->
+
+
 <div class="modal fade" id="suaDanhMucModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered size-modal" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title ard-title fw-semibold">Chỉnh sửa danh mục</h5>
+      </div>
       <div class="modal-body">
-        <span>Thêm mới danh mục</span>
-        <br>
+
         <div class="form-group">
           <span class="header-title"><span style="color: red">*</span><span>Tên danh mục:</span></span>
           <input type="text" class="form-control" id="brandName" placeholder="Nhập tên danh mục"
@@ -167,8 +184,8 @@
           <span style="color: red">{{errortenDanhMuc}}</span>
         </div>
         <div class="form-group">
-          <span class="header-title"><span style="color: red">*</span><span>Trạng thái:</span></span>
-          <select class="form-control" id="status" ng-model="selectedDanhMuc.trangThai">
+          <span class="header-title"><span style="color: red">*</span><span>Trạng thái: </span></span>
+          <select style="color: green" class="custom-select" ng-model="selectedDanhMuc.trangThai">
             <option value="1">Hoạt động</option>
             <option value="2">Ngừng hoạt động</option>
           </select>
@@ -179,10 +196,11 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Đóng
         </button>
-        <button type="button" class="btn btn-primary" ng-click="updateDanhMuc(selectedDanhMuc)" >
+        <button type="button" class="btn btn-primary" ng-click="updateDanhMuc(selectedDanhMuc)">
           Sửa
         </button>
       </div>
     </div>
   </div>
 </div>
+

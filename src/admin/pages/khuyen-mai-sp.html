@@ -5,11 +5,11 @@
   <hr />
   <div class="box" style="display: flex; flex-direction: row; flex-wrap: wrap;padding-left: 10px;">
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
-      <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Mã khuyến mại"
+      <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Tìm kiếm khuyến mại"
         style="margin-top: 4px;" />
     </div>
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
-      <input class="form-control" ng-model="searchQuery2" ng-change="searchTenKhach()" placeholder="Tên khuyến mại"
+      <input class="form-control" ng-model="searchQuery2" ng-change="searchTenKhach()" placeholder="Tìm kiếm tên khuyến mại"
         style="margin-top: 4px;" />
     </div>
 
@@ -28,27 +28,22 @@
         style="margin-top: 4px;" />
     </div>
   </div>
-  <div class="row" style="padding: 10px;">
-    <div class="col-lg-2">
-      <button class="btn btn-primary" ng-click="refresh()">
+  <div class="row">
+    <div style="padding: 20px;">
+      <button class="btn btn-warning" ng-click="refresh()">
         Làm mới
       </button>
-    </div>
-    <div class="col-lg-2">
-      <a href="#/promotion/history" class="btn btn-primary">
+      <a href="#/promotion/history" class="btn btn-danger">
         Lịch sử
       </a>
-    </div>
-    <div class="col-lg-4">
-      <a href="#/promotion/product" class="btn btn-primary">
+      <a href="#/promotion/product" class="btn btn-success">
         Sản phẩm áp dụng
       </a>
-    </div>
-    <div class="col-lg-4">
       <a href="#/promotion/create" class="btn btn-primary">
         Tạo khuyến mại
       </a>
-    </div>
+      </div>
+
   </div>
 </div>
 </div>
@@ -71,8 +66,8 @@
           <th scope="col">Tên khuyến mại</th>
           <th scope="col">Giảm giá</th>
           <th scope="col" style="padding-left: 155px;">Thời gian</th>
-          <th scope="col">Trạng Thai</th>
-          <th scope="col" style="width: 220px;">Thao Tác</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col" style="width: 220px;">Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -88,29 +83,34 @@
             {{gg.ngayBatDau | date:'dd/MM/yyyy HH:mm:ss a'}} - {{gg.ngayKetThuc | date:'dd/MM/yyyy HH:mm:ss a'}}
           </td>
           <td>
-            {{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}
+            <span style="
+            background-color: #cceeff;
+            color: #0077cc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+          ">            {{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}
+    </span>
+
           </td>
           <td>
-            <a class="btn btn-primary" ng-click="toggleDetail(gg)" data-toggle="modal"
+            <a class="btn btn-secondary" ng-click="toggleDetail(gg)" data-toggle="modal"
               data-target="#detailsModal{{$index}}">
-              <img src="/assets/images/loupe.png" width="25px" alt="">
+            Xem
             </a>
-            <a href="#/promotion/update/{{gg.id}}" class="btn btn-primary"><img src="/assets/images/update.png"
-                width="25px" alt=""></a>
-            <a class="btn btn-primary" ng-click="updateGiamGiaStatus(gg.id, $event)">
-              <img src="/assets/images/disabled.png" width="25px" alt="">
+            <a href="#/promotion/update/{{gg.id}}" class="btn btn-success">Sửa</a>
+            <a class="btn btn-warning" ng-click="updateGiamGiaStatus(gg.id, $event)">
+            Xóa
             </a>
             <!-- Details Modal -->
-            <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog"
-              aria-labelledby="detailsModalLabel{{$index}}" aria-hidden="true">
+            <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$index}}" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel{{$index}}">Sản phẩm được khuyến mại</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title card-title fw-semibold">Sản phẩm được khuyến mãi</h5>
                   </div>
+            
                   <div class="modal-body" ng-show="gg.showDetail">
                     <!-- Display details here -->
                     <table class="table table-hover">
@@ -126,8 +126,8 @@
                         <tr ng-repeat="detail in gg.detailList">
                           <td>{{$index + 1}}</td>
                           <td>{{detail.productName}}</td>
-                          <td>{{detail.giaBan.toLocaleString('vi-VN')}}</td>
-                          <td>{{detail.donGiaKhiGiam.toLocaleString('vi-VN')}}</td>
+                          <td>{{detail.giaBan.toLocaleString('vi-VN')}}đ</td>
+                          <td>{{detail.donGiaKhiGiam.toLocaleString('vi-VN')}}đ</td>
                         </tr>
                       </tbody>
                     </table>
@@ -135,6 +135,7 @@
                 </div>
               </div>
             </div>
+            
           </td>
         </tr>
       </tbody>
@@ -143,13 +144,13 @@
       <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Previous</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px"></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item" ng-show="showNextButton">
-            <a class="page-link" ng-href="" ng-click="nextPage()">Next</a>
+            <a class="page-link" ng-href="" ng-click="nextPage()"><img src="/assets/images/chevron-right.svg" height="15px"></a>
           </li>
         </ul>
       </nav>

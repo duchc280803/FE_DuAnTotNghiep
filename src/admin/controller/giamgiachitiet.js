@@ -638,14 +638,15 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateGiamGia = function () {
         Swal.fire({
-          title: "Bạn có muốn sửa khuyễn mãi không?",
+          title: "Bạn có muốn sửa khuyến mãi không?",
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonText: "Hủy bỏ",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Đồng ý",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận",
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var ngayBatDau = new Date($scope.giamgiachitiet.ngayBatDau);

@@ -220,14 +220,15 @@ myApp.controller(
     setTimeout(() => {
       $scope.updateGiamGia = function (id) {
         Swal.fire({
-          title: "Bạn có muốn cập nhập khuyễn mãi không?",
+          title: "Bạn có muốn cập nhập khuyến mãi không?",
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Đồng ý",
-          cancelButtonColor: "#d33",
           cancelButtonText: "Hủy bỏ",
+          cancelButtonColor: "#d33",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận",
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var updateData = {
@@ -752,14 +753,15 @@ myApp.controller(
     setTimeout(() => {
       $scope.themKhuyenMai = function () {
         Swal.fire({
-          title: "Bạn có muốn thêm khuyễn mãi không?",
+          title: "Bạn có muốn thêm khuyến mãi không?",
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonText: "Hủy bỏ",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Đồng ý",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận",
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             var ngayBatDau = new Date($scope.ngayBatDau);
@@ -896,10 +898,11 @@ myApp.controller(
           text: "",
           icon: "question",
           showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Đồng ý",
           cancelButtonText: "Hủy bỏ",
           cancelButtonColor: "#d33",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận",
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             event.preventDefault();
