@@ -450,8 +450,6 @@ myApp.controller(
               .then(function (response) {
                 $scope.listCart.push(response.data);
                 // $scope.listCart.map((item) => item.idGioHang);
-                // $window.location.reload(); // Reload trang trước khi hiển thị thông báo
-                $scope.listSanPhamInCart();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -463,8 +461,6 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  $scope.listSanPhamInCart();
-                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -513,8 +509,6 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  $scope.listSanPhamInCart();
-                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -1253,7 +1247,6 @@ myApp.controller(
     $scope.searchKeyName = "";
     $scope.searchSanPham = function () {
       var token = $window.localStorage.getItem("token");
-
       var config = {
         headers: {
           Authorization: "Bearer " + token,
@@ -1261,7 +1254,7 @@ myApp.controller(
       };
       $http
         .get(
-          "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
+          "http://localhost:8080/api/chi-tiet-sp/search-name?pageNumber=" +
             $scope.pageNumberSp +
             "&pageSize=" +
             $scope.pageSizeSp +
@@ -1271,6 +1264,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
+          console.log($scope.listSanPhamTaiQuay);
           if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
             $scope.showNextButton = false; // Ẩn nút "Next"
           } else {
@@ -1927,6 +1921,7 @@ myApp.controller(
               config // Truyền thông tin token qua config
             )
             .then(function (response) {
+              console.log(tongTienTaiQuay);
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -1937,7 +1932,7 @@ myApp.controller(
                   popup: "small-popup",
                 },
               }).then(() => {
-                $window.location.reload();
+                // $window.location.reload();
               });
             });
         }
