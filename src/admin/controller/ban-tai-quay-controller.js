@@ -523,18 +523,43 @@ myApp.controller(
     }, 2000);
 
     // cập nhập sản phẩm trong giỏ hàng
-    $scope.updateCart = function (idGioHangChiTiet, soLuong, index) {
-      if (soLuong === 0) {
-        $scope.deleteProduct(index);
-      } else {
-        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+    $scope.updateCart = function (idGioHangChiTiet, soLuong, idSanPhamChiTiet) {
+      var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
 
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token, // Thêm token vào header Authorization
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token, // Thêm token vào header Authorization
+        },
+      };
+
+      $scope.soLuongCoSan = 0;
+      $http
+        .get(
+          "http://localhost:8080/api/gio-hang-chi-tiet/so-luong-san-pham?id=" +
+            idSanPhamChiTiet,
+          config
+        )
+        .then(function (response) {
+          $scope.soLuongCoSan = response.data;
+          $window.localStorage.setItem("soLuongCoSan", $scope.soLuongCoSan);
+        });
+
+      var soLuongCoSanLc = $window.localStorage.getItem("soLuongCoSan");
+
+      if (soLuong > soLuongCoSanLc) {
+        Swal.fire({
+          position: "top-end",
+          icon: "warning",
+          title: "Số lượng chuyền vào lớn hơn số lượng tồn!",
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            popup: "small-popup", // Add a class to the message
           },
-        };
-
+        }).then(() => {
+          $window.location.reload();
+        });
+      } else {
         var apiURL =
           "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
           idGioHangChiTiet +
@@ -548,7 +573,6 @@ myApp.controller(
           transformResponse: [
             function () {
               $window.location.reload();
-              // $scope.loadVouchers(totalOrderValue);
             },
           ],
         });
@@ -839,6 +863,7 @@ myApp.controller(
       $window.localStorage.removeItem("idVoucherResponse");
       $window.localStorage.removeItem("tongTienHangTaiQuay");
       $window.localStorage.removeItem("tienGiamGiaTaiQuay");
+      $window.localStorage.removeItem("soLuongCoSan");
     };
 
     setTimeout(() => {
