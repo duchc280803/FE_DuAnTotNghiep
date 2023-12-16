@@ -76,7 +76,7 @@
       <div class="col-lg-12">
         <div style="overflow-x: auto; width: 1104px">
           <span ng-if="listHoaDonTaiQuay.length === 0" style="margin-left: 465px;">Không có hóa đơn nào</span>
-          <table class="table" style="white-space: nowrap; width: 1104px" ng-if="listHoaDonTaiQuay.length !== 0">
+          <table class="table table-borderless table-hover" style="white-space: nowrap; width: 1104px" ng-if="listHoaDonTaiQuay.length !== 0">
             <thead>
               <tr style="background-color: lightskyblue">
                 <th scope="col">STT</th>
@@ -165,7 +165,7 @@
               </div>
             </div>
             <div class="box" ng-if="listCart.length !== 0">
-              <table class="table">
+              <table class="table table-borderless table-hover">
                 <thead>
                   <tr style="background-color: lightskyblue">
                     <th scope="col">STT</th>
@@ -490,7 +490,7 @@
                           <div class="box">
                             <span ng-if="listKhachHang.length === 0" style="margin-left: 465px;">Không có khách hàng
                               nào</span>
-                            <table class="table" ng-if="listKhachHang.length !== 0">
+                            <table class="table table-borderless table-hover" ng-if="listKhachHang.length !== 0">
                               <thead>
                                 <tr style="background-color: lightskyblue">
                                   <th scope="col">STT</th>
@@ -731,7 +731,7 @@
                                             <th scope="col">Phương thức</th>
                                           </tr>
                                         </thead>
-                                        <tbody class="table">
+                                        <tbody class="table table-borderless table-hover">
                                           <tr ng-repeat="lt in listTransaction">
                                             <th scope="row">{{$index + 1}}</th>
                                             <td>{{lt.maGiaoDinh}}</td>
@@ -839,7 +839,7 @@
                           <div class="modal-body">
                             <span ng-if="listVoucher.length === 0" style="margin-left: 465px;">Không có voucher
                               nào</span>
-                            <table class="table" style="white-space: nowrap; width: 1104px"
+                            <table class="table table-borderless table-hover" style="white-space: nowrap; width: 1104px"
                               ng-show="listVoucher.length !== 0">
                               <thead>
                                 <tr style="background-color: lightskyblue">
