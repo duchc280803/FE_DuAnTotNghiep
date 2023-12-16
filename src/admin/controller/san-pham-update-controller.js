@@ -125,13 +125,6 @@ myApp.controller(
     $scope.newProductDetail = {};
     setTimeout(() => {
       $scope.createProductDetail = function () {
-        var token = $window.localStorage.getItem("token");
-
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
         Swal.fire({
           title: "Bạn có muốn thêm mới không?",
           text: "",
@@ -144,6 +137,13 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
+            var token = $window.localStorage.getItem("token");
+
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
             $http
               .post(
                 "http://localhost:8080/api/v1/san-pham-chi-tiet/create/" + id,
@@ -151,10 +151,11 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                $scope.newProductDetail = {};
+                // console.log(response.data);
+                // $scope.newProductDetail = {};
                 $scope.productDetail.push(response.data);
+                console.log($scope.productDetail);
                 $("#productDetailModal").modal("hide");
-                $scope.getProductDetail();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -164,7 +165,9 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
-                });
+                }).then(() => {
+                  $scope.getProductDetail();
+                });;
               })
               .catch(function (error) {
                 $scope.errorSoLuong = error.data.soLuong;

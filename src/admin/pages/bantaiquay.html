@@ -246,7 +246,7 @@
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-lg-8">
-                        <input ng-model="key" class="form-control" placeholder="Tìm kiếm sản phẩm" />
+                        <input ng-model="searchKeyName" class="form-control" placeholder="Tìm kiếm sản phẩm" />
                       </div>
                       <div class="col-lg-4 d-flex justify-content-start">
                         <button ng-click="searchSanPham()" type="button" class="btn btn-primary">
@@ -699,7 +699,7 @@
                                       </div>
                                       <div class="col-lg-7">
                                         <input ng-model="newTransaction.soTien" class="form-control"
-                                          placeholder="Nhập số tiền khách trả" format-thousands />
+                                          placeholder="Nhập số tiền khách trả" type="number" format-thousands />
                                       </div>
                                       <div class="col-lg-4">
                                         <button class="btn btn-primary" style="margin-left: 0px"
