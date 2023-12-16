@@ -73,7 +73,9 @@
           </div> <!-- form-group -->
         </div> <!-- form-group -->
       </div>
-      <table class="table table-borderless table-hover mt-3">
+      <span ng-if="listSanPham.length === 0" style="margin-left: 500px;">Không có sản phẩm nào</span>
+      <div ng-if="listSanPham.length !== 0">
+      <table class="table table-borderless table-hover mt-3" >
         <thead>
           <tr style="border: 1px solid #ccc; background-color: lightskyblue">
             <th>
@@ -155,6 +157,7 @@
           </li>
         </ul>
       </nav>
+    </div>
     </div>
   </div> <!-- / .card -->
 </div> <!-- .col-12 -->

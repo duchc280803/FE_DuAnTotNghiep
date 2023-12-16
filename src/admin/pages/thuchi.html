@@ -60,8 +60,9 @@
       </ul>
     </div>
   </nav>
-  <div class="status" id="1" ng-show="selectedTrangThai === 1">
-    <table class="table table-borderless table-hover">
+  <span ng-if="listHoaDon.length === 0" style="margin-left: 465px;">Không có hóa đơn nào</span>
+  <div class="status" id="1" ng-show="selectedTrangThai === 1" ng-if="listHoaDon.length !== 0">
+    <table class="table table-borderless table-hover" >
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
           <th scope="col">STT</th>
@@ -75,9 +76,7 @@
         </tr>
       </thead>
       <tbody style="border: 1px solid #ccc">
-        <tr ng-if="listHoaDon.length === 0">
-          <td colspan="9" style="text-align: center;">Không có hóa đơn nào</td>
-        </tr>
+
         <tr ng-repeat="hd in listHoaDon | filter: {trangThai: 1, loaiDon: 'ONLINE'}">
           <td>{{$index + 1 + (pageNumber * 20)}}</td>
           <td>{{hd.ma}}</td>
@@ -112,7 +111,7 @@
       </nav>
     </div>
   </div>
-  <div class="status" id="2" ng-show="selectedTrangThai === 2">
+  <div class="status" id="2" ng-show="selectedTrangThai === 2"  ng-if="listHoaDon.length !== 0">
     <table class="table table-borderless table-hover">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -170,7 +169,7 @@
       </nav>
     </div>
   </div>
-  <div class="status" id="3" ng-show="selectedTrangThai === 3">
+  <div class="status" id="3" ng-show="selectedTrangThai === 3"  ng-if="listHoaDon.length !== 0">
     <table class="table table-borderless table-hover">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -232,7 +231,7 @@
       </nav>
     </div>
   </div>
-  <div class="status" id="4" ng-show="selectedTrangThai === 4">
+  <div class="status" id="4" ng-show="selectedTrangThai === 4"  ng-if="listHoaDon.length !== 0">
     <table class="table table-borderless table-hover">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -293,7 +292,7 @@
       </nav>
     </div>
   </div>
-  <div class="status" id="5" ng-show="selectedTrangThai === 5">
+  <div class="status" id="5" ng-show="selectedTrangThai === 5"  ng-if="listHoaDon.length !== 0">
     <table class="table table-borderless table-hover">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -355,7 +354,7 @@
       </nav>
     </div>
   </div>
-  <div class="status" id="6" ng-show="selectedTrangThai === 6">
+  <div class="status" id="6" ng-show="selectedTrangThai === 6"  ng-if="listHoaDon.length !== 0">
     <table class="table table-borderless table-hover">
       <thead>
         <tr style="border: 1px solid #ccc; background-color: lightskyblue">
