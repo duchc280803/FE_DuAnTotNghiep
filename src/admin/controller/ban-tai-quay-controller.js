@@ -62,7 +62,6 @@ myApp.controller(
 
     var id = $window.localStorage.getItem("idHoaDon");
     var idKhach = $window.localStorage.getItem("idKhach");
-    console.log(id);
 
     $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
     // tạo hóa đơn
@@ -301,51 +300,8 @@ myApp.controller(
           }
         });
     };
-    // $scope.listSanPhamInCart = function () {
-    //   var token = $window.localStorage.getItem("token");
 
-    //   var config = {
-    //     headers: {
-    //       Authorization: "Bearer " + token,
-    //     },
-    //   };
-
-    //   $scope.tongTienHang = 0; // Đặt lại tổng tiền hàng về 0 trước khi tính lại
-
-    //   function getTotalPrice(pageNumber) {
-    //     $http
-    //       .get(
-    //         "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
-    //           idKhach +
-    //           "&pageNumber=" +
-    //           pageNumber +
-    //           "&pageSize=" +
-    //           $scope.pageSizeSpTrongGio,
-    //         config
-    //       )
-    //       .then(function (response) {
-    //         $scope.listCart = response.data;
-    //         console.log($scope.listCart);
-    //         for (var i = 0; i < $scope.listCart.length; i++) {
-    //           $scope.tongTienHang +=
-    //             $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
-    //         }
-
-    //         if ($scope.listCart.length === $scope.pageSizeSpTrongGio) {
-    //           getTotalPrice(pageNumber + 1); // Nếu còn trang tiếp theo, tiếp tục lấy dữ liệu
-    //         } else {
-    //           $window.localStorage.setItem(
-    //             "tongTienHangTaiQuay",
-    //             $scope.tongTienHang
-    //           );
-    //           console.log($scope.tongSoLuongSanPham);
-    //         }
-    //       });
-    //   }
-
-    //   getTotalPrice(0); // Bắt đầu tính từ trang đầu tiên
-    // };
-
+    var aloalo = 0;
     $scope.listSanPhamTienInCart = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -367,12 +323,17 @@ myApp.controller(
             $scope.tongTienHang +=
               $scope.listCartTien[i].giaGiam * $scope.listCartTien[i].soLuong;
           }
-          $window.localStorage.setItem(
+          aloalo = $scope.tongTienHang;
+          localStorage.setItem(
             "tongTienHangTaiQuay",
             $scope.tongTienHang
           );
+
         });
     };
+
+    var tongTienTaiQuay = localStorage.getItem("tongTienHangTaiQuay");
+    console.log(tongTienTaiQuay);
 
     if (id != null) {
       $scope.listSanPhamInCart();
@@ -449,7 +410,8 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listCart.push(response.data);
-                // $scope.listCart.map((item) => item.idGioHang);
+                $scope.listSanPhamInCart();
+                $scope.listSanPhamTienInCart();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -498,6 +460,8 @@ myApp.controller(
               )
               .then(function () {
                 $scope.listCart.splice(index, 1);
+                $scope.listSanPhamInCart();
+                $scope.listSanPhamTienInCart();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -562,6 +526,8 @@ myApp.controller(
               headers: config.headers, // Truyền thông tin token qua headers
               transformResponse: [
                 function () {
+                  $scope.listSanPhamInCart();
+                  $scope.listSanPhamTienInCart();
                   $window.location.reload();
                 },
               ],
@@ -1737,7 +1703,6 @@ myApp.controller(
         });
     };
 
-    var tongTienTaiQuay = $window.localStorage.getItem("tongTienHangTaiQuay");
     var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
     var tienGiamGiaResponse = $window.localStorage.getItem("tienGiamGia");
 
