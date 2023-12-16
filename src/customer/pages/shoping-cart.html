@@ -351,10 +351,10 @@
               <table>
                 <thead>
                   <tr>
-                    <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
+                    <th class="shoping__product" style="padding-left: 10px;">Sản phẩm</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
-                    <th>Tổng Tiền</th>
+                    <th>Tổng tiền</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -366,12 +366,12 @@
                     </td>
                     <td class="shoping__cart__price">
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam | number:0}}₫
+                        {{product.dongiakhigiam | number:0}}đ
                         <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                            number:0}}₫ <br></strike> </span>
+                            number:0}}đ <br></strike> </span>
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban | number:0}}₫
+                        {{product.giaban | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__quantity" style="padding-left: 50px;">
@@ -386,10 +386,10 @@
                     <td class="shoping__cart__total">
 
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam * product.soluong | number:0}}₫
+                        {{product.dongiakhigiam * product.soluong | number:0}}đ
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban * product.soluong | number:0}}₫
+                        {{product.giaban * product.soluong | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__item__close">
@@ -406,7 +406,7 @@
               overflow-y: auto; ">
                 <thead>
                   <tr>
-                    <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
+                    <th class="shoping__product" style="padding-left: 10px;">Sản phẩm</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Tổng Tiền</th>
@@ -421,12 +421,12 @@
                     </td>
                     <td class="shoping__cart__price">
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam | number:0}}₫
+                        {{product.dongiakhigiam | number:0}}đ
                         <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                            number:0}}₫ <br></strike> </span>
+                            number:0}}đ <br></strike> </span>
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban | number:0}}₫
+                        {{product.giaban | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__quantity" style="padding-left: 50px;">
@@ -441,10 +441,10 @@
                     <td class="shoping__cart__total">
 
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam * product.soluong | number:0}}₫
+                        {{product.dongiakhigiam * product.soluong | number:0}}đ
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban * product.soluong | number:0}}₫
+                        {{product.giaban * product.soluong | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__item__close">
@@ -549,32 +549,28 @@
             </div>
             <ul>
               <li>
-                Phí vận chuyển
-                <span style="
-                        font-size: small;
-                        color: rgb(187, 161, 161);
-                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-                          sans-serif;
-                      ">Sẽ được thông báo cho quý khách khi nhân viên gọi điện
-                  xác nhận</span>
+
+                <span class="text-danger" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana,sans-serif;">
+                  Phí vận chuyển sẽ được thông báo cho quý khách khi nhân viên gọi điện
+                  xác nhận
+                </span>
               </li>
             </ul>
-            <hr />
-            <br />
-            <h5>Mã giảm giá</h5>
+            <hr/>
+            <br/>
             <div class="row mt-3 mb-3">
-              <div class="col-6">
+              <div class="checkout__order__total mt-3">
+               <h5 class="checkout__order__products">Mã giảm giá</h5>
                 <input id="discountInput" type="text" ng-model="magiamgia"
-                  style="height: 45px; padding-left: 4px; text-indent: 5px;text-align: center;font-weight: bolder;border-radius: 10px;"
                   placeholder="Chọn mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" readonly />
               </div>
             </div>
             <hr />
-            <div class="checkout__order__total mt-3 mb-3">
+            <div class="checkout__order__total  mb-3">
               Giảm giá từ voucher <span>{{ giamGiaVoucher | number }}đ</span>
             </div>
             <div class="checkout__order__total mt-3 mb-3">
-              Tổng cộng <span>{{ tongCong | number }}đ</span>
+              Tổng tiền <span>{{ tongCong | number }}đ</span>
             </div>
             <h5>Hình thức thanh toán</h5>
             <div class="row mt-3 mb-3" style="margin-left: 50px">
@@ -628,7 +624,7 @@
                   <span ng-show="{{voucher.hinhthucgiam===1}}" style="font-size: smaller;">Giá giảm: {{
                     voucher.giatrigiam | number}}%</span>
                   <br>
-                  <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'dd/MM/yyyy' }}</span>
+                  <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'yyyy/MM/yyyy' }}</span>
                 </td>
                 <td style="width: 28%;">
                   <button class="btn btn-success mt-3"

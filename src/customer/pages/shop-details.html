@@ -460,12 +460,12 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}₫
+                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}đ
                           <span style="text-decoration: line-through;color: crimson"><strike>
-                              {{product.giaban.toLocaleString('vi-VN')}}₫ <br></strike> </span>
+                              {{product.giaban.toLocaleString('vi-VN')}}đ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban.toLocaleString('vi-VN')}}₫
+                          {{product.giaban.toLocaleString('vi-VN')}}đ
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -538,13 +538,13 @@
             <div class="product__details__price">
               <div ng-show="detailProduct.giaGiamGia != detailProduct.giaBan">
                 <h5>
-                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN')}}₫
-                  <strike style="color: red;">{{detailProduct.giaBan.toLocaleString('vi-VN')}}₫</strike>
+                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN')}}đ
+                  <strike style="color: red;">{{detailProduct.giaBan.toLocaleString('vi-VN')}}đ</strike>
                 </h5>
               </div>
               <div ng-show="detailProduct.giaGiamGia == detailProduct.giaBan">
                 <h5>
-                  {{ detailProduct.giaBan.toLocaleString('vi-VN')}}₫
+                  {{ detailProduct.giaBan.toLocaleString('vi-VN')}}đ
                 </h5>
               </div>
             </div>
@@ -649,11 +649,11 @@
               <p ng-if="product.tenSanPham" class="card-text">{{product.tenSanPham}}</p>
               <div class="text-center">
                 <h5 ng-show="product.donGiaKhiGiam != null">
-                  {{product.donGiaKhiGiam | number}}₫
-                  <strike style="color: red;">{{product.giaban | number}}₫</strike>
+                  {{product.donGiaKhiGiam | number}}đ
+                  <strike style="color: red;">{{product.giaban | number}}đ</strike>
                 </h5>
                 <h5 ng-show="product.donGiaKhiGiam == null">
-                  {{product.giaban | number}}₫
+                  {{product.giaban | number}}đ
                 </h5>
                 <a class="abc mt-2" style="margin-left: 20px;" ng-if="product.tenSanPham"
                   href="#/shop/detail/{{product.tenSanPham}}"><span>Xem sản phẩm</span></a>
