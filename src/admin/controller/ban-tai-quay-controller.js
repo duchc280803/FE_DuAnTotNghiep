@@ -541,42 +541,40 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.soLuongCoSan = response.data;
-          $window.localStorage.setItem("soLuongCoSan", $scope.soLuongCoSan);
-        });
-
-      var soLuongCoSanLc = $window.localStorage.getItem("soLuongCoSan");
-
-      if (soLuong > soLuongCoSanLc) {
-        Swal.fire({
-          position: "top-end",
-          icon: "warning",
-          title: "Số lượng chuyền vào lớn hơn số lượng tồn!",
-          showConfirmButton: false,
-          timer: 1500,
-          customClass: {
-            popup: "small-popup", // Add a class to the message
-          },
-        }).then(() => {
-          $window.location.reload();
-        });
-      } else {
-        var apiURL =
-          "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
-          idGioHangChiTiet +
-          "&quantity=" +
-          soLuong;
-
-        $http({
-          url: apiURL,
-          method: "PUT",
-          headers: config.headers, // Truyền thông tin token qua headers
-          transformResponse: [
-            function () {
+          console.log($scope.soLuongCoSan);
+          if (soLuong > $scope.soLuongCoSan) {
+            Swal.fire({
+              position: "top-end",
+              icon: "warning",
+              title: "Số lượng chuyền vào lớn hơn số lượng tồn!",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            }).then(() => {
               $window.location.reload();
-            },
-          ],
+            });
+          } else {
+            var apiURL =
+              "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
+              idGioHangChiTiet +
+              "&quantity=" +
+              soLuong;
+
+            $http({
+              url: apiURL,
+              method: "PUT",
+              headers: config.headers, // Truyền thông tin token qua headers
+              transformResponse: [
+                function () {
+                  $window.location.reload();
+                },
+              ],
+            });
+            $window.localStorage.setItem("soLuongCoSan", $scope.soLuongCoSan);
+          }
         });
-      }
     };
 
     $scope.pageNumberKhach = 0;
