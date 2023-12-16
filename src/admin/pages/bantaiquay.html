@@ -333,7 +333,8 @@
                     </div>
                     <br />
                     <div class="box">
-                      <table class="table table-borderless">
+                      <span ng-if="listSanPhamTaiQuay.length === 0" style="margin-left: 500px;">Không có sản phẩm nào</span>
+                      <table class="table table-borderless" ng-if="listSanPhamTaiQuay.length !== 0">
                         <thead>
                           <tr class="text-center" style="background-color: lightskyblue">
                             <th scope="col">STT</th>
@@ -345,11 +346,6 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr ng-if="listSanPhamTaiQuay.length === 0">
-                            <td colspan="9" style="text-align: center">
-                              Không có sản phẩm nào
-                            </td>
-                          </tr>
                           <tr style="border: 1px solid #ccc" class="text-center" ng-repeat="sptq in listSanPhamTaiQuay">
                             <td style="padding-top: 55px">
                               <span>{{$index + 1 + (pageNumberSp * pageSizeSp)}}</span>
@@ -836,6 +832,8 @@
                               ng-model="searchKeyword" ng-change="searchOrder(searchKeyword)" />
                           </div>
                           <hr />
+
+
                           <div class="modal-body">
                             <span ng-if="listVoucher.length === 0" style="margin-left: 465px;">Không có voucher
                               nào</span>
@@ -952,7 +950,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-success" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
+            <button class="btn btn-primary" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
               ng-show="showInput && listCart.length != 0"
               ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, tienThuaTraKhach, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
               Xác nhận thanh toán

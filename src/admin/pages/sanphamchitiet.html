@@ -73,7 +73,8 @@
 <!-- row justify-content-center -->
 
 <!-- table -->
-<div class="card shadow">
+<span ng-if="listSanPhamChiTiet.length === 0" style="margin-left: 500px;">Không có dữ liệu</span>
+<div class="card shadow" ng-if="listSanPhamChiTiet.length !== 0">
     <table class="table table-borderless table-hover">
         <thead>
             <tr style="border: 1px solid #ccc; background-color: lightskyblue">
@@ -141,20 +142,21 @@
             </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example" style="margin-left: 490px" ng-if="listCart.length != 0">
+        <ul class="pagination">
+          <li class="page-item" ng-show="pageNumber > 0">
+            <a class="page-link" href="" ng-click="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link">{{pageNumber + 1}}</a>
+          </li>
+          <li class="page-item" ng-show="showNextButton">
+            <a class="page-link" href="" ng-click="nextPage()">Next</a>
+          </li>
+        </ul>
+      </nav>
 </div>
-<nav aria-label="Page navigation example" style="margin-left: 490px" ng-if="listCart.length != 0">
-    <ul class="pagination">
-      <li class="page-item" ng-show="pageNumber > 0">
-        <a class="page-link" href="" ng-click="previousPage()">Previous</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link">{{pageNumber + 1}}</a>
-      </li>
-      <li class="page-item" ng-show="showNextButton">
-        <a class="page-link" href="" ng-click="nextPage()">Next</a>
-      </li>
-    </ul>
-  </nav>
+
 <div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered size-modal" role="document">
         <div class="modal-content">
