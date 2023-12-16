@@ -1,10 +1,9 @@
 myAppCustom.controller(
   "detailDonHangController",
   function ($http, $scope, $window, $routeParams) {
+    $scope.username = $window.localStorage.getItem("username");
+    console.log("username" + $window.localStorage.getItem("username"));
 
-    $scope.username = $window.localStorage.getItem('username');
-    console.log("username"+$window.localStorage.getItem('username'))
-    
     $scope.listThongTin = [];
     $scope.listTrangThai = [];
     $scope.listSanPham = [];
@@ -126,37 +125,28 @@ myAppCustom.controller(
       });
     };
 
-    // $scope.hoaDonChiTiet = {};
-    // $scope.getHoaDonChiTiet = function () {
-    //   const apiUrl =
-    //     "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-don/" +
-    //     idHoaDon;
-    //   $http.get(apiUrl).then(function (response) {
-    //     $scope.hoaDonChiTiet = response.data;
-    //   });
-    // };
-    // $scope.getHoaDonChiTiet();
+    $scope.hoaDonChiTiet = {};
+    $scope.getHoaDonChiTiet = function () {
+      const apiUrl =
+        "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-don-hang/" +
+        idHoaDon;
+      $http.get(apiUrl).then(function (response) {
+        $scope.hoaDonChiTiet = response.data;
+      });
+    };
+    $scope.getHoaDonChiTiet();
 
     $scope.getIdHoaDonChiTiet = function (id) {
       $scope.idHoaDonChiTiet = id;
     };
 
-    $scope.soTienKhachTra = 0;
-    $scope.soTienHoan = 0;
     $scope.getlichSuThanhToan = function () {
       var apiUrl =
-        "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-lich-su/" + idHoaDon;
+        "http://localhost:8080/api/v1/don-hang-khach-hang-chi-tiet/hien-thi-lich-su/" +
+        idHoaDon;
 
       $http.get(apiUrl).then(function (response) {
         $scope.lichSu = response.data;
-        for (var i = 0; i < $scope.lichSu.length; i++) {
-          if ($scope.lichSu[i].tenLoai == "Khách thanh toán") {
-            $scope.soTienKhachTra += $scope.lichSu[i].soTienTra;
-          }
-          if ($scope.lichSu[i].tenLoai == "Nhân viên hoàn tiền") {
-            $scope.soTienHoan += $scope.lichSu[i].soTienTra;
-          }
-        }
       });
     };
     $scope.getlichSuThanhToan();
