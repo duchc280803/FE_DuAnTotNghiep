@@ -193,12 +193,13 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
         // Gán fullName vào allTenNhanVienOptions
         $scope.allTenNhanVienOptions = response.data
           .filter(function (nhanVien) {
-            return (
-              nhanVien.fullName !== null && nhanVien.fullName !== undefined
-            );
+            return nhanVien.maTaiKhoan !== null && nhanVien.maTaiKhoan !== undefined;
           })
           .map(function (nhanVien) {
-            return nhanVien.fullName;
+            return {
+              tenNhanVien: nhanVien.maTaiKhoan,
+              idNhanVien: nhanVien.id // Chỉ định idNhanVien tương ứng
+            };
           });
       });
   };
@@ -216,7 +217,7 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     $http
       .get(
         "http://localhost:8080/api/v1/hoa-don/employee-and-invoice?idHoaDon=" +
-          idHoaDon,
+        idHoaDon,
         config
       )
       .then(function (response) {
@@ -235,9 +236,9 @@ myApp.controller("hoaDonController", function ($http, $scope, $window) {
     $http
       .put(
         "http://localhost:8080/api/v1/hoa-don-chi-tiet/update-nhan-vien?idHoaDon=" +
-          idHoaDon +
-          "&idNhanVien=" +
-          $scope.selectedId,
+        idHoaDon +
+        "&idNhanVien=" +
+        $scope.selectedId,
         null,
         config
       )

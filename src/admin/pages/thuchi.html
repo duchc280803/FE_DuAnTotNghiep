@@ -23,16 +23,16 @@
         <option value="1">Online</option>
       </select>
     </div>
-    <div ng-hide="!isAdmin" class="col-md-4" style="margin-left: -85px;">
+    <div ng-show="isAdmin || role === 'MANAGER'" class="col-md-4" style="margin-left: -85px;">
       <span> Nhân viên:</span>
-      <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien"
-        ng-change="filterHoaDonByNguoiXacNhan()">
+      <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien" ng-change="filterHoaDonByNguoiXacNhan()">
         <option value="">Tất cả</option>
-        <option ng-repeat="nhanVien in allTenNhanVienOptions track by $index" value="{{tenNhanVien}}">
-          {{tenNhanVien}}
+        <option ng-repeat="nhanVien in allTenNhanVienOptions track by nhanVien.idNhanVien" value="{{nhanVien.tenNhanVien}}">
+          {{nhanVien.tenNhanVien}}
         </option>
       </select>
     </div>
+    
   </div>
 </div>
 <div class="card overflow-hidden">
