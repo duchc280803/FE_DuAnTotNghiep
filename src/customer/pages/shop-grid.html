@@ -374,38 +374,7 @@
 
 <body>
   <header class="header">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="header__top__left">
-              <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="header__top__right">
-              <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-              </div>
-              <div class="header__top__right__language">
-                <img src="/img/language.png" alt="" />
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                  <li><a href="#">Spanis</a></li>
-                  <li><a href="#">English</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="container">
       <div class="row">
         <div class="col-lg-3">
@@ -443,12 +412,12 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}₫
+                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}đ
                           <span style="text-decoration: line-through;color: crimson"><strike>
-                              {{product.giaban.toLocaleString('vi-VN')}}₫ <br></strike> </span>
+                              {{product.giaban.toLocaleString('vi-VN')}}đ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban.toLocaleString('vi-VN')}}₫
+                          {{product.giaban.toLocaleString('vi-VN')}}đ
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -508,7 +477,7 @@
     <div class="container">
       <div class="row" style="background-color: #f8f9fa; height: 40px; margin-bottom: -150px;">
 
-        <div class="col-md-4 mt-2" style="font-style: italic;font-size: smaller;"> <a class="a_color"
+        <div class="col-md-4 mt-2" style="font-weight: bolder; font-size: smaller;"> <a class="a_color"
             href="/src/customer/index-customer.html#/home">TRANG CHỦ</a> / <a class="a_color" href=""
             style="font-weight: bolder;">SHOP</a></div>
 
@@ -527,7 +496,7 @@
           <div class="filter__item">
             <div class="row">
               <div class="sidebar__item" style="margin-top: -20px;">
-                <h4>Chọn khoảng giá:</h4>
+                <h4 class="card-title fw-semibold">Chọn khoảng giá:</h4>
                 <select style="width: 200px;" id="price-range" ng-change="searchProductByPriceRange()"
                   ng-model="selectedPriceRange" class="form-select" ng-init="selectedPriceRange = '0-1000000000'">
                   <option value="" disabled hidden>Chọn khoảng giá</option>
@@ -544,8 +513,8 @@
 
           <div class="sidebar" style="margin-top: -40px;">
             <div class="sidebar__item">
-              <h4 ng-click="showTH = !showTH">
-                Thương Hiệu
+              <h4 class="card-title fw-semibold" ng-click="showTH = !showTH">
+                Thương hiệu
                 <i ng-class="{'fal fa-chevron-down': showTH, 'fal fa-chevron-up': !showTH}" class="fa"
                   style="font-size: 0.7em;"></i>
                 <hr>
@@ -557,8 +526,8 @@
               </select>
             </div>
             <div class="sidebar__item">
-              <h4 ng-click="showCa = !showCa">
-                Danh Mục
+              <h4 class="card-title fw-semibold" ng-click="showCa = !showCa">
+                Danh mục
                 <i ng-class="{'fal fa-chevron-down': showCa, 'fal fa-chevron-up': !showCa}" class="fa"
                   style="font-size: 0.7em;"></i>
                 <hr>
@@ -570,7 +539,7 @@
               </select>
             </div>
             <div class="sidebar__item">
-              <h4 ng-click="showKD = !showKD">
+              <h4 class="card-title fw-semibold"  ng-click="showKD = !showKD">
                 Kiểu đế
                 <i ng-class="{'fal fa-chevron-down': showKD, 'fal fa-chevron-up': !showKD}" class="fa"
                   style="font-size: 0.7em;"></i>
@@ -583,7 +552,7 @@
               </select>
             </div>
             <div class="sidebar__item">
-              <h4 ng-click="showXX = !showXX">
+              <h4 class="card-title fw-semibold"  ng-click="showXX = !showXX">
                 Xuất xứ
                 <i ng-class="{'fal fa-chevron-down': showXX, 'fal fa-chevron-up': !showXX}" class="fa"
                   style="font-size: 0.7em;"></i>
@@ -606,11 +575,11 @@
                   <p ng-if="sp.tenSanPham" class="card-text">{{sp.tenSanPham}}</p>
                   <div class="text-center">
                     <h5 ng-show="sp.giaGiamGia != sp.giaBan">
-                      {{sp.giaGiamGia.toLocaleString('vi-VN')}}₫
-                      <strike style="color: red;">{{sp.giaBan.toLocaleString('vi-VN')}}₫</strike>
+                      {{sp.giaGiamGia.toLocaleString('vi-VN')}}đ
+                      <strike style="color: red;">{{sp.giaBan.toLocaleString('vi-VN')}}đ</strike>
                     </h5>
                     <h5 ng-show="sp.giaGiamGia == sp.giaBan">
-                      {{sp.giaBan.toLocaleString('vi-VN')}}₫
+                      {{sp.giaBan.toLocaleString('vi-VN')}}đ
                     </h5>
                     <a class="abc mt-2" style="margin-left: 20px;" ng-if="sp.tenSanPham"
                       href="#/shop/detail/{{sp.tenSanPham}}"><span>Xem sản phẩm</span></a>
