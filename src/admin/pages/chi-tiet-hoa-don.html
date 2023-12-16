@@ -262,8 +262,9 @@
           <span style="color: red">{{errorGhiChu}}</span>
           <br />
           <div>
-            <h6 class="text">Trạng thái:</h6>
-            <select class="form-control select2" id="simple-select2" ng-model="newStatusOrder.newTrangThai">
+            <span>Trạng thái:</span>
+            <select style="color: green" class="custom-select" ng-model="newStatusOrder.newTrangThai">
+              <option value="">Vui lòng chọn trạng thái</option>
               <option value="2" ng-if="hoaDonChiTiet.trangThai == 1">
                 Xác nhận
               </option>
