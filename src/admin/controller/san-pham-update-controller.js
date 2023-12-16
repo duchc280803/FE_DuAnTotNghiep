@@ -187,7 +187,7 @@ myApp.controller(
           },
         };
         Swal.fire({
-          title: "Bạn có muốn hủy kích hoạt không?",
+          title: "Bạn có muốn kích hoạt không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -209,7 +209,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Hủy thành công",
+                  title: "Kích hoạt thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
@@ -308,7 +308,7 @@ myApp.controller(
           },
         };
         Swal.fire({
-          title: "Bạn có muốn kích hoạt không?",
+          title: "Bạn có muốn hủy kích hoạt không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -330,7 +330,7 @@ myApp.controller(
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
-                  title: "Kích hoạt thành công",
+                  title: "Hủy thành công",
                   showConfirmButton: false,
                   timer: 1500,
                   customClass: {
