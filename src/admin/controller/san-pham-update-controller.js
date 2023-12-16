@@ -263,6 +263,8 @@ myApp.controller(
                 customClass: {
                   popup: "small-popup", // Add a class to the message
                 },
+              }).then(() => {
+                $window.location.reload();
               });
             })
             .catch(function (error) {
@@ -344,36 +346,53 @@ myApp.controller(
     }, 2000);
 
     $scope.uploadImages = function () {
-      var token = $window.localStorage.getItem("token");
+      Swal.fire({
+        title: "Bạn có muốn thêm ảnh không?",
+        text: "",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var formData = new FormData();
-      var input = document.getElementById("formFile");
-      for (var i = 0; i < input.files.length; i++) {
-        formData.append("files", input.files[i]);
-      }
-      formData.append("sanPhamId", id); // $scope.sanPhamId chứa ID sản phẩm
+          var formData = new FormData();
+          var input = document.getElementById("formFile");
+          for (var i = 0; i < input.files.length; i++) {
+            formData.append("files", input.files[i]);
+          }
+          formData.append("sanPhamId", id); // $scope.sanPhamId chứa ID sản phẩm
 
-      $http
-        .post("http://localhost:8080/api/v1/images/create", formData, config, {
-          transformRequest: angular.identity,
-          headers: { "Content-Type": undefined },
-        })
-        .then(function (response) {
-          $scope.image.push(response.data);
-          $scope.getImage();
-        })
-        .catch(function (error) {
-          // Xử lý lỗi
-          console.error("Error:", error);
-          // Đoạn mã xử lý khi gặp lỗi trong quá trình gửi yêu cầu
-        });
+          $http
+            .post("http://localhost:8080/api/v1/images/create", formData, {
+              transformRequest: angular.identity,
+              headers: {
+                "Content-Type": undefined,
+                Authorization: "Bearer " + token, // Truyền token vào header
+              },
+            })
+            .then(function (response) {
+              $scope.image.push(response.data);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thêm thành công",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
+                },
+              }).then(() => {
+                $scope.getImage();
+              });
+            })
+        }
+      });
     };
-
     // Cleaned up code
     setTimeout(() => {
       $scope.deleteImage = function (id) {
