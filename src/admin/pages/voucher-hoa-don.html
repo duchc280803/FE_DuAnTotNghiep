@@ -1,4 +1,10 @@
 <style>
+  .wide-column {
+    width: 250px;
+
+    /* Điều chỉnh độ rộng tùy ý */
+  }
+
   .disabled-btn {
     opacity: 0.6;
     /* Mờ đi khi bị disable */
@@ -54,7 +60,7 @@
             Thời gian
           </th>
           <th scope="col">Trạng thái</th>
-          <th scope="col">Thao tác</th>
+          <th scope="col" class="wide-column">Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -87,13 +93,15 @@
               {{gg.trangThai == 1 ? 'Đang hoạt động':gg.trangThai == 2 ? 'Ngừng hoạt động':'Sắp diễn ra'}}
             </span>
           </td>
-          <td>
-            <a class="btn btn-warning" ng-click="gg.trangThai != 2 ? updateVoucherStatus(gg.id, $event) : null"
-              ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
-              Xóa
+          <td class="action-column">
+            <a class="btn btn-warning" ng-click="updateVoucherStatus(gg.id, $event)">
+              {{ gg.trangThai == 2 ? 'Kích hoạt' : 'Hủy kích hoạt' }}
             </a>
-
-            <a href="#/voucher/update/{{gg.id}}" class="btn btn-success">Sửa</a>
+            <a ng-href="{{gg.trangThai != 2 ? '#/voucher/update/' + gg.id : ''}}" class="btn btn-warning"
+              ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
+              ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
+              Sửa
+            </a>
 
           </td>
 

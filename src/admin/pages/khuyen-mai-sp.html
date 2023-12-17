@@ -67,9 +67,9 @@
           <th scope="col">Mã khuyến mại</th>
           <th scope="col">Tên khuyến mại</th>
           <th scope="col">Giảm giá</th>
-          <th scope="col" style="padding-left: 155px;">Thời gian</th>
-          <th scope="col">Trạng thái</th>
-          <th scope="col" style="width: 220px;">Thao tác</th>
+          <th scope="col" style="width: 400px;">Thời gian</th>
+          <th scope="col" style="width: 200px;">Trạng thái</th>
+          <th scope="col" style="width: 350px;">Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -100,10 +100,13 @@
               data-target="#detailsModal{{$index}}">
               Xem
             </a>
-            <a href="#/promotion/update/{{gg.id}}" class="btn btn-success">Sửa</a>
-            <a class="btn btn-warning" ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
+            <a ng-href="{{gg.trangThai != 2 ? '#/promotion/update/' + gg.id : ''}}" class="btn btn-warning"
+              ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
               ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
-              Xóa
+              Sửa
+            </a>
+            <a class="btn btn-warning" ng-click="updateGiamGiaStatus(gg.id, $event)">
+              {{ gg.trangThai == 2 ? 'Kích hoạt' : 'Hủy kích hoạt' }}
             </a>
             <!-- Details Modal -->
             <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog"
