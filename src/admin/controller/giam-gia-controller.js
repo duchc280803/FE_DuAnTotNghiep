@@ -662,7 +662,7 @@ myApp.controller(
 
     // Thêm hàm làm mới
     $scope.tuDongTaoMa = false;
-    $scope.maGiamGia = "";
+    $scope.maGiamGia = "GG_" + new Date().getTime();
     $scope.tenGiamGia = "";
     $scope.mucGiam = "";
     $scope.hinhThucGiam = "";
