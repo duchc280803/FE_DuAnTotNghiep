@@ -366,142 +366,120 @@
         </div>
     </header>
     <br>
-    <div style="width: 875px;margin-left: 400px;">
-        <div class="row">
-            <div class="col-lg-6" ng-controller="loginCutomController">
-                <h3 style="font-weight: normal; font-size: 25px;">ĐĂNG NHẬP</h3>
-                <br>
-                <span class="header-title"><span style="color: red">*</span>
-                    <span style="font-size: 15px;">Tên tài khoản</span></span>
-                <input ng-model="username" type="text" class="form-control" placeholder="Tên tài khoản ..."
-                    required="" />
-                <span style="color: red">{{errorUsername}}</span>
-                <br>
-                <span class="header-title"><span style="color: red">*</span>
-                    <span style="font-size: 15px;">Mật khẩu</span></span>
-                <input ng-model="password" type="password" class="form-control" placeholder="Mật khẩu ..."
-                    required="" />
-                <span style="color: red">{{errorUsername}}</span>
-                <br>
-                <div class="form-check-inline">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="">GHI NHỚ MẬT KHẨU
-                    </label>
-                </div>
-                <br>
-                <br>
-                <button class="btn btn-warning" style="color: white;" ng-click="loginCusTom()">ĐĂNG
-                    NHẬP</button>
-                <br>
-                <a href="#/quen-mat-khau">Quên mật khẩu?</a>
-            </div>
-            <div class="vertical-line"></div>
-            <div class="col-lg-6" ng-controller="registerCutomController">
-                <h3 style="font-weight: normal; font-size: 25px;">ĐĂNG KÝ</h3>
-                <br>
-                <span class="header-title"><span style="color: red">*</span>
-                    <span style="font-size: 15px;">Tên tài khoản</span></span>
-                <input ng-model="usernameRegis" type="text" id="email" class="form-control"
-                    placeholder="Tên tài khoản ..." required="" />
-                <span style="color: red">{{errorUsername}}</span>
-                <br>
-                <span class="header-title"><span style="color: red">*</span>
-                    <span style="font-size: 15px;">Email</span></span>
-                <input ng-model="emailRegis" type="email" id="email" class="form-control" placeholder="Email ..."
-                    required="" />
-                <span style="color: red">{{errorUsername}}</span>
-                <br>
-                <span class="header-title"><span style="color: red">*</span>
-                    <span style="font-size: 15px;">Mật khẩu</span></span>
-                <input ng-model="passwordRegis" type="password" id="email" class="form-control"
-                    placeholder="Mật khẩu ..." required="" />
-                <span style="color: red">{{errorUsername}}</span>
-                <br>
-                <button class="btn btn-warning" style="color: white;" ng-click="register()">Đăng ký</button>
-            </div>
+    <div style="width: 875px;margin-left: 600px;">
+        <div class="col-lg-6">
+            <h3 style="font-weight: normal; font-size: 25px;margin-left: 125px;">ĐĂNG KÝ</h3>
+            <br>
+            <span class="header-title"><span style="color: red">*</span>
+                <span style="font-size: 15px;">Tên tài khoản</span></span>
+            <input ng-model="usernameRegis" type="text"  class="form-control" placeholder="Tên tài khoản ..."
+                required="" />
+            <span style="color: red">{{errorUsername}}</span>
+            <br>
+            <span class="header-title"><span style="color: red">*</span>
+                <span style="font-size: 15px;">Email</span></span>
+            <input ng-model="emailRegis" type="text"  class="form-control" placeholder="Email ..."
+                required="" />
+            <span style="color: red">{{errorEmail}}</span>
+            <br>
+            <span class="header-title"><span style="color: red">*</span>
+                <span style="font-size: 15px;">Mật khẩu</span></span>
+            <input ng-model="passwordRegis" type="password" class="form-control" placeholder="Mật khẩu ..."
+                required="" />
+            <span style="color: red">{{errorPassword}}</span>
+            <br>
+            <button class="btn btn-warning" style="color: white;margin-left: 155px;" ng-click="register()">Đăng ký</button>
         </div>
+    </div>
     </div>
     </section>
     <br>
-      <!-- Footer Section Begin -->
-  <footer class="footer spad" style="background-color:white;">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="footer__about">
-            <div class="footer__about__logo">
-              <a href="#"><img src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
-                  alt="" width="119px" /></a>
+    <!-- Footer Section Begin -->
+    <footer class="footer spad" style="background-color:white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="#"><img
+                                    src="/assets/images/z4754468708043_e3218b27549165452a995a7d4cbe6705_preview_rev_1.png"
+                                    alt="" width="119px" /></a>
+                        </div>
+                        <ul>
+                            <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
+                            <li>Phone: 0362.885.875</li>
+                            <li>Email: niceshoepoly@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Dịch vụ khách hàng</h6>
+                        <ul>
+                            <li><a href="/src/customer/index-customer.html#/chinh-sach-van-chuyen">Chính sách vận chuyển
+                                    và giao nhận</a></li>
+                            <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và
+                                    bảo hành</a></li>
+                            <li><a href="/src/customer/index-customer.html#/chinh-sach-bao-mat">Chính sách bảo mật</a>
+                            </li>
+                            <li><a href="/src/customer/index-customer.html#/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý
+                                    khiếu nại</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Hỗ trợ</h6>
+                        <ul>
+                            <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
+                            <li><a href="/src/customer/index-customer.html#/hinh-thuc-thanh-toan">Hình thức thanh
+                                    toán</a></li>
+                            <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <ul>
-              <li>Địa chỉ: 07 - Trịnh Văn Bô - Bắc Từ Liêm - Hà Nội</li>
-              <li>Phone: 0362.885.875</li>
-              <li>Email: niceshoepoly@gmail.com</li>
-            </ul>
-          </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-          <div class="footer__widget">
-            <h6>Dịch vụ khách hàng</h6>
-            <ul>
-              <li><a href="/src/customer/index-customer.html#/chinh-sach-van-chuyen">Chính sách vận chuyển
-                  và giao nhận</a></li>
-              <li><a href="/src/customer/index-customer.html#/chinh-sach-doi-tra">Chính sách đổi, trả và
-                  bảo hành</a></li>
-              <li><a href="/src/customer/index-customer.html#/chinh-sach-bao-mat">Chính sách bảo mật</a>
-              </li>
-              <li><a href="/src/customer/index-customer.html#/chinh-sach-xu-ly-khieu-nai">Chính sách xử lý
-                  khiếu nại</a></li>
-            </ul>
+    </footer>
+    <style>
+        .footer {
+            font-family: 'Roboto', sans-serif;
+            /* Chọn font chữ */
+            color: #333;
+            /* Màu chữ chính */
+            background-color: white;
+            /* Màu nền */
 
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <div class="footer__widget">
-            <h6>Hỗ trợ</h6>
-            <ul>
-              <li><a href="/src/customer/index-customer.html#/huong-dan">Hướng dẫn đặt hàng</a></li>
-              <li><a href="/src/customer/index-customer.html#/hinh-thuc-thanh-toan">Hình thức thanh toán</a></li>
-              <li><a href="/src/customer/index-customer.html#/lien-he">Liên hệ</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <style>
-    .footer {
-  font-family: 'Roboto', sans-serif; /* Chọn font chữ */
-  color: #333; /* Màu chữ chính */
-  background-color: white; /* Màu nền */
+            /* Khoảng cách và định dạng khoảng cách */
+            padding: 40px 0;
+            margin-top: 20px;
 
-  /* Khoảng cách và định dạng khoảng cách */
-  padding: 40px 0;
-  margin-top: 20px;
+            /* Định dạng đường viền (nếu cần) */
+            border-top: 1px solid #ddd;
+        }
 
-  /* Định dạng đường viền (nếu cần) */
-  border-top: 1px solid #ddd;
-}
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
 
-.footer ul {
-  list-style: none;
-  padding: 0;
-}
+        .footer ul li {
+            margin-bottom: 10px;
+            /* Khoảng cách giữa các mục trong danh sách */
+        }
 
-.footer ul li {
-  margin-bottom: 10px; /* Khoảng cách giữa các mục trong danh sách */
-}
+        .footer a {
+            text-decoration: none;
+            color: #007bff;
+            /* Màu chữ cho các liên kết */
+        }
 
-.footer a {
-  text-decoration: none;
-  color: #007bff; /* Màu chữ cho các liên kết */
-}
-
-.footer a:hover {
-  text-decoration: underline; /* Gạch chân khi di chuột qua liên kết */
-}
-
-  </style>
+        .footer a:hover {
+            text-decoration: underline;
+            /* Gạch chân khi di chuột qua liên kết */
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

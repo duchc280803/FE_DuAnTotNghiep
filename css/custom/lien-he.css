@@ -8186,8 +8186,7 @@
     font-size: 14px;
     border-radius: 2px;
     -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: none; }
+    box-shadow: none !important; }
     .form-control::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       color: rgba(0, 0, 0, 0.3) !important; }
