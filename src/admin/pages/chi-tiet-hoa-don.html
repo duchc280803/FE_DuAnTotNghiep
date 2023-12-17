@@ -434,11 +434,11 @@
       <div class="why">
         <button ng-show="hoaDonChiTiet.trangThai == 1 && hoaDonChiTiet.tenLoaiDon == 'Online'" type="submit"
           class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#updateGiao">
-          Cập nhập
+          Cập nhật
         </button>
         <button ng-show="hoaDonChiTiet.trangThai == 3" type="submit" class="btn btn-danger m-1" data-bs-toggle="modal"
           data-bs-target="#updateNguoiGiao">
-          Cập nhập
+          Cập nhật
         </button>
       </div>
     </div>
@@ -580,11 +580,7 @@
                     ng-show="fillProductTraHang.donGia ===  fillProductTraHang.donGiaSauGiam">
                     {{(fillProductTraHang.donGia * fillProductTraHang.soLuong).toLocaleString('vi-VN')}}đ
                   </h6>
-                  <h6 style="color: crimson; padding-top: 110px"
-                    ng-show="fillProductTraHang.donGia != fillProductTraHang.donGiaSauGiam">
-                    {{(fillProductTraHang.donGiaSauGiam *
-                    fillProductTraHang.soLuong).toLocaleString('vi-VN')}}đ
-                  </h6>
+
                 </td>
               </tr>
             </tbody>
