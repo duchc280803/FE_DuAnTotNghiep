@@ -349,6 +349,19 @@ myApp.controller(
           });
           return;
         }
+        if ($scope.giaTriToiThieuDonhang <= $scope.giaTriGiam) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Giá trị tối thiểu đơn hàng phải lớn hơn mức giảm",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup", // Thêm class cho message
+            },
+          });
+          return;
+        }
 
         Swal.fire({
           title: "Bạn có muốn thêm voucher không?",

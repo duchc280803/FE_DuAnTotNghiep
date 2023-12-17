@@ -67,6 +67,38 @@ myApp.controller(
           return;
         }
         if (
+          $scope.voucherchitiet.soLuongMa < $scope.voucherchitiet.soLuongDung
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Số lượng không thể nhỏ hơn số lượng đã dùng",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+          return;
+        }
+        if (
+          $scope.voucherchitiet.giaTriToiThieuDonhang <=
+          $scope.voucherchitiet.giaTriGiam
+        ) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Giá trị tối thiểu đơn hàng phải lớn hơn mức giảm",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup", // Thêm class cho message
+            },
+          });
+          return;
+        }
+
+        if (
           !$scope.voucherchitiet.maVoucher ||
           !$scope.voucherchitiet.tenVoucher ||
           !$scope.voucherchitiet.soLuongMa ||

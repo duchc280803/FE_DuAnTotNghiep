@@ -66,6 +66,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/update-khach-hang.html",
       controller: "UpdateKhachHangController",
     })
+    .when("/customer/history", {
+      templateUrl: "./pages/khach-hang-history.html",
+      controller: "KhachHangHistoryController",
+    })
     .when("/staff/update/:id", {
       templateUrl: "./pages/update-nhan-vien.html",
       controller: "UpdateNhanVienController",
@@ -73,6 +77,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
     .when("/staff", {
       templateUrl: "./pages/nhan-vien.html",
       controller: "nhanVienController",
+    })
+    .when("/staff/history", {
+      templateUrl: "./pages/nhan-vien-history.html",
+      controller: "NhanVienHistoryController",
     })
     .when("/product/create", {
       templateUrl: "./pages/san-pham-new.html",
