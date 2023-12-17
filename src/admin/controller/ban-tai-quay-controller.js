@@ -1724,6 +1724,11 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listVoucher = response.data;
+          if ($scope.listVoucher.length < 20) {
+            $scope.showNextButtonVoucher = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButtonVoucher = true; // Hiển thị nút "Next"
+          }
         });
     };
 
@@ -1750,9 +1755,9 @@ myApp.controller(
         .then(function (response) {
           $scope.listVoucher = response.data;
           if ($scope.listVoucher.length < 20) {
-            $scope.showNextButton = false; // Ẩn nút "Next"
+            $scope.showNextButtonVoucher = false; // Ẩn nút "Next"
           } else {
-            $scope.showNextButton = true; // Hiển thị nút "Next"
+            $scope.showNextButtonVoucher = true; // Hiển thị nút "Next"
           }
         });
     };
