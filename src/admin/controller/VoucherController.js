@@ -247,18 +247,7 @@ myApp.controller(
         $scope.listVoucherHistory = response.data;
       });
     };
-
-    $scope.onTuDongTaoMaChange = function () {
-      if ($scope.tuDongTaoMa) {
-        // If the checkbox is checked, automatically generate the discount code
-        $scope.maVoucher = "GG_" + new Date().getTime();
-        // You might want to update other related properties as well
-      } else {
-        // If the checkbox is unchecked, clear the discount code or handle it as needed
-        $scope.maVoucher = "";
-        // You might want to update other related properties as well
-      }
-    };
+    $scope.maVoucher = "GG_" + new Date().getTime();
     $scope.ngayBatDau = new Date();
     $scope.hinhThucGiam = "2";
     setTimeout(() => {

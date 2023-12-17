@@ -5,7 +5,7 @@
   <hr />
   <div class="box" style="display: flex; flex-direction: row; flex-wrap: wrap;padding-left: 10px;">
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
-      <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Tìm kiếm khuyến mại"
+      <input class="form-control" ng-model="searchQuery" ng-change="searchKhach()" placeholder="Tìm kiếm mã khuyến mại"
         style="margin-top: 4px;" />
     </div>
     <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
@@ -93,55 +93,20 @@
             display: inline-block;
             text-align: center;"> {{gg.trangThai == 1 ? 'Đang hoạt động':'Ngừng hoạt động'}}
             </span>
-
           </td>
           <td>
-            <a class="btn btn-secondary" ng-click="toggleDetail(gg)" data-toggle="modal"
-              data-target="#detailsModal{{$index}}">
-              Xem
+            <a ng-href="{{gg.trangThai != 2 ? '#/promotion/detail/' + gg.id : ''}}" class="btn btn-danger"
+              ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
+              Chi tiết
             </a>
             <a ng-href="{{gg.trangThai != 2 ? '#/promotion/update/' + gg.id : ''}}" class="btn btn-warning"
               ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
               ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
               Sửa
             </a>
-            <a class="btn btn-warning" ng-click="updateGiamGiaStatus(gg.id, $event)">
+            <a class="btn btn-secondary" ng-click="updateGiamGiaStatus(gg.id, $event)">
               {{ gg.trangThai == 2 ? 'Kích hoạt' : 'Hủy kích hoạt' }}
             </a>
-            <!-- Details Modal -->
-            <div class="modal fade" id="detailsModal{{$index}}" tabindex="-1" role="dialog"
-              aria-labelledby="detailsModalLabel{{$index}}" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title card-title fw-semibold">Sản phẩm được khuyến mãi</h5>
-                  </div>
-
-                  <div class="modal-body" ng-show="gg.showDetail">
-                    <!-- Display details here -->
-                    <table class="table table-hover">
-                      <thead>
-                        <tr style="background-color: lightskyblue">
-                          <th scope="col">STT</th>
-                          <th scope="col">Tên sản phẩm</th>
-                          <th scope="col">Giá bán</th>
-                          <th scope="col">Giá giảm</th>
-                        </tr>
-                      </thead>
-                      <tbody class="table table-borderless table-hover">
-                        <tr ng-repeat="detail in gg.detailList">
-                          <td>{{$index + 1}}</td>
-                          <td>{{detail.productName}}</td>
-                          <td>{{detail.giaBan.toLocaleString('vi-VN')}}đ</td>
-                          <td>{{detail.donGiaKhiGiam.toLocaleString('vi-VN')}}đ</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </td>
         </tr>
       </tbody>

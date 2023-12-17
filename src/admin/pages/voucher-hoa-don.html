@@ -97,7 +97,7 @@
             <a class="btn btn-warning" ng-click="updateVoucherStatus(gg.id, $event)">
               {{ gg.trangThai == 2 ? 'Kích hoạt' : 'Hủy kích hoạt' }}
             </a>
-            <a ng-href="{{gg.trangThai != 2 ? '#/voucher/update/' + gg.id : ''}}" class="btn btn-warning"
+            <a ng-href="{{gg.trangThai != 2 ? '#/voucher/update/' + gg.id : ''}}" class="btn btn-danger"
               ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
               ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
               Sửa
