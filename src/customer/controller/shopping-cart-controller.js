@@ -159,7 +159,7 @@ myAppCustom.controller(
                       showConfirmButton: false,
                       timer: 1500,
                     });
-                    
+
                     localStorage.removeItem("idgiohang");
                     localStorage.removeItem("idVoucher");
                     localStorage.removeItem("giatrigiam");
@@ -459,8 +459,8 @@ myAppCustom.controller(
                     setTimeout(function () {
                       $location.reload();
                     }, 1500);
-                      // Chuyển hướng đến trang "thank-you"
-                      $location.path("/thank-you");
+                    // Chuyển hướng đến trang "thank-you"
+                    $location.path("/thank-you");
                   },
                   function (error) {
                     console.log(error);
@@ -492,8 +492,8 @@ myAppCustom.controller(
                   setTimeout(function () {
                     $location.reload();
                   }, 1500);
-                    // Chuyển hướng đến trang "thank-you"
-                    $location.path("/thank-you");
+                  // Chuyển hướng đến trang "thank-you"
+                  $location.path("/thank-you");
                 },
                 function (error) {
                   console.log(error);
@@ -635,6 +635,10 @@ myAppCustom.controller(
         .get("http://localhost:8080/api/v1/voucher-login/show")
         .then(function (response) {
           $scope.vouchers = response.data;
+          // Đặt trạng thái áp dụng cho mỗi voucher
+          $scope.vouchers.forEach(function (voucher) {
+            voucher.isApplied = false;
+          });
         });
     };
     $scope.voucher();
@@ -703,6 +707,15 @@ myAppCustom.controller(
           timer: 1500, // Thời gian tự đóng thông báo (milliseconds)
         });
       }
+      // Cập nhật trạng thái isApplied của voucher đã áp dụng
+      $scope.vouchers.forEach(function (voucher) {
+        if (voucher.mavoucher === $scope.magiamgia) {
+          voucher.isApplied = true;
+        }else{
+          voucher.isApplied = false;
+
+        }
+      });
     };
 
     // Gọi hàm để hiển thị thông tin trong ô input
