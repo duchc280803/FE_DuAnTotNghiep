@@ -195,9 +195,6 @@ myApp.controller(
       $scope.isSoDienThoaiValid = !!$scope.soDienThoai;
       $scope.isGioiTinhValid = !!$scope.gioiTinh;
       $scope.isEmailValid = !!$scope.email;
-      $scope.isProvinceValid = !!$scope.selectedProvince;
-      $scope.isDistrictValid = !!$scope.selectedDistrict;
-      $scope.isWardValid = !!$scope.selectedWard;
       $scope.isDiaChiValid = !!$scope.diaChi;
       $scope.isTrangThaiValid = !!$scope.trangThai;
 
@@ -216,9 +213,6 @@ myApp.controller(
         !$scope.isSoDienThoaiValid ||
         !$scope.isGioiTinhValid ||
         !$scope.isEmailValid ||
-        !$scope.isProvinceValid ||
-        !$scope.isDistrictValid ||
-        !$scope.isWardValid ||
         !$scope.isDiaChiValid ||
         !$scope.isTrangThaiValid
       ) {

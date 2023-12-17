@@ -234,6 +234,7 @@ myApp.controller(
         },
       });
     };
+
     $scope.newStatusOrder = {
       ghiChu: "",
       newTrangThai: "",
@@ -267,6 +268,7 @@ myApp.controller(
             )
             .then(function (response) {
               $scope.lichSuThayDoi.push(response.data);
+              $window.location.reload();
               $("#exampleModal").modal("hide");
               Swal.fire({
                 position: "top-end",
@@ -278,11 +280,12 @@ myApp.controller(
                   popup: "small-popup",
                 },
               }).then(() => {
-                $window.location.reload();
+               
               });
             })
             .catch(function (error) {
               $scope.errorGhiChu = error.data.ghiChu;
+              $scope.errorTrangThai = error.data.newTrangThai;
             });
         }
       });

@@ -148,6 +148,8 @@
             </div>
           </div>
           <!-- modal thông báo trạng thái HD -->
+          <div class="d-flex align-items-center">
+            <span style="font-size: 20px;">Lịch sử thanh toán</span>
             <div class="d-flex align-items-center">
                 <span style="font-size: 20px;">Lịch sử thanh toán</span>
             </div>
@@ -179,8 +181,70 @@
               </tbody>
             </table>
           </div>
+          <!-- modal hoàn trả  -->
+          <table class="table" style="width: 1085px;">
+            <thead>
+              <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+                <th scope="col">STT</th>
+                <th scope="col">Mã giao dịnh</th>
+                <th scope="col">Thanh toán</th>
+                <th scope="col">Số tiền khách trả</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Hình thức thanh toán</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Người xác nhận</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in lichSu">
+                <td>{{$index + 1}}</td>
+                <td>{{item.ma}}</td>
+                <td>{{item.tenLoai}}</td>
+                <td>{{item.soTienTra.toLocaleString('vi-VN')}}đ</td>
+                <td>{{item.ngayTao| date:'MM/dd/yyyy h:mm:ss a'}}</td>
+                <td>{{item.phuongThucThanhToan == 1 ? 'Tiền mặt' : 'Chuyển khoản'}}</td>
+                <td>{{item.ghiChu}}</td>
+                <td>{{item.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <br />
 
+
+        <table class="table">
+          <tbody>
+            <tr ng-repeat="item in listSanPham">
+              <td style="width: 150px">
+                <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
+              </td>
+              <td style="padding-top: 50px">
+                <h6 style="font-size: 15px; font-weight: bold; height: 10px">
+                  {{item.tenSanPham}}
+                  <br />
+                  <br />
+                  Size: {{item.size}}
+                  <br />
+                  Chất Liệu: {{item.tenChatLieu}}
+                  <br />
+                  Màu Sắc: {{item.tenMauSac}}
+                  <br>
+                  Số lượng: {{item.soLuong}}
+                </h6>
+              </td>
+              <td style="padding-top: 80px">
+                <div ng-show="item.donGiaSauGiam != null">
+                  {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
+                  <span
+                    style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                </div>
+                <div ng-show="item.donGiaSauGiam == null">
+                  {{item.donGia.toLocaleString('vi-VN')}}đ
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
             <div class="row">
               <div class="col-lg-9" ng-show="fillMoney.tongTien <= soTienKhachTra">
                 <span style="
@@ -308,7 +372,6 @@
               <span class="header-title">{{tongTienHang.toLocaleString('vi-VN')}}đ</span>
             </div>
           </div>
-<<<<<<< HEAD
         </div>
         <div class="omni-layout-card--section-section">
           <div class="omni-layout-card--item-stack-cover">
@@ -316,7 +379,8 @@
               <span class="header-title" style="padding-left: 860px">Tiền ship</span>
             </div>
             <div class="omni-layout-card--item-stack fill text-right">
-              <span class="header-title">{{ thanhTien.tienShip != null ? thanhTien.tienShip.toLocaleString('vi-VN') +
+              <span class="header-title">{{ thanhTien.tienShip != null ? thanhTien.tienShip.toLocaleString('vi-VN')
+                +
                 'đ' : '0' }}₫</span>
             </div>
           </div>
@@ -338,44 +402,11 @@
             </div>
             <div class="omni-layout-card--item-stack fill text-right">
               <span class="header-title">{{thanhTien.tongTien.toLocaleString('vi-VN')}}₫</span>
-=======
-          <div class="omni-layout-card--section-section">
-            <div class="omni-layout-card--item-stack-cover">
-              <div class="omni-layout-card--item-stack fill">
-                <span class="header-title" style="padding-left: 860px">Tiền ship</span>
-              </div>
-              <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{ thanhTien.tienShip != null ? thanhTien.tienShip.toLocaleString('vi-VN') +
-                  'đ' : '0' }}đ</span>
-              </div>
-            </div>
-          </div>
-          <div class="omni-layout-card--section-section">
-            <div class="omni-layout-card--item-stack-cover">
-              <div class="omni-layout-card--item-stack fill">
-                <span class="header-title" style="padding-left: 860px">Tiền giảm giá</span>
-              </div>
-              <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tienGiamGia.toLocaleString('vi-VN')}}đ</span>
-              </div>
-            </div>
-          </div>
-          <div class="omni-layout-card--section-section">
-            <div class="omni-layout-card--item-stack-cover">
-              <div class="omni-layout-card--item-stack fill">
-                <span class="header-title" style="padding-left: 860px">Thành tiền</span>
-              </div>
-              <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tongTien.toLocaleString('vi-VN')}}đ</span>
-              </div>
->>>>>>> 7806a210874742b96aa4e1188170fbfaba42a1e6
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

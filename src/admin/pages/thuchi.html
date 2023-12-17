@@ -23,7 +23,7 @@
         <option value="1">Online</option>
       </select>
     </div>
-    <div ng-show="isAdmin || role === 'MANAGER'" class="col-md-4" style="margin-left: -85px;">
+    <div ng-show="isAdmin || role === 'ADMIN'" class="col-md-4" style="margin-left: -85px;">
       <span> Nhân viên:</span>
       <select style="color: green" class="custom-select" ng-model="selectedTenNhanVien" ng-change="filterHoaDonByNguoiXacNhan()">
         <option value="">Tất cả</option>
@@ -143,7 +143,7 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+            <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
               ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
@@ -203,7 +203,7 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+            <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
               ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
@@ -265,7 +265,7 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+            <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
               ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
