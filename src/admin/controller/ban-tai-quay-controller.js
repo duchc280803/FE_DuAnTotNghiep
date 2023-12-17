@@ -190,9 +190,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/don-hang/show?pageNumber=" +
-          $scope.pageNumber +
-          "&pageSize=" +
-          $scope.pageSize,
+            $scope.pageNumber +
+            "&pageSize=" +
+            $scope.pageSize,
           config
         )
         .then(function (response) {
@@ -284,11 +284,11 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
-          idKhach +
-          "&pageNumber=" +
-          $scope.pageNumberSpTrongGio +
-          "&pageSize=" +
-          $scope.pageSizeSpTrongGio,
+            idKhach +
+            "&pageNumber=" +
+            $scope.pageNumberSpTrongGio +
+            "&pageSize=" +
+            $scope.pageSizeSpTrongGio,
           config
         )
         .then(function (response) {
@@ -313,7 +313,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
-          idKhach,
+            idKhach,
           config
         )
         .then(function (response) {
@@ -352,10 +352,10 @@ myApp.controller(
     };
 
     if (id != null) {
-      CartService.setIdCart(id).then(function () { });
+      CartService.setIdCart(id).then(function () {});
       CartService.setIdCart(id).then(function () {
         var idCart = CartService.getIdCart();
-        CartService.setIdCartDetail(idCart).then(function () { });
+        CartService.setIdCartDetail(idCart).then(function () {});
       });
     }
 
@@ -395,13 +395,13 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
-                idGioHang +
-                "&idSanPhamChiTiet=" +
-                idCtSp +
-                "&soLuong=" +
-                soLuongSanPham +
-                "&id=" +
-                id,
+                  idGioHang +
+                  "&idSanPhamChiTiet=" +
+                  idCtSp +
+                  "&soLuong=" +
+                  soLuongSanPham +
+                  "&id=" +
+                  id,
                 {},
                 config // Truyền thông tin token qua config
               )
@@ -452,7 +452,7 @@ myApp.controller(
             $http
               .delete(
                 "http://localhost:8080/api/gio-hang-chi-tiet/delete_product?id=" +
-                p.idGioHang,
+                  p.idGioHang,
                 config // Chuyền token vào config
               )
               .then(function () {
@@ -479,7 +479,11 @@ myApp.controller(
 
     // cập nhập sản phẩm trong giỏ hàng
     setTimeout(() => {
-      $scope.updateCart = function (idGioHangChiTiet, soLuong, idSanPhamChiTiet) {
+      $scope.updateCart = function (
+        idGioHangChiTiet,
+        soLuong,
+        idSanPhamChiTiet
+      ) {
         var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
 
         var config = {
@@ -492,7 +496,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/gio-hang-chi-tiet/so-luong-san-pham?id=" +
-            idSanPhamChiTiet,
+              idSanPhamChiTiet,
             config
           )
           .then(function (response) {
@@ -550,9 +554,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/khach-hang/hien-thi?pageNumberKhach" +
-          $scope.pageNumberKhach +
-          "&pageSizeKhach=" +
-          $scope.pageSizeKhach,
+            $scope.pageNumberKhach +
+            "&pageSizeKhach=" +
+            $scope.pageSizeKhach,
           config
         )
         .then(function (response) {
@@ -591,7 +595,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/khach-hang/search?key=" +
-          $scope.searchKeyword,
+            $scope.searchKeyword,
           config
         )
         .then(function (response) {
@@ -624,11 +628,11 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/khach-hang/update-hoa-don?id=" +
-                idcustom +
-                "&idHoaDon=" +
-                id +
-                "&idGioHang=" +
-                idGioHang,
+                  idcustom +
+                  "&idHoaDon=" +
+                  id +
+                  "&idGioHang=" +
+                  idGioHang,
                 null,
                 config // Truyền thông tin token qua config
               )
@@ -671,28 +675,49 @@ myApp.controller(
     $scope.remainingAmount = 0;
     $scope.tienCuoiCungCuaDon = 0;
     $scope.tienThuaTraKhach = 0;
+    $scope.tongTienCuaKhach = 0;
+    var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
     $scope.showTransaction = function () {
+      // Token
       var token = $window.localStorage.getItem("token");
-
       var config = {
         headers: {
           Authorization: "Bearer " + token,
         },
       };
+      // Token
       $http
-        .get("http://localhost:8080/api/v1/transaction/show?id=" + id, config)
+        .get(
+          "http://localhost:8080/api/gio-hang-chi-tiet/tien-thieu?id=" +
+            id +
+            "&idKhach=" +
+            idKhach,
+          config
+        )
         .then(function (response) {
-          $scope.listTransaction = response.data;
-          $scope.totalAmountPaid = 0; // Reset the total amount paid
-          for (var i = 0; i < $scope.listTransaction.length; i++) {
-            $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
-          }
-          $scope.tienCuoiCungCuaDon = totalOrderValue - $scope.totalAmountPaid;
-          $scope.tienThuaTraKhach = $scope.totalAmountPaid - totalOrderValue;
-          $window.localStorage.setItem(
-            "soTienkhachTra",
-            $scope.totalAmountPaid
-          );
+          $scope.tongTienCuaKhach = response.data;
+          // Đoạn trên là lấy tổng tiền (tiền hàng - tiền giảm giá + tiền ship)
+          // Đoạn dưới là tính tiền thừa tiền thiếu và hiển thị tiền khách trả
+          $http
+            .get(
+              "http://localhost:8080/api/v1/transaction/show?id=" + id,
+              config
+            )
+            .then(function (response) {
+              $scope.listTransaction = response.data;
+              $scope.totalAmountPaid = 0; // Reset the total amount paid
+              for (var i = 0; i < $scope.listTransaction.length; i++) {
+                $scope.totalAmountPaid += $scope.listTransaction[i].soTien;
+              }
+              $scope.tienCuoiCungCuaDon =
+                $scope.tongTienCuaKhach - $scope.totalAmountPaid;
+              $scope.tienThuaTraKhach =
+                $scope.totalAmountPaid - $scope.tongTienCuaKhach;
+              $window.localStorage.setItem(
+                "soTienkhachTra",
+                $scope.totalAmountPaid
+              );
+            });
         });
     };
 
@@ -725,9 +750,9 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/v1/transaction/create?idHoaDon=" +
-                id +
-                "&id=" +
-                idKhach,
+                  id +
+                  "&id=" +
+                  idKhach,
                 $scope.newTransaction,
                 config
               )
@@ -763,13 +788,13 @@ myApp.controller(
       $http
         .post(
           "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
-          id +
-          "&id=" +
-          idKhach +
-          "&maGiaoDinh=" +
-          $scope.maGiaoDinh +
-          "&vnp_Amount=" +
-          $scope.tienCuoiCungVnPay,
+            id +
+            "&id=" +
+            idKhach +
+            "&maGiaoDinh=" +
+            $scope.maGiaoDinh +
+            "&vnp_Amount=" +
+            $scope.tienCuoiCungVnPay,
           null,
           config // Truyền thông tin token qua headers
         )
@@ -804,7 +829,7 @@ myApp.controller(
       $http
         .post(
           "http://localhost:8080/api/v1/payment/vn_pay?amountParam=" +
-          amountParam,
+            amountParam,
           config
         )
         .then(function (response) {
@@ -888,78 +913,85 @@ myApp.controller(
         soDienThoai,
         diaChi
       ) {
+        var token = $window.localStorage.getItem("token");
 
-
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        };
         var soTienKhachTra = $window.localStorage.getItem("soTienkhachTra");
-        var totalOrderValue =
-          tongTienTaiQuay -
-          tienGiamGiaTaiQuay +
-          ($scope.tienGiao ? +$scope.tienGiao : 0);
-        if (soTienKhachTra < totalOrderValue) {
-          Swal.fire({
-            position: "top-end",
-            icon: "warning",
-            title:
-              "Vui lòng thanh toán tiền hàng trước khi xác nhận thanh toán !",
-            showConfirmButton: false,
-            timer: 1500,
-            customClass: {
-              popup: "small-popup",
-            },
-          });
-        } else {
-          var token = $window.localStorage.getItem("token");
-
-          var config = {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          };
-          var idDetail = CartService.getIdCartDetail();
-          var requestData = {
-            tongTien: tongTienHang,
-            tienKhachTra: tienKhachTra,
-            tienThua: tienThua,
-            hoTen: hoTen,
-            soDienThoai: soDienThoai,
-            diaChi: diaChi,
-            gioHangChiTietList: idDetail,
-          };
-          var api =
-            "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
-            id;
-          Swal.fire({
-            title: "Bạn muốn thanh toán hóa đơn này?",
-            text: "",
-            icon: "question",
-            showCancelButton: true,
-            cancelButtonText: "Hủy bỏ",
-            cancelButtonColor: "#d33",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Xác nhận",
-            reverseButtons: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              $http.post(api, requestData, config).then(function (response) {
-                $scope.listHoaDonChiTiet.push(response.data);
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Thanh toán thành công",
-                  showConfirmButton: false,
-                  timer: 1500,
-                  customClass: {
-                    popup: "small-popup",
-                  },
-                }).then(() => {
-                  $scope.generatePDF();
-                  $window.location.reload();
-                });
-                $scope.removeItem();
+        $http
+          .get(
+            "http://localhost:8080/api/gio-hang-chi-tiet/tien-thieu?id=" +
+              id +
+              "&idKhach=" +
+              idKhach,
+            config
+          )
+          .then(function (response) {
+            $scope.tongTienCuaKhach = response.data;
+            if (soTienKhachTra < $scope.tongTienCuaKhach) {
+              Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title:
+                  "Vui lòng thanh toán tiền hàng trước khi xác nhận thanh toán !",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup",
+                },
+              });
+            } else {
+              var idDetail = CartService.getIdCartDetail();
+              var requestData = {
+                tongTien: tongTienHang,
+                tienKhachTra: tienKhachTra,
+                tienThua: tienThua,
+                hoTen: hoTen,
+                soDienThoai: soDienThoai,
+                diaChi: diaChi,
+                gioHangChiTietList: idDetail,
+              };
+              var api =
+                "http://localhost:8080/api/v1/don-hang/create-hoa-don-chi-tiet?idHoaDon=" +
+                id;
+              Swal.fire({
+                title: "Bạn muốn thanh toán hóa đơn này?",
+                text: "",
+                icon: "question",
+                showCancelButton: true,
+                cancelButtonText: "Hủy bỏ",
+                cancelButtonColor: "#d33",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Xác nhận",
+                reverseButtons: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  $http
+                    .post(api, requestData, config)
+                    .then(function (response) {
+                      $scope.listHoaDonChiTiet.push(response.data);
+                      Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Thanh toán thành công",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                          popup: "small-popup",
+                        },
+                      }).then(() => {
+                        $scope.generatePDF();
+                        $window.location.reload();
+                      });
+                      $scope.removeItem();
+                    });
+                }
               });
             }
           });
-        }
       };
     }, 2000);
 
@@ -1180,9 +1212,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/chi-tiet-sp/hien-thi?pageNumber=" +
-          $scope.pageNumberSp +
-          "&pageSize=" +
-          $scope.pageSizeSp,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp,
           config
         )
         .then(function (response) {
@@ -1222,11 +1254,11 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/chi-tiet-sp/search-name?pageNumber=" +
-          $scope.pageNumberSp +
-          "&pageSize=" +
-          $scope.pageSizeSp +
-          "&name=" +
-          $scope.searchKeyName,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.searchKeyName,
           config
         )
         .then(function (response) {
@@ -1335,11 +1367,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-category?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&name=" +
-            $scope.locCategory,
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
+              $scope.locCategory,
             config
           )
           .then(function (response) {
@@ -1369,11 +1401,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-sole?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&name=" +
-            $scope.locSole,
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
+              $scope.locSole,
             config
           )
           .then(function (response) {
@@ -1403,11 +1435,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-origin?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&name=" +
-            $scope.locOrigin,
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
+              $scope.locOrigin,
             config
           )
           .then(function (response) {
@@ -1437,11 +1469,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-size?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&size=" +
-            $scope.locSize,
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&size=" +
+              $scope.locSize,
             config
           )
           .then(function (response) {
@@ -1471,11 +1503,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-material?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&name=" +
-            $scope.locMaterial,
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
+              $scope.locMaterial,
             config
           )
           .then(function (response) {
@@ -1505,11 +1537,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-color?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&name=" +
-            $scope.locMauSac,
+              $scope.pageNumberSp +
+              "&pageSize=" +
+              $scope.pageSizeSp +
+              "&name=" +
+              $scope.locMauSac,
             config
           )
           .then(function (response) {
@@ -1539,9 +1571,9 @@ myApp.controller(
       $http
         .post(
           "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham-qrcode?idGioHang=" +
-          idGioHang +
-          "&qrCode=" +
-          content,
+            idGioHang +
+            "&qrCode=" +
+            content,
           {},
           config
         )
@@ -1556,7 +1588,7 @@ myApp.controller(
             timer: 1500,
           });
         })
-        .catch(function (error) { });
+        .catch(function (error) {});
     });
     Instascan.Camera.getCameras()
       .then(function (cameras) {
@@ -1582,11 +1614,11 @@ myApp.controller(
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
-          id +
-          "&idVoucher=" +
-          idVoucher +
-          "&thanhTien=" +
-          thanhTien,
+            id +
+            "&idVoucher=" +
+            idVoucher +
+            "&thanhTien=" +
+            thanhTien,
           null,
           config // Truyền thông tin token qua config
         )
@@ -1684,8 +1716,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/p/" +
-          $scope.selectedProvince.code +
-          "?depth=2"
+            $scope.selectedProvince.code +
+            "?depth=2"
         )
         .then(function (response) {
           $scope.districts = response.data.districts;
@@ -1696,16 +1728,13 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/d/" +
-          $scope.selectedDistrict.code +
-          "?depth=2"
+            $scope.selectedDistrict.code +
+            "?depth=2"
         )
         .then(function (response) {
           $scope.wards = response.data.wards;
         });
     };
-
-    var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
-    var tienGiamGiaResponse = $window.localStorage.getItem("tienGiamGia");
 
     $scope.listVoucher = [];
     $scope.pageNumberVoucher = 0;
@@ -1722,9 +1751,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/voucher-counter/show?pageNumber=" +
-          $scope.pageNumberVoucher +
-          "&pageSize=" +
-          $scope.pageSizeVoucher,
+            $scope.pageNumberVoucher +
+            "&pageSize=" +
+            $scope.pageSizeVoucher,
           config
         )
         .then(function (response) {
@@ -1750,11 +1779,11 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/voucher-counter/show?pageNumber=" +
-          $scope.pageNumberVoucher +
-          "&pageSize=" +
-          $scope.pageSizeVoucher +
-          "&key=" +
-          $scope.keyVoucher,
+            $scope.pageNumberVoucher +
+            "&pageSize=" +
+            $scope.pageSizeVoucher +
+            "&key=" +
+            $scope.keyVoucher,
           config
         )
         .then(function (response) {
@@ -1770,7 +1799,7 @@ myApp.controller(
     $scope.lamMoiVoucher = function () {
       $scope.keyVoucher = "";
       $scope.loadVouchers();
-    }
+    };
 
     // TODO: Quay lại trang
     $scope.previousPageVoucher = function () {
@@ -1847,13 +1876,13 @@ myApp.controller(
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/close?idHoaDon=" +
-          id +
-          "&thanhTien=" +
-          tien,
+            id +
+            "&thanhTien=" +
+            tien,
           null,
           config
         )
-        .then(function (response) { });
+        .then(function (response) {});
     };
 
     // Thêm token vào function updateOrder
@@ -1867,11 +1896,11 @@ myApp.controller(
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
-          id +
-          "&idVoucher=" +
-          idVoucher +
-          "&thanhTien=" +
-          totalOrderValue,
+            id +
+            "&idVoucher=" +
+            idVoucher +
+            "&thanhTien=" +
+            totalOrderValue,
           null,
           config // Truyền thông tin token qua config
         )
@@ -1902,7 +1931,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
-          idKhach,
+            idKhach,
           config
         )
         .then(function (response) {
@@ -1927,11 +1956,11 @@ myApp.controller(
               $http
                 .put(
                   "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
-                  id +
-                  "&idVoucher=" +
-                  idVoucher +
-                  "&thanhTien=" +
-                  $scope.tongTienVoucher,
+                    id +
+                    "&idVoucher=" +
+                    idVoucher +
+                    "&thanhTien=" +
+                    $scope.tongTienVoucher,
                   null,
                   config // Truyền thông tin token qua config
                 )
