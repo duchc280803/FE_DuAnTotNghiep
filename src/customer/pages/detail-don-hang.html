@@ -150,6 +150,36 @@
           <!-- modal thông báo trạng thái HD -->
           <div class="d-flex align-items-center">
             <span style="font-size: 20px;">Lịch sử thanh toán</span>
+            <div class="d-flex align-items-center">
+                <span style="font-size: 20px;">Lịch sử thanh toán</span>
+            </div>
+            <!-- modal hoàn trả  -->
+            <table class="table" style="width: 1085px;">
+              <thead>
+                <tr style="border: 1px solid #ccc; background-color: lightskyblue">
+                  <th scope="col">STT</th>
+                  <th scope="col">Mã giao dịnh</th>
+                  <th scope="col">Thanh toán</th>
+                  <th scope="col">Số tiền khách trả</th>
+                  <th scope="col">Thời gian</th>
+                  <th scope="col">Hình thức thanh toán</th>
+                  <th scope="col">Ghi chú</th>
+                  <th scope="col">Người xác nhận</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in lichSu">
+                  <td>{{$index + 1}}</td>
+                  <td>{{item.ma}}</td>
+                  <td>{{item.tenLoai}}</td>
+                  <td>{{item.soTienTra.toLocaleString('vi-VN')}}đ</td>
+                  <td>{{item.ngayTao| date:'MM/dd/yyyy h:mm:ss a'}}</td>
+                  <td>{{item.phuongThucThanhToan == 1 ? 'Tiền mặt' : 'Chuyển khoản'}}</td>
+                  <td>{{item.ghiChu}}</td>
+                  <td>{{item.name}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <!-- modal hoàn trả  -->
           <table class="table" style="width: 1085px;">
@@ -215,6 +245,91 @@
             </tr>
           </tbody>
         </table>
+            <div class="row">
+              <div class="col-lg-9" ng-show="fillMoney.tongTien <= soTienKhachTra">
+                <span style="
+          color: #fc5e03;
+          padding: 4px 8px;
+          border-radius: 4px;
+          display: inline-block;
+          font-size: 15px;
+          font-weight: 900;
+          padding-left: 740px;
+        ">Đã thanh toán:</span>
+              </div>
+              <div class="col-lg-3" ng-show="fillMoney.tongTien <= soTienKhachTra">
+                <span style="
+          color: #fc5e03;
+          padding: 4px 8px;
+          border-radius: 4px;
+          display: inline-block;
+          font-size: 15px;
+          font-weight: 900;
+          padding-left: 100px;
+        ">{{fillMoney.tongTien.toLocaleString('vi-VN')}}đ</span>
+              </div>
+              <div class="col-lg-9"
+                ng-show="(traHangis === true &&  tongTienHoanTra <= soTienHoan) || (hoaDonChiTiet.trangThai === 6 &&  tongTienHoanTra <= soTienHoan)">
+                <span style="
+          color: #fc5e03;
+          padding: 4px 8px;
+          border-radius: 4px;
+          display: inline-block;
+          font-size: 15px;
+          font-weight: 900;
+          padding-left: 740px;
+        ">Đã hoàn trả:</span>
+              </div>
+              <div class="col-lg-3"
+                ng-show="(traHangis === true &&  tongTienHoanTra <= soTienHoan) || (hoaDonChiTiet.trangThai === 6 &&  tongTienHoanTra <= soTienHoan)">
+                <span style="
+          color: #fc5e03;
+          padding: 4px 8px;
+          border-radius: 4px;
+          display: inline-block;
+          font-size: 15px;
+          font-weight: 900;
+          padding-left: 100px;
+        ">{{soTienHoan.toLocaleString('vi-VN')}}đ</span>
+              </div>
+            </div>
+          </div>
+          <br />
+          <table class="table">
+            <tbody>
+              <tr ng-repeat="item in listSanPham">
+                <td style="width: 150px">
+                  <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
+                </td>
+                <td style="padding-top: 50px">
+                  <h6 style="font-size: 15px; font-weight: bold; height: 10px">
+                    {{item.tenSanPham}}
+                    <br />
+                    <br />
+                    Size: {{item.size}}
+                    <br />
+                    Chất Liệu: {{item.tenChatLieu}}
+                    <br />
+                    Màu Sắc: {{item.tenMauSac}}
+                    <br>
+                    Số lượng: {{item.soLuong}}
+                  </h6>
+                </td>
+                <td style="padding-top: 80px">
+                  <div ng-show="item.donGiaSauGiam != null">
+                    {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
+                    <span
+                      style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                  </div>
+                  <div ng-show="item.donGiaSauGiam == null">
+                    {{item.donGia.toLocaleString('vi-VN')}}đ
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
         <div class="omni-layout-card--section-section">
           <div style="margin-left: 15px;">
             <button ng-show="hoaDonChiTiet.trangThai == 1 || hoaDonChiTiet.trangThai == 2" type="button"
