@@ -204,7 +204,6 @@ myApp.controller(
               .put(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/huy-don/" + id,
                 $scope.huyHoaDon,
-                null,
                 config
               )
               .then(function (response) {

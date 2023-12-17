@@ -178,43 +178,9 @@
                 </tr>
               </tbody>
             </table>
-<<<<<<< HEAD
           </div>
         <br />
-        <table class="table">
-          <tbody>
-            <tr ng-repeat="item in listSanPham">
-              <td style="width: 150px">
-                <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
-              </td>
-              <td style="padding-top: 50px">
-                <h6 style="font-size: 15px; font-weight: bold; height: 10px">
-                  {{item.tenSanPham}}
-                  <br />
-                  <br />
-                  Size: {{item.size}}
-                  <br />
-                  Chất Liệu: {{item.tenChatLieu}}
-                  <br />
-                  Màu Sắc: {{item.tenMauSac}}
-                  <br>
-                  Số lượng: {{item.soLuong}}
-                </h6>
-              </td>
-              <td style="padding-top: 80px">
-                <div ng-show="item.donGiaSauGiam != null">
-                  {{item.donGiaSauGiam.toLocaleString('vi-VN')}}₫
-                  <span
-                    style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}₫</span>
-                </div>
-                <div ng-show="item.donGiaSauGiam == null">
-                  {{item.donGia.toLocaleString('vi-VN')}}₫
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-=======
+
             <div class="row">
               <div class="col-lg-9" ng-show="fillMoney.tongTien <= soTienKhachTra">
                 <span style="
@@ -298,7 +264,7 @@
               </tr>
             </tbody>
           </table>
->>>>>>> 7806a210874742b96aa4e1188170fbfaba42a1e6
+
 
         <div class="omni-layout-card--section-section">
           <div style="margin-left: 15px;">
