@@ -42,6 +42,10 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: "./pages/update-giam-gia-sanpham.html",
       controller: "giamgiaChiTietController",
     })
+    .when("/promotion/detail/:id", {
+      templateUrl: "./pages/khuyen-mai-chi-tiet.html",
+      controller: "khuyenMaiChiTietController",
+    })
     .when("/voucher", {
       templateUrl: "./pages/voucher-hoa-don.html",
       controller: "VoucherController",
