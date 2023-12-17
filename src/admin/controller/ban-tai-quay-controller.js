@@ -190,9 +190,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/don-hang/show?pageNumber=" +
-            $scope.pageNumber +
-            "&pageSize=" +
-            $scope.pageSize,
+          $scope.pageNumber +
+          "&pageSize=" +
+          $scope.pageSize,
           config
         )
         .then(function (response) {
@@ -284,11 +284,11 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
-            idKhach +
-            "&pageNumber=" +
-            $scope.pageNumberSpTrongGio +
-            "&pageSize=" +
-            $scope.pageSizeSpTrongGio,
+          idKhach +
+          "&pageNumber=" +
+          $scope.pageNumberSpTrongGio +
+          "&pageSize=" +
+          $scope.pageSizeSpTrongGio,
           config
         )
         .then(function (response) {
@@ -301,7 +301,7 @@ myApp.controller(
         });
     };
 
-    var aloalo = 0;
+    var tienMoi = 0;
     $scope.listSanPhamTienInCart = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -313,27 +313,24 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
-            idKhach,
+          idKhach,
           config
         )
         .then(function (response) {
           $scope.listCartTien = response.data;
-          $scope.tongTienHang = 0;
           for (var i = 0; i < $scope.listCartTien.length; i++) {
             $scope.tongTienHang +=
               $scope.listCartTien[i].giaGiam * $scope.listCartTien[i].soLuong;
           }
-          aloalo = $scope.tongTienHang;
-          localStorage.setItem(
-            "tongTienHangTaiQuay",
-            $scope.tongTienHang
-          );
-
+          tienMoi = $scope.tongTienHang;
+          console.log("Bên trong" + $scope.tongTienHang);
+          localStorage.setItem("tongTienHangTaiQuay", $scope.tongTienHang);
         });
     };
 
     var tongTienTaiQuay = localStorage.getItem("tongTienHangTaiQuay");
-    console.log(tongTienTaiQuay);
+    console.log("Bên ngoài " + tongTienTaiQuay);
+    console.log("Tiền mới" + tienMoi);
 
     if (id != null) {
       $scope.listSanPhamInCart();
@@ -355,10 +352,10 @@ myApp.controller(
     };
 
     if (id != null) {
-      CartService.setIdCart(id).then(function () {});
+      CartService.setIdCart(id).then(function () { });
       CartService.setIdCart(id).then(function () {
         var idCart = CartService.getIdCart();
-        CartService.setIdCartDetail(idCart).then(function () {});
+        CartService.setIdCartDetail(idCart).then(function () { });
       });
     }
 
@@ -398,13 +395,13 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham?idGioHang=" +
-                  idGioHang +
-                  "&idSanPhamChiTiet=" +
-                  idCtSp +
-                  "&soLuong=" +
-                  soLuongSanPham +
-                  "&id=" +
-                  id,
+                idGioHang +
+                "&idSanPhamChiTiet=" +
+                idCtSp +
+                "&soLuong=" +
+                soLuongSanPham +
+                "&id=" +
+                id,
                 {},
                 config // Truyền thông tin token qua config
               )
@@ -455,7 +452,7 @@ myApp.controller(
             $http
               .delete(
                 "http://localhost:8080/api/gio-hang-chi-tiet/delete_product?id=" +
-                  p.idGioHang,
+                p.idGioHang,
                 config // Chuyền token vào config
               )
               .then(function () {
@@ -481,61 +478,63 @@ myApp.controller(
     }, 2000);
 
     // cập nhập sản phẩm trong giỏ hàng
-    $scope.updateCart = function (idGioHangChiTiet, soLuong, idSanPhamChiTiet) {
-      var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+    setTimeout(() => {
+      $scope.updateCart = function (idGioHangChiTiet, soLuong, idSanPhamChiTiet) {
+        var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token, // Thêm token vào header Authorization
-        },
-      };
+        var config = {
+          headers: {
+            Authorization: "Bearer " + token, // Thêm token vào header Authorization
+          },
+        };
 
-      $scope.soLuongCoSan = 0;
-      $http
-        .get(
-          "http://localhost:8080/api/gio-hang-chi-tiet/so-luong-san-pham?id=" +
+        $scope.soLuongCoSan = 0;
+        $http
+          .get(
+            "http://localhost:8080/api/gio-hang-chi-tiet/so-luong-san-pham?id=" +
             idSanPhamChiTiet,
-          config
-        )
-        .then(function (response) {
-          $scope.soLuongCoSan = response.data;
-          console.log($scope.soLuongCoSan);
-          if (soLuong > $scope.soLuongCoSan) {
-            Swal.fire({
-              position: "top-end",
-              icon: "warning",
-              title: "Số lượng chuyền vào lớn hơn số lượng tồn!",
-              showConfirmButton: false,
-              timer: 1500,
-              customClass: {
-                popup: "small-popup", // Add a class to the message
-              },
-            }).then(() => {
-              $window.location.reload();
-            });
-          } else {
-            var apiURL =
-              "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
-              idGioHangChiTiet +
-              "&quantity=" +
-              soLuong;
-
-            $http({
-              url: apiURL,
-              method: "PUT",
-              headers: config.headers, // Truyền thông tin token qua headers
-              transformResponse: [
-                function () {
-                  $scope.listSanPhamInCart();
-                  $scope.listSanPhamTienInCart();
-                  $window.location.reload();
+            config
+          )
+          .then(function (response) {
+            $scope.soLuongCoSan = response.data;
+            console.log($scope.soLuongCoSan);
+            if (soLuong > $scope.soLuongCoSan) {
+              Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Số lượng chuyền vào lớn hơn số lượng tồn!",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Add a class to the message
                 },
-              ],
-            });
-            $window.localStorage.setItem("soLuongCoSan", $scope.soLuongCoSan);
-          }
-        });
-    };
+              }).then(() => {
+                $window.location.reload();
+              });
+            } else {
+              var apiURL =
+                "http://localhost:8080/api/gio-hang-chi-tiet/update-quantity?idgiohangchitiet=" +
+                idGioHangChiTiet +
+                "&quantity=" +
+                soLuong;
+
+              $http({
+                url: apiURL,
+                method: "PUT",
+                headers: config.headers, // Truyền thông tin token qua headers
+                transformResponse: [
+                  function () {
+                    $scope.listSanPhamInCart();
+                    $scope.listSanPhamTienInCart();
+                    $window.location.reload();
+                  },
+                ],
+              });
+              $window.localStorage.setItem("soLuongCoSan", $scope.soLuongCoSan);
+            }
+          });
+      };
+    }, 2000);
 
     $scope.pageNumberKhach = 0;
     $scope.pageSizeKhach = 20;
@@ -551,9 +550,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/khach-hang/hien-thi?pageNumberKhach" +
-            $scope.pageNumberKhach +
-            "&pageSizeKhach=" +
-            $scope.pageSizeKhach,
+          $scope.pageNumberKhach +
+          "&pageSizeKhach=" +
+          $scope.pageSizeKhach,
           config
         )
         .then(function (response) {
@@ -592,7 +591,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/khach-hang/search?key=" +
-            $scope.searchKeyword,
+          $scope.searchKeyword,
           config
         )
         .then(function (response) {
@@ -625,11 +624,11 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/khach-hang/update-hoa-don?id=" +
-                  idcustom +
-                  "&idHoaDon=" +
-                  id +
-                  "&idGioHang=" +
-                  idGioHang,
+                idcustom +
+                "&idHoaDon=" +
+                id +
+                "&idGioHang=" +
+                idGioHang,
                 null,
                 config // Truyền thông tin token qua config
               )
@@ -726,9 +725,9 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/v1/transaction/create?idHoaDon=" +
-                  id +
-                  "&id=" +
-                  idKhach,
+                id +
+                "&id=" +
+                idKhach,
                 $scope.newTransaction,
                 config
               )
@@ -764,13 +763,13 @@ myApp.controller(
       $http
         .post(
           "http://localhost:8080/api/v1/transaction/create-vnpay?idHoaDon=" +
-            id +
-            "&id=" +
-            idKhach +
-            "&maGiaoDinh=" +
-            $scope.maGiaoDinh +
-            "&vnp_Amount=" +
-            $scope.tienCuoiCungVnPay,
+          id +
+          "&id=" +
+          idKhach +
+          "&maGiaoDinh=" +
+          $scope.maGiaoDinh +
+          "&vnp_Amount=" +
+          $scope.tienCuoiCungVnPay,
           null,
           config // Truyền thông tin token qua headers
         )
@@ -805,7 +804,7 @@ myApp.controller(
       $http
         .post(
           "http://localhost:8080/api/v1/payment/vn_pay?amountParam=" +
-            amountParam,
+          amountParam,
           config
         )
         .then(function (response) {
@@ -889,6 +888,8 @@ myApp.controller(
         soDienThoai,
         diaChi
       ) {
+
+
         var soTienKhachTra = $window.localStorage.getItem("soTienkhachTra");
         var totalOrderValue =
           tongTienTaiQuay -
@@ -1179,9 +1180,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/chi-tiet-sp/hien-thi?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp,
+          $scope.pageNumberSp +
+          "&pageSize=" +
+          $scope.pageSizeSp,
           config
         )
         .then(function (response) {
@@ -1221,11 +1222,11 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/chi-tiet-sp/search-name?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp +
-            "&name=" +
-            $scope.searchKeyName,
+          $scope.pageNumberSp +
+          "&pageSize=" +
+          $scope.pageSizeSp +
+          "&name=" +
+          $scope.searchKeyName,
           config
         )
         .then(function (response) {
@@ -1334,11 +1335,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-category?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.locCategory,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.locCategory,
             config
           )
           .then(function (response) {
@@ -1368,11 +1369,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-sole?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.locSole,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.locSole,
             config
           )
           .then(function (response) {
@@ -1402,11 +1403,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-origin?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.locOrigin,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.locOrigin,
             config
           )
           .then(function (response) {
@@ -1436,11 +1437,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-size?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&size=" +
-              $scope.locSize,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&size=" +
+            $scope.locSize,
             config
           )
           .then(function (response) {
@@ -1470,11 +1471,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-material?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.locMaterial,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.locMaterial,
             config
           )
           .then(function (response) {
@@ -1504,11 +1505,11 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-color?pageNumber=" +
-              $scope.pageNumberSp +
-              "&pageSize=" +
-              $scope.pageSizeSp +
-              "&name=" +
-              $scope.locMauSac,
+            $scope.pageNumberSp +
+            "&pageSize=" +
+            $scope.pageSizeSp +
+            "&name=" +
+            $scope.locMauSac,
             config
           )
           .then(function (response) {
@@ -1538,9 +1539,9 @@ myApp.controller(
       $http
         .post(
           "http://localhost:8080/api/gio-hang-chi-tiet/them-san-pham-qrcode?idGioHang=" +
-            idGioHang +
-            "&qrCode=" +
-            content,
+          idGioHang +
+          "&qrCode=" +
+          content,
           {},
           config
         )
@@ -1555,7 +1556,7 @@ myApp.controller(
             timer: 1500,
           });
         })
-        .catch(function (error) {});
+        .catch(function (error) { });
     });
     Instascan.Camera.getCameras()
       .then(function (cameras) {
@@ -1581,11 +1582,11 @@ myApp.controller(
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
-            id +
-            "&idVoucher=" +
-            idVoucher +
-            "&thanhTien=" +
-            thanhTien,
+          id +
+          "&idVoucher=" +
+          idVoucher +
+          "&thanhTien=" +
+          thanhTien,
           null,
           config // Truyền thông tin token qua config
         )
@@ -1683,8 +1684,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/p/" +
-            $scope.selectedProvince.code +
-            "?depth=2"
+          $scope.selectedProvince.code +
+          "?depth=2"
         )
         .then(function (response) {
           $scope.districts = response.data.districts;
@@ -1695,8 +1696,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/d/" +
-            $scope.selectedDistrict.code +
-            "?depth=2"
+          $scope.selectedDistrict.code +
+          "?depth=2"
         )
         .then(function (response) {
           $scope.wards = response.data.wards;
@@ -1707,6 +1708,8 @@ myApp.controller(
     var tienGiamGiaResponse = $window.localStorage.getItem("tienGiamGia");
 
     $scope.listVoucher = [];
+    $scope.pageNumberVoucher = 0;
+    $scope.pageSizeVoucher = 20;
     $scope.loadVouchers = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1717,36 +1720,65 @@ myApp.controller(
       };
 
       $http
-        .get("http://localhost:8080/api/v1/voucher-counter/show", config)
+        .get(
+          "http://localhost:8080/api/v1/voucher-counter/show?pageNumber=" +
+          $scope.pageNumberVoucher +
+          "&pageSize=" +
+          $scope.pageSizeVoucher,
+          config
+        )
         .then(function (response) {
           $scope.listVoucher = response.data;
-          // let maxDiscount = 0; // Initialize maxDiscount outside the loop
-          // let selectedVoucher = null; // Initialize selectedVoucher to null
-
-          // if (totalOrderValue != 0) {
-          //   $scope.listVoucher.forEach(function (voucher) {
-          //     if (
-          //       totalOrderValue >= voucher.priceOrder &&
-          //       voucher.price > maxDiscount
-          //     ) {
-          //       if (voucher.style === 1) {
-          //         maxDiscount = voucher.price / 100;
-          //       } else if (voucher.style === 2) {
-          //         maxDiscount = voucher.price;
-          //       }
-          //       selectedVoucher = voucher;
-          //     }
-          //   });
-
-          //   // if (tienGiamGiaResponse != 0) {
-          //   //   if (selectedVoucher.price > tienGiamGiaResponse) {
-          //   //     $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-          //   //   } else {
-          //   //     console.log(ok);
-          //   //   }
-          //   // }
-          // }
         });
+    };
+
+    $scope.keyVoucher = "";
+    $scope.searchVoucher = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      $http
+        .get(
+          "http://localhost:8080/api/v1/voucher-counter/show?pageNumber=" +
+          $scope.pageNumberVoucher +
+          "&pageSize=" +
+          $scope.pageSizeVoucher +
+          "&key=" +
+          $scope.keyVoucher,
+          config
+        )
+        .then(function (response) {
+          $scope.listVoucher = response.data;
+          if ($scope.listVoucher.length < 20) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
+        });
+    };
+
+    $scope.lamMoiVoucher = function () {
+      $scope.keyVoucher = "";
+      $scope.loadVouchers();
+    }
+
+    // TODO: Quay lại trang
+    $scope.previousPageVoucher = function () {
+      if ($scope.pageNumberVoucher > 0) {
+        $scope.pageNumberVoucher--;
+        $scope.loadVouchers();
+      }
+    };
+
+    // TODO: tiến đến trang khác
+    $scope.nextPageVoucher = function () {
+      $scope.pageNumberVoucher++;
+      $scope.loadVouchers();
     };
 
     var totalOrderValue =
@@ -1754,7 +1786,6 @@ myApp.controller(
       tienGiamGiaTaiQuay +
       ($scope.tienGiao ? +$scope.tienGiao : 0);
     $scope.loadVouchers();
-    console.log(tongTienTaiQuay);
     $scope.voucherResponse = {};
     $scope.getVoucherResponse = function () {
       var token = $window.localStorage.getItem("token");
@@ -1811,13 +1842,13 @@ myApp.controller(
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/close?idHoaDon=" +
-            id +
-            "&thanhTien=" +
-            tien,
+          id +
+          "&thanhTien=" +
+          tien,
           null,
           config
         )
-        .then(function (response) {});
+        .then(function (response) { });
     };
 
     // Thêm token vào function updateOrder
@@ -1831,11 +1862,11 @@ myApp.controller(
       $http
         .put(
           "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
-            id +
-            "&idVoucher=" +
-            idVoucher +
-            "&thanhTien=" +
-            totalOrderValue,
+          id +
+          "&idVoucher=" +
+          idVoucher +
+          "&thanhTien=" +
+          totalOrderValue,
           null,
           config // Truyền thông tin token qua config
         )
@@ -1856,52 +1887,66 @@ myApp.controller(
     };
 
     $scope.updateOrderCounter = function (idVoucher) {
-      Swal.fire({
-        title: "Chọn voucher?",
-        text: "Bạn có muốn chọn voucher này không?",
-        icon: "warning",
-        showCancelButton: true,
-        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
-        cancelButtonColor: "#d33",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
-          var config = {
-            headers: {
-              Authorization: "Bearer " + token, // Thêm token vào header Authorization
-            },
-          };
-          $http
-            .put(
-              "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
-                id +
-                "&idVoucher=" +
-                idVoucher +
-                "&thanhTien=" +
-                tongTienTaiQuay,
-              null,
-              config // Truyền thông tin token qua config
-            )
-            .then(function (response) {
-              console.log(tongTienTaiQuay);
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Chọn voucher thành công",
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                  popup: "small-popup",
-                },
-              }).then(() => {
-                // $window.location.reload();
-              });
-            });
-        }
-      });
+      $scope.tongTienVoucher = 0;
+      var token = $window.localStorage.getItem("token"); // Lấy token từ localStorage
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token, // Thêm token vào header Authorization
+        },
+      };
+      $http
+        .get(
+          "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi-tien?id=" +
+          idKhach,
+          config
+        )
+        .then(function (response) {
+          $scope.listCartTien = response.data;
+          for (var i = 0; i < $scope.listCartTien.length; i++) {
+            $scope.tongTienVoucher +=
+              $scope.listCartTien[i].giaGiam * $scope.listCartTien[i].soLuong;
+          }
+          Swal.fire({
+            title: "Chọn voucher?",
+            text: "Bạn có muốn chọn voucher này không?",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              console.log($scope.tongTienHang);
+              $http
+                .put(
+                  "http://localhost:8080/api/v1/voucher-counter/update?idHoaDon=" +
+                  id +
+                  "&idVoucher=" +
+                  idVoucher +
+                  "&thanhTien=" +
+                  $scope.tongTienVoucher,
+                  null,
+                  config // Truyền thông tin token qua config
+                )
+                .then(function (response) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Chọn voucher thành công",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                      popup: "small-popup",
+                    },
+                  }).then(() => {
+                    // $window.location.reload();
+                  });
+                });
+            }
+          });
+        });
     };
   }
 );

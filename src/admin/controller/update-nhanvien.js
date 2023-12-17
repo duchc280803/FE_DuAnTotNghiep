@@ -1,6 +1,6 @@
 myApp.controller(
   "UpdateNhanVienController",
-  function ($http, $scope, $routeParams, $location) {
+  function ($http, $scope, $routeParams, $location, $window) {
     var role = $window.localStorage.getItem("role");
     if (role === "USER" && role === "STAFF") {
       Swal.fire({
@@ -98,9 +98,6 @@ myApp.controller(
       $scope.isSoDienThoaiValid = !!$scope.selectedNhanVien.soDienThoai;
       $scope.isGioiTinhValid = !!$scope.selectedNhanVien.gioiTinh;
       $scope.isEmailValid = !!$scope.selectedNhanVien.email;
-      $scope.isProvinceValid = !!$scope.selectedProvince;
-      $scope.isDistrictValid = !!$scope.selectedDistrict;
-      $scope.isWardValid = !!$scope.selectedWard;
       $scope.isDiaChiValid = !!$scope.selectedNhanVien.diaChi;
       $scope.isTrangThaiValid = !!$scope.selectedNhanVien.trangThai;
 
@@ -121,9 +118,6 @@ myApp.controller(
         !$scope.isSoDienThoaiValid ||
         !$scope.isGioiTinhValid ||
         !$scope.isEmailValid ||
-        !$scope.isProvinceValid ||
-        !$scope.isDistrictValid ||
-        !$scope.isWardValid ||
         !$scope.isDiaChiValid ||
         !$scope.isTrangThaiValid
       ) {
@@ -144,63 +138,64 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      $http
-        .get(
-          "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
-            $scope.selectedNhanVien.soDienThoai
-        )
-        .then(function (response) {
-          if (response.data > 0) {
-            var detailUrl =
-              "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
-            $http.get(detailUrl, config).then(function (response) {
-              let sdt = response.data.soDienThoai;
-              if (sdt != $scope.selectedNhanVien.soDienThoai) {
-                $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
-                return;
-              } else if (sdt === $scope.selectedNhanVien.soDienThoai) {
-                $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
-              }
-            });
-          }
-          if (response.data === 0) {
-            $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
-          }
-        });
+      // $http
+      //   .get(
+      //     "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
+      //       $scope.selectedNhanVien.soDienThoai
+      //   )
+      //   .then(function (response) {
+      //     if (response.data > 0) {
+      //       var detailUrl =
+      //         "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
+      //       $http.get(detailUrl, null,config).then(function (response) {
+      //         let sdt = response.data.soDienThoai;
+      //         if (sdt != $scope.selectedNhanVien.soDienThoai) {
+      //           $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
+      //           return;
+      //         } else if (sdt === $scope.selectedNhanVien.soDienThoai) {
+      //           $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
+      //         }
+      //       });
+      //     }
+      //     if (response.data === 0) {
+      //       $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
+      //     }
+      //   });
 
-      $http
-        .get(
-          "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
-            $scope.selectedNhanVien.email
-        )
-        .then(function (response) {
-          if (response.data > 0) {
-            var detailUrl =
-              "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
-            $http.get(detailUrl, config).then(function (response) {
-              let email = response.data.email;
-              if (email != $scope.selectedNhanVien.email) {
-                $scope.isEmailIsPresent = false; // Email đã tồn tại
-                return;
-              } else if (email === $scope.selectedNhanVien.email) {
-                $scope.isEmailIsPresent = true; // Số điện thoại OK
-              }
-            });
-          }
-          if (response.data === 0) {
-            $scope.isEmailIsPresent = true; // Email OK
-          }
-        });
+      // $http
+      //   .get(
+      //     "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
+      //       $scope.selectedNhanVien.email
+      //   )
+        // .then(function (response) {
+        //   if (response.data > 0) {
+        //     var detailUrl =
+        //       "http://localhost:8080/api/v1/nhan-vien/detail?id=" + id;
+        //     $http.get(detailUrl, config).then(function (response) {
+        //       let email = response.data.email;
+        //       if (email != $scope.selectedNhanVien.email) {
+        //         $scope.isEmailIsPresent = false; // Email đã tồn tại
+        //         return;
+        //       } else if (email === $scope.selectedNhanVien.email) {
+        //         $scope.isEmailIsPresent = true; // Số điện thoại OK
+        //       }
+        //     });
+        //   }
+        //   if (response.data === 0) {
+        //     $scope.isEmailIsPresent = true; // Email OK
+        //   }
+        // });
 
       var yourFile = document.getElementById("fileInput").files[0];
-      console.log(yourFile);
       $http({
         method: "PUT",
         url: "http://localhost:8080/api/v1/nhan-vien/update?idNhanVien=" + id,
-        headers: {
-          "Content-Type": undefined,
-          Authorization: "Bearer" + token, // Thêm token vào đây để gửi cùng với request
-        },
+        headers: Object.assign(
+          {
+            "Content-Type": undefined,
+          },
+          config.headers
+        ),
         transformRequest: function (data) {
           var formData = new FormData();
           formData.append("file", data.file);
@@ -211,9 +206,6 @@ myApp.controller(
           formData.append("ngaySinh", data.ngaySinh);
           formData.append("trangThai", data.trangThai);
           formData.append("diaChi", data.diaChi);
-          formData.append("tinh", data.tinh);
-          formData.append("huyen", data.huyen);
-          formData.append("phuong", data.phuong);
           return formData;
         },
         data: {
@@ -225,53 +217,12 @@ myApp.controller(
           ngaySinh: $scope.selectedNhanVien.ngaySinh,
           trangThai: $scope.selectedNhanVien.trangThai,
           diaChi: $scope.selectedNhanVien.diaChi,
-          tinh: $scope.selectedProvince.name,
-          huyen: $scope.selectedDistrict.name,
-          phuong: $scope.selectedWard.name,
         },
       }).then(function (response) {
         $location.path("/staff");
       });
     };
 
-    // API ĐỊA CHỈ
-    $scope.provinces = [];
-    $scope.districts = [];
-    $scope.wards = [];
-
-    $scope.getTinh = function () {
-      $http
-        .get("https://provinces.open-api.vn/api/?depth=1")
-        .then(function (response) {
-          $scope.provinces = response.data;
-        });
-    };
-
-    $scope.getTinh();
-
-    $scope.getDistricts = function () {
-      $http
-        .get(
-          "https://provinces.open-api.vn/api/p/" +
-            $scope.selectedProvince.code +
-            "?depth=2"
-        )
-        .then(function (response) {
-          $scope.districts = response.data.districts;
-        });
-    };
-
-    $scope.getWards = function () {
-      $http
-        .get(
-          "https://provinces.open-api.vn/api/d/" +
-            $scope.selectedDistrict.code +
-            "?depth=2"
-        )
-        .then(function (response) {
-          $scope.wards = response.data.wards;
-        });
-    };
   }
 );
 function displayImage(event) {

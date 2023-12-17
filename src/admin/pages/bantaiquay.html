@@ -51,7 +51,7 @@
     background-color: #bada55;
   }
 </style>
-<div class="card overflow-hidden" style="width: 1176px; margin-left: -13px">
+<div class="card overflow-hidden" style="width: 1090px; margin-left: -13px">
   <div class="card-body p-4">
     <div class="row">
       <div class="col-lg-6">
@@ -62,7 +62,7 @@
         <input class="form-control" style="width: 800px" placeholder="Tìm kiếm hóa đơn" ng-model="kyHoaDonTaiQuay"
           ng-change="searchOrder(kyHoaDonTaiQuay)" />
       </div>
-      <div class="col-lg-6" style="padding-left: 270px">
+      <div class="col-lg-6" style="padding-left: 300px">
         <button type="button" class="btn btn-primary" ng-click="createHoaDon()">
           Tạo hóa đơn
         </button>
@@ -76,7 +76,8 @@
       <div class="col-lg-12">
         <div style="overflow-x: auto; width: 1104px">
           <span ng-if="listHoaDonTaiQuay.length === 0" style="margin-left: 465px;">Không có hóa đơn nào</span>
-          <table class="table table-borderless table-hover" style="white-space: nowrap; width: 1104px" ng-if="listHoaDonTaiQuay.length !== 0">
+          <table class="table table-borderless table-hover" style="white-space: nowrap; width: 1055px"
+            ng-if="listHoaDonTaiQuay.length !== 0">
             <thead>
               <tr style="background-color: lightskyblue">
                 <th scope="col">STT</th>
@@ -118,7 +119,7 @@
   <div class="col-lg-12">
     <div class="row">
       <div class="col-lg-12">
-        <div class="card overflow-hidden" style="width: 1176px; margin-left: -13px">
+        <div class="card overflow-hidden" style="width: 1090px; margin-left: -13px">
           <div class="card-body p-4">
             <div class="row">
               <div class="col-lg-6">
@@ -165,7 +166,7 @@
               </div>
             </div>
             <div class="box" ng-if="listCart.length !== 0">
-              <table class="table table-borderless table-hover">
+              <table class="table table-borderless" style="width: 1055px;">
                 <thead>
                   <tr style="background-color: lightskyblue">
                     <th scope="col">STT</th>
@@ -333,7 +334,8 @@
                     </div>
                     <br />
                     <div class="box">
-                      <span ng-if="listSanPhamTaiQuay.length === 0" style="margin-left: 500px;">Không có sản phẩm nào</span>
+                      <span ng-if="listSanPhamTaiQuay.length === 0" style="margin-left: 500px;">Không có sản phẩm
+                        nào</span>
                       <table class="table table-borderless" ng-if="listSanPhamTaiQuay.length !== 0">
                         <thead>
                           <tr class="text-center" style="background-color: lightskyblue">
@@ -829,11 +831,9 @@
                           </div>
                           <div class="modal-header" style="height: 50px">
                             <input class="form-control" style="margin-top: 20px" placeholder="Tìm kiếm voucher"
-                              ng-model="searchKeyword" ng-change="searchOrder(searchKeyword)" />
+                              ng-model="keyVoucher" ng-change="searchVoucher()" />
                           </div>
                           <hr />
-
-
                           <div class="modal-body">
                             <span ng-if="listVoucher.length === 0" style="margin-left: 465px;">Không có voucher
                               nào</span>
@@ -876,6 +876,22 @@
                               </tbody>
                             </table>
                           </div>
+                          <nav aria-label="Page navigation example" style="margin-left: 520px"
+                            ng-if="listVoucher.length != 0">
+                            <ul class="pagination">
+                              <li class="page-item" ng-show="pageNumberVoucher > 0">
+                                <a class="page-link" href="" ng-click="previousPageVoucher()"><img
+                                    src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link">{{pageNumberVoucher + 1}}</a>
+                              </li>
+                              <li class="page-item" ng-show="showNextButton">
+                                <a class="page-link" href="" ng-click="nextPageVoucher()"><img
+                                    src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
+                              </li>
+                            </ul>
+                          </nav>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                               Đóng
@@ -950,13 +966,13 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary" style="margin-left: 900px; margin-top: 25px; font-weight: bold"
+            <button class="btn btn-primary" style="margin-left: 815px; margin-top: 25px; font-weight: bold"
               ng-show="showInput && listCart.length != 0"
               ng-click="createHoaDonChiTiet((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, tienThuaTraKhach, orderDetailCounter.tenKhach,orderDetailCounter.sodienthoai, orderDetailCounter.diaChi)">
               Xác nhận thanh toán
             </button>
             <button ng-show="!showInput && listCart.length != 0" class="btn btn-primary"
-              style="margin-left: 900px; margin-top: 20px; font-weight: bold"
+              style="margin-left: 825px; margin-top: 20px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, tienThuaTraKhach)">
               Xác Nhận Đặt Hàng
             </button>

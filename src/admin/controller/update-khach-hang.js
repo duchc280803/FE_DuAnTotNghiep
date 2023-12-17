@@ -1,6 +1,6 @@
 myApp.controller(
   "UpdateKhachHangController",
-  function ($http, $scope, $routeParams, $location) {
+  function ($http, $scope, $routeParams, $location, $window) {
     var role = $window.localStorage.getItem("role");
     if (role === "USER") {
       Swal.fire({
@@ -134,69 +134,71 @@ myApp.controller(
         return;
       }
 
-      $http
-        .get(
-          "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
-            $scope.selectedKhachHang.soDienThoai,
-          config
-        )
-        .then(function (response) {
-          if (response.data > 0) {
-            var detailUrl =
-              "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
-            $http.get(detailUrl).then(function (response) {
-              let sdt = response.data.soDienThoai;
-              if (sdt != $scope.selectedKhachHang.soDienThoai) {
-                $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
-                return;
-              } else if (sdt === $scope.selectedKhachHang.soDienThoai) {
-                $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
-              }
-            });
-          }
-          if (response.data === 0) {
-            $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
-          }
-        });
+      // $http
+      //   .get(
+      //     "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
+      //       $scope.selectedKhachHang.soDienThoai,
+      //     config
+      //   )
+      //   .then(function (response) {
+      //     if (response.data > 0) {
+      //       var detailUrl =
+      //         "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
+      //       $http.get(detailUrl).then(function (response) {
+      //         let sdt = response.data.soDienThoai;
+      //         if (sdt != $scope.selectedKhachHang.soDienThoai) {
+      //           $scope.isSoDienThoaiIsPresent = false; // Số điện thoại đã tồn tại
+      //           return;
+      //         } else if (sdt === $scope.selectedKhachHang.soDienThoai) {
+      //           $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
+      //         }
+      //       });
+      //     }
+      //     if (response.data === 0) {
+      //       $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
+      //     }
+      //   });
 
-      $http
-        .get(
-          "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
-            $scope.selectedKhachHang.email,
-          config
-        )
-        .then(function (response) {
-          if (response.data > 0) {
-            var detailUrl =
-              "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
-            $http.get(detailUrl).then(function (response) {
-              let email = response.data.email;
-              if (email != $scope.selectedNhanVien.email) {
-                $scope.isEmailIsPresent = false; // Email đã tồn tại
-                return;
-              } else if (email === $scope.selectedNhanVien.email) {
-                $scope.isEmailIsPresent = true; // Số điện thoại OK
-              }
-            });
-          }
-          if (response.data === 0) {
-            $scope.isEmailIsPresent = true; // Email OK
-          }
-        });
+      // $http
+      //   .get(
+      //     "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
+      //       $scope.selectedKhachHang.email,
+      //     config
+      //   )
+      //   .then(function (response) {
+      //     if (response.data > 0) {
+      //       var detailUrl =
+      //         "http://localhost:8080/api/ql-khach-hang/detail?id=" + id;
+      //       $http.get(detailUrl).then(function (response) {
+      //         let email = response.data.email;
+      //         if (email != $scope.selectedNhanVien.email) {
+      //           $scope.isEmailIsPresent = false; // Email đã tồn tại
+      //           return;
+      //         } else if (email === $scope.selectedNhanVien.email) {
+      //           $scope.isEmailIsPresent = true; // Số điện thoại OK
+      //         }
+      //       });
+      //     }
+      //     if (response.data === 0) {
+      //       $scope.isEmailIsPresent = true; // Email OK
+      //     }
+      //   });
 
-      var selectedImage = document.getElementById("selectedImage");
-      if (selectedImage.src === "") {
-        alert("Vui lòng chọn ảnh trước khi cập nhật.");
-        return;
-      }
+      // var selectedImage = document.getElementById("selectedImage");
+      // if (selectedImage.src === "") {
+      //   alert("Vui lòng chọn ảnh trước khi cập nhật.");
+      //   return;
+      // }
       var yourFile = document.getElementById("fileInput").files[0];
       $http({
         method: "PUT",
         url: "http://localhost:8080/api/ql-khach-hang/update?khachHangId=" + id,
-        headers: {
-          "Content-Type": undefined,
-          Authorization: "Bearer" + token, // Thêm token vào đây để gửi cùng với request
-        },
+        headers: Object.assign(
+          {
+            "Content-Type": undefined,
+          },
+          config.headers
+        ),
         transformRequest: function (data) {
           var formData = new FormData();
           formData.append("file", data.file);

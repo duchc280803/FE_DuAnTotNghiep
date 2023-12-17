@@ -46,6 +46,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.productDetail = response.data;
+          console.log(response.data);
           $scope.generateQRCode($scope.productDetail.qrcode);
         });
     };
