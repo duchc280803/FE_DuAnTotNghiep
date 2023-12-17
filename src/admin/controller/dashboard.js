@@ -19,8 +19,9 @@ myApp.controller("thongKeController", function ($scope, $http, $window) {
       "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
   }
 
+  $scope.isAdmin = false;
   function getRole() {
-    if (role === "ADMIN" || role === "MANAGER") {
+    if (role === "ADMIN") {
       $scope.isAdmin = true;
     }
   }
