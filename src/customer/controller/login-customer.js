@@ -25,12 +25,27 @@ myAppCustom.controller(
       $http
         .post("http://localhost:8080/api/v1/auth/login", data)
         .then(function (response) {
-          $window.localStorage.setItem("token-customer", response.data.accessToken);
+          $window.localStorage.setItem(
+            "token-customer",
+            response.data.accessToken
+          );
           $window.localStorage.setItem("role", response.data.role);
           $window.localStorage.setItem("username", response.data.username); // Lưu tên người dùng
 
           $scope.loggedInUsername = response.data.username;
-          $window.location.reload();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Đăng nhập thành công",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              popup: "small-popup",
+            },
+          });
+          window.location.href =
+            "http://127.0.0.1:5505/src/customer/index-customer.html#/home";
+          // $window.location.reload();
         })
         .catch(function (error) {
           $scope.errorUsername = error.data.username;

@@ -30,6 +30,10 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
       templateUrl: "/src/customer/pages/login.html",
       controller: "loginCutomController",
     })
+    .when("/register", {
+      templateUrl: "/src/customer/pages/register.html",
+      controller: "registerCutomController",
+    })
     .when("/don-hang-chi-tiet/:idHoaDon", {
       templateUrl: "./pages/detail-don-hang.html",
       controller: "detailDonHangController",
@@ -66,9 +70,6 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
     .when("/quen-mat-khau", {
       templateUrl: "./pages/forgot-password.html",
       controller: "QuenMatKhauController",
-    })
-    .when("/login-register", {
-      templateUrl: "./pages/login-register.html",
     })
     .when("/dat-lai-password/:id", {
       templateUrl: "./pages/dat-lai-mat-khau.html",
