@@ -324,11 +324,7 @@ myApp.controller(
               $scope.listCartTien[i].giaGiam * $scope.listCartTien[i].soLuong;
           }
           aloalo = $scope.tongTienHang;
-          localStorage.setItem(
-            "tongTienHangTaiQuay",
-            $scope.tongTienHang
-          );
-
+          localStorage.setItem("tongTienHangTaiQuay", $scope.tongTienHang);
         });
     };
 
@@ -1707,6 +1703,8 @@ myApp.controller(
     var tienGiamGiaResponse = $window.localStorage.getItem("tienGiamGia");
 
     $scope.listVoucher = [];
+    $scope.pageNumberVoucher = 0;
+    $scope.pageSizeVoucher = 20;
     $scope.loadVouchers = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -1717,36 +1715,65 @@ myApp.controller(
       };
 
       $http
-        .get("http://localhost:8080/api/v1/voucher-counter/show", config)
+        .get(
+          "http://localhost:8080/api/v1/voucher-counter/show?pageNumber=" +
+            $scope.pageNumberVoucher +
+            "&pageSize=" +
+            $scope.pageSizeVoucher,
+          config
+        )
         .then(function (response) {
           $scope.listVoucher = response.data;
-          // let maxDiscount = 0; // Initialize maxDiscount outside the loop
-          // let selectedVoucher = null; // Initialize selectedVoucher to null
-
-          // if (totalOrderValue != 0) {
-          //   $scope.listVoucher.forEach(function (voucher) {
-          //     if (
-          //       totalOrderValue >= voucher.priceOrder &&
-          //       voucher.price > maxDiscount
-          //     ) {
-          //       if (voucher.style === 1) {
-          //         maxDiscount = voucher.price / 100;
-          //       } else if (voucher.style === 2) {
-          //         maxDiscount = voucher.price;
-          //       }
-          //       selectedVoucher = voucher;
-          //     }
-          //   });
-
-          //   // if (tienGiamGiaResponse != 0) {
-          //   //   if (selectedVoucher.price > tienGiamGiaResponse) {
-          //   //     $scope.updateOrder(selectedVoucher.id, totalOrderValue);
-          //   //   } else {
-          //   //     console.log(ok);
-          //   //   }
-          //   // }
-          // }
         });
+    };
+
+    $scope.keyVoucher = "";
+    $scope.searchVoucher = function () {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      $http
+        .get(
+          "http://localhost:8080/api/v1/voucher-counter/show?pageNumber=" +
+            $scope.pageNumberVoucher +
+            "&pageSize=" +
+            $scope.pageSizeVoucher +
+            "&key=" +
+            $scope.keyVoucher,
+          config
+        )
+        .then(function (response) {
+          $scope.listVoucher = response.data;
+          if ($scope.listVoucher.length < 20) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
+        });
+    };
+
+    $scope.lamMoiVoucher = function() {
+      $scope.keyVoucher = "";
+      $scope.loadVouchers();
+    }
+
+    // TODO: Quay lại trang
+    $scope.previousPageVoucher = function () {
+      if ($scope.pageNumberVoucher > 0) {
+        $scope.pageNumberVoucher--;
+        $scope.loadVouchers();
+      }
+    };
+
+    // TODO: tiến đến trang khác
+    $scope.nextPageVoucher = function () {
+      $scope.pageNumberVoucher++;
+      $scope.loadVouchers();
     };
 
     var totalOrderValue =
@@ -1754,7 +1781,6 @@ myApp.controller(
       tienGiamGiaTaiQuay +
       ($scope.tienGiao ? +$scope.tienGiao : 0);
     $scope.loadVouchers();
-    console.log(tongTienTaiQuay);
     $scope.voucherResponse = {};
     $scope.getVoucherResponse = function () {
       var token = $window.localStorage.getItem("token");
