@@ -5,13 +5,16 @@
         <div class="col-md-2">
           <input class="form-control" placeholder="Tìm khách hàng" ng-model="searchQuery" style="margin-top: 4px" />
         </div>
-        <div class="col-md-4 mt-1"  >
+        <div class="col-md-4 mt-1">
           <button class="btn btn-primary" ng-click="searchKhach()">
             Tìm kiếm
           </button>
-          <button class="btn btn-warning"  ng-click="clearSearch()">
+          <button class="btn btn-warning" ng-click="clearSearch()">
             Làm mới
           </button>
+          <a href="#/customer/history" class="btn btn-danger">
+            Lịch sử thao tác
+          </a>
         </div>
         <div class="col-md-3 d-flex justify-content-start" style="text-align: end">
           <label class="form-label" style="margin-top: 11px">Trạng thái:</label>
@@ -23,9 +26,8 @@
           </select>
         </div>
         <div class="col-md-3 mt-1">
-          <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taoTaiKhoan"
-            >
-         Tạo khách hàng
+          <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taoTaiKhoan">
+            Tạo khách hàng
           </button>
         </div>
         <!--tạo tài khoản-->
@@ -105,8 +107,8 @@
                         </label>
                       </div>
                       <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" checked
-                          ng-model="trangThai" value="1" />
+                        <input class="form-check-input" type="radio" name="status" checked ng-model="trangThai"
+                          value="1" />
                         <label class="form-check-label">
                           Đã kích hoạt
                         </label>
@@ -283,13 +285,13 @@
           <tr style="background-color: lightskyblue">
             <th scope="col">STT</th>
             <th scope="col">Ảnh</th>
-            <th  style="width: 12%;" scope="col">Mã khách hàng</th>
+            <th style="width: 12%;" scope="col">Mã khách hàng</th>
             <th scope="col">Họ và tên</th>
             <th scope="col">Email</th>
             <th scope="col">Giới tính</th>
             <th scope="col">Số điện thoại</th>
             <th scope="col">Địa chỉ</th>
-            <th  style="width: 10%;" scope="col">Trạng thái</th>
+            <th style="width: 10%;" scope="col">Trạng thái</th>
             <th scope="col">Thao tác</th>
           </tr>
         </thead>
@@ -297,17 +299,17 @@
           <tr ng-if="!listKhachHang.length">
             <td colspan="10" style="font-size: larger;text-align: center;">Không có dữ liệu</td>
           </tr>
-            <tr ng-repeat="kh in listKhachHang">
-              <th>{{$index +1}}</th>
-              <td style="width: 10%;"><img src="/assets/ảnh giày/{{kh.image}}" width="70px" alt=""></td>
-              <td>{{kh.maTaiKhoan}}</td>
-              <td>{{kh.ten}}</td>
-              <td>{{kh.email}}</td>
-              <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
-              <td>{{kh.soDienThoai}}</td>
-              <td>{{kh.diaChi}} - {{kh.phuong}} - {{kh.huyen}} - {{kh.tinh}}</td>
-              <td>
-                <span style="
+          <tr ng-repeat="kh in listKhachHang">
+            <th>{{$index +1}}</th>
+            <td style="width: 10%;"><img src="/assets/ảnh giày/{{kh.image}}" width="70px" alt=""></td>
+            <td>{{kh.maTaiKhoan}}</td>
+            <td>{{kh.ten}}</td>
+            <td>{{kh.email}}</td>
+            <td>{{kh.gioiTinh == true ? "Nam" : "Nữ"}}</td>
+            <td>{{kh.soDienThoai}}</td>
+            <td>{{kh.diaChi}} - {{kh.phuong}} - {{kh.huyen}} - {{kh.tinh}}</td>
+            <td>
+              <span style="
                         background-color: #cceeff;
                         color: #0077cc;
                         padding: 4px 8px;
@@ -315,14 +317,14 @@
                         display: inline-block;
                         text-align: center;
                       ">{{kh.trangThai == 1 ? "Hoạt động": "Không hoạt động"}}
-                </span>
-              </td>
-              <td>
-                <a href="#/customer/update/{{kh.id}}" class="btn btn-success">
-                  Sửa
-                </a>
-              </td>
-            </tr>         
+              </span>
+            </td>
+            <td>
+              <a href="#/customer/update/{{kh.id}}" class="btn btn-success">
+                Sửa
+              </a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

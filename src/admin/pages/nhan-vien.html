@@ -4,11 +4,11 @@
       <div class="col-md-2">
         <input class="form-control" placeholder="Tìm theo mã, SĐT" ng-model="searchQuery" style="margin-top: 4px" />
       </div>
-      <div class="col-md-4 mt-1" >
+      <div class="col-md-4 mt-1">
         <button class="btn btn-primary" ng-click="searchNhanVien()">
           Tìm kiếm
         </button>
-        <button class="btn btn-warning"  ng-click="clearSearch()">
+        <button class="btn btn-warning" ng-click="clearSearch()">
           Làm mới
         </button>
       </div>
@@ -21,10 +21,12 @@
         </select>
       </div>
       <div class="col-md-3 mt-1">
-        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-       >
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Tạo nhân viên
         </button>
+        <a href="#/staff/history" class="btn btn-danger">
+          Lịch sử thao tác
+        </a>
       </div>
       <div class="modal-dialog modal-lg">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

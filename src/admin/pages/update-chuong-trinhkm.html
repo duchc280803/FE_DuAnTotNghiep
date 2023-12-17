@@ -269,6 +269,10 @@
           {{ voucherchitiet.ngayKetThuc == null ?
           "..." : voucherchitiet.ngayKetThuc | date:'MM/dd/yyyy h:mm:ss a'}}</span>
         <h6 style="padding-left: 10px; padding-top: 10px;">Áp dụng cho đơn hàng</h6>
+        <span style="padding-left: 10px;">*Số lượng voucher đã dùng : {{voucherchitiet.soLuongDung == null ? 0 :
+          voucherchitiet.soLuongDung
+          }}</span>
+        <br>
         <span style="padding-left: 10px;">Chỉ áp dụng trên web cho một số hóa đơn nhất định.</span>
       </article>
     </div>
