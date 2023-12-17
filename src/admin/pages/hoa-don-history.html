@@ -122,7 +122,17 @@
         <tr ng-repeat="gg in listVoucherHistory">
           <td>{{$index + 1}}</td>
           <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
-          <td>{{gg.password}}</td>
+          <td>
+            <span style="
+            background-color: #cceeff;
+            color: #0077cc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+          ">   {{gg.password}}
+  </span>
+         </td>
           <td>{{gg.action}}</td>
           <td>{{gg.id}}</td>
           <td>
