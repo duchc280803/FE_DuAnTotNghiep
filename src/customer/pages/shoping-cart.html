@@ -269,38 +269,6 @@
 
 <body>
   <header class="header" style="background: #F3F6FA">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="header__top__left">
-              <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="header__top__right">
-              <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-              </div>
-              <div class="header__top__right__language">
-                <img src="/img/language.png" alt="" />
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                  <li><a href="#">Spanis</a></li>
-                  <li><a href="#">English</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="container">
       <div class="row">
         <div class="col-lg-3">
@@ -383,10 +351,10 @@
               <table>
                 <thead>
                   <tr>
-                    <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
+                    <th class="shoping__product" style="padding-left: 10px;">Sản phẩm</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
-                    <th>Tổng Tiền</th>
+                    <th>Tổng tiền</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -398,12 +366,12 @@
                     </td>
                     <td class="shoping__cart__price">
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam | number:0}}₫
+                        {{product.dongiakhigiam | number:0}}đ
                         <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                            number:0}}₫ <br></strike> </span>
+                            number:0}}đ <br></strike> </span>
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban | number:0}}₫
+                        {{product.giaban | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__quantity" style="padding-left: 50px;">
@@ -418,10 +386,10 @@
                     <td class="shoping__cart__total">
 
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam * product.soluong | number:0}}₫
+                        {{product.dongiakhigiam * product.soluong | number:0}}đ
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban * product.soluong | number:0}}₫
+                        {{product.giaban * product.soluong | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__item__close">
@@ -438,7 +406,7 @@
               overflow-y: auto; ">
                 <thead>
                   <tr>
-                    <th class="shoping__product" style="padding-left: 10px;">Sản Phẩm</th>
+                    <th class="shoping__product" style="padding-left: 10px;">Sản phẩm</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Tổng Tiền</th>
@@ -453,12 +421,12 @@
                     </td>
                     <td class="shoping__cart__price">
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam | number:0}}₫
+                        {{product.dongiakhigiam | number:0}}đ
                         <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                            number:0}}₫ <br></strike> </span>
+                            number:0}}đ <br></strike> </span>
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban | number:0}}₫
+                        {{product.giaban | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__quantity" style="padding-left: 50px;">
@@ -473,10 +441,10 @@
                     <td class="shoping__cart__total">
 
                       <div ng-show="product.dongiakhigiam != null">
-                        {{product.dongiakhigiam * product.soluong | number:0}}₫
+                        {{product.dongiakhigiam * product.soluong | number:0}}đ
                       </div>
                       <div ng-show="product.dongiakhigiam == null">
-                        {{product.giaban * product.soluong | number:0}}₫
+                        {{product.giaban * product.soluong | number:0}}đ
                       </div>
                     </td>
                     <td class="shoping__cart__item__close">
@@ -524,36 +492,36 @@
       </div>
       <!-- check out row begin -->
       <div class="row mt-5">
-        <h4>Chi Tiết Thanh Toán</h4>
+        <h4 class=" fw-semibold">Chi tiết thanh toán</h4>
       </div>
       <br />
       <div class="row" style=" transform: scale(0.95);">
         <div class="col-lg-6 col-md-5">
           <div class="checkout__input">
-            <p>Họ Và Tên<span>*</span><span ng-show="!isHoTenValid" style="color: red;">(Vui lòng nhập họ tên)</span>
+            <p>Họ và tên<span>*</span><span ng-show="!isHoTenValid" style="color: red;">(Vui lòng nhập họ tên)</span>
             </p>
-            <input type="text" placeholder="Vui Lòng Nhập Họ Và Tên" ng-model="hoTen" />
+            <input type="text" placeholder="Vui lòng nhập họ và tên" ng-model="hoTen" />
           </div>
           <div class="checkout__input">
             <p>Địa chỉ cụ thể<span>*</span> <span ng-show="!isDiaChiValid" style="color: red;">(Vui lòng nhập địa chỉ cụ
                 thể)</span></p>
-            <input type="text" placeholder="Vui Lòng Nhập Địa Chỉ" class="checkout__input__add" ng-model="diaChi" />
+            <input type="text" placeholder="Vui lòng nhập địa chỉ" class="checkout__input__add" ng-model="diaChi" />
           </div>
           <div class="checkout__input">
-            <p>Số Điện Thoại<span>*</span>
+            <p>Số điện thoại<span>*</span>
               <span ng-show="!isSoDienThoaiValid" style="color: red;">(Vui lòng nhập số điện
                 thoại)</span>
               <span ng-show="!isSoDienThoaiFormat" style="color: red;">Số điện thoại sai định dạng, vui lòng xem
                 lại</span>
             </p>
-            <input type="text" placeholder="Vui Lòng Nhập Số Điện Thoại" ng-model="soDienThoai" />
+            <input type="text" placeholder="Vui lòng nhập số điện thoại" ng-model="soDienThoai" />
           </div>
           <div class="checkout__input">
             <p>Email<span>*</span>
               <span ng-show="!isEmailValid" style="color: red;">(Vui lòng nhập email)</span>
               <span ng-show="!isEmailFormat" style="color: red;">Email định dạng, vui lòng xem lại</span>
             </p>
-            <input type="text" placeholder="Vui Lòng Nhập Email" ng-model="email" />
+            <input type="text" placeholder="Vui lòng nhập email" ng-model="email" />
           </div>
           <div class="checkout__input">
             <p>Ghi chú</p>
@@ -562,9 +530,9 @@
         </div>
         <div class="col-lg-6 col-md-7">
           <div class="checkout__order">
-            <h4>Hóa Đơn Của Bạn</h4>
+            <h4>Hóa đơn của bạn</h4>
             <div class="checkout__order__products">
-              Sản Phẩm <span>Tổng Tiền</span>
+              Sản phẩm <span>Tổng tiền</span>
             </div>
             <ul>
               <li style="
@@ -577,36 +545,32 @@
               </li>
             </ul>
             <div class="checkout__order__total">
-              Tổng Tiền Sản Phẩm <span>{{totalAmount |number}}đ</span>
+              Tổng tiền sản phẩm <span>{{totalAmount |number}}đ</span>
             </div>
             <ul>
               <li>
-                Phí Ship
-                <span style="
-                        font-size: small;
-                        color: rgb(187, 161, 161);
-                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-                          sans-serif;
-                      ">sẽ được thông báo cho quý khách khi nhân viên gọi điện
-                  xác nhận</span>
+
+                <span class="text-danger" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana,sans-serif;">
+                  Phí vận chuyển sẽ được thông báo cho quý khách khi nhân viên gọi điện
+                  xác nhận
+                </span>
               </li>
             </ul>
-            <hr />
-            <br />
-            <h5>Mã Giảm Giá</h5>
+            <hr/>
+            <br/>
             <div class="row mt-3 mb-3">
-              <div class="col-6">
+              <div class="checkout__order__total mt-3">
+               <h5 class="checkout__order__products">Mã giảm giá</h5>
                 <input id="discountInput" type="text" ng-model="magiamgia"
-                  style="height: 45px; padding-left: 4px; text-indent: 5px;text-align: center;font-weight: bolder;border-radius: 10px;"
                   placeholder="Chọn mã phiếu giảm giá" data-toggle="modal" data-target="#discountModal" readonly />
               </div>
             </div>
             <hr />
-            <div class="checkout__order__total mt-3 mb-3">
+            <div class="checkout__order__total  mb-3">
               Giảm giá từ voucher <span>{{ giamGiaVoucher | number }}đ</span>
             </div>
             <div class="checkout__order__total mt-3 mb-3">
-              Tổng Cộng <span>{{ tongCong | number }}đ</span>
+              Tổng tiền <span>{{ tongCong | number }}đ</span>
             </div>
             <h5>Hình thức thanh toán</h5>
             <div class="row mt-3 mb-3" style="margin-left: 50px">
@@ -622,10 +586,10 @@
               </div>
             </div>
             <button ng-click="thanhToan()" type="submit" class="site-btn" ng-if="paymentMethod === 'cash'">
-              Đặt Hàng
+              Đặt hàng
             </button>
             <button ng-click="thanhToanVnPay()" type="submit" class="site-btn" ng-if="paymentMethod === 'vnpay'">
-              Đặt Hàng
+              Đặt hàng
             </button>
           </div>
         </div>
@@ -660,7 +624,7 @@
                   <span ng-show="{{voucher.hinhthucgiam===1}}" style="font-size: smaller;">Giá giảm: {{
                     voucher.giatrigiam | number}}%</span>
                   <br>
-                  <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'dd/MM/yyyy' }}</span>
+                  <span style="font-size: smaller;">HSD: {{ voucher.ngayketthuc | date:'yyyy/MM/yyyy' }}</span>
                 </td>
                 <td style="width: 28%;">
                   <button class="btn btn-success mt-3"

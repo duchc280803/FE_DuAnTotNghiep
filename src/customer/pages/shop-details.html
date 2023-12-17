@@ -423,38 +423,6 @@
 
 <body>
   <header class="header">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="header__top__left">
-              <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="header__top__right">
-              <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-              </div>
-              <div class="header__top__right__language">
-                <img src="/img/language.png" alt="" />
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                  <li><a href="#">Spanis</a></li>
-                  <li><a href="#">English</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="container">
       <div class="row">
         <div class="col-lg-3">
@@ -492,12 +460,12 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}₫
+                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}đ
                           <span style="text-decoration: line-through;color: crimson"><strike>
-                              {{product.giaban.toLocaleString('vi-VN')}}₫ <br></strike> </span>
+                              {{product.giaban.toLocaleString('vi-VN')}}đ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban.toLocaleString('vi-VN')}}₫
+                          {{product.giaban.toLocaleString('vi-VN')}}đ
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -570,17 +538,17 @@
             <div class="product__details__price">
               <div ng-show="detailProduct.giaGiamGia != detailProduct.giaBan">
                 <h5>
-                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN')}}₫
-                  <strike style="color: red;">{{detailProduct.giaBan.toLocaleString('vi-VN')}}₫</strike>
+                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN')}}đ
+                  <strike style="color: red;">{{detailProduct.giaBan.toLocaleString('vi-VN')}}đ</strike>
                 </h5>
               </div>
               <div ng-show="detailProduct.giaGiamGia == detailProduct.giaBan">
                 <h5>
-                  {{ detailProduct.giaBan.toLocaleString('vi-VN')}}₫
+                  {{ detailProduct.giaBan.toLocaleString('vi-VN')}}đ
                 </h5>
               </div>
             </div>
-            <h4 style="padding-bottom: 10px">Size:</h4>
+            <h4 class="card-title fw-semibold" style="padding-bottom: 10px">Size:</h4>
             <div class="sidebar__item__size" ng-click="selectSize(size)" ng-repeat="size in detailSizeProduct"
               ng-class="{ 'selected': size.isSelected }">
               <label class="sidebar__item__size_label" ng-class="{ 'selected': size.isSelected }" ng-model="keySize"
@@ -588,7 +556,7 @@
             </div>
             <div>
 
-              <h4 style="padding-bottom: 10px">Màu sắc:</h4>
+              <h4 class="card-title fw-semibold" style="padding-bottom: 10px">Màu sắc:</h4>
               <div class="sidebar__item__size" ng-click="selectColor(color)" ng-repeat="color in detailColorProduct"
                 ng-class="{ 'selected': color.isSelected}">
                 <label class="sidebar__item__color_label" ng-class="{ 'selected': color.isSelected }"
@@ -598,7 +566,7 @@
             </div>
             <div>
               <div class="sidebar__item__size">
-                <h4 style="padding-bottom: 10px">Chất liệu:</h4>
+                <h4 class="card-title fw-semibold" style="padding-bottom: 10px">Chất liệu:</h4>
                 <div class="sidebar__item__size" ng-click="selectMaterial(material)"
                   ng-repeat="material in detailMaterialProduct" ng-class="{ 'selected': material.isSelected}">
                   <label class="sidebar__item__material_label" ng-class="{ 'selected': material.isSelected}"
@@ -609,12 +577,12 @@
             <!-- <div class="quantity"> -->
             <div class="row">
               <div class="col-3">
-                <input placeholder="Nhập số lượng" style="margin-left: 0px; width: 130px;" type="number"
+                <input placeholder="Nhập số lượng" style="margin-left: 0px; width:70px;" type="number"
                   class="next-input text-left max-width-10px position-relative quantity-decimal ng-pristine ng-valid ng-not-empty ng-valid-min ng-valid-max ng-touched"
                   ng-model="soluong" min="1" ng-change="checkQuantity()" />
               </div>
               <div class="col-6">
-                <p class="mt-2">Số Lượng Sản Phẩm Còn Lại: {{quantity.soluong}}</p>
+                <p class="mt-2">Số lượng sản phẩm còn lại: {{quantity.soluong}}</p>
               </div>
             </div>
             <!-- </div> -->
@@ -623,14 +591,14 @@
               vào giỏ</span></a> <br>
 
               <a class="abc" href="#/check-out"
-            style="margin-top: -4px; background-color: #000000;"><span style="color: white;">Thanh Toán</span></a>
+            style="margin-top: -4px; background-color: #000000;"><span style="color: white;">Thanh toán</span></a>
           </div>
         </div>
         <div class="col-lg-12">
           <div class="product__details__tab">
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Mô Tả</a>
+                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Mô tả</a>
               </li>
             </ul>
             <div class="tab-content">
@@ -652,19 +620,7 @@
                     sit amet aliquam vel, ullamcorper sit amet ligula. Proin
                     eget tortor risus.
                   </p>
-                  <p>
-                    Praesent sapien massa, convallis a pellentesque nec,
-                    egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Mauris blandit aliquet elit, eget
-                    tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
-                    dictum porta. Cras ultricies ligula sed magna dictum
-                    porta. Sed porttitor lectus nibh. Mauris blandit aliquet
-                    elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam
-                    sit amet quam vehicula elementum sed sit amet dui. Sed
-                    porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                    vehicula elementum sed sit amet dui. Proin eget tortor
-                    risus.
-                  </p>
+            
                 </div>
               </div>
             </div>
@@ -693,11 +649,11 @@
               <p ng-if="product.tenSanPham" class="card-text">{{product.tenSanPham}}</p>
               <div class="text-center">
                 <h5 ng-show="product.donGiaKhiGiam != null">
-                  {{product.donGiaKhiGiam | number}}₫
-                  <strike style="color: red;">{{product.giaban | number}}₫</strike>
+                  {{product.donGiaKhiGiam | number}}đ
+                  <strike style="color: red;">{{product.giaban | number}}đ</strike>
                 </h5>
                 <h5 ng-show="product.donGiaKhiGiam == null">
-                  {{product.giaban | number}}₫
+                  {{product.giaban | number}}đ
                 </h5>
                 <a class="abc mt-2" style="margin-left: 20px;" ng-if="product.tenSanPham"
                   href="#/shop/detail/{{product.tenSanPham}}"><span>Xem sản phẩm</span></a>
