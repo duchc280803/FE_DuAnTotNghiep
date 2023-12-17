@@ -133,10 +133,11 @@ myAppCustom.controller(
           text: "Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
           icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Xóa",
-          cancelButtonText: "Hủy",
+          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+          cancelButtonColor: "#d33",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+          reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
             if (idgh) {
@@ -150,7 +151,7 @@ myAppCustom.controller(
                 transformResponse: [
                   function () {
                     Swal.fire({
-                      title: "Success",
+                      title: "",
                       text: "Xóa thành công",
                       icon: "success",
                       position: "top-end",
@@ -403,8 +404,11 @@ myAppCustom.controller(
         text: "Bạn có chắc chắn muốn đặt đơn hàng?",
         icon: "question",
         showCancelButton: true,
-        confirmButtonText: "Đồng ý",
-        cancelButtonText: "Hủy",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           if (idgh) {
@@ -446,7 +450,7 @@ myAppCustom.controller(
                     localStorage.removeItem("listCart");
                     localStorage.removeItem("giatritoithieudonhang");
                     Swal.fire({
-                      title: "Success",
+                      title: "",
                       text: "Thanh toán thành công",
                       icon: "success",
                       showConfirmButton: false,
@@ -543,8 +547,11 @@ myAppCustom.controller(
         text: "Bạn có chắc chắn muốn đặt đơn hàng?",
         icon: "question",
         showCancelButton: true,
-        confirmButtonText: "Đồng ý",
-        cancelButtonText: "Hủy",
+        cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+        cancelButtonColor: "#d33",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+        reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           if (idgh) {

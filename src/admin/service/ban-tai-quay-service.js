@@ -45,5 +45,15 @@ myApp.service("CartService", function ($http, $window) {
   this.getIdCartDetail = function () {
     return this.idList;
   };
+
+  var tongTienHang = 0;
+
+  this.setTongTienHang = function(value) {
+    tongTienHang = value;
+  };
+
+  this.getTongTienHang = function() {
+    return tongTienHang;
+  };
   
 });

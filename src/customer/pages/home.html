@@ -338,38 +338,7 @@
 
 <body>
   <header class="header" style="background: #F3F6FA">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="header__top__left">
-              <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="header__top__right">
-              <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-              </div>
-              <div class="header__top__right__language">
-                <img src="/img/language.png" alt="" />
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                  <li><a href="#">Spanis</a></li>
-                  <li><a href="#">English</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="container" >
       <div class="row">
         <div class="col-lg-3">
@@ -407,12 +376,12 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam | number:0}}₫
+                          {{product.dongiakhigiam | number:0}}đ
                           <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                              number:0}}₫ <br></strike> </span>
+                              number:0}}đ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban | number:0}}₫
+                          {{product.giaban | number:0}}đ
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -543,11 +512,11 @@
                 <p ng-if="th.tenSanPham" class="card-text">{{th.tenSanPham}}</p>
                 <div class="text-center">
                   <h5 ng-show="th.giaGiamGia != th.giaBan">
-                    {{ th.giaGiamGia}}₫
-                    <strike style="color: red;">{{th.giaBan}}₫</strike>
+                    {{ th.giaGiamGia}}đ
+                    <strike style="color: red;">{{th.giaBan}}đ</strike>
                   </h5>
                   <h5 ng-show="th.giaGiamGia == th.giaBan">
-                    {{th.giaBan}}₫
+                    {{th.giaBan}}đ
                   </h5>
                   <a class="abc" style="margin-left: 20px;" ng-if="th.tenSanPham"
                     href="#/shop/detail/{{th.tenSanPham}}"><span>Xem sản phẩm</span></a>

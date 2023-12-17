@@ -262,8 +262,9 @@
           <span style="color: red">{{errorGhiChu}}</span>
           <br />
           <div>
-            <h6 class="text">Trạng thái:</h6>
-            <select class="form-control select2" id="simple-select2" ng-model="newStatusOrder.newTrangThai">
+            <span>Trạng thái:</span>
+            <select style="color: green" class="custom-select" ng-model="newStatusOrder.newTrangThai">
+              <option value="">Vui lòng chọn trạng thái</option>
               <option value="2" ng-if="hoaDonChiTiet.trangThai == 1">
                 Xác nhận
               </option>
@@ -791,13 +792,15 @@
             <nav aria-label="Page navigation example" style="margin-left: 480px">
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" ng-click="previousPageSp()">Trước</a>
+                  <a class="page-link" ng-click="previousPageSp()"><img
+                    src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
                 </li>
                 <li class="page-item">
                   <a class="page-link">{{pageNumberSp + 1}}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" ng-click="nextPageSp()">Sau</a>
+                  <a class="page-link" ng-click="nextPageSp()"><img
+                    src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
                 </li>
               </ul>
             </nav>
@@ -814,14 +817,16 @@
       <nav aria-label="Page navigation example" style="margin-left: 600px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()">Trước</a>
+            <a class="page-link" ng-href="" ng-click="previousPage()"><img
+              src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumber + 1 }}</a>
           </li>
           <li class="page-item">
             <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1">Sau</a>
+              ng-disabled="pageNumber === totalNumberOfPages - 1"><img
+              src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
           </li>
         </ul>
       </nav>

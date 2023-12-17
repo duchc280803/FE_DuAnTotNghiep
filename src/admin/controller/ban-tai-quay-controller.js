@@ -62,7 +62,6 @@ myApp.controller(
 
     var id = $window.localStorage.getItem("idHoaDon");
     var idKhach = $window.localStorage.getItem("idKhach");
-    console.log(id);
 
     $scope.listHoaDonTaiQuay = []; // show list hóa đơn tại quầy
     // tạo hóa đơn
@@ -301,51 +300,8 @@ myApp.controller(
           }
         });
     };
-    // $scope.listSanPhamInCart = function () {
-    //   var token = $window.localStorage.getItem("token");
 
-    //   var config = {
-    //     headers: {
-    //       Authorization: "Bearer " + token,
-    //     },
-    //   };
-
-    //   $scope.tongTienHang = 0; // Đặt lại tổng tiền hàng về 0 trước khi tính lại
-
-    //   function getTotalPrice(pageNumber) {
-    //     $http
-    //       .get(
-    //         "http://localhost:8080/api/gio-hang-chi-tiet/hien-thi?id=" +
-    //           idKhach +
-    //           "&pageNumber=" +
-    //           pageNumber +
-    //           "&pageSize=" +
-    //           $scope.pageSizeSpTrongGio,
-    //         config
-    //       )
-    //       .then(function (response) {
-    //         $scope.listCart = response.data;
-    //         console.log($scope.listCart);
-    //         for (var i = 0; i < $scope.listCart.length; i++) {
-    //           $scope.tongTienHang +=
-    //             $scope.listCart[i].giaGiam * $scope.listCart[i].soLuong;
-    //         }
-
-    //         if ($scope.listCart.length === $scope.pageSizeSpTrongGio) {
-    //           getTotalPrice(pageNumber + 1); // Nếu còn trang tiếp theo, tiếp tục lấy dữ liệu
-    //         } else {
-    //           $window.localStorage.setItem(
-    //             "tongTienHangTaiQuay",
-    //             $scope.tongTienHang
-    //           );
-    //           console.log($scope.tongSoLuongSanPham);
-    //         }
-    //       });
-    //   }
-
-    //   getTotalPrice(0); // Bắt đầu tính từ trang đầu tiên
-    // };
-
+    var aloalo = 0;
     $scope.listSanPhamTienInCart = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -367,12 +323,17 @@ myApp.controller(
             $scope.tongTienHang +=
               $scope.listCartTien[i].giaGiam * $scope.listCartTien[i].soLuong;
           }
-          $window.localStorage.setItem(
+          aloalo = $scope.tongTienHang;
+          localStorage.setItem(
             "tongTienHangTaiQuay",
             $scope.tongTienHang
           );
+
         });
     };
+
+    var tongTienTaiQuay = localStorage.getItem("tongTienHangTaiQuay");
+    console.log(tongTienTaiQuay);
 
     if (id != null) {
       $scope.listSanPhamInCart();
@@ -449,9 +410,8 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listCart.push(response.data);
-                // $scope.listCart.map((item) => item.idGioHang);
-                // $window.location.reload(); // Reload trang trước khi hiển thị thông báo
                 $scope.listSanPhamInCart();
+                $scope.listSanPhamTienInCart();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -463,8 +423,6 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  $scope.listSanPhamInCart();
-                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -502,6 +460,8 @@ myApp.controller(
               )
               .then(function () {
                 $scope.listCart.splice(index, 1);
+                $scope.listSanPhamInCart();
+                $scope.listSanPhamTienInCart();
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -513,8 +473,6 @@ myApp.controller(
                   },
                 }).then(() => {
                   $window.location.reload();
-                  $scope.listSanPhamInCart();
-                  $scope.listSanPhamTienInCart();
                 });
               });
           }
@@ -568,6 +526,8 @@ myApp.controller(
               headers: config.headers, // Truyền thông tin token qua headers
               transformResponse: [
                 function () {
+                  $scope.listSanPhamInCart();
+                  $scope.listSanPhamTienInCart();
                   $window.location.reload();
                 },
               ],
@@ -1253,7 +1213,6 @@ myApp.controller(
     $scope.searchKeyName = "";
     $scope.searchSanPham = function () {
       var token = $window.localStorage.getItem("token");
-
       var config = {
         headers: {
           Authorization: "Bearer " + token,
@@ -1261,7 +1220,7 @@ myApp.controller(
       };
       $http
         .get(
-          "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
+          "http://localhost:8080/api/chi-tiet-sp/search-name?pageNumber=" +
             $scope.pageNumberSp +
             "&pageSize=" +
             $scope.pageSizeSp +
@@ -1271,6 +1230,7 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
+          console.log($scope.listSanPhamTaiQuay);
           if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
             $scope.showNextButton = false; // Ẩn nút "Next"
           } else {
@@ -1743,7 +1703,6 @@ myApp.controller(
         });
     };
 
-    var tongTienTaiQuay = $window.localStorage.getItem("tongTienHangTaiQuay");
     var tienGiamGiaTaiQuay = $window.localStorage.getItem("tienGiamGiaTaiQuay");
     var tienGiamGiaResponse = $window.localStorage.getItem("tienGiamGia");
 
@@ -1927,6 +1886,7 @@ myApp.controller(
               config // Truyền thông tin token qua config
             )
             .then(function (response) {
+              console.log(tongTienTaiQuay);
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -1937,7 +1897,7 @@ myApp.controller(
                   popup: "small-popup",
                 },
               }).then(() => {
-                $window.location.reload();
+                // $window.location.reload();
               });
             });
         }

@@ -51,7 +51,7 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
 
         if (!$scope.isDiaChiValid) {
             Swal.fire({
-                title: "Warning",
+                title: "",
                 text: "Vui lòng điền đủ thông tin",
                 icon: "error",
                 showConfirmButton: false,
@@ -65,8 +65,11 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             text: "Bạn có chắc chắn muốn thêm địa chỉ mới không?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonText: "Đồng ý",
-            cancelButtonText: "Hủy",
+            cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 var token = $window.localStorage.getItem("token-customer");
@@ -95,10 +98,10 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
 
                 // Hiển thị thông báo thành công
                 Swal.fire({
-                    title: "Success",
+                    title: "",
                     text: "Thêm địa chỉ thành công",
                     icon: "success",
-                    position: "bottom-start",
+                    position: "top-end",
                     toast: true,
                     showConfirmButton: false,
                     timer: 1500,
@@ -276,8 +279,11 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
             text: "Bạn có chắc chắn muốn cập nhật thông tin tài khoản không?",
             icon: "question",
             showCancelButton: true,
-            confirmButtonText: "Đồng ý",
-            cancelButtonText: "Hủy",
+            cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
+            cancelButtonColor: "#d33",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 var token = $window.localStorage.getItem("token-customer");
@@ -314,10 +320,10 @@ myAppCustom.controller("DiaChiController", function ($scope, $window, $http, $ti
 
                 // Hiển thị thông báo thành công
                 Swal.fire({
-                    title: "Success",
+                    title: "",
                     text: "Cập nhật thành công",
                     icon: "success",
-                    position: "bottom-start",
+                    position: "top-end",
                     toast: true,
                     showConfirmButton: false,
                     timer: 1500,

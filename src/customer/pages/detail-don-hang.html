@@ -203,7 +203,7 @@
           font-size: 15px;
           font-weight: 900;
           padding-left: 100px;
-        ">{{fillMoney.tongTien.toLocaleString('vi-VN')}}₫</span>
+        ">{{fillMoney.tongTien.toLocaleString('vi-VN')}}đ</span>
               </div>
               <div class="col-lg-9"
                 ng-show="(traHangis === true &&  tongTienHoanTra <= soTienHoan) || (hoaDonChiTiet.trangThai === 6 &&  tongTienHoanTra <= soTienHoan)">
@@ -227,7 +227,7 @@
           font-size: 15px;
           font-weight: 900;
           padding-left: 100px;
-        ">{{soTienHoan.toLocaleString('vi-VN')}}₫</span>
+        ">{{soTienHoan.toLocaleString('vi-VN')}}đ</span>
               </div>
             </div>
           </div>
@@ -254,12 +254,12 @@
                 </td>
                 <td style="padding-top: 80px">
                   <div ng-show="item.donGiaSauGiam != null">
-                    {{item.donGiaSauGiam.toLocaleString('vi-VN')}}₫
+                    {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
                     <span
-                      style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}₫</span>
+                      style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
                   </div>
                   <div ng-show="item.donGiaSauGiam == null">
-                    {{item.donGia.toLocaleString('vi-VN')}}₫
+                    {{item.donGia.toLocaleString('vi-VN')}}đ
                   </div>
                 </td>
               </tr>
@@ -317,7 +317,7 @@
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
                 <span class="header-title">{{ thanhTien.tienShip != null ? thanhTien.tienShip.toLocaleString('vi-VN') +
-                  'đ' : '0' }}₫</span>
+                  'đ' : '0' }}đ</span>
               </div>
             </div>
           </div>
@@ -327,7 +327,7 @@
                 <span class="header-title" style="padding-left: 860px">Tiền giảm giá</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tienGiamGia.toLocaleString('vi-VN')}}₫</span>
+                <span class="header-title">{{thanhTien.tienGiamGia.toLocaleString('vi-VN')}}đ</span>
               </div>
             </div>
           </div>
@@ -337,7 +337,7 @@
                 <span class="header-title" style="padding-left: 860px">Thành tiền</span>
               </div>
               <div class="omni-layout-card--item-stack fill text-right">
-                <span class="header-title">{{thanhTien.tongTien.toLocaleString('vi-VN')}}₫</span>
+                <span class="header-title">{{thanhTien.tongTien.toLocaleString('vi-VN')}}đ</span>
               </div>
             </div>
           </div>
