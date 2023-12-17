@@ -69,19 +69,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3" style="padding: 20px">
+            <div class="col-md-3 mt-3" >
               <span>Danh mục:</span>
-
               <select style="color: green" class="custom-select" ng-model="DanhMuc" ng-change="searchProductDanhMuc()"
                 ng-options="tt.id as tt.tenDanhMuc for tt in listDanhMuc">
                 <option value="">Tất cả</option>
               </select>
             </div>
 
-            <div class="col-md-3" style="padding: 20px">
+            <div class="col-md-3 mt-3" >
               <span>Thương hiệu:</span>
-
-
               <select style="color: green" class="custom-select" ng-model="ThuongHieu"
                 ng-change="searchProductThuongHieu()" ng-options="tt.id as tt.tenThuongHieu for tt in listThuongHieu">
                 <option value="">Tất cả</option>

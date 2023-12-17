@@ -21,32 +21,31 @@
         <option value="2">Ngừng hoạt động</option>
       </select>
     </div>
-    <div class="col-lg-4" style="width: 700px; padding-right: 50px;">
+    <div class="col-lg-4">
       <label>Tìm theo ngày bắt đầu</label>
       <input type="date" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
         style="margin-top: 4px;" />
     </div>
-  </div>
-  <div class="row">
-    <div>
-      <button class="btn btn-warning" style="margin-top: 20px;margin-bottom: 10px;" ng-click="refresh()">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-5 mt-4">
+      <button class="btn btn-warning " ng-click="refresh()">
         Làm mới
       </button>
-      <a href="#/promotion/history" style="margin-left: 30px;margin-top: 20px;margin-bottom: 10px;"
+      <a href="#/promotion/history"
         class="btn btn-danger">
         Lịch sử
       </a>
-      <a href="#/promotion/product" style="margin-left: 30px;margin-top: 20px;margin-bottom: 10px;"
+      <a href="#/promotion/product"
         class="btn btn-success">
         Sản phẩm áp dụng
       </a>
-      <a href="#/promotion/create" style="margin-left: 30px;margin-top: 20px;margin-bottom: 10px;"
+      <a href="#/promotion/create" 
         class="btn btn-primary">
         Tạo khuyến mại
       </a>
     </div>
-
   </div>
+
 </div>
 </div>
 <div class="row">
