@@ -169,7 +169,7 @@
                   <td>{{$index + 1}}</td>
                   <td>{{item.ma}}</td>
                   <td>{{item.tenLoai}}</td>
-                  <td>{{item.soTienTra.toLocaleString('vi-VN')}}đ</td>
+                  <td>{{item.soTienTra | number}}đ</td>
                   <td>{{item.ngayTao| date:'MM/dd/yyyy h:mm:ss a'}}</td>
                   <td>{{item.phuongThucThanhToan == 1 ? 'Tiền mặt' : 'Chuyển khoản'}}</td>
                   <td>{{item.ghiChu}}</td>
@@ -202,12 +202,12 @@
               </td>
               <td style="padding-top: 80px">
                 <div ng-show="item.donGiaSauGiam != null">
-                  {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
+                  {{item.donGiaSauGiam | number}}đ
                   <span
-                    style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                    style="text-decoration: line-through;color: crimson">{{item.donGia | number}}đ</span>
                 </div>
                 <div ng-show="item.donGiaSauGiam == null">
-                  {{item.donGia.toLocaleString('vi-VN')}}đ
+                  {{item.donGia | number}}đ
                 </div>
               </td>
             </tr>
@@ -248,18 +248,18 @@
           </div>
           <!-- modal hủy hóa đơn -->
         </div>
-        <div class="omni-layout-card--item-stack-cover">
+        <div class="omni-layout-card--item-stack-cover" style="margin-right: 10px;">
           <div class="omni-layout-card--item-stack fill">
-            <span class="header-title" style="padding-left: 860px">Tổng tiền hàng</span>
+            <span class="header-title" style="padding-left: 1000px">Tổng tiền hàng</span>
           </div>
           <div class="omni-layout-card--item-stack fill text-right">
             <span class="header-title">{{tongTienHang.toLocaleString('vi-VN')}}đ</span>
           </div>
         </div>
-        <div class="omni-layout-card--section-section">
+        <div class="omni-layout-card--section-section mt-3" style="margin-right: 10px;">
           <div class="omni-layout-card--item-stack-cover">
             <div class="omni-layout-card--item-stack fill">
-              <span class="header-title" style="padding-left: 860px">Tiền ship</span>
+              <span class="header-title" style="padding-left: 1000px">Tiền ship</span>
             </div>
             <div class="omni-layout-card--item-stack fill text-right">
               <span class="header-title">{{ thanhTien.tienShip != null ? thanhTien.tienShip.toLocaleString('vi-VN')
@@ -268,20 +268,20 @@
             </div>
           </div>
         </div>
-        <div class="omni-layout-card--section-section">
+        <div class="omni-layout-card--section-section" style="margin-right: 10px;">
           <div class="omni-layout-card--item-stack-cover">
             <div class="omni-layout-card--item-stack fill">
-              <span class="header-title" style="padding-left: 860px">Tiền giảm giá</span>
+              <span class="header-title" style="padding-left: 1000px">Tiền giảm giá</span>
             </div>
             <div class="omni-layout-card--item-stack fill text-right">
               <span class="header-title">{{thanhTien.tienGiamGia.toLocaleString('vi-VN')}}₫</span>
             </div>
           </div>
         </div>
-        <div class="omni-layout-card--section-section">
+        <div class="omni-layout-card--section-section" style="margin-right: 10px;">
           <div class="omni-layout-card--item-stack-cover">
             <div class="omni-layout-card--item-stack fill">
-              <span class="header-title" style="padding-left: 860px">Thành tiền</span>
+              <span class="header-title" style="padding-left: 1000px">Thành tiền</span>
             </div>
             <div class="omni-layout-card--item-stack fill text-right">
               <span class="header-title">{{thanhTien.tongTien.toLocaleString('vi-VN')}}₫</span>
