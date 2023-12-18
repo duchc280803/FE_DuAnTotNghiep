@@ -950,6 +950,7 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
+                $scope.newOrderDetail = {};
                 $("#oki").modal("hide");
                 Swal.fire({
                   position: "top-end",
