@@ -485,7 +485,7 @@
                 <p class="card-text">{{th.productName}}</p>
                 <div class="text-center">
                   <h5 ng-show="th.giaGiam != th.price">
-                    {{ th.giaGiam.toLocaleString('vi-VN')}}đ
+                    {{ th.giaGiam.toLocaleString('vi-VN') < 0 ? 0 : th.giaGiam.toLocaleString('vi-VN')}}đ
                     <strike style="color: red;">{{th.price.toLocaleString('vi-VN')}}đ</strike>
                   </h5>
                   <h5 ng-show="th.giaGiam == th.price">
@@ -517,7 +517,7 @@
                 <p ng-if="th.tenSanPham" class="card-text">{{th.tenSanPham}}</p>
                 <div class="text-center">
                   <h5 ng-show="th.giaGiamGia != th.giaBan">
-                    {{ th.giaGiamGia.toLocaleString('vi-VN')}}đ
+                    {{ th.giaGiam.toLocaleString('vi-VN') < 0 ? 0 : th.giaGiam.toLocaleString('vi-VN')}}đ
                     <strike style="color: red;">{{th.giaBan.toLocaleString('vi-VN')}}đ</strike>
                   </h5>
                   <h5 ng-show="th.giaGiamGia == th.giaBan">

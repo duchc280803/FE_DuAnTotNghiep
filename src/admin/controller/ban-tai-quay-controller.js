@@ -712,7 +712,7 @@ myApp.controller(
               $scope.tienCuoiCungCuaDon =
                 $scope.tongTienCuaKhach - $scope.totalAmountPaid;
               $scope.tienThuaTraKhach =
-                $scope.totalAmountPaid - $scope.tongTienCuaKhach;
+                $scope.totalAmountPaid - $scope.tongTienCuaKhach - ($scope.tienGiao ? +$scope.tienGiao : 0);
               $window.localStorage.setItem(
                 "soTienkhachTra",
                 $scope.totalAmountPaid

@@ -74,7 +74,7 @@
 
         </div>
         <br />
-        <table class="table table-borderless table-hover">
+        <table class="table table-borderless">
           <thead>
             <tr style="background-color: lightskyblue">
               <th scope="col">
@@ -85,11 +85,11 @@
               <th scope="col">Ảnh sản phẩm</th>
               <th scope="col">Tên sản phẩm</th>
               <th scope="col">Đơn giá</th>
-              <th scope="col">Số lượng Giảm giá</th>
+              <th scope="col">Số lượng giảm giá</th>
               <th scope="col">Giá sau giảm</th>
             </tr>
           </thead>
-          <tbody class="table table-borderless table-hover">
+          <tbody class="table table-borderless">
             <tr ng-if="listProduct.length === 0">
               <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
             </tr>
@@ -110,7 +110,7 @@
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
+                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN') < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
               </td>
             </tr>
           </tbody>
