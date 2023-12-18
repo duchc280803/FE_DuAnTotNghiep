@@ -32,7 +32,7 @@
         </tr>
         <tr ng-repeat="gg in listProduct">
             <td style="padding-top: 75px">
-                {{$index + 1}}
+                {{$index + 1 + (pageNumber * 20)}}
             </td>
             <td>
                 <img src="/assets/ảnh giày/{{gg.image}}" alt="" width="150px" />
@@ -44,7 +44,7 @@
                 {{gg.soLanGiam}}
             </td>
             <td>
-                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN') < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN') }}đ
+                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN') }}đ
             </td>
         </tr>
     </tbody>

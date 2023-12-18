@@ -101,16 +101,16 @@
               <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
             </tr>
 
-            <tr ng-repeat="gg in listProduct">
+            <tr ng-repeat="gg in listProduct" ng-class="{ 'row-red': (gg.giaBan - gg.giaGiam) <= 0 }">
               <td style="padding-top: 75px">
                 <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
                   ng-change="chonSanPham(gg.id)"
                   ng-checked="selectAllProducts || isIdEqual(giamgiachitiet.idSanPham, gg.id)" />
 
-                {{$index + 1}}
+                {{$index + 1 + (pageNumber * 20)}}
               </td>
               <td>
-                <img src="{{gg.image}}" alt="" width="150px" />
+                <img src="/assets/ảnh giày/{{gg.image}}" alt="" width="150px" />
               </td>
               <td>{{gg.productName}}</td>
               <td>
@@ -120,7 +120,7 @@
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN') < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
+                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
               </td>
             </tr>
           </tbody>

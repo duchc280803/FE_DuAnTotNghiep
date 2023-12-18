@@ -137,7 +137,7 @@
               <td>{{sp.tenSanPham}}</td>
               <td>
                 <span ng-show="sp.giaGiam != sp.giaBan"
-                  >{{sp.giaGiam.toLocaleString('vi-VN') < 0 ? 0 : sp.giaGiam.toLocaleString('vi-VN')}}đ
+                  >{{sp.giaGiam < 0 ? 0 : sp.giaGiam.toLocaleString('vi-VN')}}đ
                   <strike style="color: red"
                     >{{sp.giaBan.toLocaleString('vi-VN')}}đ</strike
                   >
