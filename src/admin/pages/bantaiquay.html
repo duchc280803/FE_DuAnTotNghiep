@@ -644,27 +644,27 @@
                       <div class="col-lg-6">
                         <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                           <span>Họ và tên</span></span>
-                        <input ng-model="orderDetailCounter.tenKhach" type="text" class="form-control hidden-input"
-                          style="margin-left: -30px" placeholder="Nhập họ và tên khách" />
+                        <input ng-model="hoTen" type="text" class="form-control hidden-input"
+                          style="margin-left: -30px" placeholder="Nhập họ và tên khách" ng-value="orderDetailCounter.tenKhach"/>
                         <span style="color: red;margin-left: -25px;">{{errorhoTen}}</span>
                       </div>
                       <div class="col-lg-6">
                         <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                           <span>Số điện thoại</span></span>
-                        <input ng-model="orderDetailCounter.soDienThoai" type="text" class="form-control hidden-input"
-                          style="margin-left: -30px" placeholder="Nhập số điện thoại" />
+                        <input ng-model="soDienThoai" type="text" class="form-control hidden-input"
+                          style="margin-left: -30px" placeholder="Nhập số điện thoại"  ng-value="orderDetailCounter.soDienThoai"/>
                         <span style="color: red;margin-left: -25px;">{{errorsoDienThoai}}</span>
                       </div>
                     </div>
                     <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                       <span>Email</span></span>
-                    <input ng-model="orderDetailCounter.email" type="text" class="form-control hidden-input"
-                      style="margin-left: -30px" placeholder="Nhập email" />
+                    <input ng-model="email" type="text" class="form-control hidden-input"
+                      style="margin-left: -30px" placeholder="Nhập email" ng-value="orderDetailCounter.email"/>
                     <span style="color: red;margin-left: -25px;">{{erroremail}}</span>
                     <br>
                     <span style="margin-left: -25px" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
-                    <input ng-model="orderDetailCounter.diaChi" type="text" class="form-control hidden-input"
+                    <input ng-model="diaChi" ng-value="orderDetailCounter.diaChi" type="text" class="form-control hidden-input"
                       style="margin-left: -30px;" placeholder="Nhập địa chỉ" />
                     <span style="color: red;margin-left: -25px;">{{errordiaChi}}</span>
                   </div>

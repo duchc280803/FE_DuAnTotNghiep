@@ -1012,11 +1012,10 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              tenKhach: $scope.tenKhach,
-              tenNguoiShip: $scope.tenNguoiShip,
-              soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
-              soDienThoai: $scope.soDienThoai,
-              diaChi: $scope.diaChi ,
+              hoTen: $scope.orderDetailCounter.hoTen,
+              soDienThoai: $scope.orderDetailCounter.soDienThoai,
+              email: $scope.orderDetailCounter.email,
+              diaChi: $scope.orderDetailCounter.diaChi ,
               gioHangChiTietList: idDetail,
             };
             var config = {
