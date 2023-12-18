@@ -31,7 +31,8 @@
             </div>
             <div class="col-lg-5" style="padding-top: 15px">
               <span class="header-title">Mức giảm</span>
-              <input type="number" class="next-input" placeholder="0" ng-model="mucGiam" />
+              <input type="number" class="next-input" placeholder="0" ng-model="mucGiam" min="0"
+                oninput="this.value = Math.max(0, this.value)" />
             </div>
             <div class="col-lg-2" style="padding-top: 10px">
               <select class="form-select" id="selectOption" ng-model="hinhThucGiam" aria-label="Default select example">
@@ -110,8 +111,7 @@
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
-              </td>
+                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ </td>
             </tr>
           </tbody>
         </table>
