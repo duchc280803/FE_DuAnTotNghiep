@@ -474,6 +474,8 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
+                }).then(() =>{
+                  $window.location.reload();
                 });
               })
               .catch(function (error) { });
