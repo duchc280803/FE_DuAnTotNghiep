@@ -86,7 +86,7 @@
           <td>{{ hd.thanhTien.toLocaleString('vi-VN')}}đ</td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-warning">
               Chi tiết
             </a>
           </td>
@@ -140,7 +140,7 @@
           <td>{{hd.tenNhanVien}}</td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-warning m-1">
               Chi tiết
             </a>
             <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
@@ -200,7 +200,7 @@
           </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-warning m-1">
               Chi tiết
             </a>
             <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
@@ -262,7 +262,7 @@
           </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-warning m-1">
               Chi tiết
             </a>
             <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
@@ -323,7 +323,7 @@
           </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-warning m-1">
               Chi tiết
             </a>
             <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
@@ -387,7 +387,7 @@
           </td>
           <td>{{hd.loaiDon}}</td>
           <td>
-            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
+            <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-warning m-1">
               Chi tiết
             </a>
           </td>
@@ -419,9 +419,10 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content custom-modal-content" style="width: 46%;margin-left: 255px;margin-top: 200px;">
       <br>
+      <div class="modal-header card-title fw-semibold">Thay đổi nhân viên</div>
       <div class="modal-body">
         <td>
-          <select class="form-control select2" ng-model="selectedId">
+          <select style="color: green" class="custom-select" ng-model="selectedId">
             <option value="">
               Chọn nhân viên
             </option>
@@ -433,11 +434,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
+          Đóng
         </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
           ng-click="updateNhanVien(employeeAndInvoiceInfo.idHoaDon)">
-          Cập nhập
+          Sửa
         </button>
       </div>
     </div>

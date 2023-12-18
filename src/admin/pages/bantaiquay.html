@@ -930,7 +930,7 @@
                         <span class="header-title">Phí vận chuyển</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right" style="margin-top: 5px;">
-                        <input type="text" ng-model="tienGiao" class="form-control hidden-input"
+                        <input type="number" ng-model="tienGiao" class="form-control hidden-input"
                           placeholder="Nhập tiền vận chuyển"
                           ng-change="autoAddVoucher((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao :0)))" />
                         <span style="color: red">{{errortienGiao}}</span>
