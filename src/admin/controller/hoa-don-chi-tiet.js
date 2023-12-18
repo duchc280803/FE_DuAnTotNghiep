@@ -995,7 +995,7 @@ myApp.controller(
             event.preventDefault();
             let p = $scope.listSanPhamInOrder[index];
             var token = $window.localStorage.getItem("token");
-
+            console.log(p.idHoaDonChiTiet);
             var config = {
               headers: {
                 Authorization: "Bearer " + token,
@@ -1011,14 +1011,18 @@ myApp.controller(
               )
               .then(function () {
                 $scope.listSanPhamInOrder.splice(index, 1);
-                $scope.getHoaDonChiTiet();
-                $scope.getSanPham();
-                $scope.getlichSuThanhToan();
-                $scope.getlichSuThayDoi();
-                $scope.selectMoney(id);
-                $scope.getTongTienHang();
-                $scope.getOrderDetailUpdate();
-                $location.path("/order-detail/" + id);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Xóa thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                }).then(() =>{
+                  
+                });
               });
           }
         });

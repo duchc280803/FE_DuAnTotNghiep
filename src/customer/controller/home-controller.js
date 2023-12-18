@@ -11,11 +11,17 @@ myAppCustom.controller("homeController", function ($http, $scope, $window) {
 
   listTop8NewProduct();
   function listTopProduct() {
-    var url = `http://localhost:8080/api/public/list`;
+    var url = `http://localhost:8080/api/public/san-pham-ban-chay`;
     $http.get(url).then(function (response) {
+      // Lấy chỉ 8 sản phẩm từ dữ liệu trả về
       $scope.listProduct = response.data;
+      $scope.listProduct.sort(function(a, b) {
+        return b.soLuongDaBan - a.soLuongDaBan;
+      });
+      $scope.listProduct = $scope.listProduct.slice(0, 8);
     });
   }
+  
   listTopProduct();
 
   $scope.showAllProducts = function () {

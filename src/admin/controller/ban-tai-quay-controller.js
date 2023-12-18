@@ -1961,7 +1961,7 @@ myApp.controller(
                       popup: "small-popup",
                     },
                   }).then(() => {
-                    // $window.location.reload();
+                    $window.location.reload();
                   });
                 });
             }
