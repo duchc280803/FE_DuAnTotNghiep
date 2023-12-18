@@ -374,6 +374,8 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
   $scope.getListXuatXu();
 
   $scope.newProduct = {};
+  $scope.isName = true;
+  $scope.newProduct.maSanPham = "SP_" + new Date().getTime();
   var token = $window.localStorage.getItem("token");
 
   var config = {
@@ -395,37 +397,51 @@ myApp.controller("sanPhamController", function ($http, $scope, $window) {
         reverseButtons: true,
       }).then((result) => {
         $http
-          .post(
-            "http://localhost:8080/api/v1/san-pham/create",
-            $scope.newProduct,
+          .get(
+            "http://localhost:8080/api/v1/san-pham/findbyname/" +
+              $scope.newProduct.productName,
             config
           )
           .then(function (response) {
-            $scope.listXuatXu.push(response.data);
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Thêm thành công",
-              showConfirmButton: false,
-              timer: 1500,
-              customClass: {
-                popup: "small-popup", // Add a class to the message
-              },
-            });
-            window.location.href =
-              "http://127.0.0.1:5505/src/admin/index-admin.html#/product-detail/create/" +
-              response.data.id;
-          })
-          .catch(function (error) {
-            $scope.errorMaSanPham = error.data.maSanPham;
-            $scope.errorProductName = error.data.productName;
-            $scope.errorDescribe = error.data.describe;
-            $scope.errorPrice = error.data.price;
-            $scope.errorBaoHanh = error.data.baoHang;
-            $scope.errorKieuDe = error.data.idKieuDe;
-            $scope.errorXuatXu = error.data.idXuatXu;
-            $scope.errorThuognHieu = error.data.idBrand;
-            $scope.errorDanhMuc = error.data.idCategory;
+            console.log(response.data);
+            if (response.data) {
+              $scope.isName = false; // Tên tồn tại
+              console.log("vào đây không");
+            } else {
+              $http
+                .post(
+                  "http://localhost:8080/api/v1/san-pham/create",
+                  $scope.newProduct,
+                  config
+                )
+                .then(function (response) {
+                  $scope.listSanPham.push(response.data);
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Thêm thành công",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                      popup: "small-popup", // Add a class to the message
+                    },
+                  });
+                  window.location.href =
+                    "http://127.0.0.1:5505/src/admin/index-admin.html#/product-detail/create/" +
+                    response.data.id;
+                })
+                .catch(function (error) {
+                  $scope.errorMaSanPham = error.data.maSanPham;
+                  $scope.errorProductName = error.data.productName;
+                  $scope.errorDescribe = error.data.describe;
+                  $scope.errorPrice = error.data.price;
+                  $scope.errorBaoHanh = error.data.baoHang;
+                  $scope.errorKieuDe = error.data.idKieuDe;
+                  $scope.errorXuatXu = error.data.idXuatXu;
+                  $scope.errorThuognHieu = error.data.idBrand;
+                  $scope.errorDanhMuc = error.data.idCategory;
+                });
+            }
           });
       });
     };

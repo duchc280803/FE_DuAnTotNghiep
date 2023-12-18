@@ -33,7 +33,7 @@
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mã sản phẩm</span></span>
                     <input type="text" id="form1" class="form-control" placeholder="Mã sản phẩm"
-                      ng-model="product.maSanPham" />
+                      ng-model="product.maSanPham" disabled/>
                     <span style="color: red">{{errorMaSanPham}}</span>
                   </div>
                 </div>
@@ -59,18 +59,9 @@
                 <div class="form-group col-md-6" style="padding-top: 10px;">
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
-                      <span>Bảo hành</span></span>
-                    <input type="number" id="form1" class="form-control" placeholder="Bảo hành"
-                      ng-model="product.baoHang" />
-                    <span style="color: red">{{errorBaoHanh}}</span>
-                  </div>
-                </div>
-                <div class="form-group col-md-12 mt-3">
-                  <div class="form-outline">
-                    <span class="header-title"><span style="color: red">*</span>
                       <span>Mô tả</span></span>
                     <textarea id="form1" class="form-control" placeholder="Mô tả"
-                      ng-model="product.describe" /></textarea>
+                      ng-model="product.describe" style="height: 17px;"></textarea>
                     <span style="color: red">{{errorDescribe}}</span>
                   </div>
                 </div>
