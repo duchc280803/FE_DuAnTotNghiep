@@ -326,7 +326,7 @@
             <a href="#/order-detail/{{hd.id}}" type="button" class="btn btn-primary m-1">
               Chi tiết
             </a>
-            <a ng-show="role = ADMIN" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
+            <a ng-show="isAdmin" data-bs-toggle="modal" data-bs-target="#thayDoiNhanVien"
               ng-click="getEmployeeAndInvoiceInfo(hd.id)" type="button" class="btn btn-primary m-1">
               Thay đổi
             </a>
@@ -398,7 +398,6 @@
       <nav aria-label="Page navigation example" style="margin-left: 480px">
         <ul class="pagination">
           <li class="page-item" ng-show="pageNumber > 0">
-
             <a class="page-link" ng-href="" ng-click="previousPage()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
           </li>
           <li class="page-item">

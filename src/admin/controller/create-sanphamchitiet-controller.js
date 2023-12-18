@@ -156,6 +156,7 @@ myApp.controller(
         }).then((result) => {
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
+            console.log(token);
 
             var config = {
               headers: {
@@ -171,7 +172,7 @@ myApp.controller(
               .then(function (response) {
                 $scope.productDetail.push(response.data);
                 $("#productDetailModal").modal("hide");
-                // $scope.newProductDetail = {};
+                $scope.newProductDetail = {};
                 $scope.getProductDetail();
                 Swal.fire({
                   position: "top-end",

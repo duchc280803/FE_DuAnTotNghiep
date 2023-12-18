@@ -1,13 +1,12 @@
 myApp.controller("thongKeController", function ($scope, $http, $window) {
   var role = $window.localStorage.getItem("role");
-  if (role === "USER" && role === "STAFF") {
+  if (role === "STAFF") {
     Swal.fire({
       icon: "error",
       title: "Bạn không có quyền truy cập",
       text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
     });
-    window.location.href =
-      "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+    window.history.back();
   }
   if (role === null) {
     Swal.fire({
@@ -29,7 +28,7 @@ myApp.controller("thongKeController", function ($scope, $http, $window) {
   getRole();
   $scope.loadData = function () {
     var token = $window.localStorage.getItem("token");
-
+    console.log(token);
     var config = {
       headers: {
         Authorization: "Bearer " + token,
@@ -264,8 +263,8 @@ myApp.controller("thongKeController", function ($scope, $http, $window) {
       .get("http://localhost:8080/api/thong-ke/san-pham-ban-chay", config)
       .then(function (response) {
         $scope.listSanPhamBanChay = response.data;
-        $scope.listSanPhamBanChay.sort(function (a, b) {
-          return b.doanhSo - a.doanhSo;
+        $scope.listSanPhamBanChay.sort(function(a, b) {
+          return b.soLuongDaBan - a.soLuongDaBan;
         });
         $scope.listSanPhamBanChay = $scope.listSanPhamBanChay.slice(0, 10);
       });
