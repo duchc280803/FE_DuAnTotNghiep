@@ -917,6 +917,7 @@ myApp.controller(
     };
 
     $scope.newOrderDetail = {};
+    $scope.newOrderDetail.soLuong = 1
     setTimeout(() => {
       $scope.traHang = function (idHoaDonChiTiet) {
         Swal.fire({
@@ -949,6 +950,7 @@ myApp.controller(
               )
               .then(function (response) {
                 $scope.listSanPhamInOrder.push(response.data);
+                $scope.newOrderDetail = {};
                 $("#oki").modal("hide");
                 Swal.fire({
                   position: "top-end",
@@ -1021,7 +1023,7 @@ myApp.controller(
                     popup: "small-popup",
                   },
                 }).then(() =>{
-                  
+                  $window.location.reload();
                 });
               });
           }
