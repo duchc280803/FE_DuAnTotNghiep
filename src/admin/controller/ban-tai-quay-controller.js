@@ -857,49 +857,38 @@ myApp.controller(
             Authorization: "Bearer " + token,
           },
         };
-        Swal.fire({
-          title: "Bạn có muốn in hóa đơn này không?",
-          text: "",
-          icon: "question",
-          showCancelButton: true,
-          cancelButtonText: "Hủy bỏ", // Thay đổi từ "Cancel" thành "Hủy bỏ"
-          cancelButtonColor: "#d33",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Xác nhận", // Thay đổi từ "Yes" thành "Có"
-          reverseButtons: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $http
-              .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
-                responseType: "arraybuffer",
-                config,
-              })
-              .then(function (response) {
-                var file = new Blob([response.data], {
-                  type: "application/pdf",
-                });
-                var fileURL = URL.createObjectURL(file);
-                var a = document.createElement("a");
-                a.href = fileURL;
-                a.download =
-                  "pdf_" +
-                  new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
-                  ".pdf";
-                document.body.appendChild(a);
-                a.click();
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "In thành công",
-                  showConfirmButton: false,
-                  timer: 1500,
-                  customClass: {
-                    popup: "small-popup", // Add a class to the message
-                  },
-                });
-              });
-          }
-        });
+
+        $http
+          .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+            responseType: "arraybuffer",
+            config,
+          })
+          .then(function (response) {
+            var file = new Blob([response.data], {
+              type: "application/pdf",
+            });
+            var fileURL = URL.createObjectURL(file);
+            var a = document.createElement("a");
+            a.href = fileURL;
+            a.download =
+              "pdf_" +
+              new Date().toISOString().slice(0, 19).replace(/:/g, "-") +
+              ".pdf";
+            document.body.appendChild(a);
+            a.click();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "In thành công",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "small-popup", // Add a class to the message
+              },
+            }).then(() => {
+              $scope.removeItem();
+            });
+          });
       };
     }, 2000);
 
@@ -986,7 +975,6 @@ myApp.controller(
                         $scope.generatePDF();
                         $window.location.reload();
                       });
-                      $scope.removeItem();
                     });
                 }
               });
@@ -1054,8 +1042,10 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup",
                   },
+                }).then(() => {
+                  $scope.generatePDF();
+                  $window.location.reload();
                 });
-                $scope.removeItem();
               })
               .catch(function (error) {
                 $scope.errorhoTen = error.data.tenKhach;

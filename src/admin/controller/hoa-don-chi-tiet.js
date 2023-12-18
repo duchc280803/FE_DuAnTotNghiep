@@ -207,7 +207,21 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                $window.location.reload();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Hủy thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                }).then(() => {
+                  $window.location.reload();
+                });
+              })
+              .catch(function (error) {
+                $scope.errorGhiChu = error.data.ghiChu;
               });
           }
         });
@@ -279,9 +293,7 @@ myApp.controller(
                 customClass: {
                   popup: "small-popup",
                 },
-              }).then(() => {
-               
-              });
+              }).then(() => {});
             })
             .catch(function (error) {
               $scope.errorGhiChu = error.data.ghiChu;
