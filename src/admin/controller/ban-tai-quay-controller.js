@@ -1007,7 +1007,7 @@ myApp.controller(
           if (result.isConfirmed) {
             var token = $window.localStorage.getItem("token");
             var idDetail = CartService.getIdCartDetail();
-            $scope.orderDetailCounter = {
+            var requestData = {
               tongTien: tongTienHang,
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
@@ -1016,8 +1016,7 @@ myApp.controller(
               tenNguoiShip: $scope.tenNguoiShip,
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
-              email: $scope.email,
-              diaChi: $scope.diaChi,
+              diaChi: $scope.diaChi ,
               gioHangChiTietList: idDetail,
             };
             var config = {
@@ -1030,7 +1029,7 @@ myApp.controller(
               id;
 
             $http
-              .post(api, $scope.orderDetailCounter, config)
+              .post(api, requestData, config)
               .then(function (response) {
                 $scope.listHoaDonChiTiet.push(response.data);
                 Swal.fire({
