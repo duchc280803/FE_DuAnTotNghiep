@@ -590,7 +590,7 @@
           </table>
           <span class="header-title"><span style="color: red">*</span> <span>Số lượng trả</span></span>
           <div class="quantity">
-            <input style="margin-left: 0px; width: 100px" type="number"
+            <input style="margin-left: 0px; width: 100px" type="number" min="1" max="{{fillProductTraHang.soLuong}}"
               class="next-input text-left min-width-100px position-relative"
               ng-model="newOrderDetail.soLuong" />
           </div>
