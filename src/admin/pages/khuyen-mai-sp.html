@@ -21,26 +21,27 @@
         <option value="2">Ngừng hoạt động</option>
       </select>
     </div>
-    <div class="col-lg-4">
+    <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;">
       <label>Tìm theo ngày bắt đầu</label>
       <input type="date" class="form-control" ng-model="searchQuery3" ng-change="searchNgay()"
         style="margin-top: 4px;" />
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px;width: 350px; padding-right: 50px;margin-top: 20px;">
+      <input class="form-control" ng-model="searchQuery7" ng-change="searchSanPham()"
+        placeholder="Tìm kiếm tên sản phẩm" style="margin-top: 4px;" />
     </div>
     <div class="col-lg-3"></div>
     <div class="col-lg-5 mt-4">
       <button class="btn btn-warning " ng-click="refresh()">
         Làm mới
       </button>
-      <a href="#/promotion/history"
-        class="btn btn-danger">
+      <a href="#/promotion/history" class="btn btn-danger">
         Lịch sử
       </a>
-      <a href="#/promotion/product"
-        class="btn btn-success">
+      <a href="#/promotion/product" class="btn btn-success">
         Sản phẩm áp dụng
       </a>
-      <a href="#/promotion/create" 
-        class="btn btn-primary">
+      <a href="#/promotion/create" class="btn btn-primary">
         Tạo khuyến mại
       </a>
     </div>
@@ -98,11 +99,15 @@
               ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
               Chi tiết
             </a>
-            <a ng-href="{{gg.trangThai != 2 ? '#/promotion/update/' + gg.id : ''}}" class="btn btn-success"
-              ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
+            <a ng-href="{{gg.trangThai != 2 ? '#/promotion/update/' + gg.id : ''}}" class="btn btn-danger"
               ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
               Sửa
             </a>
+            <!-- <a ng-href="{{gg.trangThai != 2 ? '#/promotion/update/' + gg.id : ''}}" class="btn btn-success"
+              ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
+              ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
+              Sửa
+            </a> -->
             <a class="btn btn-secondary" ng-click="updateGiamGiaStatus(gg.id, $event)">
               {{ gg.trangThai == 2 ? 'Kích hoạt' : 'Hủy kích hoạt' }}
             </a>

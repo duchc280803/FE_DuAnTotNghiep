@@ -2,6 +2,8 @@ myApp.controller(
   "VoucherController",
   function ($http, $scope, $location, $route, $window, $sce, $timeout) {
     var role = $window.localStorage.getItem("role");
+    var token = $window.localStorage.getItem("token");
+    console.log(token);
     if (role === "USER") {
       Swal.fire({
         icon: "error",
@@ -28,19 +30,6 @@ myApp.controller(
     }
 
     getRole();
-    // Trong AngularJS controller
-    $scope.dataLoaded = false;
-
-    // Simulate data loading (replace this with your actual data loading logic)
-    $timeout(function () {
-      // Your data loading logic here
-
-      // Set dataLoaded to true when data is loaded
-      $scope.dataLoaded = true;
-    }, 3000).then(function () {
-      // Ensure that $digest cycle is triggered after the timeout
-      $scope.$apply();
-    });
 
     $scope.listVoucher = [];
     $scope.listVoucherHistory = [];
@@ -87,8 +76,10 @@ myApp.controller(
       if ($scope.searchQuery3) {
         url += `&trangThai=${$scope.searchQuery3}`;
       }
+      //
       $http.get(url, config).then(function (response) {
         $scope.listVoucher = response.data;
+        // updateVoucherStatus();
         // Kiểm tra số lượng trang và điều chỉnh hiển thị nút "Next"
         if ($scope.listVoucher.length < $scope.pageSize) {
           $scope.showNextButton = false; // Ẩn nút "Next"
@@ -97,6 +88,26 @@ myApp.controller(
         }
       });
     };
+    updateVoucherStatus();
+    function updateVoucherStatus() {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      $http
+        .get("http://localhost:8080/api/v1/voucher/updateStatus", config)
+        .then(function (response) {
+          // Không cần hiển thị thông báo, chỉ làm mới danh sách voucher
+          $scope.fetchVoucherList();
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi cập nhật trạng thái voucher", error);
+        });
+    }
     $scope.formatMa = function (username) {
       // Kiểm tra nếu có dấu phẩy thì thay thế bằng thẻ xuống dòng
       if (username && username.includes(",")) {

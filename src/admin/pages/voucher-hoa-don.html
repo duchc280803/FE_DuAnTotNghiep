@@ -50,6 +50,7 @@
         <option value="1">Đang hoạt động</option>
         <option value="2">Ngừng hoạt động</option>
         <option value="3">Sắp diễn ra</option>
+        <option value="4">Hết lượt sử dụng</option>
       </select>
     </div>
     <div class="col-md-7" style="margin-top: 20px;">
@@ -114,18 +115,22 @@
             border-radius: 4px;
             display: inline-block;
             text-align: center;">
-              {{gg.trangThai == 1 ? 'Đang hoạt động':gg.trangThai == 2 ? 'Ngừng hoạt động':'Sắp diễn ra'}}
+              {{gg.trangThai == 1 ? 'Đang hoạt động':gg.trangThai == 2 ? 'Ngừng hoạt động':gg.trangThai == 4 ? 'Hết lượt
+              sử dụng':'Sắp diễn ra'}}
             </span>
           </td>
           <td class="action-column">
-            <a class="btn btn-warning" ng-click="updateVoucherStatus(gg.id, $event)">
+            <a class="btn btn-warning" ng-click="gg.trangThai !== 4 && updateVoucherStatus(gg.id, $event)"
+              ng-style="{'opacity': gg.trangThai == 4 ? 0.6 : 1}" ng-disabled="gg.trangThai == 4">
               {{ gg.trangThai == 2 ? 'Kích hoạt' : 'Hủy kích hoạt' }}
             </a>
+
+
             <a ng-href="{{gg.trangThai != 2 ? '#/voucher/update/' + gg.id : ''}}" class="btn btn-success"
-              ng-click="gg.trangThai != 2 ? updateGiamGiaStatus(gg.id, $event) : null"
               ng-style="{'opacity': gg.trangThai == 2 ? 0.6 : 1}" ng-disabled="gg.trangThai == 2">
               Sửa
             </a>
+
 
           </td>
 

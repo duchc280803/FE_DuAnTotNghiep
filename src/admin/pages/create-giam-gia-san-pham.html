@@ -1,3 +1,12 @@
+<style>
+  .row-red {
+    background-color: red;
+    color: white;
+    /* Set text color to white for better visibility */
+  }
+</style>
+
+</style>
 <div class="card overflow-hidden" style="min-height: 120px">
   <div class="box">
     <div class="row">
@@ -62,38 +71,7 @@
               </button>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3 mt-3" >
-              <span>Danh mục:</span>
-              <select style="color: green" class="custom-select" ng-model="DanhMuc" ng-change="searchProductDanhMuc()"
-                ng-options="tt.id as tt.tenDanhMuc for tt in listDanhMuc">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
 
-            <div class="col-md-3 mt-3" >
-              <span>Thương hiệu:</span>
-              <select style="color: green" class="custom-select" ng-model="ThuongHieu"
-                ng-change="searchProductThuongHieu()" ng-options="tt.id as tt.tenThuongHieu for tt in listThuongHieu">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-            <div class="col-md-3" style="padding: 20px">
-              <span>Kiểu đế</span>
-              <select style="color: green" class="custom-select" ng-model="KieuDe" ng-change="searchProductKieuDe()"
-                ng-options="tt.id as tt.tenDe for tt in listKieuDe">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-
-            <div class="col-md-3" style="padding: 20px">
-              <span>Xuất xứ</span>
-              <select style="color: green" class="custom-select" ng-model="XuatXu" ng-change="searchProductXuatXu()"
-                ng-options="tt.id as tt.tenXuatXu for tt in listXuatXu">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-          </div>
         </div>
         <br />
         <table class="table table-borderless table-hover">
@@ -115,7 +93,7 @@
             <tr ng-if="listProduct.length === 0">
               <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
             </tr>
-            <tr ng-repeat="gg in listProduct">
+            <tr ng-repeat="gg in listProduct" ng-class="{ 'row-red': (gg.giaBan - gg.giaGiam) <= 0 }">
               <td style="padding-top: 75px">
                 <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
                   ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />

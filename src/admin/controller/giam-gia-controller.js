@@ -63,6 +63,9 @@ myApp.controller(
           url += `&tenGiamGia=${$scope.searchQuery2}`;
         }
       }
+      if ($scope.searchQuery7) {
+        url += `&tenSanPham=${$scope.searchQuery7}`;
+      }
 
       var searchQuery3 =
         $scope.searchQuery3 instanceof Date
@@ -94,7 +97,26 @@ myApp.controller(
         fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       }
     };
+    updateVoucherStatus();
+    function updateVoucherStatus() {
+      var token = $window.localStorage.getItem("token");
 
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      $http
+        .get("http://localhost:8080/api/v1/giam-gia/updateStatus", config)
+        .then(function (response) {
+          // Không cần hiển thị thông báo, chỉ làm mới danh sách voucher
+          fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi cập nhật trạng thái voucher", error);
+        });
+    }
     // TODO: tiến đến trang khác
     $scope.nextPage = function () {
       $scope.pageNumber++;
@@ -105,6 +127,9 @@ myApp.controller(
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
     $scope.searchNgay = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
+    $scope.searchSanPham = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
     $scope.onTrangThaiChange = function () {
