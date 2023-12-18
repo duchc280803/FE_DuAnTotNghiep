@@ -861,7 +861,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
             responseType: "arraybuffer",
-            config,
+            headers: config.headers, // Thêm headers vào request
           })
           .then(function (response) {
             var file = new Blob([response.data], {
@@ -887,6 +887,7 @@ myApp.controller(
               },
             }).then(() => {
               $scope.removeItem();
+              $window.location.reload();
             });
           });
       };
@@ -973,7 +974,7 @@ myApp.controller(
                         },
                       }).then(() => {
                         $scope.generatePDF();
-                        $window.location.reload();
+                        // $window.location.reload();
                       });
                     });
                 }
@@ -1041,8 +1042,8 @@ myApp.controller(
                     popup: "small-popup",
                   },
                 }).then(() => {
-                  // $scope.generatePDF();
-                  $window.location.reload();
+                  $scope.generatePDF();
+                  // $window.location.reload();
                 });
               })
               .catch(function (error) {
