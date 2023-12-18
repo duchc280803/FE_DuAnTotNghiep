@@ -382,10 +382,10 @@
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
+                                    {{sptq.giaGiamGia.toLocaleString('vi-VN') < 0 ? 0: sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
                                   </span>
                                   <strike class="text-danger">
-                                    {{ sptq.giaBan.toLocaleString('vi-VN')}}đ
+                                    {{sptq.giaBan.toLocaleString('vi-VN')}}đ
                                   </strike>
                                 </strong>
                               </small>

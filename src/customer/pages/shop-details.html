@@ -555,7 +555,7 @@
             <div class="product__details__price">
               <div ng-show="detailProduct.giaGiamGia != detailProduct.giaBan">
                 <h5>
-                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN')}}đ
+                  {{detailProduct.giaGiamGia.toLocaleString('vi-VN') < 0 ? 0 : detailProduct.giaGiamGia.toLocaleString('vi-VN')}}đ
                   <strike style="color: red;">{{detailProduct.giaBan.toLocaleString('vi-VN')}}đ</strike>
                 </h5>
               </div>
