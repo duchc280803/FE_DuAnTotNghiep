@@ -182,7 +182,7 @@ myApp.controller(
           },
         };
         Swal.fire({
-          title: "Bạn có muốn vô hiệu hóa voucher này không?",
+          title: "Bạn có muốn chuyển trạng thái voucher này không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -222,7 +222,10 @@ myApp.controller(
     }, 2000);
 
     $scope.maVoucher = "GG_" + new Date().getTime();
-    $scope.ngayBatDau = new Date();
+    $scope.ngayBatDau = new Date(); // Lấy ngày hôm nay
+
+    // Thiết lập giờ, phút, giây là 00:00:00
+    $scope.ngayBatDau.setHours(0, 0, 0, 0);
     $scope.hinhThucGiam = "2";
     setTimeout(() => {
       $scope.themVoucher = function () {

@@ -492,10 +492,15 @@ myApp.controller(
     $scope.mucGiam = "";
     $scope.hinhThucGiam = "";
     $scope.trangThai = "";
-    $scope.ngayBatDau = new Date();
+    $scope.ngayBatDau = new Date(); // Lấy ngày hôm nay
+
+    // Thiết lập giờ, phút, giây là 00:00:00
+    $scope.ngayBatDau.setHours(0, 0, 0, 0);
     $scope.ngayKetThuc = "";
     $scope.hinhThucGiam = "1";
     $scope.sanPhamDaChon = [];
+    $scope.coSanPhamDuocChon = false;
+
     $scope.onTuDongTaoMaChange = function () {
       if ($scope.tuDongTaoMa) {
         // If the checkbox is checked, automatically generate the discount code
@@ -533,6 +538,7 @@ myApp.controller(
       // Update selectAllProducts based on the individual product selection
       $scope.selectAllProducts =
         $scope.sanPhamDaChon.length === $scope.listProduct.length;
+      $scope.coSanPhamDuocChon = $scope.sanPhamDaChon.length > 0;
     };
 
     $scope.listOfPromotions = [];
@@ -565,6 +571,20 @@ myApp.controller(
               });
               return;
             }
+            if (!$scope.coSanPhamDuocChon) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Bạn phải chọn ít nhất 1 sản phẩm",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
+
             var ngayHienTai = new Date();
             if (ngayKetThuc <= ngayHienTai) {
               Swal.fire({
@@ -694,7 +714,7 @@ myApp.controller(
           },
         };
         Swal.fire({
-          title: "Bạn có muốn vô hiệu hóa khuyến mãi này không?",
+          title: "Bạn có muốn chuyển trạng thái khuyến mãi này không?",
           text: "",
           icon: "question",
           showCancelButton: true,

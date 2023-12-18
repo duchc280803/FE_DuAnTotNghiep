@@ -310,6 +310,7 @@ myApp.controller(
     $scope.ngayBatDau = "";
     $scope.ngayKetThuc = "";
     $scope.sanPhamDaChon = [];
+    $scope.coSanPhamDuocChon = false;
 
     $scope.selectedIds = [];
     // fetchGiamGiaList();
@@ -337,6 +338,7 @@ myApp.controller(
       // Update selectAllProducts based on the individual product selection
       $scope.selectAllProducts =
         $scope.sanPhamDaChon.length === $scope.listProduct.length;
+      $scope.coSanPhamDuocChon = $scope.sanPhamDaChon.length > 0;
     };
     setTimeout(() => {
       $scope.updateGiamGia = function () {
@@ -379,6 +381,19 @@ myApp.controller(
                 position: "top-end",
                 icon: "error",
                 title: "Vui lòng nhập đầy đủ thông tin",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
+            if (!$scope.coSanPhamDuocChon) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Bạn phải chọn ít nhất 1 sản phẩm",
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {
