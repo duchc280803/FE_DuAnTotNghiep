@@ -20,7 +20,11 @@ myAppCustom.config(function ($routeProvider, $locationProvider) {
     })
     .when("/thank-you", {
       templateUrl: "./pages/thankyou.html",
-      controller: "CartController"
+      controller: "CartController",
+    })
+    .when("/thank-you2", {
+      templateUrl: "./pages/thankyou2.html",
+      controller: "CartController",
     })
     .when("/don-hang", {
       templateUrl: "./pages/don-hang.html",

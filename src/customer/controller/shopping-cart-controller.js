@@ -456,11 +456,10 @@ myAppCustom.controller(
                       showConfirmButton: false,
                       timer: 1500,
                     });
-                    setTimeout(function () {
-                      $location.reload();
-                    }, 1500);
                     // Chuyển hướng đến trang "thank-you"
                     $location.path("/thank-you");
+                    setTimeout(function () { location.reload(); })
+
                   },
                   function (error) {
                     console.log(error);
@@ -489,11 +488,10 @@ myAppCustom.controller(
                     showConfirmButton: false,
                     timer: 1500,
                   });
-                  setTimeout(function () {
-                    $location.reload();
-                  }, 1500);
                   // Chuyển hướng đến trang "thank-you"
-                  $location.path("/thank-you");
+                  $location.path("/thank-you2");
+                  setTimeout(function () { location.reload(); })
+
                 },
                 function (error) {
                   console.log(error);
@@ -711,7 +709,7 @@ myAppCustom.controller(
       $scope.vouchers.forEach(function (voucher) {
         if (voucher.mavoucher === $scope.magiamgia) {
           voucher.isApplied = true;
-        }else{
+        } else {
           voucher.isApplied = false;
 
         }
@@ -879,5 +877,18 @@ myAppCustom.controller(
       transactionVnpayCalled = true;
       $window.localStorage.removeItem("idHoaDonLogin");
     }
+    // $scope.reloadPage1 = function() {
+    //   // Đặt timeout cho việc reload trang sau 1000ms (1 giây)
+    //   $location.path("/home");
+    //   setTimeout(function() { location.reload();})
+
+    // }
+    // function reloadPage2() {
+    //   // Đặt timeout cho việc reload trang sau 1000ms (1 giây)
+    //   $location.path("/don-hang");
+    //   setTimeout(function() { location.reload();})
+
+    // }
   }
 );
+

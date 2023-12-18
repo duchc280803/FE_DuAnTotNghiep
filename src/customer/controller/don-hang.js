@@ -8,7 +8,7 @@ myAppCustom.controller("donHangController", function ($http, $scope, $window) {
         // Sử dụng setTimeout để đảm bảo DOM đã được render trước khi tìm kiếm phần tử
         setTimeout(function () {
             // Sử dụng JavaScript thuần để tìm phần tử radio button của tab "Thành công"
-            var tabThangCong = document.getElementById('tab6');
+            var tabThangCong = document.getElementById('tab2');
 
             // Kiểm tra xem radio button có tồn tại không
             if (tabThangCong) {
