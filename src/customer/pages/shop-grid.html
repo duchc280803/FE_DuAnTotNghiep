@@ -386,11 +386,11 @@
         <div class="col-lg-6">
           <nav class="header__menu">
             <ul>
-              <li class="active">
-                <a href="#/home" style="color: black;">Home</a>
+              <li >
+                <a href="#/home">Trang chủ</a>
               </li>
-              <li>
-                <a href="#/shop" style="color: #7fad39;">Shop</a>
+              <li class="active">
+                <a href="#/shop">Sản phẩm</a>
               </li>
             </ul>
           </nav>
@@ -401,8 +401,8 @@
               <li class="open-cart">
                 <a href="#/check-out"><i class="fa fa-shopping-bag"></i>
                   <span>{{quantity_all.tongSoLuong}}</span></a>
-                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px">
-                  <div class="shopping-cart" style="max-height: 270px; overflow-y: auto">
+                <div class="container-cart" style="position: absolute; z-index: 9999; right: 70px;">
+                  <div class="shopping-cart" style="max-height: 270px;overflow-y: auto;">
                     <div class="row" ng-repeat="product in products">
                       <div class="col-md-4" style="margin-top: 5px; margin-bottom: 5px">
                         <img width="300px" src="/assets/ảnh giày/{{product.tenimage}}" alt="{{product.tensanpham}}" />
@@ -412,12 +412,11 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}đ
-                          <span style="text-decoration: line-through;color: crimson"><strike>
-                              {{product.giaban.toLocaleString('vi-VN')}}đ <br></strike> </span>
+                          {{product.dongiakhigiam | number}}đ
+                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban | number}}đ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban.toLocaleString('vi-VN')}}đ
+                          {{product.giaban | number}}đ
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -434,7 +433,7 @@
                     </div>
                     <div class="col-md-3">
                       <span
-                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: -20px;">{{totalAmount}}VNĐ</span>
+                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: -20px;">{{totalAmount | number}}đ</span>
                     </div>
                   </div>
                   <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">Thanh toán</a>
@@ -476,11 +475,9 @@
   <section class="hero hero-normal">
     <div class="container">
       <div class="row" style="background-color: #f8f9fa; height: 40px; margin-bottom: -150px;">
-
-        <div class="col-md-4 mt-2" style="font-weight: bolder; font-size: smaller;"> <a class="a_color"
+        <div class="col-md-4 mt-2" style="font-size: smaller;"> <a class="a_color"
             href="/src/customer/index-customer.html#/home">TRANG CHỦ</a> / <a class="a_color" href=""
-            style="font-weight: bolder;">SHOP</a></div>
-
+            style="font-weight: bolder;">SẢN PHẨM</a></div>
       </div>
     </div>
   </section>
@@ -588,7 +585,7 @@
               </div>
             </div>
           </div>
-          <nav aria-label="Page navigation example" style="margin-left: 220px" ng-if="listSanPhamShop.length != 0">
+          <nav aria-label="Page navigation example" style="margin-left: 400px" ng-if="listSanPhamShop.length != 0">
             <ul class="pagination">
               <li class="page-item" ng-show="pageNumber > 0">
                 <a class="page-link" href="" ng-click="previous()"><img src="/assets/images/chevron-left.svg" height="15px" alt=""></a>

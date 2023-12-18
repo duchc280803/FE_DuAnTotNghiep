@@ -2,14 +2,13 @@ myApp.controller(
   "UpdateNhanVienController",
   function ($http, $scope, $routeParams, $location, $window) {
     var role = $window.localStorage.getItem("role");
-    if (role === "USER" && role === "STAFF") {
+    if (role === "STAFF") {
       Swal.fire({
         icon: "error",
         title: "Bạn không có quyền truy cập",
         text: "Vui lòng liên hệ với quản trị viên để biết thêm chi tiết.",
       });
-      window.location.href =
-        "http://127.0.0.1:5505/src/admin/index-admin.html#/admin/login";
+      window.history.back();
     }
     if (role === null) {
       Swal.fire({

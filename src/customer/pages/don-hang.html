@@ -206,11 +206,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -287,7 +287,7 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img src="{{item.tenImage}}" alt="" width="200px" />
+                            <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
                             <h6 style="
@@ -310,11 +310,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -392,7 +392,7 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img src="{{item.tenImage}}" alt="" width="200px" />
+                            <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
                             <h6 style="
@@ -415,11 +415,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -496,7 +496,7 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img src="{{item.tenImage}}" alt="" width="200px" />
+                            <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
                             <h6 style="
@@ -519,11 +519,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -600,7 +600,7 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img src="{{item.tenImage}}" alt="" width="200px" />
+                            <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
                             <h6 style="
@@ -623,11 +623,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -655,7 +655,7 @@
                               padding-top: 27px;
                               margin-left: 275px;
                             ">
-                          Tổng tiền: {{item.thanhTien.toLocaleString('vi-VN')}}đ
+                          Tổng tiền: {{item.thanhTien| number}}đ
                         </h6>
                       </div>
                     </div>
@@ -704,7 +704,7 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img src="{{item.tenImage}}" alt="" width="200px" />
+                            <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
                             <h6 style="
@@ -727,11 +727,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -759,7 +759,7 @@
                               padding-top: 27px;
                               margin-left: 275px;
                             ">
-                          Tổng tiền: {{item.thanhTien.toLocaleString('vi-VN')}}đ
+                          Tổng tiền: {{item.thanhTien| number}}đ
                         </h6>
                       </div>
                     </div>
@@ -808,7 +808,7 @@
                       <tbody class="table">
                         <tr>
                           <td style="width: 150px">
-                            <img src="{{item.tenImage}}" alt="" width="200px" />
+                            <img src="/assets/ảnh giày/{{item.tenImage}}" alt="" width="200px" />
                           </td>
                           <td style="padding-top: 50px">
                             <h6 style="
@@ -831,11 +831,11 @@
                             <h6 style="color: crimson; padding-top: 90px">
                           <td style="padding-top: 80px">
                             <div ng-show="item.donGiaSauGiam != null">
-                              {{item.donGiaSauGiam.toLocaleString('vi-VN')}}đ
-                              <span style="text-decoration: line-through;color: crimson">{{item.donGia.toLocaleString('vi-VN')}}đ</span>
+                              {{item.donGiaSauGiam| number}}đ
+                              <span style="text-decoration: line-through;color: crimson">{{item.donGia| number}}đ</span>
                             </div>
                             <div ng-show="item.donGiaSauGiam == null">
-                              {{item.donGia.toLocaleString('vi-VN')}}đ
+                              {{item.donGia| number}}đ
                             </div>
                           </td>
                           </h6>
@@ -863,7 +863,7 @@
                               padding-top: 27px;
                               margin-left: 275px;
                             ">
-                          Tổng tiền: {{item.thanhTien.toLocaleString('vi-VN')}}đ
+                          Tổng tiền: {{item.thanhTien| number}}đ
                         </h6>
                       </div>
                     </div>

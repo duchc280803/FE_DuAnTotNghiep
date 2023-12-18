@@ -861,7 +861,7 @@ myApp.controller(
         $http
           .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
             responseType: "arraybuffer",
-            config,
+            headers: config.headers, // Thêm headers vào request
           })
           .then(function (response) {
             var file = new Blob([response.data], {
@@ -887,6 +887,7 @@ myApp.controller(
               },
             }).then(() => {
               $scope.removeItem();
+              $window.location.reload();
             });
           });
       };
@@ -973,7 +974,7 @@ myApp.controller(
                         },
                       }).then(() => {
                         $scope.generatePDF();
-                        $window.location.reload();
+                        // $window.location.reload();
                       });
                     });
                 }
@@ -1012,7 +1013,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              hoTen: $scope.orderDetailCounter.tenKhach,
+              tenKhach: $scope.orderDetailCounter.tenKhach,
               soDienThoai: $scope.orderDetailCounter.soDienThoai,
               email: $scope.orderDetailCounter.email,
               diaChi: $scope.orderDetailCounter.diaChi ,
@@ -1041,16 +1042,13 @@ myApp.controller(
                     popup: "small-popup",
                   },
                 }).then(() => {
-                  // $scope.generatePDF();
-                  $window.location.reload();
+                  $scope.generatePDF();
+                  // $window.location.reload();
                 });
               })
               .catch(function (error) {
                 $scope.errorhoTen = error.data.tenKhach;
                 $scope.errorsoDienThoai = error.data.soDienThoai;
-                $scope.errortinh = error.data.tinh;
-                $scope.errorhuyen = error.data.huyen;
-                $scope.errorphuong = error.data.phuong;
                 $scope.errordiaChi = error.data.diaChi;
                 $scope.erroremail = error.data.email;
                 $scope.errortienGiao = error.data.tienGiao;
@@ -1963,7 +1961,7 @@ myApp.controller(
                       popup: "small-popup",
                     },
                   }).then(() => {
-                    // $window.location.reload();
+                    $window.location.reload();
                   });
                 });
             }

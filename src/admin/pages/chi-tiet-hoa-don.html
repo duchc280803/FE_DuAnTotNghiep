@@ -128,15 +128,15 @@
         style="text-decoration: none; height: 39px">Hủy đơn
       </button>
       <button ng-show="hoaDonChiTiet.trangThai != 5 && hoaDonChiTiet.trangThai != 6 && fillMoney.tienShip != null"
-        type="submit" class="btn btn-danger m-1" style="text-decoration: none; height: 39px"
+        type="submit" class="btn btn-success m-1" style="text-decoration: none; height: 39px"
         ng-click="confirmAction()">Xác nhận
       </button>
       <button ng-show="hoaDonChiTiet.trangThai !== 1 && hoaDonChiTiet.trangThai !== 6" type="submit"
-        class="btn btn-danger m-1" style="text-decoration: none; height: 39px" ng-click="generatePDF()">In hóa đơn
+        class="btn btn-warning m-1" style="text-decoration: none; height: 39px" ng-click="generatePDF()">In hóa đơn
       </button>
     </div>
     <div class="col-lg-6" style="padding-left: 445px">
-      <button type="submit" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#lichsutrangthai"
+      <button type="submit" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#lichsutrangthai"
         style="text-decoration: none; height: 39px">Lịch sử
       </button>
     </div>
@@ -478,7 +478,7 @@
       <tbody class="table table-borderless table-hover" style="border: 1px solid #ccc">
         <thead>
         </thead>
-        <tr ng-repeat="item in listSanPhamInOrder | orderBy:'trangThai == 7':'reverse'">
+        <tr ng-repeat="item in listSanPhamInOrder">
           <td style="padding-top: 80px">{{$index + 1}}</td>
           <td>
             <div style="position: relative">
@@ -623,7 +623,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content custom-modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Tìm kiếm sản phẩm</h5>
+              <h5 class="modal-title card-title fw-semibold">Tìm kiếm sản phẩm</h5>
             </div>
             <div class="modal-body">
               <div class="row">
@@ -632,7 +632,7 @@
                 </div>
                 <div class="col-lg-4 d-flex justify-content-start">
                   <button ng-click="searchSanPham()" type="button" class="btn btn-primary">
-                    Tìm Kiếm
+                    Tìm kiếm
                   </button>
                   <button type="button" ng-click="getListSanPhamTaiQuay()" class="btn btn-warning"
                     style="margin-left: 10px">
@@ -643,8 +643,8 @@
               <br />
               <div class="row">
                 <div class="form-group col-md-3">
-                  <h6 class="text">Thương hiệu:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="brand" ng-change="filterBrand()">
+                  <span>Thương hiệu:</span>
+                  <select style="color: green" class="custom-select"  ng-model="brand" ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="th in listThuongHieu" value="{{th.tenThuongHieu}}">
                       {{th.tenThuongHieu}}
@@ -652,8 +652,8 @@
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                  <h6 class="text">Danh mục:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="locCategory"
+                  <span>Danh mục:</span>
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locCategory"
                     ng-change="filterCategory()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
@@ -662,8 +662,8 @@
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                  <h6 class="text">Xuất xứ:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="locOrigin"
+                  <span>Xuất xứ:</span>
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locOrigin"
                     ng-change="filterOrigin()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
@@ -672,8 +672,8 @@
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                  <h6 class="text">Kiểu đế:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="locSole" ng-change="filterSole()">
+                  <span>Kiểu đế:</span>
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSole" ng-change="filterSole()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
                       {{kd.tenDe}}
@@ -682,8 +682,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <br />
-                  <h6 class="text">Màu sắc:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="locMauSac"
+                  <span>Màu sắc:</span>
+                  <select style="color: green" class="custom-select" ng-model="locMauSac"
                     ng-change="filterColor()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
@@ -693,8 +693,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <br />
-                  <h6 class="text">Size:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="locSize" ng-change="filterSize()">
+                  <span>Size:</span>
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSize" ng-change="filterSize()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="s in listSize" value="{{s.size}}">
                       {{s.size}}
@@ -703,8 +703,8 @@
                 </div>
                 <div class="form-group col-md-4">
                   <br />
-                  <h6 class="text">Chất liệu:</h6>
-                  <select class="form-control select2" id="simple-select2" ng-model="locMaterial"
+                  <span>Chất liệu:</span>
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locMaterial"
                     ng-change="filterMaterial()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
@@ -720,10 +720,10 @@
                     <tr class="text-center" style="background-color: lightskyblue">
                       <th scope="col">STT</th>
                       <th scope="col">Ảnh</th>
-                      <th scope="col">Tên Sản Phẩm</th>
+                      <th scope="col">Tên sản phẩm</th>
                       <th scope="col" style="width: 120px">Giá</th>
-                      <th scope="col">Số Lượng</th>
-                      <th scope="col">Thao Tác</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Thao tác</th>
                     </tr>
                   </thead>
                   <tbody>

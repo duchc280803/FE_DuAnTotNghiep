@@ -102,7 +102,7 @@ myApp.controller(
         for (var i = 0; i < $scope.listSanPhamInOrder.length; i++) {
           if (
             $scope.listSanPhamInOrder[i].donGiaSauGiam !=
-              $scope.listSanPhamInOrder[i].giaBan &&
+            $scope.listSanPhamInOrder[i].giaBan &&
             $scope.listSanPhamInOrder[i].trangThai == 7
           ) {
             $scope.tongTienSauGiamHoanTra +=
@@ -111,7 +111,7 @@ myApp.controller(
           }
           if (
             $scope.listSanPhamInOrder[i].donGiaSauGiam ==
-              $scope.listSanPhamInOrder[i].giaBan &&
+            $scope.listSanPhamInOrder[i].giaBan &&
             $scope.listSanPhamInOrder[i].trangThai == 7
           ) {
             $scope.tongTienKhongGiamHoanTra +=
@@ -276,7 +276,7 @@ myApp.controller(
           $http
             .post(
               "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order/" +
-                id,
+              id,
               JSON.stringify($scope.newStatusOrder),
               config
             )
@@ -293,7 +293,7 @@ myApp.controller(
                 customClass: {
                   popup: "small-popup",
                 },
-              }).then(() => {});
+              }).then(() => { });
             })
             .catch(function (error) {
               $scope.errorGhiChu = error.data.ghiChu;
@@ -328,7 +328,7 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-client/" +
-                  id,
+                id,
                 $scope.orderDetailUpdate,
                 config
               )
@@ -389,7 +389,7 @@ myApp.controller(
             $http
               .put(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/confirm-order-deliver/" +
-                  id,
+                id,
                 $scope.orderDetailUpdate,
                 config
               )
@@ -448,11 +448,11 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/them-san-pham?idHoaDon=" +
-                  id +
-                  "&idSanPhamChiTiet=" +
-                  idCtSp +
-                  "&soLuong=" +
-                  soLuongSanPham,
+                id +
+                "&idSanPhamChiTiet=" +
+                idCtSp +
+                "&soLuong=" +
+                soLuongSanPham,
                 {},
                 config
               )
@@ -474,9 +474,11 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
+                }).then(() =>{
+                  $window.location.reload();
                 });
               })
-              .catch(function (error) {});
+              .catch(function (error) { });
           }
         });
       };
@@ -658,9 +660,9 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/chi-tiet-sp/hien-thi?pageNumber=" +
-            $scope.pageNumberSp +
-            "&pageSize=" +
-            $scope.pageSizeSp,
+          $scope.pageNumberSp +
+          "&pageSize=" +
+          $scope.pageSizeSp,
           config
         )
         .then(function (response) {
@@ -711,7 +713,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
-            $scope.key,
+          $scope.key,
           config
         )
         .then(function (response) {
@@ -735,7 +737,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-brand?name=" +
-              $scope.brand,
+            $scope.brand,
             config
           )
           .then(function (response) {
@@ -760,7 +762,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-category?name=" +
-              $scope.locCategory,
+            $scope.locCategory,
             config
           )
           .then(function (response) {
@@ -785,7 +787,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-sole?name=" +
-              $scope.locSole,
+            $scope.locSole,
             config
           )
           .then(function (response) {
@@ -810,7 +812,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-origin?name=" +
-              $scope.locOrigin,
+            $scope.locOrigin,
             config
           )
           .then(function (response) {
@@ -835,7 +837,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-size?size=" +
-              $scope.locSize,
+            $scope.locSize,
             config
           )
           .then(function (response) {
@@ -860,7 +862,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-material?name=" +
-              $scope.locMaterial,
+            $scope.locMaterial,
             config
           )
           .then(function (response) {
@@ -885,7 +887,7 @@ myApp.controller(
         $http
           .get(
             "http://localhost:8080/api/chi-tiet-sp/filter-color?name=" +
-              $scope.locMauSac,
+            $scope.locMauSac,
             config
           )
           .then(function (response) {
@@ -906,7 +908,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/detail-product?idhdct=" +
-            id,
+          id,
           config
         )
         .then(function (response) {
@@ -939,9 +941,9 @@ myApp.controller(
             $http
               .post(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/tra-hang?id=" +
-                  id +
-                  "&idhdct=" +
-                  idHoaDonChiTiet,
+                id +
+                "&idhdct=" +
+                idHoaDonChiTiet,
                 JSON.stringify($scope.newOrderDetail),
                 config
               )
@@ -993,7 +995,7 @@ myApp.controller(
             event.preventDefault();
             let p = $scope.listSanPhamInOrder[index];
             var token = $window.localStorage.getItem("token");
-
+            console.log(p.idHoaDonChiTiet);
             var config = {
               headers: {
                 Authorization: "Bearer " + token,
@@ -1002,21 +1004,25 @@ myApp.controller(
             $http
               .delete(
                 "http://localhost:8080/api/v1/hoa-don-chi-tiet/delete?idHoaDon=" +
-                  id +
-                  "&id=" +
-                  p.idHoaDonChiTiet,
+                id +
+                "&id=" +
+                p.idHoaDonChiTiet,
                 config
               )
               .then(function () {
                 $scope.listSanPhamInOrder.splice(index, 1);
-                $scope.getHoaDonChiTiet();
-                $scope.getSanPham();
-                $scope.getlichSuThanhToan();
-                $scope.getlichSuThayDoi();
-                $scope.selectMoney(id);
-                $scope.getTongTienHang();
-                $scope.getOrderDetailUpdate();
-                $location.path("/order-detail/" + id);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Xóa thành công",
+                  showConfirmButton: false,
+                  timer: 1500,
+                  customClass: {
+                    popup: "small-popup",
+                  },
+                }).then(() =>{
+                  
+                });
               });
           }
         });
@@ -1082,8 +1088,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/p/" +
-            $scope.selectedProvince.code +
-            "?depth=2"
+          $scope.selectedProvince.code +
+          "?depth=2"
         )
         .then(function (response) {
           $scope.districts = response.data.districts;
@@ -1094,8 +1100,8 @@ myApp.controller(
       $http
         .get(
           "https://provinces.open-api.vn/api/d/" +
-            $scope.selectedDistrict.code +
-            "?depth=2"
+          $scope.selectedDistrict.code +
+          "?depth=2"
         )
         .then(function (response) {
           $scope.wards = response.data.wards;
@@ -1113,7 +1119,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/order-detail-update/" +
-            id,
+          id,
           config
         )
         .then(function (response) {
@@ -1124,15 +1130,8 @@ myApp.controller(
     $scope.getOrderDetailUpdate();
     setTimeout(() => {
       $scope.generatePDF = function () {
-        var token = $window.localStorage.getItem("token");
-
-        var config = {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        };
         Swal.fire({
-          title: "Bạn có muốn in hóa đơn này không?",
+          title: "Bạn có muốn in hóa đơn không?",
           text: "",
           icon: "question",
           showCancelButton: true,
@@ -1143,14 +1142,19 @@ myApp.controller(
           reverseButtons: true,
         }).then((result) => {
           if (result.isConfirmed) {
+            var token = $window.localStorage.getItem("token");
+
+            var config = {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            };
+
             $http
-              .get(
-                "http://localhost:8080/api/v1/pdf/pdf/generate/" + id,
-                config,
-                {
-                  responseType: "arraybuffer",
-                }
-              )
+              .get("http://localhost:8080/api/v1/pdf/pdf/generate/" + id, {
+                responseType: "arraybuffer",
+                headers: config.headers, // Thêm headers vào request
+              })
               .then(function (response) {
                 var file = new Blob([response.data], {
                   type: "application/pdf",
@@ -1173,6 +1177,8 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
+                }).then(() => {
+                  $window.location.reload();
                 });
               });
           }
@@ -1192,7 +1198,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/v1/hoa-don-chi-tiet/tong-tien-don-hang/" +
-            id,
+          id,
           config
         )
         .then(function (response) {
