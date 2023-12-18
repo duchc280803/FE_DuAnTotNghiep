@@ -67,7 +67,7 @@ myApp.controller(
             $scope.showNextButton = true; // Hiển thị nút "Next"
           }
         })
-        .catch(function (error) {});
+        .catch(function (error) { });
     }
 
     $scope.previousPage = function () {
@@ -155,7 +155,7 @@ myApp.controller(
           huyen: selectedKhachHang.huyen,
           phuong: selectedKhachHang.phuong,
         },
-      }).then(function (response) {});
+      }).then(function (response) { });
     };
 
     // validation here
@@ -236,7 +236,7 @@ myApp.controller(
       $http
         .get(
           "http://localhost:8080/api/ql-khach-hang/find-by-so-dien-thoai?soDienThoai=" +
-            $scope.soDienThoai,
+          $scope.soDienThoai,
           config
         )
         .then(function (response) {
@@ -247,65 +247,67 @@ myApp.controller(
           if (response.data === 0) {
             $scope.isSoDienThoaiIsPresent = true; // Số điện thoại OK
           }
-        });
 
-      $http
-        .get(
-          "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
-            $scope.email,
-          config
-        )
-        .then(function (response) {
-          if (response.data > 0) {
-            $scope.isEmailIsPresent = false; // Email đã tồn tại
-            return;
-          }
-          if (response.data === 0) {
-            $scope.isEmailIsPresent = true; // Email OK
-          }
-        });
+          $http
+            .get(
+              "http://localhost:8080/api/ql-khach-hang/find-by-email?email=" +
+              $scope.email,
+              config
+            )
+            .then(function (response) {
+              if (response.data > 0) {
+                $scope.isEmailIsPresent = false; // Email đã tồn tại
+                return;
+              }
+              if (response.data === 0) {
+                $scope.isEmailIsPresent = true; // Email OK
+              }
 
-      var token = $window.localStorage.getItem("token");
-      var yourFile = document.getElementById("fileInput").files[0];
-      $http({
-        method: "POST",
-        url: "http://localhost:8080/api/ql-khach-hang/create",
-        headers: Object.assign(
-          {
-            "Content-Type": undefined,
-          },
-          config.headers
-        ),
-        transformRequest: function (data) {
-          var formData = new FormData();
-          formData.append("file", data.file);
-          formData.append("ten", data.ten);
-          formData.append("email", data.email);
-          formData.append("soDienThoai", data.soDienThoai);
-          formData.append("gioiTinh", data.gioiTinh);
-          formData.append("ngaySinh", data.ngaySinh);
-          formData.append("trangThai", data.trangThai);
-          formData.append("diaChi", data.diaChi);
-          return formData;
-        },
-        data: {
-          file: yourFile,
-          ten: $scope.ten,
-          email: $scope.email,
-          soDienThoai: $scope.soDienThoai,
-          gioiTinh: $scope.gioiTinh,
-          ngaySinh: $scope.ngaySinh,
-          trangThai: $scope.trangThai,
-          diaChi: $scope.diaChi,
-        },
-      }).then(
-        function (response) {
-          $scope.selectedKhachHang.push(response.data);
-        },
-        function (error) {
-          // Xử lý error ở đây
-        }
-      );
+
+              if ($scope.isEmailIsPresent == true || $scope.isSoDienThoaiIsPresent == true) {
+                var yourFile = document.getElementById("fileInput").files[0];
+                $http({
+                  method: "POST",
+                  url: "http://localhost:8080/api/ql-khach-hang/create",
+                  headers: Object.assign(
+                    {
+                      "Content-Type": undefined,
+                    },
+                    config.headers
+                  ),
+                  transformRequest: function (data) {
+                    var formData = new FormData();
+                    formData.append("file", data.file);
+                    formData.append("ten", data.ten);
+                    formData.append("email", data.email);
+                    formData.append("soDienThoai", data.soDienThoai);
+                    formData.append("gioiTinh", data.gioiTinh);
+                    formData.append("ngaySinh", data.ngaySinh);
+                    formData.append("trangThai", data.trangThai);
+                    formData.append("diaChi", data.diaChi);
+                    return formData;
+                  },
+                  data: {
+                    file: yourFile,
+                    ten: $scope.ten,
+                    email: $scope.email,
+                    soDienThoai: $scope.soDienThoai,
+                    gioiTinh: $scope.gioiTinh,
+                    ngaySinh: $scope.ngaySinh,
+                    trangThai: $scope.trangThai,
+                    diaChi: $scope.diaChi,
+                  },
+                }).then(
+                  function (response) {
+                    $scope.selectedKhachHang.push(response.data);
+                  },
+                  function (error) {
+                    // Xử lý error ở đây
+                  }
+                );
+              }
+            });
+        });
     };
 
     $scope.fetchKhachHangDetail = function (id) {
