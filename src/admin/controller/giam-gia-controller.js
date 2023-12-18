@@ -63,6 +63,9 @@ myApp.controller(
           url += `&tenGiamGia=${$scope.searchQuery2}`;
         }
       }
+      if ($scope.searchQuery7) {
+        url += `&tenSanPham=${$scope.searchQuery7}`;
+      }
 
       var searchQuery3 =
         $scope.searchQuery3 instanceof Date
@@ -73,7 +76,6 @@ myApp.controller(
         var formattedDate = searchQuery3.toISOString().split("T")[0];
         url += `&startDate=${formattedDate}`;
       }
-      console.log(searchQuery3);
       $http
         .get(url, config)
         .then(function (response) {
@@ -95,7 +97,26 @@ myApp.controller(
         fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
       }
     };
+    updateVoucherStatus();
+    function updateVoucherStatus() {
+      var token = $window.localStorage.getItem("token");
 
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+
+      $http
+        .get("http://localhost:8080/api/v1/giam-gia/updateStatus", config)
+        .then(function (response) {
+          // Không cần hiển thị thông báo, chỉ làm mới danh sách voucher
+          fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+        })
+        .catch(function (error) {
+          console.error("Lỗi khi cập nhật trạng thái voucher", error);
+        });
+    }
     // TODO: tiến đến trang khác
     $scope.nextPage = function () {
       $scope.pageNumber++;
@@ -106,6 +127,9 @@ myApp.controller(
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
     $scope.searchNgay = function () {
+      fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    };
+    $scope.searchSanPham = function () {
       fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
     };
     $scope.onTrangThaiChange = function () {
@@ -165,128 +189,58 @@ myApp.controller(
         });
     }
     fetchVoucherHistortyList();
-    $scope.searchVouchers = function () {
-      var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      // Make sure both startDate and endDate are provided
-      if (!$scope.startDate || !$scope.endDate) {
-        // Handle error or provide user feedback
-        return;
-      }
-
-      var formattedStartDate = new Date($scope.startDate)
-        .toISOString()
-        .split("T")[0];
-      var formattedEndDate = new Date($scope.endDate)
-        .toISOString()
-        .split("T")[0];
-
-      var searchUrl =
-        "http://localhost:8080/api/v1/audilog/khuyenmaiseach?startDate=" +
-        encodeURIComponent(formattedStartDate) +
-        "&endDate=" +
-        encodeURIComponent(formattedEndDate);
-
-      $http.get(searchUrl, config).then(function (response) {
-        $scope.listHistory = response.data;
-      });
-    };
-    $scope.searchVouchersByDay = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var formattedStartDate = new Date($scope.searchDate)
-        .toISOString()
-        .split("T")[0];
-
-      var searchUrl =
-        "http://localhost:8080/api/v1/audilog/auditlogkhuyenmaibydate?searchDate=" +
-        encodeURIComponent(formattedStartDate);
-      $http.get(searchUrl, config).then(function (response) {
-        $scope.listHistory = response.data;
-      });
-    };
     fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
+    //
+    // setTimeout(() => {
+    //   $scope.updateGiamGia = function (id) {
+    //     Swal.fire({
+    //       title: "Bạn có muốn cập nhập khuyến mãi không?",
+    //       text: "",
+    //       icon: "question",
+    //       showCancelButton: true,
+    //       cancelButtonText: "Hủy bỏ",
+    //       cancelButtonColor: "#d33",
+    //       confirmButtonColor: "#3085d6",
+    //       confirmButtonText: "Xác nhận",
+    //       reverseButtons: true,
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         var updateData = {
+    //           tenGiamGia: $scope.tenGiamGia,
+    //           ngayBatDau: $scope.ngayBatDau,
+    //           ngayKetThuc: $scope.ngayKetThuc,
+    //           hinhThucGiam: $scope.hinhThucGiam,
+    //           trangThai: $scope.trangThai,
+    //         };
 
-    setTimeout(() => {
-      $scope.updateGiamGia = function (id) {
-        Swal.fire({
-          title: "Bạn có muốn cập nhập khuyến mãi không?",
-          text: "",
-          icon: "question",
-          showCancelButton: true,
-          cancelButtonText: "Hủy bỏ",
-          cancelButtonColor: "#d33",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Xác nhận",
-          reverseButtons: true,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            var updateData = {
-              tenGiamGia: $scope.tenGiamGia,
-              ngayBatDau: $scope.ngayBatDau,
-              ngayKetThuc: $scope.ngayKetThuc,
-              hinhThucGiam: $scope.hinhThucGiam,
-              trangThai: $scope.trangThai,
-            };
-
-            $http
-              .put(
-                "http://localhost:8080/api/v1/giam-gia/update/" + id,
-                updateData
-              )
-              .then(
-                function (response) {
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Cập nhật khuyến mãi thành công",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                      popup: "small-popup", // Thêm class cho message
-                    },
-                  });
-                  $location.path("/promotion");
-                },
-                function (error) {
-                  console.error("Error updating GiamGia:", error);
-                }
-              );
-          }
-        });
-      };
-    }, 2000);
-
-    $scope.toggleDetail = function (gg) {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      if (!gg.showDetail) {
-        $http
-          .get(
-            "http://localhost:8080/api/v1/giam-gia/detailList?id=" + gg.id,
-            config
-          )
-          .then(function (response) {
-            gg.detailList = response.data;
-          });
-      }
-      gg.showDetail = !gg.showDetail;
-    };
+    //         $http
+    //           .put(
+    //             "http://localhost:8080/api/v1/giam-gia/update/" + id,
+    //             updateData
+    //           )
+    //           .then(
+    //             function (response) {
+    //               Swal.fire({
+    //                 position: "top-end",
+    //                 icon: "success",
+    //                 title: "Cập nhật khuyến mãi thành công",
+    //                 showConfirmButton: false,
+    //                 timer: 1500,
+    //                 customClass: {
+    //                   popup: "small-popup", // Thêm class cho message
+    //                 },
+    //               });
+    //               $location.path("/promotion");
+    //             },
+    //             function (error) {
+    //               console.error("Error updating GiamGia:", error);
+    //             }
+    //           );
+    //       }
+    //     });
+    //   };
+    // }, 2000);
 
     $scope.fetchlistThuongHieu = function () {
       var token = $window.localStorage.getItem("token");
@@ -304,21 +258,6 @@ myApp.controller(
     };
     $scope.fetchlistThuongHieu();
 
-    // $scope.fetchlistProduct = function () {
-    //   var token = $window.localStorage.getItem("token");
-
-    //   var config = {
-    //     headers: {
-    //       Authorization: "Bearer " + token,
-    //     },
-    //   };
-    //   $http
-    //     .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
-    //     .then(function (response) {
-    //       $scope.listProduct = response.data;
-    //     });
-    // };
-    // $scope.fetchlistProduct();
     $scope.listProduct = [];
 
     $scope.pageNumber1 = 0;
@@ -348,8 +287,6 @@ myApp.controller(
         .get(url, config)
         .then(function (response) {
           $scope.listProduct = response.data;
-          console.log("Dữ liệu trả về: ", response.data);
-
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
@@ -373,19 +310,6 @@ myApp.controller(
       fetchlistProduct($scope.pageNumber1);
     };
     fetchlistProduct($scope.pageNumber1);
-    // $scope.refresh = function () {
-    //   // Thực hiện các hành động cần thiết để làm mới dữ liệu
-    //   // Ví dụ: gọi các hàm search hoặc reset giá trị của các biến tìm kiếm
-    //   $scope.searchQuery = "";
-    //   $scope.searchQuery2 = "";
-    //   $scope.selectedTrangThai = "";
-    //   $scope.searchQuery3 = "";
-    //   // Gọi các hàm search tương ứng nếu cần
-    //   $scope.searchKhach();
-    //   $scope.searchNgay();
-    //   $scope.searchTenKhach();
-    //   $scope.onTrangThaiChange();
-    // };
     $scope.fetchlistDanhMuc = function () {
       var token = $window.localStorage.getItem("token");
 
@@ -435,79 +359,6 @@ myApp.controller(
     $scope.fetchlistXuatXu();
 
     // Thêm hàm tìm kiếm
-
-    $scope.searchKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.key;
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    $scope.searchbyMa = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key2 = $scope.key2;
-      if (!key2) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
-            params: { key: key2 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    $scope.searchProductKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.tenSanPham;
-
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchProduct_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listProduct = response.data;
-          });
-      }
-    };
 
     ///
     $scope.searchProductList = function () {
@@ -635,33 +486,7 @@ myApp.controller(
       }
     };
 
-    $scope.searchStatus = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key3 = $scope.key3; // Lấy giá trị từ dropdown
-
-      if (key3 === "") {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList($scope.selectedTrangThai, $scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchStatus_bykey", {
-            params: { key: key3 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
     // Thêm hàm làm mới
-    $scope.tuDongTaoMa = false;
     $scope.maGiamGia = "GG_" + new Date().getTime();
     $scope.tenGiamGia = "";
     $scope.mucGiam = "";
@@ -710,46 +535,6 @@ myApp.controller(
         $scope.sanPhamDaChon.length === $scope.listProduct.length;
     };
 
-    // // Define a function to check if the promotion name exists
-    // function checkTenGiamGiaExists(tenGiamGia) {
-    //   return $http
-    //     .get("http://localhost:8080/api/v1/giam-gia/checkTenGiamGia", {
-    //       params: {
-    //         tenGiamGia: tenGiamGia,
-    //       },
-    //     })
-    //     .then(function (response) {
-    //       return response.data;
-    //     })
-    //     .catch(function (error) {
-    //       console.error("Error:", error);
-    //       throw error; // Propagate the error for the calling function to handle
-    //     });
-    // }
-
-    // function checkGiamGiaSanPhamExists(idsanpham) {
-    //   // Check if idsanpham is null, if so, return a resolved promise with a default value
-    //   if (!idsanpham) {
-    //     return Promise.resolve(true); // Change this to the default value you want
-    //   }
-
-    //   return $http
-    //     .get(
-    //       "http://localhost:8080/api/v1/giam-gia/check-product-record-count",
-    //       {
-    //         params: {
-    //           idsanpham: idsanpham,
-    //         },
-    //       }
-    //     )
-    //     .then(function (response) {
-    //       return response.data;
-    //     })
-    //     .catch(function (error) {
-    //       console.error("Error:", error);
-    //       throw error;
-    //     });
-    // }
     $scope.listOfPromotions = [];
     setTimeout(() => {
       $scope.themKhuyenMai = function () {

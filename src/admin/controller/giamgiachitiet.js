@@ -54,69 +54,6 @@ myApp.controller(
 
     getgiamgiachitiet(id);
 
-    function fetchGiamGiaList() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/giam-gia/show", config)
-        .then(function (response) {
-          $scope.listGiamGia = response.data;
-        });
-    }
-
-    function fetchProduct() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/giam-gia/product", config)
-        .then(function (response) {
-          $scope.listProductGiamGia = response.data;
-        });
-    }
-
-    fetchProduct();
-
-    function fetchlistThuongHieu() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/thuong-hieu/hien-thi", config)
-        .then(function (response) {
-          $scope.listThuongHieu = response.data;
-        });
-    }
-    fetchlistThuongHieu();
-    // function fetchlistProduct() {
-    //   var token = $window.localStorage.getItem("token");
-
-    //   var config = {
-    //     headers: {
-    //       Authorization: "Bearer " + token,
-    //     },
-    //   };
-    //   $http
-    //     .get("http://localhost:8080/api/v1/giam-gia/showproduct", config)
-    //     .then(function (response) {
-    //       $scope.listProduct = response.data;
-    //     });
-    // }
-    // fetchlistProduct();
-
     $scope.listProduct = [];
 
     $scope.pageNumber = 0;
@@ -183,206 +120,8 @@ myApp.controller(
       $scope.searchTenKhach();
       $scope.onTrangThaiChange();
     };
-    $scope.isIdEqual = function (id1, id2) {
-      return id1 === id2;
-    };
-    function fetchlistChatLieu() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/chat-lieu/show", config)
-        .then(function (response) {
-          $scope.listChatLieu = response.data;
-        });
-    }
-    fetchlistChatLieu();
-    function fetchlistDanhMuc() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/danh-muc/show", config)
-        .then(function (response) {
-          $scope.listDanhMuc = response.data;
-        });
-    }
-    fetchlistDanhMuc();
-    function fetchlistMauSac() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/mau-sac/show", config)
-        .then(function (response) {
-          $scope.listMauSac = response.data;
-        });
-    }
-    fetchlistMauSac();
-    function fetchlistKieuDe() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/kieu-de/show", config)
-        .then(function (response) {
-          $scope.listKieuDe = response.data;
-        });
-    }
-    fetchlistKieuDe();
-    function fetchlistSize() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/size/show", config)
-        .then(function (response) {
-          $scope.listSize = response.data;
-        });
-    }
-    fetchlistSize();
-
-    function fetchlistXuatXu() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/xuat-xu/show", config)
-        .then(function (response) {
-          $scope.listXuatXu = response.data;
-        });
-    }
-    fetchlistXuatXu();
 
     // Thêm hàm tìm kiếm
-    $scope.searchGiamGia = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key1 = $scope.startDate;
-      var key2 = $scope.endDate;
-
-      if (!key1 && !key2) {
-        // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchDatebykey", {
-            params: { key1: key1, key2: key2 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
-
-    $scope.searchKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.key;
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
-    $scope.searchbyMa = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key2 = $scope.key2;
-      if (!key2) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
-            params: { key: key2 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
-
-    ///
-    $scope.searchProductKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.tenSanPham;
-
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct($scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchProduct_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listProduct = response.data;
-          });
-      }
-    };
 
     ///
     $scope.searchProductList = function () {
@@ -560,32 +299,7 @@ myApp.controller(
       }
     };
 
-    $scope.searchStatus = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.status; // Lấy giá trị từ dropdown
-
-      if (key === "") {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct($scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchStatus_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
+    // fetchGiamGiaList();
     // Thêm hàm làm mới
     $scope.tuDongTaoMa = false;
     $scope.maGiamGia = "";
@@ -596,20 +310,9 @@ myApp.controller(
     $scope.ngayBatDau = "";
     $scope.ngayKetThuc = "";
     $scope.sanPhamDaChon = [];
-    $scope.onTuDongTaoMaChange = function () {
-      if ($scope.tuDongTaoMa) {
-        // If the checkbox is checked, automatically generate the discount code
-        $scope.maGiamGia = "GG_" + new Date().getTime();
-        // You might want to update other related properties as well
-      } else {
-        // If the checkbox is unchecked, clear the discount code or handle it as needed
-        $scope.maGiamGia = "";
-        // You might want to update other related properties as well
-      }
-    };
 
     $scope.selectedIds = [];
-    fetchGiamGiaList();
+    // fetchGiamGiaList();
 
     $scope.selectAllProducts = false;
 

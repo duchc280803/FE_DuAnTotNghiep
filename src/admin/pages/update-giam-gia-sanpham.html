@@ -79,40 +79,6 @@
               </button>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3" style="padding: 20px">
-              <span>Danh mục:</span>
-              <select style="color: green" class="custom-select" ng-model="DanhMuc" ng-change="searchProductDanhMuc()"
-                ng-options="tt.id as tt.tenDanhMuc for tt in listDanhMuc">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-
-            <div class="col-md-3" style="padding: 20px">
-
-              <span>Thương hiệu:</span>
-
-              <select style="color: green" class="custom-select" ng-model="ThuongHieu"
-                ng-change="searchProductThuongHieu()" ng-options="tt.id as tt.tenThuongHieu for tt in listThuongHieu">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-            <div class="col-md-3" style="padding: 20px">
-              <span>Kiểu đế:</span>
-              <select style="color: green" class="custom-select" ng-model="KieuDe" ng-change="searchProductKieuDe()"
-                ng-options="tt.id as tt.tenDe for tt in listKieuDe">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-
-            <div class="col-md-3" style="padding: 20px">
-              <span>Xuất xứ:</span>
-              <select style="color: green" class="custom-select" ng-model="XuatXu" ng-change="searchProductXuatXu()"
-                ng-options="tt.id as tt.tenXuatXu for tt in listXuatXu">
-                <option value="">Tất cả</option>
-              </select>
-            </div>
-          </div>
         </div>
         <br />
         <table class="table table-borderless table-hover">
