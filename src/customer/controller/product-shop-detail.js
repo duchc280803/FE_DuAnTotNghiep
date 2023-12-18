@@ -442,5 +442,12 @@ myAppCustom.controller(
     }
 
     loadQuanTiTy();
-
+    $scope.changeQuantity = function(increment) {
+      $scope.soluong += increment;
+      if ($scope.soluong < 1) {
+        $scope.soluong = 1;
+      }
+      $scope.checkQuantity();
+    };
+    
   });
