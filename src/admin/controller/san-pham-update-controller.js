@@ -152,10 +152,8 @@ myApp.controller(
                 config
               )
               .then(function (response) {
-                // console.log(response.data);
-                // $scope.newProductDetail = {};
+                $scope.newProductDetail = {};
                 $scope.productDetail.push(response.data);
-                console.log($scope.productDetail);
                 $("#productDetailModal").modal("hide");
                 Swal.fire({
                   position: "top-end",
