@@ -499,7 +499,6 @@ myApp.controller(
     $scope.ngayKetThuc = "";
     $scope.hinhThucGiam = "1";
     $scope.sanPhamDaChon = [];
-    $scope.coSanPhamDuocChon = false;
 
     $scope.onTuDongTaoMaChange = function () {
       if ($scope.tuDongTaoMa) {
@@ -514,8 +513,6 @@ myApp.controller(
     };
 
     $scope.selectedIds = [];
-
-    $scope.selectAllProducts = false;
 
     $scope.toggleAllProducts = function () {
       // Set or unset all product IDs based on the state of selectAllProducts
@@ -538,9 +535,7 @@ myApp.controller(
       // Update selectAllProducts based on the individual product selection
       $scope.selectAllProducts =
         $scope.sanPhamDaChon.length === $scope.listProduct.length;
-      $scope.coSanPhamDuocChon = $scope.sanPhamDaChon.length > 0;
     };
-
     $scope.listOfPromotions = [];
     setTimeout(() => {
       $scope.themKhuyenMai = function () {
@@ -571,20 +566,6 @@ myApp.controller(
               });
               return;
             }
-            if (!$scope.coSanPhamDuocChon) {
-              Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Bạn phải chọn ít nhất 1 sản phẩm",
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                  popup: "small-popup", // Thêm class cho message
-                },
-              });
-              return;
-            }
-
             var ngayHienTai = new Date();
             if (ngayKetThuc <= ngayHienTai) {
               Swal.fire({
