@@ -28,7 +28,57 @@ myApp.controller(
     }
 
     getRole();
-    function getgiamgiachitiet(id) {
+    $scope.idSanPhamList = [];
+
+    // function getgiamgiachitiet(id) {
+    //   var token = $window.localStorage.getItem("token");
+
+    //   var config = {
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   };
+
+    //   const apiUrl =
+    //     "http://localhost:8080/api/v1/giam-gia/detailList?id=" + id;
+
+    //   $http.get(apiUrl, config).then(
+    //     function (response) {
+    //       $scope.giamgiachitiet = response.data;
+
+    //       // Thêm trường idSanPhamChecked cho mỗi sản phẩm
+    //       $scope.giamgiachitiet.forEach(function (item) {
+    //         item.idSanPhamChecked = false;
+    //       });
+
+    //       // Kiểm tra dữ liệu trong console log
+    //       console.log("API Response:", $scope.giamgiachitiet);
+    //     },
+    //     function (error) {
+    //       // Xử lý lỗi
+    //       console.error("Error fetching data:", error);
+    //     }
+    //   );
+    // }
+
+    // // Xác định `id` từ `$routeParams`
+    // var id = $routeParams.id;
+
+    // getgiamgiachitiet(id);
+    var id = $routeParams.id;
+
+    $scope.idUpdate = id;
+
+    // $scope.giamgiachitiet = [];
+    $scope.pageNumber = 0;
+    $scope.pageSize = 20;
+    var id = $routeParams.id;
+
+    $scope.giamgiachitiet = {};
+
+    var id = $routeParams.id;
+
+    function fetchNhanVienDetail(id) {
       var token = $window.localStorage.getItem("token");
 
       var config = {
@@ -36,23 +86,34 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      const apiUrl =
+      var detailUrl =
         "http://localhost:8080/api/v1/giam-gia/detailList?id=" + id;
-      $http.get(apiUrl, config).then(function (response) {
+      $http.get(detailUrl, config).then(function (response) {
         $scope.giamgiachitiet = response.data[0];
-
-        if ($scope.giamgiachitiet.productName) {
-          $scope.giamgiachitiet.tenSanPhamChecked = true;
-        } else {
-          $scope.giamgiachitiet.tenSanPhamChecked = false;
-        }
       });
     }
 
+    fetchNhanVienDetail(id);
+    function fetchNhanVienDetail4(id) {
+      var token = $window.localStorage.getItem("token");
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      var detailUrl =
+        "http://localhost:8080/api/v1/giam-gia/detailList?id=" + id;
+      $http.get(detailUrl, config).then(function (response) {
+        $scope.giamgiachitiet2 = response.data;
+      });
+    }
+    fetchNhanVienDetail4(id);
+    fetchNhanVienDetail(id);
+
     // Xác định `id` từ `$routeParams`
     var id = $routeParams.id;
-
-    getgiamgiachitiet(id);
+    // getgiamgiachitiet(id);
 
     $scope.listProduct = [];
 
@@ -389,19 +450,19 @@ myApp.controller(
               });
               return;
             }
-            if (!$scope.coSanPhamDuocChon) {
-              Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Bạn phải chọn ít nhất 1 sản phẩm",
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                  popup: "small-popup", // Thêm class cho message
-                },
-              });
-              return;
-            }
+            // if (!$scope.coSanPhamDuocChon) {
+            //   Swal.fire({
+            //     position: "top-end",
+            //     icon: "error",
+            //     title: "Bạn phải chọn ít nhất 1 sản phẩm",
+            //     showConfirmButton: false,
+            //     timer: 1500,
+            //     customClass: {
+            //       popup: "small-popup", // Thêm class cho message
+            //     },
+            //   });
+            //   return;
+            // }
             if (
               $scope.giamgiachitiet.hinhThucGiam == 2 &&
               ($scope.giamgiachitiet.mucGiam <= 0 ||
