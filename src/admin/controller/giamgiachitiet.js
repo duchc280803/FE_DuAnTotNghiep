@@ -54,21 +54,6 @@ myApp.controller(
 
     getgiamgiachitiet(id);
 
-    function fetchGiamGiaList() {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      $http
-        .get("http://localhost:8080/api/v1/giam-gia/show", config)
-        .then(function (response) {
-          $scope.listGiamGia = response.data;
-        });
-    }
-
     function fetchProduct() {
       var token = $window.localStorage.getItem("token");
 
@@ -183,9 +168,7 @@ myApp.controller(
       $scope.searchTenKhach();
       $scope.onTrangThaiChange();
     };
-    $scope.isIdEqual = function (id1, id2) {
-      return id1 === id2;
-    };
+
     function fetchlistChatLieu() {
       var token = $window.localStorage.getItem("token");
 
@@ -279,110 +262,6 @@ myApp.controller(
     fetchlistXuatXu();
 
     // Thêm hàm tìm kiếm
-    $scope.searchGiamGia = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key1 = $scope.startDate;
-      var key2 = $scope.endDate;
-
-      if (!key1 && !key2) {
-        // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchDatebykey", {
-            params: { key1: key1, key2: key2 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
-
-    $scope.searchKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.key;
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
-    $scope.searchbyMa = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key2 = $scope.key2;
-      if (!key2) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchGiamGiaList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchString_bykey", {
-            params: { key: key2 },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
-          });
-      }
-    };
-
-    fetchGiamGiaList();
-
-    ///
-    $scope.searchProductKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.tenSanPham;
-
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct($scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchProduct_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listProduct = response.data;
-          });
-      }
-    };
 
     ///
     $scope.searchProductList = function () {
@@ -556,31 +435,6 @@ myApp.controller(
           })
           .then(function (response) {
             $scope.listProduct = response.data;
-          });
-      }
-    };
-
-    $scope.searchStatus = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.status; // Lấy giá trị từ dropdown
-
-      if (key === "") {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchlistProduct($scope.pageNumber);
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/giam-gia/searchStatus_bykey", {
-            params: { key: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listGiamGia = response.data;
           });
       }
     };

@@ -1,9 +1,7 @@
 myApp.controller(
   "VoucherController",
-  function ($http, $scope, $location, $route, $window, $sce) {
+  function ($http, $scope, $location, $route, $window, $sce, $timeout) {
     var role = $window.localStorage.getItem("role");
-    var token = $window.localStorage.getItem("token");
-    console.log(token);
     if (role === "USER") {
       Swal.fire({
         icon: "error",
@@ -30,6 +28,20 @@ myApp.controller(
     }
 
     getRole();
+    // Trong AngularJS controller
+    $scope.dataLoaded = false;
+
+    // Simulate data loading (replace this with your actual data loading logic)
+    $timeout(function () {
+      // Your data loading logic here
+
+      // Set dataLoaded to true when data is loaded
+      $scope.dataLoaded = true;
+    }, 3000).then(function () {
+      // Ensure that $digest cycle is triggered after the timeout
+      $scope.$apply();
+    });
+
     $scope.listVoucher = [];
     $scope.listVoucherHistory = [];
 
@@ -197,56 +209,7 @@ myApp.controller(
         });
       };
     }, 2000);
-    $scope.searchVouchers = function () {
-      var token = $window.localStorage.getItem("token");
 
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      // Make sure both startDate and endDate are provided
-      if (!$scope.startDate || !$scope.endDate) {
-        // Handle error or provide user feedback
-        return;
-      }
-
-      var formattedStartDate = new Date($scope.startDate)
-        .toISOString()
-        .split("T")[0];
-      var formattedEndDate = new Date($scope.endDate)
-        .toISOString()
-        .split("T")[0];
-
-      var searchUrl =
-        "http://localhost:8080/api/v1/audilog/vouchersearch?startDate=" +
-        encodeURIComponent(formattedStartDate) +
-        "&endDate=" +
-        encodeURIComponent(formattedEndDate);
-
-      $http.get(searchUrl, config).then(function (response) {
-        $scope.listVoucherHistory = response.data;
-      });
-    };
-    $scope.searchVouchersByDay = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var formattedStartDate = new Date($scope.searchDate)
-        .toISOString()
-        .split("T")[0];
-
-      var searchUrl =
-        "http://localhost:8080/api/v1/audilog/auditlogvoucherbydate?searchDate=" +
-        encodeURIComponent(formattedStartDate);
-      $http.get(searchUrl, config).then(function (response) {
-        $scope.listVoucherHistory = response.data;
-      });
-    };
     $scope.maVoucher = "GG_" + new Date().getTime();
     $scope.ngayBatDau = new Date();
     $scope.hinhThucGiam = "2";
@@ -409,86 +372,8 @@ myApp.controller(
         });
       };
     }, 2000);
-
     $scope.isQuantityEnabled = true;
 
-    $scope.onQuantityEnabledChange = function () {
-      if (!$scope.isQuantityEnabled) {
-        // If the radio button is unchecked, set quantity to 0 and disable the input
-        $scope.soLuongMa = 0;
-      }
-    };
-    $scope.searchKey = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var key = $scope.key;
-      if (!key) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        $scope.fetchVoucherList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/voucher/search", {
-            params: { keyword: key },
-            config,
-          })
-          .then(function (response) {
-            $scope.listVoucher = response.data;
-          });
-      }
-    };
-    $scope.searchStatus = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var trangThai = $scope.trangThai;
-      if (!trangThai) {
-        // Nếu giá trị là null, gọi lại danh sách đầy đủ
-        fetchVoucherList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/voucher/searchByTrangThai", {
-            params: { trangThai: trangThai },
-            config,
-          })
-          .then(function (response) {
-            $scope.listVoucher = response.data;
-          });
-      }
-    };
     $scope.showBrandSelect = false;
-
-    $scope.searchDateHistory = function () {
-      var token = $window.localStorage.getItem("token");
-
-      var config = {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      };
-      var startDate = $scope.startDate;
-      var endDate = $scope.endDate;
-
-      if (!startDate && !endDate) {
-        // Nếu cả hai giá trị là null, gọi lại danh sách đầy đủ
-        fetchVoucherHistortyList();
-      } else {
-        $http
-          .get("http://localhost:8080/api/v1/audilog/vouchersearch", {
-            params: { startDate: startDate, endDate: endDate },
-          })
-          .then(function (response) {
-            $scope.listVoucherHistory = response.data;
-          });
-      }
-    };
   }
 );
