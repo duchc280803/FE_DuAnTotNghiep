@@ -476,7 +476,7 @@
               Chọn nhân viên
             </option>
             <option ng-repeat="nv in listNhanVien" value="{{nv.id}}">
-              {{nv.fullName}}
+              {{nv.maTaiKhoan + "-" + nv.fullName}}
             </option>
           </select>
         </td>

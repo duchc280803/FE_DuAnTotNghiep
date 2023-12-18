@@ -114,13 +114,13 @@
               </td>
               <td>{{gg.productName}}</td>
               <td>
-                {{gg.giaBan }}đ
+                {{gg.giaBan.toLocaleString('vi-VN')}}đ
               </td>
               <td>
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{gg.giaBan - gg.giaGiam }}đ
+                {{(gg.giaBan - gg.giaGiam).toLocaleString('vi-VN') < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
               </td>
             </tr>
           </tbody>
