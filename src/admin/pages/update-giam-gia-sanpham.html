@@ -41,6 +41,14 @@
               <input type="date" class="next-input" placeholder="Nhập ngày bắt đầu"
                 ng-value="giamgiachitiet.ngayBatDau | date:'yyyy-MM-dd'" ng-model="giamgiachitiet.ngayBatDau" />
             </div>
+            <div class="col-lg-12" style="padding-top: 15px">
+              <span class="header-title">Danh sách sản phẩm</span>
+              <div ng-repeat="item in giamgiachitiet2">
+                <input type="checkbox" ng-model="item.idSanPhamChecked" />
+                {{ item.idSanPham }}
+
+              </div>
+            </div>
 
             <!-- Ngày Kết Thúc -->
             <div class="col-lg-6" style="padding-top: 15px">
@@ -50,6 +58,9 @@
             </div>
 
             <br />
+            <!-- Danh sách checkbox -->
+
+
             <div class="col-lg-12">
               <button type="button" class="btn btn-success m-1" ng-click="updateGiamGia(giamgiachitiet.id)">
                 Sửa
@@ -101,26 +112,26 @@
               <td colspan="9" style="text-align: center;">Không tìm thấy dữ liệu</td>
             </tr>
 
-            <tr ng-repeat="gg in listProduct">
+            <tr ng-repeat="gg in listProduct" ng-class="{ 'row-red': (gg.giaBan - gg.giaGiam) <= 0 }">
               <td style="padding-top: 75px">
                 <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
                   ng-change="chonSanPham(gg.id)"
                   ng-checked="selectAllProducts || isIdEqual(giamgiachitiet.idSanPham, gg.id)" />
 
-                {{$index + 1}}
+                {{$index + 1 + (pageNumber * 20)}}
               </td>
               <td>
-                <img src="{{gg.image}}" alt="" width="150px" />
+                <img src="/assets/ảnh giày/{{gg.image}}" alt="" width="150px" />
               </td>
               <td>{{gg.productName}}</td>
               <td>
-                {{gg.giaBan }}đ
+                {{gg.giaBan.toLocaleString('vi-VN')}}đ
               </td>
               <td>
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{gg.giaBan - gg.giaGiam }}đ
+                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
               </td>
             </tr>
           </tbody>

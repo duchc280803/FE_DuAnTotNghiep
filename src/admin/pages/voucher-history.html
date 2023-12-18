@@ -1,24 +1,3 @@
-<style>
-  .loading-spinner {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-</style>
 <div class="card overflow-hidden" style="min-height: 120px">
   <h5 style="padding-left: 20px; padding-top: 16px; margin-bottom: 0">
     <img src="/assets/images/filter-filled-tool-symbol.png" width="20px" style="padding-right: 3px" />Bộ lọc
@@ -61,13 +40,6 @@
         </tr>
       </thead>
       <tbody class="table table-borderless table-hover">
-        <tr ng-if="!dataLoaded">
-          <td colspan="9" style="text-align: center;">
-            <div class="loading-spinner"></div>
-            Dữ liệu đang được tải, vui lòng đợi...
-          </td>
-        </tr>
-
         <tr ng-repeat="gg in listVoucherHistory">
           <td>{{$index + 1}}</td>
           <td>{{gg.timestamp | date:'dd/MM/yyyy HH:mm:ss a'}}</td>

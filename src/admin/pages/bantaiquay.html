@@ -382,10 +382,10 @@
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
+                                    {{sptq.giaGiamGia < 0 ? 0: sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
                                   </span>
                                   <strike class="text-danger">
-                                    {{ sptq.giaBan.toLocaleString('vi-VN')}}đ
+                                    {{sptq.giaBan.toLocaleString('vi-VN')}}đ
                                   </strike>
                                 </strong>
                               </small>
@@ -972,7 +972,7 @@
             <button ng-show="!showInput && listCart.length != 0" class="btn btn-primary"
               style="margin-left: 900px; margin-top: 20px; font-weight: bold"
               ng-click="createHoaDonChiTietGiao((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? +tienGiao : 0)), totalAmountPaid, tienThuaTraKhach)">
-              Xác Nhận Đặt Hàng
+              Xác nhận đặt hàng
             </button>
           </div>
         </div>
