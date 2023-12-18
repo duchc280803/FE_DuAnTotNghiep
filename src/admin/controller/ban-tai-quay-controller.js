@@ -1012,7 +1012,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              hoTen: $scope.orderDetailCounter.hoTen,
+              hoTen: $scope.orderDetailCounter.tenKhach,
               soDienThoai: $scope.orderDetailCounter.soDienThoai,
               email: $scope.orderDetailCounter.email,
               diaChi: $scope.orderDetailCounter.diaChi ,
@@ -1041,7 +1041,7 @@ myApp.controller(
                     popup: "small-popup",
                   },
                 }).then(() => {
-                  $scope.generatePDF();
+                  // $scope.generatePDF();
                   $window.location.reload();
                 });
               })
