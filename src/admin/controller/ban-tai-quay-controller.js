@@ -1012,7 +1012,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              hoTen: $scope.hoTen,
+              tenKhach: $scope.tenKhach,
               tenNguoiShip: $scope.tenNguoiShip,
               soDienThoaiNguoiShip: $scope.soDienThoaiNguoiShip,
               soDienThoai: $scope.soDienThoai,
