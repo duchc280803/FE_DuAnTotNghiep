@@ -376,12 +376,11 @@
                       <div class="col-md-8">
                         <span style="font-size: 0.7em; margin: 0">{{product.tensanpham}}</span>
                         <div ng-show="product.dongiakhigiam != null">
-                          {{product.dongiakhigiam | number:0}}đ
-                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban |
-                              number:0}}đ <br></strike> </span>
+                          {{product.dongiakhigiam.toLocaleString('vi-VN')}}đ
+                          <span style="text-decoration: line-through;color: crimson"><strike> {{product.giaban.toLocaleString('vi-VN')}}đ <br></strike> </span>
                         </div>
                         <div ng-show="product.dongiakhigiam == null">
-                          {{product.giaban | number:0}}đ
+                          {{product.giaban.toLocaleString('vi-VN')}}đ
                         </div>
                         <p style="font-size: 0.7em; margin: 0">
                           Số lượng :{{product.soluong}}
@@ -398,7 +397,7 @@
                     </div>
                     <div class="col-md-3">
                       <span
-                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: -20px;">{{totalAmount}}VNĐ</span>
+                        style="color: rgb(91, 80, 80); font-weight: bolder;margin-left: -20px;">{{totalAmount.toLocaleString('vi-VN')}}đ</span>
                     </div>
                   </div>
                   <a href="#/check-out" style="width: 80%; margin-left: 30px;" class="button">Thanh toán</a>
@@ -485,7 +484,7 @@
               <div class="card-body d-flex flex-column justify-content-between text-center">
                 <p ng-if="th.tenSanPham" class="card-text">{{th.tenSanPham}}</p>
                 <div class="text-center">
-                  <h5 ng-if="th.giaBan" class="card-title">{{th.giaBan | number}} đ</h5>
+                  <h5 ng-if="th.giaBan" class="card-title">{{th.giaBan.toLocaleString('vi-VN')}}đ</h5>
                   <a class="abc" style="margin-left: 20px;" ng-if="th.tenSanPham"
                     href="#/shop/detail/{{th.tenSanPham}}"><span>Xem sản phẩm</span></a>
                 </div>
@@ -512,11 +511,11 @@
                 <p ng-if="th.tenSanPham" class="card-text">{{th.tenSanPham}}</p>
                 <div class="text-center">
                   <h5 ng-show="th.giaGiamGia != th.giaBan">
-                    {{ th.giaGiamGia}}đ
-                    <strike style="color: red;">{{th.giaBan}}đ</strike>
+                    {{ th.giaGiamGia.toLocaleString('vi-VN')}}đ
+                    <strike style="color: red;">{{th.giaBan.toLocaleString('vi-VN')}}đ</strike>
                   </h5>
                   <h5 ng-show="th.giaGiamGia == th.giaBan">
-                    {{th.giaBan}}đ
+                    {{th.giaBan.toLocaleString('vi-VN')}}đ
                   </h5>
                   <a class="abc" style="margin-left: 20px;" ng-if="th.tenSanPham"
                     href="#/shop/detail/{{th.tenSanPham}}"><span>Xem sản phẩm</span></a>

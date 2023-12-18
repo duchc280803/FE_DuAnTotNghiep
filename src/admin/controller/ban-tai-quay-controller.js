@@ -1013,7 +1013,7 @@ myApp.controller(
               tienKhachTra: tienKhachTra,
               tienThua: tienThua,
               tienGiao: $scope.tienGiao,
-              hoTen: $scope.orderDetailCounter.tenKhach,
+              tenKhach: $scope.orderDetailCounter.tenKhach,
               soDienThoai: $scope.orderDetailCounter.soDienThoai,
               email: $scope.orderDetailCounter.email,
               diaChi: $scope.orderDetailCounter.diaChi ,
@@ -1049,9 +1049,6 @@ myApp.controller(
               .catch(function (error) {
                 $scope.errorhoTen = error.data.tenKhach;
                 $scope.errorsoDienThoai = error.data.soDienThoai;
-                $scope.errortinh = error.data.tinh;
-                $scope.errorhuyen = error.data.huyen;
-                $scope.errorphuong = error.data.phuong;
                 $scope.errordiaChi = error.data.diaChi;
                 $scope.erroremail = error.data.email;
                 $scope.errortienGiao = error.data.tienGiao;
