@@ -571,19 +571,6 @@ myApp.controller(
               });
               return;
             }
-            if (!$scope.coSanPhamDuocChon) {
-              Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Bạn phải chọn ít nhất 1 sản phẩm",
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                  popup: "small-popup", // Thêm class cho message
-                },
-              });
-              return;
-            }
 
             var ngayHienTai = new Date();
             if (ngayKetThuc <= ngayHienTai) {
