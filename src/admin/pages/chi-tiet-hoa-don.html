@@ -591,13 +591,13 @@
           <span class="header-title"><span style="color: red">*</span> <span>Số lượng trả</span></span>
           <div class="quantity">
             <input style="margin-left: 0px; width: 100px" type="number"
-              class="next-input text-left min-width-100px position-relative" min="1"
+              class="next-input text-left min-width-100px position-relative"
               ng-model="newOrderDetail.soLuong" />
           </div>
           <span style="color: red">{{errorSoLuong}}</span>
           <br>
-          <span class="header-title"><span style="color: red">*</span> <span>Ghi chú</span></span>
-          <textarea style="height: 80px" type="text" class="next-input" placeholder="Nhập ghi chú"
+          <span class="header-title"><span style="color: red">*</span> <span>Lý do trả hàng</span></span>
+          <textarea style="height: 80px" type="text" class="next-input" placeholder="Nhập lý do"
             ng-model="newOrderDetail.ghiChu"></textarea>
           <span style="color: red">{{errorGhiChu}}</span>
         </div>
@@ -753,7 +753,7 @@
                         <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                           <strong>
                             <span class="text-danger">
-                              {{sptq.giaGiamGia.toLocaleString('vi-VN') < 0 ? 0 : sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
+                              {{sptq.giaGiamGia < 0 ? 0 : sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
                             </span>
                             <strike class="text-danger">
                               {{ sptq.giaBan.toLocaleString('vi-VN')}}đ
