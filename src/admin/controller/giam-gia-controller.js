@@ -601,6 +601,23 @@ myApp.controller(
               return;
             }
             if (
+              $scope.sanPhamDaChon === null ||
+              $scope.sanPhamDaChon.length === 0
+            ) {
+              isValid = false;
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Vui lòng chọn ít nhất một sản phẩm",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup",
+                },
+              });
+              return;
+            }
+            if (
               $scope.hinhThucGiam == 2 &&
               ($scope.mucGiam <= 0 || $scope.mucGiam > 100)
             ) {
