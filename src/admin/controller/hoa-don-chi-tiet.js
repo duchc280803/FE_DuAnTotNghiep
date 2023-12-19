@@ -85,6 +85,8 @@ myApp.controller(
     $scope.tongTienHoanTra = 0;
 
     // Hàm để tải sản phẩm từ API
+    $scope.pageNumberHDCT = 0;
+    $scope.pageSizeHDCT = 20;
     $scope.getSanPham = function () {
       var token = $window.localStorage.getItem("token");
       var config = {
@@ -94,11 +96,17 @@ myApp.controller(
       };
 
       var apiUrl =
-        "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-san-pham/" + id;
-
+        "http://localhost:8080/api/v1/hoa-don-chi-tiet/hien-thi-san-pham/" + id +
+        "?pageNumber=" + $scope.pageNumberHDCT +
+        "&pagesize=" + $scope.pageSizeHDCT;
       $http.get(apiUrl, config).then(function (response) {
         // Gán dữ liệu sản phẩm vào biến $scope.hoaDonChiTiet.sanPham
         $scope.listSanPhamInOrder = response.data;
+        if ($scope.listSanPhamInOrder.length < $scope.pageSize) {
+          $scope.showNextButtonHdc = false;
+        } else {
+          $scope.showNextButtonHdc = true;
+        }
         for (var i = 0; i < $scope.listSanPhamInOrder.length; i++) {
           if (
             $scope.listSanPhamInOrder[i].donGiaSauGiam !=
@@ -125,6 +133,18 @@ myApp.controller(
     };
 
     $scope.getSanPham();
+    $scope.previousPageHDCT = function () {
+      if ($scope.pageNumberHDCT > -1) {
+        $scope.pageNumberHDCT--;
+        $scope.getSanPham();
+      }
+    };
+
+    $scope.nextPageHDCT = function () {
+      $scope.pageNumberHDCT++;
+      $scope.getSanPham();
+    };
+
 
     $scope.soTienKhachTra = 0;
     $scope.soTienHoan = 0;
@@ -474,7 +494,7 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup", // Add a class to the message
                   },
-                }).then(() =>{
+                }).then(() => {
                   $window.location.reload();
                 });
               })
@@ -668,7 +688,26 @@ myApp.controller(
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
           $scope.keyName = "";
+          if ($scope.listSanPhamTaiQuay.length < $scope.pageSizeSp) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         });
+    };
+
+    $scope.getListSanPhamTaiQuay();
+
+    $scope.previousPageSp = function () {
+      if ($scope.pageNumberSp > -1) {
+        $scope.pageNumberSp--;
+        $scope.getListSanPhamTaiQuay();
+      }
+    };
+
+    $scope.nextPageSp = function () {
+      $scope.pageNumberSp++;
+      $scope.getListSanPhamTaiQuay();
     };
 
     $scope.getListSanPhamTaiQuay();
@@ -701,10 +740,9 @@ myApp.controller(
     };
 
     // TODO: Tìm kiếm sản phẩm
-    $scope.key = "";
+    $scope.searchKeyName = "";
     $scope.searchSanPham = function () {
       var token = $window.localStorage.getItem("token");
-
       var config = {
         headers: {
           Authorization: "Bearer " + token,
@@ -712,18 +750,49 @@ myApp.controller(
       };
       $http
         .get(
-          "http://localhost:8080/api/chi-tiet-sp/search-name?name=" +
-          $scope.key,
+          "http://localhost:8080/api/chi-tiet-sp/search-name?pageNumber=" +
+          $scope.pageNumberSp +
+          "&pageSize=" +
+          $scope.pageSizeSp +
+          "&name=" +
+          $scope.searchKeyName,
           config
         )
         .then(function (response) {
           $scope.listSanPhamTaiQuay = response.data;
+          console.log($scope.listSanPhamTaiQuay);
+          if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         });
     };
 
     // TODO:  Lọc sản phẩm theo thương hiệu
-    $scope.brand;
+    $scope.brand = "";
     $scope.filterBrand = function () {
+      // if ($scope.brand == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locCategory == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locSole == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locOrigin == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locMauSac == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locMaterial == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
+      // if ($scope.locSize == "") {
+      //   $scope.getListSanPhamTaiQuay();
+      // }
       var token = $window.localStorage.getItem("token");
 
       var config = {
@@ -731,19 +800,40 @@ myApp.controller(
           Authorization: "Bearer " + token,
         },
       };
-      if ($scope.brand === "") {
-        $scope.getListSanPhamTaiQuay();
-      } else {
-        $http
-          .get(
-            "http://localhost:8080/api/chi-tiet-sp/filter-brand?name=" +
-            $scope.brand,
-            config
-          )
-          .then(function (response) {
-            $scope.listSanPhamTaiQuay = response.data;
-          });
-      }
+      var params = {
+        pageNumber: $scope.pageNumber || 0,
+        pageSize: $scope.pageSize || 20,
+        tenThuongHieu: $scope.brand || null,
+        tenXuatXu: $scope.locOrigin || null,
+        tenDanhMuc: $scope.locCategory || null,
+        tenDe: $scope.locSole || null,
+        tenChatLieu: $scope.locMaterial || null,
+        tenMauSac: $scope.locMauSac || null,
+        size: $scope.locSize || null,
+      };
+
+      var config = {
+        headers: {
+          Authorization: "Bearer " + $window.localStorage.getItem("token"),
+          Accept: "application/json",
+          // Add other headers if needed
+        },
+        params: params,
+      };
+
+      $http
+        .get("http://localhost:8080/api/chi-tiet-sp/filter-brand", config)
+        .then(function (response) {
+          $scope.listSanPhamTaiQuay = response.data;
+          if ($scope.listSanPhamTaiQuay.length < $scope.pageSize) {
+            $scope.showNextButton = false;
+          } else {
+            $scope.showNextButton = true;
+          }
+        })
+        .catch(function (error) {
+          // Xử lý lỗi nếu có
+        });
     };
 
     // TODO: Lọc sản phẩm theo category
@@ -1022,7 +1112,7 @@ myApp.controller(
                   customClass: {
                     popup: "small-popup",
                   },
-                }).then(() =>{
+                }).then(() => {
                   $window.location.reload();
                 });
               });
