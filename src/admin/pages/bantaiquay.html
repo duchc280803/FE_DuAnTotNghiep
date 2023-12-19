@@ -382,11 +382,10 @@
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                                 <strong>
                                   <span class="text-danger">
-                                    {{sptq.giaGiamGia < 0 ? 0: sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
-                                  </span>
-                                  <strike class="text-danger">
-                                    {{sptq.giaBan.toLocaleString('vi-VN')}}đ
-                                  </strike>
+                                    {{sptq.giaGiamGia < 0 ? 0: sptq.giaGiamGia.toLocaleString('vi-VN')}}đ </span>
+                                      <strike class="text-danger">
+                                        {{sptq.giaBan.toLocaleString('vi-VN')}}đ
+                                      </strike>
                                 </strong>
                               </small>
                               <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == sptq.giaBan">
@@ -564,8 +563,9 @@
                               <span class="header-title"><span style="color: red">*</span>
                                 <span>Số điện thoại</span></span>
                               <span style="color: red">{{errorSoDienThoai}}</span>
-                              <input ng-model="newKhachHang.soDienThoai" style="margin-bottom: 25px;"
-                                class="form-control" placeholder="Nhập số điện thoại" />
+                              <input type="number" min="0" oninput="this.value = Math.max(0, this.value)"
+                                ng-model="newKhachHang.soDienThoai" style="margin-bottom: 25px;" class="form-control"
+                                placeholder="Nhập số điện thoại" />
                             </div>
                           </div>
                           <div class="row">
@@ -651,7 +651,8 @@
                       <div class="col-lg-6">
                         <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                           <span>Số điện thoại</span></span>
-                        <input ng-model="orderDetailCounter.soDienThoai" type="text" class="form-control hidden-input"
+                        <input ng-model="orderDetailCounter.soDienThoai" type="number" min="0"
+                          oninput="this.value = Math.max(0, this.value)" class="form-control hidden-input"
                           style="margin-left: -30px" placeholder="Nhập số điện thoại" />
                         <span style="color: red;margin-left: -25px;">{{errorsoDienThoai}}</span>
                       </div>
@@ -664,7 +665,7 @@
                     <br>
                     <span style="margin-left: -25px" class="header-title"><span style="color: red">*</span>
                       <span>Địa chỉ</span></span>
-                    <input ng-model="orderDetailCounter.diaChi"  type="text" class="form-control hidden-input"
+                    <input ng-model="orderDetailCounter.diaChi" type="text" class="form-control hidden-input"
                       style="margin-left: -30px;" placeholder="Nhập địa chỉ" />
                     <span style="color: red;margin-left: -25px;">{{errordiaChi}}</span>
                   </div>
@@ -698,7 +699,8 @@
                                         </span>
                                       </div>
                                       <div class="col-lg-7">
-                                        <input ng-model="newTransaction.soTien" class="form-control"
+                                        <input min="0" oninput="this.value = Math.max(0, this.value)"
+                                          ng-model="newTransaction.soTien" class="form-control"
                                           placeholder="Nhập số tiền khách trả" type="number" format-thousands />
                                       </div>
                                       <div class="col-lg-4">
@@ -835,7 +837,7 @@
                           <div class="modal-body">
                             <span ng-if="listVoucher.length === 0" style="margin-left: 465px;">Không có voucher
                               nào</span>
-                            <table class="table table-borderless table-hover" style="white-space: nowrap; width: 1104px"
+                            <table class="table table-borderless table-hover" style=" width: 1104px"
                               ng-show="listVoucher.length !== 0">
                               <thead>
                                 <tr style="background-color: lightskyblue">
@@ -930,8 +932,8 @@
                         <span class="header-title">Phí vận chuyển</span>
                       </div>
                       <div class="omni-layout-card--item-stack fill text-right" style="margin-top: 5px;">
-                        <input type="number" ng-model="tienGiao" class="form-control hidden-input"
-                          placeholder="Nhập tiền vận chuyển"
+                        <input type="number" min="0" oninput="this.value = Math.max(0, this.value)" ng-model="tienGiao"
+                          class="form-control hidden-input" placeholder="Nhập tiền vận chuyển"
                           ng-change="autoAddVoucher((tongTienHang - orderDetailCounter.tienGiamGia + (tienGiao ? + tienGiao :0)))" />
                         <span style="color: red">{{errortienGiao}}</span>
                       </div>

@@ -33,7 +33,7 @@
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mã sản phẩm</span></span>
                     <input type="text" id="form1" class="form-control" placeholder="Mã sản phẩm"
-                      ng-model="product.maSanPham" disabled/>
+                      ng-model="product.maSanPham" disabled />
                     <span style="color: red">{{errorMaSanPham}}</span>
                   </div>
                 </div>
@@ -51,7 +51,8 @@
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Giá bán</span></span>
-                    <input type="text" id="form1" class="form-control" placeholder="Giá sản phẩm"
+                    <input type="number" id="form1" class="form-control" min="0"
+                      oninput="this.value = Math.max(0, this.value)" placeholder="Giá sản phẩm"
                       ng-model="product.price" />
                     <span style="color: red">{{errorPrice}}</span>
                   </div>
@@ -60,8 +61,8 @@
                   <div class="form-outline">
                     <span class="header-title"><span style="color: red">*</span>
                       <span>Mô tả</span></span>
-                    <textarea id="form1" class="form-control" placeholder="Mô tả"
-                      ng-model="product.describe" style="height: 17px;"></textarea>
+                    <textarea id="form1" class="form-control" placeholder="Mô tả" ng-model="product.describe"
+                      style="height: 17px;"></textarea>
                     <span style="color: red">{{errorDescribe}}</span>
                   </div>
                 </div>
@@ -181,8 +182,9 @@
                   </td>
                   <td class="col-1">
                     <div class="input-group" style="width: 90px;">
-                      <input type="number" name="quant[1]" class="form-control text-center" value="{{pd.quantity}}"
-                        min="1" max="10000" ng-model="soLuong" ng-change="updateQuantity(pd.id,soLuong)" />
+                      <input min="0" oninput="this.value = Math.max(0, this.value)" type="number" name="quant[1]"
+                        class="form-control text-center" value="{{pd.quantity}}" min="1" max="10000" ng-model="soLuong"
+                        ng-change="updateQuantity(pd.id,soLuong)" />
                     </div>
                   </td>
                   <td>
@@ -266,7 +268,9 @@
                             <div class="row">
                               <div class="input-group col-4">
                                 <div class="input-group">
-                                  <input type="number" ng-model="newProductDetail.soLuong" class="form-control text-center" min="1" ng-value="1" />
+                                  <input min="0" oninput="this.value = Math.max(0, this.value)" type="number"
+                                    ng-model="newProductDetail.soLuong" class="form-control text-center" min="1"
+                                    ng-value="1" />
                                 </div>
                               </div>
                             </div>

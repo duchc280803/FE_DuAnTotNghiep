@@ -296,6 +296,7 @@ myApp.controller(
         .get("http://localhost:8080/api/v1/san-pham/product/" + id, config)
         .then(function (response) {
           $scope.product = response.data;
+          console.log($scope.product);
         });
     };
     $scope.getProduct();
