@@ -21,9 +21,10 @@
     /* Ngăn chặn việc xuống dòng */
     margin-bottom: 20px;
   }
+
   .hoa-don:hover {
-      color: red;
-    }
+    color: red;
+  }
 </style>
 
 <br>
@@ -108,7 +109,7 @@
             </h6>
           </div>
           <div style="margin-right: 125px; margin-left: -120px" ng-repeat="item in lichSuThayDoi""
-            ng-show="item.trangThai === 6">
+            ng-show=" item.trangThai===6">
             <img src="/assets/images/dahuy.png" width="220px" style="margin-left: -25px" alt="" />
             <h6 style="font-size: 20px; font-weight: 600; padding-left: 50px">
               Đã hủy
@@ -203,7 +204,8 @@
         <span style="color: red">{{errorEmail}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Tiền ship</span></span>
-        <input type="text" class="form-control" placeholder="Tiền ship" ng-model="orderDetailUpdate.tienShip" />
+        <input type="number" min="0" oninput="this.value = Math.max(0, this.value)" class="form-control"
+          placeholder="Tiền ship" ng-model="orderDetailUpdate.tienShip" />
         <span style="color: red">{{errorTienShip}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span> <span>Địa chỉ</span></span>
@@ -234,8 +236,8 @@
         <span style="color: red">{{errorTenNguoiGiao}}</span>
         <br>
         <span class="header-title"><span style="color: red">*</span><span>Số người giao</span></span>
-        <input type="text" class="form-control" placeholder="Số người giao"
-          ng-model="orderDetailUpdate.soDienThoaiGiao" />
+        <input type="number" min="0" oninput="this.value = Math.max(0, this.value)" class="form-control"
+          placeholder="Số người giao" ng-model="orderDetailUpdate.soDienThoaiGiao" />
         <span style="color: red">{{errorSoDienThoaiGiao}}</span>
       </div>
       <div class="modal-footer">
@@ -288,8 +290,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" class="btn btn-secondary m-1"
-          ng-click="comfirmStatusOrder()">
+        <button type="button" class="btn btn-secondary m-1" ng-click="comfirmStatusOrder()">
           Xác nhận
         </button>
       </div>
@@ -316,8 +317,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Hủy
         </button>
-        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary m-1"
-          ng-click="comfirmStatusHuyDon()">
+        <button type="button" data-bs-dismiss="modal" class="btn btn-secondary m-1" ng-click="comfirmStatusHuyDon()">
           Xác nhận
         </button>
       </div>
@@ -591,8 +591,7 @@
           <span class="header-title"><span style="color: red">*</span> <span>Số lượng trả</span></span>
           <div class="quantity">
             <input style="margin-left: 0px; width: 100px" type="number" min="1" max="{{fillProductTraHang.soLuong}}"
-              class="next-input text-left min-width-100px position-relative"
-              ng-model="newOrderDetail.soLuong" />
+              class="next-input text-left min-width-100px position-relative" ng-model="newOrderDetail.soLuong" />
           </div>
           <span style="color: red">{{errorSoLuong}}</span>
           <br>
@@ -644,7 +643,7 @@
               <div class="row">
                 <div class="form-group col-md-3">
                   <span>Thương hiệu:</span>
-                  <select style="color: green" class="custom-select"  ng-model="brand" ng-change="filterBrand()">
+                  <select style="color: green" class="custom-select" ng-model="brand" ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="th in listThuongHieu" value="{{th.tenThuongHieu}}">
                       {{th.tenThuongHieu}}
@@ -673,7 +672,8 @@
                 </div>
                 <div class="form-group col-md-3">
                   <span>Kiểu đế:</span>
-                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSole" ng-change="filterBrand()">
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSole"
+                    ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
                       {{kd.tenDe}}
@@ -683,8 +683,7 @@
                 <div class="form-group col-md-4">
                   <br />
                   <span>Màu sắc:</span>
-                  <select style="color: green" class="custom-select" ng-model="locMauSac"
-                    ng-change="filterColor()">
+                  <select style="color: green" class="custom-select" ng-model="locMauSac" ng-change="filterColor()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="ms in listMauSac" value="{{ms.tenMauSac}}">
                       {{ms.tenMauSac}}
@@ -694,7 +693,8 @@
                 <div class="form-group col-md-4">
                   <br />
                   <span>Size:</span>
-                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSize" ng-change="filterBrand()">
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSize"
+                    ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="s in listSize" value="{{s.size}}">
                       {{s.size}}
@@ -753,11 +753,10 @@
                         <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia != sptq.giaBan">
                           <strong>
                             <span class="text-danger">
-                              {{sptq.giaGiamGia < 0 ? 0 : sptq.giaGiamGia.toLocaleString('vi-VN')}}đ
-                            </span>
-                            <strike class="text-danger">
-                              {{ sptq.giaBan.toLocaleString('vi-VN')}}đ
-                            </strike>
+                              {{sptq.giaGiamGia < 0 ? 0 : sptq.giaGiamGia.toLocaleString('vi-VN')}}đ </span>
+                                <strike class="text-danger">
+                                  {{ sptq.giaBan.toLocaleString('vi-VN')}}đ
+                                </strike>
                           </strong>
                         </small>
                         <small class="mb-0 text-muted h6" ng-show="sptq.giaGiamGia == sptq.giaBan">
@@ -792,14 +791,14 @@
               <ul class="pagination">
                 <li class="page-item">
                   <a class="page-link" href="" ng-show="pageNumberSp > 0" ng-click="previousPageSp()"><img
-                    src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
+                      src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
                 </li>
                 <li class="page-item">
                   <a class="page-link">{{pageNumberSp + 1}}</a>
                 </li>
                 <li class="page-item">
                   <a class="page-link" href="" ng-show="showNextButton" ng-click="nextPageSp()"><img
-                    src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
+                      src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
                 </li>
               </ul>
             </nav>
@@ -817,14 +816,14 @@
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" href="" ng-show="pageNumberHDCT > 0" ng-click="previousPageHDCT()"><img
-              src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
+                src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
           </li>
           <li class="page-item">
             <a class="page-link">{{ pageNumberHDCT + 1 }}</a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="" ng-click="nextPageHDCT()"><img
-              src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
+            <a class="page-link" href="" ng-click="nextPageHDCT()"><img src="/assets/images/chevron-right.svg"
+                height="15px" alt=""></a>
           </li>
         </ul>
       </nav>
