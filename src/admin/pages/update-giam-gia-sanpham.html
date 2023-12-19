@@ -42,21 +42,20 @@
               <input type="date" class="next-input" placeholder="Nhập ngày bắt đầu"
                 ng-value="giamgiachitiet.ngayBatDau | date:'yyyy-MM-dd'" ng-model="giamgiachitiet.ngayBatDau" />
             </div>
-            <div class="col-lg-12" style="padding-top: 15px">
-              <span class="header-title">Danh sách sản phẩm</span>
-              <div ng-repeat="item in giamgiachitiet2">
-                <input type="checkbox" ng-model="item.idSanPhamChecked" />
-                {{ item.idSanPham }}
-
-              </div>
-            </div>
-
-            <!-- Ngày Kết Thúc -->
             <div class="col-lg-6" style="padding-top: 15px">
               <span class="header-title">Ngày kết thúc</span>
               <input type="date" class="next-input" placeholder="Nhập ngày kết thúc"
                 ng-value="giamgiachitiet.ngayKetThuc | date:'yyyy-MM-dd'" ng-model="giamgiachitiet.ngayKetThuc" />
             </div>
+
+            <div class="col-lg-12" style="padding-top: 15px">
+              <span class="header-title">Danh sách sản phẩm</span>
+              <div ng-repeat="item in giamgiachitiet2">
+                {{ item.productName }}
+              </div>
+            </div>
+
+            <!-- Ngày Kết Thúc -->
 
             <br />
             <!-- Danh sách checkbox -->
