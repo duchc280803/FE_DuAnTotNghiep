@@ -651,7 +651,7 @@
                       <div class="col-lg-6">
                         <span style="margin-left: -30px" class="header-title"><span style="color: red">*</span>
                           <span>Số điện thoại</span></span>
-                        <input ng-model="orderDetailCounter.soDienThoai" type="number" min="0"
+                        <input ng-model="orderDetailCounter.soDienThoai" type="text" min="0"
                           oninput="this.value = Math.max(0, this.value)" class="form-control hidden-input"
                           style="margin-left: -30px" placeholder="Nhập số điện thoại" />
                         <span style="color: red;margin-left: -25px;">{{errorsoDienThoai}}</span>
@@ -724,7 +724,7 @@
                                               background-color: lightskyblue;
                                             ">
                                             <th scope="col">STT</th>
-                                            <th scope="col">Mã giao dịnh</th>
+                                            <th scope="col">Mã giao dịch</th>
                                             <th scope="col">Số tiền</th>
                                             <th scope="col">Phương thức</th>
                                           </tr>
