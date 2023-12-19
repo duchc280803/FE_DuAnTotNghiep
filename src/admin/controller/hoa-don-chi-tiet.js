@@ -227,6 +227,7 @@ myApp.controller(
                 config
               )
               .then(function (response) {
+                $("#huydon").modal("hide"); //
                 Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -241,7 +242,7 @@ myApp.controller(
                 });
               })
               .catch(function (error) {
-                $scope.errorGhiChu = error.data.ghiChu;
+                $scope.errorGhiChu1 = error.data.ghiChu;
               });
           }
         });

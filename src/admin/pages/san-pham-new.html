@@ -31,7 +31,8 @@
               <div class="form-outline">
                 <span class="header-title"><span style="color: red">*</span>
                   <span>Giá bán</span></span>
-                <input type="number" id="form1" class="form-control" placeholder="Giá sản phẩm"
+                <input type="number" id="form1" class="form-control" min="0"
+                oninput="this.value = Math.max(0, this.value)" placeholder="Giá sản phẩm"
                   ng-model="newProduct.price" />
                 <span style="color: red">{{errorPrice}}</span>
               </div>

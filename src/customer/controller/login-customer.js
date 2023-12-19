@@ -29,7 +29,7 @@ myAppCustom.controller(
             "token-customer",
             response.data.accessToken
           );
-          $window.localStorage.setItem("role", response.data.role);
+          $window.localStorage.setItem("role-customer", response.data.role);
           $window.localStorage.setItem("username", response.data.username); // Lưu tên người dùng
 
           $scope.loggedInUsername = response.data.username;
@@ -57,7 +57,7 @@ myAppCustom.controller(
       // Xóa token khỏi localStorage
       $window.localStorage.removeItem("token-customer");
       $window.localStorage.removeItem("username"); // Xóa tên người dùng khi đăng xuất
-      $window.localStorage.removeItem("role"); // Xóa tên người dùng khi đăng xuất
+      $window.localStorage.removeItem("role-customer"); // Xóa tên người dùng khi đăng xuất
       $scope.isLoggedIn = false;
       $scope.loggedInUsername = ""; // Đặt giá trị về rỗng khi đăng xuất
     };
