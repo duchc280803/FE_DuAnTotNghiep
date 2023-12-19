@@ -654,7 +654,7 @@
                 <div class="form-group col-md-3">
                   <span>Danh mục:</span>
                   <select style="color: green" class="custom-select" id="simple-select2" ng-model="locCategory"
-                    ng-change="filterCategory()">
+                    ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="dm in listDanhMuc" value="{{dm.tenDanhMuc}}">
                       {{dm.tenDanhMuc}}
@@ -664,7 +664,7 @@
                 <div class="form-group col-md-3">
                   <span>Xuất xứ:</span>
                   <select style="color: green" class="custom-select" id="simple-select2" ng-model="locOrigin"
-                    ng-change="filterOrigin()">
+                    ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="xx in listXuatXu" value="{{xx.tenXuatXu}}">
                       {{xx.tenXuatXu}}
@@ -673,7 +673,7 @@
                 </div>
                 <div class="form-group col-md-3">
                   <span>Kiểu đế:</span>
-                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSole" ng-change="filterSole()">
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSole" ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="kd in listKieuDe" value="{{kd.tenDe}}">
                       {{kd.tenDe}}
@@ -694,7 +694,7 @@
                 <div class="form-group col-md-4">
                   <br />
                   <span>Size:</span>
-                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSize" ng-change="filterSize()">
+                  <select style="color: green" class="custom-select" id="simple-select2" ng-model="locSize" ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="s in listSize" value="{{s.size}}">
                       {{s.size}}
@@ -705,7 +705,7 @@
                   <br />
                   <span>Chất liệu:</span>
                   <select style="color: green" class="custom-select" id="simple-select2" ng-model="locMaterial"
-                    ng-change="filterMaterial()">
+                    ng-change="filterBrand()">
                     <option value="">Tất cả</option>
                     <option ng-repeat="cl in listChatLieu" value="{{cl.tenChatLieu}}">
                       {{cl.tenChatLieu}}
@@ -791,14 +791,14 @@
             <nav aria-label="Page navigation example" style="margin-left: 480px">
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" ng-click="previousPageSp()"><img
+                  <a class="page-link" href="" ng-show="pageNumberSp > 0" ng-click="previousPageSp()"><img
                     src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
                 </li>
                 <li class="page-item">
                   <a class="page-link">{{pageNumberSp + 1}}</a>
                 </li>
                 <li class="page-item">
-                  <a class="page-link" ng-click="nextPageSp()"><img
+                  <a class="page-link" href="" ng-show="showNextButton" ng-click="nextPageSp()"><img
                     src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
                 </li>
               </ul>
@@ -816,15 +816,14 @@
       <nav aria-label="Page navigation example" style="margin-left: 600px">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="previousPage()"><img
+            <a class="page-link" href="" ng-show="pageNumberHDCT > 0" ng-click="previousPageHDCT()"><img
               src="/assets/images/chevron-left.svg" height="15px" alt=""></a>
           </li>
           <li class="page-item">
-            <a class="page-link">{{ pageNumber + 1 }}</a>
+            <a class="page-link">{{ pageNumberHDCT + 1 }}</a>
           </li>
           <li class="page-item">
-            <a class="page-link" ng-href="" ng-click="nextPage()"
-              ng-disabled="pageNumber === totalNumberOfPages - 1"><img
+            <a class="page-link" href="" ng-click="nextPageHDCT()"><img
               src="/assets/images/chevron-right.svg" height="15px" alt=""></a>
           </li>
         </ul>
