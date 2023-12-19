@@ -290,6 +290,11 @@ myApp.controller(
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
+          if ($scope.listProduct.length < 20) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);

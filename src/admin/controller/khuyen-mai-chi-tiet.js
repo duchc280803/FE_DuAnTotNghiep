@@ -52,6 +52,11 @@ myApp.controller(
         )
         .then(function (response) {
           $scope.detailList = response.data;
+          if ($scope.detailList.length < $scope.pageSize) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         });
     };
     $scope.fetchlistThuongHieu();
