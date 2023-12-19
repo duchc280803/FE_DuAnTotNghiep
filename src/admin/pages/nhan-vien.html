@@ -65,7 +65,8 @@
                           xem
                           lại</span>
                         <span ng-show="!isSoDienThoaiIsPresent" style="color: red;">Số điện thoại đã tồn tại</span>
-                        <input type="text" class="form-control" ng-model="soDienThoai" />
+                        <input type="number" min="0" oninput="this.value = Math.max(0, this.value)" class="form-control"
+                          ng-model="soDienThoai" />
                       </div>
                       <br />
                       <div class="form-group">

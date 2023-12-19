@@ -7,7 +7,6 @@
 </style>
 
 </style>
-<div class="card overflow-hidden" style="min-height: 120px">
   <div class="box">
     <div class="row">
       <div class="col-lg-12">
@@ -31,7 +30,8 @@
             </div>
             <div class="col-lg-5" style="padding-top: 15px">
               <span class="header-title">Mức giảm</span>
-              <input type="number" class="next-input" placeholder="0" ng-model="mucGiam" />
+              <input type="number" class="next-input" placeholder="0" ng-model="mucGiam" min="0"
+                oninput="this.value = Math.max(0, this.value)" />
             </div>
             <div class="col-lg-2" style="padding-top: 10px">
               <select class="form-select" id="selectOption" ng-model="hinhThucGiam" aria-label="Default select example">
@@ -97,7 +97,7 @@
               <td style="padding-top: 75px">
                 <input type="checkbox" style="margin-right: 15px" ng-model="selectedProductIds[gg.id]"
                   ng-change="chonSanPham(gg.id)" ng-checked="selectAllProducts" />
-                {{$index + 1}}
+                {{$index + 1 + (pageNumber1 * 20)}}
               </td>
               <td>
                 <img src="/assets/ảnh giày/{{gg.image}}" alt="" width="150px" />
@@ -110,25 +110,23 @@
                 {{gg.soLanGiam}}
               </td>
               <td>
-                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ
-              </td>
+                {{(gg.giaBan - gg.giaGiam) < 0 ? 0 : (gg.giaBan - gg.giaGiam).toLocaleString('vi-VN')}}đ </td>
             </tr>
           </tbody>
         </table>
         <nav aria-label="Table Paging" class="my-3 d-flex justify-content-center">
           <ul class="pagination">
             <li class="page-item" ng-show="pageNumber1 > 0">
-              <a class="page-link" ng-href="" ng-click="previousPage1()">Previous</a>
+              <a class="page-link" href="" ng-click="previousPage1()">Previous</a>
             </li>
             <li class="page-item">
               <a class="page-link">{{ pageNumber1 + 1 }}</a>
             </li>
             <li class="page-item" ng-show="showNextButton">
-              <a class="page-link" ng-href="" ng-click="nextPage1()">Next</a>
+              <a class="page-link" href="" ng-click="nextPage1()">Next</a>
             </li>
           </ul>
         </nav>
       </div>
     </div>
   </div>
-</div>

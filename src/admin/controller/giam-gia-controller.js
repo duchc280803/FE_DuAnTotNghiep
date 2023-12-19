@@ -290,6 +290,11 @@ myApp.controller(
           // Update currentPageNumber based on the response
           $scope.currentPageNumber = response.data.number;
           $scope.totalNumberOfPages = response.data.totalPages;
+          if ($scope.listProduct.length < 20) {
+            $scope.showNextButton = false; // Ẩn nút "Next"
+          } else {
+            $scope.showNextButton = true; // Hiển thị nút "Next"
+          }
         })
         .catch(function (error) {
           console.error("Lỗi khi tìm kiếm: ", error);
@@ -499,7 +504,6 @@ myApp.controller(
     $scope.ngayKetThuc = "";
     $scope.hinhThucGiam = "1";
     $scope.sanPhamDaChon = [];
-    $scope.coSanPhamDuocChon = false;
 
     $scope.onTuDongTaoMaChange = function () {
       if ($scope.tuDongTaoMa) {
@@ -514,8 +518,6 @@ myApp.controller(
     };
 
     $scope.selectedIds = [];
-
-    $scope.selectAllProducts = false;
 
     $scope.toggleAllProducts = function () {
       // Set or unset all product IDs based on the state of selectAllProducts
@@ -538,9 +540,7 @@ myApp.controller(
       // Update selectAllProducts based on the individual product selection
       $scope.selectAllProducts =
         $scope.sanPhamDaChon.length === $scope.listProduct.length;
-      $scope.coSanPhamDuocChon = $scope.sanPhamDaChon.length > 0;
     };
-
     $scope.listOfPromotions = [];
     setTimeout(() => {
       $scope.themKhuyenMai = function () {
@@ -571,7 +571,10 @@ myApp.controller(
               });
               return;
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b677674db75b27a3c805b6cfb8dcdc91b803dacf
             var ngayHienTai = new Date();
             if (ngayKetThuc <= ngayHienTai) {
               Swal.fire({
@@ -602,6 +605,23 @@ myApp.controller(
                 timer: 1500,
                 customClass: {
                   popup: "small-popup", // Thêm class cho message
+                },
+              });
+              return;
+            }
+            if (
+              $scope.sanPhamDaChon === null ||
+              $scope.sanPhamDaChon.length === 0
+            ) {
+              isValid = false;
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Vui lòng chọn ít nhất một sản phẩm",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "small-popup",
                 },
               });
               return;
