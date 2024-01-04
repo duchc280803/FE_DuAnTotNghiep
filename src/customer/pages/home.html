@@ -517,7 +517,7 @@
                 <p ng-if="th.tenSanPham" class="card-text">{{th.tenSanPham}}</p>
                 <div class="text-center">
                   <h5 ng-show="th.giaGiamGia != th.giaBan">
-                    {{ th.giaGiam < 0 ? 0 : th.giaGiam.toLocaleString('vi-VN')}}đ
+                    {{ th.giaGiamGia < 0 ? 0 : th.giaGiamGia.toLocaleString('vi-VN')}}đ
                     <strike style="color: red;">{{th.giaBan.toLocaleString('vi-VN')}}đ</strike>
                   </h5>
                   <h5 ng-show="th.giaGiamGia == th.giaBan">

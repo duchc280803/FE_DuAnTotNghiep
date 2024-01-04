@@ -1572,6 +1572,8 @@ myApp.controller(
             title: "Thêm sản phẩm vào giỏ thành công",
             showConfirmButton: false,
             timer: 1500,
+          }).then(() => {
+            $window.location.reload();
           });
         })
         .catch(function (error) {});
